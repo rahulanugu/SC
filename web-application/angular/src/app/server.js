@@ -4,6 +4,7 @@
  * (currently unused file)
  */
 
+ /*
  // load environment vairables
  require('dotenv').config();
 
@@ -59,4 +60,4 @@
         console.log('Listening on port ' + port);
     });
 
-module.exports(seedEvents);
+module.exports(seedEvents);*/
