@@ -14,6 +14,8 @@ mongoose.connect(uri, { useNewUrlParser: true }, (err) => {
     else
         console.log("Error in DB connection: " + JSON.stringify(err, undefined, 2));
 });
+
+
 // // get connection
 // var db = mongoose.connection;
 // //bind connection to error event 
