@@ -36,7 +36,7 @@ import { DbService } from './db.service';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [
     DbService

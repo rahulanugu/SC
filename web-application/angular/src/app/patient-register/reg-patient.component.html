@@ -79,7 +79,7 @@ Register Paitent Form
       <h3 class="w3ls-title text-uppercase text-dark font-weight-bold" style="padding-top: 50px">Register</h3>
     </div>
     <div class="login px-sm-4 mx-auto mw-100 login-wrapper"  id="part1" style="position: relative;">
-      <form class="login-wrapper" action="#" method="post" #itemForm1="ngForm" (ngSubmit)="onSubmit1()">
+      <form class="login-wrapper" action="#" method="post" #itemForm1="ngForm" (ngSubmit)="showSecond()">
         <div class="form-group">
           <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="patientService.selectedPatient._id">
           <label>First Name</label>
@@ -87,27 +87,27 @@ Register Paitent Form
         </div>
         <div class="form-group">
           <label>Last Name</label>
-          <input type="text" class="form-control" name="lname" required #name="ngModel" [(ngModel)]="patientService.selectedPatient.lname">
+          <input type="text" class="form-control" name="lname" required [(ngModel)]="patientService.selectedPatient.lname">
         </div>
         <div class="form-group">
           <label>Street Address</label>
-          <input type="text" class="form-control" name="address-street" required #name="ngModel" [(ngModel)]="patientService.selectedPatient.address">
+          <input type="text" class="form-control" #street required>
         </div>
         <span><div class="form-group">
           <label>City</label>
-          <input type="text" class="form-control" name="address-city" required>
+          <input type="text" class="form-control" #city required>
         </div></span>
         <span><div class="form-group">
           <label>State/Province</label>
-          <input type="text" class="form-control" name="address-state" required >
+          <input type="text" class="form-control" #state required >
         </div></span>
         <div class="form-group">
           <label>Postal/Zip Code</label>
-          <input type="text" class="form-control" name="address-postal" required >
+          <input type="text" class="form-control" #postal required >
         </div>
         <span><div class="form-group">
           <label>Country</label>
-          <input type="text" class="form-control" name="address-country" required >
+          <input type="text" class="form-control" #country required >
         </div></span>
         <div class="form-group">
           <label>Phone</label>
@@ -122,7 +122,7 @@ Register Paitent Form
             <label>Re-Enter Password</label>
             <input type="password" class="form-control" name="password2" required >
         </div>
-        <button type="submit" class="btn submit mt-4" (click)="showSecond()">Next</button>
+        <button type="submit" class="btn submit mt-4" (click)="onSubmit1(street.value, city.value, state.value, country.value, postal.value)">Next</button>
         <p style="float: right;"> <br/> Step 1/3 </p>
       </form>
       
@@ -138,7 +138,7 @@ Register Paitent Form
       <h3 class="w3ls-title text-uppercase text-dark font-weight-bold" style="padding-top: 50px; visibility: hidden;">Register</h3>
     </div>
     <div class="login px-sm-4 mx-auto mw-100 login-wrapper" id="part2" >
-      <form class="login-wrapper" action="#" method="post"  #itemForm2="ngForm" (ngSubmit)="onSubmit2()" 
+      <form class="login-wrapper" action="#" method="post"  #itemForm2="ngForm" (ngSubmit)="showThird()" 
         style="position:absolute; top:30%; left:35%;">
           <div class="form-group">
               <label>Date of Birth</label>
@@ -146,8 +146,8 @@ Register Paitent Form
           </div>
           <div class="form-group">
             <label>Sex</label>
-            <br/><input type="radio" name="sex" required #name="ngModel" [(ngModel)]="patientService.selectedPatient.sex"> Male<br/>
-            <span><input type="radio" name="sex" required #name="ngModel" [(ngModel)]="patientService.selectedPatient.sex"> Female</span>
+            <br/><input type="radio" name="sex" value="male" #name="ngModel" [(ngModel)]="patientService.selectedPatient.sex"> Male<br/>
+            <span><input type="radio" name="sex" value="female" #name="ngModel" [(ngModel)]="patientService.selectedPatient.sex"> Female</span>
         </div>
         <div class="form-group">
           <label>Social Security Number</label>
@@ -155,32 +155,15 @@ Register Paitent Form
           #name="ngModel" [(ngModel)]="patientService.selectedPatient.ssn">
         </div>
         <div class="form-group">
-          <label>Emergency Contact Name</label>
+          <label>Emergency Contact Name and Relationship</label>
           <input type="text" class="form-control" name="emergency-name" required #name="ngModel" [(ngModel)]="patientService.selectedPatient.ec" >
         </div>
         <div class="form-group">
-            <label>Emergency Contact Relationship</label>
-            <input type="text" class="form-control" name="emergency-relation" required  >
-          </div>
-        <div class="form-group">
           <label>Emergency Contact Phone Number</label>
-          <input type="text" class="form-control" name="emergency-phone" required   pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="ex: (123) 456-7890">
+          <input type="text" class="form-control" name="emergency-phone" required   pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="ex: (123) 456-7890"
+          [(ngModel)]="patientService.selectedPatient.ecPhone">
         </div>
-        <div class="form-group">
-            <label>Allergies? If yes, list below</label>
-            <input type="text" class="form-control" name="allergies" required >
-          </div>
-        <!----------Questionare--------->
-        <label>Have you ever had (please check all that apply)</label>
-        <div class="form-group">
-          <input type="checkbox" name="illness" required > Hospitalized - Illness
-          <br/><span><input type="checkbox" name="surgery" required > Hospitalized - Surgery </span>
-          <br/><span><input type="checkbox" name="major-illness" required > Major Illness/Injury </span>
-          <br/><span><input type="checkbox" name="childhood-illness" required > Childhood Illness </span>
-          <br/><span><input type="checkbox" name="allergies" required > Alergies </span>
-          <br/><span><input type="checkbox" name="other-problems" required > Other Problems </span>
-        </div>
-        <button type="submit" class="btn submit mt-4">Submit</button>
+        <button type="submit" class="btn submit mt-4" (click)="onSubmit2()">Next</button>
         <p style="float: right;"> <br/> Step 2/3 </p>
       </form>
       
@@ -188,6 +171,75 @@ Register Paitent Form
   </div>
 </section>
 <!----- patient login 2 ---->
+
+<!-- patient login 3 ---->
+<section class="login py-5" >
+  <div class="container py-xl-5 py-lg-3">
+    <div class="title-section mb-md-5 mb-4">
+      <h3 class="w3ls-title text-uppercase text-dark font-weight-bold" style="padding-top: 50px; visibility: hidden;">Register</h3>
+    </div>
+    <div class="login px-sm-4 mx-auto mw-100 login-wrapper" id="part3" >
+      <form class="login-wrapper" action="#" method="post"  #itemForm3="ngForm" (ngSubmit)="onSubmit3()" 
+        style="position:absolute; top:30%; left:35%;">
+        <!----------Questionare--------->
+        <div class="form-group">
+            <label>Allergies? If yes, list below</label>
+            <input type="text" class="form-control" name="allergies" required [(ngModel)]="patientService.selectedPatient.allergies" >
+          </div>
+        <label>Have you ever had (please check all that apply)</label>
+        <div class="form-group">
+          <input type="checkbox" required > Anemia
+          <br/><span><input type="checkbox" required name="asthma" [(ngModel)]="patientService.selectedPatient.asthma"> Asthma </span>
+          <br/><span><input type="checkbox" required name="arthritis" [(ngModel)]="patientService.selectedPatient.arthritis"> Arthritis </span>
+          <br/><span><input type="checkbox" required name="cancer" [(ngModel)]="patientService.selectedPatient.cancer"> Cancer </span>
+          <br/><span><input type="checkbox" required name="gout" [(ngModel)]="patientService.selectedPatient.gout"> Gout </span>
+          <br/><span><input type="checkbox" required name="Diabetes" [(ngModel)]="patientService.selectedPatient.diabetes"> Diabetes </span>
+          <br/><span><input type="checkbox" required name="emotionalDisorder" [(ngModel)]="patientService.selectedPatient.emotionalDisorder"> Emotional Disorder </span>
+          <br/><span><input type="checkbox" required name="Epilepsy" [(ngModel)]="patientService.selectedPatient.epilepsy"> Epilepsy Seizers </span>
+          <br/><span><input type="checkbox" required name="fainting" [(ngModel)]="patientService.selectedPatient.fainting"> Fainting Spells </span>
+          <br/><span><input type="checkbox" required name="gallstones" [(ngModel)]="patientService.selectedPatient.gallstones"> Gallstones </span>
+          <br/><span><input type="checkbox" required name="heartDisease" [(ngModel)]="patientService.selectedPatient.heartDisease"> Heart Disease </span>
+          <br/><span><input type="checkbox" required name="heartAttack" [(ngModel)]="patientService.selectedPatient.heartAttack"> Heart Attack </span>
+          <br/><span><input type="checkbox" required name="rheumaticFever" [(ngModel)]="patientService.selectedPatient.rheumaticFever"> Rheumatic Fever </span>
+          <br/><span><input type="checkbox" required name="highBP" [(ngModel)]="patientService.selectedPatient.highBP"> High Blood Pressure </span>
+          <br/><span><input type="checkbox" required name="digestiveProblems" [(ngModel)]="patientService.selectedPatient.digestiveProblems"> Digestive Problems </span>
+          <br/><span><input type="checkbox" required name="ulcerative" [(ngModel)]="patientService.selectedPatient.ulcerative"> Ulcerative Colitis </span>
+          <br/><span><input type="checkbox" required name="ulcerDisease" [(ngModel)]="patientService.selectedPatient.ulcerDisease"> Ulcer Disease </span>
+          <br/><span><input type="checkbox" required name="hepatitis" [(ngModel)]="patientService.selectedPatient.hepatitis"> Hepatitis </span>
+          <br/><span><input type="checkbox" required name="kidneyDisease" [(ngModel)]="patientService.selectedPatient.kidneyDisease"> Kidney Disease </span>
+          <br/><span><input type="checkbox" required name="liverDisease" [(ngModel)]="patientService.selectedPatient.liverDisease"> Liver Disease </span>
+          <br/><span><input type="checkbox" required name="sleepApnea" [(ngModel)]="patientService.selectedPatient.sleepApnea"> Sleep Apnea </span>
+          <br/><span><input type="checkbox" required name="papMachine" [(ngModel)]="patientService.selectedPatient.papMachine"> Use a C-PAP Machine </span>
+          <br/><span><input type="checkbox" required name="thyroid" [(ngModel)]="patientService.selectedPatient.thyroid"> Thyroid Problems </span>
+          <br/><span><input type="checkbox" required name="tuberculosis" [(ngModel)]="patientService.selectedPatient.tuberculosis"> Tuberculosis </span>
+          <br/><span><input type="checkbox" required name="venereal" [(ngModel)]="patientService.selectedPatient.venereal"> Venereal Disease </span>
+          <br/><span><input type="checkbox" required name="neurologicalDisorders" [(ngModel)]="patientService.selectedPatient.neurologicalDisorders"> Neurological Disorders </span>
+          <br/><span><input type="checkbox" required name="bleedingDisorders" [(ngModel)]="patientService.selectedPatient.bleedingDisorders"> Bleeding Disorders </span>
+          <br/><span><input type="checkbox" required name="lungDisease" [(ngModel)]="patientService.selectedPatient.lungDisease"> Lung Disease </span>
+          <br/><span><input type="checkbox" required name="emphysema" [(ngModel)]="patientService.selectedPatient.emphysema"> Emphysema </span>
+        </div>
+        <label>Alcohol Consumption</label>
+        <div class="form-group">
+          <input type="radio" name="drink" value="noDrink" #name="ngModel" [(ngModel)]="patientService.selectedPatient.drink"> I don't drink 
+          <br/><span><input type="radio" name="drink" value="1-2drink" #name="ngModel"  [(ngModel)]="patientService.selectedPatient.drink"> 1-2 drinks/week </span>
+          <br/><span><input type="radio" name="drink" value="3-4drink" #name="ngModel" [(ngModel)]="patientService.selectedPatient.drink"> 3-4 drinks/week </span>
+          <br/><span><input type="radio" name="drink" value="4+drink" #name="ngModel" [(ngModel)]="patientService.selectedPatient.drink"> 4+ drinks/week </span>
+        </div>
+        <label>Do you smoke?</label>
+        <div class="form-group">
+          <input type="radio" name="smoke" value="noSmoke" #name="ngModel" [(ngModel)]="patientService.selectedPatient.smoke"> No 
+          <br/><span><input type="radio" name="smoke" value="0-1smoke" #name="ngModel" [(ngModel)]="patientService.selectedPatient.smoke"> 0-1 pack/day </span>
+          <br/><span><input type="radio" name="smoke" value="1-2smoke" #name="ngModel" [(ngModel)]="patientService.selectedPatient.smoke"> 1-2 pack/day </span>
+          <br/><span><input type="radio" name="smoke" value="2+smoke" #name="ngModel" [(ngModel)]="patientService.selectedPatient.smoke"> 2+ pack/day </span>
+        </div>
+        <button type="submit" class="btn submit mt-4">Submit</button>
+        <p style="float: right;"> <br/> Step 3/3 </p>
+      </form>
+      
+    </div>
+  </div>
+</section>
+<!----- patient login 3 ---->
 
 
 <!-- footer -->

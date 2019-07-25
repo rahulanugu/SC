@@ -11,4 +11,36 @@ export class Patient {
     ec: string;
     ecPhone: string;
     password: string;
+    anemia: boolean;
+    asthma:boolean;
+    arthritis: boolean;
+    cancer: boolean;
+    gout: boolean;
+    diabetes: boolean;
+    emotionalDisorder: boolean;
+    epilepsy: boolean;
+    fainting: boolean;
+    gallstones: boolean;
+    heartDisease: boolean;
+    heartAttack: boolean;
+    rheumaticFever: boolean;
+    highBP: boolean;
+    digestiveProblems: boolean;
+    ulcerative: boolean;
+    ulcerDisease: boolean;
+    hepatitis: boolean;
+    kidneyDiseases: boolean;
+    liverDisease: boolean;
+    sleepApnea: boolean;
+    papMachine: boolean;
+    thyroid: boolean;
+    tuberculosis: boolean;
+    venereal: boolean;
+    neurologicalDisorders: boolean;
+    bleedingDisorders: boolean;
+    lungDisease: boolean;
+    emphysema: boolean;
+    drink: string;
+    smoke: string;
+
 }
