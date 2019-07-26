@@ -6,6 +6,12 @@ import 'rxjs/add/operator/toPromise';
 
 import { Patient } from './patient.model';
 
+
+/**
+ * patient.servce.ts
+ * Allows Angular app to make post request to database using node.js endpoints
+ */
+
 @Injectable({
   providedIn: 'root'
 })

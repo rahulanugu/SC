@@ -1,3 +1,9 @@
+/**
+ * index.js
+ * Main driver of the node.js server
+ * Starts the server and adds the routes created in the controllers
+ */
+
 // package import
 const express = require('express');
 const bodyParser = require('body-parser');

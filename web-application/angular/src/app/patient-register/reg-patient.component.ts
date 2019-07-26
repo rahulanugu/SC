@@ -89,7 +89,6 @@ export class RegPatientComponent implements OnInit {
       // Concatenate different parts of address into one string
       var newAddress = `${street}, ${city}, ${state}, ${country} ${zip}`;
       this.patientService.selectedPatient.address = newAddress;
-      console.log("full address " + this.patientService.selectedPatient.address);
   }
 
   // Submit step 2/3

@@ -1,3 +1,7 @@
+/**
+ * user.js
+ * Contains the database models for each type of user
+ */
 const mongoose = require('mongoose');
 
 // create model for patient user
