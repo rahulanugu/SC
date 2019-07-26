@@ -12,13 +12,10 @@ import { DbService } from '../db.service';
 })
 export class LoginComponent implements OnInit {
 
-  dataSource;
 
-  constructor(/*private myservice: DbService*/) { }
 
-  /*addUser(_username, _password){
-    this.myservice.addUser(_username,_password);
-  }*/
+  constructor() { }
+
 
   ngOnInit() {
   }

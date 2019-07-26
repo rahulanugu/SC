@@ -1,3 +1,8 @@
+/**
+ * patientController.js
+ * Uses express to create a RESTful API
+ * Defines endpoints that allows application to perform CRUD operations  
+ */
 const express = require('express');
 var router = express.Router();
 var ObjectId = require('mongoose').Types.ObjectId;

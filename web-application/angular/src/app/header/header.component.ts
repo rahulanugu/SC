@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 /**
  * Header for home page
- * TODO: modify so it works for all pages
  */
 @Component({
   selector: 'app-header',

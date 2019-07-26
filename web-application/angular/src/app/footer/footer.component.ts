@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 
 /**
  * Footer component for home page 
- * TODO: modify so it works for all pages
  */
 
 @Component({
