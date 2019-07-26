@@ -10,11 +10,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['../app.component.css']
 })
 export class RegisterComponent implements OnInit {
-
-  /*getValue(){
-    var sel = document.getElementById('companyType');
-    console.log(sel.value);
-  }*/
   
   constructor() { }
 

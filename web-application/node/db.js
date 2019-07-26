@@ -6,10 +6,10 @@
 const mongoose = require('mongoose');
 const MongoClient = require('mongodb').MongoClient;
 
-// URI to connect to desired database
-const uri = "mongodb+srv://niyonika:mongodb@cluster0-euygu.mongodb.net/scriptchain?retryWrites=true&w=majority";
+// URI to connect to remote MongoDB database through scriptchain user
+const uri = "mongodb+srv://scriptchain:hello925@cluster0-se5v0.gcp.mongodb.net/scriptchain?retryWrites=true&w=majority";
 
-//set up connection
+// set up connection
 mongoose.connect(uri, { useNewUrlParser: true }, (err) => {
     if(!err)
         console.log("MongoDB connection succeeded");
