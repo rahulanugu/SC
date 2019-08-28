@@ -9,14 +9,17 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
+
 // local import
 const { mongoose } = require('./db');
 var patientController = require('./controllers/patientController');
-
+var newUserController = require('./controllers/newUsersController');
+var patientloginController = require('./controllers/patientLoginController');
 var app = express();
 
 // configure express middleware to send date to nodejs project
 app.use(bodyParser.json());
+
 
 // allow cors to access port that angular app runs on
 app.use(cors({
@@ -28,3 +31,5 @@ app.listen(3000, () => console.log('Server started at port: 3000'));
 
 // add router from patient controller
 app.use('/patient', patientController);
+app.use('/patient-login',patientloginController);
+app.use('/request-access', newUserController);

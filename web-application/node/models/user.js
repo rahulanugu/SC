@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 var Patient = mongoose.model('Patient', {
     fname: { type: String },
     lname: { type: String },
+    Email: {type: String},
     address: { type: String },
     phone: { type: String },
     birthday: { type: String },

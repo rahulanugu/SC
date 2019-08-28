@@ -557,7 +557,7 @@ pre code {
   overflow-y: scroll;
 }
 
-.container {
+/* .container {
   width: 100%;
   padding-right: 15px;
   padding-left: 15px;
@@ -587,7 +587,7 @@ pre code {
   .container {
     max-width: 1140px;
   }
-}
+} */
 
 .container-fluid {
   width: 100%;
@@ -9663,7 +9663,7 @@ a.reqe-button {
 
 .banner-info_agile_w3ls {
   padding-top: 16em;
-  max-width: 800px;
+  max-width: 80%;
 }
 
 .banner-info_agile_w3ls h3 {
@@ -9711,7 +9711,7 @@ a.button-w3ls {
 a.button-w3ls2 {  
   color: #fff;
   letter-spacing: 1px;
-  width: 125px;
+  width: 200px;
   height: 60px;
   font-size: 14px;
   font-weight: bold;

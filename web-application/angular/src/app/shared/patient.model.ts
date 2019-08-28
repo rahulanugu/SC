@@ -2,6 +2,12 @@ export class Patient {
     _id: string;
     fname: string;
     lname: string;
+    email: string;
+    street: string;
+    city: string;
+    state: string;
+    zip: string;
+    country: string;
     address: string;
     phone: string;
     birthday: string;

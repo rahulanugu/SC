@@ -10,6 +10,8 @@ import {RegPatientComponent} from './patient-register/reg-patient.component'
 import {HealthcareLoginComponent} from './healthcare-login/healthcare-login.component';
 import {HealthcareRegisterComponent} from './healthcare-register/healthcare-register.component';
 import {RegisterComponent} from './register/register.component';
+import { PatientProfileComponent } from './patient-profile/patient-profile.component';
+import { PatientAuthGuard } from './patient-auth.guard';
 
 const routes: Routes = [
   /* pages for the app */
@@ -21,7 +23,8 @@ const routes: Routes = [
   { path: 'healthcare/login', component: HealthcareLoginComponent},
   { path: 'healthcare/register', component: HealthcareRegisterComponent},
   { path: 'register', component:RegisterComponent},
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'patient-profile', component:PatientProfileComponent, canActivate: [PatientAuthGuard] },
+  { path: '', redirectTo: '/home', pathMatch: 'full' }
   ];
 
 @NgModule({
