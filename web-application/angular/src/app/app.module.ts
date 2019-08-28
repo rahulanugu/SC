@@ -1,8 +1,9 @@
+import { PatientAuthGuard } from './patient-auth.guard';
+import { LoginPatientService } from './shared/login-patient.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
@@ -16,6 +17,8 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { RegisterComponent } from './register/register.component';
 import { DbService } from './db.service';
+import { PatientProfileComponent } from './patient-profile/patient-profile.component';
+
 
 @NgModule({
   declarations: [
@@ -29,7 +32,9 @@ import { DbService } from './db.service';
     HealthcareRegisterComponent,
     HeaderComponent,
     FooterComponent,
+    
     RegisterComponent,
+    PatientProfileComponent,
 
   ],
   imports: [
@@ -39,7 +44,9 @@ import { DbService } from './db.service';
     FormsModule,
   ],
   providers: [
-    DbService
+    DbService,
+    LoginPatientService,
+    PatientAuthGuard
   ],
   bootstrap: [AppComponent]
 })

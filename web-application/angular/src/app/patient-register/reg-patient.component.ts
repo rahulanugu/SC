@@ -23,6 +23,12 @@ export class RegPatientComponent implements OnInit {
       _id: "",
       fname: "",
       lname: "",
+      email:"",
+      street:"",
+      city: "",
+      state: "",
+      zip: "",
+      country: "",
       address: "",
       phone: "",
       birthday: "",
@@ -67,20 +73,22 @@ export class RegPatientComponent implements OnInit {
   }
 
   showFirst(){
+   
     document.getElementById("part2").style.visibility="hidden";
     document.getElementById("part3").style.visibility="hidden";
+    document.getElementById("register_successful").style.display="none";
   }
 
   showSecond(){
     document.getElementById("part1").style.visibility="hidden";
     document.getElementById("part2").style.visibility="visible";
-    document.getElementById("part3").style.visibility="hidden";
+    
   }
 
   showThird(){
-    document.getElementById("part1").style.visibility="hidden";
-    document.getElementById("part2").style.visibility="hidden";
     document.getElementById("part3").style.visibility="visible";
+    document.getElementById("part2").style.visibility="hidden";
+    
   }
 
   // Sumbit step 1/3
@@ -89,6 +97,7 @@ export class RegPatientComponent implements OnInit {
       // Concatenate different parts of address into one string
       var newAddress = `${street}, ${city}, ${state}, ${country} ${zip}`;
       this.patientService.selectedPatient.address = newAddress;
+      console.log(this.patientService.selectedPatient.email);
   }
 
   // Submit step 2/3
@@ -99,9 +108,16 @@ export class RegPatientComponent implements OnInit {
   // Sumit step 3/3
   // Create new patient in db
   onSubmit3(form : NgForm){
+    document.getElementById("r1").remove();
+   document.getElementById("r1").style.display="none";
+   document.getElementById("part3").style.display="none";
+   //document.getElementById("registerComponent").style.display="none";
+   
+   
     this.patientService.postPatient(this.patientService.selectedPatient).subscribe((res) => {
       console.log("patient saved successfully");
     });
+    document.getElementById("register_successful").style.display="block";
   }
 
 }
