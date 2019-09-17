@@ -15,6 +15,7 @@ import { HealthcareLoginComponent } from './healthcare-login/healthcare-login.co
 import { HealthcareRegisterComponent } from './healthcare-register/healthcare-register.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import {TextMaskModule} from 'angular2-text-mask';
 import { RegisterComponent } from './register/register.component';
 import { DbService } from './db.service';
 import { PatientProfileComponent } from './patient-profile/patient-profile.component';
@@ -42,6 +43,8 @@ import { PatientProfileComponent } from './patient-profile/patient-profile.compo
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    TextMaskModule
+ 
   ],
   providers: [
     DbService,

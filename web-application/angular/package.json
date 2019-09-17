@@ -23,8 +23,11 @@
     "@angular/platform-browser-dynamic": "~7.0.0",
     "@angular/router": "~7.0.0",
     "@types/jquery": "^3.3.31",
+    "angular2-text-mask": "^9.0.0",
     "core-js": "^2.5.4",
     "dotenv": "^8.0.0",
+    "jquery": "^3.4.1",
+    "jquery-mask-plugin": "^1.14.16",
     "rxjs": "^6.5.2",
     "rxjs-compat": "^6.0.0-rc.0",
     "zone.js": "~0.8.26"

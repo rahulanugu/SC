@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+
 import { PatientService } from '../shared/patient.service';
 import { NgForm } from '@angular/forms';
 import { formatNumber } from '@angular/common';
@@ -14,6 +15,8 @@ import { formatNumber } from '@angular/common';
   providers: [PatientService]
 })
 export class RegPatientComponent implements OnInit {
+  phonemask = ['(', /[0-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+  socialsecurity = [/[0-9]/,/\d/,/\d/,'-',/\d/,/\d/,'-',/\d/, /\d/, /\d/,/\d/];
 
   constructor(private patientService: PatientService) { }
 

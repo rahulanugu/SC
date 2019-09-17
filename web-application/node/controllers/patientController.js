@@ -7,7 +7,9 @@ const nodemailer = require('nodemailer');
 const log = console.log;
 const express = require('express');
 var router = express.Router();
-const bcrypt = require('bcrypt');
+
+const bcrypt = require('bcryptjs');
+
 var ObjectId = require('mongoose').Types.ObjectId;
 const hbs = require('nodemailer-express-handlebars');
 
