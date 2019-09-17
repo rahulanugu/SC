@@ -10,6 +10,7 @@ export class PatientProfileComponent implements OnInit {
   constructor(private _loginPatientService:LoginPatientService) { }
 
   ngOnInit() {
+    document.getElementById('firstname').innerHTML = "<b>Welcome "+localStorage.getItem('fname')+",</b>";
   }
   logout(){
     this._loginPatientService.logOutPatient();

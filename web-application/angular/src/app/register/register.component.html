@@ -77,15 +77,18 @@ Register All Form
     <div class="login px-sm-4 mx-auto mw-100 login-wrapper">
       <form class="login-wrapper" action="#" method="post">
         <div class="form-group">
-          <label>Select One <br/></label>
-          <select name="companyType" onchange="getValue()">
-              <option value="patient">Patient</option>
-              <option value="healtcare">Healtcare Provider</option>
-              <option value="insurance">Insurance Provider</option>
-              <option value="pharmacy">Pharmacy</option>
+          
+          
+            <label>Type of User*</label>
+          <select class="form-control" name="usertype" required>
+            <option value="">Select One</option>
+            <option value="Potential_Patient">Patient</option>
+            <option value="Potential_Healthcare_Provider">Healthcare Provider</option>
+            <option value="Potential_Insurance_Provider">Insurance Provider</option>
+            <option value="Potential_Pharmacist">Pharmacist</option>
           </select>
         </div>
-        <button routerLink="./patient/register" type="submit" class="btn submit mt-4">Submit</button>
+        <button routerLink="/patient/register" type="submit" class="btn submit mt-4">Submit</button>
       </form>
     </div>
   </div>

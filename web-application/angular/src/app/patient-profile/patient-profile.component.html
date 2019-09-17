@@ -13,51 +13,294 @@
     <ul class="navbar-nav mx-auto">
       
       <li class="nav-item dropdown mx-sm-4">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <img src ="../../assets/medicalhistory.png"> Medical History
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="modal" data-target="#medicalhistory" aria-haspopup="true" aria-expanded="false">
+            <img src ="../../assets/medicalhistory.png">&nbsp;&nbsp;&nbsp;Medical History
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
+        <div class="modal fade" id="medicalhistory" tabindex="-1" role="dialog" aria-labelledby="doctornotemodal" aria-hidden="true">
+          <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="col-12 modal-title text-center">Medical History</h5>
+              </div>
+              <div class="modal-body">
+                    <div class="alert alert-secondary" role="alert">
+                      <a href="#vitsigns" data-toggle="collapse">Vital Signs</a></div>
+                      <div id="vitsigns" class="collapse">
+                          <table class="table table-sm text-center table-hover">
+                              <thead  class="thead-dark">
+                                <tr>
+                                  <th scope="col">Origin Date</th>
+                                  <th scope="col">Blood Pressure</th>
+                                  <th scope="col">Sugar Level</th>
+                                  <th scope="col">Heart Rate</th>
+                                  <th scope="col">Temperature</th>
+                                  <th scope="col">Pain Level</th>
+                                  <th scope="col">Height</th>
+                                  <th scope="col">Weight</th>
+                                  <th scope="col">Reason for Visit</th>
+                                </tr>
+                              </thead>
+                              <tbody >
+                                <tr>  
+                                  <td>08/12/2019</td>
+                                  <td>100</td> 
+                                  <td>96mgdl</td>
+                                  <td>72bpm</td>
+                                  <td>98.2</td>
+                                  <td>70</td>
+                                  <td>6.0"</td>
+                                  <td>72Kg</td>
+                                  <td>some reason</td>
+                                </tr>
+                                <tr>  
+                                    <td>08/12/2019</td>
+                                    <td>100</td> 
+                                    <td>96mgdl</td>
+                                    <td>72bpm</td>
+                                    <td>98.2</td>
+                                    <td>70</td>
+                                    <td>6.0"</td>
+                                    <td>72Kg</td>
+                                    <td>some reason</td>
+                                  </tr>
+                                
+                              </tbody>
+                            </table>
+                        
+                      </div>
+                      
+                   
+                      <div class="alert alert-secondary" role="alert">
+                          <a href="#reasonforvisit" data-toggle="collapse">Reason for Visit</a>
+                      </div>
+                      <div id="reasonforvisit" class="collapse">
+                          <table class="table table-sm text-center table-hover">
+                              <thead  class="thead-dark">
+                                <tr>
+                                  <th scope="col">Origin Date</th>
+                                  <th scope="col">Symptoms</th>
+                                  <th scope="col">Diagnosis</th>
+                                  <th scope="col">Discharge</th>
+                                  <th scope="col">Summary</th>
+                                  </tr>
+                              </thead>
+                              <tbody >
+                                <tr>  
+                                  <td>08/12/2019</td>
+                                  <td>100</td> 
+                                  <td>96mgdl</td>
+                                  <td>72bpm</td>
+                                  <td>98.2</td>
+                                </tr>
+                                <tr>  
+                                    <td>08/12/2019</td>
+                                    <td>100</td> 
+                                    <td>96mgdl</td>
+                                    <td>72bpm</td>
+                                    <td>98.2</td>
+                                   
+                                  </tr>
+                                
+                              </tbody>
+                            </table>
+                        
+                      </div>
+              </div>
+              <div class="modal-footer">
+                   <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
         </div>
       </li>
       <li class="nav-item dropdown mx-sm-4">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <img src ="../../assets/prescription.png"> Prescription History
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="modal" data-target="#history" aria-haspopup="true" aria-expanded="false">
+          <img src ="../../assets/prescription.png">&nbsp;&nbsp;&nbsp;Prescription History
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
+        <div class="modal fade" id="history" tabindex="-1" role="dialog" aria-labelledby="doctornotemodal" aria-hidden="true">
+          <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="col-12 modal-title text-center">Prescription History</h5>
+              </div>
+              <div class="modal-body">
+                  <table class="table table-sm text-center table-hover">
+                      <thead  class="thead-dark">
+                        <tr>
+                          <th scope="col">Orig date</th>
+                          <th scope="col">Rx#</th>
+                          <th scope="col">Drug Name</th>
+                          <th scope="col">Qty</th>
+                          <th scope="col">Refills Reminder</th>
+                          <th scope="col">Last Fill date</th>
+                          <th scope="col">Status</th>
+                          <th scope="col">Prescriber</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Mark</td>
+                          <td>Otto</td>
+                          <td>@mdo</td>
+                          <td>96mgdl</td>
+                          <td>72bpm</td>
+                          <td>98.2</td>
+                          <td>txt</td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <th scope="row">2</th>
+                          <td>Jacob</td>
+                          <td>Thornton</td>
+                          <td>@fat</td>
+                          <td>96mgdl</td>
+                          <td>72bpm</td>
+                          <td>98.2</td>
+                          <td>txt</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">3</th>
+                          <td>Larry</td>
+                          <td>the Bird</td>
+                          <td>@twitter</td>
+                          <td>96mgdl</td>
+                          <td>72bpm</td>
+                          <td>98.2</td>
+                          <td>txt</td>
+                        </tr>
+                        
+                      </tbody>
+                    </table>
+                    
+              </div>
+              <div class="modal-footer">
+                   <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      
+              </div>
+            </div>
+          </div>
         </div>
+        
+       
       </li>
       <li class="nav-item dropdown mx-sm-4">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <img src ="../../assets/insurancecard.png"> Insurance Information
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="modal" data-target="#iinfo" aria-haspopup="true" aria-expanded="false">
+            <img src ="../../assets/insurancecard.png">&nbsp;&nbsp;&nbsp;Insurance Information
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
+        <div class="modal fade" id="iinfo" tabindex="-1" role="dialog" aria-labelledby="doctornotemodal" aria-hidden="true">
+          <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="col-12 modal-title text-center">Insurance Information</h5>
+              </div>
+            
+              <div class="modal-body">
+                  <div class="alert alert-secondary" role="alert">
+                      <a href="#IplanDetails" data-toggle="collapse">Insurance Plan Details</a></div>
+                      <div id="IplanDetails" class="collapse">
+                          <table class="table table-sm text-center table-hover">
+                              <thead  class="thead-dark">
+                                <tr>
+                                  <th scope="col">BIN</th>
+                                  <th scope="col">Plan Id</th>
+                                  <th scope="col">PCN</th>
+                                  <th scope="col">Group Name</th>
+                                  <th scope="col">Insurance Name</th>
+                                </tr>
+                              </thead>
+                              <tbody >
+                                <tr>  
+                                  <td>08/12/2019</td>
+                                  <td>100</td> 
+                                  <td>96mgdl</td>
+                                  <td>72bpm</td>
+                                 <td></td>
+                                </tr>
+                                <tr>  
+                                    <td>08/12/2019</td>
+                                    <td>100</td> 
+                                    <td>96mgdl</td>
+                                    <td>72bpm</td>
+                                    <td>98.2</td>
+                                   
+                                  </tr>
+                                
+                              </tbody>
+                            </table>
+                        
+                      </div>
+                      <div class="alert alert-secondary" role="alert">
+                          <a href="#planSummary" data-toggle="collapse">Plan Summary</a></div>
+                          <div id="planSummary" class="collapse">
+                              <table class="table table-sm text-center table-hover">
+                                  <thead  class="thead-dark">
+                                    <tr>
+                                      <th scope="col">Plan Id</th>
+                                      <th scope="col">Recipient Id</th>
+                                      <th scope="col">Group</th>
+                                      <th scope="col">Priority</th>
+                                      <th scope="col">Coupon</th>
+                                      <th scope="col">Current</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody >
+                                    <tr>  
+                                      <td>08/12/2019</td>
+                                      <td>100</td> 
+                                      <td>96mgdl</td>
+                                      <td>72bpm</td>
+                                      <td></td>
+                                      <td></td>
+                        
+                                     
+                                    </tr>
+                                    <tr>  
+                                        <td>08/12/2019</td>
+                                        <td>100</td> 
+                                        <td>96mgdl</td>
+                                        <td>72bpm</td>
+                                        <td>98.2</td>
+                                        <td>txt</td>
+                                      </tr>
+                                      <tr>  
+                                          <td>08/12/2019</td>
+                                          <td>100</td> 
+                                          <td>96mgdl</td>
+                                          <td></td>
+                                          <td></td>
+                                          <td>txt</td>
+                                        </tr>
+                                  </tbody>
+                                </table>
+                            
+                          </div>
+              </div>
+              <div class="modal-footer">
+                   <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      
+              </div>
+            </div>
+          </div>
         </div>
+      
+    
       </li>
       <li class="nav-item dropdown mx-sm-4">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="modal" data-target="#doctornote" aria-haspopup="true" aria-expanded="false">
-            <img src ="../../assets/doctornote.png"> Doctor's Note
+            <img src ="../../assets/doctornote.png">&nbsp;&nbsp;&nbsp;Doctor's Note
         </a>
         <div class="modal fade" id="doctornote" tabindex="-1" role="dialog" aria-labelledby="doctornotemodal" aria-hidden="true">
-          <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-dialog modal-xl" role="document">
+
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="col-12 modal-title text-center" id="doctornote">Doctor's Note</h5>
               </div>
               <div class="modal-body">
                 <h6>Doctor 1</h6>
-                
+
+                <i>hospital name, city, state</i><br>
+
                 Lorem ipsum dolor sit amet, usu solum docendi an, et mundi necessitatibus nec. His et posse ubique dictas.  Nostrud temporibus mei at, movet iracundia assueverit pri an. Probo essent officiis ut ius. 
                 <a href="#d1expand" data-toggle="collapse">more</a>
               
@@ -66,15 +309,19 @@
               </div>
                 <hr>
                 <h6>Dcotor 2</h6>
+                <i>hospital name, city, state</i><br>
                 <p>Quot iisque at eam, aeque gubergren consetetur at his, oporteat honestatis scribentur qui ei. In eos tollit facete vituperatoribus, percipit praesent petentium te has, cum ad omnes quidam deserunt. Populo invidunt ius ad, et eirmod aeterno detracto duo, sit eirmod mnesarchum efficiantur ad. Quot reque eu mei. Meis graeco placerat cu qui. Sit verear diceret no, ad everti ceteros erroribus quo.</p>
                 <hr>
                 <h6>Dcotor 3</h6>
+                <i>hospital name, city, state</i><br>
                 <p>Quot iisque at eam, aeque gubergren consetetur at his, oporteat honestatis scribentur qui ei. In eos tollit facete vituperatoribus, percipit praesent petentium te has, cum ad omnes quidam deserunt. Populo invidunt ius ad, et eirmod aeterno detracto duo, sit eirmod mnesarchum efficiantur ad. Quot reque eu mei. Meis graeco placerat cu qui. Sit verear diceret no, ad everti ceteros erroribus quo.</p>
                 <hr>
                 <h6>Dcotor 4</h6>
+                <i>hospital name, city, state</i><br>
                 <p>Quot iisque at eam, aeque gubergren consetetur at his, oporteat honestatis scribentur qui ei. In eos tollit facete vituperatoribus, percipit praesent petentium te has, cum ad omnes quidam deserunt. Populo invidunt ius ad, et eirmod aeterno detracto duo, sit eirmod mnesarchum efficiantur ad. Quot reque eu mei. Meis graeco placerat cu qui. Sit verear diceret no, ad everti ceteros erroribus quo.</p>
                 <hr>
                 <h6>Dcotor 5</h6>
+                <i>hospital name, city, state</i><br>
                 <p>Quot iisque at eam, aeque gubergren consetetur at his, oporteat honestatis scribentur qui ei. In eos tollit facete vituperatoribus, percipit praesent petentium te has, cum ad omnes quidam deserunt. Populo invidunt ius ad, et eirmod aeterno detracto duo, sit eirmod mnesarchum efficiantur ad. Quot reque eu mei. Meis graeco placerat cu qui. Sit verear diceret no, ad everti ceteros erroribus quo.</p>
               
               </div>
@@ -107,5 +354,7 @@
   </div>
 </nav>
 <div class="container mt-4">
-  <h1><b>Welcome</b></h1>
+
+  <h1 id="firstname"></h1>
+
 </div>

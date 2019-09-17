@@ -25,12 +25,17 @@ export class PatientComponent implements OnInit {
 
       res => {
         console.log(res)
-        localStorage.setItem('token',res. idToken)
+        localStorage.setItem('token',res.idToken)
         localStorage.setItem('fname',res.fname)
         this._router.navigate(['patient-profile'])
         
       },
-      err => console.log(err)
+      err => {
+        console.log(err);
+        document.querySelector('#password').classList.add('is-invalid');
+        document.querySelector('#email').classList.add('is-invalid');
+        document.querySelector('#invalidsignin').classList.remove('d-none');    
+      }
     );
   }
 

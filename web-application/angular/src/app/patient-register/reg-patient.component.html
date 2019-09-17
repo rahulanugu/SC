@@ -82,58 +82,64 @@ Register Paitent Form
       <form ngNativeValidate class="login-wrapper" action="#" method="post" #itemForm1="ngForm" (ngSubmit)="showSecond()">
         <div class="form-group">
           <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="patientService.selectedPatient._id">
-          <label>First Name</label>
-          <input type="text" class="form-control" name="fname" #fname="ngModel"  [(ngModel)]="patientService.selectedPatient.fname" required [class.is-invalid]="fname.invalid && fname.touched">
+
+          <label>First Name*</label>
+          <input type="text" class="form-control" name="fname" #fname="ngModel" [(ngModel)]="patientService.selectedPatient.fname" required [class.is-invalid]="fname.invalid && fname.touched">
           <small class = "text-danger" [class.d-none]="fname.valid || fname.untouched">First name is required</small>
         </div>
         <div class="form-group">
-          <label>Last Name</label>
+          <label>Last Name*</label>
           <input type="text" class="form-control" name="lname"  #lname="ngModel" required [(ngModel)]="patientService.selectedPatient.lname" [class.is-invalid]="lname.invalid && lname.touched">
           <small class = "text-danger" [class.d-none]="lname.valid || lname.untouched">Last name is required</small>
         </div>
         <div class="form-group">
-            <label>Email</label>
+
+            <label>Email*</label>
             <input type="email" class="form-control" name="email"  #email="ngModel" required [(ngModel)]="patientService.selectedPatient.email" [class.is-invalid]="email.invalid && email.touched">
             <small class = "text-danger" [class.d-none]="email.valid || email.untouched">Email is required</small>
           </div>
 
         <div class="form-group">
-          <label>Street Address</label>
+          <label>Street Address*</label>
           <input type="text" class="form-control" name="street" #street="ngModel" [(ngModel)]="patientService.selectedPatient.street" required [class.is-invalid]="street.invalid && street.touched">
           <small class = "text-danger" [class.d-none]="street.valid || street.untouched">Street is required</small>
         </div>
         <span><div class="form-group">
-          <label>City</label>
+          <label>City*</label>
           <input type="text" class="form-control" name="city" #city="ngModel" required [(ngModel)]="patientService.selectedPatient.city" [class.is-invalid]="city.invalid && city.touched">
           <small class = "text-danger" [class.d-none]="city.valid || city.untouched">City is required</small>
         </div></span>
         <span><div class="form-group">
-          <label>State/Province</label>
+
+          <label>State/Province*</label>
           <input type="text" class="form-control" name="state" #state="ngModel" required [(ngModel)]="patientService.selectedPatient.state" [class.is-invalid]="state.invalid && state.touched">
           <small class = "text-danger" [class.d-none]="state.valid || state.untouched">State is required</small>
         </div></span>
         <div class="form-group">
-          <label>Postal/Zip Code</label>
+
+          <label>Postal/Zip Code*</label>
           <input type="text" class="form-control" name="zip" #postal="ngModel" required [(ngModel)]="patientService.selectedPatient.zip" [class.is-invalid]="postal.invalid && postal.touched">
           <small class = "text-danger" [class.d-none]="postal.valid || postal.untouched">Postal/Zip Code is required</small>
         </div>
         <span><div class="form-group">
-          <label>Country</label>
+
+          <label>Country*</label>
           <input type="text" class="form-control" name="country" #country="ngModel" required [(ngModel)]="patientService.selectedPatient.country" [class.is-invalid]="country.invalid && country.touched">
           <small class="text-danger" [class.d-none]="country.valid || country.untouched">Country is required</small>
         </div></span>
         <div class="form-group">
-          <label>Phone</label>
-          <input type="tel" class="form-control" name="phone" #phone="ngModel" required  pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="ex: 123-456-7890"
+
+          <label>Phone*</label>
+          <input type="tel" id="tel"class="form-control" name="phone" #phone="ngModel" required [textMask]="{mask: phonemask}" placeholder="ex: 123-456-7890"
            #name="ngModel" [(ngModel)]="patientService.selectedPatient.phone" [class.is-invalid]="phone.invalid && phone.touched">
            <small class = "text-danger" [class.d-none]="phone.valid || phone.untouched">Phone is required</small>
         </div>
         <div class="form-group">
-          <label>Password</label>
+          <label>Password*</label>
           <input type="password" class="form-control" name="password" required #name="ngModel" [(ngModel)]="patientService.selectedPatient.password">
         </div>
         <div class="form-group">
-            <label>Re-Enter Password</label>
+            <label>Re-Enter Password*</label>
             <input type="password" class="form-control" name="password2" required >
         </div>
         <button type="submit" class="btn submit mt-4" (click)="onSubmit1(street.value, city.value, state.value, country.value, postal.value)">Next</button>
@@ -143,6 +149,7 @@ Register Paitent Form
     </div>
   </div>
 </section>
+
 <!-- //patient register 1 -->
 
 <!-- patient register 2 ---->
@@ -152,29 +159,34 @@ Register Paitent Form
       <form ngNativeValidate class="login-wrapper" action="#" method="post"  #itemForm2="ngForm" (ngSubmit)="showThird()" 
         style="position:absolute; top:30%; left:35%;">
           <div class="form-group">
-              <label>Date of Birth</label>
+
+              <label>Date of Birth*</label>
               <input type="date" class="form-control" name="birthdate" required #dateofbirth="ngModel" [(ngModel)]="patientService.selectedPatient.birthday">
           </div>
           <div class="form-group">
-            <label>Sex</label>
+            <label>Sex*</label>
             <br/><input type="radio" name="sex" value="male" #name="ngModel" [(ngModel)]="patientService.selectedPatient.sex"> Male<br/>
             <span><input type="radio" name="sex" value="female" #name="ngModel" [(ngModel)]="patientService.selectedPatient.sex"> Female</span>
         </div>
         <div class="form-group">
-          <label>Social Security Number</label>
-          <input type="text" class="form-control" name="ssn" required pattern="[0-9]{3}-[0-9]{2}-[0-9]{4}" placeholder="ex: 123-45-6789" 
+
+          <label>Social Security Number*</label>
+          <input type="text" class="form-control" name="ssn" required [textMask]="{mask: socialsecurity}" placeholder="ex: 123-45-6789" 
           #ssn="ngModel" [(ngModel)]="patientService.selectedPatient.ssn" [class.is-invalid]="ssn.invalid && ssn.touched">
           <small class="text-danger" [class.d-none]="ssn.valid || ssn.untouched">Social security number is required</small>
         </div>
         <div class="form-group">
-          <label>Emergency Contact Name and Relationship</label>
+
+          <label>Emergency Contact Name and Relationship*</label>
           <input type="text" class="form-control" name="emergency-name" required #name="ngModel" [(ngModel)]="patientService.selectedPatient.ec" 
           #emname="ngModel" [class.is-invalid]="emname.invalid && emname.touched">
           <small class="text-danger" [class.d-none]="emname.valid || emname.untouched">Emergency contact name and relationship required</small>
         </div>
         <div class="form-group">
-          <label>Emergency Contact Phone Number</label>
-          <input type="text" class="form-control" name="emergency-phone" required #ephone="ngModel"   pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="ex: (123) 456-7890"
+
+          <label>Emergency Contact Phone Number*</label>
+          <input type="text" class="form-control" name="emergency-phone" required #ephone="ngModel" [textMask]="{mask: phonemask}" placeholder="ex: (123) 456-7890"
+
           [(ngModel)]="patientService.selectedPatient.ecPhone" [class.is-invalid]="ephone.invalid && ephone.touched">
           <small class="text-danger" [class.d-none]="ephone.valid || ephone.untouched">Emergency phone number is required</small>
         </div>
@@ -252,7 +264,9 @@ Register Paitent Form
   </div>
 </section>
 <section id="register_successful">
-    <div class="container py-xl-5 py-lg-3" style="height: 500px;">
+
+    <div class="container py-xl-5 py-lg-3" style="height: 200px;">
+
     <div class="title-section mb-md-5 mb-4">
         <h3 class="w3ls-title text-uppercase text-dark font-weight-bold" align="center">THANK YOU FOR YOUR SUBMISSION!</h3><br>  
         <h4 class="w3ls-title text-dark font-weight-bold" align="center">You will receive a verification email from us shortly.</h4>
@@ -260,6 +274,7 @@ Register Paitent Form
       
   </div>
 </section>
+
 <!----- patient register 3 ---->
 
 
@@ -348,6 +363,10 @@ Register Paitent Form
 <!-- move top icon -->
 <a href="#home" class="move-top text-center"></a>
 <!-- //move top icon -->
+<script>
+ 
+
+</script>
 
 </body>
 

@@ -58,7 +58,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <input type="checkbox" id="drop" />
             <ul class="menu">
               <li><a routerLink="/home" class="active">Home</a></li>
-              <li><a routerLink="/contact"  class="mx-lg-4 mx-md-3 my-md-0 my-2">Request Demo</a></li>
+              <li><a routerLink="/contact"  class="mx-lg-4 mx-md-3 my-md-0 my-2">Request Access</a></li>
               <li><a href="/patient#footer">Contact Us</a></li>
             </ul>
           </nav>
@@ -79,20 +79,24 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     </div>
     
     <div class="login px-sm-4 mx-auto mw-100 login-wrapper">
-      <form class="login-wrapper" method="post" #patientLogin="ngForm" (ngSubmit)="onSubmit()">
+      <form ngNativeValidate class="login-wrapper" method="post" #patientLogin="ngForm" (ngSubmit)="onSubmit()">
           
         <div class="form-group">
           
-          <label>Email</label>
-          <input type="email" class="form-control" name="patientId" placeholder="" [(ngModel)]="patientmodel.email">
+          <label>Email*</label>
+          <input type="email" id="email" class="form-control" name="email" #email="ngModel" [class.is-invalid]="email.invalid && email.touched" placeholder="" required [(ngModel)]="patientmodel.email">
+          <small class="text-danger" [class.d-none]="email.valid || email.untouched">Email is required</small>
         </div>
         <div class="form-group">
-          <label>Password</label>
-          <input type="password" class="form-control" name="password" placeholder="" [(ngModel)]="patientmodel.password">
+          <label>Password*</label>
+          <input type="password" id="password" class="form-control" name="password" #password="ngModel" [class.is-invalid]="password.invalid && password.touched" placeholder="" required [(ngModel)]="patientmodel.password">
+          <small class="text-danger" [class.d-none]="password.valid || password.untouched">Password is required</small>
+          <small id="invalidsignin" class="text-danger d-none">Invalid Email or Password</small>
+
         </div>
         <button type="submit" class="btn submit mt-4">Login</button>
         <p class="text-center mt-5">
-          <a routerLink="/patient/register"> Don't have an Account?</a>
+          <a routerLink="/register">Don't have an Account?</a>
         </p>
       </form>
     </div>
@@ -156,12 +160,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
   <div class="container py-3">
     <div class="row">
       <div class="col-lg-7 w3ls_footer_grid1_left text-lg-left text-center">
-        <p>&copy; 2019 ScriptChain. All rights reserved | Design by
+        <p>&copy; 2019 ScriptChain. All rights reserved 
+          <!-- | Design by
           <a href="http://w3layouts.com/">W3layouts</a>
-        </p>
+        </p> -->
       </div>
       <div class="col-lg-5 w3ls_footer_grid_left1_pos text-lg-right text-center mt-lg-0 mt-2">
-        <ul>
+        <!-- <ul>
           <li>
             <a href="#" class="facebook">
               <span class="fa fa-facebook-f mr-2"></span>Facebook</a>
@@ -174,7 +179,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <a href="#" class="google">
               <span class="fa fa-google-plus mr-2"></span>Google Plus</a>
           </li>
-        </ul>
+        </ul> -->
       </div>
     </div>
   </div>
