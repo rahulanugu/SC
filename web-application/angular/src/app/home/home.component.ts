@@ -15,8 +15,6 @@ import { seedEvents } from '../../app/server.js';
 export class HomeComponent implements OnInit {
 
   constructor() { }
-
-
   ngOnInit() {
   }
 

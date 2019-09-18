@@ -19,6 +19,7 @@ import {TextMaskModule} from 'angular2-text-mask';
 import { RegisterComponent } from './register/register.component';
 import { DbService } from './db.service';
 import { PatientProfileComponent } from './patient-profile/patient-profile.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { PatientProfileComponent } from './patient-profile/patient-profile.compo
     
     RegisterComponent,
     PatientProfileComponent,
+    ContactUsComponent,
 
   ],
   imports: [
