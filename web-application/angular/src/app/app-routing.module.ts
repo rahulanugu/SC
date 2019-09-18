@@ -1,8 +1,10 @@
+import { ContactUsComponent } from './contact-us/contact-us.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 /* Componets to create routes for */
 import {HomeComponent} from './home/home.component';
+
 import {LoginComponent} from './login/login.component';
 import {RequestDemoComponent} from './request-demo/request-demo.component';
 import {PatientComponent} from './patient-login/patient.component';
@@ -24,7 +26,8 @@ const routes: Routes = [
   { path: 'healthcare/register', component: HealthcareRegisterComponent},
   { path: 'register', component:RegisterComponent},
   { path: 'patient-profile', component:PatientProfileComponent, canActivate: [PatientAuthGuard] },
-  { path: '', redirectTo: '/home', pathMatch: 'full' }
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'contact-us', component: ContactUsComponent}
   ];
 
 @NgModule({
