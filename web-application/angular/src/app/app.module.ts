@@ -3,12 +3,14 @@ import { LoginPatientService } from './shared/login-patient.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import {ReactiveFormsModule} from '@angular/forms';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { AppRoutingModule } from './app-routing.module';
-import { RequestDemoComponent } from './request-demo/request-demo.component';
+import {RequestAccessComponent} from './request-access/request-access.component';
 import { PatientComponent } from './patient-login/patient.component';
 import { RegPatientComponent } from './patient-register/reg-patient.component';
 import { HealthcareLoginComponent } from './healthcare-login/healthcare-login.component';
@@ -21,23 +23,34 @@ import { DbService } from './db.service';
 import { PatientProfileComponent } from './patient-profile/patient-profile.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { TermsConditionsComponent } from './terms-conditions/terms-conditions.component';
+import { PatientStatisticsComponent } from './patient-profile/patient-statistics/patient-statistics.component';
+import { ContactUsFormComponent } from './contact-us-form/contact-us-form.component';
+import { CommonHeaderComponent } from './common-header/common-header.component';
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
-    RequestDemoComponent,
+    RequestAccessComponent,
     PatientComponent,
     RegPatientComponent,
     HealthcareLoginComponent,
     HealthcareRegisterComponent,
     HeaderComponent,
     FooterComponent,
-    
     RegisterComponent,
     PatientProfileComponent,
     ContactUsComponent,
+    PrivacyPolicyComponent,
+    TermsConditionsComponent,
+    PatientStatisticsComponent,
+    ContactUsFormComponent,
+    CommonHeaderComponent
 
   ],
   imports: [
@@ -45,9 +58,10 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    TextMaskModule
- 
-  ],
+    TextMaskModule,
+    RouterModule,
+    ReactiveFormsModule
+   ],
   providers: [
     DbService,
     LoginPatientService,

@@ -21,6 +21,7 @@ export class RegPatientComponent implements OnInit {
   constructor(private patientService: PatientService) { }
 
   ngOnInit() {
+    window.scrollTo(0,0);
     this.showFirst();
     this.patientService.selectedPatient = {
       _id: "",

@@ -1,0 +1,87 @@
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+  <title>Be Clinic Medical Category Bootstrap Responsive Website Template | Home :: W3layouts</title>
+  <!-- Meta tag Keywords -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="keywords" content="Be Clinic Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+  <script>
+    addEventListener("load", function () {
+      setTimeout(hideURLbar, 0);
+    }, false);
+
+    function hideURLbar() {
+      window.scrollTo(0, 1);
+    }
+  </script>
+  <!--// Meta tag Keywords -->
+
+  <!-- Web-Fonts -->
+  <link href="//fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+  <link href="//fonts.googleapis.com/css?family=Mukta:200,300,400,500,600,700,800&amp;subset=devanagari,latin-ext" rel="stylesheet">
+  <!-- //Web-Fonts -->
+</head>
+
+<body>
+  
+ 
+  <section id="contact">
+    <div id="contactForm" class="py-5">
+        <p align="center">HAVE A QUESTION?</p>
+        <h1 align="center">The support team is here to help!</h1><br>
+      <div id="contact" class="container" style="max-width: 600px;">
+          <form ngNativeValidate [formGroup]="Form" (ngSubmit)="onSubmit2()">
+            <div class="form-group">
+                <label>First Name*</label>
+                <input [class.is-invalid]="Form.get('FirstName').invalid && Form.get('FirstName').touched" formControlName="FirstName" type="text" class="form-control" required>
+                <small [class.d-none]="Form.get('FirstName').valid || Form.get('FirstName').untouched" class="text-danger">First Name is required.</small>
+              </div>
+                 <div class="form-group">
+                    <label>Last Name*</label>
+                    <input [class.is-invalid]="Form.get('LastName').invalid && Form.get('LastName').touched" formControlName="LastName" type="text" class="form-control" required>
+                    <small [class.d-none]="Form.get('LastName').valid || Form.get('LastName').untouched" class="text-danger">Last Name is required.</small>
+                  </div>
+                     <div class="form-group">
+                        <label>Email*</label>
+                        <input [class.is-invalid]="Form.get('Email').invalid && Form.get('Email').touched" formControlName="Email" type="email" class="form-control" required>
+                        <small [class.d-none]="Form.get('Email').valid || Form.get('Email').untouched" class="text-danger">Email is required.</small>
+                      </div>  
+                         <div class="form-group">
+                            <label for="exampleFormControlTextarea1">Message*</label>
+                            <textarea  [class.is-invalid]="Form.get('Message').invalid && Form.get('Message').touched" formControlName="Message" class="form-control" name="message" rows="3" ></textarea>
+                            <small [class.d-none]="Form.get('Message').valid || Form.get('Message').untouched" class="text-danger">Please provide us a message.</small>
+                          </div>
+                           <div class="n-right-w3ls mt-5 pt-lg-4">  
+                            <button class="submit btn font-weight-bold" type="submit">Send</button>
+                          </div>
+        </form>
+       
+      </div>
+        
+    </div>
+    <div class="py-5" id="contactsuccessful">   
+        <h1 align="center">We’re thrilled to hear from you!</h1>
+        <div class="container"><p align="center">We do our best to answer your questions quickly. Thanks in advance for your patience.</p>
+        </div>
+      </div>
+  </section>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148334798-1"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+      
+        gtag('config', 'UA-148334798-1');
+      </script>
+</body>
+
+</html>

@@ -18,6 +18,7 @@ export class PatientComponent implements OnInit {
     private _router:Router) { }
 
   ngOnInit() {
+    window.scrollTo(0,0);
   }
   //check if user exist or not if user exist receive JWT and add to browser's local storage
   onSubmit(){

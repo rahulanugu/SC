@@ -1,0 +1,75 @@
+<html>
+    <app-common-header></app-common-header>
+<body>
+<!-- main -->
+
+
+<!-- REQUEST access FORM-->
+<section class="login py-5">
+    <div class="container py-xl-5 py-lg-3">
+        <div class="alert alert-danger" id="userexistalready" style="margin-top: 16px;">          
+            <h6 align="center">Hmm. It seems like the email address you have entered is already on the waiting list. Try using another email.</h6>
+         </div>
+      <div class="row" id="rform">
+        <div class="col-lg-9">
+          <div class="title-section mb-md-5 mb-4">
+            <h3 class="w3ls-title text-uppercase text-dark font-weight-bold" style="padding-top: 50px">Request Access</h3>
+          </div>
+        </div>
+        <div class="col-lg-9">
+          <form ngNativeValidate action="#" (ngSubmit)="requestAccess()" method="post">
+            <div class="login px-sm-4 mx-auto mw-100 login-wrapper">
+              <div class="col-lg-9">
+                <div class="form-group">
+
+                  <label>First Name*</label>
+                  <input class="form-control" type="text" name="fname" pattern="[a-zA-Z ]{2,30}" #fname="ngModel" [class.is-invalid]="fname.invalid && fname.touched" [(ngModel)]="requestaccessservice.user.fname" placeholder="First Name" required>
+                  <small class="text-danger" [class.d-none]="fname.valid || fname.untouched">First Name is required</small>
+                </div>
+                <div class="form-group">
+
+                    <label>Last Name*</label>
+
+                  <input class="form-control" type="text" name="lname" pattern="[a-zA-Z ]{2,30}" #lname="ngModel"  [class.is-invalid]="lname.invalid && lname.touched" [(ngModel)]="requestaccessservice.user.lname" placeholder="Last Name" required>
+                  <small class="text-danger" [class.d-none]="lname.valid || lname.untouched">Last Name is required</small>
+                </div>
+                <div class="form-group">
+
+                    <label>E-mail Address*</label>
+
+                  <input class="form-control" type="email" name="email" #email="ngModel" [class.is-invalid]="email.invalid && email.touched" [(ngModel)]="requestaccessservice.user.email" placeholder="Email" required>
+                  <small class="text-danger" [class.d-none]="email.valid || email.untouched">Email is required</small>
+                </div>
+                <div class="form-group">
+
+                    <label>Type of User*</label>
+
+                  <select class="form-control" name="usertype" #typeofuser="ngModel" [class.is-invalid]="typeofuser.invalid && typeofuser.touched" [(ngModel)]="requestaccessservice.user.typeOfUser" required>
+                    <option value="">Select One</option>
+                    <option value="Potential_Patient">Potential Patient</option>
+                    <option value="Potential_Healthcare_Provider">Potential Healthcare Provider</option>
+                    <option value="Potential_Insurance_Provider">Potential Insurance Provider</option>
+                    <option value="Potential_Pharmacist">Potential Pharmacist</option>
+                  </select>
+                  <small class="text-danger" [class.d-none]="typeofuser.valid || typeofuser.untouched">Type of User required</small>
+                  <br>
+                </div>
+                <button type="submit" class="btn submit mt-4">Submit</button><br>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    <div id="requestAccessSuccess">          
+          <h2  align="center" style="margin-top: 50px;"><b>THANK YOU FOR YOUR SUBMISSION YOU'RE NOW ON THE WAITING LIST!</b></h2>
+          </div>
+    </div>
+  </section>
+<!-- //REQUEST DEMO -->
+
+<app-footer></app-footer>
+
+</body>
+
+</html>
+

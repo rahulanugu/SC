@@ -1,3 +1,6 @@
+
+import { TermsConditionsComponent } from './terms-conditions/terms-conditions.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -6,7 +9,7 @@ import { RouterModule, Routes } from '@angular/router';
 import {HomeComponent} from './home/home.component';
 
 import {LoginComponent} from './login/login.component';
-import {RequestDemoComponent} from './request-demo/request-demo.component';
+import {RequestAccessComponent} from './request-access/request-access.component';
 import {PatientComponent} from './patient-login/patient.component';
 import {RegPatientComponent} from './patient-register/reg-patient.component'
 import {HealthcareLoginComponent} from './healthcare-login/healthcare-login.component';
@@ -15,19 +18,23 @@ import {RegisterComponent} from './register/register.component';
 import { PatientProfileComponent } from './patient-profile/patient-profile.component';
 import { PatientAuthGuard } from './patient-auth.guard';
 
+
 const routes: Routes = [
   /* pages for the app */
   { path: 'home', component: HomeComponent},
   { path: 'login', component: LoginComponent},
-  { path: 'contact', component: RequestDemoComponent},
+  { path: 'request-access', component: RequestAccessComponent},
   { path: 'patient/login', component: PatientComponent},
   { path: 'patient/register', component: RegPatientComponent},
   { path: 'healthcare/login', component: HealthcareLoginComponent},
   { path: 'healthcare/register', component: HealthcareRegisterComponent},
   { path: 'register', component:RegisterComponent},
   { path: 'patient-profile', component:PatientProfileComponent, canActivate: [PatientAuthGuard] },
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'contact-us', component: ContactUsComponent}
+  {path:'contact-us', component: ContactUsComponent},
+  { path:'home/privacy-policy', component: PrivacyPolicyComponent},
+  { path: 'home/terms-conditions', component: TermsConditionsComponent},
+  { path: '', redirectTo: '/home', pathMatch: 'full' }
+
   ];
 
 @NgModule({

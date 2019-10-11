@@ -1,34 +1,3 @@
-<section id="contact">
-  <div class="py-5">
-      <p align="center">HAVE A QUESTION?</p>
-      <h1 align="center">The support team is here to help!</h1><br>
-    <div id="contact" class="container" style="max-width: 600px;">
-        <form ngNativeValidate>
-            <div class="form-group">
-                <label>First Name*</label>
-                <input type="text" class="form-control" name="fname" required>
-                 </div>
-                 <div class="form-group">
-                    <label>Last Name*</label>
-                    <input type="text" class="form-control" name="lname" required>
-                     </div>
-                     <div class="form-group">
-                        <label>Email*</label>
-                        <input type="text" class="form-control" name="email" required>
-                         </div>  
-                         <div class="form-group">
-                            <label for="exampleFormControlTextarea1">Message*</label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                         </div>
-                         <div class="n-right-w3ls mt-5 pt-lg-4">  
-                            <button routerLink='#' class="submit btn font-weight-bold" type="submit">Send</button>
-                          </div>
-        </form>
-    </div>
-      
-  </div>
-  
-</section>
 
 <!-- footer -->
 <footer class="py-5" id="footer">
@@ -45,19 +14,27 @@
             </h2>
           </div>
           <!-- //logo -->
-          <p class="mt-4 text-light"> The product is a blockchain system in development where it can help increase
-            efficiency and make it more user friendly to our customer like the healthcare insurers, providers and
-            pharmacy's. Creating a large decentralized network throughout the entire horizontal process.</p>
+          <p class="mt-4 text-light"> Blockchain electronic health record plug-in platform that builds interoperability between different healthcare networks, insurance providers and pharmacies.</p>
           <ul class="list-unstyled list-styles mt-lg-5 mt-4">
             <li>
               <p class="text-light"><span class="fa fa-location-arrow mr-2"></span>Boston, MA</p>
             </li>
-            <li class="my-3">
+            <li>
+              <h3 class="mt-5 mb-3 text-wh">Legal</h3>
+            </li>
+            <li class="mb-3">
+              <a class="text-wh" routerLink="privacy-policy">Privacy Policy</a>
+              
+            </li>
+            <li class="mb-3">
+              <a class="text-wh" routerLink="terms-conditions">Terms & Conditions</a>
+            </li>
+            <!-- <li class="my-3">
               <p class="text-light"><span class="fa fa-phone mr-2"></span>Enter phone</p>
             </li>
             <li>
              <p class="text-light"> <a href="mailto:info@example.com" class="text-light"><span class="fa fa-envelope-open mr-2"></span>Enter email</a>
-             </p>  </li>
+             </p>  </li> -->
           </ul>
         </div>
         <div class="col-lg-5 w3l-footer mt-lg-0 mt-5">
@@ -74,7 +51,7 @@
           
           <div class="n-right-w3ls mt-5 pt-lg-4">
             <h3 class="mb-sm-4 mb-3 text-wh">Need Help?</h3>
-            <button routerLink='/contact' class="submit btn font-weight-bold" type="submit">Request Access</button>
+            <button routerLinkActive="active" routerLink='/request-access' class="submit btn font-weight-bold" type="submit">Request Access</button>
           </div>
         </div>
       </div>
@@ -88,7 +65,7 @@
     <div class="container py-3">
       <div class="row">
         <div class="col-lg-7 w3ls_footer_grid1_left text-lg-left text-center">
-          <p>&copy; 2019 ScriptChain. All rights reserved 
+          <p>&copy; 2019 ScriptChain. All rights reserved. 
             <!-- | Design by
             <a href="http://w3layouts.com/">W3layouts</a> -->
           </p>
@@ -115,5 +92,13 @@
   <!-- //copyright -->
   <!-- //footer bottom -->
   <!-- move top icon -->
-  <a href="#home" class="move-top text-center">Top</a>
+  <a routerLink="/home" class="move-top text-center">Top</a>
   <!-- //move top icon -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148334798-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'UA-148334798-1');
+  </script>
