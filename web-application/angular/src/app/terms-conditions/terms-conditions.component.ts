@@ -1,0 +1,16 @@
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-terms-conditions',
+  templateUrl: './terms-conditions.component.html',
+  styleUrls: ['./terms-conditions.component.css','../app.component.css']
+})
+export class TermsConditionsComponent implements OnInit {
+
+  constructor() { }
+
+  ngOnInit() {
+    window.scrollTo(0,0);
+  }
+
+}

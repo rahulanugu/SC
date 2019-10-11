@@ -1,16 +1,16 @@
-import { RequestaccessnewuserService } from './../shared/requestaccessnewuser.service';
+import { RequestaccessnewuserService } from '../shared/requestaccessnewuser.service';
 
 import { Component, OnInit } from '@angular/core';
-import { ifError } from 'assert';
+
 /**
  * Request demo form 
  */
 @Component({
-  selector: 'app-request-demo',
-  templateUrl: './request-demo.component.html',
+  selector: 'app-request-access',
+  templateUrl: './request-access.component.html',
   styleUrls: ['../app.component.css']
 })
-export class RequestDemoComponent implements OnInit {
+export class RequestAccessComponent implements OnInit {
  
 
   constructor(private requestaccessservice: RequestaccessnewuserService) { 
@@ -24,6 +24,7 @@ export class RequestDemoComponent implements OnInit {
   }
 
   ngOnInit() {
+    window.scrollTo(0,0);
     document.getElementById("requestAccessSuccess").style.display="none";
     document.getElementById("userexistalready").style.display = "none";
   }

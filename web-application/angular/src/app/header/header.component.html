@@ -1,6 +1,6 @@
  <!-- header -->
  <div>
-  <header>
+  <!-- <header>
     <div class="top-bar py-3">
       <div class="container">
         <div class="row">
@@ -35,7 +35,7 @@
         </div>
       </div>
     </div>
-  </header>
+  </header> -->
   <!-- //top header -->
 
 
@@ -46,7 +46,7 @@
           <!-- logo -->
           <div id="logo">
             <h1>
-              <a href="/home">
+              <a routerLink="/home">
                 <span class="fa fa-user-md mr-2"></span>
                 <span class="logo-sp">ScriptChain</span>
   
@@ -60,9 +60,9 @@
               <label for="drop" class="toggle">Menu</label>
               <input type="checkbox" id="drop" />
               <ul class="menu">
-                <li><a routerLink="/home" class="active">Home</a></li>
-                <li><a routerLink="/contact"  class="mx-lg-4 mx-md-3 my-md-0 my-2">Request Access</a></li>
-                <li><a href="/contact-us">Contact Us</a></li>
+                <li routerLinkActive="active"><a routerLink="/home" class="active">Home</a></li>
+                <li routerLinkActive="active"><a routerLink="/request-access"  class="mx-lg-4 mx-md-3 my-md-0 my-2">Request Access</a></li>
+                <li routerLinkActive="active"><a routerLink="/contact-us">Contact Us</a></li>
               </ul>
             </nav>
           </div>
