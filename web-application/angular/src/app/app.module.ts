@@ -5,12 +5,12 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import {ReactiveFormsModule} from '@angular/forms';
+import { ReactiveFormsModule} from '@angular/forms';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { AppRoutingModule } from './app-routing.module';
-import {RequestAccessComponent} from './request-access/request-access.component';
+import { RequestAccessComponent} from './request-access/request-access.component';
 import { PatientComponent } from './patient-login/patient.component';
 import { RegPatientComponent } from './patient-register/reg-patient.component';
 import { HealthcareLoginComponent } from './healthcare-login/healthcare-login.component';
@@ -29,7 +29,7 @@ import { ContactUsFormComponent } from './contact-us-form/contact-us-form.compon
 import { CommonHeaderComponent } from './common-header/common-header.component';
 import { PatientRegistertwoComponent} from './patient-registertwo/patient-registertwo.component'
 import { PatientRegisterthreeComponent } from './patient-registerthree/patient-registerthree.component';
-
+import { RegisterSuccessfulPageComponent} from './register-successful-page/register-successful-page.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,9 +51,10 @@ import { PatientRegisterthreeComponent } from './patient-registerthree/patient-r
     ContactUsFormComponent,
     CommonHeaderComponent,
     PatientRegisterthreeComponent,
-    PatientRegistertwoComponent
-
+    PatientRegistertwoComponent,
+    RegisterSuccessfulPageComponent
   ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,

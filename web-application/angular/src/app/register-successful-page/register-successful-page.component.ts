@@ -7,22 +7,24 @@ import { Router } from "@angular/router";
   styleUrls: ['../app.component.css']
 })
 export class RegisterSuccessfulPageComponent implements OnInit {
-
+  
   constructor(private router: Router) { }
 
   ngOnInit() {
+    window.scrollTo(0, 0);
     this.showFinalPage();
-
-    let stored = JSON.parse(localStorage.getItem("user-jwt"))
-    if(!stored ==null){
-      this.firstPage();
-    }
   }
   firstPage(){
     this.router.navigate(['patient/register']);
   }
 
   showFinalPage(){
-    document.getElementById("register_successful").style.display="block";
+    let stored = JSON.parse(localStorage.getItem("user-jwt"))
+    console.log(stored);
+    if(stored ==null){
+      this.firstPage();
+    }else{
+      document.getElementById("register_successful").style.display="block";
+    }
   }
 }

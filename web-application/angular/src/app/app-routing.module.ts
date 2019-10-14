@@ -20,8 +20,6 @@ import { PatientRegisterthreeComponent } from './patient-registerthree/patient-r
 import { PatientRegistertwoComponent } from './patient-registertwo/patient-registertwo.component';
 import { RegisterSuccessfulPageComponent } from './register-successful-page/register-successful-page.component';
 
-
-
 const routes: Routes = [
   /* pages for the app */
   { path: 'home', component: HomeComponent},
@@ -38,8 +36,8 @@ const routes: Routes = [
   { path:'contact-us', component: ContactUsComponent},
   { path:'home/privacy-policy', component: PrivacyPolicyComponent},
   { path: 'home/terms-conditions', component: TermsConditionsComponent},
-  { path: '', redirectTo: '/home', pathMatch: 'full' }
-
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path : 'registersuccessful', component: RegisterSuccessfulPageComponent}
   ];
 
 @NgModule({

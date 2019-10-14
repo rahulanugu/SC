@@ -101,8 +101,6 @@ export class PatientRegisterthreeComponent implements OnInit {
     }else if(!this.diseaseArray.includes(diseaseName) || checkType.getAttribute("ng-reflect-model") == 'true'){
       this.diseaseArray.push(diseaseName);
     } 
-    
-    console.log(this.diseaseArray);
   }
 
   myFunction() {
@@ -119,7 +117,6 @@ export class PatientRegisterthreeComponent implements OnInit {
     }else{
       this.diseaseArray.pop()
     }
-    console.log(this.diseaseArray);
 
     if(checkType.getAttribute("ng-reflect-model") == 'false'){
       this.patientService.selectedPatient= {
@@ -366,9 +363,9 @@ export class PatientRegisterthreeComponent implements OnInit {
       // for verification using jwt and token
       var myJSON = JSON.stringify(res)
       localStorage.setItem('user-jwt',myJSON);
-    });
+      this.router.navigate(['registersuccessful']);
 
-    this.router.navigate(['registerSuccessful']);
+    });
 
   }
 }
