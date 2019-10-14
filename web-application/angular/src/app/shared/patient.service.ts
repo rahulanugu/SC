@@ -5,7 +5,11 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
 import { Patient } from './patient.model';
-
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json'
+  })
+}
 
 /**
  * patient.servce.ts
@@ -20,6 +24,7 @@ export class PatientService {
   selectedPatient: Patient;
   patients: Patient[]; // all patients from mongodb
   readonly baseURL = 'http://localhost:3000/patient/'
+  readonly checkURL = 'http://localhost:3000/patient/verify'
 
   constructor(private http:HttpClient) { }
 
@@ -27,4 +32,9 @@ export class PatientService {
     // make post request
     return this.http.post(this.baseURL, pat);
   }
-}
+
+  checkUser(user){
+    const obj = {'user':user}
+    return this.http.post(this.checkURL,obj);
+  }
+} 

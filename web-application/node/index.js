@@ -15,6 +15,7 @@ const { mongoose } = require('./db');
 var patientController = require('./controllers/patientController');
 var newUserController = require('./controllers/newUsersController');
 var patientloginController = require('./controllers/patientLoginController');
+var verifiedController = require('./controllers/verifiedController');
 var contactUsController = require('./controllers/contactUsController');
 var app = express();
 
@@ -34,4 +35,5 @@ app.listen(3000, () => console.log('Server started at port: 3000'));
 app.use('/patient', patientController);
 app.use('/patient-login',patientloginController);
 app.use('/request-access', newUserController);
+app.use('/verified', verifiedController);
 app.use('/contact-us', contactUsController);

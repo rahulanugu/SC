@@ -6,27 +6,43 @@
 const nodemailer = require('nodemailer');
 const log = console.log;
 const express = require('express');
-var router = express.Router();
-
+const router = express.Router();
 const bcrypt = require('bcryptjs');
-
-var ObjectId = require('mongoose').Types.ObjectId;
+const ObjectId = require('mongoose').Types.ObjectId;
 const hbs = require('nodemailer-express-handlebars');
+const jwt = require('jsonwebtoken');
+const { Patient } = require('../models/user');
+const { Subscriber } = require('../models/subscriber');
+const { TokenSchema} = require('../models/tokeSchema');
+const { google } = require("googleapis");
+const OAuth2 = google.auth.OAuth2;
+const randtoken = require('rand-token');
 
-var { Patient } = require('../models/user');
+const oauth2Client = new OAuth2(
+    "Y16828344230-21i76oqle90ehsrsrpptnb8ek2vqfjfp.apps.googleusercontent.com",
+    "ZYdS8bspVNCyBrSnxkMxzF2d",
+    "https://developers.google.com/oauthplayground"
+);
 
+oauth2Client.setCredentials({
+    refresh_token: "ya29.GluBB_c8WGD6HI2wTAiAKnPeLap6FdqDdQYhplWyAPjw_ZBSNUNEMOfmsrVSDoHTAZWc8cjKHXXEEY_oMVJUq4YaoSD1LLseWzPNt2hcY2lCdhXAeuCxvDPbl6QP"
+});
+
+const accessToken = oauth2Client.getAccessToken()
 // http://localhost:3000/patient/
 // get list of all patients
 router.get('/', (req, res) => {
+    console.log('you have entered');
     Patient.find((err, doc) => {
         if (!err) {
-            res.send(doc);
+            res.json(doc)
         }
         else {
             console.log('Error in retrieving patients: ' + JSON.stringify(err, undefined, 2));
         }
     });
 });
+
 
 // get patient using id
 router.get('/:id', (req, res) => {
@@ -45,103 +61,80 @@ router.get('/:id', (req, res) => {
     }
 });
 
-// add a patient
-router.post('/',async (req, res) => {
-    
-    //already exist
-    const emailExist = await Patient.findOne({Email: req.body.email});
-    if(emailExist) {
-        return res.status(400).send('Email already exists');
+router.post('/:verify',async(req,res)=>{
+    console.log('/:verify',req.body.user)
+    const userGiven = req.body;
+    console.log(userGiven.user)
+    const checkCurrentSubscriber = await Subscriber.findOne({email: userGiven.user})
+
+    if (checkCurrentSubscriber){
+        return res.json('Subscriber already exists')
+    }else{
+        return res.json('doesnot exist')
     }
 
+})
 
-    // //encrypt the password
-    const salt = await bcrypt.genSalt(10);
-    const hashpassword = await bcrypt.hash(req.body.password, salt);
+// this send verification email
+router.post('/',async(req,res)=>{
 
-    
+    const tokeBody = req.body;
+    // check if email already exist
+    const checkCurrentSubscriber = await Subscriber.findOne({email: req.body.email})
 
-    var patient = new Patient({
-        fname: req.body.fname,
-        lname: req.body.lname,
-        Email: req.body.email,
-        address: req.body.address,
-        phone: req.body.phone,
-        birthday: req.body.birthday,
-        sex: req.body.sex,
-        ssn: req.body.ssn,
-        allergies: req.body.allergies,
-        ec: req.body.ec,
-        ecPhone: req.body.ecPhone,
-        password: hashpassword,
-        anemia: req.body.anemia,
-        asthma:req.body.asthma,
-        arthritis: req.body.arthritis,
-        cancer: req.body.cancer,
-        gout: req.body.gout,
-        diabetes: req.body.diabetes,
-        emotionalDisorder: req.body.emotionalDisorder,
-        epilepsy: req.body.epilepsy,
-        fainting: req.body.fainting,
-        gallstones: req.body.gallstones,
-        heartDisease: req.body.heartDisease,
-        heartAttack: req.body.heartAttack,
-        rheumaticFever: req.body.rheumaticFever,
-        highBP: req.body.highBP,
-        digestiveProblems: req.body.digestiveProblems,
-        ulcerative: req.body.ulcerative,
-        ulcerDisease: req.body.ulcerDisease,
-        hepatitis: req.body.hepatitis,
-        kidneyDiseases: req.body.kidneyDiseases,
-        liverDisease: req.body.liverDisease ,
-        sleepApnea: req.body.sleepApnea,
-        papMachine: req.body.papMachine,
-        thyroid: req.body.thyroid,
-        tuberculosis: req.body.tuberculosis,
-        venereal: req.body.venereal,
-        neurologicalDisorders: req.body.neurologicalDisorders,
-        bleedingDisorders: req.body.bleedingDisorders,
-        lungDisease: req.body.lungDisease,
-        emphysema: req.body.emphysema,
-        drink: req.body.drink,
-        smoke: req.body.smoke
-    });
-    patient.save((err, doc) => {
-        if (!err) {
-            // returns saved patient and 24hex char unique id
-            
-            res.send(doc);
-        }
-        else {
-            console.log('Error in saving patient: ' + JSON.stringify(err, undefined, 2));
-        }
-    });
-    
-    //send email
-    mailer(req.body.email,req.body.fname);
+    if (checkCurrentSubscriber){
+        return res.status(400).send('Subscriber already exists')
+    }
 
-});
-function mailer(email,fname){
-    let transporter = nodemailer.createTransport({
-        service: 'gmail',
+    const checkEmailExist = await Patient.findOne({Email: req.body.email})
+
+    if (checkEmailExist){
+        return res.status(400).send('Email already exists')
+    }
+
+    // create JSON Web Token
+    // *******make sure to change secret word to something secure and put it in env variable*****
+    const token = await jwt.sign({tokeBody}, "santosh", { expiresIn: 180 });
+
+    // using jwt and token
+    res.json(token)
+
+    var idToken = randtoken.generate(16);
+
+    const tokenSchema = new TokenSchema({
+        token: idToken,
+        email: req.body.email
+    })
+
+    tokenSchema.save((err,doc)=>{})
+
+    sendVerificationMail(req.body.email,req.body.fname,idToken);
+
+    // sendVerificationMail(req.body.email,req.body.fname,token);
+
+})
+
+
+const sendVerificationMail = (email,fname,idToken)=>{
+
+    //create a transporter with OAuth2
+    const transporter = nodemailer.createTransport({
+        service : 'gmail',
         auth: {
-            user: 'badchhapesumod100@gmail.com', 
-            pass: 'Sammiyf@0809'
-        }
+            type: "OAuth2",
+            user: "dahal.santosh007@gmail.com", 
+            clientId: "16828344230-21i76oqle90ehsrsrpptnb8ek2vqfjfp.apps.googleusercontent.com",
+            clientSecret: "ZYdS8bspVNCyBrSnxkMxzF2d",
+            refreshToken: "1/dK9w2flF6s52UnPPsQvjcM35pXvwu5z8PSQULIWCCgo",
+            accessToken: accessToken
+       }
     });
-    // transporter.use('compile',hbs({
-    //     viewEngine: {
-    //         extName: '.hbs',
-    //         partialsDir: 'some/path',
-    //         layoutsDir: 'some/path',
-    //         defaultLayout: 'email.body.hbs'
-    //     },
-    //     viewPath:'../views/'
-    // }));
-    let mailOptions = {
-        from: 'badchhapesumod100@gmail.com', 
+
+    //  create mail option with custom template, verification link and Json Web Token
+    const mailOptions = {
+        from: 'dahal.santosh007@gmail.com', 
         to: email,
-        subject: 'Hey it\'s Moh from ScriptChain',
+        subject: 'NO REPLY AT SCRIPTCHAIN.COM!!! Hey it\'s Moh from ScriptChain',
         html: `<!DOCTYPE html>
         <html lang="en">
         <head>
@@ -198,7 +191,7 @@ function mailer(email,fname){
           <h1 align="center"style="font-family: arial;">YOU'RE ALMOST DONE REGISTERING!</h1>
           <p class="para">Hi `+fname+`,</p>
           <p class="para">Welcome to ScriptChain! We are glad that you have registered, there is just one more step to verify your account. <b>Please click the link below to verify your email address.</b></p>
-        <p align="center"><button>Verify Your E-mail Address</button></p><br><br>
+        <p align="center"><a href="http://localhost:4200/login?${tk=idToken}"><button>Verify Your E-mail Address</button></a></p><br><br>
         <p align="center" class="para">If you have any questions or concerns feel free to reach out to <a href="mailto:Moh@scriptchain.co">Moh@scriptchain.co</a></p>
           <div class="panelFooter">
             <p align="center" >This message was sent from ScriptChain LLC., Boston, MA</p>
@@ -207,12 +200,17 @@ function mailer(email,fname){
         </body>
         </html>        
         `
-    };
+    }
+
+    // send email
     transporter.sendMail(mailOptions, (err, data) => {
         if (err) {
-            return log('Error occurs');
+            // res.json({err});
+            console.log(err);
         }
+        transporter.close();
         return log('Email sent!!!');
     });
 }
+
 module.exports = router;

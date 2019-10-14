@@ -1,31 +1,28 @@
-import { FooterComponent } from './../footer/footer.component';
-import { CommonHeaderComponent } from './../common-header/common-header.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FooterComponent } from '../footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterModule } from '@angular/router';
-import { LoginComponent } from './login.component';
-import { CommonHeaderComponent} from '../common-header/common-header.component';
-import { FooterComponent} from '../footer/footer.component'
-describe('LoginComponent', () => {
-  let component: LoginComponent;
-  let fixture: ComponentFixture<LoginComponent>;
+import { RegisterSuccessfulPageComponent } from './register-successful-page.component';
+
+describe('RegisterSuccessfulPageComponent', () => {
+  let component: RegisterSuccessfulPageComponent;
+  let fixture: ComponentFixture<RegisterSuccessfulPageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LoginComponent,CommonHeaderComponent,FooterComponent ],      
+      declarations: [ RegisterSuccessfulPageComponent,FooterComponent ],
       imports: [
         HttpClientModule,
         HttpClientTestingModule,
         RouterModule.forRoot([]),
-      ]
-
+    ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LoginComponent);
+    fixture = TestBed.createComponent(RegisterSuccessfulPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

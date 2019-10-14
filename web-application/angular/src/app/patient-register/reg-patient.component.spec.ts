@@ -1,13 +1,13 @@
-import { TextMaskModule } from 'angular2-text-mask';
-import { FooterComponent } from './../footer/footer.component';
-import { CommonHeaderComponent } from './../common-header/common-header.component';
-import { FormsModule } from '@angular/forms';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { HttpClient} from '@angular/common/http';
-
+import { CommonHeaderComponent} from '../common-header/common-header.component'
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { RegPatientComponent } from './reg-patient.component';
+import { FormsModule} from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { TextMaskModule } from 'angular2-text-mask';
+import { FooterComponent } from '../footer/footer.component';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterModule } from '@angular/router';
 
 describe('RegPatientComponent', () => {
   let component: RegPatientComponent;
@@ -17,8 +17,15 @@ describe('RegPatientComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RegPatientComponent, CommonHeaderComponent, FooterComponent ],
-      imports: [FormsModule, TextMaskModule, HttpClientTestingModule]
+      declarations: [ RegPatientComponent,FooterComponent,CommonHeaderComponent],
+      imports: [
+        FormsModule,
+        BrowserModule,
+        TextMaskModule,
+        HttpClientModule,
+        HttpClientTestingModule,
+        RouterModule.forRoot([]),
+      ],
     })
     .compileComponents();
   }));

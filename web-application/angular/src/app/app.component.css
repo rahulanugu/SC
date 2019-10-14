@@ -8,7 +8,7 @@
  /**
  * Contains styling for entire website
  */
-:root {
+ :root {
   --blue: #007bff;
   --indigo: #6610f2;
   --purple: #6f42c1;
@@ -52,8 +52,344 @@ html {
   -ms-text-size-adjust: 100%;
   -ms-overflow-style: scrollbar;
   -webkit-tap-highlight-color: transparent;
+  scroll-behavior: smooth;
+}
+#register_successful{
+  padding-top: 10px;
+}
+.footerRegistrationThree{
+  padding-top: 1445px;
 }
 
+.footerRegistrationTwo{
+  padding-top: 1000px;
+}
+/* outer and inner for back and forth button */
+#outer
+{
+  width:100%;
+  display: grid;
+  grid-template-areas:"header sideHeader"
+                      "footer footer";
+}
+
+.backBtn
+{
+  justify-self: left;
+  grid-area: header;
+}
+
+.nextBtn{
+  justify-self: right;
+  grid-area: sideHeader;
+}
+
+.step{
+  justify-self: center;
+  grid-area: footer; 
+  margin-top: 22px;
+
+}
+
+.login button.submitBtn{
+  justify-self: left;
+  grid-area: header;
+  padding-left: 2.7em;
+  padding-right: 2.7em;
+}
+/* for back and forth button in registration*/
+
+/* for login bubble and second header*/
+
+@media only screen and (min-width:1100px){
+  .grid{
+    display: grid;
+    grid-template-columns: 759px 1fr;
+    margin-top: -6px;
+    margin-left: 8px;
+  }
+  
+  .scriptchainLogo{
+    justify-self:left;
+  }
+  
+  .otherLink{
+    display: grid;
+    grid-template-columns: 68px 172px auto;
+    font-size: 13px;
+    letter-spacing: 2px;
+    font-weight: 700;
+    text-transform: uppercase;
+    align-items: center;
+    margin-top: 6px;
+    margin-left: 2px;
+  }
+  
+  .otherLink2{
+    display: grid;
+    grid-template-columns: 92px 111px auto;
+    font-size: 13px;
+    letter-spacing: 2px;
+    font-weight: 700;
+    text-transform: uppercase;
+    align-items: center;
+    margin-top: 3px;
+    margin-left: 2px;
+  }
+  
+  .otherLink2 a.homeLogin{  
+    margin-bottom: 16px;
+  }
+  
+  .otherLink2 a.homeLogin,
+  .otherLink a.homeLogin{
+    color: #9beafd;
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -ms-transition: 0.5s all;
+  }
+  
+  .otherLink a.requestAccessLogin{
+    color: white;
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -ms-transition: 0.5s all;
+  }
+  
+  .otherLink a.requestAccessLogin:hover{
+    color: #9beafd;
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -ms-transition: 0.5s all;
+  }
+  
+  .otherLink2 a.contactUsLogin
+  {
+    margin-bottom: 16px;
+    margin-left: 37.6px;
+  }
+  
+  .otherLink2 a.contactUsLogin,
+  .otherLink a.contactUsLogin{
+    color: white;
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -ms-transition: 0.5s all;
+  }
+  
+  .otherLink2 a.contactUsLogin:hover,
+  .otherLink a.contactUsLogin:hover{
+    color: #9beafd;
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -ms-transition: 0.5s all;
+  }
+  
+  .logo-scriptchain{
+    font-weight: 100;
+    color: white;
+    font-size: 32px;
+  }
+}
+
+@media only screen and (max-width:1200px){
+  .grid{
+    grid-template-columns: 580px 1fr;
+    margin-top: -5px;
+    margin-left: 7px;
+  }
+  .otherLink{
+    display: grid;
+    grid-template-columns: 68px 173px auto;
+    font-size: 13px;
+    letter-spacing: 2px;
+    font-weight: 700;
+    text-transform: uppercase;
+    align-items: center;
+    margin-top: 4px;
+    margin-left: 1px;
+  }
+  
+  .otherLink2{
+    display: grid;
+    grid-template-columns: 91px 112px auto;
+    font-size: 13px;
+    letter-spacing: 2px;
+    font-weight: 700;
+    text-transform: uppercase;
+    align-items: center;
+    margin-top: 2px;
+    margin-left: 2px;
+  }
+}
+
+@media only screen and (max-width:1100px){
+  span.logo-scriptchain {
+    font-weight: 100;
+    color: white;
+    font-size: 32px;
+  }
+
+  .grid{
+    display: grid;
+    grid-template-columns: 580px 1fr;
+  }
+
+  .otherLink[_ngcontent-c2] {
+    display: grid;
+    grid-template-columns: 68px 172px auto;
+    font-size: 13px;
+    letter-spacing: 2px;
+    font-weight: 700;
+    text-transform: uppercase;
+    align-items: center;
+    margin-top: 4px;
+    margin-left: 1px;
+  }
+
+  .otherLink2[_ngcontent-c2] {
+    display: grid;
+    grid-template-columns: 92px 111px auto;
+    font-size: 13px;
+    letter-spacing: 2px;
+    font-weight: 700;
+    text-transform: uppercase;
+    align-items: center;
+    margin-top: 2px;
+    margin-left: 2px;
+}
+  .otherLink2 a.homeLogin{  
+    margin-bottom: 16px;
+  }
+
+  .otherLink2 a.homeLogin,
+  .otherLink a.homeLogin{
+    color: #9beafd;
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -ms-transition: 0.5s all;
+  }
+  
+  .otherLink a.requestAccessLogin{
+    color: white;
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -ms-transition: 0.5s all;
+  }
+  
+  .otherLink a.requestAccessLogin:hover{
+    color: #9beafd;
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -ms-transition: 0.5s all;
+  }
+  
+  .otherLink2 a.contactUsLogin
+  {
+    margin-bottom: 15px;
+    margin-left: 37.6px;
+  }
+  
+  .otherLink2 a.contactUsLogin,
+  .otherLink a.contactUsLogin{
+    color: white;
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -ms-transition: 0.5s all;
+  }
+  
+  .otherLink2 a.contactUsLogin:hover,
+  .otherLink a.contactUsLogin:hover{
+    color: #9beafd;
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -ms-transition: 0.5s all;
+  }
+  
+}
+
+@media only screen and (max-width:991px){
+  .grid{
+    display: grid;
+    grid-template-columns: 356px 1fr;
+  }
+
+  .otherLink{
+    display: grid;
+    grid-template-columns: 61px 164px auto !important;
+    font-size: 13px;
+    letter-spacing: 2px;
+    font-weight: 700;
+    text-transform: uppercase;
+    align-items: center;
+    margin-top: 4px;
+    margin-left: 1px;
+  }
+
+  .otherLink2{
+    display: grid;
+    grid-template-columns: 136px 68px auto !important;
+    font-size: 13px;
+    letter-spacing: 2px;
+    font-weight: 700;
+    text-transform: uppercase;
+    align-items: center;
+    margin-top: 4px!important;
+    margin-left: 1px !important;
+  }
+
+  .otherLink2 button.btn-type {
+    font-size: 13px;
+    border-radius: 4px;
+    padding-bottom: 8px !important;
+    background: #2e8286;
+    font-weight: 900;
+    color: white;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    padding-top: 8px !important;
+    margin-left: 3px;
+  }
+
+  .otherLink2  a.contactUsLogin  {
+    margin-bottom: 16px;
+    margin-left: 21px;
+  }
+  .otherLink2 a.box-test{
+    padding: 10px;
+    color: black;
+    position: relative;
+    border-radius: 9px;
+    background: white;
+    padding-right: 0.0em !important;
+    padding-left: 0.0em !important;
+  }
+} 
+
+.py-11{
+  padding-bottom: 1rem !important;
+  padding-top: 1rem !important;
+}
 @-ms-viewport {
   width: device-width;
 }
@@ -435,6 +771,47 @@ small,
 .small {
   font-size: 80%;
   font-weight: 400;
+}
+
+.otherLink2 button.btn-type{
+  font-size: 13px;
+  border-radius: 4px;
+  padding-bottom: 10px;
+  background: #2e8286;
+  font-weight: 900;
+  color: white;
+  padding-left: 28px;
+  padding-right: 28px;
+  padding-top: 10px;
+}
+
+.otherLink2 button.btn-type:hover
+{
+  border-radius: 4px;
+  background: #5babaf
+}
+
+.otherLink2 a.box-test{
+  padding: 10px;
+  color: black;
+  position: relative;
+  border-radius: 9px;
+  background: white;
+  padding-right: 0.4em;
+  padding-left: 0.4em;
+}
+
+.box-test:before{
+  content: '';
+  width: 13px;
+  height: 13px;
+  background: white;
+  position: absolute;
+  top: -6px;
+  left: 71%;
+  transform: translateX(-50%) rotate(45deg);
+  border-left: 2px solid white;
+  border-top: 2px solid white;
 }
 
 mark,
@@ -3843,6 +4220,10 @@ tbody.collapse.show {
   border-radius: 0 0.25rem 0.25rem 0;
 }
 
+.newDiv{
+  padding-top: 6px;
+}
+
 .nav {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -6382,6 +6763,11 @@ button.bg-dark:focus {
     display: -ms-flexbox !important;
     display: flex !important;
   }
+
+  .displayType{
+    display: grid !important;
+  }
+
   .d-md-inline-flex {
     display: -webkit-inline-box !important;
     display: -ms-inline-flexbox !important;
@@ -7515,6 +7901,10 @@ button.bg-dark:focus {
   margin-top: 1.5rem !important;
 }
 
+.nxt{
+  margin-left: 1.8em;
+}
+
 .mr-4,
 .mx-4 {
   margin-right: 1.5rem !important;
@@ -7680,7 +8070,7 @@ button.bg-dark:focus {
 
 .pt-5,
 .py-5 {
-  padding-top: 5rem !important;
+  padding-top: 3rem !important;
 }
 
 .pr-5,
@@ -9171,6 +9561,13 @@ a.login-button-2 {
   background: rgba(0, 0, 0, 0.4);
 }
 
+.main-top-home {
+  position: absolute;
+  z-index: 999;
+  width: 100%;
+  height: 10%;
+  background: rgba(0, 0, 0, 0.4);
+}
 /* navigation */
 /* CSS Document */
 .toggle-2,
@@ -9198,6 +9595,13 @@ nav {
 
 span.logo-sp {
   font-weight: 100;
+  color: white;
+}
+
+span.logo-sp2 {
+  font-weight: 100;
+  margin-left: 20px;
+  background: #1e7e34;
 }
 
 /* //logo */
@@ -9236,7 +9640,7 @@ nav a {
   letter-spacing: 2px;
   font-weight: 700;
   text-transform: uppercase;
-  display: inline-block;
+  /* display: inline-block; */
   transition: 0.5s all;
   -webkit-transition: 0.5s all;
   -moz-transition: 0.5s all;
@@ -9264,6 +9668,22 @@ nav ul li ul li:hover {
   -moz-transition: 0.5s all;
   -o-transition: 0.5s all;
   -ms-transition: 0.5s all;
+}
+
+.menu li a.activeBefore {
+  color: #9beafd;
+  transition: 0.5s all;
+  -webkit-transition: 0.5s all;
+  -moz-transition: 0.5s all;
+  -o-transition: 0.5s all;
+  -ms-transition: 0.5s all;
+  padding-right: 3.9em;
+}
+
+.menu li a.contUs {
+  padding-left: 1em;
+  color: white;
+  cursor: pointer;
 }
 
 /* Hide Dropdowns by Default
@@ -9803,7 +10223,9 @@ a.some-small-btn {
 
 a.some-small-btn:hover {
 }
-
+.subText{
+  margin-top: 180px;
+}
 /* //banner bottom */
 
 /* blog */
@@ -10431,8 +10853,6 @@ form.login-wrapper {
 }
 
 .login button:hover {
-  /*letter-spacing:3px;*/
-  /*transition: 0.5s all;*/
   background: #a5cfd8;
   -webkit-transition: 0.5s all;
   -moz-transition: 0.5s all;

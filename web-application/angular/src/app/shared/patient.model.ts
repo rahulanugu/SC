@@ -16,7 +16,9 @@ export class Patient {
     allergies: string;
     ec: string;
     ecPhone: string;
+    ecRelationship:string;
     password: string;
+    confirmPassword:string;
     anemia: boolean;
     asthma:boolean;
     arthritis: boolean;
@@ -46,7 +48,7 @@ export class Patient {
     bleedingDisorders: boolean;
     lungDisease: boolean;
     emphysema: boolean;
+    none: boolean;
     drink: string;
     smoke: string;
-
 }

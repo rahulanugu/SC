@@ -1,23 +1,42 @@
 import { Component, OnInit } from '@angular/core';
 import { DbService } from '../db.service';
+import { VerificationService } from '../shared/verification.service';
+import { ActivatedRoute } from '@angular/router';
 
-/**
- * Login form for all users
- * Will redirect to appropriate landing pages upon login
- */
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['../app.component.css']
 })
 export class LoginComponent implements OnInit {
+  token:object;
+
+  constructor(private patientService: VerificationService,
+    private activatedRoute: ActivatedRoute) { }
 
 
+    ngOnInit() {
+      this.activatedRoute.queryParams.subscribe(params=>{
+        this.token=params;
+        if(this.token){
+          this.onVerified();
+        }else{
+          console.log('no data');
+        }
+      })
+    }
 
-  constructor() { }
+    //verification using token and jwt
+    helperJWT(){
+      return localStorage.getItem('user-jwt');
+    }
 
+    onVerified(){
 
-  ngOnInit() {
-  }
-
+      // verification using token and jwt
+      const token = this.helperJWT();
+      this.patientService.postVerifiredToken(token).subscribe(()=>{
+        localStorage.removeItem('user-jwt');
+      });
+    }
 }

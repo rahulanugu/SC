@@ -17,6 +17,7 @@ var Patient = mongoose.model('Patient', {
     allergies: { type: String },
     ec: { type: String },
     ecPhone: { type: String },
+    ecRelationship: { type: String },
     password: { type: String },
     anemia: { type: Boolean },
     asthma:{ type: Boolean },
@@ -47,6 +48,7 @@ var Patient = mongoose.model('Patient', {
     bleedingDisorders: { type: Boolean },
     lungDisease: { type: Boolean },
     emphysema: { type: Boolean },
+    none: { type: Boolean },
     drink: { type: String },
     smoke: { type: String }
 }, 'patients');
