@@ -1,22 +1,120 @@
 /**
 * Contains styling for the home page banners
 */
+
+li.anim1 {
+  animation: mymove1 15s infinite;
+}
+
+li.anim2 {
+  animation: mymove2 15s infinite;
+}
+
+li.anim3 {
+  animation: mymove3 15s infinite;
+}
+
+/* .banner_slide_bottom:hover li{
+  animation-play-state: paused;
+} */
+
+@keyframes mymove1 {
+  0%   {
+    left: 0%;
+    opacity: 1;
+  }
+
+  15%{
+    left: 0%;
+    opacity: 1;
+  }
+
+  33% {
+    left: 100%;
+    opacity: 0;
+  }
+
+  81%{
+    left:-100%;
+    opacity:0
+  }
+
+  100%{
+    left:0%;
+    opacity: 1;
+  }
+}
+
+@keyframes mymove2 {
+  0%{
+    top: -400px;
+    left: -100%;
+    opacity:0;
+  }
+
+  15% {
+    top: -400px;
+    left: -100%;
+    opacity: 0;
+  }
+
+  33%{
+    top: -400px;
+    left: 0%;
+    opacity: 1;
+  }
+
+  48%{
+    top: -400px;
+    left: 0%;
+    opacity: 1;
+  }
+
+  66%{
+    top: -400px;
+    left: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes mymove3 {
+  0%{
+    left: -100%;
+    top:-800px;
+  }
+
+  48%{
+    left: -100%;
+    top:-800px;
+    opacity: 0;
+  }
+
+  66%{
+    left: 0%;
+    top:-800px;
+    opacity: 1;
+  }
+
+  81%{
+    left: 0%;
+    top:-800px;
+    opacity: 1;
+  }
+
+  100%{
+    left: 100%;
+    top:-800px;
+    opacity: 0;
+  }
+} 
+
 .csslider {
   text-align: left;
   position: relative;
   margin-bottom: 0px;
 }
-
 .csslider>input {
   display: none;
-}
-.w3l-footer h3 {
-  font-size: 24px;
-  letter-spacing: 1px;
-}
-p {
-  margin-top: 0;
-  margin-bottom: 1rem;
 }
 
 .csslider>input:nth-of-type(10):checked~ul li:first-of-type {
@@ -68,7 +166,7 @@ p {
   margin: 0 auto;
   padding: 0;
   overflow: hidden;
-  white-space: nowrap;
+  /* white-space: nowrap; */
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
@@ -82,7 +180,7 @@ p {
   margin: 0 auto;
   padding: 0;
   overflow: hidden;
-  white-space: nowrap;
+  /* white-space: nowrap; */
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   width: initial;

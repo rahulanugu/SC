@@ -3,7 +3,7 @@ import { LoginPatientService } from './shared/login-patient.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
+import { RouterModule, ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import {ReactiveFormsModule} from '@angular/forms';
 import { AppComponent } from './app.component';
@@ -17,19 +17,18 @@ import { HealthcareLoginComponent } from './healthcare-login/healthcare-login.co
 import { HealthcareRegisterComponent } from './healthcare-register/healthcare-register.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-import {TextMaskModule} from 'angular2-text-mask';
+import { TextMaskModule} from 'angular2-text-mask';
 import { RegisterComponent } from './register/register.component';
 import { DbService } from './db.service';
 import { PatientProfileComponent } from './patient-profile/patient-profile.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
-
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { TermsConditionsComponent } from './terms-conditions/terms-conditions.component';
 import { PatientStatisticsComponent } from './patient-profile/patient-statistics/patient-statistics.component';
 import { ContactUsFormComponent } from './contact-us-form/contact-us-form.component';
 import { CommonHeaderComponent } from './common-header/common-header.component';
-
-
+import { PatientRegistertwoComponent} from './patient-registertwo/patient-registertwo.component'
+import { PatientRegisterthreeComponent } from './patient-registerthree/patient-registerthree.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +49,9 @@ import { CommonHeaderComponent } from './common-header/common-header.component';
     TermsConditionsComponent,
     PatientStatisticsComponent,
     ContactUsFormComponent,
-    CommonHeaderComponent
+    CommonHeaderComponent,
+    PatientRegisterthreeComponent,
+    PatientRegistertwoComponent
 
   ],
   imports: [
@@ -65,7 +66,7 @@ import { CommonHeaderComponent } from './common-header/common-header.component';
   providers: [
     DbService,
     LoginPatientService,
-    PatientAuthGuard
+    PatientAuthGuard,
   ],
   bootstrap: [AppComponent]
 })

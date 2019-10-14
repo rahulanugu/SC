@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+  <title>Be Clinic Medical Category Bootstrap Responsive Website Template | Login :: W3layouts</title>
+  <!-- Meta tag Keywords -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="keywords" content="Be Clinic Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+  Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+  <script>
+    addEventListener("load", function () {
+      setTimeout(hideURLbar, 0);
+    }, false);
+
+    function hideURLbar() {
+      window.scrollTo(0, 1);
+    }
+  </script>
+
+  <!-- Web-Fonts -->
+  <link href="//fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+  <link href="//fonts.googleapis.com/css?family=Mukta:200,300,400,500,600,700,800&amp;subset=devanagari,latin-ext" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
+
+  <!-- //Web-Fonts -->
+</head>
+
+<body>
+<!-- main -->
+<div id="home">
+  <!-- header -->
+  <div class="main-top"style="background: black">
+    <div class="container">
+      <div class="header d-md-flex justify-content-between align-items-center py-3">
+        <!-- logo -->
+        <div id="logo">
+          <h1>
+            <a href="/home">
+              <span class="fa fa-user-md mr-2"></span>
+              <span class="logo-sp">ScriptChain</span>
+
+            </a>
+          </h1>
+        </div>
+        <!-- //logo -->
+        <!-- nav -->
+        <div class="nav_w3ls">
+          <nav>
+            <label for="drop" class="toggle">Menu</label>
+            <input type="checkbox" id="drop" />
+            <ul class="menu">
+              <li><a routerLink="/home" class="active">Home</a></li>
+              <li><a routerLink="/contact"  class="mx-lg-4 mx-md-3 my-md-0 my-2">Request Demo</a></li>
+              <li><a (click)="triggerScrollTo()" class='contUs'>Contact Us</a></li>
+            </ul>
+          </nav>
+        </div>
+        <!-- //nav -->
+      </div>
+    </div>
+  </div>
+  <!-- //second header -->
+</div>
+<!-- //main -->
+
+<!-- patient register 3 ---->
+<section id="r3" class="login py-5">
+  <div class="container py-xl-5 py-lg-3">
+    <div class="login px-sm-4 mx-auto mw-100 login-wrapper" id="part3" >
+        <div id="registerComponent" class="title-section mb-md-5 mb-4">
+          <h3 class="w3ls-title text-uppercase text-dark font-weight-bold" style="padding-top: 50px">Register</h3>
+        </div>
+      <form class="login-wrapper" action="#" method="post"  #itemForm3="ngForm" style="position:absolute; top:30%; left:35%;" >
+        <!--------Questionare-------->
+
+        <div class="form-group">
+          <label>Allergies? If yes, list below (enter comma for new allergies)</label>
+          <input type="text" class="form-control" name="allergies" #allergies="ngModel" required [(ngModel)]="patientService.selectedPatient.allergies">
+        </div>
+
+        <div class="form-group">
+          <label>Have you ever had (please check all that apply)</label>
+          <br/><span><input type="checkbox" required  [disabled] = 'disableMe' id = 'anemia'              (click)="addDisease(anemia.name)" name="anemia" #anemia= ngModel [(ngModel)]="patientService.selectedPatient.anemia" > Anemia </span>
+          <br/><span><input type="checkbox" required  [disabled] = 'disableMe' id = 'arthritis'           (click)="addDisease(arthritis.name)" #arthritis= ngModel name="arthritis" [(ngModel)]="patientService.selectedPatient.arthritis"> Arthritis </span>
+          <br/><span><input type="checkbox" required  [disabled] = 'disableMe' id = 'asthma'              (click)="addDisease(asthma.name)" #asthma= ngModel name="asthma" [(ngModel)]="patientService.selectedPatient.asthma"> Asthma </span>
+          <br/><span><input type="checkbox" required  [disabled] = 'disableMe' id = 'cancer'              (click)="addDisease(cancer.name)" #cancer= ngModel name="cancer" [(ngModel)]="patientService.selectedPatient.cancer"> Cancer </span>
+          <br/><span><input type="checkbox" required  [disabled] = 'disableMe' id = 'gout'                (click)="addDisease(gout.name)" #gout= ngModel name="gout" [(ngModel)]="patientService.selectedPatient.gout"> Gout </span>
+          <br/><span><input type="checkbox" required  [disabled] = 'disableMe' id = 'Diabetes'            (click)="addDisease(Diabetes.name)" #Diabetes= ngModel name="Diabetes" [(ngModel)]="patientService.selectedPatient.diabetes"> Diabetes </span>
+          <br/><span><input type="checkbox" required  [disabled] = 'disableMe' id = 'emotionalDisorder'   (click)="addDisease(emotionalDisorder.name)" #emotionalDisorder= ngModel name="emotionalDisorder" [(ngModel)]="patientService.selectedPatient.emotionalDisorder"> Emotional Disorder </span>
+          <br/><span><input type="checkbox" required  [disabled] = 'disableMe' id = 'Epilepsy'            (click)="addDisease(Epilepsy.name)" #Epilepsy= ngModel name="Epilepsy" [(ngModel)]="patientService.selectedPatient.epilepsy"> Epilepsy Seizers </span>
+          <br/><span><input type="checkbox" required  [disabled] = 'disableMe' id = 'fainting'            (click)="addDisease(fainting.name)" #fainting= ngModel name="fainting" [(ngModel)]="patientService.selectedPatient.fainting"> Fainting Spells </span>
+          <br/><span><input type="checkbox" required  [disabled] = 'disableMe' id = 'gallstones'          (click)="addDisease(gallstones.name)" #gallstones= ngModel name="gallstones" [(ngModel)]="patientService.selectedPatient.gallstones"> Gallstones </span>
+          <br/><span><input type="checkbox" required  [disabled] = 'disableMe' id = 'heartDisease'        (click)="addDisease(heartDisease.name)" #heartDisease= ngModel name="heartDisease" [(ngModel)]="patientService.selectedPatient.heartDisease"> Heart Disease </span>
+          <br/><span><input type="checkbox" required  [disabled] = 'disableMe' id = 'heartAttack'         (click)="addDisease(heartAttack.name)" #heartAttack= ngModel name="heartAttack" [(ngModel)]="patientService.selectedPatient.heartAttack"> Heart Attack </span>
+          <br/><span><input type="checkbox" required  [disabled] = 'disableMe' id = 'rheumaticFever'      (click)="addDisease(rheumaticFever.name)" #rheumaticFever= ngModel name="rheumaticFever" [(ngModel)]="patientService.selectedPatient.rheumaticFever"> Rheumatic Fever </span>
+          <br/><span><input type="checkbox" required  [disabled] = 'disableMe' id = 'highBP'              (click)="addDisease(highBP.name)" #highBP= ngModel name="highBP" [(ngModel)]="patientService.selectedPatient.highBP"> High Blood Pressure </span>
+          <br/><span><input type="checkbox" required  [disabled] = 'disableMe' id = 'digestiveProblems'   (click)="addDisease(digestiveProblems.name)" #digestiveProblems= ngModel name="digestiveProblems" [(ngModel)]="patientService.selectedPatient.digestiveProblems"> Digestive Problems </span>
+          <br/><span><input type="checkbox" required  [disabled] = 'disableMe' id = 'ulcerative'          (click)="addDisease(ulcerative.name)" #ulcerative= ngModel name="ulcerative" [(ngModel)]="patientService.selectedPatient.ulcerative"> Ulcerative Colitis </span>
+          <br/><span><input type="checkbox" required  [disabled] = 'disableMe' id = 'ulcerDisease'        (click)="addDisease(ulcerDisease.name)" #ulcerDisease= ngModel name="ulcerDisease" [(ngModel)]="patientService.selectedPatient.ulcerDisease"> Ulcer Disease </span>
+          <br/><span><input type="checkbox" required  [disabled] = 'disableMe' id = 'hepatitis'           (click)="addDisease(hepatitis.name)" #hepatitis= ngModel name="hepatitis" [(ngModel)]="patientService.selectedPatient.hepatitis"> Hepatitis </span>
+          <br/><span><input type="checkbox" required  [disabled] = 'disableMe' id = 'kidneyDisease'       (click)="addDisease(kidneyDisease.name)" #kidneyDisease= ngModel name="kidneyDisease" [(ngModel)]="patientService.selectedPatient.kidneyDisease"> Kidney Disease </span>
+          <br/><span><input type="checkbox" required  [disabled] = 'disableMe' id = 'liverDisease'        (click)="addDisease(liverDisease.name)" #liverDisease= ngModel name="liverDisease" [(ngModel)]="patientService.selectedPatient.liverDisease"> Liver Disease </span>
+          <br/><span><input type="checkbox" required  [disabled] = 'disableMe' id = 'sleepApnea'          (click)="addDisease(sleepApnea.name)" #sleepApnea= ngModel name="sleepApnea" [(ngModel)]="patientService.selectedPatient.sleepApnea"> Sleep Apnea </span>
+          <br/><span><input type="checkbox" required  [disabled] = 'disableMe' id = 'papMachine'          (click)="addDisease(papMachine.name)" #papMachine= ngModel name="papMachine" [(ngModel)]="patientService.selectedPatient.papMachine"> Use a C-PAP Machine </span>
+          <br/><span><input type="checkbox" required  [disabled] = 'disableMe' id = 'thyroid'             (click)="addDisease(thyroid.name)" #thyroid= ngModel name="thyroid" [(ngModel)]="patientService.selectedPatient.thyroid"> Thyroid Problems </span>
+          <br/><span><input type="checkbox" required  [disabled] = 'disableMe' id = 'tuberculosis'        (click)="addDisease(tuberculosis.name)" #tuberculosis= ngModel name="tuberculosis" [(ngModel)]="patientService.selectedPatient.tuberculosis"> Tuberculosis </span>
+          <br/><span><input type="checkbox" required  [disabled] = 'disableMe' id = 'venereal'            (click)="addDisease(venereal.name)" #venereal= ngModel name="venereal" [(ngModel)]="patientService.selectedPatient.venereal"> Venereal Disease </span>
+          <br/><span><input type="checkbox" required  [disabled] = 'disableMe' id = 'neurologicalDisorders' (click)="addDisease(neurologicalDisorders.name)" #neurologicalDisorders= ngModel name="neurologicalDisorders" [(ngModel)]="patientService.selectedPatient.neurologicalDisorders"> Neurological Disorders </span>
+          <br/><span><input type="checkbox" required  [disabled] = 'disableMe' id = 'bleedingDisorders'   (click)="addDisease(bleedingDisorders.name)" #bleedingDisorders= ngModel name="bleedingDisorders" [(ngModel)]="patientService.selectedPatient.bleedingDisorders"> Bleeding Disorders </span>
+          <br/><span><input type="checkbox" required  [disabled] = 'disableMe' id = 'lungDisease'         (click)="addDisease(lungDisease.name)" #lungDisease= ngModel name="lungDisease" [(ngModel)]="patientService.selectedPatient.lungDisease"> Lung Disease </span>
+          <br/><span><input type="checkbox" required  [disabled] = 'disableMe' id = 'emphysema'           (click)="addDisease(emphysema.name)" #emphysema= ngModel name="emphysema"  [(ngModel)]="patientService.selectedPatient.emphysema"> Emphysema </span>
+          <br/><span><input type="checkbox" required name="none" (click)="uncheckall(none.name)" id="uncheck" #none= ngModel  [(ngModel)]="patientService.selectedPatient.none"> None </span>
+          <br/> <small class = "text-danger" *ngIf='diseaseArrayLength'>Please check one of the box above</small>
+        </div>
+
+        <div class="form-group">
+          <label>Alcohol Consumption</label>
+          <br/><span><input type="radio" name="drink" value="noDrink" #name="ngModel" [(ngModel)]="patientService.selectedPatient.drink"> I don't drink </span>
+          <br/><span><input type="radio" name="drink" value="1-2drink" #name="ngModel"  [(ngModel)]="patientService.selectedPatient.drink"> 1-2 drinks/week </span>
+          <br/><span><input type="radio" name="drink" value="3-4drink" #name="ngModel" [(ngModel)]="patientService.selectedPatient.drink"> 3-4 drinks/week </span>
+          <br/><span><input type="radio" name="drink" value="4+drink" #name="ngModel" [(ngModel)]="patientService.selectedPatient.drink"> 4+ drinks/week </span>
+          <br/> <small class = "text-danger" *ngIf='enteredDrinkAmount'>Please check one of the box above</small>
+        </div>
+
+        <div class="form-group">
+          <label>Do you smoke?</label>
+          <br/><span><input type="radio" name="smoke" value="noSmoke" #name="ngModel" [(ngModel)]="patientService.selectedPatient.smoke"> No </span>
+          <br/><span><input type="radio" name="smoke" value="0-1smoke" #name="ngModel" [(ngModel)]="patientService.selectedPatient.smoke"> 0-1 pack/day </span>
+          <br/><span><input type="radio" name="smoke" value="1-2smoke" #name="ngModel" [(ngModel)]="patientService.selectedPatient.smoke"> 1-2 pack/day </span>
+          <br/><span><input type="radio" name="smoke" value="2+smoke" #name="ngModel" [(ngModel)]="patientService.selectedPatient.smoke"> 2+ pack/day </span>
+          <br/> <small class = "text-danger" *ngIf='enteredSmokeAmount'>Please check one of the box above</small>
+        </div>
+
+        <div id = 'outer'>
+          <button type="submit" class="submitBtn" (click)="goBackAgain()">Back</button>
+          <button type="submit" class="nextBtn" (click)="preCheckBeforeSubmit()">Submit</button>
+          <br/><p class="step">Step 3/3</p>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</section>
+
+<!----- patient register 3 ---->
+
+<div class = "footerRegistrationThree">
+  <app-footer></app-footer>
+</div>
+
+<a href="#home" class="move-top text-center"></a>
+
+</body>
+
+</html>
+
+

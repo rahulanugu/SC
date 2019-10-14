@@ -6,6 +6,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpClient} from '@angular/common/http';
 import { PatientComponent } from './patient.component';
+import { BrowserModule } from '@angular/platform-browser';
 
 describe('PatientComponent', () => {
   let component: PatientComponent;

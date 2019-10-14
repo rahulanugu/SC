@@ -1,31 +1,31 @@
-import { FooterComponent } from './../footer/footer.component';
-import { CommonHeaderComponent } from './../common-header/common-header.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterModule } from '@angular/router';
-import { LoginComponent } from './login.component';
-import { CommonHeaderComponent} from '../common-header/common-header.component';
+import { PatientRegisterthreeComponent } from './patient-registerthree.component';
+import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 import { FooterComponent} from '../footer/footer.component'
-describe('LoginComponent', () => {
-  let component: LoginComponent;
-  let fixture: ComponentFixture<LoginComponent>;
+describe('PatientRegisterthreeComponent', () => {
+  let component: PatientRegisterthreeComponent;
+  let fixture: ComponentFixture<PatientRegisterthreeComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LoginComponent,CommonHeaderComponent,FooterComponent ],      
-      imports: [
+      declarations: [ PatientRegisterthreeComponent,FooterComponent ],
+      imports:[
+        FormsModule,
+        BrowserModule,
         HttpClientModule,
         HttpClientTestingModule,
         RouterModule.forRoot([]),
       ]
-
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LoginComponent);
+    fixture = TestBed.createComponent(PatientRegisterthreeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

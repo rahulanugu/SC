@@ -7,7 +7,6 @@ import { RouterModule, Routes } from '@angular/router';
 
 /* Componets to create routes for */
 import {HomeComponent} from './home/home.component';
-
 import {LoginComponent} from './login/login.component';
 import {RequestAccessComponent} from './request-access/request-access.component';
 import {PatientComponent} from './patient-login/patient.component';
@@ -17,6 +16,10 @@ import {HealthcareRegisterComponent} from './healthcare-register/healthcare-regi
 import {RegisterComponent} from './register/register.component';
 import { PatientProfileComponent } from './patient-profile/patient-profile.component';
 import { PatientAuthGuard } from './patient-auth.guard';
+import { PatientRegisterthreeComponent } from './patient-registerthree/patient-registerthree.component';
+import { PatientRegistertwoComponent } from './patient-registertwo/patient-registertwo.component';
+import { RegisterSuccessfulPageComponent } from './register-successful-page/register-successful-page.component';
+
 
 
 const routes: Routes = [
@@ -29,8 +32,10 @@ const routes: Routes = [
   { path: 'healthcare/login', component: HealthcareLoginComponent},
   { path: 'healthcare/register', component: HealthcareRegisterComponent},
   { path: 'register', component:RegisterComponent},
+  { path: 'patient/registerTwo', component: PatientRegistertwoComponent},
+  { path: 'patient/registerThree', component: PatientRegisterthreeComponent},
   { path: 'patient-profile', component:PatientProfileComponent, canActivate: [PatientAuthGuard] },
-  {path:'contact-us', component: ContactUsComponent},
+  { path:'contact-us', component: ContactUsComponent},
   { path:'home/privacy-policy', component: PrivacyPolicyComponent},
   { path: 'home/terms-conditions', component: TermsConditionsComponent},
   { path: '', redirectTo: '/home', pathMatch: 'full' }
