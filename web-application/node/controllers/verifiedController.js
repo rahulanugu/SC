@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const ObjectId = require('mongoose').Types.ObjectId;
 const jwt = require('jsonwebtoken');
 const { Patient } = require('../models/user');
-const { Subscriber } = require('../models/subscriber');
+const { VerifiedUser } = require('../models/verifiedUser');
 
 // using jwt and token
 // const passportJWT = require('passport-jwt');
@@ -38,7 +38,7 @@ const { Subscriber } = require('../models/subscriber');
 router.post('/',async(req, res) => {
     const str = req.body;
     
-    const checkCurrentSubscriber = await Subscriber.findOne({email: str.tokeBody.email})
+    const checkCurrentSubscriber = await VerifiedUser.findOne({email: str.tokeBody.email})
 
     if (checkCurrentSubscriber){
         return res.status(400).send('Subscriber already exists')
@@ -98,13 +98,16 @@ router.post('/',async(req, res) => {
         smoke: str.tokeBody.smoke
     });
 
-    const subscriber= new Subscriber({
+    const verifieduser= new VerifiedUser({
         fname: str.tokeBody.fname,
         lname: str.tokeBody.lname,
         email: str.tokeBody.email,
     })
 
-    subscriber.save((err,doc)=>{
+    verifieduser.save((err,doc)=>{
+        if(err){
+            console.log(err)
+        }
         // if(!err){
         //     res.send(doc);
         // }else{

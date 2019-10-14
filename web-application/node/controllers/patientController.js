@@ -12,7 +12,7 @@ const ObjectId = require('mongoose').Types.ObjectId;
 const hbs = require('nodemailer-express-handlebars');
 const jwt = require('jsonwebtoken');
 const { Patient } = require('../models/user');
-const { Subscriber } = require('../models/subscriber');
+const { VerifiedUser } = require('../models/verifiedUser');
 const { TokenSchema} = require('../models/tokeSchema');
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
@@ -65,7 +65,7 @@ router.post('/:verify',async(req,res)=>{
     console.log('/:verify',req.body.user)
     const userGiven = req.body;
     console.log(userGiven.user)
-    const checkCurrentSubscriber = await Subscriber.findOne({email: userGiven.user})
+    const checkCurrentSubscriber = await VerifiedUser.findOne({email: userGiven.user})
 
     if (checkCurrentSubscriber){
         return res.json('Subscriber already exists')
@@ -80,7 +80,7 @@ router.post('/',async(req,res)=>{
 
     const tokeBody = req.body;
     // check if email already exist
-    const checkCurrentSubscriber = await Subscriber.findOne({email: req.body.email})
+    const checkCurrentSubscriber = await VerifiedUser.findOne({email: req.body.email})
 
     if (checkCurrentSubscriber){
         return res.status(400).send('Subscriber already exists')
@@ -191,7 +191,7 @@ const sendVerificationMail = (email,fname,idToken)=>{
           <h1 align="center"style="font-family: arial;">YOU'RE ALMOST DONE REGISTERING!</h1>
           <p class="para">Hi `+fname+`,</p>
           <p class="para">Welcome to ScriptChain! We are glad that you have registered, there is just one more step to verify your account. <b>Please click the link below to verify your email address.</b></p>
-        <p align="center"><a href="http://localhost:4200/login?${tk=idToken}"><button>Verify Your E-mail Address</button></a></p><br><br>
+        <p align="center"><a href="http://localhost:4200/patient/login"><button>Verify Your E-mail Address</button></a></p><br><br>
         <p align="center" class="para">If you have any questions or concerns feel free to reach out to <a href="mailto:Moh@scriptchain.co">Moh@scriptchain.co</a></p>
           <div class="panelFooter">
             <p align="center" >This message was sent from ScriptChain LLC., Boston, MA</p>

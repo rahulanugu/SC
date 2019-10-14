@@ -19,7 +19,6 @@ describe('LoginComponent', () => {
         HttpClientTestingModule,
         RouterModule.forRoot([]),
       ]
-
     })
     .compileComponents();
   }));
