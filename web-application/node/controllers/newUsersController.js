@@ -115,7 +115,7 @@ router.post('/', async (req, res)=>{
               </div>
               <h1 align="center">We're thrilled to hear from you!</h1>
               <p class="para">Hi `+fname+`,</p>
-              <p class="para">We have received your submission and someone from the ScriptChain team will be in contact with you shortly. Stay tuned.</p>
+              <p class="para">We have received your submission to request access for ScriptChain platform and someone from the team will keep you updated once we get closer to launch. Thank you!</p>
          <br><br>
              <div class="panelFooter">
                 <p align="center" >This message was sent from ScriptChain LLC., Boston, MA</p>
