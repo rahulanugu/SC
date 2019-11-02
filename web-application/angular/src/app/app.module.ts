@@ -30,6 +30,7 @@ import { CommonHeaderComponent } from './common-header/common-header.component';
 import { PatientRegistertwoComponent} from './patient-registertwo/patient-registertwo.component'
 import { PatientRegisterthreeComponent } from './patient-registerthree/patient-registerthree.component';
 import { RegisterSuccessfulPageComponent} from './register-successful-page/register-successful-page.component';
+import { PatientNavbarComponent } from './patient-profile/patient-navbar/patient-navbar.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,7 +53,8 @@ import { RegisterSuccessfulPageComponent} from './register-successful-page/regis
     CommonHeaderComponent,
     PatientRegisterthreeComponent,
     PatientRegistertwoComponent,
-    RegisterSuccessfulPageComponent
+    RegisterSuccessfulPageComponent,
+    PatientNavbarComponent
   ],
 
   imports: [

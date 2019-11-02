@@ -1,45 +1,43 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { PatientService } from '../shared/patient.service';
-import { NgForm, FormArray, FormControl } from '@angular/forms';
-import { formatNumber } from '@angular/common';
-import { error } from 'util';
-import { RouterLink } from '@angular/router';
-import { store } from '@angular/core/src/render3';
+import { PatientService } from "../shared/patient.service";
+import { NgForm, FormArray, FormControl } from "@angular/forms";
+import { formatNumber } from "@angular/common";
+import { error } from "util";
+import { RouterLink } from "@angular/router";
+import { store } from "@angular/core/src/render3";
 
 @Component({
-  selector: 'app-patient-registerthree',
-  templateUrl: './patient-registerthree.component.html',
-  styleUrls: ['./../app.component.css']
+  selector: "app-patient-registerthree",
+  templateUrl: "./patient-registerthree.component.html",
+  styleUrls: ["./../app.component.css"]
 })
-
 export class PatientRegisterthreeComponent implements OnInit {
   enteredDrinkAmount: boolean;
   diseaseArrayLength: boolean;
   enteredSmokeAmount: boolean;
   disableMe: boolean = false;
-  diseaseArray: Array<string> =[];
+  diseaseArray: Array<string> = [];
 
-  constructor(private patientService: PatientService,private router: Router) {
-   }
+  constructor(public patientService: PatientService, private router: Router) {}
   ngOnInit() {
     this.showThird();
-    let stored = JSON.parse(localStorage.getItem("Patient-info"))
-    let pageType = JSON.parse(localStorage.getItem('pageType'))
+    let stored = JSON.parse(localStorage.getItem("Patient-info"));
+    let pageType = JSON.parse(localStorage.getItem("pageType"));
 
-    if(!stored){
+    if (!stored) {
       this.firstPage();
-    }else if(!pageType){
+    } else if (!pageType) {
       this.secondPage();
-    }else{
-      console.log('entered');
-      
+    } else {
+      console.log("entered");
+
       this.patientService.selectedPatient = {
         _id: stored._id,
         fname: stored.fname,
         lname: stored.lname,
-        email:stored.email,
-        street:stored.street,
+        email: stored.email,
+        street: stored.street,
         city: stored.city,
         state: stored.state,
         zip: stored.zip,
@@ -54,9 +52,9 @@ export class PatientRegisterthreeComponent implements OnInit {
         ecRelationship: stored.ecRelationship,
         ecPhone: stored.ecPhone,
         password: stored.password,
-        confirmPassword:stored.confirmPassword,
+        confirmPassword: stored.confirmPassword,
         anemia: stored.anemia,
-        asthma:stored.asthma,
+        asthma: stored.asthma,
         arthritis: stored.arthritis,
         cancer: stored.cancer,
         gout: stored.gout,
@@ -86,44 +84,46 @@ export class PatientRegisterthreeComponent implements OnInit {
         emphysema: stored.emphysema,
         none: stored.none,
         drink: stored.drink,
-        smoke: stored.smoke,
-      }
+        smoke: stored.smoke
+      };
     }
   }
 
-  addDisease(diseaseName:string){
-
+  addDisease(diseaseName: string) {
     let checkType = document.getElementById(`${diseaseName}`);
-    if(this.diseaseArray.includes(diseaseName)){
+    if (this.diseaseArray.includes(diseaseName)) {
       let indexOfDisease = this.diseaseArray.indexOf(diseaseName);
-      
-      this.diseaseArray.splice(indexOfDisease,1);
-    }else if(!this.diseaseArray.includes(diseaseName) || checkType.getAttribute("ng-reflect-model") == 'true'){
+
+      this.diseaseArray.splice(indexOfDisease, 1);
+    } else if (
+      !this.diseaseArray.includes(diseaseName) ||
+      checkType.getAttribute("ng-reflect-model") == "true"
+    ) {
       this.diseaseArray.push(diseaseName);
-    } 
+    }
   }
 
   myFunction() {
-    window.scrollBy(-5000,-5000);
+    window.scrollBy(-5000, -5000);
   }
 
-  uncheckall(name:string){
-    let checkType = document.getElementById('uncheck');
-    let stored = JSON.parse(localStorage.getItem("Patient-info"))
-    this.diseaseArray.splice(0,this.diseaseArray.length);
+  uncheckall(name: string) {
+    let checkType = document.getElementById("uncheck");
+    let stored = JSON.parse(localStorage.getItem("Patient-info"));
+    this.diseaseArray.splice(0, this.diseaseArray.length);
 
-    if(checkType.getAttribute("ng-reflect-model") == 'false'){
-      this.diseaseArray.push(name)
-    }else{
-      this.diseaseArray.pop()
+    if (checkType.getAttribute("ng-reflect-model") == "false") {
+      this.diseaseArray.push(name);
+    } else {
+      this.diseaseArray.pop();
     }
 
-    if(checkType.getAttribute("ng-reflect-model") == 'false'){
-      this.patientService.selectedPatient= {
+    if (checkType.getAttribute("ng-reflect-model") == "false") {
+      this.patientService.selectedPatient = {
         _id: stored._id,
         fname: stored.fname,
         lname: stored.lname,
-        email:  stored.email,
+        email: stored.email,
         street: stored.street,
         city: stored.city,
         state: stored.state,
@@ -132,12 +132,12 @@ export class PatientRegisterthreeComponent implements OnInit {
         address: stored.address,
         phone: stored.phone,
         password: stored.password,
-        confirmPassword:stored.confirmPassword,
+        confirmPassword: stored.confirmPassword,
         birthday: stored.birthday,
         sex: stored.sex,
         ssn: stored.ssn,
         ec: stored.ec,
-        ecRelationship:stored.ecRelationship,
+        ecRelationship: stored.ecRelationship,
         ecPhone: stored.ecPhone,
         allergies: stored.allergies,
         anemia: false,
@@ -172,45 +172,49 @@ export class PatientRegisterthreeComponent implements OnInit {
         none: this.patientService.selectedPatient.none,
         drink: this.patientService.selectedPatient.drink,
         smoke: this.patientService.selectedPatient.smoke
-      }
+      };
       this.disableMe = true;
-    }else{
+    } else {
       this.disableMe = false;
     }
   }
 
-  preCheckBeforeSubmit(){
-    let stored = JSON.parse(localStorage.getItem("Patient-info"))
+  preCheckBeforeSubmit() {
+    let stored = JSON.parse(localStorage.getItem("Patient-info"));
 
-    if(this.patientService.selectedPatient.drink.length==0 && this.patientService.selectedPatient.smoke.length == 0 && this.diseaseArray.length == 0){
+    if (
+      this.patientService.selectedPatient.drink.length == 0 &&
+      this.patientService.selectedPatient.smoke.length == 0 &&
+      this.diseaseArray.length == 0
+    ) {
       this.enteredDrinkAmount = true;
       this.enteredSmokeAmount = true;
       this.diseaseArrayLength = true;
       this.showThird();
-    }else if(this.diseaseArray.length == 0){
+    } else if (this.diseaseArray.length == 0) {
       this.enteredDrinkAmount = false;
       this.enteredSmokeAmount = false;
       this.diseaseArrayLength = true;
       this.showThird();
-    }else if(this.patientService.selectedPatient.drink.length==0){
+    } else if (this.patientService.selectedPatient.drink.length == 0) {
       this.enteredSmokeAmount = false;
       this.enteredDrinkAmount = true;
       this.diseaseArrayLength = false;
       this.showThird();
-    }else if(this.patientService.selectedPatient.smoke.length == 0){
+    } else if (this.patientService.selectedPatient.smoke.length == 0) {
       this.enteredSmokeAmount = true;
       this.enteredDrinkAmount = false;
       this.diseaseArrayLength = false;
       this.showThird();
-    }else{
+    } else {
       this.enteredSmokeAmount = false;
       this.enteredDrinkAmount = false;
       this.diseaseArrayLength = false;
-      
+
       let PatientInfo = {
         fname: stored.fname,
         lname: stored.lname,
-        email:  stored.email,
+        email: stored.email,
         street: stored.street,
         city: stored.city,
         state: stored.state,
@@ -223,16 +227,17 @@ export class PatientRegisterthreeComponent implements OnInit {
         sex: stored.sex,
         ssn: stored.ssn,
         ec: stored.ec,
-        ecRelationship:stored.ecRelationship,
+        ecRelationship: stored.ecRelationship,
         ecPhone: stored.ecPhone,
         allergies: this.patientService.selectedPatient.allergies,
         anemia: this.patientService.selectedPatient.anemia,
-        asthma:this.patientService.selectedPatient.asthma,
+        asthma: this.patientService.selectedPatient.asthma,
         arthritis: this.patientService.selectedPatient.arthritis,
         cancer: this.patientService.selectedPatient.cancer,
         gout: this.patientService.selectedPatient.gout,
         diabetes: this.patientService.selectedPatient.diabetes,
-        emotionalDisorder: this.patientService.selectedPatient.emotionalDisorder,
+        emotionalDisorder: this.patientService.selectedPatient
+          .emotionalDisorder,
         epilepsy: this.patientService.selectedPatient.epilepsy,
         fainting: this.patientService.selectedPatient.fainting,
         gallstones: this.patientService.selectedPatient.gallstones,
@@ -240,7 +245,8 @@ export class PatientRegisterthreeComponent implements OnInit {
         heartAttack: this.patientService.selectedPatient.heartAttack,
         rheumaticFever: this.patientService.selectedPatient.rheumaticFever,
         highBP: this.patientService.selectedPatient.highBP,
-        digestiveProblems: this.patientService.selectedPatient.digestiveProblems,
+        digestiveProblems: this.patientService.selectedPatient
+          .digestiveProblems,
         ulcerative: this.patientService.selectedPatient.ulcerative,
         ulcerDisease: this.patientService.selectedPatient.ulcerDisease,
         hepatitis: this.patientService.selectedPatient.hepatitis,
@@ -251,32 +257,34 @@ export class PatientRegisterthreeComponent implements OnInit {
         thyroid: this.patientService.selectedPatient.thyroid,
         tuberculosis: this.patientService.selectedPatient.tuberculosis,
         venereal: this.patientService.selectedPatient.venereal,
-        neurologicalDisorders: this.patientService.selectedPatient.neurologicalDisorders,
-        bleedingDisorders: this.patientService.selectedPatient.bleedingDisorders,
+        neurologicalDisorders: this.patientService.selectedPatient
+          .neurologicalDisorders,
+        bleedingDisorders: this.patientService.selectedPatient
+          .bleedingDisorders,
         lungDisease: this.patientService.selectedPatient.lungDisease,
         emphysema: this.patientService.selectedPatient.emphysema,
         none: this.patientService.selectedPatient.none,
         drink: this.patientService.selectedPatient.drink,
-        smoke: this.patientService.selectedPatient.smoke,
-      }
+        smoke: this.patientService.selectedPatient.smoke
+      };
 
-      var myJSON = JSON.stringify(PatientInfo)
+      var myJSON = JSON.stringify(PatientInfo);
 
-      localStorage.setItem('Patient-info',myJSON);
+      localStorage.setItem("Patient-info", myJSON);
 
       this.onSubmit3();
     }
   }
 
-  goBackAgain(){
-    console.log('go back again');
-    this.myFunction(); 
-    let stored = JSON.parse(localStorage.getItem("Patient-info"))
+  goBackAgain() {
+    console.log("go back again");
+    this.myFunction();
+    let stored = JSON.parse(localStorage.getItem("Patient-info"));
 
     let PatientInfo = {
       fname: stored.fname,
       lname: stored.lname,
-      email:  stored.email,
+      email: stored.email,
       street: stored.street,
       city: stored.city,
       state: stored.state,
@@ -285,16 +293,16 @@ export class PatientRegisterthreeComponent implements OnInit {
       address: stored.address,
       phone: stored.phone,
       password: stored.password,
-      confirmPassword:stored.confirmPassword,
+      confirmPassword: stored.confirmPassword,
       birthday: stored.birthday,
       sex: stored.sex,
       ssn: stored.ssn,
       ec: stored.ec,
       ecPhone: stored.ecPhone,
-      ecRelationship:stored.ecRelationship,
+      ecRelationship: stored.ecRelationship,
       allergies: this.patientService.selectedPatient.allergies,
       anemia: this.patientService.selectedPatient.anemia,
-      asthma:this.patientService.selectedPatient.asthma,
+      asthma: this.patientService.selectedPatient.asthma,
       arthritis: this.patientService.selectedPatient.arthritis,
       cancer: this.patientService.selectedPatient.cancer,
       gout: this.patientService.selectedPatient.gout,
@@ -318,54 +326,52 @@ export class PatientRegisterthreeComponent implements OnInit {
       thyroid: this.patientService.selectedPatient.thyroid,
       tuberculosis: this.patientService.selectedPatient.tuberculosis,
       venereal: this.patientService.selectedPatient.venereal,
-      neurologicalDisorders: this.patientService.selectedPatient.neurologicalDisorders,
+      neurologicalDisorders: this.patientService.selectedPatient
+        .neurologicalDisorders,
       bleedingDisorders: this.patientService.selectedPatient.bleedingDisorders,
       lungDisease: this.patientService.selectedPatient.lungDisease,
       emphysema: this.patientService.selectedPatient.emphysema,
       none: this.patientService.selectedPatient.none,
       drink: this.patientService.selectedPatient.drink,
-      smoke: this.patientService.selectedPatient.smoke,
-    }
+      smoke: this.patientService.selectedPatient.smoke
+    };
 
-    var myJSON = JSON.stringify(PatientInfo)
+    var myJSON = JSON.stringify(PatientInfo);
 
-    localStorage.setItem('Patient-info',myJSON);
+    localStorage.setItem("Patient-info", myJSON);
 
-    this.router.navigate(['patient/registerTwo']);
+    this.router.navigate(["patient/registerTwo"]);
   }
 
-  firstPage(){
-    this.router.navigate(['patient/register']);
+  firstPage() {
+    this.router.navigate(["patient/register"]);
   }
 
-  secondPage(){
-    this.router.navigate(['patient/registerTwo']);
-  } 
-  
-  showThird(){
-    console.log('enter showThird');
+  secondPage() {
+    this.router.navigate(["patient/registerTwo"]);
+  }
+
+  showThird() {
+    console.log("enter showThird");
     this.myFunction();
-    document.getElementById("part3").style.visibility="visible";
-    document.getElementById("r3").style.display="block";
-
+    document.getElementById("part3").style.visibility = "visible";
+    document.getElementById("r3").style.display = "block";
   }
 
   // Create new patient in db
-  onSubmit3(){
-    document.getElementById("r3").style.display="none";
-    let stored = JSON.parse(localStorage.getItem("Patient-info"))
+  onSubmit3() {
+    document.getElementById("r3").style.display = "none";
+    let stored = JSON.parse(localStorage.getItem("Patient-info"));
 
-    this.patientService.postPatient(stored).subscribe((res) => {
+    this.patientService.postPatient(stored).subscribe(res => {
       console.log("patient saved successfully");
-      localStorage.removeItem('Patient-info');
-      localStorage.removeItem('pageType');
+      localStorage.removeItem("Patient-info");
+      localStorage.removeItem("pageType");
 
       // for verification using jwt and token
-      var myJSON = JSON.stringify(res)
-      localStorage.setItem('user-jwt',myJSON);
-      this.router.navigate(['registersuccessful']);
-
+      var myJSON = JSON.stringify(res);
+      localStorage.setItem("user-jwt", myJSON);
+      this.router.navigate(["registersuccessful"]);
     });
-
   }
 }
