@@ -1,87 +1,113 @@
 <!DOCTYPE html>
 <html lang="zxx">
+  <head>
+    <title>
+      Be Clinic Medical Category Bootstrap Responsive Website Template | Login
+      :: W3layouts
+    </title>
+    <!-- Meta tag Keywords -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8" />
+    <meta
+      name="keywords"
+      content="Be Clinic Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+  Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design"
+    />
+    <script>
+      addEventListener(
+        "load",
+        function() {
+          setTimeout(hideURLbar, 0);
+        },
+        false
+      );
 
-<head>
-  <title>Be Clinic Medical Category Bootstrap Responsive Website Template | Login :: W3layouts</title>
-  <!-- Meta tag Keywords -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta charset="UTF-8" />
-  <meta name="keywords" content="Be Clinic Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
-  Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
-  <script>
-    addEventListener("load", function () {
-      setTimeout(hideURLbar, 0);
-    }, false);
+      function hideURLbar() {
+        window.scrollTo(0, 1);
+      }
+    </script>
 
-    function hideURLbar() {
-      window.scrollTo(0, 1);
-    }
-  </script>
+    <!-- Web-Fonts -->
+    <link
+      href="//fonts.googleapis.com/css?family=Quicksand:300,400,500,700"
+      rel="stylesheet"
+    />
+    <link
+      href="//fonts.googleapis.com/css?family=Mukta:200,300,400,500,600,700,800&amp;subset=devanagari,latin-ext"
+      rel="stylesheet"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
 
-  <!-- Web-Fonts -->
-  <link href="//fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
-  <link href="//fonts.googleapis.com/css?family=Mukta:200,300,400,500,600,700,800&amp;subset=devanagari,latin-ext" rel="stylesheet">
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
+    <!-- //Web-Fonts -->
+  </head>
 
-  <!-- //Web-Fonts -->
-</head>
-
-<body>
-<!-- main -->
-<div id="home">
-  <!-- header -->
-  <div class="main-top"style="background: black">
-    <div class="container">
-      <div class="header d-md-flex justify-content-between align-items-center py-3">
-        <!-- logo -->
-        <div id="logo">
-          <h1>
-            <a href="/home">
-              <span class="fa fa-user-md mr-2"></span>
-              <span class="logo-sp">ScriptChain</span>
-
-            </a>
-          </h1>
+  <body>
+    <!-- main -->
+    <div id="home">
+      <!-- header -->
+      <div class="main-top" style="background: black">
+        <div class="container">
+          <div
+            class="header d-md-flex justify-content-between align-items-center py-3"
+          >
+            <!-- logo -->
+            <div id="logo">
+              <h1>
+                <a href="/home">
+                  <span class="fa fa-user-md mr-2"></span>
+                  <span class="logo-sp">ScriptChain</span>
+                </a>
+              </h1>
+            </div>
+            <!-- //logo -->
+            <!-- nav -->
+            <div class="nav_w3ls">
+              <nav>
+                <label for="drop" class="toggle">Menu</label>
+                <input type="checkbox" id="drop" />
+                <ul class="menu">
+                  <li><a routerLink="/home" class="active">Home</a></li>
+                  <li>
+                    <a
+                      routerLink="/contact"
+                      class="mx-lg-4 mx-md-3 my-md-0 my-2"
+                      >Request Demo</a
+                    >
+                  </li>
+                  <li><a routterLink="/contact-us">Contact Us</a></li>
+                </ul>
+              </nav>
+            </div>
+            <!-- //nav -->
+          </div>
         </div>
-        <!-- //logo -->
-        <!-- nav -->
-        <div class="nav_w3ls">
-          <nav>
-            <label for="drop" class="toggle">Menu</label>
-            <input type="checkbox" id="drop" />
-            <ul class="menu">
-              <li><a routerLink="/home" class="active">Home</a></li>
-              <li><a routerLink="/contact"  class="mx-lg-4 mx-md-3 my-md-0 my-2">Request Demo</a></li>
-              <li><a (click)="triggerScrollTo()" class='contUs'>Contact Us</a></li>
-            </ul>
-          </nav>
-        </div>
-        <!-- //nav -->
       </div>
+      <!-- //second header -->
     </div>
-  </div>
-  <!-- //second header -->
-</div>
-<!-- //main -->
+    <!-- //main -->
 
-<section id="register_successful">
-    <div class="container py-xl-5 py-lg-3" style="height: 300px;">
-    <div class="title-section mb-md-5 mb-4">
-        <h3 class="w3ls-title text-uppercase text-dark font-weight-bold subText" align="center">THANK YOU FOR YOUR SUBMISSION!</h3><br>  
-        <h4 class="w3ls-title text-dark font-weight-bold" align="center">You will receive a verification email from us shortly.</h4>
+    <section id="register_successful">
+      <div class="container py-xl-5 py-lg-3" style="height: 300px;">
+        <div class="title-section mb-md-5 mb-4">
+          <h3
+            class="w3ls-title text-uppercase text-dark font-weight-bold subText"
+            align="center"
+          >
+            THANK YOU FOR YOUR SUBMISSION!
+          </h3>
+          <br />
+          <h4 class="w3ls-title text-dark font-weight-bold" align="center">
+            You will receive a verification email from us shortly.
+          </h4>
+        </div>
       </div>
-      
-  </div>
-</section>
-<!----- patient register 3 ---->
+    </section>
+    <!----- patient register 3 ---->
 
-<div>
-  <app-footer class = " footerRegisterSuccessful "></app-footer>
+    <div>
+      <app-footer class=" footerRegisterSuccessful "></app-footer>
+    </div>
 
-</div>
-
-<a href="#home" class="move-top text-center"></a>
-
-</body>
-
+    <a href="#home" class="move-top text-center"></a>
+  </body>
 </html>

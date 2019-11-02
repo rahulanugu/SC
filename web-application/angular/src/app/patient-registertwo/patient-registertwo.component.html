@@ -1,147 +1,286 @@
 <!DOCTYPE html>
 <html lang="zxx">
+  <head>
+    <title>
+      Be Clinic Medical Category Bootstrap Responsive Website Template | Login
+      :: W3layouts
+    </title>
+    <!-- Meta tag Keywords -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8" />
+    <meta
+      name="keywords"
+      content="Be Clinic Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+  Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design"
+    />
+    <script>
+      addEventListener(
+        "load",
+        function() {
+          setTimeout(hideURLbar, 0);
+        },
+        false
+      );
 
-<head>
-  <title>Be Clinic Medical Category Bootstrap Responsive Website Template | Login :: W3layouts</title>
-  <!-- Meta tag Keywords -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta charset="UTF-8" />
-  <meta name="keywords" content="Be Clinic Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
-  Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
-  <script>
-    addEventListener("load", function () {
-      setTimeout(hideURLbar, 0);
-    }, false);
+      function hideURLbar() {
+        window.scrollTo(0, 1);
+      }
+    </script>
+    <!--// Meta tag Keywords -->
+    <!-- Font-Awesome-Icons-CSS -->
+    <!-- //Custom-Files -->
 
-    function hideURLbar() {
-      window.scrollTo(0, 1);
-    }
-  </script>
-  <!--// Meta tag Keywords -->
-  <!-- Font-Awesome-Icons-CSS -->
-  <!-- //Custom-Files -->
+    <!-- Web-Fonts -->
+    <link
+      href="//fonts.googleapis.com/css?family=Quicksand:300,400,500,700"
+      rel="stylesheet"
+    />
+    <link
+      href="//fonts.googleapis.com/css?family=Mukta:200,300,400,500,600,700,800&amp;subset=devanagari,latin-ext"
+      rel="stylesheet"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
 
-  <!-- Web-Fonts -->
-  <link href="//fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
-  <link href="//fonts.googleapis.com/css?family=Mukta:200,300,400,500,600,700,800&amp;subset=devanagari,latin-ext" rel="stylesheet">
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
+    <!-- //Web-Fonts -->
+  </head>
 
-  <!-- //Web-Fonts -->
-</head>
-
-<body>
-<!-- main -->
-<div id="home">
-  <!-- header -->
-  <div class="main-top"style="background: black">
-    <div class="container">
-      <div class="header d-md-flex justify-content-between align-items-center py-3">
-        <!-- logo -->
-        <div id="logo">
-          <h1>
-            <a href="/home">
-              <span class="fa fa-user-md mr-2"></span>
-              <span class="logo-sp">ScriptChain</span>
-
-            </a>
-          </h1>
+  <body>
+    <!-- main -->
+    <div id="home">
+      <!-- header -->
+      <div class="main-top" style="background: black">
+        <div class="container">
+          <div
+            class="header d-md-flex justify-content-between align-items-center py-3"
+          >
+            <!-- logo -->
+            <div id="logo">
+              <h1>
+                <a href="/home">
+                  <span class="fa fa-user-md mr-2"></span>
+                  <span class="logo-sp">ScriptChain</span>
+                </a>
+              </h1>
+            </div>
+            <!-- //logo -->
+            <!-- nav -->
+            <div class="nav_w3ls">
+              <nav>
+                <label for="drop" class="toggle">Menu</label>
+                <input type="checkbox" id="drop" />
+                <ul class="menu">
+                  <li><a routerLink="/home" class="active">Home</a></li>
+                  <li>
+                    <a
+                      routerLink="/contact"
+                      class="mx-lg-4 mx-md-3 my-md-0 my-2"
+                      >Request Demo</a
+                    >
+                  </li>
+                  <li><a routterLink="/contact-us">Contact Us</a></li>
+                </ul>
+              </nav>
+            </div>
+            <!-- //nav -->
+          </div>
         </div>
-        <!-- //logo -->
-        <!-- nav -->
-        <div class="nav_w3ls">
-          <nav>
-            <label for="drop" class="toggle">Menu</label>
-            <input type="checkbox" id="drop" />
-            <ul class="menu">
-              <li><a routerLink="/home" class="active">Home</a></li>
-              <li><a routerLink="/contact"  class="mx-lg-4 mx-md-3 my-md-0 my-2">Request Demo</a></li>
-              <li><a (click)="triggerScrollTo()" class='contUs'>Contact Us</a></li>
-            </ul>
-          </nav>
-        </div>
-        <!-- //nav -->
       </div>
+      <!-- //second header -->
     </div>
-  </div>
-  <!-- //second header -->
+    <!-- //main -->
 
-
-</div>
-<!-- //main -->
-
-<!-- patient register 2 ---->
-<section id="r2" class="login py-5" >
-  <div class="container py-xl-5 py-lg-3">
-      <div class="login px-sm-4 mx-auto mw-100 login-wrapper"  id="part2">
-        <div id="registerComponent" class="title-section mb-md-5 mb-4">
-          <h3 class="w3ls-title text-uppercase text-dark font-weight-bold" style="padding-top: 50px">Register</h3>
-        </div>
-          <form ngNativeValidate class="login-wrapper" action="#" method="post" #itemForm2="ngForm" method="post" #itemForm2="ngForm" style="position:absolute; top:30%; left:35%;">
+    <!-- patient register 2 ---->
+    <section id="r2" class="login py-5">
+      <div class="container py-xl-5 py-lg-3">
+        <div class="login px-sm-4 mx-auto mw-100 login-wrapper" id="part2">
+          <div id="registerComponent" class="title-section mb-md-5 mb-4">
+            <h3
+              class="w3ls-title text-uppercase text-dark font-weight-bold"
+              style="padding-top: 50px"
+            >
+              Register
+            </h3>
+          </div>
+          <form
+            ngNativeValidate
+            class="login-wrapper"
+            action="#"
+            method="post"
+            #itemForm2="ngForm"
+            method="post"
+            #itemForm2="ngForm"
+            style="position:absolute; top:30%; left:35%;"
+          >
             <div class="form-group">
               <label>Date of Birth</label>
-              <input type="date" class="form-control" name="birthday" #birthday="ngModel"  [(ngModel)]="patientService.selectedPatient.birthday" required [class.is-invalid]="birthday.invalid && birthday.touched">
-              <small class = "text-danger" [class.d-none]="birthday.valid || birthday.untouched">Date of Birth Required</small>
+              <input
+                type="date"
+                class="form-control"
+                name="birthday"
+                #birthday="ngModel"
+                [(ngModel)]="patientService.selectedPatient.birthday"
+                required
+                [class.is-invalid]="birthday.invalid && birthday.touched"
+              />
+              <small
+                class="text-danger"
+                [class.d-none]="birthday.valid || birthday.untouched"
+                >Date of Birth Required</small
+              >
             </div>
 
             <div class="form-group">
               <label>Sex</label>
-              <br/>
-              <input type="radio"  name="sex" value = 'male' #sex="ngModel" required 
-              [(ngModel)]="patientService.selectedPatient.sex">Male<br/>
+              <br />
+              <input
+                type="radio"
+                name="sex"
+                value="male"
+                #sex="ngModel"
+                required
+                [(ngModel)]="patientService.selectedPatient.sex"
+              />Male<br />
               <span>
-              <input type="radio"  name="sex" value = 'female' #sex="ngModel" required 
-              [(ngModel)]="patientService.selectedPatient.sex"> Female</span>
+                <input
+                  type="radio"
+                  name="sex"
+                  value="female"
+                  #sex="ngModel"
+                  required
+                  [(ngModel)]="patientService.selectedPatient.sex"
+                />
+                Female</span
+              >
             </div>
 
             <div class="form-group">
               <label>Social Security Number</label>
-              <input type="text" class="form-control" name="ssn" #ssn="ngModel" required  [textMask]="{mask: socialsecurity}"  placeholder="ex: 123-45-6789"
-              #ssn="ngModel" [(ngModel)]="patientService.selectedPatient.ssn" [class.is-invalid]="ssn.invalid && ssn.touched">
-              <small class = "text-danger" [class.d-none]="ssn.valid || ssn.untouched">SSN is required in a requested format</small>
+              <input
+                type="text"
+                class="form-control"
+                name="ssn"
+                #ssn="ngModel"
+                required
+                [textMask]="{ mask: socialsecurity }"
+                placeholder="ex: 123-45-6789"
+                #ssn="ngModel"
+                [(ngModel)]="patientService.selectedPatient.ssn"
+                [class.is-invalid]="ssn.invalid && ssn.touched"
+              />
+              <small
+                class="text-danger"
+                [class.d-none]="ssn.valid || ssn.untouched"
+                >SSN is required in a requested format</small
+              >
             </div>
-    
+
             <div class="form-group">
               <label>Emergency Contact First and Last Name</label>
-              <input type="text" class="form-control" id = "ec" name="ec" #ec="ngModel" required pattern="[a-zA-Z\s]{1,20}"
-              [(ngModel)]="patientService.selectedPatient.ec" [class.is-invalid]="ec.invalid && ec.touched">
-              <small class = "text-danger" [class.d-none]="ec.valid || ec.untouched">Emergency Contact Name is required</small>
-              <small class="text-danger" *ngIf="ec.valid && emergencyContactMatch">Emergency contact name can't be same as user name</small>
-              <small class="text-danger" *ngIf="ec.valid && emergencyContactNameLength &&(!emergencyContactMatch)">Enter first and last name of emergency contact</small>
+              <input
+                type="text"
+                class="form-control"
+                id="ec"
+                name="ec"
+                #ec="ngModel"
+                required
+                pattern="[a-zA-Z\s]{1,20}"
+                [(ngModel)]="patientService.selectedPatient.ec"
+                [class.is-invalid]="ec.invalid && ec.touched"
+              />
+              <small
+                class="text-danger"
+                [class.d-none]="ec.valid || ec.untouched"
+                >Emergency Contact Name is required</small
+              >
+              <small
+                class="text-danger"
+                *ngIf="ec.valid && emergencyContactMatch"
+                >Emergency contact name can't be same as user name</small
+              >
+              <small
+                class="text-danger"
+                *ngIf="
+                  ec.valid &&
+                  emergencyContactNameLength &&
+                  !emergencyContactMatch
+                "
+                >Enter first and last name of emergency contact</small
+              >
             </div>
 
             <div class="form-group">
               <label>Relationship</label>
-              <input type="text" class="form-control" id = "ecRelationship" name="ecRelationship" #ecRelationship="ngModel" required pattern="[a-zA-Z\s]{1,20}"
-              [(ngModel)]="patientService.selectedPatient.ecRelationship" [class.is-invalid]="ecRelationship.invalid && ecRelationship.touched">
-              <small class = "text-danger" [class.d-none]="ecRelationship.valid || ecRelationship.untouched">Relationship is required</small>
+              <input
+                type="text"
+                class="form-control"
+                id="ecRelationship"
+                name="ecRelationship"
+                #ecRelationship="ngModel"
+                required
+                pattern="[a-zA-Z\s]{1,20}"
+                [(ngModel)]="patientService.selectedPatient.ecRelationship"
+                [class.is-invalid]="
+                  ecRelationship.invalid && ecRelationship.touched
+                "
+              />
+              <small
+                class="text-danger"
+                [class.d-none]="
+                  ecRelationship.valid || ecRelationship.untouched
+                "
+                >Relationship is required</small
+              >
             </div>
 
             <div class="form-group">
               <label>Emergency Contact Phone Number</label>
-              <input type="text" class="form-control" name="ecPhone" #ecPhone="ngModel" id = "ecPhone" required [(ngModel)]="patientService.selectedPatient.ecPhone" 
-              [textMask]="{mask: phonemask}" placeholder="ex: (123) 456-7890" 
-              [class.is-invalid]="ecPhone.invalid && ecPhone.touched">
-              <small class = "text-danger" [class.d-none]="ecPhone.valid || ecPhone.untouched">Emergency phone number is required</small>
-              <small class="text-danger" *ngIf="ecPhone.valid && emergencyNumberMatch">Emergency contact can't be same as user contact</small>
+              <input
+                type="text"
+                class="form-control"
+                name="ecPhone"
+                #ecPhone="ngModel"
+                id="ecPhone"
+                required
+                [(ngModel)]="patientService.selectedPatient.ecPhone"
+                [textMask]="{ mask: phonemask }"
+                placeholder="ex: (123) 456-7890"
+                [class.is-invalid]="ecPhone.invalid && ecPhone.touched"
+              />
+              <small
+                class="text-danger"
+                [class.d-none]="ecPhone.valid || ecPhone.untouched"
+                >Emergency phone number is required</small
+              >
+              <small
+                class="text-danger"
+                *ngIf="ecPhone.valid && emergencyNumberMatch"
+                >Emergency contact can't be same as user contact</small
+              >
             </div>
 
-            <div id = 'outer'>
-              <button type="submit" class="backBtn" (click)="goBackOne()">Back</button>
-              <button type="submit" class="nextBtn" (click)="checkEmergencyContactNameNumber()">Next</button>
+            <div id="outer">
+              <button type="submit" class="backBtn" (click)="goBackOne()">
+                Back
+              </button>
+              <button
+                type="submit"
+                class="nextBtn"
+                (click)="checkEmergencyContactNameNumber()"
+              >
+                Next
+              </button>
               <div class="step"><p>Step 2/3</p></div>
             </div>
           </form>
+        </div>
       </div>
+    </section>
+    <!----- patient register 2 ---->
+
+    <div class="footerRegistrationTwo">
+      <app-footer></app-footer>
     </div>
-</section>
-<!----- patient register 2 ---->
 
-<div class = "footerRegistrationTwo">
-  <app-footer></app-footer>
-</div> 
-
-<a href="#home" class="move-top text-center"></a>
-
-</body>
-
+    <a href="#home" class="move-top text-center"></a>
+  </body>
 </html>
