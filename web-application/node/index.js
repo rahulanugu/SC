@@ -22,11 +22,11 @@ var app = express();
 app.use(bodyParser.json());
 
 // allow cors to access port that angular app runs on
-// app.use(
-//   cors({
-//     origin: "https://scriptchain-257603.appspot.com"
-//   })
-// );
+app.use(
+  cors({
+    origin: "http://localhost:4200"
+  })
+);
 // app.use((req, res, next) => {
 //   res.header("Access-Control-Allow-Origin", "*");
 //   res.header(
@@ -34,9 +34,9 @@ app.use(bodyParser.json());
 //     "Origin, X-Requested-With, Content-Type, Accept, Authorization"
 //   );
 // });
-app.use(express.static(path.join(__dirname, "./dist/my-app")));
+// app.use(express.static(path.join(__dirname, "./dist/my-app")));
 // start express server
-app.listen(8080, () => console.log("Server started at port: 8080"));
+app.listen(3000, () => console.log("Server started at port: 8080"));
 
 // add router from patient controller
 app.use("/patient", patientController);
@@ -44,6 +44,6 @@ app.use("/patient-login", patientloginController);
 app.use("/request_access", newUserController);
 app.use("/verified", verifiedController);
 app.use("/contact_us", contactUsController);
-app.get("*", (req, res) => {
-  return res.sendFile(path.join(__dirname, "./dist/my-app/index.html"));
-});
+// app.get("*", (req, res) => {
+//   return res.sendFile(path.join(__dirname, "./dist/my-app/index.html"));
+// });

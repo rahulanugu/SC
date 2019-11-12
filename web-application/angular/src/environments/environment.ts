@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  serverUrl: "http://localhost:8000/contact-us",
+  serverUrl: "http://localhost:3000/contact_us",
   port: 3000
 };
 
