@@ -32,11 +32,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 </head>
 
 <body>
-  
- 
+
+
   <section id="contact">
     <div id="contactForm" class="py-5">
-        <p align="center">HAVE A QUESTION?</p>
+        <p align="center">
+          <br>
+          HAVE A QUESTION?</p>
         <h1 align="center">The support team is here to help!</h1><br>
       <div id="contact" class="container" style="max-width: 600px;">
           <form ngNativeValidate [formGroup]="Form" (ngSubmit)="onSubmit2()">
@@ -54,21 +56,21 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         <label>Email*</label>
                         <input [class.is-invalid]="Form.get('Email').invalid && Form.get('Email').touched" formControlName="Email" type="email" class="form-control" required>
                         <small [class.d-none]="Form.get('Email').valid || Form.get('Email').untouched" class="text-danger">Email is required.</small>
-                      </div>  
+                      </div>
                          <div class="form-group">
                             <label for="exampleFormControlTextarea1">Message*</label>
                             <textarea  [class.is-invalid]="Form.get('Message').invalid && Form.get('Message').touched" formControlName="Message" class="form-control" name="message" rows="3" ></textarea>
                             <small [class.d-none]="Form.get('Message').valid || Form.get('Message').untouched" class="text-danger">Please provide us a message.</small>
                           </div>
-                           <div class="n-right-w3ls mt-5 pt-lg-4">  
+                           <div class="n-right-w3ls mt-5 pt-lg-4">
                             <button class="submit btn font-weight-bold" type="submit">Send</button>
                           </div>
         </form>
-       
+
       </div>
-        
+
     </div>
-    <div class="py-5" id="contactsuccessful">   
+    <div class="py-5" id="contactsuccessful">
         <h1 align="center">We’re thrilled to hear from you!</h1>
         <div class="container"><p align="center">We do our best to answer your questions quickly. Thanks in advance for your patience.</p>
         </div>
@@ -79,7 +81,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-      
+
         gtag('config', 'UA-148334798-1');
       </script>
 </body>
