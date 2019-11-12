@@ -1,21 +1,20 @@
+import { Observable } from "rxjs/Observable";
 import { Injectable } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Subject } from "rxjs";
 
 @Injectable({
   providedIn: "root"
 })
 export class PatientDataService {
-  private messageSource = new BehaviorSubject({
-    bp: 70,
-    heartrate: 85,
-    sugarlevel: 96,
-    temperature: 98,
-    painlevel: 94
-  });
-  currentMessage = this.messageSource.asObservable();
+  private patientData;
+  constructor() {
+    this.patientData = {};
+  }
 
-  constructor() {}
-  changeMessage(message) {
-    this.messageSource.next(message);
+  getPatientVitals(): Observable<JSON> {
+    return this.patientData.asObservable();
+  }
+  updatePatientData(patient_data: JSON) {
+    this.patientData.next(patient_data);
   }
 }
