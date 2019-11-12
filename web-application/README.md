@@ -37,6 +37,10 @@ Build and serve the front-end application to a local server.
 The webpage will open on the following url:  http://localhost:4200/.
 These instructions are also written in the README under the angular directory.
 
+
+##5. Steps for index.js file from backend side
+Just follow the comments written in the index.js file for development mode and production mode. 
+
 ```bash
 cd web-application/angular/
 ng serve --o
