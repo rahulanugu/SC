@@ -1,16 +1,18 @@
-import { contactus } from './contactus.model';
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { environment } from "./../../environments/environment";
+import { contactus } from "./contactus.model";
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class ContactusService {
   contact: contactus;
-  readonly baseURL = 'http://localhost:3000/contact-us';
+  readonly baseURL = environment.serverUrl;
 
-  constructor(private http:HttpClient) { }
-  sendMessage(contactUserData){
+  constructor(private http: HttpClient) {}
+  sendMessage(contactUserData) {
+    console.log(this.baseURL);
     return this.http.post(this.baseURL, contactUserData);
   }
 }
