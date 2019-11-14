@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Chart } from "chart.js";
+import { PatientDataService } from "./../patient-data.service";
 
 @Component({
   selector: "app-patient-statistics",
@@ -9,9 +10,10 @@ import { Chart } from "chart.js";
 export class PatientStatisticsComponent implements OnInit {
   chart = [];
 
-  constructor() {}
+  constructor(private _PatientDataService: PatientDataService) {}
 
   ngOnInit() {
+    let insuranceExpenses = this._PatientDataService.getInsuranceExpenses();
     this.chart = new Chart("lineChart", {
       type: "bar",
       label: ["asdf", "asdf"],
@@ -94,7 +96,12 @@ export class PatientStatisticsComponent implements OnInit {
         datasets: [
           {
             label: "Expenses in USD($)",
-            data: [75, 19, 5, 25],
+            data: [
+              insuranceExpenses.copayExpenseforDoctorVisit,
+              insuranceExpenses.outOfPocketExpenseforDoctorVisit,
+              insuranceExpenses.coPayExpenseforPrescription,
+              insuranceExpenses.OutofPocketExpenseforPrescription
+            ],
             backgroundColor: [
               "rgba(255, 99, 132, 0.7)",
               "rgba(54, 162, 235, 0.7)",

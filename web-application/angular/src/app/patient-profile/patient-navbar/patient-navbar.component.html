@@ -47,29 +47,18 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>08/12/2019</td>
-                          <td>100</td>
-                          <td>96mgdl</td>
-                          <td>72bpm</td>
-                          <td>98.2</td>
-                          <td>70</td>
-                          <td>6.0"</td>
-                          <td>72Kg</td>
-                          <td>some reason</td>
+                        <tr *ngFor="let data of patientData">
+                          <td>{{data.originDate}}</td>
+                          <td>{{data.bloodPressure}}</td>
+                          <td>{{data.sugarLevel}}</td>
+                          <td>{{data.heartRate}}</td>
+                          <td>{{data.Temperature}}</td>
+                          <td>{{data.painLevel}}</td>
+                          <td>{{data.height}}</td>
+                          <td>{{data.weight}}</td>
+                          <td>{{data.reasonForVisit}}</td>
                         </tr>
-                        <tr>
-                          <td>08/12/2019</td>
-                          <td>100</td>
-                          <td>96mgdl</td>
-                          <td>72bpm</td>
-                          <td>98.2</td>
-                          <td>70</td>
-                          <td>6.0"</td>
-                          <td>72Kg</td>
-                          <td>some reason</td>
-                        </tr>
-
+                       
                       </tbody>
                     </table>
 
@@ -91,25 +80,15 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>08/12/2019</td>
-                          <td>100</td>
-                          <td>96mgdl</td>
-                          <td>72bpm</td>
-                          <td>98.2</td>
+                        <tr *ngFor="let data of patientData">
+                          <td>{{data.originDate}}</td>
+                          <td>{{data.bloodPressure}}</td>
+                          <td>{{data.sugarLevel}}</td>
+                          <td>{{data.heartRate}}</td>
+                          <td>{{data.Temperature}}</td>
                         </tr>
-                        <tr>
-                          <td>08/12/2019</td>
-                          <td>100</td>
-                          <td>96mgdl</td>
-                          <td>72bpm</td>
-                          <td>98.2</td>
-
-                        </tr>
-
                       </tbody>
                     </table>
-
                   </div>
                 </div>
                 <div class="modal-footer">
@@ -284,7 +263,32 @@
                     </table>
 
                   </div>
+                  <div class="alert alert-secondary" role="alert">
+                    <a href="#insuranceExpenses" data-toggle="collapse">Insurance Expenses</a></div>
+                  <div id="insuranceExpenses" class="collapse">
+                    <table class="table table-sm text-center table-hover">
+                      <thead class="thead-dark">
+                        <tr>
+                          <th scope="col">Co-pay expense for Doctor's Visits</th>
+                          <th scope="col">Out of Pocket Expense</th>
+                          <th scope="col">Co-pay for Prescription</th>
+                          <th scope="col">Out of Pocket Expense for Prescription</th>
+                           </tr>
+                      </thead>
+                      <tbody>
+                      <tr>
+                        <td>{{insuranceExpense.originDate}}</td>
+                        <td>{{insuranceExpense.bloodPressure}}</td>
+                        <td>{{insuranceExpense.sugarLevel}}</td>
+                        <td>{{insuranceExpense.heartRate}}</td>
+                      
+                      </tr>
+                      </tbody>
+                    </table>
+                  
+                  </div>
                 </div>
+                
                 <div class="modal-footer">
                   <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 

@@ -8,12 +8,18 @@ import { LoginPatientService } from "./../../shared/login-patient.service";
   styleUrls: ["./patient-navbar.component.css"]
 })
 export class PatientNavbarComponent implements OnInit {
+  private patientData;
+  private insuranceExpense;
   constructor(
     private _PatientDataService: PatientDataService,
     private _loginPatientService: LoginPatientService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.patientData = this._PatientDataService.getPatientVitals();
+    this.insuranceExpense = this._PatientDataService.getInsuranceExpenses();
+    console.log(this.patientData[0]);
+  }
   logout() {
     this._loginPatientService.logOutPatient();
   }
