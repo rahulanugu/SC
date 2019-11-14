@@ -1,40 +1,68 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { PatientService } from '../shared/patient.service';
-import { NgForm } from '@angular/forms';
-import { formatNumber } from '@angular/common';
-import { error } from 'util';
-import { RouterLink } from '@angular/router';
-import { store } from '@angular/core/src/render3';
+import { PatientService } from "../shared/patient.service";
+import { NgForm } from "@angular/forms";
+import { formatNumber } from "@angular/common";
+import { error } from "util";
+import { RouterLink } from "@angular/router";
+import { store } from "@angular/core/src/render3";
 
 @Component({
-  selector: 'app-patient-registertwo',
-  templateUrl: './patient-registertwo.component.html',
-  styleUrls: ['../app.component.css']
+  selector: "app-patient-registertwo",
+  templateUrl: "./patient-registertwo.component.html",
+  styleUrls: ["../app.component.css"]
 })
-
 export class PatientRegistertwoComponent implements OnInit {
   emergencyContactMatch: boolean;
   emergencyNumberMatch: boolean;
   emergencyContactNameLength: boolean;
-  public socialsecurity = [/[0-9]/,/\d/,/\d/,'-',/\d/,/\d/,'-',/\d/, /\d/, /\d/,/\d/];
-  public phonemask = ['(', /[0-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+  public socialsecurity = [
+    /[0-9]/,
+    /\d/,
+    /\d/,
+    "-",
+    /\d/,
+    /\d/,
+    "-",
+    /\d/,
+    /\d/,
+    /\d/,
+    /\d/
+  ];
+  public phonemask = [
+    "(",
+    /[0-9]/,
+    /\d/,
+    /\d/,
+    ")",
+    " ",
+    /\d/,
+    /\d/,
+    /\d/,
+    "-",
+    /\d/,
+    /\d/,
+    /\d/,
+    /\d/
+  ];
 
-  values:string = '';
-  
-  onKey(event: any) { // without type info
+  values: string = "";
+
+  onKey(event: any) {
+    // without type info
     this.values = event.target.value;
   }
 
-  constructor(private patientService: PatientService,private router: Router) { }
+  constructor(public patientService: PatientService, private router: Router) {}
 
   ngOnInit() {
     this.showSecond();
-    let stored = JSON.parse(localStorage.getItem("Patient-info"))
-    
-    if(!stored){
+    let stored = JSON.parse(localStorage.getItem("Patient-info"));
+
+    if (!stored) {
       this.firstPage();
-    }if ( stored ){
+    }
+    if (stored) {
       this.values = stored.confirmPassword;
       this.patientService.selectedPatient = {
         _id: "",
@@ -58,7 +86,7 @@ export class PatientRegistertwoComponent implements OnInit {
         password: "",
         confirmPassword: "",
         anemia: false,
-        asthma:false,
+        asthma: false,
         arthritis: false,
         cancer: false,
         gout: false,
@@ -88,55 +116,66 @@ export class PatientRegistertwoComponent implements OnInit {
         emphysema: false,
         none: true,
         drink: "",
-        smoke: "",
-      }
+        smoke: ""
+      };
     }
   }
 
   myFunction() {
-    window.scrollBy(-5000,-5000);
+    window.scrollBy(-5000, -5000);
   }
 
-  checkEmergencyContactNameNumber(){
-    let stored = JSON.parse(localStorage.getItem("Patient-info"))
-    let check = this.patientService.selectedPatient.ec.split(' ');
-    
-    if((this.patientService.selectedPatient.ec.length == 0) || (this.patientService.selectedPatient.ecPhone.length == 0) || (this.patientService.selectedPatient.ecRelationship.length == 0)){
+  checkEmergencyContactNameNumber() {
+    let stored = JSON.parse(localStorage.getItem("Patient-info"));
+    let check = this.patientService.selectedPatient.ec.split(" ");
+
+    if (
+      this.patientService.selectedPatient.ec.length == 0 ||
+      this.patientService.selectedPatient.ecPhone.length == 0 ||
+      this.patientService.selectedPatient.ecRelationship.length == 0
+    ) {
       this.showSecond();
-    }else if(check.length == 1 || check[check.length-1].length == 0){
-      this.emergencyContactNameLength=true;
-      this.emergencyContactMatch=false;
+    } else if (check.length == 1 || check[check.length - 1].length == 0) {
+      this.emergencyContactNameLength = true;
+      this.emergencyContactMatch = false;
       this.showSecond();
-    }else if((this.patientService.selectedPatient.ec == (`${stored.fname} ${stored.lname}`)) && (this.patientService.selectedPatient.ecPhone == stored.phone)){
-      this.emergencyContactMatch=true;
-      this.emergencyNumberMatch=true;
-      document.getElementById('ec').style.borderColor= "red";
-      document.getElementById('ecPhone').style.borderColor= "red";
+    } else if (
+      this.patientService.selectedPatient.ec ==
+        `${stored.fname} ${stored.lname}` &&
+      this.patientService.selectedPatient.ecPhone == stored.phone
+    ) {
+      this.emergencyContactMatch = true;
+      this.emergencyNumberMatch = true;
+      document.getElementById("ec").style.borderColor = "red";
+      document.getElementById("ecPhone").style.borderColor = "red";
       this.showSecond();
-    }else if( this.patientService.selectedPatient.ecPhone == stored.phone){
-      this.emergencyContactMatch=false;
-      this.emergencyNumberMatch=true;
-      this.emergencyContactNameLength=false;
-      document.getElementById('ecPhone').style.borderColor= "red";
-      document.getElementById('ec').style.borderColor= "";
+    } else if (this.patientService.selectedPatient.ecPhone == stored.phone) {
+      this.emergencyContactMatch = false;
+      this.emergencyNumberMatch = true;
+      this.emergencyContactNameLength = false;
+      document.getElementById("ecPhone").style.borderColor = "red";
+      document.getElementById("ec").style.borderColor = "";
       this.showSecond();
-    }else if(this.patientService.selectedPatient.ec == (`${stored.fname} ${stored.lname}`)){
-      this.emergencyContactMatch=true;
-      this.emergencyNumberMatch=false;
-      document.getElementById('ec').style.borderColor= "red";
-      document.getElementById('ecPhone').style.borderColor= "";
+    } else if (
+      this.patientService.selectedPatient.ec ==
+      `${stored.fname} ${stored.lname}`
+    ) {
+      this.emergencyContactMatch = true;
+      this.emergencyNumberMatch = false;
+      document.getElementById("ec").style.borderColor = "red";
+      document.getElementById("ecPhone").style.borderColor = "";
       this.showSecond();
-    }else{
-      this.emergencyContactMatch=false;
-      this.emergencyNumberMatch=false;
-      document.getElementById('ecPhone').style.borderColor= "";
-      document.getElementById('ec').style.borderColor= "";
+    } else {
+      this.emergencyContactMatch = false;
+      this.emergencyNumberMatch = false;
+      document.getElementById("ecPhone").style.borderColor = "";
+      document.getElementById("ec").style.borderColor = "";
 
       let PatientInfo = {
         _id: stored._id,
         fname: stored.fname,
         lname: stored.lname,
-        email:  stored.email,
+        email: stored.email,
         street: stored.street,
         city: stored.city,
         state: stored.state,
@@ -145,7 +184,7 @@ export class PatientRegistertwoComponent implements OnInit {
         address: stored.address,
         phone: stored.phone,
         password: stored.password,
-        confirmPassword:stored.confirmPassword,
+        confirmPassword: stored.confirmPassword,
         birthday: this.patientService.selectedPatient.birthday,
         sex: this.patientService.selectedPatient.sex,
         ssn: this.patientService.selectedPatient.ssn,
@@ -154,7 +193,7 @@ export class PatientRegistertwoComponent implements OnInit {
         ecRelationship: this.patientService.selectedPatient.ecRelationship,
         allergies: "None",
         anemia: stored.anemia,
-        asthma:stored.asthma,
+        asthma: stored.asthma,
         arthritis: stored.arthritis,
         cancer: stored.cancer,
         gout: stored.gout,
@@ -184,39 +223,39 @@ export class PatientRegistertwoComponent implements OnInit {
         emphysema: stored.emphysema,
         none: stored.none,
         drink: stored.drink,
-        smoke: stored.smoke,
-      }
+        smoke: stored.smoke
+      };
 
-      var myJSON = JSON.stringify(PatientInfo)
+      var myJSON = JSON.stringify(PatientInfo);
 
       let pageType = {
-        pageType: 'thirdPage'
-      }
-      var pageJSON = JSON.stringify(pageType)
+        pageType: "thirdPage"
+      };
+      var pageJSON = JSON.stringify(pageType);
 
-      localStorage.setItem('pageType',pageJSON)
+      localStorage.setItem("pageType", pageJSON);
 
-      localStorage.setItem('Patient-info',myJSON);
+      localStorage.setItem("Patient-info", myJSON);
 
       this.goSearch();
     }
   }
 
   goSearch() {
-    this.router.navigate(['patient/registerThree']); 
+    this.router.navigate(["patient/registerThree"]);
   }
 
-  goBackOne(){
-    console.log('go back one');
+  goBackOne() {
+    console.log("go back one");
     this.myFunction();
 
-    let stored = JSON.parse(localStorage.getItem("Patient-info"))
+    let stored = JSON.parse(localStorage.getItem("Patient-info"));
 
     let PatientInfo = {
       _id: stored._id,
       fname: stored.fname,
       lname: stored.lname,
-      email:  stored.email,
+      email: stored.email,
       street: stored.street,
       city: stored.city,
       state: stored.state,
@@ -225,16 +264,16 @@ export class PatientRegistertwoComponent implements OnInit {
       address: stored.address,
       phone: stored.phone,
       password: stored.password,
-      confirmPassword:stored.confirmPassword,
+      confirmPassword: stored.confirmPassword,
       birthday: this.patientService.selectedPatient.birthday,
       sex: this.patientService.selectedPatient.sex,
       ssn: this.patientService.selectedPatient.ssn,
       ec: this.patientService.selectedPatient.ec,
       ecPhone: this.patientService.selectedPatient.ecPhone,
-      ecRelationship:this.patientService.selectedPatient.ecRelationship,
+      ecRelationship: this.patientService.selectedPatient.ecRelationship,
       allergies: stored.allergies,
       anemia: stored.anemia,
-      asthma:stored.asthma,
+      asthma: stored.asthma,
       arthritis: stored.arthritis,
       cancer: stored.cancer,
       gout: stored.gout,
@@ -264,34 +303,33 @@ export class PatientRegistertwoComponent implements OnInit {
       emphysema: stored.emphysema,
       none: stored.none,
       drink: stored.drink,
-      smoke: stored.smoke,
-    }
+      smoke: stored.smoke
+    };
 
-    var myJSON = JSON.stringify(PatientInfo)
+    var myJSON = JSON.stringify(PatientInfo);
 
-    localStorage.setItem('Patient-info',myJSON);
+    localStorage.setItem("Patient-info", myJSON);
 
-    this.router.navigate(['patient/register']);
+    this.router.navigate(["patient/register"]);
   }
 
-  firstPage(){
-    this.router.navigate(['patient/register']);
+  firstPage() {
+    this.router.navigate(["patient/register"]);
   }
-  
-  showSecond(){
-    console.log('enter showSecond');
+
+  showSecond() {
+    console.log("enter showSecond");
     this.myFunction();
     // document.getElementById("part1").style.visibility="hidden";
-    document.getElementById("part2").style.visibility="visible";
+    document.getElementById("part2").style.visibility = "visible";
     // document.getElementById("part3").style.visibility="hidden";
     // document.getElementById("register_successful").style.visibility="hidden";
-    document.getElementById("r2").style.display="block";
+    document.getElementById("r2").style.display = "block";
     // document.getElementById("register_successful").style.display="none";
   }
 
   // Submit step 2/3
-  onSubmit2(form : NgForm){
+  onSubmit2(form: NgForm) {
     console.log("form 2 sumbitted");
   }
-  
 }
