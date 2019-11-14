@@ -52,7 +52,7 @@
             <ul class="menu">
               <li><a routerLink="/home" class="active">Home</a></li>
               <li><a routerLink="/contact"  class="mx-lg-4 mx-md-3 my-md-0 my-2">Request Demo</a></li>
-              <li><a (click)="triggerScrollTo()" class='contUs'>Contact Us</a></li>
+              <li><a routterLink="/contact-us">Contact Us</a></li>
             </ul>
           </nav>
         </div>
@@ -99,7 +99,7 @@
           <br/><span><input type="checkbox" required  [disabled] = 'disableMe' id = 'ulcerative'          (click)="addDisease(ulcerative.name)" #ulcerative= ngModel name="ulcerative" [(ngModel)]="patientService.selectedPatient.ulcerative"> Ulcerative Colitis </span>
           <br/><span><input type="checkbox" required  [disabled] = 'disableMe' id = 'ulcerDisease'        (click)="addDisease(ulcerDisease.name)" #ulcerDisease= ngModel name="ulcerDisease" [(ngModel)]="patientService.selectedPatient.ulcerDisease"> Ulcer Disease </span>
           <br/><span><input type="checkbox" required  [disabled] = 'disableMe' id = 'hepatitis'           (click)="addDisease(hepatitis.name)" #hepatitis= ngModel name="hepatitis" [(ngModel)]="patientService.selectedPatient.hepatitis"> Hepatitis </span>
-          <br/><span><input type="checkbox" required  [disabled] = 'disableMe' id = 'kidneyDisease'       (click)="addDisease(kidneyDisease.name)" #kidneyDisease= ngModel name="kidneyDisease" [(ngModel)]="patientService.selectedPatient.kidneyDisease"> Kidney Disease </span>
+          <br/><span><input type="checkbox" required  [disabled] = 'disableMe' id = 'kidneyDiseases'       (click)="addDisease(kidneyDisease.name)" #kidneyDisease= ngModel name="kidneyDisease" [(ngModel)]="patientService.selectedPatient.kidneyDiseases"> Kidney Disease </span>
           <br/><span><input type="checkbox" required  [disabled] = 'disableMe' id = 'liverDisease'        (click)="addDisease(liverDisease.name)" #liverDisease= ngModel name="liverDisease" [(ngModel)]="patientService.selectedPatient.liverDisease"> Liver Disease </span>
           <br/><span><input type="checkbox" required  [disabled] = 'disableMe' id = 'sleepApnea'          (click)="addDisease(sleepApnea.name)" #sleepApnea= ngModel name="sleepApnea" [(ngModel)]="patientService.selectedPatient.sleepApnea"> Sleep Apnea </span>
           <br/><span><input type="checkbox" required  [disabled] = 'disableMe' id = 'papMachine'          (click)="addDisease(papMachine.name)" #papMachine= ngModel name="papMachine" [(ngModel)]="patientService.selectedPatient.papMachine"> Use a C-PAP Machine </span>
