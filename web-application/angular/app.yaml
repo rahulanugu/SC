@@ -7,3 +7,5 @@ handlers:
   upload: dist/my-app/index.html
 - url: /
   static_dir: dist/my-app
+secure: always
+redirect_http_response_code: 301
