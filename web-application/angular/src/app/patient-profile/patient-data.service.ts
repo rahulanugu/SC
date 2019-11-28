@@ -5,8 +5,8 @@ import { Injectable } from "@angular/core";
   providedIn: "root"
 })
 export class PatientDataService {
-  private patientData;
-  private insuranceExpense;
+  public patientData;
+  public insuranceExpense;
   constructor() {
     this.patientData = [
       {

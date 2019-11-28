@@ -1,9 +1,18 @@
-runtime: python27
+runtime: nodejs
+env: flex
 api_version: 1
 threadsafe: true
 handlers:
-- url: /
+  url: /
   static_files: dist/my-app/index.html
   upload: dist/my-app/index.html
-- url: /
+  url: /
   static_dir: dist/my-app
+  url: scriptchain.co 
+  secure: always 
+  redirect_http_response_code: 301 
+  script: auto
+
+  
+  
+

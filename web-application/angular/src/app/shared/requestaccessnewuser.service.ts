@@ -3,11 +3,12 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/toPromise";
+import { environment } from "src/environments/environment";
 @Injectable({
   providedIn: "root"
 })
 export class RequestaccessnewuserService {
-  readonly baseURL = "https://scriptchain-257603.appspot.com/request_access";
+  readonly baseURL = environment.serverUrl+"request_access";
   user: RequestAccessUser;
 
   constructor(private http: HttpClient) {}
