@@ -8,7 +8,7 @@ import { Injectable } from "@angular/core";
 })
 export class ContactusService {
   contact: contactus;
-  readonly baseURL = environment.serverUrl;
+  readonly baseURL = environment.serverUrl+"contact_us";
 
   constructor(private http: HttpClient) {}
   sendMessage(contactUserData) {

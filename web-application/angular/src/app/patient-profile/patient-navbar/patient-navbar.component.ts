@@ -8,8 +8,8 @@ import { LoginPatientService } from "./../../shared/login-patient.service";
   styleUrls: ["./patient-navbar.component.css"]
 })
 export class PatientNavbarComponent implements OnInit {
-  private patientData;
-  private insuranceExpense;
+  public patientData;
+  public insuranceExpense;
   constructor(
     private _PatientDataService: PatientDataService,
     private _loginPatientService: LoginPatientService
