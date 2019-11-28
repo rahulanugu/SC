@@ -40,7 +40,7 @@ app.use(
 // app.use(express.static(path.join(__dirname, "./dist/my-app")));
 
 // start express server
-app.listen(8080, () => console.log("Server started at port: 8080"));
+app.listen(3000, () => console.log("Server started at port: 8080"));
 
 // add router from patient controller
 app.use("/patient", patientController);
