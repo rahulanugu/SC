@@ -13,59 +13,40 @@ export class PatientStatisticsComponent implements OnInit {
   constructor(private _PatientDataService: PatientDataService) {}
 
   ngOnInit() {
+    let vitalSignColors = [
+      "#3700B3",
+      "#03DAC6",
+      "#FFDE03",
+      "#3700B3",
+      "#FFDE03"
+    ];
     let insuranceExpenses = this._PatientDataService.getInsuranceExpenses();
     this.chart = new Chart("lineChart", {
       type: "bar",
-      label: ["asdf", "asdf"],
-      data: {
-        labels: [
-          "Blood Pressure",
-          "Sugar Level",
-          "Heart Rate",
-          "Temperature",
-          "Pain Level"
-        ],
-        datasets: [
-          {
-            label: "asd",
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-              "rgba(255, 99, 132, 0.65)",
-              "rgba(54, 162, 235, 0.65)",
-              "rgba(255, 206, 86, 0.65)",
-              "rgba(75, 192, 192, 0.65)",
-              "rgba(153, 102, 255, 0.65)"
-            ],
-            borderColor: [
-              "rgba(255, 99, 132, 1)",
-              "rgba(54, 162, 235, 1)",
-              "rgba(255, 206, 86, 1)",
-              "rgba(75, 192, 192, 1)",
-              "rgba(153, 102, 255, 1)"
-            ],
-            borderWidth: 1
-          },
-          {
-            label: "fgh",
-            data: [10, 23, 7, 3, 5, 4],
-            backgroundColor: [
-              "rgba(255, 99, 132, 0.65)",
-              "rgba(54, 162, 235, 0.65)",
-              "rgba(255, 206, 86, 0.65)",
-              "rgba(75, 192, 192, 0.65)",
-              "rgba(153, 102, 255, 0.65)"
-            ],
-            borderColor: [
-              "rgba(255, 99, 132, 1)",
-              "rgba(54, 162, 235, 1)",
-              "rgba(255, 206, 86, 1)",
-              "rgba(75, 192, 192, 1)",
-              "rgba(153, 102, 255, 1)"
-            ],
-            borderWidth: 1
-          }
-        ]
-      },
+      labels: [
+        "5/2/19",
+        "17/2/19",
+        "5/2/19",
+        "17/2/19",
+        "5/2/19",
+        "17/2/19",
+        "5/2/19",
+        "17/2/19",
+        "5/2/19",
+        "17/2/19"
+      ],
+      datasets: [
+        {
+          label: "Blood Pressure",
+          data: [5, 10],
+          backgroundColor: "#3700B3"
+        },
+        {
+          label: "Blood Pressure",
+          data: [5, 10],
+          backgroundColor: "#3700B3"
+        }
+      ],
       options: {
         responsive: true,
         title: {
@@ -120,6 +101,12 @@ export class PatientStatisticsComponent implements OnInit {
       },
       options: {
         responsive: true,
+        legend: {
+          labels: {
+            boxWidth: 0
+          },
+          position: "bottom"
+        },
         title: {
           display: true,
           text: "Insurance Information"
@@ -135,6 +122,8 @@ export class PatientStatisticsComponent implements OnInit {
         }
       }
     });
+
+    let colorhex = ["#FB3640", "#EFCA08", "#43AA8B"];
     this.chart = new Chart("bar3", {
       type: "doughnut",
       data: {
@@ -143,13 +132,18 @@ export class PatientStatisticsComponent implements OnInit {
           {
             label: "Number of Doctor's Notes till today",
             data: [43],
-            backgroundColor: ["rgba(54, 162, 235, 0.65)"],
-            borderColor: ["rgba(54, 162, 235, 2)"],
+            backgroundColor: "#43AA8B",
             borderWidth: 1
           }
         ]
       },
       options: {
+        legend: {
+          labels: {
+            boxWidth: 0
+          },
+          position: "bottom"
+        },
         responsive: true,
         title: {
           display: true,
