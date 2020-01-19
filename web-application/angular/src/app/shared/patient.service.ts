@@ -23,8 +23,8 @@ export class PatientService {
 
   selectedPatient: Patient;
   patients: Patient[]; // all patients from mongodb
-  readonly baseURL = 'http://localhost:3000/patient/'
-  readonly checkURL = 'http://localhost:3000/patient/verify'
+  readonly baseURL = environment.serverUrl+"patient";
+  readonly checkURL = environment.serverUrl+'patient/verify'
 
   constructor(private http:HttpClient) { }
 
