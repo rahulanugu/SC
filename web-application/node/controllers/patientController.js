@@ -122,7 +122,7 @@ const sendVerificationMail = (email,fname,idToken)=>{
         service : 'gmail',
         auth: {
             type: "OAuth2",
-            user: "dahal.santosh007@gmail.com", 
+            user: "noreply@scriptchain.co", 
             clientId: "16828344230-21i76oqle90ehsrsrpptnb8ek2vqfjfp.apps.googleusercontent.com",
             clientSecret: "ZYdS8bspVNCyBrSnxkMxzF2d",
             refreshToken: "1/dK9w2flF6s52UnPPsQvjcM35pXvwu5z8PSQULIWCCgo",
@@ -132,7 +132,7 @@ const sendVerificationMail = (email,fname,idToken)=>{
 
     //  create mail option with custom template, verification link and Json Web Token
     const mailOptions = {
-        from: 'dahal.santosh007@gmail.com', 
+        from: 'noreply@scriptchain.co', 
         to: email,
         subject: 'NO REPLY AT SCRIPTCHAIN.COM!!! Hey it\'s Moh from ScriptChain',
         html: `<!DOCTYPE html>
