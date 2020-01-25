@@ -43,7 +43,7 @@ router.post("/", async (req, res) => {
       service: "gmail",
       auth: {
         type: "OAuth2",
-        user: "dahal.santosh007@gmail.com",
+        user: "noreply@scriptchain.co",
         clientId:
           "16828344230-21i76oqle90ehsrsrpptnb8ek2vqfjfp.apps.googleusercontent.com",
         clientSecret: "ZYdS8bspVNCyBrSnxkMxzF2d",
