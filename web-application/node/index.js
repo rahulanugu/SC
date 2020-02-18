@@ -21,15 +21,15 @@ var app = express();
 // configure express middleware to send date to nodejs project
 app.use(bodyParser.json());
 
-//allow cors to access port that angular app runs on
+// allow cors to access port that angular app runs on
 app.use(
   cors({
-    origin: "https://scriptchain.co"
+    origin: "http://localhost:4200" //make it the domain address when in production
   })
 );
 
 // app.use((req, res, next) => {
-//   res.header("Access-Control-Allow-Origin", "https://scriptchain.co");
+//   res.header("Access-Control-Allow-Origin", "*");
 //   res.header(
 //     "Access-Control-Allow-Headers",
 //     "Origin, X-Requested-With, Content-Type, Accept, Authorization"
@@ -37,7 +37,7 @@ app.use(
 // });
 
 //Uncomment out the below code in production mode.
-app.use(express.static(path.join(__dirname, "./dist/my-app")));
+// app.use(express.static(path.join(__dirname, "./dist/my-app")));
 
 // start express server
 app.listen(8080, () => console.log("Server started at port: 8080"));
@@ -49,7 +49,7 @@ app.use("/request_access", newUserController);
 app.use("/verified", verifiedController);
 app.use("/contact_us", contactUsController);
 
-// Uncomment out the below code for production mode.
-app.get("*", (req, res) => {
-  return res.sendFile(path.join(__dirname, "./dist/my-app/index.html"));
-});
+//Uncomment out the below code for production mode.
+// app.get("*", (req, res) => {
+//   return res.sendFile(path.join(__dirname, "./dist/my-app/index.html"));
+// });
