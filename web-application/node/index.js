@@ -21,10 +21,11 @@ var app = express();
 // configure express middleware to send date to nodejs project
 app.use(bodyParser.json());
 
-// allow cors to access port that angular app runs on
+for local deploy uncomment below code
+allow cors to access port that angular app runs on
 app.use(
   cors({
-    origin: "http://localhost:4200" //make it the domain address when in production
+    origin: "http://localhost:4200"
   })
 );
 
@@ -34,6 +35,26 @@ app.use(
 //     "Access-Control-Allow-Headers",
 //     "Origin, X-Requested-With, Content-Type, Accept, Authorization"
 //   );
+// });
+
+//for production mode uncomment below code
+// app.use(function (req, res, next) {
+
+//   // Website you wish to allow to connect
+//   res.setHeader('Access-Control-Allow-Origin', '*');
+
+//   // Request methods you wish to allow
+//   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+//   // Request headers you wish to allow
+//   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+//   // Set to true if you need the website to include cookies in the requests sent
+//   // to the API (e.g. in case you use sessions)
+//   res.setHeader('Access-Control-Allow-Credentials', true);
+
+//   // Pass to next layer of middleware
+//   next();
 // });
 
 //Uncomment out the below code in production mode.
