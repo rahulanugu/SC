@@ -21,13 +21,13 @@ var app = express();
 // configure express middleware to send date to nodejs project
 app.use(bodyParser.json());
 
-for local deploy uncomment below code
-allow cors to access port that angular app runs on
-app.use(
-  cors({
-    origin: "http://localhost:4200"
-  })
-);
+//for local deploy uncomment below code & comment out for production
+//allow cors to access port that angular app runs on
+// app.use(
+//   cors({
+//     origin: "http://localhost:4200"
+//   })
+// );
 
 // app.use((req, res, next) => {
 //   res.header("Access-Control-Allow-Origin", "*");
@@ -37,28 +37,28 @@ app.use(
 //   );
 // });
 
-//for production mode uncomment below code
-// app.use(function (req, res, next) {
+//for production mode uncomment below code & comment out for local
+app.use(function (req, res, next) {
 
-//   // Website you wish to allow to connect
-//   res.setHeader('Access-Control-Allow-Origin', '*');
+  // Website you wish to allow to connect
+  res.setHeader('Access-Control-Allow-Origin', '*');
 
-//   // Request methods you wish to allow
-//   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  // Request methods you wish to allow
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
 
-//   // Request headers you wish to allow
-//   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+  // Request headers you wish to allow
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
 
-//   // Set to true if you need the website to include cookies in the requests sent
-//   // to the API (e.g. in case you use sessions)
-//   res.setHeader('Access-Control-Allow-Credentials', true);
+  // Set to true if you need the website to include cookies in the requests sent
+  // to the API (e.g. in case you use sessions)
+  res.setHeader('Access-Control-Allow-Credentials', true);
 
-//   // Pass to next layer of middleware
-//   next();
-// });
+  // Pass to next layer of middleware
+  next();
+});
 
 //Uncomment out the below code in production mode.
-// app.use(express.static(path.join(__dirname, "./dist/my-app")));
+app.use(express.static(path.join(__dirname, "./dist/my-app")));
 
 // start express server
 app.listen(8080, () => console.log("Server started at port: 8080"));
@@ -71,6 +71,6 @@ app.use("/verified", verifiedController);
 app.use("/contact_us", contactUsController);
 
 //Uncomment out the below code for production mode.
-// app.get("*", (req, res) => {
-//   return res.sendFile(path.join(__dirname, "./dist/my-app/index.html"));
-// });
+app.get("*", (req, res) => {
+  return res.sendFile(path.join(__dirname, "./dist/my-app/index.html"));
+});
