@@ -1,0 +1,13 @@
+steps:
+- name: node
+  dir: web-application/angular
+  entrypoint: npm
+  args: ['install']
+- name: node
+  dir: web-application/angular
+  entrypoint: npm
+  args: [ 'run', 'build','--', '--prod' ]
+- name: 'gcr.io/cloud-builders/gcloud'
+  dir: web-application/node
+  args: ['app', 'deploy']
+timeout: '2600s'
