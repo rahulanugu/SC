@@ -1,0 +1,60 @@
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+  <title>Be Clinic Medical Category Bootstrap Responsive Website Template | Home :: W3layouts</title>
+  <!-- Meta tag Keywords -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="keywords" content="Be Clinic Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+  <script>
+    addEventListener("load", function () {
+      setTimeout(hideURLbar, 0);
+    }, false);
+
+    function hideURLbar() {
+      window.scrollTo(0, 1);
+    }
+  </script>
+  <!--// Meta tag Keywords -->
+
+  <!-- Web-Fonts -->
+  <link href="//fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+  <link href="//fonts.googleapis.com/css?family=Mukta:200,300,400,500,600,700,800&amp;subset=devanagari,latin-ext" rel="stylesheet">
+  <!-- //Web-Fonts -->
+</head>
+
+<body>
+
+
+  <section id="contact">
+    <div style="margin-left:-12% ;">
+      <ul style="border:none;margin: auto; margin-top: 0%;margin-right: 20%; margin-left:10%; border-color: gray; clear: both; overflow: hidden;" *ngFor = "let jobOpening of jobOpenings">
+        <strong><h5 style="text-align: left;">{{jobOpening.title}}</h5></strong>
+        <hr>
+        {{jobOpening.description}}
+        <br>
+        <strong>Location:</strong> {{jobOpening.location}}
+        <button style="float: right; margin-bottom: 10px;" type="button" class="btn btn-success" (click)=applyToJob(jobOpening._id)>Apply</button>
+      </ul>
+    </div>
+    <div><br></div>
+  </section>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148334798-1"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-148334798-1');
+      </script>
+</body>
+
+</html>

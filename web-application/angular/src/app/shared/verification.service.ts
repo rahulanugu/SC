@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders} from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -14,7 +15,7 @@ export class VerificationService {
 
   //create url that verifies the token then adds the user then 
   //send back okay result to client side
-  baseURL = 'http://localhost:3000/verified'
+  baseURL = environment.serverUrl;
 
   constructor(private _http:HttpClient) { }
 

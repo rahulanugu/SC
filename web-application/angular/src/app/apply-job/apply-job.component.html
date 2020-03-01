@@ -1,0 +1,37 @@
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+
+<!DOCTYPE html>
+<html lang="zxx">
+<body>
+  <app-common-header></app-common-header>
+  <section class="login py-5">
+    <div class="container py-xl-5 py-lg-3">
+      <div><br></div>
+      <div>
+      <h1>{{job.title}}</h1></div>
+      <hr>
+      <p style="font-size: 120%;"><strong>Description:</strong> {{job.description}} </p>
+      <p style="font-size: 120%;"><strong>Location: </strong> {{job.location}}</p>
+      <p style="font-size: 120%;"><strong>Salary: </strong> {{job.salary}}</p>
+      <hr>
+    </div>
+  </section>
+  <iframe style="margin-left: 20%;" src="https://docs.google.com/forms/d/e/1FAIpQLSeH8s5Y5KLkuqqJC3ZgJtJE_KEnDderWDsjlvUiTpBZ_JX27g/viewform?embedded=true" width="60%" height="300px" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+  <app-footer id="footer"></app-footer>
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148334798-1"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+      
+        gtag('config', 'UA-148334798-1');
+      </script>
+</body>
+
+</html>

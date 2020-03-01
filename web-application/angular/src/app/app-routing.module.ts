@@ -18,6 +18,8 @@ import { PatientAuthGuard } from "./patient-auth.guard";
 import { PatientRegisterthreeComponent } from "./patient-registerthree/patient-registerthree.component";
 import { PatientRegistertwoComponent } from "./patient-registertwo/patient-registertwo.component";
 import { RegisterSuccessfulPageComponent } from "./register-successful-page/register-successful-page.component";
+import { CareersComponent } from "./careers/careers.component";
+import { ApplyJobComponent } from "./apply-job/apply-job.component";
 
 const routes: Routes = [
   /* pages for the app */
@@ -37,7 +39,9 @@ const routes: Routes = [
     canActivate: [PatientAuthGuard]
   },
   { path: "contact-us", component: ContactUsComponent },
+  { path: "careers", component: CareersComponent },
   { path: "privacy-policy", component: PrivacyPolicyComponent },
+  { path: "apply-job/:jobid", component: ApplyJobComponent },
   { path: "terms-conditions", component: TermsConditionsComponent },
   { path: "", redirectTo: "/home", pathMatch: "full" },
   { path: "registersuccessful", component: RegisterSuccessfulPageComponent }

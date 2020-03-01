@@ -3,12 +3,13 @@ import { Patient } from './patient.model';
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class LoginPatientService {
 
-  private url = 'http://localhost:3000/patient-login/'
+  private url = environment.serverUrl;
   constructor(private _http: HttpClient,
     private _router:Router) { }
   Loginpatient(Patient){
