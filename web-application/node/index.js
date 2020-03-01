@@ -16,6 +16,8 @@ var newUserController = require("./controllers/newUsersController");
 var patientloginController = require("./controllers/patientLoginController");
 var verifiedController = require("./controllers/verifiedController");
 var contactUsController = require("./controllers/contactUsController");
+var careersController = require("./controllers/careersController");
+
 var app = express();
 
 // configure express middleware to send date to nodejs project
@@ -69,6 +71,7 @@ app.use("/patient-login", patientloginController);
 app.use("/request_access", newUserController);
 app.use("/verified", verifiedController);
 app.use("/contact_us", contactUsController);
+app.use("/careers", careersController);
 
 //Uncomment out the below code for production mode.
 app.get("*", (req, res) => {

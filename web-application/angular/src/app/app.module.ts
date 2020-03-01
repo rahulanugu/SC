@@ -31,6 +31,10 @@ import { PatientRegistertwoComponent} from './patient-registertwo/patient-regist
 import { PatientRegisterthreeComponent } from './patient-registerthree/patient-registerthree.component';
 import { RegisterSuccessfulPageComponent} from './register-successful-page/register-successful-page.component';
 import { PatientNavbarComponent } from './patient-profile/patient-navbar/patient-navbar.component';
+import { CareersComponent } from './careers/careers.component';
+import { JobOpeningsComponent } from './job-openings/job-openings.component';
+import { JobCategoriesComponent } from './job-categories/job-categories.component';
+import { ApplyJobComponent } from './apply-job/apply-job.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,7 +58,11 @@ import { PatientNavbarComponent } from './patient-profile/patient-navbar/patient
     PatientRegisterthreeComponent,
     PatientRegistertwoComponent,
     RegisterSuccessfulPageComponent,
-    PatientNavbarComponent
+    PatientNavbarComponent,
+    CareersComponent,
+    JobOpeningsComponent,
+    JobCategoriesComponent,
+    ApplyJobComponent
   ],
 
   imports: [
