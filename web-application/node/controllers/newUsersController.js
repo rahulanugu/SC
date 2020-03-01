@@ -51,11 +51,10 @@ router.post("/", async (req, res) => {
       service: "gmail",
       auth: {
         type: "OAuth2",
-        user: "noreply@scriptchain.co",
-        clientId:
-          "16828344230-21i76oqle90ehsrsrpptnb8ek2vqfjfp.apps.googleusercontent.com",
-        clientSecret: "ZYdS8bspVNCyBrSnxkMxzF2d",
-        refreshToken: "1/dK9w2flF6s52UnPPsQvjcM35pXvwu5z8PSQULIWCCgo",
+        user: "moh@scriptchain.co", 
+        clientId: "867282827024-auj9ljqodshuhf3lq5n8r79q28b4ovun.apps.googleusercontent.com",
+        clientSecret: "zjrK7viSEMoPXsEmVI_R7I6O",
+        refreshToken: "1//04OyV2qLPD5iYCgYIARAAGAQSNwF-L9IrfYyKF4kF_HhkGaFjxxnxdgxU6tDbQ1l-BLlOIPtXtCDOSj9IkwiWekXwLCNWn9ruUiE",
         accessToken: accessToken
       }
     });
