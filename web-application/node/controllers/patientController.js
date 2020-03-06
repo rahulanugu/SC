@@ -25,8 +25,9 @@ const oauth2Client = new OAuth2(
 );
 
 oauth2Client.setCredentials({
-    refresh_token: "ya29.GluBB_c8WGD6HI2wTAiAKnPeLap6FdqDdQYhplWyAPjw_ZBSNUNEMOfmsrVSDoHTAZWc8cjKHXXEEY_oMVJUq4YaoSD1LLseWzPNt2hcY2lCdhXAeuCxvDPbl6QP"
-});
+    refresh_token:
+      "ya29.GluBB_c8WGD6HI2wTAiAKnPeLap6FdqDdQYhplWyAPjw_ZBSNUNEMOfmsrVSDoHTAZWc8cjKHXXEEY_oMVJUq4YaoSD1LLseWzPNt2hcY2lCdhXAeuCxvDPbl6QP"
+  });
 
 const accessToken = oauth2Client.getAccessToken()
 // http://localhost:3000/patient/
@@ -96,6 +97,7 @@ router.post('/',async(req,res)=>{
     // *******make sure to change secret word to something secure and put it in env variable*****
     const token = await jwt.sign({tokeBody}, "santosh", { expiresIn: 180 });
 
+    console.log("Token "+token);
     // using jwt and token
     res.json(token)
 
@@ -108,24 +110,24 @@ router.post('/',async(req,res)=>{
 
     tokenSchema.save((err,doc)=>{})
 
-    sendVerificationMail(req.body.email,req.body.fname,idToken);
+    //sendVerificationMail(req.body.email,req.body.fname,idToken);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          (req.body.email,req.body.fname,idToken);
 
-    // sendVerificationMail(req.body.email,req.body.fname,token);
+    sendVerificationMail(req.body.email,req.body.fname,token);
 
 })
 
 
-const sendVerificationMail = (email,fname,idToken)=>{
+const sendVerificationMail = (email,fname,token)=>{
 
     //create a transporter with OAuth2
     const transporter = nodemailer.createTransport({
         service : 'gmail',
         auth: {
             type: "OAuth2",
-            user: "noreply@scriptchain.co", 
-            clientId: "16828344230-21i76oqle90ehsrsrpptnb8ek2vqfjfp.apps.googleusercontent.com",
-            clientSecret: "ZYdS8bspVNCyBrSnxkMxzF2d",
-            refreshToken: "1/dK9w2flF6s52UnPPsQvjcM35pXvwu5z8PSQULIWCCgo",
+            user: "moh@scriptchain.co", 
+            clientId: "867282827024-auj9ljqodshuhf3lq5n8r79q28b4ovun.apps.googleusercontent.com",
+            clientSecret: "zjrK7viSEMoPXsEmVI_R7I6O",
+            refreshToken: "1//04OyV2qLPD5iYCgYIARAAGAQSNwF-L9IrfYyKF4kF_HhkGaFjxxnxdgxU6tDbQ1l-BLlOIPtXtCDOSj9IkwiWekXwLCNWn9ruUiE",
             accessToken: accessToken
        }
     });
@@ -191,7 +193,7 @@ const sendVerificationMail = (email,fname,idToken)=>{
           <h1 align="center"style="font-family: arial;">YOU'RE ALMOST DONE REGISTERING!</h1>
           <p class="para">Hi `+fname+`,</p>
           <p class="para">Welcome to ScriptChain! We are glad that you have registered, there is just one more step to verify your account. <b>Please click the link below to verify your email address.</b></p>
-        <p align="center"><a href="https://scriptchain.co/patient/login"><button>Verify Your E-mail Address</button></a></p><br><br>
+        <p align="center"><a href="http://localhost:4200/patient/login?verify=`+token+`"><button>Verify Your E-mail Address</button></a></p><br><br>
         <p align="center" class="para">If you have any questions or concerns feel free to reach out to <a href="mailto:customer-care@scriptchain.co">customer-care@scriptchain.co</a></p>
           <div class="panelFooter">
             <p align="center" >This message was sent from ScriptChain LLC., Boston, MA</p>

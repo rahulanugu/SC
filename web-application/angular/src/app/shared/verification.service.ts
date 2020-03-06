@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders} from '@angular/common/http';
-import { environment } from 'src/environments/environment';
+import { environment } from "./../../environments/environment";
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -25,6 +25,8 @@ export class VerificationService {
     var myJSON = JSON.stringify(token)
     const fPart = myJSON.split('.')[1];
     const patientInfo = JSON.parse(window.atob(fPart));
+    console.log("Patient is")
+    console.log(patientInfo)
     
     return this._http.post(this.baseURL,patientInfo,httpOptions);
 
