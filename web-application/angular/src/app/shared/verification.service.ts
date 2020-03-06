@@ -15,7 +15,7 @@ export class VerificationService {
 
   //create url that verifies the token then adds the user then 
   //send back okay result to client side
-  baseURL = environment.serverUrl;
+  baseURL = environment.serverUrl+"verified";
 
   constructor(private _http:HttpClient) { }
 
