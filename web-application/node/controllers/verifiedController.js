@@ -36,6 +36,9 @@ const { VerifiedUser } = require('../models/verifiedUser');
 // );
 
 router.post('/',async(req, res) => {
+
+    console.log("Creating an actual user after verification in the database");
+    
     const str = req.body;
     
     const checkCurrentSubscriber = await VerifiedUser.findOne({email: str.tokeBody.email})

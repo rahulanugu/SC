@@ -17,6 +17,7 @@ import { VerificationService } from '../shared/verification.service';
 })
 export class PatientComponent implements OnInit {
   token:object;
+  jwtToken: string;
 
   patientmodel = new Patient();
   constructor(private _patientloginservice:LoginPatientService,
@@ -28,22 +29,17 @@ export class PatientComponent implements OnInit {
     window.scrollTo(0,0);
     this.activatedRoute.queryParams.subscribe(params=>{
       this.token=params;
+      this.jwtToken= params.verify;
       if(this.token){
-        this.onVerified();
+        this.onVerified(this.jwtToken);
       }else{
         console.log('no data');
       }
     })
   }
-      //verification using token and jwt
-      helperJWT(){
-        return localStorage.getItem('user-jwt');
-      }
-  
-      onVerified(){
-  
+    
+      onVerified(token){
         // verification using token and jwt
-        const token = this.helperJWT();
         this.patientService.postVerifiredToken(token).subscribe(()=>{
           localStorage.removeItem('user-jwt');
         });
