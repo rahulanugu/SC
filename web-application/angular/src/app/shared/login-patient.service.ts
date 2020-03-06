@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class LoginPatientService {
 
-  private url = environment.serverUrl;
+  private url = environment.serverUrl+"patient-login";
   constructor(private _http: HttpClient,
     private _router:Router) { }
   Loginpatient(Patient){
