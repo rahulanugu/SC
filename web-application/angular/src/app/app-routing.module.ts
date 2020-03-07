@@ -24,9 +24,9 @@ import { ApplyJobComponent } from "./apply-job/apply-job.component";
 const routes: Routes = [
   /* pages for the app */
   { path: "home", component: HomeComponent },
+  { path: "patientlogin", component: PatientComponent },
   { path: "login", component: LoginComponent },
   { path: "request-access", component: RequestAccessComponent },
-  { path: "patient/login", component: PatientComponent },
   { path: "patient/register", component: RegPatientComponent },
   { path: "healthcare/login", component: HealthcareLoginComponent },
   { path: "healthcare/register", component: HealthcareRegisterComponent },

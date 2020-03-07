@@ -26,6 +26,7 @@ export class PatientComponent implements OnInit {
     private patientService: VerificationService) { }
 
   ngOnInit() {
+    console.log("patient ccomponent is reached");
     window.scrollTo(0,0);
     this.activatedRoute.queryParams.subscribe(params=>{
       this.token=params;
