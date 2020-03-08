@@ -106,7 +106,7 @@ li.anim3 {
     top:-800px;
     opacity: 0;
   }
-} 
+}
 
 .csslider {
   text-align: left;
@@ -487,3 +487,13 @@ li.anim3 {
 }
 
 /* //responsive */
+
+@media(max-width: 1080px) {
+  .padding_bottom_fix {
+    padding-bottom: 3.5em;
+  }
+}
+
+@media(max-width: 991px) {
+  /* /// */
+}
