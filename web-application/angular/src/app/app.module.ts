@@ -35,6 +35,8 @@ import { CareersComponent } from './careers/careers.component';
 import { JobOpeningsComponent } from './job-openings/job-openings.component';
 import { JobCategoriesComponent } from './job-categories/job-categories.component';
 import { ApplyJobComponent } from './apply-job/apply-job.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ResetPasswordPageComponent } from './reset-password-page/reset-password-page.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,7 +64,9 @@ import { ApplyJobComponent } from './apply-job/apply-job.component';
     CareersComponent,
     JobOpeningsComponent,
     JobCategoriesComponent,
-    ApplyJobComponent
+    ApplyJobComponent,
+    ResetPasswordComponent,
+    ResetPasswordPageComponent
   ],
 
   imports: [

@@ -29,6 +29,6 @@ export class LoginPatientService {
   logOutPatient(){
     localStorage.removeItem('token');
     localStorage.removeItem('fname');
-    this._router.navigate(['patient/login']);
+    this._router.navigate(['patientlogin']);
   }
 }

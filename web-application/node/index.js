@@ -17,6 +17,7 @@ var patientloginController = require("./controllers/patientLoginController");
 var verifiedController = require("./controllers/verifiedController");
 var contactUsController = require("./controllers/contactUsController");
 var careersController = require("./controllers/careersController");
+var resetPasswordController = require("./controllers/resetPasswordController");
 
 var app = express();
 
@@ -72,6 +73,9 @@ app.use("/request_access", newUserController);
 app.use("/verified", verifiedController);
 app.use("/contact_us", contactUsController);
 app.use("/careers", careersController);
+app.use("/reset_password", resetPasswordController);
+
+
 
 //Uncomment out the below code for production mode.
 app.get("*", (req, res) => {
