@@ -88,7 +88,7 @@ html {
 
 .step{
   justify-self: center;
-  grid-area: footer; 
+  grid-area: footer;
   margin-top: 22px;
 
 }
@@ -110,11 +110,11 @@ html {
     margin-top: -6px;
     margin-left: 8px;
   }
-  
+
   .scriptchainLogo{
     justify-self:left;
   }
-  
+
   .otherLink{
     display: grid;
     grid-template-columns: 68px 172px auto;
@@ -126,7 +126,7 @@ html {
     margin-top: 6px;
     margin-left: 2px;
   }
-  
+
   .otherLink2{
     display: grid;
     grid-template-columns: 92px 111px auto;
@@ -138,11 +138,11 @@ html {
     margin-top: 3px;
     margin-left: 2px;
   }
-  
-  .otherLink2 a.homeLogin{  
+
+  .otherLink2 a.homeLogin{
     margin-bottom: 16px;
   }
-  
+
   .otherLink2 a.homeLogin,
   .otherLink a.homeLogin{
     color: #9beafd;
@@ -152,7 +152,7 @@ html {
     -o-transition: 0.5s all;
     -ms-transition: 0.5s all;
   }
-  
+
   .otherLink a.requestAccessLogin{
     color: white;
     transition: 0.5s all;
@@ -161,7 +161,7 @@ html {
     -o-transition: 0.5s all;
     -ms-transition: 0.5s all;
   }
-  
+
   .otherLink a.requestAccessLogin:hover{
     color: #9beafd;
     transition: 0.5s all;
@@ -170,13 +170,13 @@ html {
     -o-transition: 0.5s all;
     -ms-transition: 0.5s all;
   }
-  
+
   .otherLink2 a.contactUsLogin
   {
     margin-bottom: 16px;
     margin-left: 37.6px;
   }
-  
+
   .otherLink2 a.contactUsLogin,
   .otherLink a.contactUsLogin{
     color: white;
@@ -186,7 +186,7 @@ html {
     -o-transition: 0.5s all;
     -ms-transition: 0.5s all;
   }
-  
+
   .otherLink2 a.contactUsLogin:hover,
   .otherLink a.contactUsLogin:hover{
     color: #9beafd;
@@ -196,7 +196,7 @@ html {
     -o-transition: 0.5s all;
     -ms-transition: 0.5s all;
   }
-  
+
   .logo-scriptchain{
     font-weight: 100;
     color: white;
@@ -221,7 +221,7 @@ html {
     margin-top: 4px;
     margin-left: 1px;
   }
-  
+
   .otherLink2{
     display: grid;
     grid-template-columns: 91px 112px auto;
@@ -270,7 +270,7 @@ html {
     margin-top: 2px;
     margin-left: 2px;
 }
-  .otherLink2 a.homeLogin{  
+  .otherLink2 a.homeLogin{
     margin-bottom: 16px;
   }
 
@@ -283,7 +283,7 @@ html {
     -o-transition: 0.5s all;
     -ms-transition: 0.5s all;
   }
-  
+
   .otherLink a.requestAccessLogin{
     color: white;
     transition: 0.5s all;
@@ -292,7 +292,7 @@ html {
     -o-transition: 0.5s all;
     -ms-transition: 0.5s all;
   }
-  
+
   .otherLink a.requestAccessLogin:hover{
     color: #9beafd;
     transition: 0.5s all;
@@ -301,13 +301,13 @@ html {
     -o-transition: 0.5s all;
     -ms-transition: 0.5s all;
   }
-  
+
   .otherLink2 a.contactUsLogin
   {
     margin-bottom: 15px;
     margin-left: 37.6px;
   }
-  
+
   .otherLink2 a.contactUsLogin,
   .otherLink a.contactUsLogin{
     color: white;
@@ -317,7 +317,7 @@ html {
     -o-transition: 0.5s all;
     -ms-transition: 0.5s all;
   }
-  
+
   .otherLink2 a.contactUsLogin:hover,
   .otherLink a.contactUsLogin:hover{
     color: #9beafd;
@@ -327,7 +327,7 @@ html {
     -o-transition: 0.5s all;
     -ms-transition: 0.5s all;
   }
-  
+
 }
 
 @media only screen and (max-width:991px){
@@ -386,7 +386,7 @@ html {
     padding-right: 0.0em !important;
     padding-left: 0.0em !important;
   }
-} 
+}
 
 .py-11{
   padding-bottom: 1rem !important;
@@ -9761,7 +9761,7 @@ a.reqe-button {
   }
 }
 
-@media all and (max-width : 736px) {
+@media all and (max-width : 767px) {
   #logo {
     display: block;
     padding: 0;
@@ -10109,7 +10109,7 @@ a.reqe-button {
   font-size: 30px;
 }
 
-a.button-w3ls {  
+a.button-w3ls {
   color: #fff;
   letter-spacing: 1px;
   width: 125px;
@@ -10130,7 +10130,7 @@ a.button-w3ls {
 }
 
 /** For patient and pharmacy buttons ***/
-a.button-w3ls2 {  
+a.button-w3ls2 {
   color: #fff;
   letter-spacing: 1px;
   width: 200px;
