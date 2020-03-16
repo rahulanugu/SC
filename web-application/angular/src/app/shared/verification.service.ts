@@ -20,14 +20,16 @@ export class VerificationService {
   constructor(private _http:HttpClient) { }
 
   postVerifiredToken(token){
-
+    console.log('token is')
+    console.log(token)
     // for verification using jwt only
-    var myJSON = JSON.stringify(token)
-    const fPart = myJSON.split('.')[1];
-    const patientInfo = JSON.parse(window.atob(fPart));
-    console.log("Patient is")
-    console.log(patientInfo)
-    
+    //const fPart = myJSON.split('.')[1];
+    //const patientInfo = JSON.parse(window.atob(fPart));
+    //console.log("Patient is")
+    //console.log(patientInfo)
+    const patientInfo = {
+      jwtToken: token
+    }
     return this._http.post(this.baseURL,patientInfo,httpOptions);
 
     // verification using jwt and token

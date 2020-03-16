@@ -17,6 +17,7 @@ const { TokenSchema} = require('../models/tokeSchema');
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
 const randtoken = require('rand-token');
+var Utility = require('../utility')
 
 const oauth2Client = new OAuth2(
     "Y16828344230-21i76oqle90ehsrsrpptnb8ek2vqfjfp.apps.googleusercontent.com",
@@ -31,14 +32,23 @@ oauth2Client.setCredentials({
 
 const accessToken = oauth2Client.getAccessToken()
 // http://localhost:3000/patient/
+
 // get list of all patients
+/**
+ * Retrieve all the patients from the db
+ * Input: N/A
+ * Output: All the patientts in the database or error
+ *         200 - Succesfully retrieved all the patients in the database
+ *         404 - No patients in the database
+ */
 router.get('/', (req, res) => {
     console.log('you have entered');
     Patient.find((err, doc) => {
         if (!err) {
-            res.json(doc)
+            res.status(200).json(doc)
         }
         else {
+            res.status(404).send({message: "No patients found"})
             console.log('Error in retrieving patients: ' + JSON.stringify(err, undefined, 2));
         }
     });
@@ -46,22 +56,35 @@ router.get('/', (req, res) => {
 
 
 // get patient using id
+/**
+ * Get the details of a patient finding by Id
+ * Input: Id of the patient to search
+ * Output: Details of the patient as specified in the patient schema
+ *         200 - patient details are found
+ *         404 - An error occured/ No patients found
+ */
 router.get('/:id', (req, res) => {
     // check if id is valid
     if(!ObjectId.isValid(req.params.id))
-        return res.status(400).send(`No record with given id: ${req.params.id}`);
+        return res.status(404).send(`No record with given id: ${req.params.id}`);
     else {
         Patient.findById(req.params.id, (err, doc) => {
             if (!err) {
-                res.send(doc);
+                res.status(200).send(doc);
             }
             else {
+                res.status(404).send({message: "Could not find patients"})
                 console.log('Error in retrieving patient with id: ' + JSON.stringify(err, undefined, 2));
             }
         })
     }
 });
 
+/**
+ * Check if the subscriber already exists in the database
+ * Input: user object
+ * Output: message whether the subscriber exists or not
+ */
 router.post('/:verify',async(req,res)=>{
     console.log('/:verify',req.body.user)
     const userGiven = req.body;
@@ -76,7 +99,12 @@ router.post('/:verify',async(req,res)=>{
 
 })
 
-// this send verification email
+/**
+ * This metthod will check if the user/patientt already exists in the system and sends a verification email if not
+ * Input: Body, will contain the JWT token that contains user/patient as defined in the respective schemas
+ * Output: 400 - the user already exists
+ *         200 - sent the verification mail
+ */
 router.post('/',async(req,res)=>{
 
     const tokeBody = req.body;
@@ -99,7 +127,7 @@ router.post('/',async(req,res)=>{
 
     console.log("Token "+token);
     // using jwt and token
-    res.json(token)
+    res.status(200).json(token)
 
     var idToken = randtoken.generate(16);
 
@@ -112,12 +140,14 @@ router.post('/',async(req,res)=>{
 
     //sendVerificationMail(req.body.email,req.body.fname,idToken);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          (req.body.email,req.body.fname,idToken);
 
-    sendVerificationMail(req.body.email,req.body.fname,token);
+    //encrypt the token before sending it
+    var encryptedToken = Utility.EncryptToken(token);
+    sendVerificationMail(req.body.email,req.body.fname,encryptedToken);
 
 })
 
 
-const sendVerificationMail = (email,fname,token)=>{
+const sendVerificationMail = (email,fname,encryptedToken)=>{
 
     //create a transporter with OAuth2
     const transporter = nodemailer.createTransport({
@@ -193,7 +223,7 @@ const sendVerificationMail = (email,fname,token)=>{
           <h1 align="center"style="font-family: arial;">YOU'RE ALMOST DONE REGISTERING!</h1>
           <p class="para">Hi `+fname+`,</p>
           <p class="para">Welcome to ScriptChain! We are glad that you have registered, there is just one more step to verify your account. <b>Please click the link below to verify your email address.</b></p>
-        <p align="center"><a href="http://scriptchain.co/patientlogin?verify=`+token+`"><button>Verify Your E-mail Address</button></a></p><br><br>
+        <p align="center"><a href="http://scriptchain.co/patientlogin?verify=`+encryptedToken+`"><button>Verify Your E-mail Address</button></a></p><br><br>
         <p align="center" class="para">If you have any questions or concerns feel free to reach out to <a href="mailto:customer-care@scriptchain.co">customer-care@scriptchain.co</a></p>
           <div class="panelFooter">
             <p align="center" >This message was sent from ScriptChain LLC., Boston, MA</p>

@@ -10,12 +10,19 @@ const crypto = require("crypto");
 const path = require("path");
 const mongoose = require("../db");
 const mongoURI = "mongodb+srv://scriptchain:hello925@cluster0-se5v0.gcp.mongodb.net/scriptchain?retryWrites=true&w=majority"
+
+/**
+ * The contoller is used to serve the needs of the careers portal of the
+ * web application.
+ */
+
 //creating a new db connection for local use
 const conn = mongoose.createConnection(mongoURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
 
+//Checkingg if tthe file id of the requored format
 const fileFilter = (req,file,cb) => {
     console.log("THe file is being checked");
     if(file.mimetype === "application/pdf"){
@@ -27,7 +34,6 @@ const fileFilter = (req,file,cb) => {
     
 }
 
-
 //getting the gridfs from db instance
 let gfs;
 conn.once("open", () => {
@@ -37,7 +43,7 @@ conn.once("open", () => {
   });
 });
 
-
+//creating a new storage file
 const storage = new GridFsStorage({
     url: mongoURI,
     file: (req, file) => {
@@ -59,7 +65,13 @@ const storage = new GridFsStorage({
 
 const upload = multer({storage,fileFilter: fileFilter});
 
-// method used to post a job to the database  : tested - false
+/**
+ * The method will create a job to the database
+ * Input: Body, will contain the job details as specified in the datatype JobOpening
+ * Output: Will return the http status and message based on the completeness of save operation to db.
+ *         200 - If the job opening is succcesfully saved in the database
+ *         500 - If the job couldn't be saved in the database
+ */
 router.post("/jobposting",async (req, res) => {
     console.log("posting a job to the database");
     var job = new JobOpening({
@@ -79,34 +91,57 @@ router.post("/jobposting",async (req, res) => {
         //mailer(req.body.FirstName, req.body.Email);
       } else {
         console.log("Unable to save the job opening in the database");
+        res.status(500).json({
+          message: "Cannot save job in the database"
+        })
       }
     });
 });
 
-// method used to retrieve all job openings from the database  : tested - false
+/**
+ * The method will retrieve all the job openings in the database
+ * Input: N/A
+ * Output: Will return all the job openings in the database or error message along with
+ *         the appropriate http status
+ *         200 - Returned along with all the job openings
+ *         404 - If there are no jobOpning available in the db.
+ */
 router.get('/jobposting', (req, res) => {
     JobOpening.find({},function(err,jobopenings){
         if(err){
-            res.send("Could not retrieve job openings from DB");
+            res.status(404).send({message: "Could not retrieve job openings from DB"});
             next();
         }
-        res.json(jobopenings);
+        res.status(200).json(jobopenings);
     });
 });
 
-// method used to retrieve all job openings based on category from the database  : tested - false
+/**
+ * The method will retrieve all the job openings by category in the database
+ * Input: category name
+ * Output: Will return all the job openings in the database or error message along with
+ *         the appropriate http status
+ *         200 - Returned along with all the job openings fron the given category
+ *         404 - If there are no jobOpning available in the category the db.
+ */
 router.get('/jobposting/:jobcategory', (req, res) => {
   JobOpening.find({category: req.params.jobcategory},function(err,jobopenings){
       if(err){
-          res.send("Could not retrieve job openings from DB");
+          res.status(404).send({message: "Could not retrieve job openings from DB"});
           next();
       }
-      res.json(jobopenings);
+      res.status(200).json(jobopenings);
   });
 });
 
 
-// method used to post a job category
+/**
+ * The method will create a job category to the database
+ * Input: Body, will contain the job category details as specified in the datatype JobCategory
+ * Output: Will return the http status and message based on the completeness of save operation to db.
+ *         200 - If the job category is succcesfully saved in the database
+ *         500 - If the job couldn't be saved in the database
+ */
 router.post("/jobcategory",async (req, res) => {
   console.log("posting a jobcategory to the database");
   var job = new JobCategory({
@@ -122,41 +157,64 @@ router.post("/jobcategory",async (req, res) => {
       //mailer(req.body.FirstName, req.body.Email);
     } else {
       console.log("Unable to save the job opening in the database");
+      res.status(500).send({message : "An error has occured trying to save the job categgory in the database"})
     }
   });
 });
 
-// method used to retrieve all job categories from the database  : tested - false
+/**
+ * The method will retrieve all the job categoried in the database
+ * Input: N/A
+ * Output: Will return all the job openings in the database or error message along with
+ *         the appropriate http status
+ *         200 - Returned along with all the job categories
+ *         404 - If there are no jobCategory available in the db.
+ */
 router.get('/jobcategory', (req, res) => {
   console.log()
   JobCategory.find({},function(err,jobcategories){
       if(err){
-          res.send("Could not retrieve job openings from DB");
+          res.status(404).send({message: "Could not retrieve job openings from DB"});
           next();
       }
-      res.json(jobcategories);
+      res.status(200).json(jobcategories);
   });
 });
 
 
 
 // get job details using id
+/**
+ * The method will retrieve the details of a particular jobposting searched by id
+ * Input: Job Id
+ * Output: Will return the details of the job if found or else will return an error status
+ *         200 - If the job is found
+ *         404 - If the job with the given Id is not found
+ */
 router.get('/jobposting/job/:jobid', (req, res) => {
     console.log("trying to retrieve the job")
     // check if id is valid
         JobOpening.findById(req.params.jobid, (err, result) => {
             if (!err) {
-                console.log("result: " + result);
+                //console.log("result: " + result);
                 res.status(200).send(result)
             }
             else {
                 console.log('Error in retrieving jobopening with id: ' + JSON.stringify(err, undefined, 2));
+                res.status(404).send({message: "Could not retrieve the job with the given Id"})
             }
         })
 });
 
 
 // method used to post a jobapplication to the database  : tested - false
+/**
+ * The method will save the job application in the database
+ * Input: Job application details as specified in the JobApplication schema + The resume file
+ * Output: The status of the save operation
+ *         201 - succesfully saved the applicattion in db
+ *         500 - When an error occurs trying to the save the application 
+ */
 router.post("/jobapplication",upload.single('resume'), (req, res, next) => {
     console.log("New Job Application Recieved, rying to post to database");
     //console.log(req);
@@ -188,7 +246,13 @@ router.post("/jobapplication",upload.single('resume'), (req, res, next) => {
     });
 });
 
-//get a specific job application from db tested - true
+/**
+ * Method is used to retrieve a specific resume of application from the database
+ * Input: Name of the resume
+ * Output: Resume if found
+ *         200 - Resume is found
+ *         404 - Resume with the given name was not found
+ */
 router.get("/jobapplication/:filename", (req, res) => {
     // console.log('id', req.params.id)
     const file = gfs
@@ -207,6 +271,13 @@ router.get("/jobapplication/:filename", (req, res) => {
 
 
 //get a list of all the resumes in the bucket
+/**
+ * The method will be used to get a list of all the resumes from the mongo bucket
+ * Input: N/A
+ * Output: A list of all the resumes
+ *         200 - All resumes found
+ *         404 - Could not find any resume in the database 
+ */
 router.get("/files", (req, res) => {
     console.log("Trying to retrieve all the resumes from the bucket resumes")
     gfs.find().toArray((err, files) => {
@@ -216,10 +287,16 @@ router.get("/files", (req, res) => {
           err: "no files exist"
         });
       } 
-      return res.json(files);
+      return res.status(200).json(files);
     });
   });
 
+
+/**
+ * Mailer for sending the emails
+ * @param {First name of reciever} fname 
+ * @param {Destination of Email} email 
+ */
 function mailer(fname, email) {
     let transporter = nodemailer.createTransport({
       service: "gmail",

@@ -5,8 +5,9 @@ var { Patient } = require('../models/user');
 const nodemailer = require("nodemailer");
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
-const { ResetPasswordToken } = require('../models/resetPasswordTokens');
 var jwtDecode = require('jwt-decode');
+var Utility = require('../utility');
+
 
 
 
@@ -50,20 +51,23 @@ router.post('/', async (req, res)=>{
     // create JSON Web Token
     // *******make sure to change secret word to something secure and put it in env variable*****
     const token = await jwt.sign({patient}, "santosh", { expiresIn: 120 });
-
+    
     //save the token
-    const resetPasswordToken = new ResetPasswordToken ({
-      token: token
-    });
+  //   const resetPasswordToken = new ResetPasswordToken ({
+  //     token: token
+  //   });
 
-    resetPasswordToken.save((err, doc) => {
-      if (err) {
-        console.log('Error in saving reset password token: ' + JSON.stringify(err, undefined, 2));
-      }
-  });
+  //   resetPasswordToken.save((err, doc) => {
+  //     if (err) {
+  //       console.log('Error in saving reset password token: ' + JSON.stringify(err, undefined, 2));
+  //     }
+  // });
 
+    //encrypt the token
+    
+    const encryptedToken = Utility.EncryptToken(token);
     //mail the token
-    sendVerificationMail(req.body.email,patient.fname,token);
+    sendVerificationMail(req.body.email,patient.fname,encryptedToken);
 
     res.status(200).json({
         message: "Email has been sent to reset password"
@@ -75,7 +79,9 @@ router.post('/', async (req, res)=>{
  */
 router.get('/check/:token', async (req, res)=>{
 
-  jwt.verify(req.params.token, 'santosh', (err, verifiedJwt) => {
+  // The token we get here is encrypted, so we need to decode it
+
+  jwt.verify(Utility.DecryptToken(req.params.token), 'santosh', (err, verifiedJwt) => {
     if(err){
       res.status(500).send(err.message)
     }else{
@@ -98,9 +104,11 @@ router.post('/change_password', async(req,res) => {
       res.status(500).send(err.message)
     }else{
       //jwt is verified, decode it for email
-      //var payLoad = str.token.split('.')[1]; // payload is now in this variable
-      var decodedValue = jwtDecode(str.token)
-      console.log(decodedValue.patient.Email);
+      
+      //jwt is encrypted when reached here, need to decrypt it before using
+      const decryptedToken = Utility.DecryptToken(str.token);
+      //decode jwtt payload it for email
+      var decodedValue = jwtDecode(decryptedToken);
       
       //.tokebody of decodedvalue will contain the value of json object
         //find the email and update the object
@@ -134,7 +142,7 @@ const oauth2Client = new OAuth2(
 
 const accessToken = oauth2Client.getAccessToken();
 
-const sendVerificationMail = (email,fname,token)=>{
+const sendVerificationMail = (email,fname,encryptedToken)=>{
 
     //create a transporter with OAuth2
     const transporter = nodemailer.createTransport({
@@ -209,7 +217,7 @@ const sendVerificationMail = (email,fname,token)=>{
           </div>
           <h1 align="center"style="font-family: arial;">Please follow the link to reset your password</h1>
           <p class="para">Hi `+fname+`,</p>
-        <p align="center"><a href="http://localhost:4200/patient/password/resetpage/`+token+`?email=`+email+`"><button>Verify Your E-mail Address</button></a></p><br><br>
+        <p align="center"><a href="http://localhost:4200/patient/password/resetpage/`+encryptedToken+`?email=`+email+`"><button>Verify Your E-mail Address</button></a></p><br><br>
         <p align="center" class="para">If you have any questions or concerns feel free to reach out to <a href="mailto:customer-care@scriptchain.co">customer-care@scriptchain.co</a></p>
           <div class="panelFooter">
             <p align="center" >This message was sent from ScriptChain LLC., Boston, MA</p>
