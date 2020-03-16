@@ -18,6 +18,13 @@ oauth2Client.setCredentials({
 
 const accessToken = oauth2Client.getAccessToken();
 
+/**
+ * Method to save the customer query to the database
+ * Input: Details of ContactUser as specified in schema
+ * Output: Status of the save operation
+ *         200 - Successfylly saved the request
+ *         500 - An error occured trying to save the request
+ */
 router.post("/", async (req, res) => {
   console.log("hello");
   var customer = new ContactUser({
@@ -35,9 +42,15 @@ router.post("/", async (req, res) => {
       mailer(req.body.FirstName, req.body.Email);
     } else {
       console.log("error in saving the user who wants to contact");
+      res.status(500).send({message: "An error has occured trying to process your request"})
     }
   });
 
+/**
+ * Mailer for sending the emails
+ * @param {First name of reciever} fname 
+ * @param {Destination of Email} email 
+ */
   function mailer(fname, email) {
     let transporter = nodemailer.createTransport({
       service: "gmail",

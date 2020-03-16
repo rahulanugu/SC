@@ -16,7 +16,7 @@ import { VerificationService } from '../shared/verification.service';
   styleUrls: ['../app.component.css']
 })
 export class PatientComponent implements OnInit {
-  token:object;
+  token:string;
   jwtToken: string;
 
   patientmodel = new Patient();
@@ -29,7 +29,8 @@ export class PatientComponent implements OnInit {
     console.log("patient component is reached");
     window.scrollTo(0,0);
     this.activatedRoute.queryParams.subscribe(params=>{
-      this.token=params;
+      console.log(params);
+      this.token=params.verify;
       this.jwtToken= params.verify;
       if(this.token){
         this.onVerified(this.jwtToken);

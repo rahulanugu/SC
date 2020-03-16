@@ -5,6 +5,10 @@ const ObjectId = require('mongoose').Types.ObjectId;
 const jwt = require('jsonwebtoken');
 const { Patient } = require('../models/user');
 const { VerifiedUser } = require('../models/verifiedUser');
+var Utility = require('../utility');
+var jwtDecode = require('jwt-decode');
+
+
 
 // using jwt and token
 // const passportJWT = require('passport-jwt');
@@ -39,9 +43,21 @@ router.post('/',async(req, res) => {
 
     console.log("Creating an actual user after verification in the database");
     
-    const str = req.body;
+    //the body consists of an encrypted jwt token
+    //console.log("req bdy is "+req.body.jwtToken)
     
-    const checkCurrentSubscriber = await VerifiedUser.findOne({email: str.tokeBody.email})
+    //the incoming strings are improperly formatted with '+' being replaced with spaces
+
+    //correcting the format by replacing spaces with '+'
+    var encryptedToken = req.body.jwtToken.replace(/ /g, '+');
+
+    //decrypting the token
+    const decryptedToken = Utility.DecryptToken(encryptedToken);
+
+    //decoding the token
+    var decodedValue = jwtDecode(decryptedToken);
+
+    const checkCurrentSubscriber = await VerifiedUser.findOne({email: decodedValue.tokeBody.email})
 
     if (checkCurrentSubscriber){
         return res.status(400).send('Subscriber already exists')
@@ -50,61 +66,61 @@ router.post('/',async(req, res) => {
     console.log('checkCurrentSubscriber',checkCurrentSubscriber);
     //encrypt the password
     const salt = await bcrypt.genSaltSync(10);
-    const hashpassword = await bcrypt.hash(str.tokeBody.password, salt);
+    const hashpassword = await bcrypt.hash(decodedValue.tokeBody.password, salt);
 
     //add new patient
     const patient = new Patient({
-        fname: str.tokeBody.fname,
-        lname: str.tokeBody.lname,
-        Email: str.tokeBody.email,
-        address: str.tokeBody.address,
-        phone: str.tokeBody.phone,
-        birthday: str.tokeBody.birthday,
-        sex: str.tokeBody.sex,
-        ssn: str.tokeBody.ssn,
-        allergies: str.tokeBody.allergies,
-        ec: str.tokeBody.ec,
-        ecPhone: str.tokeBody.ecPhone,
-        ecRelationship: str.tokeBody.ecRelationship,
+        fname: decodedValue.tokeBody.fname,
+        lname: decodedValue.tokeBody.lname,
+        Email: decodedValue.tokeBody.email,
+        address: decodedValue.tokeBody.address,
+        phone: decodedValue.tokeBody.phone,
+        birthday: decodedValue.tokeBody.birthday,
+        sex: decodedValue.tokeBody.sex,
+        ssn: decodedValue.tokeBody.ssn,
+        allergies: decodedValue.tokeBody.allergies,
+        ec: decodedValue.tokeBody.ec,
+        ecPhone: decodedValue.tokeBody.ecPhone,
+        ecRelationship: decodedValue.tokeBody.ecRelationship,
         password: hashpassword,
-        anemia: str.tokeBody.anemia,
-        asthma:str.tokeBody.asthma,
-        arthritis: str.tokeBody.arthritis,
-        cancer: str.tokeBody.cancer,
-        gout: str.tokeBody.gout,
-        diabetes: str.tokeBody.diabetes,
-        emotionalDisorder: str.tokeBody.emotionalDisorder,
-        epilepsy: str.tokeBody.epilepsy,
-        fainting: str.tokeBody.fainting,
-        gallstones: str.tokeBody.gallstones,
-        heartDisease: str.tokeBody.heartDisease,
-        heartAttack: str.tokeBody.heartAttack,
-        rheumaticFever: str.tokeBody.rheumaticFever,
-        highBP: str.tokeBody.highBP,
-        digestiveProblems: str.tokeBody.digestiveProblems,
-        ulcerative: str.tokeBody.ulcerative,
-        ulcerDisease: str.tokeBody.ulcerDisease,
-        hepatitis: str.tokeBody.hepatitis,
-        kidneyDiseases: str.tokeBody.kidneyDiseases,
-        liverDisease: str.tokeBody.liverDisease ,
-        sleepApnea: str.tokeBody.sleepApnea,
-        papMachine: str.tokeBody.papMachine,
-        thyroid: str.tokeBody.thyroid,
-        tuberculosis: str.tokeBody.tuberculosis,
-        venereal: str.tokeBody.venereal,
-        neurologicalDisorders: str.tokeBody.neurologicalDisorders,
-        bleedingDisorders: str.tokeBody.bleedingDisorders,
-        lungDisease: str.tokeBody.lungDisease,
-        emphysema: str.tokeBody.emphysema,
-        none: str.tokeBody.none,
-        drink: str.tokeBody.drink,
-        smoke: str.tokeBody.smoke
+        anemia: decodedValue.tokeBody.anemia,
+        asthma:decodedValue.tokeBody.asthma,
+        arthritis: decodedValue.tokeBody.arthritis,
+        cancer: decodedValue.tokeBody.cancer,
+        gout: decodedValue.tokeBody.gout,
+        diabetes: decodedValue.tokeBody.diabetes,
+        emotionalDisorder: decodedValue.tokeBody.emotionalDisorder,
+        epilepsy: decodedValue.tokeBody.epilepsy,
+        fainting: decodedValue.tokeBody.fainting,
+        gallstones: decodedValue.tokeBody.gallstones,
+        heartDisease: decodedValue.tokeBody.heartDisease,
+        heartAttack: decodedValue.tokeBody.heartAttack,
+        rheumaticFever: decodedValue.tokeBody.rheumaticFever,
+        highBP: decodedValue.tokeBody.highBP,
+        digestiveProblems: decodedValue.tokeBody.digestiveProblems,
+        ulcerative: decodedValue.tokeBody.ulcerative,
+        ulcerDisease: decodedValue.tokeBody.ulcerDisease,
+        hepatitis: decodedValue.tokeBody.hepatitis,
+        kidneyDiseases: decodedValue.tokeBody.kidneyDiseases,
+        liverDisease: decodedValue.tokeBody.liverDisease ,
+        sleepApnea: decodedValue.tokeBody.sleepApnea,
+        papMachine: decodedValue.tokeBody.papMachine,
+        thyroid: decodedValue.tokeBody.thyroid,
+        tuberculosis: decodedValue.tokeBody.tuberculosis,
+        venereal: decodedValue.tokeBody.venereal,
+        neurologicalDisorders: decodedValue.tokeBody.neurologicalDisorders,
+        bleedingDisorders: decodedValue.tokeBody.bleedingDisorders,
+        lungDisease: decodedValue.tokeBody.lungDisease,
+        emphysema: decodedValue.tokeBody.emphysema,
+        none: decodedValue.tokeBody.none,
+        drink: decodedValue.tokeBody.drink,
+        smoke: decodedValue.tokeBody.smoke
     });
 
     const verifieduser= new VerifiedUser({
-        fname: str.tokeBody.fname,
-        lname: str.tokeBody.lname,
-        email: str.tokeBody.email,
+        fname: decodedValue.tokeBody.fname,
+        lname: decodedValue.tokeBody.lname,
+        email: decodedValue.tokeBody.email,
     })
 
     verifieduser.save((err,doc)=>{
@@ -130,4 +146,4 @@ router.post('/',async(req, res) => {
     });
 });
 
-module.exports = router; 
+module.exports = router;

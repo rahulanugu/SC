@@ -18,6 +18,13 @@ oauth2Client.setCredentials({
 
 const accessToken = oauth2Client.getAccessToken();
 
+/**
+ * Method to save a new rew request access user
+ * Input: Body, Contains the details specified in te NewRequesttAccessUser schema
+ * Output: The status of the save operation
+ *         200 - Succesfully saved the request
+ *         500 - Couldnot complete the request of saving the new request access user
+ */
 router.post("/", async (req, res) => {
   const emailExist = await NewRequestAccessUser.findOne({
     email: req.body.email
@@ -42,9 +49,15 @@ router.post("/", async (req, res) => {
       mailer(req.body.fname, req.body.email);
     } else {
       console.log("error in saving requested access user");
+      res.status(500).send({messsage: "An error has occured trying to execute the request"})
     }
   });
 
+  /**
+ * Mailer for sending the emails
+ * @param {First name of reciever} fname 
+ * @param {Destination of Email} email 
+ */
   const mailer = (fname, email) => {
     //create a transporter with OAuth2
     const transporter = nodemailer.createTransport({

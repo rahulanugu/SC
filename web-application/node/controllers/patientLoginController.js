@@ -8,6 +8,12 @@ var { Patient } = require('../models/user');
 
 var router = express.Router();
 //http request for patient login http://localhost:3000/patient-login/
+/**
+ * This method validates the user/patient to log in to the portall.
+ * Input: Body, will contain email and the password of the user
+ * Output: 401 - Invalid password or email
+ *         200 - Jwt Token and firstt name
+ */
 router.post('/', async (req, res)=>{
     const patient = await Patient.findOne({Email: req.body.email});
 
