@@ -1,3 +1,6 @@
+/**
+ * Data model for the patient cobject
+ */
 export class Patient {
     _id: string;
     fname: string;

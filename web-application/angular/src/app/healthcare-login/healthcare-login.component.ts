@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 /**
- * Login form for heatlhcare providers
+ * Page: Login page for heatlhcare providers
  */
 @Component({
   selector: 'app-healthcare-login',

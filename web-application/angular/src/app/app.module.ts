@@ -37,6 +37,7 @@ import { JobCategoriesComponent } from './job-categories/job-categories.componen
 import { ApplyJobComponent } from './apply-job/apply-job.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ResetPasswordPageComponent } from './reset-password-page/reset-password-page.component';
+import { HealthcareVerifyComponent } from './healthcare-verify/healthcare-verify.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,7 +67,8 @@ import { ResetPasswordPageComponent } from './reset-password-page/reset-password
     JobCategoriesComponent,
     ApplyJobComponent,
     ResetPasswordComponent,
-    ResetPasswordPageComponent
+    ResetPasswordPageComponent,
+    HealthcareVerifyComponent
   ],
 
   imports: [

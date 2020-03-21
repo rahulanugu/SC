@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+/**
+ * Component displays the privacy policis of the application
+ */
 @Component({
   selector: 'app-privacy-policy',
   templateUrl: './privacy-policy.component.html',

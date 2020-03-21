@@ -15,30 +15,48 @@ Register Paitent Form
     <div class="title-section mb-md-5 mb-4">
       <h3 class="w3ls-title text-uppercase text-dark font-weight-bold" style="padding-top: 50px">Register</h3>
     </div>
-    <div class="login px-sm-4 mx-auto mw-100 login-wrapper">
-      <form class="login-wrapper" action="#" method="post">
+    <div id= "registrationForm"class="login px-sm-4 mx-auto mw-100 login-wrapper">
+      <form ngNativeValidate [formGroup]="Form" (ngSubmit)="submitForm()">
         <div class="form-group">
-          <label>Company Name</label>
-          <input type="email" class="form-control" name="fname" placeholder="" required="">
-        </div>
-        <div class="form-group">
-          <label>Location</label>
-          <input type="email" class="form-control" name="lname" placeholder="" required="">
-        </div>
-        <div class="form-group">
-            <label>Your Role in the Company</label>
-            <input type="email" class="form-control" name="birthdate" placeholder="" required="">
-        </div>
-        <div class="form-group">
-          <label>Password</label>
-          <input type="password" class="form-control" name="password" placeholder="" required="">
-        </div>
-        <div class="form-group">
-            <label>Re-Enter Password</label>
-            <input type="password" class="form-control" name="password2" placeholder="" required="">
-        </div>
-        <button type="submit" class="btn submit mt-4">Register</button>
-      </form>
+            <label>First Name*</label>
+            <input [class.is-invalid]="Form.get('firstName').invalid && Form.get('firstName').touched" formControlName="firstName" type="text" class="form-control" required>
+            <small [class.d-none]="Form.get('firstName').valid || Form.get('firstName').untouched" class="text-danger">First Name is required.</small>
+          </div>
+             <div class="form-group">
+                <label>Last Name*</label>
+                <input [class.is-invalid]="Form.get('lastName').invalid && Form.get('lastName').touched" formControlName="lastName" type="text" class="form-control" required>
+                <small [class.d-none]="Form.get('lastName').valid || Form.get('lastName').untouched" class="text-danger">Last Name is required.</small>
+              </div>
+                 <div class="form-group">
+                    <label>Email*</label>
+                    <input [class.is-invalid]="Form.get('email').invalid && Form.get('email').touched" formControlName="email" type="email" class="form-control" required>
+                    <small [class.d-none]="Form.get('email').valid || Form.get('email').untouched" class="text-danger">Email is required.</small>
+                  </div>
+                  <div class="form-group">
+                    <label>Company Name*</label>
+                    <input [class.is-invalid]="Form.get('companyName').invalid && Form.get('companyName').touched" formControlName="companyName" type="text" class="form-control" required>
+                    <small [class.d-none]="Form.get('companyName').valid || Form.get('companyName').untouched" class="text-danger">Last Name is required.</small>
+                  </div>
+                  <div class="form-group">
+                    <label>Role in Company*</label>
+                    <input [class.is-invalid]="Form.get('roleInCompany').invalid && Form.get('roleInCompany').touched" formControlName="roleInCompany" type="text" class="form-control" required>
+                    <small [class.d-none]="Form.get('roleInCompany').valid || Form.get('roleInCompany').untouched" class="text-danger">Last Name is required.</small>
+                  </div>
+                  <div class="form-group">
+                    <label> Password*</label>
+                    <input [class.is-invalid]="Form.get('password').invalid && Form.get('password').touched" formControlName="password" type="password" class="form-control" required>
+                    <small [class.d-none]="Form.get('password').valid || Form.get('password').untouched" class="text-danger">Last Name is required.</small>
+                  </div>
+                       <div class="n-right-w3ls mt-5 pt-lg-4">
+                        <button class="submit btn font-weight-bold" type="submit">Register</button>
+                      </div>
+
+    </form>
+    </div>
+  </div>
+  <div class="py-5" id="registersuccessful">
+    <h1 align="center">Thank you for registering. Please verify your account by checking your email!</h1>
+    <div class="container"><p align="center">We do our best to answer your questions quickly. Thanks in advance for your patience.</p>
     </div>
   </div>
 </section>

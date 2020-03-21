@@ -8,6 +8,11 @@ import { ResetPasswordService } from '../shared/reset-password.service';
   templateUrl: './reset-password-page.component.html',
   styleUrls: ['./reset-password-page.component.css']
 })
+
+/**
+ *  Page: password reset page for the patient users
+ * queryparameters: AES encrypted JWT token
+ */
 export class ResetPasswordPageComponent implements OnInit {
 
   password:string ='';

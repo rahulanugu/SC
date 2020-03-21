@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CareersService } from '../shared/careers.service';
 import { Router } from '@angular/router';
 
+/**
+ * Component: Retrievies and displays a list of job categories
+ */
 export class jobCategory{
   constructor(
     public _id: string,

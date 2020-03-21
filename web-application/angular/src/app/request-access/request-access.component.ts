@@ -3,7 +3,7 @@ import { RequestaccessnewuserService } from "../shared/requestaccessnewuser.serv
 import { Component, OnInit } from "@angular/core";
 
 /**
- * Request demo form
+ * Page: Request demo form for propspective clients
  */
 @Component({
   selector: "app-request-access",

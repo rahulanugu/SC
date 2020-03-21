@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
+/**
+ * Page: Careers page
+ * Description: Displays the job catagories for the user to choose from
+ * Users can click on drop downs of the job categories to see job openings that belong
+ * to that category
+ */
 export class jobOpening{
   constructor(
     public _id: string,

@@ -3,6 +3,9 @@ import { jobOpening } from '../careers/careers.component';
 import { ActivatedRoute } from '@angular/router';
 import { CareersService } from '../shared/careers.service';
 
+/**
+ * Page: specific job page
+ */
 @Component({
   selector: 'app-apply-job',
   templateUrl: './apply-job.component.html',

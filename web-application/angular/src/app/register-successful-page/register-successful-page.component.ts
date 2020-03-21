@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 
+/**
+ * Registration succesful page
+ */
 @Component({
   selector: 'app-register-successful-page',
   templateUrl: './register-successful-page.component.html',

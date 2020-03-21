@@ -3,6 +3,10 @@ import { contactus } from "./../shared/contactus.model";
 import { ContactusService } from "./../shared/contactus.service";
 import { FormBuilder, Validators } from "@angular/forms";
 
+/**
+ * Component: Contact us form
+ * Description: Contact form for sending a message to the support team
+ */
 @Component({
   selector: "app-contact-us-form",
   templateUrl: "./contact-us-form.component.html",
@@ -46,7 +50,9 @@ export class ContactUsFormComponent implements OnInit {
         window.location.hash = "contactsuccessful";
         window.location.hash = "contactsuccessful";
       },
-      err => {}
+      err => {
+        //TODO: Redirect to an error component
+      }
     );
   }
 }
