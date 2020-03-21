@@ -3,7 +3,8 @@ import { Component, OnInit } from '@angular/core';
 
 
 /**
- * Footer component for home page 
+ * Component: Footer component for all the pages
+ * Description: Contains quicklinks and trademark logos for the application
  */
 
 @Component({

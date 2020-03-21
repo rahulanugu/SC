@@ -6,6 +6,9 @@ import { environment } from 'src/environments/environment';
 import { jobOpening } from '../careers/careers.component';
 import { jobCategory } from '../job-categories/job-categories.component';
 
+/**
+ * Http calls for the careers components
+ */
 @Injectable({
   providedIn: 'root'
 })

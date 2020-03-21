@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+/**
+ * Componenet: Header for the application
+ */
 @Component({
   selector: 'app-common-header',
   templateUrl: './common-header.component.html',

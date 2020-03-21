@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 /**
- * 
+ * Note: Currently not in use
  * Header for home page
  */
 @Component({

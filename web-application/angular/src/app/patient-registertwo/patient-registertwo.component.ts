@@ -7,6 +7,10 @@ import { error } from "util";
 import { RouterLink } from "@angular/router";
 import { store } from "@angular/core/src/render3";
 
+
+/**
+ * Page 2 of 3 for patient account registration
+ */
 @Component({
   selector: "app-patient-registertwo",
   templateUrl: "./patient-registertwo.component.html",

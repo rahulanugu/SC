@@ -8,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { VerificationService } from '../shared/verification.service';
 
 /**
- * Login form for patient users
+ * Page: Login form for patient users
  */
 @Component({
   selector: 'app-patient',

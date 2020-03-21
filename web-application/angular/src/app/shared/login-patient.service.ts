@@ -5,6 +5,10 @@ import { environment } from "./../../environments/environment";
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
+/**
+ * http calls and helper methods for the patient login components
+ */
 @Injectable({
   providedIn: 'root'
 })

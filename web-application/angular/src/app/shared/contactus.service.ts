@@ -3,6 +3,9 @@ import { contactus } from "./contactus.model";
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 
+/**
+ * Http calls for contactus page
+ */
 @Injectable({
   providedIn: "root"
 })

@@ -6,6 +6,10 @@ import 'rxjs/add/operator/toPromise';
 
 import { Patient } from './patient.model';
 import { environment } from 'src/environments/environment';
+
+/**
+ * Http methods for patient services
+ */
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json'

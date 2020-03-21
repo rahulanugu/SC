@@ -22,6 +22,7 @@ import { CareersComponent } from "./careers/careers.component";
 import { ApplyJobComponent } from "./apply-job/apply-job.component";
 import { ResetPasswordComponent } from "./reset-password/reset-password.component";
 import { ResetPasswordPageComponent } from "./reset-password-page/reset-password-page.component";
+import { HealthcareVerifyComponent } from "./healthcare-verify/healthcare-verify.component";
 
 const routes: Routes = [
   /* pages for the app */
@@ -32,6 +33,7 @@ const routes: Routes = [
   { path: "patient/register", component: RegPatientComponent },
   { path: "healthcare/login", component: HealthcareLoginComponent },
   { path: "healthcare/register", component: HealthcareRegisterComponent },
+  { path: "healthcare/verify", component: HealthcareVerifyComponent },
   { path: "register", component: RegisterComponent },
   { path: "patient/registerTwo", component: PatientRegistertwoComponent },
   { path: "patient/password/reset", component: ResetPasswordComponent },

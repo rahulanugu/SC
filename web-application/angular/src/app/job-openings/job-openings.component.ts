@@ -3,6 +3,9 @@ import { CareersService } from '../shared/careers.service';
 import { Router } from '@angular/router';
 import { jobOpening } from '../careers/careers.component';
 
+/**
+ * Component: Retrieves and displays the list of job openings in a job category
+ */
 @Component({
   selector: 'app-job-openings',
   templateUrl: './job-openings.component.html',

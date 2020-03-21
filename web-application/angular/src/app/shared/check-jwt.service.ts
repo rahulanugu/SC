@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
-
+/**
+ * Http calls for checking the validity of jwt tokens
+ */
 @Injectable({
   providedIn: 'root'
 })
