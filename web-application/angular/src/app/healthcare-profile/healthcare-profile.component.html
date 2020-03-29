@@ -1,0 +1,12 @@
+
+<div style="margin:auto; width: 70%; margin-top: 30px;">
+    <app-search-bar (onSelectedOption)="onSelectedOption($event)"></app-search-bar>
+  
+  </div>
+  <div *ngFor = "let patient of filteredPatients" class="group">
+  <p><b>Id: </b>{{patient._id}}</p>
+  <p><b>First Name: </b> {{patient.fname}}</p>
+  <p><b>Last Name: </b>{{patient.lname}}</p>
+  <p><b>Email:  </b>{{patient.Email}}</p>
+  <button (click)= "openPatientProfile(patient._id)"> View </button>
+  </div>

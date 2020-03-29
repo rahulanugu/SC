@@ -1,4 +1,5 @@
 var CryptoJS = require("crypto-js");
+const jwt = require('jsonwebtoken');
 var Utility = {
     EncryptToken: function(message){
         var ciphertext = CryptoJS.AES.encrypt(message, 'secret key 123').toString();

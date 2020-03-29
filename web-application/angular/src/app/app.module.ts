@@ -38,6 +38,20 @@ import { ApplyJobComponent } from './apply-job/apply-job.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ResetPasswordPageComponent } from './reset-password-page/reset-password-page.component';
 import { HealthcareVerifyComponent } from './healthcare-verify/healthcare-verify.component';
+import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatFormFieldModule} from '@angular/material/form-field';
+
+import { HomePageComponent } from './home-page/home-page.component';
+import { SearchBarComponent } from './search-bar/search-bar.component';
+import { DataService } from './data.service';
+import { HealthcareProfileComponent } from './healthcare-profile/healthcare-profile.component';
+import { MatRadioModule } from '@angular/material/radio';
+import { PatientHealthcareviewComponent } from './patient-healthcareview/patient-healthcareview.component'; 
+import { HighchartsChartComponent } from 'highcharts-angular';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -68,7 +82,13 @@ import { HealthcareVerifyComponent } from './healthcare-verify/healthcare-verify
     ApplyJobComponent,
     ResetPasswordComponent,
     ResetPasswordPageComponent,
-    HealthcareVerifyComponent
+    HealthcareVerifyComponent,
+
+    HomePageComponent,
+    SearchBarComponent,
+    HealthcareProfileComponent,
+    PatientHealthcareviewComponent,
+    HighchartsChartComponent
   ],
 
   imports: [
@@ -78,12 +98,19 @@ import { HealthcareVerifyComponent } from './healthcare-verify/healthcare-verify
     FormsModule,
     TextMaskModule,
     RouterModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatIconModule,
+    MatInputModule,
+    MatAutocompleteModule,
+    MatChipsModule,
+    MatFormFieldModule,
+    MatRadioModule
    ],
   providers: [
     DbService,
     LoginPatientService,
     PatientAuthGuard,
+    DataService
   ],
   bootstrap: [AppComponent]
 })

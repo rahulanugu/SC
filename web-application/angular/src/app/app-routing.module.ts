@@ -23,6 +23,10 @@ import { ApplyJobComponent } from "./apply-job/apply-job.component";
 import { ResetPasswordComponent } from "./reset-password/reset-password.component";
 import { ResetPasswordPageComponent } from "./reset-password-page/reset-password-page.component";
 import { HealthcareVerifyComponent } from "./healthcare-verify/healthcare-verify.component";
+import { HomePageComponent } from "./home-page/home-page.component";
+import { HealthcareProfileComponent } from "./healthcare-profile/healthcare-profile.component";
+import { HealthcareAuthGuard } from "./healthcare-auth.guard";
+import { PatientHealthcareviewComponent } from "./patient-healthcareview/patient-healthcareview.component";
 
 const routes: Routes = [
   /* pages for the app */
@@ -50,7 +54,10 @@ const routes: Routes = [
   { path: "apply-job/:jobid", component: ApplyJobComponent },
   { path: "terms-conditions", component: TermsConditionsComponent },
   { path: "", redirectTo: "/home", pathMatch: "full" },
-  { path: "registersuccessful", component: RegisterSuccessfulPageComponent }
+  { path: "registersuccessful", component: RegisterSuccessfulPageComponent },
+  { path: "searchTest", component:HomePageComponent},
+  { path: "healthcare-profile", component: HealthcareProfileComponent, canActivate: [HealthcareAuthGuard]},
+  { path: "healthcare-profile/patient/:patientid", component: PatientHealthcareviewComponent, canActivate: [HealthcareAuthGuard]}
 ];
 
 @NgModule({

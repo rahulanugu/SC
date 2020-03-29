@@ -4,37 +4,44 @@ healthcare login
 
 <!DOCTYPE html>
 <html lang="zxx">
+
 <body>
   <app-common-header></app-common-header>
-<!-- healthcare login -->
-<section class="login py-5">
-  <div class="container py-xl-5 py-lg-3">
-    <div class="title-section mb-md-5 mb-4">
-      <h3 class="w3ls-title text-uppercase text-dark font-weight-bold" style="padding-top: 50px">Login</h3>
+  <!-- healthcare login -->
+  <section class="login py-5">
+    <div class="container py-xl-5 py-lg-3">
+      <div class="title-section mb-md-5 mb-4">
+        <h3 class="w3ls-title text-uppercase text-dark font-weight-bold" style="padding-top: 50px">Login</h3>
+      </div>
+      <div class="login px-sm-4 mx-auto mw-100 login-wrapper">
+        <form ngNativeValidate [formGroup]="Form" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label>Email</label>
+            <input [class.is-invalid]="Form.get('emailAddress').invalid && Form.get('emailAddress').touched"
+              formControlName="emailAddress" type="email" class="form-control" id="emailAddress" required>
+            <small [class.d-none]="Form.get('emailAddress').valid || Form.get('emailAddress').untouched"
+              class="text-danger">Email is required.</small>
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input [class.is-invalid]="Form.get('password').invalid && Form.get('password').touched"
+              formControlName="password" type="password" class="form-control" id="password"required>
+            <small [class.d-none]="Form.get('password').valid || Form.get('password').untouched"
+              class="text-danger">Password is required</small>
+          </div>
+          <small id="invalidsignin" class="text-danger d-none">Invalid Email or Password</small>
+          <div class="n-right-w3ls mt-5 pt-lg-4">
+            <button class="submit btn font-weight-bold" type="submit">Login</button>
+          </div>
+          <p class="text-center mt-5">
+            <a routerLink="/healthcare/register"> Don't have an Account?</a>
+          </p>
+        </form>
+      </div>
     </div>
-    <div class="login px-sm-4 mx-auto mw-100 login-wrapper">
-      <form class="login-wrapper" action="#" method="post">
-        <div class="form-group">
-          <label>Email</label>
-          <input type="email" class="form-control" name="patientId" placeholder="" required="">
-        </div>
-        <div class="form-group">
-          <label>Password</label>
-          <input type="password" class="form-control" name="password" placeholder="" required="">
-        </div>
-        <button type="submit" class="btn submit mt-4">Login</button>
-        <p class="text-center mt-5">
-          <a routerLink="/healthcare/register"> Don't have an Account?</a>
-        </p>
-      </form>
-    </div>
-  </div>
-</section>
-<!-- //healthcare login -->
+  </section>
+  <!-- //healthcare login -->
 
 
-<app-footer></app-footer>
-<!-- //footer -->
-
-
-
+  <app-footer></app-footer>
+  <!-- //footer -->

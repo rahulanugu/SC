@@ -3,9 +3,7 @@ import { Router } from "@angular/router";
 import { PatientService } from "../shared/patient.service";
 import { NgForm, FormArray, FormControl } from "@angular/forms";
 import { formatNumber } from "@angular/common";
-import { error } from "util";
 import { RouterLink } from "@angular/router";
-import { store } from "@angular/core/src/render3";
 
 /**
  * Page 3 of 3 for patient account registration
