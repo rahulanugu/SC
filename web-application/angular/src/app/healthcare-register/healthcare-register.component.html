@@ -12,10 +12,10 @@ Register Paitent Form
 <!-- healthcare register -->
 <section class="login py-5">
   <div class="container py-xl-5 py-lg-3">
-    <div class="title-section mb-md-5 mb-4">
-      <h3 class="w3ls-title text-uppercase text-dark font-weight-bold" style="padding-top: 50px">Register</h3>
-    </div>
     <div id= "registrationForm"class="login px-sm-4 mx-auto mw-100 login-wrapper">
+      <div class="title-section mb-md-5 mb-4">
+        <h3 class="w3ls-title text-uppercase text-dark font-weight-bold" style="padding-top: 50px">Register</h3>
+      </div>
       <form ngNativeValidate [formGroup]="Form" (ngSubmit)="submitForm()">
         <div class="form-group">
             <label>First Name*</label>
@@ -31,21 +31,22 @@ Register Paitent Form
                     <label>Email*</label>
                     <input [class.is-invalid]="Form.get('email').invalid && Form.get('email').touched" formControlName="email" type="email" class="form-control" required>
                     <small [class.d-none]="Form.get('email').valid || Form.get('email').untouched" class="text-danger">Email is required.</small>
+                    <small  *ngIf = userAlreadyExist class="text-danger">Email is required.</small>
                   </div>
                   <div class="form-group">
                     <label>Company Name*</label>
                     <input [class.is-invalid]="Form.get('companyName').invalid && Form.get('companyName').touched" formControlName="companyName" type="text" class="form-control" required>
-                    <small [class.d-none]="Form.get('companyName').valid || Form.get('companyName').untouched" class="text-danger">Last Name is required.</small>
+                    <small [class.d-none]="Form.get('companyName').valid || Form.get('companyName').untouched" class="text-danger">Company Name is required.</small>
                   </div>
                   <div class="form-group">
                     <label>Role in Company*</label>
                     <input [class.is-invalid]="Form.get('roleInCompany').invalid && Form.get('roleInCompany').touched" formControlName="roleInCompany" type="text" class="form-control" required>
-                    <small [class.d-none]="Form.get('roleInCompany').valid || Form.get('roleInCompany').untouched" class="text-danger">Last Name is required.</small>
+                    <small [class.d-none]="Form.get('roleInCompany').valid || Form.get('roleInCompany').untouched" class="text-danger">Role in company is required.</small>
                   </div>
                   <div class="form-group">
                     <label> Password*</label>
-                    <input [class.is-invalid]="Form.get('password').invalid && Form.get('password').touched" formControlName="password" type="password" class="form-control" required>
-                    <small [class.d-none]="Form.get('password').valid || Form.get('password').untouched" class="text-danger">Last Name is required.</small>
+                    <input pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!,@,#,$,%,^,&,*]).{6,20}" [class.is-invalid]="Form.get('password').invalid && Form.get('password').touched" formControlName="password" type="password" class="form-control" required>
+                    <small [class.d-none]="Form.get('password').valid || Form.get('password').untouched" class="text-danger">Password requires a capital letter, number and special symbol(ex: !,@,?...)</small>
                   </div>
                        <div class="n-right-w3ls mt-5 pt-lg-4">
                         <button class="submit btn font-weight-bold" type="submit">Register</button>
@@ -56,8 +57,6 @@ Register Paitent Form
   </div>
   <div class="py-5" id="registersuccessful">
     <h1 align="center">Thank you for registering. Please verify your account by checking your email!</h1>
-    <div class="container"><p align="center">We do our best to answer your questions quickly. Thanks in advance for your patience.</p>
-    </div>
   </div>
 </section>
 <!-- //healthcare register -->

@@ -43,6 +43,7 @@ const accessToken = oauth2Client.getAccessToken()
  * Input: Body, contains the details that are specified in healthcare provider data model
  * Output: 200 - Success status, and the email is sent
  *         500 - Error status
+ *         400 - Already exists
  */
 router.post('/account/create',async(req,res)=>{
     
@@ -94,7 +95,7 @@ router.post('/account/create',async(req,res)=>{
  *         500 - Unexpected errors
  */
 router.post('/account/verify',async(req,res)=>{
-
+    
     // will recieve an encrypted jwt token
     var encryptedToken = req.body.jwtToken.replace(/ /g, '+');
 
@@ -128,7 +129,7 @@ router.post('/account/verify',async(req,res)=>{
         location: decodedValue.tokeBody.location,
         roleInCompany: decodedValue.tokeBody.roleInCompany,
         email: decodedValue.tokeBody.email,
-        password: decodedValue.tokeBody.password
+        password: hashpassword
     })
 
     healthcareProvider.save((err,doc) => {

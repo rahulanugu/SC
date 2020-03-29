@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HealthcareAccountService } from '../shared/healthcare-account.service';
 
 /**
@@ -19,7 +19,8 @@ export class HealthcareVerifyComponent implements OnInit {
   
   constructor(
     private route: ActivatedRoute,
-    private healthcareAccountService: HealthcareAccountService
+    private healthcareAccountService: HealthcareAccountService,
+    private router: Router
     ) { }
 
   ngOnInit() {
@@ -55,5 +56,8 @@ export class HealthcareVerifyComponent implements OnInit {
     })
     
     
+  }
+  reRouteToLogin(){
+    this.router.navigate(['/healthcare/login']);
   }
 }

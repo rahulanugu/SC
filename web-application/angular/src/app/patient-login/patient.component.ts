@@ -26,6 +26,7 @@ export class PatientComponent implements OnInit {
     private patientService: VerificationService) { }
 
   ngOnInit() {
+    document.getElementById('verificationsuccessful').style.display = "none";
     console.log("patient component is reached");
     window.scrollTo(0,0);
     this.activatedRoute.queryParams.subscribe(params=>{
@@ -43,6 +44,7 @@ export class PatientComponent implements OnInit {
       onVerified(token){
         // verification using token and jwt
         this.patientService.postVerifiredToken(token).subscribe(()=>{
+          document.getElementById('verificationsuccessful').style.display = "block";
           localStorage.removeItem('user-jwt');
         });
       }

@@ -17,7 +17,6 @@ export class HealthcareRegisterComponent implements OnInit {
 
   passwordNotMatch: boolean = false;
   userAlreadyExist: boolean = false;
-  
   constructor(
     private formBuilderService: FormBuilder,
     private healthCareAccountService: HealthcareAccountService
@@ -44,6 +43,9 @@ export class HealthcareRegisterComponent implements OnInit {
       window.location.hash = "registersuccesful";
     },
     err => {
+      if(err.status === 400){
+        this.userAlreadyExist = true;
+      }
       //TODO: Redirect to an error component
     });
 
