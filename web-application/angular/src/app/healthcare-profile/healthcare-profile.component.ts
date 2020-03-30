@@ -25,12 +25,19 @@ export class HealthcareProfileComponent implements OnInit {
   }
 
   onSelectedOption(e) {
-    this.getFilteredExpenseList();
+    
+    console.log("checking datakkks "+this.dataService.searchOption)
+
+    //The search filtter is recieved and put in k here
+    var k = e[1];
+    this.getFilteredExpenseList(k);
   }
 
-  getFilteredExpenseList() {
+  getFilteredExpenseList(searchFilter) {
+    //function to get the data from searchbar component
+    console.log("Search flter that should be used is "+searchFilter)
     if (this.dataService.searchOption.length > 0)
-      {this.allPatients = this.dataService.filteredListOptions();
+      {this.allPatients = this.dataService.filteredListOptions(searchFilter);
       this.filteredPatients = this.allPatients;}
     else {
       this.allPatients = this.dataService.postsData;

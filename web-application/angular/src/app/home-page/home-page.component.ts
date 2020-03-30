@@ -22,12 +22,13 @@ export class HomePageComponent implements OnInit {
   }
 
   onSelectedOption(e) {
-    this.getFilteredExpenseList();
+    var k = e[1];
+    this.getFilteredExpenseList(k);
   }
 
-  getFilteredExpenseList() {
+  getFilteredExpenseList(searchFilter) {
     if (this.dataService.searchOption.length > 0)
-      this.post = this.dataService.filteredListOptions();
+      this.post = this.dataService.filteredListOptions(searchFilter);
     else {
       this.post = this.dataService.postsData;
     }

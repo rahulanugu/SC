@@ -27,11 +27,11 @@ export class SearchBarComponent implements OnInit {
   //To add a new filter, add a json object in availableFilters
   // & also add a switch case in filterCategoryList
 
-  @ViewChild('autocompleteInput') autocompleteInput: ElementRef;
+  @ViewChild('autocompleteInput',{static: true}) autocompleteInput: ElementRef;
   @Output() onSelectedOption = new EventEmitter();
 
   constructor(
-    private dataService: DataService
+    public dataService: DataService
   ) { }
 
   ngOnInit() {
@@ -91,8 +91,8 @@ export class SearchBarComponent implements OnInit {
     }
   }
 
-  displayFn(post: Patient, searchParam) {
-    switch (searchParam) {
+  displayFn(post: Patient) {
+    switch (this.filterSelection) {
       case "fname": let k = post ? post.fname : post;
         return k;
       case "email": let l = post ? post.email : post;
@@ -108,8 +108,10 @@ export class SearchBarComponent implements OnInit {
     }
     else {
       console.log("not")
+      
 
       this.dataService.searchOption.push(posts);
+      this.dataService.searchOption.push(this.filterSelection);
       this.onSelectedOption.emit(this.dataService.searchOption)
     }
 
