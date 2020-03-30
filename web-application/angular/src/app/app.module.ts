@@ -50,7 +50,7 @@ import { DataService } from './data.service';
 import { HealthcareProfileComponent } from './healthcare-profile/healthcare-profile.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { PatientHealthcareviewComponent } from './patient-healthcareview/patient-healthcareview.component'; 
-import { HighchartsChartComponent } from 'highcharts-angular';
+import { HighchartsChartModule } from 'highcharts-angular';
 
 @NgModule({
   declarations: [
@@ -88,7 +88,8 @@ import { HighchartsChartComponent } from 'highcharts-angular';
     SearchBarComponent,
     HealthcareProfileComponent,
     PatientHealthcareviewComponent,
-    HighchartsChartComponent
+    
+
   ],
 
   imports: [
@@ -104,7 +105,8 @@ import { HighchartsChartComponent } from 'highcharts-angular';
     MatAutocompleteModule,
     MatChipsModule,
     MatFormFieldModule,
-    MatRadioModule
+    MatRadioModule,
+    HighchartsChartModule
    ],
   providers: [
     DbService,
