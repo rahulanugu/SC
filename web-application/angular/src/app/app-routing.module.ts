@@ -55,7 +55,7 @@ const routes: Routes = [
   { path: "terms-conditions", component: TermsConditionsComponent },
   { path: "", redirectTo: "/home", pathMatch: "full" },
   { path: "registersuccessful", component: RegisterSuccessfulPageComponent },
-  { path: "searchTest", component:HomePageComponent},
+  { path: "searchTest", component:HomePageComponent, canActivate: [HealthcareAuthGuard]},
   { path: "healthcare-profile", component: HealthcareProfileComponent, canActivate: [HealthcareAuthGuard]},
   { path: "healthcare-profile/patient/:patientid", component: PatientHealthcareviewComponent, canActivate: [HealthcareAuthGuard]}
 ];
