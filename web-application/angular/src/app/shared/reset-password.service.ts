@@ -24,6 +24,7 @@ export class ResetPasswordService {
   }
 
   makePasswordChange(token,password){
+    console.log("token being sent to backend is"+token)
     let body = {
       token: token,
       password: password

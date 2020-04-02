@@ -51,7 +51,6 @@ export class HealthcareVerifyComponent implements OnInit {
         document.getElementById('verificationerror').style.display = "block";
         window.location.hash = "verificationerror";
         console.log('no data');
-        //TODO: route to error page
       }
     })
     

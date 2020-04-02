@@ -51,6 +51,8 @@ import { HealthcareProfileComponent } from './healthcare-profile/healthcare-prof
 import { MatRadioModule } from '@angular/material/radio';
 import { PatientHealthcareviewComponent } from './patient-healthcareview/patient-healthcareview.component'; 
 import { HighchartsChartModule } from 'highcharts-angular';
+import { Error404Component } from './error404/error404.component';
+import { Error500Component } from './error500/error500.component';
 
 @NgModule({
   declarations: [
@@ -88,6 +90,8 @@ import { HighchartsChartModule } from 'highcharts-angular';
     SearchBarComponent,
     HealthcareProfileComponent,
     PatientHealthcareviewComponent,
+    Error404Component,
+    Error500Component,
     
 
   ],

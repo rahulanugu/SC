@@ -45,7 +45,7 @@ export class JobCategoriesComponent implements OnInit {
         console.log(res);
       },
       err => {
-        //TODO: Redirect to an error has occured trying to process your request page
+        this.router.navigate(['/name']);
       }
     );
   }

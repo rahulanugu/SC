@@ -77,11 +77,15 @@ router.post('/', async (req, res)=>{
 /**
  * Verify the jwt token and return the if valid or not
  */
-router.get('/check/:token', async (req, res)=>{
+router.post('/check', async (req, res)=>{
 
   // The token we get here is encrypted, so we need to decode it
+  // will recieve an encrypted jwt token
+  console.log("checking the validity of tthe password in check")
+  var encryptedToken = req.body.token.replace(/ /g, '+');
+  console.log(encryptedToken)
 
-  jwt.verify(Utility.DecryptToken(req.params.token), 'santosh', (err, verifiedJwt) => {
+  jwt.verify(Utility.DecryptToken(encryptedToken), 'santosh', (err, verifiedJwt) => {
     if(err){
       res.status(500).send(err.message)
     }else{
@@ -98,18 +102,27 @@ router.post('/change_password', async(req,res) => {
   console.log("Reached change password")
   const str = req.body;
 
+  // The token we get here is encrypted, so we need to decode it
+  // will recieve an encrypted jwt token
+   var correctedToken = req.body.token.replace(/ /g, '+');
+   const decryptedToken = Utility.DecryptToken(correctedToken);
+
+   console.log("corrected token \n"+correctedToken)
   //verify jwt token
-  jwt.verify(str.token, 'santosh', (err, verifiedJwt) => {
+  jwt.verify(decryptedToken, 'santosh', (err, verifiedJwt) => {
     if(err){
+      console.log("Couldn't verify the token")
+      console.log(err)
       res.status(500).send(err.message)
     }else{
       //jwt is verified, decode it for email
       
       //jwt is encrypted when reached here, need to decrypt it before using
-      const decryptedToken = Utility.DecryptToken(str.token);
       //decode jwtt payload it for email
       var decodedValue = jwtDecode(decryptedToken);
       
+      console.log("Decrypted ttoken being modified");
+      console.log(decodedValue);
       //.tokebody of decodedvalue will contain the value of json object
         //find the email and update the object
         Patient.findOne({Email: decodedValue.patient.Email},async function (err,doc) {
@@ -217,7 +230,7 @@ const sendVerificationMail = (email,fname,encryptedToken)=>{
           </div>
           <h1 align="center"style="font-family: arial;">Please follow the link to reset your password</h1>
           <p class="para">Hi `+fname+`,</p>
-        <p align="center"><a href="http://localhost:4200/patient/password/resetpage/`+encryptedToken+`?email=`+email+`"><button>Verify Your E-mail Address</button></a></p><br><br>
+        <p align="center"><a href="http://localhost:4200/patient/password/resetpage?token=`+encryptedToken+`?email=`+email+`"><button>Click to reset the password</button></a></p><br><br>
         <p align="center" class="para">If you have any questions or concerns feel free to reach out to <a href="mailto:customer-care@scriptchain.co">customer-care@scriptchain.co</a></p>
           <div class="panelFooter">
             <p align="center" >This message was sent from ScriptChain LLC., Boston, MA</p>

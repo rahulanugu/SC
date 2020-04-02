@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from "@angular/forms";
 import { HealthcareAccountService } from '../shared/healthcare-account.service';
+import { Router } from '@angular/router';
 
 
 /**
@@ -19,7 +20,8 @@ export class HealthcareRegisterComponent implements OnInit {
   userAlreadyExist: boolean = false;
   constructor(
     private formBuilderService: FormBuilder,
-    private healthCareAccountService: HealthcareAccountService
+    private healthCareAccountService: HealthcareAccountService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -45,8 +47,9 @@ export class HealthcareRegisterComponent implements OnInit {
     err => {
       if(err.status === 400){
         this.userAlreadyExist = true;
+      } else {
+        this.router.navigate(['/home'])
       }
-      //TODO: Redirect to an error component
     });
 
   }
