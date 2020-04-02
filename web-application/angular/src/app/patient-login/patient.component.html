@@ -33,7 +33,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
           <input type="password" id="password" class="form-control" name="password" #password="ngModel" [class.is-invalid]="password.invalid && password.touched" placeholder="" required [(ngModel)]="patientmodel.password">
           <small class="text-danger" [class.d-none]="password.valid || password.untouched">Password is required</small>
           <small id="invalidsignin" class="text-danger d-none">Invalid Email or Password</small>
-
+          <a style ="text-align: center; padding-left: 35%;" routerLink="/patient/password/reset">Forgot Password</a>
         </div>
         <button type="submit" class="btn submit mt-4">Login</button>
         <p class="text-center mt-5">

@@ -14,8 +14,11 @@ export class CheckJwtService {
   
     constructor(private http: HttpClient) {}
   
-    verifyJwtStatus(string) {
-      return this.http.get(this.baseURL+'/'+string);
+    verifyJwtStatus(str) {
+      const reqBody = {
+        "token": str
+      }
+      return this.http.post(this.baseURL,reqBody);
     }
   
 }
