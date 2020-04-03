@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from "@angular/forms";
 import { HealthcareAccountService } from '../shared/healthcare-account.service';
 import { Router } from '@angular/router';
+import { CustomValidator } from '../shared/validators/validation';
 
 
 /**
@@ -16,6 +17,23 @@ import { Router } from '@angular/router';
 })
 export class HealthcareRegisterComponent implements OnInit {
 
+  public phonemask = [
+    "(",
+    /[0-9]/,
+    /\d/,
+    /\d/,
+    ")",
+    " ",
+    /\d/,
+    /\d/,
+    /\d/,
+    "-",
+    /\d/,
+    /\d/,
+    /\d/,
+    /\d/
+  ];
+
   passwordNotMatch: boolean = false;
   userAlreadyExist: boolean = false;
   constructor(
@@ -28,13 +46,16 @@ export class HealthcareRegisterComponent implements OnInit {
     document.getElementById('registersuccessful').style.display = "none";
   }
 
+  pattern1 =  "^[0-9_-]{10,12}";
+
   Form = this.formBuilderService.group({
     firstName: ["", Validators.required],
     lastName: ["", Validators.required],
     email: ["", Validators.required],
     companyName: ["", Validators.required],
     roleInCompany: ["", Validators.required],
-    password: ["", Validators.required]
+    password: ["", Validators.required],
+    phone: ["", [Validators.required, CustomValidator.phoneValidator]]
   });
   
   submitForm(){

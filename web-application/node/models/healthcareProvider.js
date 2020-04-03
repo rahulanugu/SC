@@ -12,7 +12,8 @@ var HealthcareProvider = mongoose.model('HealthcareProvider', {
     location: { type: String },
     roleInCompany: {type: String},
     email: {type: String},
-    password: { type: String }
+    password: { type: String },
+    phone: {type: String}
 }, 'healthcareProviders');
 
 module.exports = { HealthcareProvider };
