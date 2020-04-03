@@ -34,6 +34,11 @@ Register Paitent Form
                     <small  *ngIf = userAlreadyExist class="text-danger">Email is required.</small>
                   </div>
                   <div class="form-group">
+                    <label>Phone*</label>
+                    <input [class.is-invalid]="Form.get('phone').invalid && Form.get('phone').touched" formControlName="phone" type="text" [textMask]="{mask: phonemask}" class="form-control" required>
+                    <small [class.d-none]="Form.get('phone').valid || Form.get('phone').untouched" class="text-danger">Phone is required.</small>
+                  </div>
+                  <div class="form-group">
                     <label>Company Name*</label>
                     <input [class.is-invalid]="Form.get('companyName').invalid && Form.get('companyName').touched" formControlName="companyName" type="text" class="form-control" required>
                     <small [class.d-none]="Form.get('companyName').valid || Form.get('companyName').untouched" class="text-danger">Company Name is required.</small>

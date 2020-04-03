@@ -129,7 +129,8 @@ router.post('/account/verify',async(req,res)=>{
         location: decodedValue.tokeBody.location,
         roleInCompany: decodedValue.tokeBody.roleInCompany,
         email: decodedValue.tokeBody.email,
-        password: hashpassword
+        password: hashpassword,
+        phone: decodedValue.tokeBody.phone
     })
 
     healthcareProvider.save((err,doc) => {
