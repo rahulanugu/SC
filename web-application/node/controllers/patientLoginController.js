@@ -17,7 +17,7 @@ var router = express.Router();
 router.post('/', async (req, res)=>{
     const patient = await Patient.findOne({Email: req.body.email});
 
-    if(!patient) return res.status(401).json({
+    if(!patient) return res.status(404).json({
 
       message:"Invalid Email or password"
     });

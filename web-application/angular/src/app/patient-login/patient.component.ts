@@ -60,10 +60,17 @@ export class PatientComponent implements OnInit {
         
       },
       err => {
-        console.log(err);
-        document.querySelector('#password').classList.add('is-invalid');
-        document.querySelector('#email').classList.add('is-invalid');
-        document.querySelector('#invalidsignin').classList.remove('d-none');    
+        if(err.status == 401){
+          document.querySelector('#email').classList.remove('is-invalid');
+          document.querySelector('#invalidEmailPrompt').classList.add('d-none');    
+          document.querySelector('#password').classList.add('is-invalid');
+          document.querySelector('#invalidPasswordPrompt').classList.remove('d-none');    
+
+        }else{
+          document.querySelector('#email').classList.add('is-invalid');
+          document.querySelector('#password').classList.add('is-invalid');
+          document.querySelector('#invalidEmailPrompt').classList.remove('d-none');    
+        }
       }
     );
   }

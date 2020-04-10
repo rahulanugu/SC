@@ -53,6 +53,8 @@ import { PatientHealthcareviewComponent } from './patient-healthcareview/patient
 import { HighchartsChartModule } from 'highcharts-angular';
 import { Error404Component } from './error404/error404.component';
 import { Error500Component } from './error500/error500.component';
+import { HealthcareResetPasswordComponent } from './healthcare-reset-password/healthcare-reset-password.component';
+import { HealthcareResetPasswordPageComponent } from './healthcare-reset-password-page/healthcare-reset-password-page.component';
 
 @NgModule({
   declarations: [
@@ -92,6 +94,8 @@ import { Error500Component } from './error500/error500.component';
     PatientHealthcareviewComponent,
     Error404Component,
     Error500Component,
+    HealthcareResetPasswordComponent,
+    HealthcareResetPasswordPageComponent,
     
 
   ],

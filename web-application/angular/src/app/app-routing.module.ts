@@ -29,6 +29,8 @@ import { HealthcareAuthGuard } from "./healthcare-auth.guard";
 import { PatientHealthcareviewComponent } from "./patient-healthcareview/patient-healthcareview.component";
 import { Error404Component } from "./error404/error404.component";
 import { Error500Component } from "./error500/error500.component";
+import { HealthcareResetPasswordComponent } from "./healthcare-reset-password/healthcare-reset-password.component";
+import { HealthcareResetPasswordPageComponent } from "./healthcare-reset-password-page/healthcare-reset-password-page.component";
 
 const routes: Routes = [
   /* pages for the app */
@@ -42,6 +44,8 @@ const routes: Routes = [
   { path: "healthcare/login", component: HealthcareLoginComponent },
   { path: "healthcare/register", component: HealthcareRegisterComponent },
   { path: "healthcare/verify", component: HealthcareVerifyComponent },
+  { path: "healthcare/password/reset", component: HealthcareResetPasswordComponent},
+  { path: "healthcare/password/resetpage", component: HealthcareResetPasswordPageComponent},
   { path: "register", component: RegisterComponent },
   { path: "patient/registerTwo", component: PatientRegistertwoComponent },
   { path: "patient/password/reset", component: ResetPasswordComponent },

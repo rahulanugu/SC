@@ -12,17 +12,19 @@ export class HealthcareProfileComponent implements OnInit {
 
   allPatients: Patient[]
   filteredPatients: Patient[]
+  providerFirstName: string;
   constructor(
     private dataService: DataService,
     private router: Router
   ) { }
 
   ngOnInit() {
+    this.providerFirstName = localStorage.getItem('fname');
     this.dataService.getPosts().subscribe(posts => {
       this.allPatients = posts
       this.dataService.postsData = posts
-    });
-  }
+    });    
+  }  
 
   onSelectedOption(e) {
     
@@ -49,5 +51,11 @@ export class HealthcareProfileComponent implements OnInit {
   openPatientProfile(patientId){
     console.log("patientId being rtried to access is "+patientId)
     this.router.navigate(["healthcare-profile/patient/",patientId]);
+  }
+
+  logout(){
+    localStorage.removeItem('token');
+    localStorage.removeItem('fname');
+    this.router.navigate(['patientlogin']);
   }
 }
