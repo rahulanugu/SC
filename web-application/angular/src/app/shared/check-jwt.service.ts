@@ -10,6 +10,8 @@ import { HttpClient } from '@angular/common/http';
 export class CheckJwtService {
   
     readonly baseURL = environment.serverUrl+"reset_password/check";
+    readonly baseUrlHealthcare = environment.serverUrl + "backend/healthcare/reset_password/check"
+
     
   
     constructor(private http: HttpClient) {}
@@ -19,6 +21,13 @@ export class CheckJwtService {
         "token": str
       }
       return this.http.post(this.baseURL,reqBody);
+    }
+
+    verifyJwtStatusForHealthcare(str) {
+      const reqBody = {
+        "token": str
+      }
+      return this.http.post(this.baseUrlHealthcare,reqBody);
     }
   
 }

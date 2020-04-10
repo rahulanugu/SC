@@ -28,6 +28,7 @@ healthcare login
               formControlName="password" type="password" class="form-control" id="password"required>
             <small [class.d-none]="Form.get('password').valid || Form.get('password').untouched"
               class="text-danger">Password is required</small>
+              <a style ="text-align: center; padding-left: 35%;" routerLink="/healthcare/password/reset">Forgot Password</a>
           </div>
           <small id="invalidsignin" class="text-danger d-none">Invalid Email or Password</small>
           <div class="n-right-w3ls mt-5 pt-lg-4">

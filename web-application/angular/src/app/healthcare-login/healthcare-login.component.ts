@@ -40,7 +40,7 @@ export class HealthcareLoginComponent implements OnInit {
       res => {
         console.log(res)
         localStorage.setItem('token',res["idToken"])
-         localStorage.setItem('fname',res["firstname"])
+         localStorage.setItem('fname',res["firstName"])
         this.router.navigate(['healthcare-profile'])
       },
       err => {
