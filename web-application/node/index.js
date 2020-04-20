@@ -43,6 +43,12 @@ app.use(bodyParser.json());
 // });
 
 //for production mode uncomment below code & comment out for local
+
+app.get("*", function(request, response){
+  response.redirect("https://" + request.headers.host + request.url);
+});
+
+
 app.use(function (req, res, next) {
 
   // Website you wish to allow to connect
