@@ -21,7 +21,7 @@ var resetPasswordController = require("./controllers/resetPasswordController");
 var healthcareProviderController = require("./controllers/healthcareProviderController");
 var healthcareProvideLoginController = require("./controllers/healthcareProviderLoginController");
 var healthcareProviderResetPasswordController = require("./controllers/healthcareProviderResetPasswordController")
-var app = express();
+var app = express(), yes = require('yes-https');
 
 // configure express middleware to send date to nodejs project
 app.use(bodyParser.json());
