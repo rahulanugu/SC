@@ -1,6 +1,7 @@
 import { PatientDataService } from "./../patient-data.service";
 import { Component, OnInit } from "@angular/core";
 import { LoginPatientService } from "./../../shared/login-patient.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-patient-navbar",
@@ -12,7 +13,8 @@ export class PatientNavbarComponent implements OnInit {
   public insuranceExpense;
   constructor(
     private _PatientDataService: PatientDataService,
-    private _loginPatientService: LoginPatientService
+    private _loginPatientService: LoginPatientService,
+    private _router: Router
   ) {}
 
   ngOnInit() {
@@ -22,5 +24,8 @@ export class PatientNavbarComponent implements OnInit {
   }
   logout() {
     this._loginPatientService.logOutPatient();
+  }
+  profile(){
+    this._router.navigate(['editpatient'])
   }
 }

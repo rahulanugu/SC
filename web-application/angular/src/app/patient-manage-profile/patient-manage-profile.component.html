@@ -1,0 +1,58 @@
+<body>
+  <app-patient-navbar></app-patient-navbar>
+  <div class="container mt-4">
+    <h1 id="firstname"></h1>
+  </div>
+  
+  <section class="login py-5">
+    <div class="container py-xl-5 py-lg-3" *ngIf = "visible">
+      <h3>Change your password</h3>
+      <br>
+      <label><strong>Old Password: </strong></label>
+          <input pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!,@,#,$,%,^,&,*]).{6,20}" type="password" class="form-control" required
+          [(ngModel)]="oldPassword" >
+          <br/>
+      <label><strong>New Password: </strong></label>
+          <input pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!,@,#,$,%,^,&,*]).{6,20}" type="password" class="form-control" required
+          [(ngModel)]="newPassword" >
+          <br/>
+      <label><strong>Re-Enter New Password: </strong></label>
+          <input pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!,@,#,$,%,^,&,*]).{6,20}" type="password" class="form-control" required
+          [(ngModel)]="reNewPassword" >
+          <br/>
+  
+      <button class="btn btn-secondary" (click) = "onSubmission()">Submit</button>
+    </div>
+    <div class="container py-xl-5 py-lg-3" *ngIf = "!visible">
+      <small> Password has been succesfully reset </small>
+    </div>
+    <div class="container py-xl-5 py-lg-3" *ngIf = "wrongPassword">
+      <small style="color: red;">Incorrect old password has been entered </small>
+    </div>
+    <div class="container py-xl-5 py-lg-3" *ngIf = "errorVisible">
+      <small style="color: red;">Could not update password at the given time. </small>
+    </div>
+    <div class="container py-xl-5 py-lg-3" *ngIf = "!passwordsMatch">
+      <small style="color: red;">Passwords do not match </small>
+    </div>
+    <div class="container py-xl-5 py-lg-3">
+      <h5>Click below to deactivate your account</h5>
+      <button class="btn btn-primary" (click)="deactivateUser()">DEACTIVATE</button>
+    </div>
+    
+  </section>
+
+  <script
+    async
+    src="https://www.googletagmanager.com/gtag/js?id=UA-148334798-1"
+  ></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+
+    gtag("config", "UA-148334798-1");
+  </script>
+</body>

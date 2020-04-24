@@ -55,6 +55,9 @@ import { Error404Component } from './error404/error404.component';
 import { Error500Component } from './error500/error500.component';
 import { HealthcareResetPasswordComponent } from './healthcare-reset-password/healthcare-reset-password.component';
 import { HealthcareResetPasswordPageComponent } from './healthcare-reset-password-page/healthcare-reset-password-page.component';
+import { PatientManageProfileComponent } from './patient-manage-profile/patient-manage-profile.component';
+import { DeactivatedPatientComponent } from './deactivated-patient/deactivated-patient.component';
+import { ReactivatePatientComponent } from './reactivate-patient/reactivate-patient.component';
 
 @NgModule({
   declarations: [
@@ -96,6 +99,9 @@ import { HealthcareResetPasswordPageComponent } from './healthcare-reset-passwor
     Error500Component,
     HealthcareResetPasswordComponent,
     HealthcareResetPasswordPageComponent,
+    PatientManageProfileComponent,
+    DeactivatedPatientComponent,
+    ReactivatePatientComponent,
     
 
   ],

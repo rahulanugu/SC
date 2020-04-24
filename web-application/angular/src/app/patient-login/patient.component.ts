@@ -6,6 +6,7 @@ import { from } from 'rxjs';
 import {NgForm} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { VerificationService } from '../shared/verification.service';
+import { PatientEditService } from '../shared/patient-edit.service';
 
 /**
  * Page: Login form for patient users
@@ -23,7 +24,8 @@ export class PatientComponent implements OnInit {
   constructor(private _patientloginservice:LoginPatientService,
     private _router:Router,
     private activatedRoute: ActivatedRoute,
-    private patientService: VerificationService) { }
+    private patientService: VerificationService,
+    private patientEditService: PatientEditService) { }
 
   ngOnInit() {
     document.getElementById('verificationsuccessful').style.display = "none";
@@ -50,26 +52,47 @@ export class PatientComponent implements OnInit {
       }
   //check if user exist or not if user exist receive JWT and add to browser's local storage
   onSubmit(){
+    console.log("clicked submit")
     this._patientloginservice.Loginpatient(this.patientmodel).subscribe(
 
       res => {
         console.log(res)
         localStorage.setItem('token',res.idToken)
         localStorage.setItem('fname',res.fname)
+        localStorage.setItem('email',res.email)
         this._router.navigate(['patient-profile'])
         
       },
       err => {
+        console.log("Error is")
+        console.log(err)
         if(err.status == 401){
           document.querySelector('#email').classList.remove('is-invalid');
           document.querySelector('#invalidEmailPrompt').classList.add('d-none');    
           document.querySelector('#password').classList.add('is-invalid');
           document.querySelector('#invalidPasswordPrompt').classList.remove('d-none');    
+          document.querySelector('#deactivatedEmail').classList.add('d-none');
 
-        }else{
+
+        }else if(err.status == 303){
+          console.log("deactivated email handling")
+          //send a reactivare mail
+          this.patientEditService.makeReactivateRequest({email : this.patientmodel.email}).subscribe(
+            response => {
+              console.log("response is recieved")
+              document.querySelector('#deactivatedEmail').classList.remove('d-none');
+            },
+            error => {
+              console.log("error is recieved")
+              this._router.navigate['error500']
+            }
+          );
+        } else {
           document.querySelector('#email').classList.add('is-invalid');
           document.querySelector('#password').classList.add('is-invalid');
           document.querySelector('#invalidEmailPrompt').classList.remove('d-none');    
+          document.querySelector('#deactivatedEmail').classList.add('d-none');
+
         }
       }
     );
