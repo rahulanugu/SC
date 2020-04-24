@@ -46,6 +46,8 @@ app.use(bodyParser.json());
 // });
 
 //for production mode uncomment below code & comment out for local
+
+
 app.use(function (req, res, next) {
 
   // Website you wish to allow to connect
@@ -60,6 +62,11 @@ app.use(function (req, res, next) {
   // Set to true if you need the website to include cookies in the requests sent
   // to the API (e.g. in case you use sessions)
   res.setHeader('Access-Control-Allow-Credentials', true);
+  
+  if (req.host != 'localhost' && req.get('X-Forwarded-Proto') == 'http') {
+    res.redirect(`https://${req.host}${req.url}`);
+    return;
+  }
 
   // Pass to next layer of middleware
   next();
