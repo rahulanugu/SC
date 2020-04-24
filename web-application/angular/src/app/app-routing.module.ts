@@ -31,6 +31,9 @@ import { Error404Component } from "./error404/error404.component";
 import { Error500Component } from "./error500/error500.component";
 import { HealthcareResetPasswordComponent } from "./healthcare-reset-password/healthcare-reset-password.component";
 import { HealthcareResetPasswordPageComponent } from "./healthcare-reset-password-page/healthcare-reset-password-page.component";
+import { PatientManageProfileComponent } from "./patient-manage-profile/patient-manage-profile.component";
+import { DeactivatedPatientComponent } from "./deactivated-patient/deactivated-patient.component";
+import { ReactivatePatientComponent } from "./reactivate-patient/reactivate-patient.component";
 
 const routes: Routes = [
   /* pages for the app */
@@ -56,6 +59,7 @@ const routes: Routes = [
     component: PatientProfileComponent,
     canActivate: [PatientAuthGuard]
   },
+  {path: "editpatient", component: PatientManageProfileComponent, canActivate: [PatientAuthGuard]},
   { path: "contact-us", component: ContactUsComponent },
   { path: "careers", component: CareersComponent },
   { path: "privacy-policy", component: PrivacyPolicyComponent },
@@ -63,6 +67,8 @@ const routes: Routes = [
   { path: "terms-conditions", component: TermsConditionsComponent },
   { path: "", redirectTo: "/home", pathMatch: "full" },
   { path: "registersuccessful", component: RegisterSuccessfulPageComponent },
+  { path: "deactivatedpatient", component: DeactivatedPatientComponent },
+  { path: "reactivatepatient", component: ReactivatePatientComponent },
   { path: "searchTest", component:HomePageComponent, canActivate: [HealthcareAuthGuard]},
   { path: "healthcare-profile", component: HealthcareProfileComponent, canActivate: [HealthcareAuthGuard]},
   { path: "healthcare-profile/patient/:patientid", component: PatientHealthcareviewComponent, canActivate: [HealthcareAuthGuard]}

@@ -33,6 +33,7 @@ export class LoginPatientService {
   logOutPatient(){
     localStorage.removeItem('token');
     localStorage.removeItem('fname');
+    localStorage.removeItem('email');
     this._router.navigate(['patientlogin']);
   }
 }

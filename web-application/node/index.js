@@ -20,7 +20,10 @@ var careersController = require("./controllers/careersController");
 var resetPasswordController = require("./controllers/resetPasswordController");
 var healthcareProviderController = require("./controllers/healthcareProviderController");
 var healthcareProvideLoginController = require("./controllers/healthcareProviderLoginController");
-var healthcareProviderResetPasswordController = require("./controllers/healthcareProviderResetPasswordController")
+var healthcareProviderResetPasswordController = require("./controllers/healthcareProviderResetPasswordController");
+var deactivateController = require("./controllers/deactivateController");
+var reactivateController = require("./controllers/reactivateController");
+var editPatientController = require("./controllers/editPatientController")
 var app = express();
 
 // configure express middleware to send date to nodejs project
@@ -77,10 +80,11 @@ app.use("/contact_us", contactUsController);
 app.use("/careers", careersController);
 app.use("/reset_password", resetPasswordController);
 app.use("/backend/healthcare",healthcareProviderController);
-app.use("/backend/healthcare-login",healthcareProvideLoginController)
-app.use("/backend/healthcare/reset_password", healthcareProviderResetPasswordController)
-
-
+app.use("/backend/healthcare-login",healthcareProvideLoginController);
+app.use("/backend/healthcare/reset_password", healthcareProviderResetPasswordController);
+app.use("/backend/deactivate", deactivateController )
+app.use("/backend/reactivate", reactivateController )
+app.use("/backend/editpatient" , editPatientController)
 
 //Uncomment out the below code for production mode.
 app.get("*", (req, res) => {

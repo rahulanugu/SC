@@ -58,7 +58,7 @@
                           <td>{{data.weight}}</td>
                           <td>{{data.reasonForVisit}}</td>
                         </tr>
-                       
+
                       </tbody>
                     </table>
 
@@ -273,22 +273,22 @@
                           <th scope="col">Out of Pocket Expense</th>
                           <th scope="col">Co-pay for Prescription</th>
                           <th scope="col">Out of Pocket Expense for Prescription</th>
-                           </tr>
+                        </tr>
                       </thead>
                       <tbody>
-                      <tr>
-                        <td>{{insuranceExpense.originDate}}</td>
-                        <td>{{insuranceExpense.bloodPressure}}</td>
-                        <td>{{insuranceExpense.sugarLevel}}</td>
-                        <td>{{insuranceExpense.heartRate}}</td>
-                      
-                      </tr>
+                        <tr>
+                          <td>{{insuranceExpense.originDate}}</td>
+                          <td>{{insuranceExpense.bloodPressure}}</td>
+                          <td>{{insuranceExpense.sugarLevel}}</td>
+                          <td>{{insuranceExpense.heartRate}}</td>
+
+                        </tr>
                       </tbody>
                     </table>
-                  
+
                   </div>
                 </div>
-                
+
                 <div class="modal-footer">
                   <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 
@@ -366,6 +366,12 @@
             </div>
           </div>
         </li>
+        <li class="nav-item dropdown mx-sm-4">
+          <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="modal"
+             aria-haspopup="true" aria-expanded="false" (click)="profile()">
+            <img src="../../assets/doctornote.png">&nbsp;&nbsp;&nbsp;Edit Profile
+          </a>
+        </li>
       </ul>
       <!--<form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -376,7 +382,7 @@
         <li class="nav-item mx-sm-4">
           <button type="button" (click)="logout()" class="btn btn-primary btn-sm"><b>Logout</b></button>
         </li>
+
       </ul>
     </div>
   </nav>
- 
