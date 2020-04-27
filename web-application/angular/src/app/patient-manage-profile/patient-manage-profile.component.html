@@ -6,22 +6,29 @@
   
   <section class="login py-5">
     <div class="container py-xl-5 py-lg-3" *ngIf = "visible">
-      <h3>Change your password</h3>
-      <br>
-      <label><strong>Old Password: </strong></label>
-          <input pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!,@,#,$,%,^,&,*]).{6,20}" type="password" class="form-control" required
-          [(ngModel)]="oldPassword" >
-          <br/>
-      <label><strong>New Password: </strong></label>
-          <input pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!,@,#,$,%,^,&,*]).{6,20}" type="password" class="form-control" required
-          [(ngModel)]="newPassword" >
-          <br/>
-      <label><strong>Re-Enter New Password: </strong></label>
-          <input pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!,@,#,$,%,^,&,*]).{6,20}" type="password" class="form-control" required
-          [(ngModel)]="reNewPassword" >
-          <br/>
-  
-      <button class="btn btn-secondary" (click) = "onSubmission()">Submit</button>
+      <h2>Change Your Password</h2>
+    <form ngNativeValidate [formGroup]="Form" (ngSubmit)="onSubmission()">
+                <div class="form-group">
+                  <label><strong> Old Password</strong></label>
+                  <input [class.is-invalid]="Form.get('oldPassword').invalid && Form.get('oldPassword').touched" formControlName="oldPassword" type="password" class="form-control" required>
+                  <small [class.d-none]="Form.get('oldPassword').valid || Form.get('oldPassword').untouched" class="text-danger">Old password is required.</small>
+                  </div>
+                <div class="form-group">
+                  <label><strong> New Password*</strong></label>
+                  <input pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!,@,#,$,%,^,&,*]).{6,20}" [class.is-invalid]="Form.get('password').invalid && Form.get('password').touched" formControlName="password" type="password" class="form-control" required>
+                  <small [class.d-none]="Form.get('password').valid || Form.get('password').untouched" class="text-danger">Invalid password &#10060; , include a capital letter, number and special symbol(ex: !,@,?...) </small>
+                  <small [class.d-none]="Form.get('password').invalid || Form.get('password').untouched" class="text-danger"> Valid &#10004; </small>
+                </div>
+                <div class="form-group">
+                  <label> <strong>Re-enter new Password*</strong></label>
+                  <input [class.is-invalid]="Form.get('rePassword').invalid && Form.get('rePassword').touched" formControlName="rePassword" type="password" class="form-control" required>
+                  <small [class.d-none]="Form.get('rePassword').valid || Form.get('rePassword').untouched" class="text-danger">Please re-enter the password</small>
+                  <br/>
+                  <button class="btn btn-secondary" type="submit" id ="submitButton">Submit</button>
+                </div>
+                     
+                    
+  </form>
     </div>
     <div class="container py-xl-5 py-lg-3" *ngIf = "!visible">
       <small> Password has been succesfully reset </small>

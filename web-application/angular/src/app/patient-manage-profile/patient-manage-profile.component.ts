@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PatientEditService } from '../shared/patient-edit.service';
 import { Router } from '@angular/router';
+import { Validators, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-patient-manage-profile',
@@ -19,11 +20,18 @@ export class PatientManageProfileComponent implements OnInit {
   passwordsMatch: boolean = true;
   token: string = '';
   passwordPattern = "(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!,@,#,$,%,^,&,*]).{6,20}";
+
+  Form = this.formBuilderService.group({
+    oldPassword: ["", Validators.required],
+    password: ["", Validators.required],
+    rePassword: ["", Validators.required],
+  });
   
   couldNotDeactivate: boolean = false;
   constructor(
     private patientEditService: PatientEditService,
-    private router: Router
+    private router: Router,
+    private formBuilderService: FormBuilder
     ) { }
 
   ngOnInit() {
@@ -31,7 +39,7 @@ export class PatientManageProfileComponent implements OnInit {
 
   onSubmission(){
     console.log("trying to submit")
-    if(!(this.newPassword === this.reNewPassword)){
+    if(!(this.Form.value.password === this.Form.value.rePassword)){
       console.log("reentered passwords dont match")
       this.passwordsMatch = false;
 
@@ -47,8 +55,8 @@ export class PatientManageProfileComponent implements OnInit {
 
       var patientDetails = {
         email: localStorage.getItem('email'),
-        oldPassword: this.oldPassword,
-        newPassword: this.newPassword
+        oldPassword: this.Form.value.oldPassword,
+        newPassword: this.Form.value.password
       }
       this.patientEditService.changePassword(patientDetails).subscribe(
         response => {
