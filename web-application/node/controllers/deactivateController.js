@@ -3,14 +3,16 @@ const router = express.Router();
 const { Patient } = require('../models/user');
 const { DeactivatedPatient } = require('../models/deactivatedUser');
 
-
+//The controller handles the requests for deactivating user accounts
 
 /**
- * Method to save the customer query to the database
- * Input: Details of ContactUser as specified in schema
+ * Method to move a patient object from Patient database to DeactivatedPatient database
+ * Input: Body containing the email of the patient to be deactivated
+ *         Body - { email: "example@abc.com"}
  * Output: Status of the save operation
- *         200 - Successfylly saved the request
- *         500 - An error occured trying to save the request
+ *         200 - Successfylly deactivated the patient
+ *         500 - An error occured trying to perform the request
+ *         404 - Patient not found
  */
 router.post("/patient", async (req, res) => {
     console.log("reached deacivate controller");

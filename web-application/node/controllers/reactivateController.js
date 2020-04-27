@@ -8,8 +8,16 @@ const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
 var jwtDecode = require('jwt-decode');
 
+//The controller handles the requests for reactivating user accounts
 
-
+/**
+ * Method to request reactivation of a patient account
+ * Input: Body containg email of the user
+ *        Body - {email: "example@abc.com"}
+ * Output: 200 - successfully executed the request
+ *          A mail with jwt token for verification will be sent to the user
+ *         404 - user not found
+ */
 router.post("/patient/request", async (req, res) => {
     //find the patient
     console.log("Reactivating patient is being requested")
@@ -35,11 +43,13 @@ router.post("/patient/request", async (req, res) => {
 
 
 /**
- * Method to save the customer query to the database
- * Input: Details of ContactUser as specified in schema
+ * Method to move a patient object from DeactivatedPatient database to Patient database
+ * Input: Body containg JWT token sent for verification
+ *        Body - { toke: "jwtToken"}
  * Output: Status of the save operation
- *         200 - Successfylly saved the request
- *         500 - An error occured trying to save the request
+ *         200 - Successfylly reactivated the user
+ *         500 - An error occured trying to perform the request
+ *         404 - Patient not found
  */
 router.post("/patient/activate", async (req, res) => {
     //check validity of token
