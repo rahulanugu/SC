@@ -23,7 +23,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
       <form ngNativeValidate class="login-wrapper" method="post" #patientLogin="ngForm" (ngSubmit)="onSubmit()">
           
         <div class="form-group">
-          
+          <small id="deactivatedEmail" class="text-danger d-none"><strong>Looks like you have deactivated your account, please check your email to reactivate.</strong><br/></small>
           <label>Email*</label>
           <input type="email" id="email" class="form-control" name="email" #email="ngModel" [class.is-invalid]="email.invalid && email.touched" placeholder="" required [(ngModel)]="patientmodel.email">
           <small class="text-danger" [class.d-none]="email.valid || email.untouched">Email is required</small>
@@ -34,7 +34,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
           <small class="text-danger" [class.d-none]="password.valid || password.untouched">Password is required</small>
           <small id="invalidEmailPrompt" class="text-danger d-none">Email does not exist</small>
           <small id="invalidPasswordPrompt" class="text-danger d-none">Please recheck your password</small>
-          <small id="deactivatedEmail" class="text-danger d-none">It seems that your email has been deactivated, please check your email to reactivate.</small>
           <a style ="text-align: center; padding-left: 35%;" routerLink="/patient/password/reset">Forgot Password</a>
         </div>
         <button type="submit" class="btn submit mt-4">Login</button>

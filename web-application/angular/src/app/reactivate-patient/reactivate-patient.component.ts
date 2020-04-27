@@ -45,7 +45,7 @@ export class ReactivatePatientComponent implements OnInit {
   }
 
   reRouteToLogin(){
-    this._router.navigate(['patient-login'])
+    this._router.navigate(['patientlogin'])
   }
 
 }
