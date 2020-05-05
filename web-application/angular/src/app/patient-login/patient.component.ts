@@ -88,6 +88,7 @@ export class PatientComponent implements OnInit {
             }
           );
         } else {
+          document.querySelector('#invalidPasswordPrompt').classList.add('d-none');    
           document.querySelector('#email').classList.add('is-invalid');
           document.querySelector('#password').classList.add('is-invalid');
           document.querySelector('#invalidEmailPrompt').classList.remove('d-none');    

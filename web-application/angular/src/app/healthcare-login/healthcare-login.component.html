@@ -16,6 +16,7 @@ healthcare login
       <div class="login px-sm-4 mx-auto mw-100 login-wrapper" style = "width: 50%;">
         <form ngNativeValidate [formGroup]="Form" (ngSubmit)="onSubmit()">
           <div class="form-group">
+            <small id="deactivatedEmail" class="text-danger d-none"><strong>Looks like you have deactivated your account, please check your email to reactivate.</strong><br/></small>
             <label>Email</label>
             <input [class.is-invalid]="Form.get('emailAddress').invalid && Form.get('emailAddress').touched"
               formControlName="emailAddress" type="email" class="form-control" id="emailAddress" required>
@@ -30,7 +31,9 @@ healthcare login
               class="text-danger">Password is required</small>
               <a style ="text-align: center; padding-left: 35%;" routerLink="/healthcare/password/reset">Forgot Password</a>
           </div>
-          <small id="invalidsignin" class="text-danger d-none">Invalid Email or Password</small>
+          <small id="invalidEmailPrompt" class="text-danger d-none">Email does not exist</small>
+          <small id="invalidPasswordPrompt" class="text-danger d-none">Please recheck your password</small>
+
           <div class="n-right-w3ls mt-5 pt-lg-4">
             <button class="submit btn font-weight-bold" type="submit">Login</button>
           </div>

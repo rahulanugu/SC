@@ -4,6 +4,8 @@ const bcrypt = require('bcryptjs');
 
 const jwt = require('jsonwebtoken');
 var { HealthcareProvider } = require('../models/healthcareProvider');
+const { DeactivatedHealthcareProvider } = require('../models/deactivatedHealthcareProvider');
+
 
 
 var router = express.Router();
@@ -19,9 +21,23 @@ router.post('/', async (req, res) => {
     const healthcareProvider = await HealthcareProvider.findOne({ email: req.body.emailAddress });
 
     console.log(healthcareProvider)
-    if (!healthcareProvider) return res.status(401).json({
-        message: "Account does not exist"
-    });
+    if (!healthcareProvider){
+
+    const deactivatedHealthcareProvider = await DeactivatedHealthcareProvider.findOne({email: req.body.emailAddress});
+
+    if(!deactivatedHealthcareProvider){
+        //patient not in both patient collection and deactivated collection
+        return res.status(404).json({
+          message:"Invalid Email or password"
+        });
+    }
+    
+    //Execution at this point means that the email being handled is deactivated patient
+    return res.status(303).json({
+        message: "The email beong handled has been deactivated"
+      }); 
+
+    };
 
     //check for password
 

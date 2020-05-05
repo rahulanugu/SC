@@ -1,0 +1,7 @@
+<div class="container py-xl-5 py-lg-3">
+    <h5>Click below to deactivate your account</h5>
+    <button class="btn btn-primary" (click)="deactivateUser()">DEACTIVATE</button>
+</div>
+<div class="container py-xl-5 py-lg-3" *ngIf="couldNotDeactivate">
+    <small style="color: red;">Incorrect old password has been entered </small>
+</div>

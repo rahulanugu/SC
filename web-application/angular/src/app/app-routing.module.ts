@@ -34,6 +34,8 @@ import { HealthcareResetPasswordPageComponent } from "./healthcare-reset-passwor
 import { PatientManageProfileComponent } from "./patient-manage-profile/patient-manage-profile.component";
 import { DeactivatedPatientComponent } from "./deactivated-patient/deactivated-patient.component";
 import { ReactivatePatientComponent } from "./reactivate-patient/reactivate-patient.component";
+import { HealthcareManageProfileComponent } from "./healthcare-manage-profile/healthcare-manage-profile.component";
+import { ReactivateHealthcareProviderComponent } from "./reactivate-healthcare-provider/reactivate-healthcare-provider.component";
 
 const routes: Routes = [
   /* pages for the app */
@@ -69,9 +71,11 @@ const routes: Routes = [
   { path: "registersuccessful", component: RegisterSuccessfulPageComponent },
   { path: "deactivatedpatient", component: DeactivatedPatientComponent },
   { path: "reactivatepatient", component: ReactivatePatientComponent },
+  { path: "reactivatehealthcareprovider", component: ReactivateHealthcareProviderComponent },
   { path: "searchTest", component:HomePageComponent, canActivate: [HealthcareAuthGuard]},
   { path: "healthcare-profile", component: HealthcareProfileComponent, canActivate: [HealthcareAuthGuard]},
-  { path: "healthcare-profile/patient/:patientid", component: PatientHealthcareviewComponent, canActivate: [HealthcareAuthGuard]}
+  { path: "healthcare-profile/patient/:patientid", component: PatientHealthcareviewComponent, canActivate: [HealthcareAuthGuard]},
+  { path: "healthcare-profile/editprofile", component: HealthcareManageProfileComponent}
 ];
 
 @NgModule({
