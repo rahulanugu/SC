@@ -58,6 +58,8 @@ import { HealthcareResetPasswordPageComponent } from './healthcare-reset-passwor
 import { PatientManageProfileComponent } from './patient-manage-profile/patient-manage-profile.component';
 import { DeactivatedPatientComponent } from './deactivated-patient/deactivated-patient.component';
 import { ReactivatePatientComponent } from './reactivate-patient/reactivate-patient.component';
+import { HealthcareManageProfileComponent } from './healthcare-manage-profile/healthcare-manage-profile.component';
+import { ReactivateHealthcareProviderComponent } from './reactivate-healthcare-provider/reactivate-healthcare-provider.component';
 
 @NgModule({
   declarations: [
@@ -102,6 +104,8 @@ import { ReactivatePatientComponent } from './reactivate-patient/reactivate-pati
     PatientManageProfileComponent,
     DeactivatedPatientComponent,
     ReactivatePatientComponent,
+    HealthcareManageProfileComponent,
+    ReactivateHealthcareProviderComponent,
     
 
   ],
