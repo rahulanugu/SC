@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { PatientManageProfileComponent } from './patient-manage-profile.component';
+import { PatientNavbarComponent } from '../patient-profile/patient-navbar/patient-navbar.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('PatientManageProfileComponent', () => {
   let component: PatientManageProfileComponent;
@@ -8,7 +11,11 @@ describe('PatientManageProfileComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PatientManageProfileComponent ]
+      imports: [ReactiveFormsModule,
+        RouterTestingModule,
+        HttpClientModule
+      ],
+      declarations: [ PatientManageProfileComponent, PatientNavbarComponent ]
     })
     .compileComponents();
   }));

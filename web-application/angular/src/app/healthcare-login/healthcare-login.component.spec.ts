@@ -1,8 +1,10 @@
 import { FooterComponent } from './../footer/footer.component';
 import { CommonHeaderComponent } from './../common-header/common-header.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { HealthcareLoginComponent } from './healthcare-login.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('HealthcareLoginComponent', () => {
   let component: HealthcareLoginComponent;
@@ -10,8 +12,11 @@ describe('HealthcareLoginComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports:[ ReactiveFormsModule,
+        RouterTestingModule,
+        HttpClientModule
+      ],
       declarations: [ HealthcareLoginComponent, CommonHeaderComponent,FooterComponent ],
-      imports:[]
     })
     .compileComponents();
   }));

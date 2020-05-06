@@ -6,10 +6,10 @@ import { PatientRegisterthreeComponent } from './patient-registerthree.component
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { FooterComponent} from '../footer/footer.component'
+import { Patient } from '../shared/patient.model';
 describe('PatientRegisterthreeComponent', () => {
   let component: PatientRegisterthreeComponent;
-  let fixture: ComponentFixture<PatientRegisterthreeComponent>;
-
+  let fixture: ComponentFixture<PatientRegisterthreeComponent>
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ PatientRegisterthreeComponent,FooterComponent ],
@@ -27,6 +27,7 @@ describe('PatientRegisterthreeComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(PatientRegisterthreeComponent);
     component = fixture.componentInstance;
+    component.patientService.selectedPatient = new Patient();
     fixture.detectChanges();
   });
 

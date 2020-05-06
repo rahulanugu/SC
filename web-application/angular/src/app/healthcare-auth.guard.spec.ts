@@ -1,16 +1,20 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed , async, inject} from '@angular/core/testing';
 
 import { HealthcareAuthGuard } from './healthcare-auth.guard';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('HealthcareAuthGuard', () => {
-  let guard: HealthcareAuthGuard;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    guard = TestBed.inject(HealthcareAuthGuard);
+    TestBed.configureTestingModule({
+      providers: [HealthcareAuthGuard],
+      imports: [ HttpClientTestingModule, RouterTestingModule]
+    });
   });
 
-  it('should be created', () => {
+  it('should ...', inject([HealthcareAuthGuard], (guard: HealthcareAuthGuard) => {
     expect(guard).toBeTruthy();
-  });
+  }));
+
 });

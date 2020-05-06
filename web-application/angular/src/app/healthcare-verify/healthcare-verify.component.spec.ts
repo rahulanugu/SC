@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HealthcareVerifyComponent } from './healthcare-verify.component';
+import { CommonHeaderComponent } from '../common-header/common-header.component';
+import { FooterComponent } from '../footer/footer.component';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('HealthcareVerifyComponent', () => {
   let component: HealthcareVerifyComponent;
@@ -8,7 +12,11 @@ describe('HealthcareVerifyComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HealthcareVerifyComponent ]
+      imports: [
+        RouterTestingModule,
+        HttpClientModule
+    ],
+      declarations: [ HealthcareVerifyComponent, FooterComponent, CommonHeaderComponent ]
     })
     .compileComponents();
   }));

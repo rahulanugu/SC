@@ -5,8 +5,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterModule } from '@angular/router';
 import { LoginComponent } from './login.component';
-import { CommonHeaderComponent} from '../common-header/common-header.component';
-import { FooterComponent} from '../footer/footer.component'
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;

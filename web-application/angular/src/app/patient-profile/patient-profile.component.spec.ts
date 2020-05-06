@@ -5,6 +5,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { HttpClient} from '@angular/common/http';
 
 import { PatientProfileComponent } from './patient-profile.component';
+import { PatientNavbarComponent } from './patient-navbar/patient-navbar.component';
 
 describe('PatientProfileComponent', () => {
   let component: PatientProfileComponent;
@@ -15,7 +16,7 @@ describe('PatientProfileComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PatientProfileComponent, PatientStatisticsComponent ],
+      declarations: [ PatientProfileComponent, PatientStatisticsComponent, PatientNavbarComponent ],
       imports: [HttpClientTestingModule,RouterTestingModule]
     })
     .compileComponents();

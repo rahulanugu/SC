@@ -1,6 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ResetPasswordPageComponent } from './reset-password-page.component';
+import { FooterComponent } from '../footer/footer.component';
+import { CommonHeaderComponent } from '../common-header/common-header.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ResetPasswordPageComponent', () => {
   let component: ResetPasswordPageComponent;
@@ -8,7 +13,11 @@ describe('ResetPasswordPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ResetPasswordPageComponent ]
+      imports: [ReactiveFormsModule,
+        RouterTestingModule,
+        HttpClientModule
+      ],
+      declarations: [ ResetPasswordPageComponent , FooterComponent, CommonHeaderComponent]
     })
     .compileComponents();
   }));

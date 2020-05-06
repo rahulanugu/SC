@@ -5,8 +5,8 @@ import { FormsModule} from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { TextMaskModule } from 'angular2-text-mask';
 import { FooterComponent } from '../footer/footer.component';
-import { HttpClientModule } from '@angular/common/http';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { RouterModule } from '@angular/router';
 
 describe('RegPatientComponent', () => {
