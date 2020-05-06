@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ReactivatePatientComponent } from './reactivate-patient.component';
+import { CommonHeaderComponent } from '../common-header/common-header.component';
+import { FooterComponent } from '../footer/footer.component';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ReactivatePatientComponent', () => {
   let component: ReactivatePatientComponent;
@@ -8,7 +12,12 @@ describe('ReactivatePatientComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ReactivatePatientComponent ]
+      imports: [
+        RouterTestingModule,
+        HttpClientModule
+    ],
+      declarations: [ ReactivatePatientComponent, CommonHeaderComponent, FooterComponent ]
+      
     })
     .compileComponents();
   }));

@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { TextMaskModule } from 'angular2-text-mask';
 import { FooterComponent } from '../footer/footer.component'
+import { Patient } from '../shared/patient.model';
 describe('PatientRegistertwoComponent', () => {
   let component: PatientRegistertwoComponent;
   let fixture: ComponentFixture<PatientRegistertwoComponent>;
@@ -29,6 +30,7 @@ describe('PatientRegistertwoComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(PatientRegistertwoComponent);
     component = fixture.componentInstance;
+    component.patientService.selectedPatient = new Patient();
     fixture.detectChanges();
   });
 

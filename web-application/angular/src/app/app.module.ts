@@ -17,7 +17,7 @@ import { HealthcareLoginComponent } from './healthcare-login/healthcare-login.co
 import { HealthcareRegisterComponent } from './healthcare-register/healthcare-register.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-import { TextMaskModule} from 'angular2-text-mask';
+import { TextMaskModule } from 'angular2-text-mask';
 import { RegisterComponent } from './register/register.component';
 import { DbService } from './db.service';
 import { PatientProfileComponent } from './patient-profile/patient-profile.component';
@@ -60,6 +60,7 @@ import { DeactivatedPatientComponent } from './deactivated-patient/deactivated-p
 import { ReactivatePatientComponent } from './reactivate-patient/reactivate-patient.component';
 import { HealthcareManageProfileComponent } from './healthcare-manage-profile/healthcare-manage-profile.component';
 import { ReactivateHealthcareProviderComponent } from './reactivate-healthcare-provider/reactivate-healthcare-provider.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -111,6 +112,7 @@ import { ReactivateHealthcareProviderComponent } from './reactivate-healthcare-p
   ],
 
   imports: [
+    BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,

@@ -1,11 +1,11 @@
 import { ReactiveFormsModule } from '@angular/forms';
 import { ContactUsFormComponent } from './../contact-us-form/contact-us-form.component';
 import { FooterComponent } from './../footer/footer.component';
-import { HeaderComponent } from './../header/header.component';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpClient} from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HomeComponent } from './home.component';
+import { CommonHeaderComponent } from '../common-header/common-header.component';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -15,7 +15,8 @@ describe('HomeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HomeComponent, HeaderComponent, FooterComponent, ContactUsFormComponent ],
+      declarations: [ HomeComponent, CommonHeaderComponent, FooterComponent, ContactUsFormComponent ],
+      
       imports:[ReactiveFormsModule, HttpClientTestingModule]
     })
     .compileComponents();
