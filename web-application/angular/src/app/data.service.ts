@@ -3,6 +3,7 @@ import { Post } from './post';
 import { Observable } from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Patient } from './shared/patient.model';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -14,7 +15,8 @@ export class DataService {
   searchOption=[]
 
   public postsData: any[]
-  postUrl : string = "http://localhost:8080/patient"; 
+  postUrl : string = environment.serverUrl+"patient"; 
+
 
   constructor(
     private http: HttpClient
