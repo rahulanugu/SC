@@ -174,7 +174,7 @@ const sendVerificationMail = (email,fname,encryptedToken)=>{
     const mailOptions = {
         from: 'noreply@scriptchain.co', 
         to: email,
-        subject: 'NO REPLY AT SCRIPTCHAIN.COM!!! We have recieved a request to reset password.',
+        subject: 'NO REPLY AT SCRIPTCHAIN.CO! We have recieved a request to reset password.',
         html: `<!DOCTYPE html>
         <html lang="en">
         <head>
@@ -220,6 +220,27 @@ const sendVerificationMail = (email,fname,encryptedToken)=>{
               text-decoration: none;
               display: inline-block;
               font-size: 17px;
+            }
+            .container{
+              max-width: 280px;
+              margin: 0 auto;
+              padding: 0;
+          }
+            @media only screen and (min-width:480px){
+              body{
+                margin-left: 20px;
+                margin-right: 20px;
+              }
+              .container{
+                max-width: 600px;
+              }
+              .content-body{
+                padding-top: 60px;
+              }
+              .content-body-text{
+                max-width: 400px;
+                margin: 0 auto;
+              }
             }
           </style>
         </head>
