@@ -49,7 +49,7 @@ router.post("/", async (req, res) => {
       mailer(req.body.fname, req.body.email);
     } else {
       console.log("error in saving requested access user");
-      res.status(500).send({messsage: "An error has occured trying to execute the request"})
+      res.status(500).send({ messsage: "An error has occured trying to execute the request" })
     }
   });
 
@@ -64,7 +64,7 @@ router.post("/", async (req, res) => {
       service: "gmail",
       auth: {
         type: "OAuth2",
-        user: "moh@scriptchain.co", 
+        user: "moh@scriptchain.co",
         clientId: "867282827024-auj9ljqodshuhf3lq5n8r79q28b4ovun.apps.googleusercontent.com",
         clientSecret: "zjrK7viSEMoPXsEmVI_R7I6O",
         refreshToken: "1//04OyV2qLPD5iYCgYIARAAGAQSNwF-L9IrfYyKF4kF_HhkGaFjxxnxdgxU6tDbQ1l-BLlOIPtXtCDOSj9IkwiWekXwLCNWn9ruUiE",
@@ -113,10 +113,40 @@ router.post("/", async (req, res) => {
                     
                   font-family: 'Roboto', serif;
             }
+            p{
+              font-color: '#500050';
+            }
                 .para{
                   font-family: 'Roboto';
                   margin-left: 16px;
                   margin-right: 16px;
+                  font-color: '#500050';
+                }
+                @media only screen and (min-width:480px){
+                  .container{
+                    max-width: 600px;
+                  }
+                }
+                .container{
+                  max-width: 280px;
+                  margin: 0 auto;
+                  padding: 0;
+              }
+                @media only screen and (min-width:480px){
+                  body{
+                    margin-left: 20px;
+                    margin-right: 20px;
+                  }
+                  .container{
+                    max-width: 600px;
+                  }
+                  .content-body{
+                    padding-top: 60px;
+                  }
+                  .content-body-text{
+                    max-width: 400px;
+                    margin: 0 auto;
+                  }
                 }
               </style>
             </head>
@@ -126,13 +156,13 @@ router.post("/", async (req, res) => {
                   <h2 align="center">Welcome to ScriptChain</h2>
               </div>
               <h1 align="center">We're thrilled to hear from you!</h1>
-              <p class="para">Hi ` +
+              <p class="para" style="color:#500050;">Hi ` +
         fname +
         `,</p>
-              <p class="para">We have received your submission to request access for ScriptChain platform and someone from the team will keep you updated once we get closer to launch. Thank you!</p>
+              <p class="para" style="color:#500050;">We have received your submission to request access for ScriptChain platform and someone from the team will keep you updated once we get closer to launch. Thank you!</p>
          <br><br>
              <div class="panelFooter">
-                <p align="center" >This message was sent from ScriptChain LLC., Boston, MA</p>
+                <p align="center" style="color:#500050;">This message was sent from ScriptChain LLC., Boston, MA</p>
               </div>
             </div>
             </body>
@@ -142,9 +172,11 @@ router.post("/", async (req, res) => {
     transporter.sendMail(mailOptions, (err, data) => {
       if (err) {
         console.log("Error occurs");
+        console.log(err);
       }
       transporter.close();
       console.log("Email sent!!!");
+      console.log(data);
     });
   };
 });

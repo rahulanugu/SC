@@ -64,7 +64,7 @@ router.post("/", async (req, res) => {
       }
     });
     let mailOptions = {
-      from: "badchhapesumod100@gmail.com",
+      from: "noreply@scriptchain.co",
       to: email,
       subject: "Hey it's Moh from ScriptChain",
       html:
@@ -107,6 +107,29 @@ router.post("/", async (req, res) => {
                   font-family: 'Roboto';
                   margin-left: 16px;
                   margin-right: 16px;
+                  font-size: 1.17em;
+                  font-color: '#500050';
+                }
+                .container{
+                  max-width: 280px;
+                  margin: 0 auto;
+                  padding: 0;
+              }
+                @media only screen and (min-width:480px){
+                  body{
+                    margin-left: 20px;
+                    margin-right: 20px;
+                  }
+                  .container{
+                    max-width: 600px;
+                  }
+                  .content-body{
+                    padding-top: 60px;
+                  }
+                  .content-body-text{
+                    max-width: 400px;
+                    margin: 0 auto;
+                  }
                 }
               </style>
             </head>
