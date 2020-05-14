@@ -228,13 +228,13 @@ const sendVerificationMail = (email, fname) => {
               <div class="container1">
                   <h2 align="center">Alert from ScriptChain</h2>
               </div>
-              <h1 align="center" style="color:#500050;">Successfully updated your password.</h1>
-              <p class="para" style="color:#500050;">Hi ` +
+              <h1 align="center">Successfully updated your password.</h1>
+              <p class="para">Hi ` +
       fname +
       `,</p>
-              <p class="para" style="color:#500050;">It seems that you have recently changed your password for your patient account. <br/>Please reach out to customer-care@scriptchain.co immediately if it is not you.</p>
+              <p class="para">It seems that you have recently changed your password for your patient account. <br/>Please reach out to customer-care@scriptchain.co immediately if it is not you.</p>
                <br><br>
-             <div class="panelFooter" style="color:#500050;">
+             <div class="panelFooter">
                 <p align="center" >This message was sent from ScriptChain LLC., Boston, MA</p>
               </div>
             </div>

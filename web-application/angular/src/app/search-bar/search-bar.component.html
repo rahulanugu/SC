@@ -23,7 +23,7 @@
   class="example-radio-group"
   [(ngModel)]="filterSelection" name = "filterForm">
   <mat-radio-button class="example-radio-button" *ngFor="let filter of availableFilters;" [value]="filter.name" [checked]="filter.checked" >
-    {{filter.name}}
+    {{filter.displayName}}
   </mat-radio-button>
 </mat-radio-group>
 
