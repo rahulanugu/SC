@@ -113,14 +113,10 @@ router.post("/", async (req, res) => {
                     
                   font-family: 'Roboto', serif;
             }
-            p{
-              font-color: '#500050';
-            }
                 .para{
                   font-family: 'Roboto';
                   margin-left: 16px;
                   margin-right: 16px;
-                  font-color: '#500050';
                 }
                 @media only screen and (min-width:480px){
                   .container{
@@ -156,13 +152,13 @@ router.post("/", async (req, res) => {
                   <h2 align="center">Welcome to ScriptChain</h2>
               </div>
               <h1 align="center">We're thrilled to hear from you!</h1>
-              <p class="para" style="color:#500050;">Hi ` +
+              <p class="para">Hi ` +
         fname +
         `,</p>
-              <p class="para" style="color:#500050;">We have received your submission to request access for ScriptChain platform and someone from the team will keep you updated once we get closer to launch. Thank you!</p>
+              <p class="para">We have received your submission to request access for ScriptChain platform and someone from the team will keep you updated once we get closer to launch. Thank you!</p>
          <br><br>
              <div class="panelFooter">
-                <p align="center" style="color:#500050;">This message was sent from ScriptChain LLC., Boston, MA</p>
+                <p align="center">This message was sent from ScriptChain LLC., Boston, MA</p>
               </div>
             </div>
             </body>

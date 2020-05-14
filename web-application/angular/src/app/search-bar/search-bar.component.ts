@@ -19,9 +19,9 @@ export class SearchBarComponent implements OnInit {
   filterSelection: string;
 
   availableFilters: object[] = [
-    { "name": "fname", ID: "D1", "checked": true },
-    { "name": "email", ID: "D2", "checked": false },
-    { "name": "lname", ID: "D3", "checked": false }
+    { "name": "fname", ID: "D1", "checked": true, "displayName": "First Name" },
+    { "name": "email", ID: "D2", "checked": false, "displayName": "Email Address" },
+    { "name": "lname", ID: "D3", "checked": false, "displayName": "Last Name" }
   ];
 
   //To add a new filter, add a json object in availableFilters
