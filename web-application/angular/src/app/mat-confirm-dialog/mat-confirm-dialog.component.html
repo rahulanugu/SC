@@ -1,0 +1,7 @@
+<div>
+    <div class="content-container">
+        <mat-icon id = "close" (mouseover)= 'mouseoverclose()' (click)="closeDialog()">close</mat-icon>
+        <span class="content-span" id="test"> {{data.message}}</span>
+    </div>
+    <button id="confirm-buttton" [mat-dialog-close]= "true">Confirm</button>
+</div>

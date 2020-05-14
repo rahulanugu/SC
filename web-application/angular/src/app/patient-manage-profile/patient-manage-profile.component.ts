@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PatientEditService } from '../shared/patient-edit.service';
 import { Router } from '@angular/router';
 import { Validators, FormBuilder } from '@angular/forms';
+import { DialogService } from '../shared/dialog.service';
 
 @Component({
   selector: 'app-patient-manage-profile',
@@ -31,7 +32,8 @@ export class PatientManageProfileComponent implements OnInit {
   constructor(
     private patientEditService: PatientEditService,
     private router: Router,
-    private formBuilderService: FormBuilder
+    private formBuilderService: FormBuilder,
+    private dialogService: DialogService
     ) { }
 
   ngOnInit() {
@@ -89,7 +91,9 @@ export class PatientManageProfileComponent implements OnInit {
   }
 
   deactivateUser(){
-    console.log("attempting to deactivate the user")
+    this.dialogService.openConfirmDialog('Confirm to deactivate account').afterClosed().subscribe(res=>{
+      if(res){
+        console.log("attempting to deactivate the user")
     var patientDetails = {
       email: localStorage.getItem('email')
     }
@@ -105,5 +109,8 @@ export class PatientManageProfileComponent implements OnInit {
         this.couldNotDeactivate = true;
       }
     );
+      }
+    });
+    
   }
 }

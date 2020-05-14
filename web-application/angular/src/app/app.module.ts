@@ -43,6 +43,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatDialogModule} from '@angular/material/dialog';
 
 import { HomePageComponent } from './home-page/home-page.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
@@ -61,6 +62,7 @@ import { ReactivatePatientComponent } from './reactivate-patient/reactivate-pati
 import { HealthcareManageProfileComponent } from './healthcare-manage-profile/healthcare-manage-profile.component';
 import { ReactivateHealthcareProviderComponent } from './reactivate-healthcare-provider/reactivate-healthcare-provider.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatConfirmDialogComponent } from './mat-confirm-dialog/mat-confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -107,6 +109,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactivatePatientComponent,
     HealthcareManageProfileComponent,
     ReactivateHealthcareProviderComponent,
+    MatConfirmDialogComponent,
     
 
   ],
@@ -126,7 +129,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatChipsModule,
     MatFormFieldModule,
     MatRadioModule,
-    HighchartsChartModule
+    HighchartsChartModule,
+    MatDialogModule
    ],
   providers: [
     DbService,
@@ -134,6 +138,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     PatientAuthGuard,
     DataService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [MatConfirmDialogComponent]
 })
 export class AppModule { }
