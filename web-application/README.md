@@ -3,6 +3,9 @@
 The web application is built using the MEAN stack (MondoDB, Express, Angular, and Node.js). 
 To run the entire application, follow the steps below.
 
+# Video tutorial to start the application on local server
+https://www.youtube.com/watch?v=hXFf1Ncwkgw
+
 ## 1. Install Angular Application 
 
 Install all modules listed as dependencies in package.json under the "angular" directory.
