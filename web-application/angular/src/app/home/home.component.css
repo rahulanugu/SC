@@ -14,8 +14,6 @@ li.anim3 {
   animation: mymove3 15s infinite;
 }
 
-
-
 /* .banner_slide_bottom:hover li{
   animation-play-state: paused;
 } */
@@ -83,7 +81,6 @@ li.anim3 {
   0%{
     left: -100%;
     top:-800px;
-    opacity:0;
   }
 
   48%{
@@ -110,7 +107,6 @@ li.anim3 {
     opacity: 0;
   }
 }
-
 
 .csslider {
   text-align: left;
