@@ -18,7 +18,7 @@ const httpOptions = {
 export class HealthcareAccountService {
 
   readonly baseURL = environment.serverUrl+"backend/healthcare";
-  
+
   constructor(
     private http: HttpClient
   ) { }
@@ -34,3 +34,4 @@ export class HealthcareAccountService {
     return this.http.post(this.baseURL+"/account/verify",healthCareProviderInfo,httpOptions);
   }
 }
+
