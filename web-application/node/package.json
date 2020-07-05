@@ -29,6 +29,7 @@
     "nodemailer-express-handlebars": "^3.1.0",
     "nodemon": "^1.19.3",
     "rand-token": "^0.4.0",
-    "yes-https": "^1.0.0"
+    "yes-https": "^1.0.0",
+    "mocha": "^7.2.0"
   }
 }
