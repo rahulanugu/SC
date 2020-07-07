@@ -4,14 +4,14 @@
   <h3 style="text-align: center; float: left; padding-left: 10%; padding-top: 20px;">Hello Dr. {{providerFirstName}}</h3>
   <!-- <button type="button" (click)="logout()" style="float: right; margin-right: 5%;"class="btn btn-primary btn-sm"><b>Logout</b></button> -->
 </div>
+<sidenav>git</sidenav>
 <div style="margin:auto; width: 70%; margin-top: 30px;">
-    <app-search-bar (onSelectedOption)="onSelectedOption($event)"></app-search-bar>
-  
-  </div>
+  <app-search-bar (onSelectedOption)="onSelectedOption($event)"></app-search-bar>  
+</div>
   <div *ngFor = "let patient of filteredPatients" class="group">
-  <p><b>ID: </b>{{patient._id}}</p>
-  <p><b>First Name: </b> {{patient.fname}}</p>
-  <p><b>Last Name: </b>{{patient.lname}}</p>
-  <p><b>Email:  </b>{{patient.Email}}</p>
-  <button (click)= "openPatientProfile(patient._id)"> View </button>
+    <p><b>ID: </b>{{patient._id}}</p>
+    <p><b>First Name: </b> {{patient.fname}}</p>
+    <p><b>Last Name: </b>{{patient.lname}}</p>
+    <p><b>Email:  </b>{{patient.Email}}</p>
+    <button (click)= "openPatientProfile(patient._id)"> View </button>
   </div>
