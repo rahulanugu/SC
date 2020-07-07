@@ -29,10 +29,3 @@ h1.example-app-name {
      `<body>` to be our scrolling element for mobile layouts. */
   flex: 1 0 auto;
 }
-
-@media (min-width: 576px){
-  .mx-sm-4 {
-      margin-left: 0.5rem!important;
-      font-size: 10px!important;
-  }
-}
