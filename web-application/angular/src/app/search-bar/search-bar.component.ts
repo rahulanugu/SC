@@ -102,20 +102,21 @@ export class SearchBarComponent implements OnInit {
 
   //search param is the filter of search
   filterPostList(event, searchParam) {
+    console.log(this.myControl);
     var posts = event.source.value;
+
     if (!posts) {
-      this.dataService.searchOption = []
+      this.dataService.searchOption = [];
     }
     else {
       console.log("not")
-      
-
+      this.myControl.disable();
       this.dataService.searchOption.push(posts);
       this.dataService.searchOption.push(this.filterSelection);
       this.onSelectedOption.emit(this.dataService.searchOption)
     }
 
-    this.focusOnPlaceInput();
+    //this.focusOnPlaceInput();
 
 
 
@@ -123,19 +124,19 @@ export class SearchBarComponent implements OnInit {
 
 
   removeOption(option) {
-
+    this.myControl.enable();
     let index = this.dataService.searchOption.indexOf(option);
     if (index >= 0)
       this.dataService.searchOption.splice(index, 1);
-    this.focusOnPlaceInput();
+    //this.focusOnPlaceInput();
 
-    this.onSelectedOption.emit(this.dataService.searchOption)
+    this.onSelectedOption.emit(this.dataService.searchOption);
   }
 
-  focusOnPlaceInput() {
+  /*focusOnPlaceInput() {
     this.autocompleteInput.nativeElement.focus();
     this.autocompleteInput.nativeElement.value = '';
-  }
+  }*/
 
 
 }
