@@ -116,6 +116,14 @@ router.get('/jobposting', (req, res) => {
     });
 });
 
+router.post("/challenge", async (req, res) => {
+  console.log("hello");
+  res.status(200).json({
+    message: "Your message has been saved"
+  });
+  
+});
+
 /**
  * The method will retrieve all the job openings by category in the database
  * Input: category name
