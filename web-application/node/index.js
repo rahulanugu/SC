@@ -27,7 +27,9 @@ var editPatientController = require("./controllers/editPatientController")
 var app = express();
 
 // configure express middleware to send date to nodejs project
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended:true
+}));
 
 //for local deploy uncomment below code & comment out for production
 //allow cors to access port that angular app runs on
