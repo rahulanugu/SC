@@ -120,11 +120,9 @@ router.post('/postchallenge', (req, res) => {
   res.status(200).send(req.body.challenge);
 });
 
-/*router.get('/getchallenge', (req, res) => {
-  console.log('test');
-  console.log(req.params.challenge);
-  res.status(200).send(req.params.challenge);
-});*/
+router.get('/getchallenge?:challenge', (req, res) => {
+  res.status(200).send(req.query.challenge);
+});
 
 /**
  * The method will retrieve all the job openings by category in the database
