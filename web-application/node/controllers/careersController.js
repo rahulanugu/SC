@@ -116,12 +116,8 @@ router.get('/jobposting', (req, res) => {
     });
 });
 
-router.post("/challenge", async (req, res) => {
-  console.log("hello");
-  res.status(200).json({
-    message: "Your message has been saved"
-  });
-  
+router.post("/challenge", (req, res) => {
+  res.status(200).json(req.body.challenge);
 });
 
 /**
