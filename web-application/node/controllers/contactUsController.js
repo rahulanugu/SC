@@ -18,6 +18,14 @@ oauth2Client.setCredentials({
 
 const accessToken = oauth2Client.getAccessToken();
 
+const fs = require('fs');
+const {BigQuery} = require('@google-cloud/bigquery');
+const options = {
+    keyFilename: '/Users/srikarpothumahanti/Desktop/scriptchain/web-application/node/serviceAccountKeys/scriptchainprod-96d141251382.json',
+    projectId: 'scriptchainprod'
+
+};
+const bigquery = new BigQuery(options);
 /**
  * Method to save the customer query to the database
  * Input: Details of ContactUser as specified in schema
@@ -25,26 +33,43 @@ const accessToken = oauth2Client.getAccessToken();
  *         200 - Successfylly saved the request
  *         500 - An error occured trying to save the request
  */
+
+function generateId(count) {
+  var _sym = 'abcdefghijklmnopqrstuvwxyz1234567890';
+  var str = '';
+
+  for(var i = 0; i < count; i++) {
+      str += _sym[parseInt(Math.random() * (_sym.length))];
+  }
+  return str;
+}
+
 router.post("/", async (req, res) => {
   console.log("hello");
-  var customer = new ContactUser({
-    fname: req.body.FirstName,
-    lname: req.body.LastName,
-    email: req.body.Email,
-    message: req.body.Message
-  });
+  req.body['_id'] = generateId(10);
+  const filename = 'contactUserTmp.json';
+  const datasetId = 'ScriptChain';
+  const tableId = 'contactUsers';
 
-  customer.save((err, doc) => {
-    if (!err) {
-      res.status(200).json({
-        message: "Your message has been saved"
-      });
-      mailer(req.body.FirstName, req.body.Email);
-    } else {
-      console.log("error in saving the user who wants to contact");
-      res.status(500).send({ message: "An error has occured trying to process your request" })
-    }
-  });
+  fs.writeFileSync(filename, JSON.stringify(req.body));
+  
+  const [job] = await bigquery
+    .dataset(datasetId)
+    .table(tableId).load(filename);
+
+  // Check the job's status for errors
+  const errors = job.status.errors;
+  if (errors && errors.length > 0) {
+    res.status(500).json({
+      message: "An error has occured trying to process your request"
+    })
+  }else{
+    console.log(`Job ${job.id} completed.`);
+    res.status(200).json({
+      message: "Your message has been saved"
+    });
+  }
+
 
   /**
    * Mailer for sending the emails
