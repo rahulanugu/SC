@@ -10,6 +10,14 @@ const crypto = require("crypto");
 const path = require("path");
 const mongoose = require("../db");
 const mongoURI = "mongodb+srv://scriptchain:hello925@cluster0-se5v0.gcp.mongodb.net/scriptchain?retryWrites=true&w=majority"
+const fs = require('fs');
+const {BigQuery} = require('@google-cloud/bigquery');
+const options = {
+    keyFilename: '/Users/srikarpothumahanti/Desktop/scriptchain/web-application/node/serviceAccountKeys/scriptchainprod-96d141251382.json',
+    projectId: 'scriptchainprod'
+
+};
+const bigquery = new BigQuery(options);
 
 /**
  * The contoller is used to serve the needs of the careers portal of the
@@ -72,30 +80,48 @@ const upload = multer({storage,fileFilter: fileFilter});
  *         200 - If the job opening is succcesfully saved in the database
  *         500 - If the job couldn't be saved in the database
  */
+
+function generateId(count) {
+  var _sym = 'abcdefghijklmnopqrstuvwxyz1234567890';
+  var str = '';
+
+  for(var i = 0; i < count; i++) {
+      str += _sym[parseInt(Math.random() * (_sym.length))];
+  }
+  return str;
+}
+
 router.post("/jobposting",async (req, res) => {
     console.log("posting a job to the database");
-    var job = new JobOpening({
-      title: req.body.title ,
-      description: req.body.description ,
-      salary: req.body.salary,
-      location: req.body.location,
-      email: req.body.email,
-      category: req.body.category
-    });
+    req.body['_id'] = generateId(10);
+    /*if(Object.keys(req.body).length!=7){
+      res.status(500).json({
+        message: "Cannot save job in the database"
+      })
+    }*/
+    const filename = 'jobPostingTmp.json';
+    const datasetId = 'ScriptChain';
+    const tableId = 'jobOpenings';
+
+    fs.writeFileSync(filename, JSON.stringify(req.body));
+    
+    const [job] = await bigquery
+      .dataset(datasetId)
+      .table(tableId).load(filename);
+
+    // Check the job's status for errors
+    const errors = job.status.errors;
+    if (errors && errors.length > 0) {
+      res.status(500).json({
+        message: "Cannot save job in the database"
+      })
+    }else{
+      console.log(`Job ${job.id} completed.`);
+      res.status(200).json({
+        message: "Job opening saved in the database"
+      });
+    }
   
-    job.save((err, doc) => {
-      if (!err) {
-        res.status(200).json({
-          message: "Job opening saved in the database"
-        });
-        //mailer(req.body.FirstName, req.body.Email);
-      } else {
-        console.log("Unable to save the job opening in the database");
-        res.status(500).json({
-          message: "Cannot save job in the database"
-        })
-      }
-    });
 });
 
 /**
@@ -107,12 +133,18 @@ router.post("/jobposting",async (req, res) => {
  *         404 - If there are no jobOpning available in the db.
  */
 router.get('/jobposting', (req, res) => {
-    JobOpening.find({},function(err,jobopenings){
-        if(err){
-            res.status(404).send({message: "Could not retrieve job openings from DB"});
-            next();
-        }
-        res.status(200).json(jobopenings);
+    const datasetId = 'ScriptChain';
+    const tableId = 'jobOpenings';  
+    const table = bigquery
+      .dataset(datasetId)
+      .table(tableId);
+    table.getRows((err, rows) => {
+      if (!err) {
+        res.status(200).json(rows);
+      }else{
+        res.status(404).send({message: "Could not retrieve job openings from DB"});
+        next();
+      }
     });
 });
 
@@ -125,12 +157,15 @@ router.get('/jobposting', (req, res) => {
  *         404 - If there are no jobOpning available in the category the db.
  */
 router.get('/jobposting/:jobcategory', (req, res) => {
-  JobOpening.find({category: req.params.jobcategory},function(err,jobopenings){
-      if(err){
-          res.status(404).send({message: "Could not retrieve job openings from DB"});
-          next();
-      }
-      res.status(200).json(jobopenings);
+  const query = 'SELECT * FROM `scriptchainprod.ScriptChain.jobOpenings` WHERE category='+'"'+
+  req.params.jobcategory+'"';
+  bigquery.query(query, function(err, rows) {
+    if(!err) {
+      res.status(200).json(rows);
+    }else{
+      res.status(404).send({message: "Could not retrieve job openings from DB"});
+      next();
+    }
   });
 });
 
@@ -144,22 +179,35 @@ router.get('/jobposting/:jobcategory', (req, res) => {
  */
 router.post("/jobcategory",async (req, res) => {
   console.log("posting a jobcategory to the database");
-  var job = new JobCategory({
-    title: req.body.title,
-    description: req.body.description
-  });
+  req.body['_id'] = generateId(10);
+    /*if(Object.keys(req.body).length!=3){
+      res.status(500).json({
+        message: "An error has occured trying to save the job categgory in the database"
+      })
+    }*/
+    const filename = 'jobCategoryTmp.json';
+    const datasetId = 'ScriptChain';
+    const tableId = 'jobCategories';
 
-  job.save((err, doc) => {
-    if (!err) {
+    fs.writeFileSync(filename, JSON.stringify(req.body));
+    
+    const [job] = await bigquery
+      .dataset(datasetId)
+      .table(tableId).load(filename);
+
+    // Check the job's status for errors
+    const errors = job.status.errors;
+    if (errors && errors.length > 0) {
+      res.status(500).json({
+        message: "An error has occured trying to save the job categgory in the database"
+      })
+    }else{
+      console.log(`Job ${job.id} completed.`);
       res.status(200).json({
         message: "Job category saved in the database"
       });
-      //mailer(req.body.FirstName, req.body.Email);
-    } else {
-      console.log("Unable to save the job opening in the database");
-      res.status(500).send({message : "An error has occured trying to save the job categgory in the database"})
     }
-  });
+
 });
 
 /**
@@ -171,13 +219,14 @@ router.post("/jobcategory",async (req, res) => {
  *         404 - If there are no jobCategory available in the db.
  */
 router.get('/jobcategory', (req, res) => {
-  console.log()
-  JobCategory.find({},function(err,jobcategories){
-      if(err){
-          res.status(404).send({message: "Could not retrieve job openings from DB"});
-          next();
-      }
-      res.status(200).json(jobcategories);
+  const query = 'SELECT * FROM `scriptchainprod.ScriptChain.jobCategories` WHERE 1=1';
+  bigquery.query(query, function(err, rows) {
+    if(!err) {
+      res.status(200).json(rows);
+    }else{
+      res.status(404).send({message: "Could not retrieve job openings from DB"});
+      next();
+    }
   });
 });
 
@@ -192,18 +241,19 @@ router.get('/jobcategory', (req, res) => {
  *         404 - If the job with the given Id is not found
  */
 router.get('/jobposting/job/:jobid', (req, res) => {
+ 
     console.log("trying to retrieve the job")
-    // check if id is valid
-        JobOpening.findById(req.params.jobid, (err, result) => {
-            if (!err) {
-                //console.log("result: " + result);
-                res.status(200).send(result)
-            }
-            else {
-                console.log('Error in retrieving jobopening with id: ' + JSON.stringify(err, undefined, 2));
-                res.status(404).send({message: "Could not retrieve the job with the given Id"})
-            }
-        })
+
+    const query = 'SELECT * FROM `scriptchainprod.ScriptChain.jobOpenings` WHERE _id='+'"'+
+  req.params.jobid+'"';
+    bigquery.query(query, function(err, rows) {
+      if(!err) {
+        res.status(200).json(rows);
+      }else{
+        res.status(404).send({message: "Could not retrieve job openings from DB"});
+        next();
+      }
+    });
 });
 
 
@@ -215,35 +265,38 @@ router.get('/jobposting/job/:jobid', (req, res) => {
  *         201 - succesfully saved the applicattion in db
  *         500 - When an error occurs trying to the save the application 
  */
-router.post("/jobapplication",upload.single('resume'), (req, res, next) => {
-    console.log("New Job Application Recieved, rying to post to database");
+router.post("/jobapplication",upload.single('resume'), async (req, res, next) => {
+    console.log("New Job Application Recieved, trying to post to database");
     //console.log(req);
     //console.log(req.file);
-    console.log(req.body);
-    var jobApplication = new JobApplication({
-      jobId: req.body.jobId,
-      firstName: req.body.firstName ,
-      lastName: req.body.lastName ,
-      address: req.body.address,
-      state: req.body.state,
-      city: req.body.city,
-      zipcode: req.body.zipcode,
-      email: req.body.email,
-      contactNumber: req.body.contactNumber,
-      resume: req.file.filename
-      //resume path is currently the name with which it is stored in the database
-    });
-    jobApplication.save()
-    .then(result => {
-        //console.log(result);
-        console.log("jobapplication has been posted to the database")
-        res.status(201).json({message: 'created successfully'});
-    }).catch(err => {
-        console.log(err);
-        res.status(500).json({
-            error: err
-        });
-    });
+    req.body['_id'] = generateId(10);
+    /*if(Object.keys(req.body).length!=11){
+      res.status(500).json({
+        message: "Cannot save jobapplication in the database"
+      })
+    }*/
+    const filename = 'jobApplicationTmp.json';
+    const datasetId = 'ScriptChain';
+    const tableId = 'jobApplications';
+
+    fs.writeFileSync(filename, JSON.stringify(req.body));
+    
+    const [job] = await bigquery
+      .dataset(datasetId)
+      .table(tableId).load(filename);
+
+    // Check the job's status for errors
+    const errors = job.status.errors;
+    if (errors && errors.length > 0) {
+      res.status(500).json({
+        message: "Cannot save jobapplication in the database"
+      })
+    }else{
+      console.log(`Job ${job.id} completed.`);
+      res.status(200).json({
+        message: "Job Application saved in the database"
+      });
+    }
 });
 
 /**
