@@ -25,14 +25,31 @@ router.post('/', async (req, res)=>{
         message: "Email is not provided"
 
     });
-    //try finding the email in the database
-    const healthcareProvider = await HealthcareProvider.findOne({email: req.body.email});
+    //const healthcareProvider = await HealthcareProvider.findOne({ email: req.body.email });
 
-    //if patient email is is not found in the database, then return an error
-    if(!healthcareProvider) return res.status(401).json({
-
-      message:"Invalid Email"
+    const query = 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProvider` WHERE email='+'"'+
+    req.body.emailAddress+'"';
+    bigquery.query(query, function(err, rows) {
+      if(!err) {
+        if(!rows){
+          return res.status(401).json({
+            message:"Invalid Email"
+          });
+        }
+        else{
+          const healthcareProvider = rows[0];
+          const token = await jwt.sign({}, "santosh", { expiresIn: 120 });        
+          const encryptedToken = Utility.EncryptToken(token);
+          //mail the token
+          sendVerificationMail(req.body.email,healthcareProvider.firstName,encryptedToken);
+      
+          res.status(200).json({
+              message: "Email has been sent to reset password"
+          });
+        }
+      }
     });
+          
 
     //create a new JWT token and send it to the email of the user
 
@@ -49,28 +66,7 @@ router.post('/', async (req, res)=>{
 
     // create JSON Web Token
     // *******make sure to change secret word to something secure and put it in env variable*****
-    const token = await jwt.sign({healthcareProvider}, "santosh", { expiresIn: 120 });
     
-    //save the token
-  //   const resetPasswordToken = new ResetPasswordToken ({
-  //     token: token
-  //   });
-
-  //   resetPasswordToken.save((err, doc) => {
-  //     if (err) {
-  //       console.log('Error in saving reset password token: ' + JSON.stringify(err, undefined, 2));
-  //     }
-  // });
-
-    //encrypt the token
-    
-    const encryptedToken = Utility.EncryptToken(token);
-    //mail the token
-    sendVerificationMail(req.body.email,healthcareProvider.firstName,encryptedToken);
-
-    res.status(200).json({
-        message: "Email has been sent to reset password"
-    });
 });
 
 /**
@@ -124,23 +120,44 @@ router.post('/change_password', async(req,res) => {
       console.log(decodedValue);
       //.tokebody of decodedvalue will contain the value of json object
         //find the email and update the object
-        HealthcareProvider.findOne({email: decodedValue.healthcareProvider.email},async function (err,doc) {
-          if(doc!= null){
-            const salt = bcrypt.genSaltSync(10);
-            const hashpassword = await bcrypt.hash(req.body.password, salt);
-            console.log(hashpassword)
-            HealthcareProvider.update({_id:doc._id},{$set:{password: hashpassword}},function(err, response){
-              if(!response){
-                res.status(500).send({message:"Could not update the record"});  
+      const query = 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProvider` WHERE email='+'"'+
+          decodedValue.healthcareProvider.email+'"';
+          bigquery.query(query, function(err, rows) {
+            if(!err) {
+              if(!rows){
+                res.status(404).send({message:"email not found"});
               }else{
-                console.log("Here")
-                console.log(response);
-                res.status(200).send({message:"Record has been updated"});
+                const doc = rows[0];
+                const salt = bcrypt.genSaltSync(10);
+                const hashpassword = await bcrypt.hash(req.body.password, salt);
+                console.log(hashpassword);
+                const query2 = 'DELETE FROM `scriptchainprod.ScriptChain.healthcareProvider` WHERE _id='+'"'+
+                doc._id+'"';
+                bigquery.query(query2, function(err, row1) {
+                  const filename = 'healthcareProviderResetTmp.json';
+                  const datasetId = 'ScriptChain';
+                  const tableId = 'healthcareProvider';
+                  doc['password'] = hashpassword;
+          
+                  fs.writeFileSync(filename, JSON.stringify(doc));
+                  
+                  const table = bigquery.dataset(datasetId).table(tableId);
+          
+                  // Check the job's status for errors
+                  //const errors = job.status.errors;
+                  table.load(filename,(err,res1) =>{
+                      if (!res1) {
+                        res.status(500).send({message:"Could not update the record"}); 
+                      }else{
+                          //console.log(`Job ${job.id} completed.`);
+                          console.log("Here")
+                          console.log(response);
+                          res.status(200).send({message:"Record has been updated"});
+                      }
+                  });
+                });
+                }
               }
-            });
-          } else {
-            res.status(404).send({message:"email not found"})
-          }
         });
     }
   })
