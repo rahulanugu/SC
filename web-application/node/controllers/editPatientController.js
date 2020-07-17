@@ -7,7 +7,14 @@ var { ContactUser } = require("../models/contactUsers");
 const log = console.log;
 const { Patient } = require("../models/user");
 const bcrypt = require('bcryptjs');
+const fs = require('fs');
+const {BigQuery} = require('@google-cloud/bigquery');
+const options = {
+    keyFilename: '/Users/srikarpothumahanti/Desktop/scriptchain/web-application/node/serviceAccountKeys/scriptchainprod-96d141251382.json',
+    projectId: 'scriptchainprod'
 
+};
+const bigquery = new BigQuery(options);
 
 /**
  * Method to edit the first name of the patient
@@ -18,21 +25,48 @@ const bcrypt = require('bcryptjs');
  */
 router.put("/fname", async (req, res) => {
 
-  const retrievedPatient = await Patient.findOne({ Email: req.body.email })
+  //const retrievedPatient = await Patient.findOne({ Email: req.body.email })
 
-  if (retrievedPatient) {
-    retrievedPatient.fname = req.body.fname;
-    const updatedPatient = await Patient.replaceOne({ Email: req.body.email }, retrievedPatient,
-      (err, response) => {
-        if (err) {
-          res.status(500).json({ "message": "An error has occured trying to update the patient record in the dattabase" });
+  const query1 = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email='+'"'+
+    req.body.email+'"';
+    bigquery.query(query1, function(err, row) {
+      if(!err) {
+        if (row){
+          //console.log(row);
+          const retrievedPatient = row[0];
+          retrievedPatient.fname = req.body.fname;
+          const query2 = 'DELETE FROM `scriptchainprod.ScriptChain.patients` WHERE Email='+'"'+
+          req.body.email+'"';
+          bigquery.query(query2, function(err, row1) {
+              if(err){
+                  res.status(500).json({"message": "account could not be deactivated due to an error"});
+                  next();
+              }else{
+                //console.log('deleted');
+                const filename = 'editPatientsTmp.json';
+                const datasetId = 'ScriptChain';
+                const tableId = 'patients';
+        
+                fs.writeFileSync(filename, JSON.stringify(row[0]));
+                
+                const table = bigquery.dataset(datasetId).table(tableId);
+        
+                // Check the job's status for errors
+                //const errors = job.status.errors;
+                table.load(filename,(err,res1) =>{
+                    if (err && err.length > 0) {
+                      res.status(500).json({ "message": "An error has occured trying to update the patient record in the dattabase" });
+                    }else{
+                      res.status(200).json({ "messafe": "Succesfully updatted the patient record in the database" });
+                    }
+                });
+              }
+            });
+          }
+        }else{
+          res.status(404).json({ "messsage": "Email not found" })
         }
-        res.status(200).json({ "messafe": "Succesfully updatted the patient record in the database" });
-      })
-  } else {
-    res.status(404).json({ "messsage": "Email not found" })
-  }
-
+      });
 });
 
 /**
@@ -44,20 +78,46 @@ router.put("/fname", async (req, res) => {
  */
 router.put("/lname", async (req, res) => {
 
-  const retrievedPatient = await Patient.findOne({ Email: req.body.email })
-
-  if (retrievedPatient) {
-    retrievedPatient.lname = req.body.lname;
-    const updatedPatient = await Patient.replaceOne({ Email: req.body.email }, retrievedPatient,
-      (err, response) => {
-        if (err) {
-          res.status(500).json({ "message": "An error has occured trying to update the patient record in the dattabase" });
+  const query1 = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email='+'"'+
+    req.body.email+'"';
+    bigquery.query(query1, function(err, row) {
+      if(!err) {
+        if (row){
+          //console.log(row);
+          const retrievedPatient = row[0];
+          retrievedPatient.lname = req.body.lname;
+          const query2 = 'DELETE FROM `scriptchainprod.ScriptChain.patients` WHERE Email='+'"'+
+          req.body.email+'"';
+          bigquery.query(query2, function(err, row1) {
+              if(err){
+                  res.status(500).json({"message": "account could not be deactivated due to an error"});
+                  next();
+              }else{
+                //console.log('deleted');
+                const filename = 'editPatientsTmp.json';
+                const datasetId = 'ScriptChain';
+                const tableId = 'patients';
+        
+                fs.writeFileSync(filename, JSON.stringify(row[0]));
+                
+                const table = bigquery.dataset(datasetId).table(tableId);
+        
+                // Check the job's status for errors
+                //const errors = job.status.errors;
+                table.load(filename,(err,res1) =>{
+                    if (err && err.length > 0) {
+                      res.status(500).json({ "message": "An error has occured trying to update the patient record in the dattabase" });
+                    }else{
+                      res.status(200).json({ "messafe": "Succesfully updatted the patient record in the database" });
+                    }
+                });
+              }
+            });
+          }
+        }else{
+          res.status(404).json({ "messsage": "Email not found" })
         }
-        res.status(200).json({ "messafe": "Succesfully updatted the patient record in the database" });
-      })
-  } else {
-    res.status(404).json({ "messsage": "Email not found" })
-  }
+      });
 
 });
 
@@ -70,20 +130,44 @@ router.put("/lname", async (req, res) => {
  */
 router.put("/phone", async (req, res) => {
 
-  const retrievedPatient = await Patient.findOne({ Email: req.body.email })
-
-  if (retrievedPatient) {
-    retrievedPatient.phone = req.body.phone;
-    const updatedPatient = await Patient.replaceOne({ Email: req.body.email }, retrievedPatient,
-      (err, response) => {
-        if (err) {
-          res.status(500).json({ "message": "An error has occured trying to update the patient record in the dattabase" });
+  const query1 = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email='+'"'+
+    req.body.email+'"';
+    bigquery.query(query1, function(err, row) {
+      if(!err) {
+        if (row){
+          const retrievedPatient = row[0];
+          retrievedPatient.phone = req.body.phone;
+          const query2 = 'DELETE FROM `scriptchainprod.ScriptChain.patients` WHERE Email='+'"'+
+          req.body.email+'"';
+          bigquery.query(query2, function(err, row1) {
+              if(err){
+                  res.status(500).json({"message": "account could not be deactivated due to an error"});
+                  next();
+              }else{
+                const filename = 'editPatientsTmp.json';
+                const datasetId = 'ScriptChain';
+                const tableId = 'patients';
+        
+                fs.writeFileSync(filename, JSON.stringify(row[0]));
+                
+                const table = bigquery.dataset(datasetId).table(tableId);
+        
+                // Check the job's status for errors
+                //const errors = job.status.errors;
+                table.load(filename,(err,res1) =>{
+                    if (err && err.length > 0) {
+                      res.status(500).json({ "message": "An error has occured trying to update the patient record in the dattabase" });
+                    }else{
+                      res.status(200).json({ "messafe": "Succesfully updatted the patient record in the database" });
+                    }
+                });
+              }
+            });
+          }
+        }else{
+          res.status(404).json({ "messsage": "Email not found" })
         }
-        res.status(200).json({ "messafe": "Succesfully updatted the patient record in the database" });
-      })
-  } else {
-    res.status(404).json({ "messsage": "Email not found" })
-  }
+      });
 
 });
 module.exports = router;
@@ -100,34 +184,60 @@ router.put("/password", async (req, res) => {
   console.log("Trying to edit the password of the user")
   console.log(req.body.email);
   console.log(req.body)
-  const retrievedPatient = await Patient.findOne({ Email: req.body.email })
 
-  const validpassword = await bcrypt.compare(req.body.oldPassword, retrievedPatient.password);
-
-  if (!validpassword) return res.status(401).json({
-
-    message: "The old password that has been entered is incorrect"
-  });
-
-  if (validpassword) {
-
-    console.log("The entered old password is correct")
-    console.log(req.body.newPassword)
-    const salt = await bcrypt.genSaltSync(10);
-    const hashpassword = await bcrypt.hash(req.body.newPassword, salt);
-    retrievedPatient.password = hashpassword;
-    const updatedPatient = await Patient.replaceOne({ Email: req.body.email }, retrievedPatient,
-      (err, response) => {
-        if (err) {
-          res.status(500).json({ "message": "An error has occured trying to update the patient record in the dattabase" });
+  const query1 = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email='+'"'+
+    req.body.email+'"';
+    bigquery.query(query1, async function(err, row) {
+      if(!err) {
+        if (row){
+          //console.log(row);
+          const retrievedPatient = row[0];
+          const validpassword = await bcrypt.compare(req.body.oldPassword, retrievedPatient.password);
+          if (!validpassword){
+            return res.status(401).json({
+              message: "The old password that has been entered is incorrect"
+            });
+          }
+          if (validpassword) {
+            console.log("The entered old password is correct");
+            console.log(req.body.newPassword);
+            const salt = await bcrypt.genSaltSync(10);
+            const hashpassword = await bcrypt.hash(req.body.newPassword, salt);
+            retrievedPatient.password = hashpassword;
+            const query2 = 'DELETE FROM `scriptchainprod.ScriptChain.patients` WHERE Email='+'"'+
+            req.body.email+'"';
+            bigquery.query(query2, function(err, row1) {
+                if(err){
+                    res.status(500).json({"message": "account could not be deactivated due to an error"});
+                    next();
+                }else{
+                  //console.log('deleted');
+                  const filename = 'editPatientsTmp.json';
+                  const datasetId = 'ScriptChain';
+                  const tableId = 'patients';
+          
+                  fs.writeFileSync(filename, JSON.stringify(row[0]));
+                  
+                  const table = bigquery.dataset(datasetId).table(tableId);
+          
+                  // Check the job's status for errors
+                  //const errors = job.status.errors;
+                  table.load(filename,(err,res1) =>{
+                      if (err && err.length > 0) {
+                        res.status(500).json({ "message": "An error has occured trying to update the patient record in the dattabase" });
+                      }else{
+                        res.status(200).json({ "messafe": "Succesfully updatted the patient record in the database" });
+                        sendVerificationMail(req.body.email, retrievedPatient.fname);
+                      }
+                  });
+                }
+              });
+            }
+          }
+        }else{
+          res.status(404).json({ "messsage": "Email not found" })
         }
-        res.status(200).json({ "message": "Succesfully updatted the patient record in the database" });
-        sendVerificationMail(req.body.email, retrievedPatient.fname);
-      })
-  } else {
-    res.status(404).json({ "messsage": "Email not found" })
-  }
-
+      });
 });
 
 
