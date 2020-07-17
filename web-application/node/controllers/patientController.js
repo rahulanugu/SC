@@ -17,7 +17,15 @@ const { TokenSchema} = require('../models/tokeSchema');
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
 const randtoken = require('rand-token');
-var Utility = require('../utility')
+var Utility = require('../utility');
+const fs = require('fs');
+const {BigQuery} = require('@google-cloud/bigquery');
+const options = {
+    keyFilename: '/Users/srikarpothumahanti/Desktop/scriptchain/web-application/node/serviceAccountKeys/scriptchainprod-96d141251382.json',
+    projectId: 'scriptchainprod'
+
+};
+const bigquery = new BigQuery(options);
 
 const oauth2Client = new OAuth2(
     "Y16828344230-21i76oqle90ehsrsrpptnb8ek2vqfjfp.apps.googleusercontent.com",
@@ -41,16 +49,27 @@ const accessToken = oauth2Client.getAccessToken()
  *         200 - Succesfully retrieved all the patients in the database
  *         404 - No patients in the database
  */
+function generateId(count) {
+  var _sym = 'abcdefghijklmnopqrstuvwxyz1234567890';
+  var str = '';
+
+  for(var i = 0; i < count; i++) {
+      str += _sym[parseInt(Math.random() * (_sym.length))];
+  }
+  return str;
+}
+
 router.get('/', (req, res) => {
     console.log('you have entered');
-    Patient.find((err, doc) => {
-        if (!err) {
-            res.status(200).json(doc)
-        }
-        else {
-            res.status(404).send({message: "No patients found"})
-            console.log('Error in retrieving patients: ' + JSON.stringify(err, undefined, 2));
-        }
+    const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE 1=1';
+    bigquery.query(query, function(err, doc) {
+      if (!err) {
+        res.status(200).json(doc)
+      }
+      else {
+          res.status(404).send({message: "No patients found"})
+          console.log('Error in retrieving patients: ' + JSON.stringify(err, undefined, 2));
+      }
     });
 });
 
@@ -68,15 +87,16 @@ router.get('/:id', (req, res) => {
     if(!ObjectId.isValid(req.params.id))
         return res.status(404).send(`No record with given id: ${req.params.id}`);
     else {
-        Patient.findById(req.params.id, (err, doc) => {
-            if (!err) {
-                res.status(200).send(doc);
-            }
-            else {
-                res.status(404).send({message: "Could not find patients"})
-                console.log('Error in retrieving patient with id: ' + JSON.stringify(err, undefined, 2));
-            }
-        })
+      const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE _id='+'"'+req.params.id+'"';
+      bigquery.query(query, function(err, doc) {
+        if (!err) {
+          res.status(200).json(doc[0])
+        }
+        else {
+            res.status(404).send({message: "No patients found"})
+            console.log('Error in retrieving patients: ' + JSON.stringify(err, undefined, 2));
+        }
+      });
     }
 });
 
@@ -87,17 +107,20 @@ router.get('/:id', (req, res) => {
  */
 router.post('/:verify',async(req,res)=>{
     console.log('/:verify',req.body.user)
-    const userGiven = req.body;
+    const userGiven = req.body;    
     console.log(userGiven.user)
-    const checkCurrentSubscriber = await VerifiedUser.findOne({email: userGiven.user})
 
-    if (checkCurrentSubscriber){
-        return res.json('Subscriber already exists')
-    }else{
-        return res.json('doesnot exist')
-    }
-
-})
+    const query = 'SELECT * FROM `scriptchainprod.ScriptChain.verifieduser` WHERE email='+'"'+userGiven.user+'"';
+    bigquery.query(query, function(err, checkCurrentSubscriber) {
+      if (!err) {
+        if (checkCurrentSubscriber){
+          return res.json('Subscriber already exists')
+        }else{
+            return res.json('doesnot exist')
+        }
+      }
+    });
+});
 
 /**
  * This metthod will check if the user/patientt already exists in the system and sends a verification email if not
@@ -109,17 +132,25 @@ router.post('/',async(req,res)=>{
 
     const tokeBody = req.body;
     // check if email already exist
-    const checkCurrentSubscriber = await VerifiedUser.findOne({email: req.body.email})
+    //const checkCurrentSubscriber = await VerifiedUser.findOne({email: req.body.email})
 
-    if (checkCurrentSubscriber){
-        return res.status(400).send('Subscriber already exists')
-    }
+    const query1 = 'SELECT * FROM `scriptchainprod.ScriptChain.verifieduser` WHERE email='+'"'+req.body.email+'"';
+    bigquery.query(query1, function(err, checkCurrentSubscriber) {
+      if (!err) {
+        if (checkCurrentSubscriber){
+          return res.status(400).send('Subscriber already exists');
+        }
+      }
+    });
 
-    const checkEmailExist = await Patient.findOne({Email: req.body.email})
-
-    if (checkEmailExist){
-        return res.status(400).send('Email already exists')
-    }
+    const query2 = 'SELECT * FROM `scriptchainprod.ScriptChain.patient` WHERE Email='+'"'+req.body.email+'"';
+    bigquery.query(query2, function(err, checkEmailExist) {
+      if (!err) {
+        if (checkEmailExist){
+          return res.status(400).send('Email already exists');
+        }
+      }
+    });
 
     // create JSON Web Token
     // *******make sure to change secret word to something secure and put it in env variable*****
@@ -131,14 +162,23 @@ router.post('/',async(req,res)=>{
 
     var idToken = randtoken.generate(16);
 
-    const tokenSchema = new TokenSchema({
-        token: idToken,
-        email: req.body.email
-    })
+    var tokenSchema = {
+      '_id': generateId(10),
+      'token': idToken,
+      'email': req.body.email
+    };
 
-    tokenSchema.save((err,doc)=>{})
+    const filename = 'tokenSchemaTmp.json';
+    const datasetId = 'ScriptChain';
+    const tableId = 'tokenSchema';
 
-    //sendVerificationMail(req.body.email,req.body.fname,idToken);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          (req.body.email,req.body.fname,idToken);
+    fs.writeFileSync(filename, JSON.stringify(tokenSchema));
+    
+    const [job] = await bigquery
+      .dataset(datasetId)
+      .table(tableId).load(filename);
+
+    // Check the job's status for errors                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  (req.body.email,req.body.fname,idToken);
 
     //encrypt the token before sending it
     var encryptedToken = Utility.EncryptToken(token);

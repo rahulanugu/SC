@@ -9,6 +9,13 @@ const { DeactivatedHealthcareProvider } = require('../models/deactivatedHealthca
 
 
 var router = express.Router();
+const {BigQuery} = require('@google-cloud/bigquery');
+const options = {
+    keyFilename: '/Users/srikarpothumahanti/Desktop/scriptchain/web-application/node/serviceAccountKeys/scriptchainprod-96d141251382.json',
+    projectId: 'scriptchainprod'
+
+};
+const bigquery = new BigQuery(options);
 
 /**
  * Authenticate the healthcare user login attempt
