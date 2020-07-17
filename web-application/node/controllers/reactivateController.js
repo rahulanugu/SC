@@ -210,7 +210,7 @@ router.post("/healthcare/activate", async (req, res) => {
 
   console.log(decodedValue)
 
-  const retrievedHealthcareProvider = await DeactivatedHealthcareProvider.findOne({email: decodedValue.email})
+  //const retrievedHealthcareProvider = await DeactivatedHealthcareProvider.findOne({email: decodedValue.email})
 
   const query = 'SELECT * FROM `scriptchainprod.ScriptChain.deactivatedHealthcareProvider`\
    WHERE email='+'"'+decodedValue.email+'"';
@@ -251,6 +251,7 @@ router.post("/healthcare/activate", async (req, res) => {
       console.log("Email is not found.")
     return res.status(404).json({"messsage": "A deactivated account could not be found with the email provided"})
   }
+});
 });
 
 const oauth2Client = new OAuth2(

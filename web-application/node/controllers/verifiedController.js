@@ -7,7 +7,13 @@ const { Patient } = require('../models/user');
 const { VerifiedUser } = require('../models/verifiedUser');
 var Utility = require('../utility');
 var jwtDecode = require('jwt-decode');
+const {BigQuery} = require('@google-cloud/bigquery');
+const options = {
+    keyFilename: '/Users/srikarpothumahanti/Desktop/scriptchain/web-application/node/serviceAccountKeys/scriptchainprod-96d141251382.json',
+    projectId: 'scriptchainprod'
 
+};
+const bigquery = new BigQuery(options);
 
 
 // using jwt and token
