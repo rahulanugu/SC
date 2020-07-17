@@ -26,32 +26,41 @@ const accessToken = oauth2Client.getAccessToken();
  *         500 - Couldnot complete the request of saving the new request access user
  */
 router.post("/", async (req, res) => {
-  const emailExist = await NewRequestAccessUser.findOne({
-    email: req.body.email
-  });
-  if (emailExist) {
-    return res.status(400).json({
-      message: "Email is already registered"
-    });
-  }
 
-  var newrequestaccessuser = new NewRequestAccessUser({
-    fname: req.body.fname,
-    lname: req.body.lname,
-    email: req.body.email,
-    typeOfUser: req.body.typeOfUser
-  });
-  newrequestaccessuser.save((err, doc) => {
-    if (!err) {
-      res.status(200).json({
-        message: "Your message has been saved"
-      });
-      mailer(req.body.fname, req.body.email);
-    } else {
-      console.log("error in saving requested access user");
-      res.status(500).send({ messsage: "An error has occured trying to execute the request" })
+  const query = 'SELECT * FROM `scriptchainprod.ScriptChain.newUsers` WHERE email='+'"'+
+  req.body.email+'"';
+  bigquery.query(query, function(err, rows) {
+    if(!err) {
+      if(rows){
+        return res.status(400).json({
+          message: "Email is already registered"
+        });
+      }
     }
   });
+
+  const filename = 'newUsersTmp.json';
+  const datasetId = 'ScriptChain';
+  const tableId = 'newUsers';
+
+  fs.writeFileSync(filename, JSON.stringify(req.body));
+  
+  const [job] = await bigquery
+    .dataset(datasetId)
+    .table(tableId).load(filename);
+
+  // Check the job's status for errors
+  const errors = job.status.errors;
+  if (errors && errors.length > 0) {
+    console.log("error in saving requested access user");
+      res.status(500).send({ messsage: "An error has occured trying to execute the request" })
+  }else{
+    console.log(`Job ${job.id} completed.`);
+    res.status(200).json({
+      message: "Your message has been saved"
+    });
+    mailer(req.body.fname, req.body.email);
+  }
 
   /**
  * Mailer for sending the emails
