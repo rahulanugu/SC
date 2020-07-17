@@ -8,6 +8,13 @@ const { DeactivatedPatient } = require('../models/deactivatedUser');
 
 
 var router = express.Router();
+const {BigQuery} = require('@google-cloud/bigquery');
+const options = {
+    keyFilename: '/Users/srikarpothumahanti/Desktop/scriptchain/web-application/node/serviceAccountKeys/scriptchainprod-96d141251382.json',
+    projectId: 'scriptchainprod'
+
+};
+const bigquery = new BigQuery(options);
 //http request for patient login http://localhost:3000/patient-login/
 /**
  * This method validates the user/patient to log in to the portall.
@@ -19,21 +26,29 @@ router.post('/', async (req, res)=>{
     const patient = await Patient.findOne({Email: req.body.email});
     //if the patient is not found, try finding it in the deactivated patients collection
 
-    if(!patient){
-      const deactivatedPatient = await DeactivatedPatient.findOne({Email: req.body.email});
-
-      if(!deactivatedPatient){
-        //patient not in both patient collection and deactivated collection
-        return res.status(404).json({
-          message:"Invalid Email or password"
-        });
+    const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patient` WHERE Email='+'"'+req.body.email+'"';
+    bigquery.query(query, function(err, patient) {
+      if (!err) {
+        if (!patient){
+          const query = 'SELECT * FROM `scriptchainprod.ScriptChain.deactivatedPatients` WHERE Email='+
+          '"'+req.body.email+'"';
+          bigquery.query(query, function(err, deactivatedPatient) {
+            if (!err) {
+              if (!deactivatedPatient){
+                return res.status(404).json({
+                  message:"Invalid Email or password"
+                });
+              }else{
+                return res.status(303).json({
+                  message: "The email being handled has been deactivated"
+                }); 
+              }
+            }
+          });
+        }
       }
+    });
 
-      //Execution at this point means that the email being handled is deactivated patient
-      return res.status(303).json({
-        message: "The email beong handled has been deactivated"
-      }); 
-    }
 
     //check for password
     const validpassword = await bcrypt.compare(req.body.password, patient.password);

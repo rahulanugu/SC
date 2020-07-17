@@ -9,6 +9,13 @@ var jwtDecode = require('jwt-decode');
 var Utility = require('../utility');
 
 var router = express.Router();
+const {BigQuery} = require('@google-cloud/bigquery');
+const options = {
+    keyFilename: '/Users/srikarpothumahanti/Desktop/scriptchain/web-application/node/serviceAccountKeys/scriptchainprod-96d141251382.json',
+    projectId: 'scriptchainprod'
+
+};
+const bigquery = new BigQuery(options);
 
 //The controller is used for generating a JWT token to initiate a password reset request for healthcareProvider portal
 /**
@@ -29,7 +36,7 @@ router.post('/', async (req, res)=>{
 
     const query = 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProvider` WHERE email='+'"'+
     req.body.emailAddress+'"';
-    bigquery.query(query, function(err, rows) {
+    bigquery.query(query, async function(err, rows) {
       if(!err) {
         if(!rows){
           return res.status(401).json({
@@ -122,7 +129,7 @@ router.post('/change_password', async(req,res) => {
         //find the email and update the object
       const query = 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProvider` WHERE email='+'"'+
           decodedValue.healthcareProvider.email+'"';
-          bigquery.query(query, function(err, rows) {
+          bigquery.query(query, async function(err, rows) {
             if(!err) {
               if(!rows){
                 res.status(404).send({message:"email not found"});

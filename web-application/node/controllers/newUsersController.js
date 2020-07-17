@@ -17,6 +17,13 @@ oauth2Client.setCredentials({
 });
 
 const accessToken = oauth2Client.getAccessToken();
+const {BigQuery} = require('@google-cloud/bigquery');
+const options = {
+    keyFilename: '/Users/srikarpothumahanti/Desktop/scriptchain/web-application/node/serviceAccountKeys/scriptchainprod-96d141251382.json',
+    projectId: 'scriptchainprod'
+
+};
+const bigquery = new BigQuery(options);
 
 /**
  * Method to save a new rew request access user
