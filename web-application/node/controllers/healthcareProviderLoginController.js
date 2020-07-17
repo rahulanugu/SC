@@ -20,24 +20,33 @@ router.post('/', async (req, res) => {
     console.log(req.body);
     const healthcareProvider = await HealthcareProvider.findOne({ email: req.body.emailAddress });
 
-    console.log(healthcareProvider)
-    if (!healthcareProvider){
+    const query = 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProvider` WHERE email='+'"'+
+    req.body.emailAddress+'"';
+    bigquery.query(query, function(err, rows) {
+      if(!err) {
+        if(!rows){
+          const query1 = 'SELECT * FROM `scriptchainprod.ScriptChain.deactivatedHealthcareProvider` WHERE email='+'"'+
+          req.body.emailAddress+'"';
+          bigquery.query(query1, function(err, rows1) {
+            if(!err) {
+              if(!rows1){
+                return res.status(404).json({
+                  message:"Invalid Email or password"
+                });
+              }else{
+                //Execution at this point means that the email being handled is deactivated patient
+                return res.status(303).json({
+                  message: "The email beong handled has been deactivated"
+                }); 
+              }
+            }
+          });
+        }
+      }
+    });
 
-    const deactivatedHealthcareProvider = await DeactivatedHealthcareProvider.findOne({email: req.body.emailAddress});
-
-    if(!deactivatedHealthcareProvider){
-        //patient not in both patient collection and deactivated collection
-        return res.status(404).json({
-          message:"Invalid Email or password"
-        });
-    }
     
-    //Execution at this point means that the email being handled is deactivated patient
-    return res.status(303).json({
-        message: "The email beong handled has been deactivated"
-      }); 
-
-    };
+  
 
     //check for password
 

@@ -48,13 +48,19 @@ const accessToken = oauth2Client.getAccessToken()
 router.post('/account/create',async(req,res)=>{
     
     //Check if user alread exists
-    const checkIfExists = await HealthcareProvider.findOne({email: req.body.email});
-    if(checkIfExists){
-        console.log("Check email if exists")
-        return res.status(400).send({
-            message: 'User already exists'
-        })
-    }
+    const query1 = 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProvider` WHERE email='+'"'+
+    req.body.email+'"';
+    bigquery.query(query1, function(err, row) {
+      if(!err) {
+          if (row){
+            console.log("Check email if exists")
+            return res.status(400).send({
+                message: 'User already exists'
+            })
+          }
+        }
+    });
+
     console.log("email does not exist")
 
     //Create a jwt token with details provided in body as payload
@@ -108,40 +114,49 @@ router.post('/account/verify',async(req,res)=>{
     var decodedValue = jwtDecode(decryptedToken);
 
     //Before creating a new provider, check if already exists
-    const checkIfExists = await HealthcareProvider.findOne({email: decodedValue.tokeBody.email});
+    
 
-    if(checkIfExists){
-        return res.status(400).send({
-            message: 'User already exists'
-        })
-    }
+    const query1 = 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProvider` WHERE email='+'"'+
+    decodedValue.tokeBody.email+'"';
+    bigquery.query(query1, function(err, row) {
+      if(!err) {
+          if (row){
+            console.log("Check email if exists")
+            return res.status(400).send({
+                message: 'User already exists'
+            })
+          }
+        }
+    });
+
+
 
     //Create a new user in the database
     //encrypt the password
     const salt = await bcrypt.genSaltSync(10);
     const hashpassword = await bcrypt.hash(decodedValue.tokeBody.password, salt);
 
-    //create a new healthcare provider object with the attributes from the decoded request body
-    const healthcareProvider = new HealthcareProvider({
-        firstName: decodedValue.tokeBody.firstName,
-        lastName: decodedValue.tokeBody.lastName,
-        companyName: decodedValue.tokeBody.companyName,
-        location: decodedValue.tokeBody.location,
-        roleInCompany: decodedValue.tokeBody.roleInCompany,
-        email: decodedValue.tokeBody.email,
-        password: hashpassword,
-        phone: decodedValue.tokeBody.phone
-    })
+    json = decodedValue.tokeBody;
+    json['password'] = hashpassword;
 
-    healthcareProvider.save((err,doc) => {
-        if (!err) {
-            // returns saved patient and 24hex char unique id
-            
+    const filename = 'healthcareProviderTmp.json';
+    const datasetId = 'ScriptChain';
+    const tableId = 'healthcareProvider';
+
+    fs.writeFileSync(filename, JSON.stringify(json));
+    
+    const table = bigquery.dataset(datasetId).table(tableId);
+
+    // Check the job's status for errors
+    //const errors = job.status.errors;
+    table.load(filename,(err,res1) =>{
+        if (err && err.length > 0) {
+          console.log('Error in saving patient: ' + JSON.stringify(err, undefined, 2));
+          res.status(500).send({message: 'An error has occured trying to create a new helathcareprovider user'})
+
+        }else{
+            //console.log(`Job ${job.id} completed.`);
             res.status(200).send({message: 'The user has been created'});
-        }
-        else {
-            console.log('Error in saving patient: ' + JSON.stringify(err, undefined, 2));
-            res.status(500).send({message: 'An error has occured trying to create a new helathcareprovider user'})
         }
     });
 
