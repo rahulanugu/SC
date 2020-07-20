@@ -134,7 +134,7 @@ router.post('/change_password', async (req, res) => {
       //.tokebody of decodedvalue will contain the value of json object
       //find the email and update the object
       const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patient` WHERE Email='+'"'+req.body.email+'"';
-      bigquery.query(query, function(err, doc) {
+      bigquery.query(query, async function(err, doc) {
         if (!err) {
           if (doc){
           const salt = bcrypt.genSaltSync(10);
