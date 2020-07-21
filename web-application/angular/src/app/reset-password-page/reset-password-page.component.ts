@@ -63,10 +63,14 @@ export class ResetPasswordPageComponent implements OnInit {
       }else {
         this.resetPasswordService.makePasswordChange(this.token,this.Form.value.password).subscribe(
           response => {
+            console.log(response);
+            console.log(this.visible);
             this.errorVisible = false;
             this.visible = !this.visible;
           },
           error => {
+            console.log(error);
+            console.log(this.errorUpdating);
             this.errorVisible = false;
             this.errorUpdating = true; 
           }

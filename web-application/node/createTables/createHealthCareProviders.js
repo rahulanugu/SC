@@ -12,8 +12,8 @@ async function createTable() {
 
     const datasetId = "ScriptChain";
     const tableId = "healthcareProviders";
-    const schema = 'id:string, firstName:string, lastName:string, companyName:string,\
-    roleInCompany:string,email:string,password:string,phone:string,version:integer';
+    const schema = '_id:string, firstName:string, lastName:string, companyName:string,\
+    roleInCompany:string,email:string,password:string,phone:string';
  
   const options = {
     schema: schema,

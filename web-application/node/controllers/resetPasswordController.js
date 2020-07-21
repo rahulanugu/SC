@@ -15,6 +15,7 @@ const options = {
 
 };
 const bigquery = new BigQuery(options);
+const fs = require('fs');
 //The controller is used for generating a JWT token to initiate a password reset request
 
 /**
@@ -31,18 +32,29 @@ router.post('/', async (req, res) => {
   });
   //try finding the email in the database
 
-  const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patient` WHERE Email=@email';
+  const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
   // '+'"'+req.body.email+'"';
   const bigQueryOptions = {
     query: query,
     location: 'US',
     params: {email:req.body.email}
   }
-    bigquery.query(bigQueryOptions, function(err, patient) {
+    bigquery.query(bigQueryOptions, async function(err, patient) {
       if (!err) {
-        if (!patient) return res.status(401).json({
-          message: "Invalid Email"
-        });
+        if (patient.length==0){
+           return res.status(401).json({
+            message: "Invalid Email"
+          });
+        }else{
+          const token = await jwt.sign({ patient }, "santosh", { expiresIn: 120 });
+          const encryptedToken = Utility.EncryptToken(token);
+          //mail the token
+          sendVerificationMail(req.body.email, patient[0].fname, encryptedToken);
+
+          res.status(200).json({
+            message: "Email has been sent to reset password"
+          });
+        }
 
       }
     });
@@ -64,7 +76,7 @@ router.post('/', async (req, res) => {
 
   // create JSON Web Token
   // *******make sure to change secret word to something secure and put it in env variable*****
-  const token = await jwt.sign({ patient }, "santosh", { expiresIn: 120 });
+  
 
   //save the token
   //   const resetPasswordToken = new ResetPasswordToken ({
@@ -78,14 +90,6 @@ router.post('/', async (req, res) => {
   // });
 
   //encrypt the token
-
-  const encryptedToken = Utility.EncryptToken(token);
-  //mail the token
-  sendVerificationMail(req.body.email, patient.fname, encryptedToken);
-
-  res.status(200).json({
-    message: "Email has been sent to reset password"
-  });
 });
 
 /**
@@ -97,7 +101,7 @@ router.post('/check', async (req, res) => {
   // will recieve an encrypted jwt token
   console.log("checking the validity of tthe password in check")
   var encryptedToken = req.body.token.replace(/ /g, '+');
-  console.log(encryptedToken)
+  //console.log(encryptedToken)
 
   jwt.verify(Utility.DecryptToken(encryptedToken), 'santosh', (err, verifiedJwt) => {
     if (err) {
@@ -121,7 +125,7 @@ router.post('/change_password', async (req, res) => {
   var correctedToken = req.body.token.replace(/ /g, '+');
   const decryptedToken = Utility.DecryptToken(correctedToken);
 
-  console.log("corrected token \n" + correctedToken)
+  //console.log("corrected token \n" + correctedToken)
   //verify jwt token
   jwt.verify(decryptedToken, 'santosh', (err, verifiedJwt) => {
     if (err) {
@@ -139,47 +143,62 @@ router.post('/change_password', async (req, res) => {
       console.log(decodedValue);
       //.tokebody of decodedvalue will contain the value of json object
       //find the email and update the object
-      const query1 = 'SELECT * FROM `scriptchainprod.ScriptChain.patient` WHERE Email=@email';
+      const query1 = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@Email';
       // +'"'+req.body.email+'"';
       const bigQueryOptions1 = {
         query: query1,
         location: 'US',
-        params: {Email:req.body.email}
+        params: {Email:decodedValue.patient[0].Email}
       }
       bigquery.query(bigQueryOptions1, async function(err, doc) {
         if (!err) {
-          if (doc){
-          const salt = bcrypt.genSaltSync(10);
-          const hashpassword = await bcrypt.hash(req.body.password, salt);
-          const patient = doc[0];
-          patient['password'] = hashpassword;
-          console.log(hashpassword);
-          fs.writeFileSync(filename, JSON.stringify(retrievedHealthcareProvider));
-
-          bigquery.query(query2, function(err, row1) {
-            const filename = 'resetPasswordTmp.json';
-            const datasetId = 'ScriptChain';
-            const tableId = 'patient';
-            fs.writeFileSync(filename, JSON.stringify(doc));
-            const table = bigquery.dataset(datasetId).table(tableId);
-            // Check the job's status for errors
-            //const errors = job.status.errors;
-            table.load(filename,(err,res1) =>{
-                if (!res1) {
-                  res.status(500).send({message:"Could not update the record"});
-                }else{
-                    //console.log(`Job ${job.id} completed.`);
-                    console.log("Here")
-                    console.log(response);
-                    res.status(200).send({message:"Record has been updated"});
-                }
+          if (doc.length>0){
+            console.log('Selected');
+            const salt = bcrypt.genSaltSync(10);
+            const hashpassword = await bcrypt.hash(req.body.password, salt);
+            const patient = doc[0];
+            patient['password'] = hashpassword;
+            console.log(hashpassword);
+            const query2 = 'DELETE FROM `scriptchainprod.ScriptChain.patients` WHERE _id=@id';
+            // +'"'+req.body.email+'"';
+            console.log(patient);
+            const bigQueryOptions2 = {
+              query: query2,
+              location: 'US',
+              params: {id:patient['_id']}
+            }
+            bigquery.query(bigQueryOptions2, function(err, row1) {
+              if(!err){
+                console.log('Deleted');
+                const filename = 'resetPasswordTmp.json';
+                const datasetId = 'ScriptChain';
+                const tableId = 'patients';
+                //console.log(patient);
+                fs.writeFileSync(filename, JSON.stringify(patient));
+                const table = bigquery.dataset(datasetId).table(tableId);
+                // Check the job's status for errors
+                //const errors = job.status.errors;
+                table.load(filename,(err1,res1) =>{
+                    if (err1) {
+                      res.status(500).send({message:"Could not update the record"});
+                    }else{
+                        console.log('Inserted');
+                        //console.log(`Job ${job.id} completed.`);
+                        console.log("Here")
+                        //console.log(response);
+                        res.status(200).send({message:"Record has been updated"});
+                    }
+                });
+              }
+              else{
+                console.log(err);
+              }
             });
-          });
+          }
+          else {
+            res.status(404).send({ message: "email not found" })
+          }
         }
-        else {
-          res.status(404).send({ message: "email not found" })
-        }
-      }
       });
     }
   })
@@ -195,6 +214,7 @@ const accessToken = oauth2Client.getAccessToken();
 
 const sendVerificationMail = (email, fname, encryptedToken) => {
 
+  console.log(fname);
   //create a transporter with OAuth2
   const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -288,7 +308,7 @@ const sendVerificationMail = (email, fname, encryptedToken) => {
           </div>
           <h1 align="center"style="font-family: arial;">Please follow the link to reset your password</h1>
           <p class="para">Hi `+ fname + `,</p>
-        <p align="center"><a href="http://scriptchain.co/patient/password/resetpage?token=`+ encryptedToken + `?email=` + email + `"><button>Reset Password</button></a></p><br><br>
+        <p align="center"><a href="http://localhost:8080/patient/password/resetpage?token=`+ encryptedToken + `?email=` + email + `"><button>Reset Password</button></a></p><br><br>
         <p align="center" class="para">If you have any questions or concerns feel free to reach out to <a href="mailto:customer-care@scriptchain.co">customer-care@scriptchain.co</a></p>
           <div class="panelFooter">
             <p align="center" >This message was sent from ScriptChain LLC., Boston, MA</p>

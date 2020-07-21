@@ -316,6 +316,8 @@ router.post("/jobapplication",upload.single('resume'), async (req, res, next) =>
  *         200 - Resume is found
  *         404 - Resume with the given name was not found
  */
+
+ //MongoDB 
 router.get("/jobapplication/:filename", (req, res) => {
     // console.log('id', req.params.id)
     const file = gfs
@@ -341,6 +343,7 @@ router.get("/jobapplication/:filename", (req, res) => {
  *         200 - All resumes found
  *         404 - Could not find any resume in the database
  */
+//MongoDB
 router.get("/files", (req, res) => {
     console.log("Trying to retrieve all the resumes from the bucket resumes")
     gfs.find().toArray((err, files) => {

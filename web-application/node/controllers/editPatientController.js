@@ -27,25 +27,25 @@ router.put("/fname", async (req, res) => {
 
   //const retrievedPatient = await Patient.findOne({ Email: req.body.email })
 
-  const query1 = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
+  const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
     // req.body.email+'"';
     const bigQueryOptions = {
-      query: query1,
+      query: query,
       location: 'US',
-      params: {Email:req.body.email}
+      params: {email:req.body.email}
     }
     bigquery.query(bigQueryOptions, function(err, row) {
       if(!err) {
-        if (row){
+        if (row.length>0){
           //console.log(row);
           const retrievedPatient = row[0];
           retrievedPatient.fname = req.body.fname;
-          const query2 = 'DELETE FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
+          const query1 = 'DELETE FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
           // req.body.email+'"';
           const bigQueryOptions1 = {
-            query: query2,
+            query: query1,
             location: 'US',
-            params: {Email:req.body.email}
+            params: {email:req.body.email}
           }
           bigquery.query(bigQueryOptions1, function(err, row1) {
               if(err){
@@ -88,27 +88,27 @@ router.put("/fname", async (req, res) => {
  */
 router.put("/lname", async (req, res) => {
 
-  const query3 = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
+  const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
     // req.body.email+'"';
-    const bigQueryOptions2 = {
-      query: query3,
+    const bigQueryOptions = {
+      query: query,
       location: 'US',
-      params: {Email:req.body.email}
+      params: {email:req.body.email}
     }
-    bigquery.query(bigQueryOptions2, function(err, row) {
+    bigquery.query(bigQueryOptions, function(err, row) {
       if(!err) {
-        if (row){
+        if (row.length>0){
           //console.log(row);
           const retrievedPatient = row[0];
           retrievedPatient.lname = req.body.lname;
-          const query4 = 'DELETE FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
+          const query1 = 'DELETE FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
           // req.body.email+'"';
-          const bigQueryOptions3 = {
-            query: query4,
+          const bigQueryOptions1 = {
+            query: query1,
             location: 'US',
-            params: {Email:req.body.email}
+            params: {email:req.body.email}
           }
-          bigquery.query(bigQueryOptions3, function(err, row1) {
+          bigquery.query(bigQueryOptions1, function(err, row1) {
               if(err){
                   res.status(500).json({"message": "account could not be deactivated due to an error"});
                   next();
@@ -150,26 +150,26 @@ router.put("/lname", async (req, res) => {
  */
 router.put("/phone", async (req, res) => {
 
-  const query5 = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
+  const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
     // req.body.email+'"';
-    const bigQueryOptions4 = {
-      query: query5,
+    const bigQueryOptions = {
+      query: query,
       location: 'US',
-      params: {Email:req.body.email}
+      params: {email:req.body.email}
     }
-    bigquery.query(bigQueryOptions4, function(err, row) {
+    bigquery.query(bigQueryOptions, function(err, row) {
       if(!err) {
-        if (row){
+        if (row.length>0){
           const retrievedPatient = row[0];
           retrievedPatient.phone = req.body.phone;
-          const query6= 'DELETE FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
+          const query1= 'DELETE FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
           // req.body.email+'"';
-          const bigQueryOptions5 = {
-            query: query6,
+          const bigQueryOptions1 = {
+            query: query1,
             location: 'US',
-            params: {Email:req.body.email}
+            params: {email:req.body.email}
           }
-          bigquery.query(bigQueryOptions5, function(err, row1) {
+          bigquery.query(bigQueryOptions1, function(err, row1) {
               if(err){
                   res.status(500).json({"message": "account could not be deactivated due to an error"});
                   next();
@@ -215,16 +215,16 @@ router.put("/password", async (req, res) => {
   console.log(req.body.email);
   console.log(req.body)
 
-  const query7 = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
+  const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
     // req.body.email+'"';
-    const bigQueryOptions6 = {
-      query: query7,
+    const bigQueryOptions = {
+      query: query,
       location: 'US',
-      params: {Email:req.body.email}
+      params: {email:req.body.email}
     }
-    bigquery.query(bigQueryOptions6, async function(err, row) {
+    bigquery.query(bigQueryOptions, async function(err, row) {
       if(!err) {
-        if (row){
+        if (row.length>0){
           //console.log(row);
           const retrievedPatient = row[0];
           const validpassword = await bcrypt.compare(req.body.oldPassword, retrievedPatient.password);
@@ -239,14 +239,14 @@ router.put("/password", async (req, res) => {
             const salt = await bcrypt.genSaltSync(10);
             const hashpassword = await bcrypt.hash(req.body.newPassword, salt);
             retrievedPatient.password = hashpassword;
-            const query8 = 'DELETE FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
+            const query1 = 'DELETE FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
             // req.body.email+'"';
-            const bigQueryOptions7 = {
-              query: query8,
+            const bigQueryOptions1 = {
+              query: query1,
               location: 'US',
-              params: {Email:req.body.email}
+              params: {email:req.body.email}
             }
-            bigquery.query(bigQueryOptions7, function(err, row1) {
+            bigquery.query(bigQueryOptions1, function(err, row1) {
                 if(err){
                     res.status(500).json({"message": "account could not be deactivated due to an error"});
                     next();
