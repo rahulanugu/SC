@@ -34,9 +34,14 @@ router.post('/', async (req, res)=>{
     });
     //const healthcareProvider = await HealthcareProvider.findOne({ email: req.body.email });
 
-    const query = 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProvider` WHERE email='+'"'+
-    req.body.emailAddress+'"';
-    bigquery.query(query, async function(err, rows) {
+    const query = 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProvider` WHERE email=@email';
+    // req.body.emailAddress+'"';
+    const bigQueryOptions = {
+      query: query,
+      location: 'US',
+      params: {email:req.body.emailAddress}
+    }
+    bigquery.query(bigQueryOptions, async function(err, rows) {
       if(!err) {
         if(!rows){
           return res.status(401).json({
@@ -45,22 +50,22 @@ router.post('/', async (req, res)=>{
         }
         else{
           const healthcareProvider = rows[0];
-          const token = await jwt.sign({}, "santosh", { expiresIn: 120 });        
+          const token = await jwt.sign({}, "santosh", { expiresIn: 120 });
           const encryptedToken = Utility.EncryptToken(token);
           //mail the token
           sendVerificationMail(req.body.email,healthcareProvider.firstName,encryptedToken);
-      
+
           res.status(200).json({
               message: "Email has been sent to reset password"
           });
         }
       }
     });
-          
+
 
     //create a new JWT token and send it to the email of the user
 
-    
+
 
     // //check for password
     // const validpassword = await bcrypt.compare(req.body.password, patient.password);
@@ -73,7 +78,7 @@ router.post('/', async (req, res)=>{
 
     // create JSON Web Token
     // *******make sure to change secret word to something secure and put it in env variable*****
-    
+
 });
 
 /**
@@ -118,18 +123,23 @@ router.post('/change_password', async(req,res) => {
       res.status(500).send(err.message)
     }else{
       //jwt is verified, decode it for email
-      
+
       //jwt is encrypted when reached here, need to decrypt it before using
       //decode jwtt payload it for email
       var decodedValue = jwtDecode(decryptedToken);
-      
+
       console.log("Decrypted ttoken being modified");
       console.log(decodedValue);
       //.tokebody of decodedvalue will contain the value of json object
         //find the email and update the object
-      const query = 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProvider` WHERE email='+'"'+
-          decodedValue.healthcareProvider.email+'"';
-          bigquery.query(query, async function(err, rows) {
+      const query1 = 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProvider` WHERE email=@email';
+          // decodedValue.healthcareProvider.email+'"';
+          const bigQueryOptions1 = {
+            query: query1,
+            location: 'US',
+            params: {email:decodedValue.healthcareProvider.email}
+          }
+          bigquery.query(bigQueryOptions1, async function(err, rows) {
             if(!err) {
               if(!rows){
                 res.status(404).send({message:"email not found"});
@@ -138,23 +148,28 @@ router.post('/change_password', async(req,res) => {
                 const salt = bcrypt.genSaltSync(10);
                 const hashpassword = await bcrypt.hash(req.body.password, salt);
                 console.log(hashpassword);
-                const query2 = 'DELETE FROM `scriptchainprod.ScriptChain.healthcareProvider` WHERE _id='+'"'+
-                doc._id+'"';
-                bigquery.query(query2, function(err, row1) {
+                const query2 = 'DELETE FROM `scriptchainprod.ScriptChain.healthcareProvider` WHERE _id=@id';
+                // doc._id+'"';
+                const bigQueryOptions2 = {
+                  query: query2,
+                  location: 'US',
+                  params: {id:doc._id}
+                }
+                bigquery.query(bigQueryOptions2, function(err, row1) {
                   const filename = 'healthcareProviderResetTmp.json';
                   const datasetId = 'ScriptChain';
                   const tableId = 'healthcareProvider';
                   doc['password'] = hashpassword;
-          
+
                   fs.writeFileSync(filename, JSON.stringify(doc));
-                  
+
                   const table = bigquery.dataset(datasetId).table(tableId);
-          
+
                   // Check the job's status for errors
                   //const errors = job.status.errors;
                   table.load(filename,(err,res1) =>{
                       if (!res1) {
-                        res.status(500).send({message:"Could not update the record"}); 
+                        res.status(500).send({message:"Could not update the record"});
                       }else{
                           //console.log(`Job ${job.id} completed.`);
                           console.log("Here")
@@ -185,7 +200,7 @@ const sendVerificationMail = (email,fname,encryptedToken)=>{
         service : 'gmail',
         auth: {
             type: "OAuth2",
-            user: "moh@scriptchain.co", 
+            user: "moh@scriptchain.co",
             clientId: "867282827024-auj9ljqodshuhf3lq5n8r79q28b4ovun.apps.googleusercontent.com",
             clientSecret: "zjrK7viSEMoPXsEmVI_R7I6O",
             refreshToken: "1//04OyV2qLPD5iYCgYIARAAGAQSNwF-L9IrfYyKF4kF_HhkGaFjxxnxdgxU6tDbQ1l-BLlOIPtXtCDOSj9IkwiWekXwLCNWn9ruUiE",
@@ -195,7 +210,7 @@ const sendVerificationMail = (email,fname,encryptedToken)=>{
 
     //  create mail option with custom template, verification link and Json Web Token
     const mailOptions = {
-        from: 'noreply@scriptchain.co', 
+        from: 'noreply@scriptchain.co',
         to: email,
         subject: 'NO REPLY AT SCRIPTCHAIN.CO! We have recieved a request to reset password.',
         html: `<!DOCTYPE html>
@@ -203,7 +218,7 @@ const sendVerificationMail = (email,fname,encryptedToken)=>{
         <head>
           <title>Bootstrap Example</title>
           <meta charset="utf-8">
-        
+
           <style>
           .panelFooter{
               font-family: Arial;
@@ -281,7 +296,7 @@ const sendVerificationMail = (email,fname,encryptedToken)=>{
           </div>
         </div>
         </body>
-        </html>        
+        </html>
         `
     }
 

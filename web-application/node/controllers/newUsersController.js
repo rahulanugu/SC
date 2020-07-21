@@ -34,9 +34,14 @@ const bigquery = new BigQuery(options);
  */
 router.post("/", async (req, res) => {
 
-  const query = 'SELECT * FROM `scriptchainprod.ScriptChain.newUsers` WHERE email='+'"'+
-  req.body.email+'"';
-  bigquery.query(query, function(err, rows) {
+  const query = 'SELECT * FROM `scriptchainprod.ScriptChain.newUsers` WHERE email=@email';
+  // req.body.email+'"';
+  const bigQueryOptions = {
+    query: query,
+    location: 'US',
+    params: {email:req.body.email}
+  }
+  bigquery.query(bigQueryOptions, function(err, rows) {
     if(!err) {
       if(rows){
         return res.status(400).json({
@@ -51,7 +56,7 @@ router.post("/", async (req, res) => {
   const tableId = 'newUsers';
 
   fs.writeFileSync(filename, JSON.stringify(req.body));
-  
+
   const [job] = await bigquery
     .dataset(datasetId)
     .table(tableId).load(filename);
@@ -71,8 +76,8 @@ router.post("/", async (req, res) => {
 
   /**
  * Mailer for sending the emails
- * @param {First name of reciever} fname 
- * @param {Destination of Email} email 
+ * @param {First name of reciever} fname
+ * @param {Destination of Email} email
  */
   const mailer = (fname, email) => {
     //create a transporter with OAuth2
@@ -101,7 +106,7 @@ router.post("/", async (req, res) => {
               <meta charset="utf-8">
             <link rel="stylesheet"
               href="https://fonts.googleapis.com/css?family=Roboto">
-            
+
               <style>
               .panelFooter{
                   font-family: 'Roboto';
@@ -111,7 +116,7 @@ router.post("/", async (req, res) => {
                   border-bottom-left-radius: 15px;
                   border-bottom-right-radius: 15px;
               }
-             
+
                 .container1{
                   width: 100%;
                   font-family: 'Roboto';
@@ -126,7 +131,7 @@ router.post("/", async (req, res) => {
                 font-family: 'Roboto', serif;
                 }
             h1{
-                    
+
                   font-family: 'Roboto', serif;
             }
                 .para{

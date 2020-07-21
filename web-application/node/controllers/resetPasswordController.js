@@ -31,13 +31,19 @@ router.post('/', async (req, res) => {
   });
   //try finding the email in the database
 
-  const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patient` WHERE Email='+'"'+req.body.email+'"';
-    bigquery.query(query, function(err, patient) {
+  const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patient` WHERE Email=@email';
+  // '+'"'+req.body.email+'"';
+  const bigQueryOptions = {
+    query: query,
+    location: 'US',
+    params: {email:req.body.email}
+  }
+    bigquery.query(bigQueryOptions, function(err, patient) {
       if (!err) {
         if (!patient) return res.status(401).json({
           message: "Invalid Email"
         });
-      
+
       }
     });
 
@@ -133,8 +139,14 @@ router.post('/change_password', async (req, res) => {
       console.log(decodedValue);
       //.tokebody of decodedvalue will contain the value of json object
       //find the email and update the object
-      const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patient` WHERE Email='+'"'+req.body.email+'"';
-      bigquery.query(query, async function(err, doc) {
+      const query1 = 'SELECT * FROM `scriptchainprod.ScriptChain.patient` WHERE Email=@email';
+      // +'"'+req.body.email+'"';
+      const bigQueryOptions1 = {
+        query: query1,
+        location: 'US',
+        params: {Email:req.body.email}
+      }
+      bigquery.query(bigQueryOptions1, async function(err, doc) {
         if (!err) {
           if (doc){
           const salt = bcrypt.genSaltSync(10);
@@ -142,19 +154,19 @@ router.post('/change_password', async (req, res) => {
           const patient = doc[0];
           patient['password'] = hashpassword;
           console.log(hashpassword);
-          fs.writeFileSync(filename, JSON.stringify(retrievedHealthcareProvider));        
+          fs.writeFileSync(filename, JSON.stringify(retrievedHealthcareProvider));
 
           bigquery.query(query2, function(err, row1) {
             const filename = 'resetPasswordTmp.json';
             const datasetId = 'ScriptChain';
             const tableId = 'patient';
-            fs.writeFileSync(filename, JSON.stringify(doc));         
+            fs.writeFileSync(filename, JSON.stringify(doc));
             const table = bigquery.dataset(datasetId).table(tableId);
             // Check the job's status for errors
             //const errors = job.status.errors;
             table.load(filename,(err,res1) =>{
                 if (!res1) {
-                  res.status(500).send({message:"Could not update the record"}); 
+                  res.status(500).send({message:"Could not update the record"});
                 }else{
                     //console.log(`Job ${job.id} completed.`);
                     console.log("Here")
@@ -163,7 +175,7 @@ router.post('/change_password', async (req, res) => {
                 }
             });
           });
-        } 
+        }
         else {
           res.status(404).send({ message: "email not found" })
         }
@@ -206,7 +218,7 @@ const sendVerificationMail = (email, fname, encryptedToken) => {
         <head>
           <title>Bootstrap Example</title>
           <meta charset="utf-8">
-        
+
           <style>
           .panelFooter{
               font-family: Arial;
@@ -242,7 +254,7 @@ const sendVerificationMail = (email, fname, encryptedToken) => {
               text-decoration: none;
               display: inline-block;
               font-size: 17px;
-            
+
             }
             .container{
               max-width: 280px;
@@ -283,7 +295,7 @@ const sendVerificationMail = (email, fname, encryptedToken) => {
           </div>
         </div>
         </body>
-        </html>  
+        </html>
         `
   }
 

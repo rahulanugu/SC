@@ -39,7 +39,7 @@ const fileFilter = (req,file,cb) => {
         cb(new Error("Invalid type of file is being tried to upload, please send pdf only."),false);
         cb(null,false);
     }
-    
+
 }
 
 //getting the gridfs from db instance
@@ -104,7 +104,7 @@ router.post("/jobposting",async (req, res) => {
     const tableId = 'jobOpenings';
 
     fs.writeFileSync(filename, JSON.stringify(req.body));
-    
+
     const [job] = await bigquery
       .dataset(datasetId)
       .table(tableId).load(filename);
@@ -121,7 +121,7 @@ router.post("/jobposting",async (req, res) => {
         message: "Job opening saved in the database"
       });
     }
-  
+
 });
 
 /**
@@ -134,7 +134,7 @@ router.post("/jobposting",async (req, res) => {
  */
 router.get('/jobposting', (req, res) => {
     const datasetId = 'ScriptChain';
-    const tableId = 'jobOpenings';  
+    const tableId = 'jobOpenings';
     const table = bigquery
       .dataset(datasetId)
       .table(tableId);
@@ -157,9 +157,14 @@ router.get('/jobposting', (req, res) => {
  *         404 - If there are no jobOpning available in the category the db.
  */
 router.get('/jobposting/:jobcategory', (req, res) => {
-  const query = 'SELECT * FROM `scriptchainprod.ScriptChain.jobOpenings` WHERE category='+'"'+
-  req.params.jobcategory+'"';
-  bigquery.query(query, function(err, rows) {
+  const query = 'SELECT * FROM `scriptchainprod.ScriptChain.jobOpenings` WHERE category=@category';
+  // req.params.jobcategory+'"';
+  const bigQueryOptions = {
+    query: query,
+    location: 'US',
+    params: {category:req.params.jobcategory}
+  }
+  bigquery.query(bigQueryOptions, function(err, rows) {
     if(!err) {
       res.status(200).json(rows);
     }else{
@@ -190,7 +195,7 @@ router.post("/jobcategory",async (req, res) => {
     const tableId = 'jobCategories';
 
     fs.writeFileSync(filename, JSON.stringify(req.body));
-    
+
     const [job] = await bigquery
       .dataset(datasetId)
       .table(tableId).load(filename);
@@ -241,12 +246,17 @@ router.get('/jobcategory', (req, res) => {
  *         404 - If the job with the given Id is not found
  */
 router.get('/jobposting/job/:jobid', (req, res) => {
- 
+
     console.log("trying to retrieve the job")
 
-    const query = 'SELECT * FROM `scriptchainprod.ScriptChain.jobOpenings` WHERE _id='+'"'+
-  req.params.jobid+'"';
-    bigquery.query(query, function(err, rows) {
+    const query1 = 'SELECT * FROM `scriptchainprod.ScriptChain.jobOpenings` WHERE _id=@id';
+  // req.params.jobid+'"';
+  const bigQueryOptions1 = {
+    query: query1,
+    location: 'US',
+    params: {id:req.params.jobid}
+  }
+    bigquery.query(bigQueryOptions1, function(err, rows) {
       if(!err) {
         res.status(200).json(rows);
       }else{
@@ -263,7 +273,7 @@ router.get('/jobposting/job/:jobid', (req, res) => {
  * Input: Job application details as specified in the JobApplication schema + The resume file
  * Output: The status of the save operation
  *         201 - succesfully saved the applicattion in db
- *         500 - When an error occurs trying to the save the application 
+ *         500 - When an error occurs trying to the save the application
  */
 router.post("/jobapplication",upload.single('resume'), async (req, res, next) => {
     console.log("New Job Application Recieved, trying to post to database");
@@ -280,7 +290,7 @@ router.post("/jobapplication",upload.single('resume'), async (req, res, next) =>
     const tableId = 'jobApplications';
 
     fs.writeFileSync(filename, JSON.stringify(req.body));
-    
+
     const [job] = await bigquery
       .dataset(datasetId)
       .table(tableId).load(filename);
@@ -329,7 +339,7 @@ router.get("/jobapplication/:filename", (req, res) => {
  * Input: N/A
  * Output: A list of all the resumes
  *         200 - All resumes found
- *         404 - Could not find any resume in the database 
+ *         404 - Could not find any resume in the database
  */
 router.get("/files", (req, res) => {
     console.log("Trying to retrieve all the resumes from the bucket resumes")
@@ -339,7 +349,7 @@ router.get("/files", (req, res) => {
         return res.status(404).json({
           err: "no files exist"
         });
-      } 
+      }
       return res.status(200).json(files);
     });
   });
@@ -347,8 +357,8 @@ router.get("/files", (req, res) => {
 
 /**
  * Mailer for sending the emails
- * @param {First name of reciever} fname 
- * @param {Destination of Email} email 
+ * @param {First name of reciever} fname
+ * @param {Destination of Email} email
  */
 function mailer(fname, email) {
     let transporter = nodemailer.createTransport({
@@ -375,7 +385,7 @@ function mailer(fname, email) {
               <meta charset="utf-8">
             <link rel="stylesheet"
               href="https://fonts.googleapis.com/css?family=Roboto">
-            
+
               <style>
               .panelFooter{
                   font-family: 'Roboto';
@@ -385,7 +395,7 @@ function mailer(fname, email) {
                   border-bottom-left-radius: 15px;
                   border-bottom-right-radius: 15px;
               }
-             
+
                 .container1{
                   width: 100%;
                   font-family: 'Roboto';
@@ -400,7 +410,7 @@ function mailer(fname, email) {
                 font-family: 'Roboto', serif;
                 }
             h1{
-                    
+
                   font-family: 'Roboto', serif;
             }
                 .para{
