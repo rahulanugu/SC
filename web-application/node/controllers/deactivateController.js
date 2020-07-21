@@ -25,9 +25,10 @@ const bigquery = new BigQuery(options);
  *         500 - An error occured trying to perform the request
  *         404 - Patient not found
  */
+
 router.post("/patient", async (req, res) => {
     console.log("reached deacivate controller");
-    const query1 = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@Email';
+    const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@Email';
     // req.body.Email+'"';
     const bigQueryOptions = {
       query: query,
@@ -37,10 +38,11 @@ router.post("/patient", async (req, res) => {
     bigquery.query(bigQueryOptions, function(err, row) {
         if(!err) {
             if (row.length>0){
-                const query2 = 'DELETE FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@Email';
+                const query1 = 'DELETE FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@Email';
                 // req.body.Email+'"';
+                const retrievedPatient = row[0];
                 const bigQueryOptions1 = {
-                  query: query2,
+                  query: query1,
                   location: 'US',
                   params: {Email:req.body.Email}
                 }
@@ -52,8 +54,7 @@ router.post("/patient", async (req, res) => {
                         const filename = 'deactivatePatientsTmp.json';
                         const datasetId = 'ScriptChain';
                         const tableId = 'deactivatedPatients';
-
-                        fs.writeFileSync(filename, JSON.stringify(row[0]));
+                        fs.writeFileSync(filename, JSON.stringify(retrievedPatient));
 
                         const table = bigquery.dataset(datasetId).table(tableId);
 
@@ -95,47 +96,60 @@ router.post("/patient", async (req, res) => {
 router.post("/healthcare", async (req, res) => {
     console.log("reached deacivate controller");
 
-    const retrievedHealthcareProvider = await HealthcareProvider.findOne({email: req.body.email})
-
-
-    if (retrievedHealthcareProvider){
-
-        const deleteStatus = await HealthcareProvider.deleteOne({email: req.body.email})
-
-        if(deleteStatus.n != 1){
-            console.log("An error has occured while trying to delete the patient entry from the patient database")
-            res.status(500).json({"message": "account could not be deactivated due to an error"});
-
-        }
-        //return res.status(200).send('Email has to be deactivated')
-
-        const deactivatedHealthcareProvider = new DeactivatedHealthcareProvider({
-            firstName: retrievedHealthcareProvider.firstName,
-            lastName: retrievedHealthcareProvider.lastName,
-            companyName: retrievedHealthcareProvider.companyName,
-            location: retrievedHealthcareProvider.location,
-            roleInCompany: retrievedHealthcareProvider.roleInCompany,
-            email: retrievedHealthcareProvider.email,
-            password: retrievedHealthcareProvider.password,
-            phone: retrievedHealthcareProvider.phone
-        });
-
-        deactivatedHealthcareProvider.save((err, doc) => {
-            if (!err) {
-                // returns saved patient and 24hex char unique id
-
-                res.status(200).json({"message":"account has been deactivated"});
-            }
-            else {
-                console.log("Error occured in deactivate controller"+err);
-                res.status(500).json({"message": "account could not be deactivated due to an error"});
-                console.log('Error in saving patient: ' + JSON.stringify(err, undefined, 2));
-            }
-        });
-    } else {
-        res.status(404).json({"messsage": "An account could not be found with the email provided"})
+    const query = 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProviders` WHERE email=@email';
+    // req.body.Email+'"';
+    const bigQueryOptions = {
+      query: query,
+      location: 'US',
+      params: {email:req.body.email}
     }
+    bigquery.query(bigQueryOptions, function(err, row) {
+        if(!err) {
+            if (row.length>0){
+                const query1 = 'DELETE FROM `scriptchainprod.ScriptChain.healthcareProviders` WHERE email=@email';
+                // req.body.Email+'"';
+                const retrievedHealthcareProvider = row[0];
+                console.log(retrievedHealthcareProvider);
+                const bigQueryOptions1 = {
+                  query: query1,
+                  location: 'US',
+                  params: {email:req.body.email}
+                }
+                bigquery.query(bigQueryOptions1, function(err, row1) {
+                    if(err){
+                        res.status(500).json({"message": "account could not be deactivated due to an error"});
+                        next();
+                    }else{
+                        const filename = 'deactivateHealthcareProvidersTmp.json';
+                        const datasetId = 'ScriptChain';
+                        const tableId = 'deactivatedHealthcareProviders';
+                        delete retrievedHealthcareProvider['phone'];
 
+                        fs.writeFileSync(filename, JSON.stringify(retrievedHealthcareProvider));
+
+                        const table = bigquery.dataset(datasetId).table(tableId);
+
+                        // Check the job's status for errors
+                        //const errors = job.status.errors;
+                        table.load(filename,(err,res1) =>{
+                            if (err && err.length > 0) {
+                                console.log("Error occured in deactivate controller"+err);
+                                res.status(500).json({"message": "account could not be deactivated due to an error"});
+                                console.log('Error in saving healthcare provider: ' + JSON.stringify(err, undefined, 2));
+                            }else{
+                                //console.log(`Job ${job.id} completed.`);
+                                res.status(200).json({
+                                    "message":"account has been deactivated"
+                                });
+                            }
+                        });
+                    }
+                });
+            } else {
+                res.status(404).json({"messsage": "An account could not be found with the email provided"})
+            }
+    }
+    });
 
 });
 

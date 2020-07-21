@@ -11,6 +11,7 @@ const OAuth2 = google.auth.OAuth2;
 var jwtDecode = require('jwt-decode');
 const fs = require('fs');
 const {BigQuery} = require('@google-cloud/bigquery');
+const e = require("express");
 const options = {
     keyFilename: '/Users/srikarpothumahanti/Desktop/scriptchain/web-application/node/serviceAccountKeys/scriptchainprod-96d141251382.json',
     projectId: 'scriptchainprod'
@@ -82,35 +83,35 @@ router.post("/healthcare/request", async (req, res) => {
   //find the healthcareprovider
   console.log("Reactivating healthcareprovider is being requested")
   //const healthcareProvider = await DeactivatedHealthcareProvider.findOne({email : req.body.email});
-  const query1 = 'SELECT * FROM `scriptchainprod.ScriptChain.deactivatedHealthcareProvider` WHERE email=@email';
+  const query = 'SELECT * FROM `scriptchainprod.ScriptChain.deactivatedHealthcareProvider` WHERE email=@email';
   // +'"'+req.body.email+'"';
-  const bigQueryOptions1 = {
-    query: query1,
+  const bigQueryOptions = {
+    query: query,
     location: 'US',
     params: {email:req.body.email}
   }
-    bigquery.query(bigQueryOptions1, function(err, healthcareProvider) {
+    bigquery.query(bigQueryOptions, function(err, rows) {
       if (!err) {
-        if(!healthcareProvider){
+        if(rows.length==0){
           return res.status(404).json({
           message: "Email not among deactivated users"
           });
-      }
+        }else{
+          const healthcareProvider=rows[0];
+          //generate a jwt token with email,name
+          const token = jwt.sign({_id:healthcareProvider._id,firstName:healthcareProvider.firstName,email:healthcareProvider.email}, 'santosh', { expiresIn: 500 });
+
+          sendVerificationMailHealthcare(req.body.email,healthcareProvider.firstName,token);
+
+          return res.status(200).json(
+              {
+                  "message": "Email Sent"
+              }
+          );
+          //email the token
+        }
       }
     });
-
-
-  //generate a jwt token with email,name
-  const token = jwt.sign({_id:healthcareProvider._id,firstName:healthcareProvider.firstName,email:healthcareProvider.email}, 'santosh', { expiresIn: 500 });
-
-  sendVerificationMailHealthcare(req.body.email,healthcareProvider.firstName,token);
-
-  return res.status(200).json(
-      {
-          "message": "Email Sent"
-      }
-  );
-  //email the token
 });
 
 

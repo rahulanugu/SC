@@ -49,7 +49,7 @@ router.post('/', async (req, res)=>{
         }
         else{
           const healthcareProvider = rows[0];
-          const token = await jwt.sign({}, "santosh", { expiresIn: 120 });
+          const token = await jwt.sign({healthcareProvider}, "santosh", { expiresIn: 120 });
           const encryptedToken = Utility.EncryptToken(token);
           //mail the token
           sendVerificationMail(req.body.email,healthcareProvider.firstName,encryptedToken);
@@ -127,7 +127,9 @@ router.post('/change_password', async(req,res) => {
 
       //jwt is encrypted when reached here, need to decrypt it before using
       //decode jwtt payload it for email
+      console.log("test"+ decryptedToken);
       var decodedValue = jwtDecode(decryptedToken);
+      console.log(decodedValue);
 
       console.log("Decrypted ttoken being modified");
       console.log('test'+decodedValue.healthcareProvider);
@@ -138,7 +140,7 @@ router.post('/change_password', async(req,res) => {
           const bigQueryOptions = {
             query: query,
             location: 'US',
-            params: {email:decodedValue[0].healthcareProvider.email}
+            params: {email:decodedValue.healthcareProvider.email}
           }
           bigquery.query(bigQueryOptions, async function(err, rows) {
             if(!err) {
@@ -174,7 +176,7 @@ router.post('/change_password', async(req,res) => {
                       }else{
                           //console.log(`Job ${job.id} completed.`);
                           console.log("Here")
-                          console.log(response);
+                          console.log(res1);
                           res.status(200).send({message:"Record has been updated"});
                       }
                   });
