@@ -27,14 +27,24 @@ router.post('/', async (req, res) => {
     console.log(req.body);
     const healthcareProvider = await HealthcareProvider.findOne({ email: req.body.emailAddress });
 
-    const query = 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProvider` WHERE email='+'"'+
-    req.body.emailAddress+'"';
-    bigquery.query(query, function(err, rows) {
+    const query = 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProvider` WHERE email=@email';
+    // req.body.emailAddress+'"';
+    const bigQueryOptions = {
+      query: query,
+      location: 'US',
+      params: {email:req.body.emailAddress}
+    }
+    bigquery.query(bigQueryOptions, function(err, rows) {
       if(!err) {
         if(!rows){
-          const query1 = 'SELECT * FROM `scriptchainprod.ScriptChain.deactivatedHealthcareProvider` WHERE email='+'"'+
-          req.body.emailAddress+'"';
-          bigquery.query(query1, function(err, rows1) {
+          const query1 = 'SELECT * FROM `scriptchainprod.ScriptChain.deactivatedHealthcareProvider` WHERE email=@email';
+          // req.body.emailAddress+'"';
+          const bigQueryOptions1 = {
+            query: query1,
+            location: 'US',
+            params: {email:req.body.emailAddress}
+          }
+          bigquery.query(bigQueryOptions1, function(err, rows1) {
             if(!err) {
               if(!rows1){
                 return res.status(404).json({
@@ -44,7 +54,7 @@ router.post('/', async (req, res) => {
                 //Execution at this point means that the email being handled is deactivated patient
                 return res.status(303).json({
                   message: "The email beong handled has been deactivated"
-                }); 
+                });
               }
             }
           });
@@ -52,8 +62,8 @@ router.post('/', async (req, res) => {
       }
     });
 
-    
-  
+
+
 
     //check for password
 

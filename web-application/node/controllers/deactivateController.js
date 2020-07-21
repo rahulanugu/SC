@@ -27,14 +27,24 @@ const bigquery = new BigQuery(options);
  */
 router.post("/patient", async (req, res) => {
     console.log("reached deacivate controller");
-    const query1 = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email='+'"'+
-    req.body.Email+'"';
-    bigquery.query(query1, function(err, row) {
+    const query1 = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@Email';
+    // req.body.Email+'"';
+    const bigQueryOptions = {
+      query: query,
+      location: 'US',
+      params: {Email:req.body.Email}
+    }
+    bigquery.query(bigQueryOptions, function(err, row) {
         if(!err) {
             if (row){
-                const query2 = 'DELETE FROM `scriptchainprod.ScriptChain.patients` WHERE Email='+'"'+
-                req.body.Email+'"';
-                bigquery.query(query2, function(err, row1) {
+                const query2 = 'DELETE FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@Email';
+                // req.body.Email+'"';
+                const bigQueryOptions1 = {
+                  query: query2,
+                  location: 'US',
+                  params: {Email:req.body.Email}
+                }
+                bigquery.query(bigQueryOptions1, function(err, row1) {
                     if(err){
                         res.status(500).json({"message": "account could not be deactivated due to an error"});
                         next();
@@ -42,11 +52,11 @@ router.post("/patient", async (req, res) => {
                         const filename = 'deactivatePatientsTmp.json';
                         const datasetId = 'ScriptChain';
                         const tableId = 'deactivatedPatients';
-                
+
                         fs.writeFileSync(filename, JSON.stringify(row[0]));
-                        
+
                         const table = bigquery.dataset(datasetId).table(tableId);
-                
+
                         // Check the job's status for errors
                         //const errors = job.status.errors;
                         table.load(filename,(err,res1) =>{
@@ -69,11 +79,6 @@ router.post("/patient", async (req, res) => {
     }
     });
 
-    
-    
-    
-
-
 });
 
 /**
@@ -90,18 +95,18 @@ router.post("/healthcare", async (req, res) => {
 
     const retrievedHealthcareProvider = await HealthcareProvider.findOne({email: req.body.email})
 
-    
+
     if (retrievedHealthcareProvider){
 
         const deleteStatus = await HealthcareProvider.deleteOne({email: req.body.email})
-    
+
         if(deleteStatus.n != 1){
             console.log("An error has occured while trying to delete the patient entry from the patient database")
             res.status(500).json({"message": "account could not be deactivated due to an error"});
 
         }
         //return res.status(200).send('Email has to be deactivated')
-    
+
         const deactivatedHealthcareProvider = new DeactivatedHealthcareProvider({
             firstName: retrievedHealthcareProvider.firstName,
             lastName: retrievedHealthcareProvider.lastName,
@@ -116,7 +121,7 @@ router.post("/healthcare", async (req, res) => {
         deactivatedHealthcareProvider.save((err, doc) => {
             if (!err) {
                 // returns saved patient and 24hex char unique id
-                
+
                 res.status(200).json({"message":"account has been deactivated"});
             }
             else {

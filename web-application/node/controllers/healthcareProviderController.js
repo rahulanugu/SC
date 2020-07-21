@@ -1,7 +1,7 @@
 /**
  * patientController.js
  * Uses express to create a RESTful API
- * Defines endpoints that allows application to perform CRUD operations  
+ * Defines endpoints that allows application to perform CRUD operations
  */
 const nodemailer = require('nodemailer');
 const log = console.log;
@@ -53,11 +53,16 @@ const bigquery = new BigQuery(options);
  *         400 - Already exists
  */
 router.post('/account/create',async(req,res)=>{
-    
+
     //Check if user alread exists
-    const query1 = 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProvider` WHERE email='+'"'+
-    req.body.email+'"';
-    bigquery.query(query1, function(err, row) {
+    const query= 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProvider` WHERE email=@email';
+    // req.body.email+'"';
+    const bigQueryOptions = {
+      query: query,
+      location: 'US',
+      params: {email:req.body.email}
+    }
+    bigquery.query(bigQueryOptions, function(err, row) {
       if(!err) {
           if (row){
             console.log("Check email if exists")
@@ -108,7 +113,7 @@ router.post('/account/create',async(req,res)=>{
  *         500 - Unexpected errors
  */
 router.post('/account/verify',async(req,res)=>{
-    
+
     // will recieve an encrypted jwt token
     var encryptedToken = req.body.jwtToken.replace(/ /g, '+');
 
@@ -121,11 +126,16 @@ router.post('/account/verify',async(req,res)=>{
     var decodedValue = jwtDecode(decryptedToken);
 
     //Before creating a new provider, check if already exists
-    
 
-    const query1 = 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProvider` WHERE email='+'"'+
-    decodedValue.tokeBody.email+'"';
-    bigquery.query(query1, function(err, row) {
+
+    const query1 = 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProvider` WHERE email=@email';
+    // decodedValue.tokeBody.email+'"';
+    const bigQueryOptions1 = {
+      query: query1,
+      location: 'US',
+      params: {email:decodedValue.tokeBody.email}
+    }
+    bigquery.query(bigQueryOptions1, function(err, row) {
       if(!err) {
           if (row){
             console.log("Check email if exists")
@@ -151,7 +161,7 @@ router.post('/account/verify',async(req,res)=>{
     const tableId = 'healthcareProvider';
 
     fs.writeFileSync(filename, JSON.stringify(json));
-    
+
     const table = bigquery.dataset(datasetId).table(tableId);
 
     // Check the job's status for errors
@@ -176,7 +186,7 @@ const sendVerificationMail = (email,fname,encryptedToken, callback)=>{
         service : 'gmail',
         auth: {
             type: "OAuth2",
-            user: "moh@scriptchain.co", 
+            user: "moh@scriptchain.co",
             clientId: "867282827024-auj9ljqodshuhf3lq5n8r79q28b4ovun.apps.googleusercontent.com",
             clientSecret: "zjrK7viSEMoPXsEmVI_R7I6O",
             refreshToken: "1//04OyV2qLPD5iYCgYIARAAGAQSNwF-L9IrfYyKF4kF_HhkGaFjxxnxdgxU6tDbQ1l-BLlOIPtXtCDOSj9IkwiWekXwLCNWn9ruUiE",
@@ -186,7 +196,7 @@ const sendVerificationMail = (email,fname,encryptedToken, callback)=>{
 
     //  create mail option with custom template, verification link and Json Web Token
     const mailOptions = {
-        from: 'noreply@scriptchain.co', 
+        from: 'noreply@scriptchain.co',
         to: email,
         subject: 'NO REPLY AT SCRIPTCHAIN.CO! Hey it\'s Moh from ScriptChain',
         html: `<!DOCTYPE html>
@@ -194,7 +204,7 @@ const sendVerificationMail = (email,fname,encryptedToken, callback)=>{
         <head>
           <title>Bootstrap Example</title>
           <meta charset="utf-8">
-        
+
           <style>
           .panelFooter{
               font-family: Arial;
@@ -273,7 +283,7 @@ const sendVerificationMail = (email,fname,encryptedToken, callback)=>{
           </div>
         </div>
         </body>
-        </html>        
+        </html>
         `
     }
     // send email
