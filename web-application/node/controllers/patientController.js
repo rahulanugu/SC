@@ -61,14 +61,22 @@ function generateId(count) {
 
 router.get('/', (req, res) => {
     console.log('you have entered');
+    // Authentication to enter this?
+    // How to secure this?
+    // Need some sort of hack check. How do we check it?
+    // Possible type of hacks for an API.
     const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE 1=1';
     bigquery.query(query, function(err, doc) {
       if (!err) {
-        res.status(200).json(doc)
-      }
-      else {
+        if(doc){
+          res.status(200).json(doc);
+        }else{
           res.status(404).send({message: "No patients found"})
-          console.log('Error in retrieving patients: ' + JSON.stringify(err, undefined, 2));
+        }
+      }
+      else {  
+        res.status(500).json({message: "DB Error"});
+        console.log('Error in retrieving patients: ' + JSON.stringify(err, undefined, 2));
       }
     });
 });
@@ -83,21 +91,28 @@ router.get('/', (req, res) => {
  *         404 - An error occured/ No patients found
  */
 router.get('/:id', (req, res) => {
-    // check if id is valid
-    if(!ObjectId.isValid(req.params.id))
-        return res.status(404).send(`No record with given id: ${req.params.id}`);
-    else {
-      const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE _id='+'"'+req.params.id+'"';
-      bigquery.query(query, function(err, doc) {
-        if (!err) {
-          res.status(200).json(doc[0])
-        }
-        else {
-            res.status(404).send({message: "No patients found"})
-            console.log('Error in retrieving patients: ' + JSON.stringify(err, undefined, 2));
-        }
-      });
+  //validation for id is a side task
+  //express validation is a side task
+  //usage of headers, how UI handles it?
+  //helmet npm package usage?
+  const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE _id = @id';
+  const bigQueryOptions = {
+    query: query,
+    location: 'US',
+    params: {id:req.params.id}
+  }
+  bigquery.query(bigQueryOptions, function(err, doc) {
+    if (!err) {
+      if(doc.length==1){
+        res.status(200).json(doc[0]);
+      }else{
+        res.status(404).send({message: "No patient with the provided id found"});
+      }
+    }else{
+      res.status(500).json({message: "DB Error"});
+      console.log('Error in retrieving patients: ' + JSON.stringify(err, undefined, 2));
     }
+  });
 });
 
 /**
@@ -105,25 +120,31 @@ router.get('/:id', (req, res) => {
  * Input: user object
  * Output: message whether the subscriber exists or not
  */
-router.post('/:verify',async(req,res)=>{
-    console.log('/:verify',req.body.user)
-    const userGiven = req.body;    
-    console.log(userGiven.user)
-
-    const query = 'SELECT * FROM `scriptchainprod.ScriptChain.verifieduser` WHERE email='+'"'+userGiven.user+'"';
-    bigquery.query(query, function(err, checkCurrentSubscriber) {
-      if (!err) {
-        if (checkCurrentSubscriber){
-          return res.json('Subscriber already exists')
-        }else{
-            return res.json('doesnot exist')
-        }
+router.post('/:verify',async(req,res)=>{   
+  if(req.params.verify!="verify"){
+    res.status(400).json({message: "Bad Request"});
+  }
+  const query = 'SELECT * FROM `scriptchainprod.ScriptChain.verifieduser` WHERE email = @email';
+  const bigQueryOptions = {
+    query: query,
+    location: 'US',
+    params: {email:req.body.user}
+  }
+  bigquery.query(bigQueryOptions, function(err, checkCurrentSubscriber) {
+    if (!err) {
+      if (checkCurrentSubscriber.length>0){
+        return res.json('Subscriber already exists')
+      }else{
+          return res.json('Does not exist')
       }
-    });
+    }else{
+      res.status(500).json({message: "DB Error"});
+    }
+  });
 });
 
 /**
- * This metthod will check if the user/patientt already exists in the system and sends a verification email if not
+ * This metthod will check if the user/patient already exists in the system and sends a verification email if not
  * Input: Body, will contain the JWT token that contains user/patient as defined in the respective schemas
  * Output: 400 - the user already exists
  *         200 - sent the verification mail
@@ -133,22 +154,37 @@ router.post('/',async(req,res)=>{
     const tokeBody = req.body;
     // check if email already exist
     //const checkCurrentSubscriber = await VerifiedUser.findOne({email: req.body.email})
-
-    const query1 = 'SELECT * FROM `scriptchainprod.ScriptChain.verifieduser` WHERE email='+'"'+req.body.email+'"';
-    bigquery.query(query1, function(err, checkCurrentSubscriber) {
+    const query1= 'SELECT * FROM `scriptchainprod.ScriptChain.verifieduser` WHERE email = @email';
+    const bigQueryOptions1 = {
+      query: query1,
+      location: 'US',
+      params: {email:tokeBody.email}
+    }
+    bigquery.query(bigQueryOptions1, function(err, checkCurrentSubscriber) {
       if (!err) {
-        if (checkCurrentSubscriber){
-          return res.status(400).send('Subscriber already exists');
+        if (checkCurrentSubscriber.length>0){
+          return res.json('Subscriber already exists')
+        }else{
+          return res.json("Does not exist")
         }
+      }else{
+        res.status(500).json({message:'DB Error'});
       }
     });
 
-    const query2 = 'SELECT * FROM `scriptchainprod.ScriptChain.patient` WHERE Email='+'"'+req.body.email+'"';
-    bigquery.query(query2, function(err, checkEmailExist) {
+    const query2 = 'SELECT * FROM `scriptchainprod.ScriptChain.patient` WHERE Email=@email';
+    const bigQueryOptions2 = {
+      query: query2,
+      location: 'US',
+      params: {email:tokeBody.email}
+    }
+    bigquery.query(bigQueryOptions2, function(err, checkEmailExist) {
       if (!err) {
-        if (checkEmailExist){
+        if (checkEmailExist.length>0){
           return res.status(400).send('Email already exists');
         }
+      }else{
+        res.status(500).json({message:'DB Error'});
       }
     });
 
@@ -156,7 +192,6 @@ router.post('/',async(req,res)=>{
     // *******make sure to change secret word to something secure and put it in env variable*****
     const token = await jwt.sign({tokeBody}, "santosh", { expiresIn: 180 });
 
-    console.log("Token "+token);
     // using jwt and token
     res.status(200).json(token)
 
@@ -284,7 +319,7 @@ const sendVerificationMail = (email,fname,encryptedToken)=>{
           <h1 align="center"style="font-family: arial;">YOU'RE ALMOST DONE REGISTERING!</h1>
           <p class="para">Hi `+fname+`,</p>
           <p class="para">Welcome to ScriptChain! We are glad that you have registered, there is just one more step to verify your account. <b>Please click the link below to verify your email address.</b></p>
-        <p align="center"><a href="http://scriptchain.co/patientlogin?verify=`+encryptedToken+`"><button>Verify Your E-mail Address</button></a></p><br><br>
+        <p align="center"><a href="http://localhost:8080/patientlogin?verify=`+encryptedToken+`"><button>Verify Your E-mail Address</button></a></p><br><br>
         <p align="center" class="para">If you have any questions or concerns feel free to reach out to <a href="mailto:customer-care@scriptchain.co">customer-care@scriptchain.co</a></p>
           <div class="panelFooter">
             <p align="center" >This message was sent from ScriptChain LLC., Boston, MA</p>
