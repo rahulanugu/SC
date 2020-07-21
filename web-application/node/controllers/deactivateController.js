@@ -36,7 +36,7 @@ router.post("/patient", async (req, res) => {
     }
     bigquery.query(bigQueryOptions, function(err, row) {
         if(!err) {
-            if (row){
+            if (row.length>0){
                 const query2 = 'DELETE FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@Email';
                 // req.body.Email+'"';
                 const bigQueryOptions1 = {
@@ -90,6 +90,8 @@ router.post("/patient", async (req, res) => {
  *         500 - An error occured trying to perform the request
  *         404 - HealthcareProvider not found
  */
+
+//Update the code
 router.post("/healthcare", async (req, res) => {
     console.log("reached deacivate controller");
 

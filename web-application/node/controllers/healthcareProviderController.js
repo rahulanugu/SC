@@ -44,6 +44,7 @@ const options = {
 
 };
 const bigquery = new BigQuery(options);
+const fs = require('fs');
 
 /**
  * Request the creation of a new healthcareprovider user
@@ -52,10 +53,19 @@ const bigquery = new BigQuery(options);
  *         500 - Error status
  *         400 - Already exists
  */
+function generateId(count) {
+  var _sym = 'abcdefghijklmnopqrstuvwxyz1234567890';
+  var str = '';
+
+  for(var i = 0; i < count; i++) {
+      str += _sym[parseInt(Math.random() * (_sym.length))];
+  }
+  return str;
+}
 router.post('/account/create',async(req,res)=>{
 
     //Check if user alread exists
-    const query= 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProvider` WHERE email=@email';
+    const query= 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProviders` WHERE email=@email';
     // req.body.email+'"';
     const bigQueryOptions = {
       query: query,
@@ -64,8 +74,7 @@ router.post('/account/create',async(req,res)=>{
     }
     bigquery.query(bigQueryOptions, function(err, row) {
       if(!err) {
-          if (row){
-            console.log("Check email if exists")
+          if (row.length>0){
             return res.status(400).send({
                 message: 'User already exists'
             })
@@ -85,21 +94,38 @@ router.post('/account/create',async(req,res)=>{
     //save the token for reference purposes - optional
     var idToken = randtoken.generate(16);
     const tokenSchema = new TokenSchema({
+        '_id': generateId(10),
         token: idToken,
         email: req.body.email
     })
-    tokenSchema.save((err,doc)=>{
+    //Update the mongo here
+    /*tokenSchema.save((err,doc)=>{
         if(err){
             console.log("Reference token could not be saved")
         }
-    })
+    })*/
+
+    const filename = 'tokenSchemaTmp.json';
+    const datasetId = 'ScriptChain';
+    const tableId = 'tokenSchema';
+
+    fs.writeFileSync(filename, JSON.stringify(tokenSchema));
+    
+    const [job] = await bigquery
+      .dataset(datasetId)
+      .table(tableId).load(filename);
+    const errors = job.status.errors;
+    if (errors && errors.length > 0) {
+      console.log("Reference token could not be saved");
+    }
+
 
     //Send the email with the verification email
 
     sendVerificationMail(req.body.email,req.body.firstName,encryptedToken, (err,data) => {
         //Invoked the callback function od the sendverification email object
         if(err){
-            res.status(500),send({message: "An error has occured trying to send the mail"});
+            res.status(500).send({message: "An error has occured trying to send the mail"});
         }
         res.status(200).send({message: "Verification mail with jwt token is sent"});
     });
@@ -128,16 +154,16 @@ router.post('/account/verify',async(req,res)=>{
     //Before creating a new provider, check if already exists
 
 
-    const query1 = 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProvider` WHERE email=@email';
+    const query = 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProviders` WHERE email=@email';
     // decodedValue.tokeBody.email+'"';
-    const bigQueryOptions1 = {
-      query: query1,
+    const bigQueryOptions = {
+      query: query,
       location: 'US',
       params: {email:decodedValue.tokeBody.email}
     }
-    bigquery.query(bigQueryOptions1, function(err, row) {
+    bigquery.query(bigQueryOptions, function(err, row) {
       if(!err) {
-          if (row){
+          if (row.length>0){
             console.log("Check email if exists")
             return res.status(400).send({
                 message: 'User already exists'
@@ -155,10 +181,11 @@ router.post('/account/verify',async(req,res)=>{
 
     json = decodedValue.tokeBody;
     json['password'] = hashpassword;
+    json['_id'] = generateId(10);
 
     const filename = 'healthcareProviderTmp.json';
     const datasetId = 'ScriptChain';
-    const tableId = 'healthcareProvider';
+    const tableId = 'healthcareProviders';
 
     fs.writeFileSync(filename, JSON.stringify(json));
 
@@ -276,7 +303,7 @@ const sendVerificationMail = (email,fname,encryptedToken, callback)=>{
           <h1 align="center"style="font-family: arial;">YOU'RE ALMOST DONE REGISTERING!</h1>
           <p class="para">Hi `+fname+`,</p>
           <p class="para">Welcome to ScriptChain! We are glad that you have registered, there is just one more step to verify your account. <b>Please click the link below to verify your email address.</b></p>
-        <p align="center"><a href="http://scriptchain.co/healthcare/verify?verifytoken=`+encryptedToken+`"><button>Verify Your E-mail Address</button></a></p><br><br>
+        <p align="center"><a href="http://localhost:8080/healthcare/verify?verifytoken=`+encryptedToken+`"><button>Verify Your E-mail Address</button></a></p><br><br>
         <p align="center" class="para">If you have any questions or concerns feel free to reach out to <a href="mailto:customer-care@scriptchain.co">customer-care@scriptchain.co</a></p>
           <div class="panelFooter">
             <p align="center" >This message was sent from ScriptChain LLC., Boston, MA</p>

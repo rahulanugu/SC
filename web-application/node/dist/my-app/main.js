@@ -6203,9 +6203,13 @@ var ResetPasswordPageComponent = /** @class */ (function () {
         }
         else {
             this.resetPasswordService.makePasswordChange(this.token, this.Form.value.password).subscribe(function (response) {
+                console.log(response);
+                console.log(_this.visible);
                 _this.errorVisible = false;
                 _this.visible = !_this.visible;
             }, function (error) {
+                console.log(error);
+                console.log(_this.errorUpdating);
                 _this.errorVisible = false;
                 _this.errorUpdating = true;
             });

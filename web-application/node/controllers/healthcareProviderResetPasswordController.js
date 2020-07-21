@@ -16,7 +16,7 @@ const options = {
 
 };
 const bigquery = new BigQuery(options);
-
+const fs = require('fs');
 //The controller is used for generating a JWT token to initiate a password reset request for healthcareProvider portal
 /**
  * Generate a JWT token for user/patient object and save it in db
@@ -26,7 +26,6 @@ const bigquery = new BigQuery(options);
  */
 router.post('/', async (req, res)=>{
   console.log("request is recieved and being processed")
-  console.log(req)
 
     if(!req.body.email || (req.body.email === " ")) return req.status(401).json({
         message: "Email is not provided"
@@ -34,16 +33,16 @@ router.post('/', async (req, res)=>{
     });
     //const healthcareProvider = await HealthcareProvider.findOne({ email: req.body.email });
 
-    const query = 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProvider` WHERE email=@email';
+    const query = 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProviders` WHERE email=@email';
     // req.body.emailAddress+'"';
     const bigQueryOptions = {
       query: query,
       location: 'US',
-      params: {email:req.body.emailAddress}
-    }
+      params: {email:req.body.email}
+    };
     bigquery.query(bigQueryOptions, async function(err, rows) {
       if(!err) {
-        if(!rows){
+        if(rows.length==0){
           return res.status(401).json({
             message:"Invalid Email"
           });
@@ -59,6 +58,8 @@ router.post('/', async (req, res)=>{
               message: "Email has been sent to reset password"
           });
         }
+      }else{
+        console.log(err);
       }
     });
 
@@ -114,7 +115,7 @@ router.post('/change_password', async(req,res) => {
    var correctedToken = req.body.token.replace(/ /g, '+');
    const decryptedToken = Utility.DecryptToken(correctedToken);
 
-   console.log("corrected token \n"+correctedToken)
+   //console.log("corrected token \n"+correctedToken)
   //verify jwt token
   jwt.verify(decryptedToken, 'santosh', (err, verifiedJwt) => {
     if(err){
@@ -129,17 +130,17 @@ router.post('/change_password', async(req,res) => {
       var decodedValue = jwtDecode(decryptedToken);
 
       console.log("Decrypted ttoken being modified");
-      console.log(decodedValue);
+      console.log('test'+decodedValue.healthcareProvider);
       //.tokebody of decodedvalue will contain the value of json object
         //find the email and update the object
-      const query1 = 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProvider` WHERE email=@email';
+      const query = 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProviders` WHERE email=@email';
           // decodedValue.healthcareProvider.email+'"';
-          const bigQueryOptions1 = {
-            query: query1,
+          const bigQueryOptions = {
+            query: query,
             location: 'US',
-            params: {email:decodedValue.healthcareProvider.email}
+            params: {email:decodedValue[0].healthcareProvider.email}
           }
-          bigquery.query(bigQueryOptions1, async function(err, rows) {
+          bigquery.query(bigQueryOptions, async function(err, rows) {
             if(!err) {
               if(!rows){
                 res.status(404).send({message:"email not found"});
@@ -148,17 +149,17 @@ router.post('/change_password', async(req,res) => {
                 const salt = bcrypt.genSaltSync(10);
                 const hashpassword = await bcrypt.hash(req.body.password, salt);
                 console.log(hashpassword);
-                const query2 = 'DELETE FROM `scriptchainprod.ScriptChain.healthcareProvider` WHERE _id=@id';
+                const query1 = 'DELETE FROM `scriptchainprod.ScriptChain.healthcareProviders` WHERE _id=@id';
                 // doc._id+'"';
-                const bigQueryOptions2 = {
-                  query: query2,
+                const bigQueryOptions1 = {
+                  query: query1,
                   location: 'US',
                   params: {id:doc._id}
                 }
-                bigquery.query(bigQueryOptions2, function(err, row1) {
+                bigquery.query(bigQueryOptions1, function(err, row1) {
                   const filename = 'healthcareProviderResetTmp.json';
                   const datasetId = 'ScriptChain';
-                  const tableId = 'healthcareProvider';
+                  const tableId = 'healthcareProviders';
                   doc['password'] = hashpassword;
 
                   fs.writeFileSync(filename, JSON.stringify(doc));
@@ -289,7 +290,7 @@ const sendVerificationMail = (email,fname,encryptedToken)=>{
           </div>
           <h1 align="center"style="font-family: arial;">Please follow the link to reset your password</h1>
           <p class="para">Hi `+fname+`,</p>
-        <p align="center"><a href="http://scriptchain.co/healthcare/password/resetpage?token=`+encryptedToken+`?email=`+email+`"><button>Click to reset the password</button></a></p><br><br>
+        <p align="center"><a href="http://localhost:8080/healthcare/password/resetpage?token=`+encryptedToken+`?email=`+email+`"><button>Click to reset the password</button></a></p><br><br>
         <p align="center" class="para">If you have any questions or concerns feel free to reach out to <a href="mailto:customer-care@scriptchain.co">customer-care@scriptchain.co</a></p>
           <div class="panelFooter">
             <p align="center" >This message was sent from ScriptChain LLC., Boston, MA</p>
