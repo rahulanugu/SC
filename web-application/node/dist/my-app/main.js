@@ -2901,9 +2901,12 @@ var HealthcareResetPasswordComponent = /** @class */ (function () {
     HealthcareResetPasswordComponent.prototype.submit = function () {
         var _this = this;
         this.service.requestPasswordChangeForHealthcare(this.email).subscribe(function (response) {
+            console.log(response);
+            console.log(_this.visible);
             _this.errorVisible = false;
             _this.visible = !_this.visible;
         }, function (error) {
+            console.log(error);
             _this.errorVisible = true;
         });
     };

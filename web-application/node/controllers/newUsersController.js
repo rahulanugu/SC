@@ -24,6 +24,7 @@ const options = {
 
 };
 const bigquery = new BigQuery(options);
+const fs = require('fs');
 
 /**
  * Method to save a new rew request access user
@@ -32,6 +33,15 @@ const bigquery = new BigQuery(options);
  *         200 - Succesfully saved the request
  *         500 - Couldnot complete the request of saving the new request access user
  */
+function generateId(count) {
+  var _sym = 'abcdefghijklmnopqrstuvwxyz1234567890';
+  var str = '';
+
+  for(var i = 0; i < count; i++) {
+      str += _sym[parseInt(Math.random() * (_sym.length))];
+  }
+  return str;
+}
 router.post("/", async (req, res) => {
 
   const query = 'SELECT * FROM `scriptchainprod.ScriptChain.newUsers` WHERE email=@email';
@@ -43,7 +53,7 @@ router.post("/", async (req, res) => {
   }
   bigquery.query(bigQueryOptions, function(err, rows) {
     if(!err) {
-      if(rows){
+      if(rows.length>0){
         return res.status(400).json({
           message: "Email is already registered"
         });
@@ -54,7 +64,7 @@ router.post("/", async (req, res) => {
   const filename = 'newUsersTmp.json';
   const datasetId = 'ScriptChain';
   const tableId = 'newUsers';
-
+  req.body['_id'] = generateId(10);
   fs.writeFileSync(filename, JSON.stringify(req.body));
 
   const [job] = await bigquery

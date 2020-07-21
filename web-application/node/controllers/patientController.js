@@ -172,7 +172,7 @@ router.post('/',async(req,res)=>{
       }
     });
 
-    const query2 = 'SELECT * FROM `scriptchainprod.ScriptChain.patient` WHERE Email=@email';
+    const query2 = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
     const bigQueryOptions2 = {
       query: query2,
       location: 'US',

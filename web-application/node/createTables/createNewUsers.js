@@ -12,7 +12,7 @@ async function createTable() {
 
     const datasetId = "ScriptChain";
     const tableId = "newUsers";
-    const schema = 'id:string,fname:string,lname:string,email:string,typeOfUser:string,version:integer';
+    const schema = '_id:string,fname:string,lname:string,email:string,typeOfUser:string';
 
 
   const options = {
