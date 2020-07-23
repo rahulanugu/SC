@@ -11,7 +11,6 @@ const OAuth2 = google.auth.OAuth2;
 var jwtDecode = require('jwt-decode');
 const fs = require('fs');
 const {BigQuery} = require('@google-cloud/bigquery');
-const e = require("express");
 const options = {
     keyFilename: '/Users/srikarpothumahanti/Desktop/scriptchain/web-application/node/serviceAccountKeys/scriptchainprod-96d141251382.json',
     projectId: 'scriptchainprod'
@@ -41,33 +40,39 @@ router.post("/patient/request", async (req, res) => {
     //find the patient
     console.log("Reactivating patient is being requested")
     //const patient = await DeactivatedPatient.findOne({Email : req.body.email});
-    const query = 'SELECT * FROM `scriptchainprod.ScriptChain.deactivatedPatient` WHERE Email=@email';
+    const query = 'SELECT * FROM `scriptchainprod.ScriptChain.deactivatedPatients` WHERE Email=@Email';
     // +'"'+req.body.email+'"';
     const bigQueryOptions = {
       query: query,
       location: 'US',
       params: {Email:req.body.email}
     }
-    bigquery.query(bigQueryOptions, function(err, patient) {
+    bigquery.query(bigQueryOptions, function(err, rows) {
       if (!err) {
-        if(!patient){
+        if(rows.length==0){
           return res.status(404).json({
           message: "Email not among deactivated users"
           });
-      }
+        }else{
+          const patient = rows[0];
+          console.log('test');
+          const token = jwt.sign({_id:patient._id,fname:patient.fname,email:patient.Email}, 'santosh', { expiresIn: 500 });
+
+          sendVerificationMail(req.body.email,patient.fname,token);
+      
+          return res.status(200).json(
+              {
+                  "message": "Email Sent"
+              }
+          );
+        }
+      }else{
+        console.log(err);
       }
     });
 
     //generate a jwt token with email,name
-    const token = jwt.sign({_id:patient._id,fname:patient.fname,email:patient.Email}, 'santosh', { expiresIn: 500 });
-
-    sendVerificationMail(req.body.email,patient.fname,token);
-
-    return res.status(200).json(
-        {
-            "message": "Email Sent"
-        }
-    );
+    
     //email the token
 });
 
@@ -83,7 +88,7 @@ router.post("/healthcare/request", async (req, res) => {
   //find the healthcareprovider
   console.log("Reactivating healthcareprovider is being requested")
   //const healthcareProvider = await DeactivatedHealthcareProvider.findOne({email : req.body.email});
-  const query = 'SELECT * FROM `scriptchainprod.ScriptChain.deactivatedHealthcareProvider` WHERE email=@email';
+  const query = 'SELECT * FROM `scriptchainprod.ScriptChain.deactivatedHealthcareProviders` WHERE email=@email';
   // +'"'+req.body.email+'"';
   const bigQueryOptions = {
     query: query,
@@ -110,6 +115,8 @@ router.post("/healthcare/request", async (req, res) => {
           );
           //email the token
         }
+      }else{
+        console.log(err);
       }
     });
 });
@@ -148,43 +155,43 @@ router.post("/patient/activate", async (req, res) => {
     console.log(decodedValue)
 
     //const retrievedPatient = await DeactivatedPatient.findOne({Email: decodedValue.email})
-    const query2 = 'SELECT * FROM `scriptchainprod.ScriptChain.deactivatedPatient` WHERE Email=@email';
+    const query = 'SELECT * FROM `scriptchainprod.ScriptChain.deactivatedPatients` WHERE Email=@Email';
     // +'"'+decodedValue.email+'"';
-    const bigQueryOptions2 = {
-      query: query2,
+    const bigQueryOptions = {
+      query: query,
       location: 'US',
       params: {Email:decodedValue.email}
     }
-    bigquery.query(bigQueryOptions2, function(err, retrievedPatient) {
+    bigquery.query(bigQueryOptions, function(err, rows) {
       if (!err) {
-        if(retrievedPatient){
-          const patient = retrievedPatient[0];
-          patient['_id'] = generateId(10);
+        if(rows.length>0){
+          const patient = rows[0];
+          
           const filename = 'reactivatePatientsTmp.json';
           const datasetId = 'ScriptChain';
           const tableId = 'patients';
 
-          fs.writeFileSync(filename, JSON.stringify(rpatient));
+          fs.writeFileSync(filename, JSON.stringify(patient));
 
           const table = bigquery.dataset(datasetId).table(tableId);
 
           // Check the job's status for errors
           //const errors = job.status.errors;
-          table.load(filename,(err,res) =>{
+          table.load(filename,(err,res1) =>{
               if (err && err.length > 0) {
                 console.log("Error occured trying to save deactivated patient in the database"+err);
-                return res.status(500).json({"message": "account could not be deactivated due to an error"});
+                return res1.status(500).json({"message": "account could not be deactivated due to an error"});
               }else{
                 console.log("The deactivated patient entry has been moved to patient");
-                const query3 = 'DELETE FROM `scriptchainprod.ScriptChain.deactivatedPatients` WHERE Email=@email';
+                const query1 = 'DELETE FROM `scriptchainprod.ScriptChain.deactivatedPatients` WHERE Email=@Email';
 
                 // decodedValue.email+'"';
-                const bigQueryOptions3 = {
-                  query: query3,
+                const bigQueryOptions1 = {
+                  query: query1,
                   location: 'US',
                   params: {Email:decodedValue.email}
                 }
-                bigquery.query(bigQueryOptions3, function(err, row1) {
+                bigquery.query(bigQueryOptions1, function(err, row1) {
                   if(!err){
                     return res.status(200).json({"message":"account has been reactivated"});
                   }else{
@@ -237,41 +244,41 @@ router.post("/healthcare/activate", async (req, res) => {
 
   //const retrievedHealthcareProvider = await DeactivatedHealthcareProvider.findOne({email: decodedValue.email})
 
-  const query4 = 'SELECT * FROM `scriptchainprod.ScriptChain.deactivatedHealthcareProvider`\
+  const query = 'SELECT * FROM `scriptchainprod.ScriptChain.deactivatedHealthcareProviders`\
    WHERE email=@email';
   //  +'"'+decodedValue.email+'"';
-  const bigQueryOptions4 = {
-    query: query4,
+  const bigQueryOptions = {
+    query: query,
     location: 'US',
     params: {email:decodedValue.email}
   }
-  bigquery.query(bigQueryOptions4, function(err, rows) {
+  bigquery.query(bigQueryOptions, function(err, rows) {
     if (!err) {
       if(rows){
         const retrievedHealthcareProvider = rows[0];
-        retrievedHealthcareProvider['_id'] = generateId(10);
+
         const filename = 'retrievedHealthcareProviderTmp.json';
         const datasetId = 'ScriptChain';
-        const tableId = 'healthcareProvider';
+        const tableId = 'healthcareProviders';
 
         fs.writeFileSync(filename, JSON.stringify(retrievedHealthcareProvider));
 
         const table = bigquery.dataset(datasetId).table(tableId);
-        table.load(filename,(err,res) =>{
+        table.load(filename,(err,res1) =>{
           if (err && err.length > 0) {
             console.log("Error occured trying to save deactivated patient in the database"+err);
-            return res.status(500).json({"message": "account could not be deactivated due to an error"});
+            return res1.status(500).json({"message": "account could not be deactivated due to an error"});
           }else{
             console.log("The deactivated patient entry has been moved to patient");
-            const query5 = 'DELETE FROM `scriptchainprod.ScriptChain.deactivatedHealthcareProvider` WHERE email=@email';
+            const query1 = 'DELETE FROM `scriptchainprod.ScriptChain.deactivatedHealthcareProviders` WHERE email=@email';
 
             // decodedValue.email+'"';
-            const bigQueryOptions5 = {
-              query: query5,
+            const bigQueryOptions1 = {
+              query: query1,
               location: 'US',
               params: {email:decodedValue.email}
             }
-            bigquery.query(bigQueryOptions5, function(err, row1) {
+            bigquery.query(bigQueryOptions1, function(err, row1) {
               if(!err){
                 return res.status(200).json({"message":"account has been reactivated"});
               }else{
@@ -394,7 +401,7 @@ const sendVerificationMail = (email,fname,encryptedToken)=>{
           </div>
           <h1 align="center"style="font-family: arial;">We have recieved a request to Reactivate your account.</h1>
           <p class="para">Hi `+fname+`,</p>
-        <p align="center"><a href="http://scriptchain.co/reactivatepatient?token=`+encryptedToken+`"><button>Click here to reactivate</button></a></p><br><br>
+        <p align="center"><a href="http://localhost:8080/reactivatepatient?token=`+encryptedToken+`"><button>Click here to reactivate</button></a></p><br><br>
         <p align="center" class="para">If you have any questions or concerns feel free to reach out to <a href="mailto:customer-care@scriptchain.co">customer-care@scriptchain.co</a></p>
           <div class="panelFooter">
             <p align="center" >This message was sent from ScriptChain LLC., Boston, MA</p>
@@ -512,7 +519,7 @@ const sendVerificationMailHealthcare = (email,fname,encryptedToken)=>{
         </div>
         <h1 align="center"style="font-family: arial;">We have recieved a request to Reactivate your account.</h1>
         <p class="para">Hi `+fname+`,</p>
-      <p align="center"><a href="http://scriptchain.co/reactivatehealthcareprovider?token=`+encryptedToken+`"><button>Click here to reactivate</button></a></p><br><br>
+      <p align="center"><a href="http://localhost:8080/reactivatehealthcareprovider?token=`+encryptedToken+`"><button>Click here to reactivate</button></a></p><br><br>
       <p align="center" class="para">If you have any questions or concerns feel free to reach out to <a href="mailto:customer-care@scriptchain.co">customer-care@scriptchain.co</a></p>
         <div class="panelFooter">
           <p align="center" >This message was sent from ScriptChain LLC., Boston, MA</p>
