@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { Patient } = require('../models/user');
-const { check, validationResult } = require('express-validator');
+const { check,body,validationResult } = require('express-validator');
 const { HealthcareProvider } = require('../models/healthcareProvider');
 const { DeactivatedPatient } = require('../models/deactivatedUser');
 const { DeactivatedHealthcareProvider } = require('../models/deactivatedHealthcareProvider');
@@ -27,7 +27,10 @@ const bigquery = new BigQuery(options);
  *         404 - Patient not found
  */
 // doubt
-router.post("/patient",[check('Email').notEmpty().isEmail()], async (req, res) => {
+router.post("/patient",[check('Email').notEmpty().isEmail(),body().custom(body => {
+  const keys = ['Email'];
+  return Object.keys(body).every(key => keys.includes(key));
+}).withMessage('Some extra parameters are sent')], async (req, res) => {
   const e = validationResult(req);
   if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'});
@@ -98,7 +101,10 @@ router.post("/patient",[check('Email').notEmpty().isEmail()], async (req, res) =
  */
 
 //Update the code
-router.post("/healthcare",[check('email').notEmpty().isEmail()], async (req, res) => {
+router.post("/healthcare",[check('email').notEmpty().isEmail(),body().custom(body => {
+  const keys = ['email'];
+  return Object.keys(body).every(key => keys.includes(key));
+}).withMessage('Some extra parameters are sent')],async (req, res) => {
   const e = validationResult(req);
   if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'});
