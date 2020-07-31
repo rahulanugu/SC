@@ -6,7 +6,7 @@
 const nodemailer = require('nodemailer');
 const log = console.log;
 const express = require('express');
-const { check, validationResult } = require('express-validator');
+const { check, body, validationResult } = require('express-validator');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const ObjectId = require('mongoose').Types.ObjectId;
@@ -63,7 +63,10 @@ function generateId(count) {
   }
   return str;
 }
-router.post('/account/create',[check('firstName').notEmpty().withMessage('First Name is required.').isAlpha().withMessage('First Name should be String'),check('lastName').notEmpty().withMessage('Last Name is required.').isAlpha().withMessage('Last Name should be String'),check('companyName').notEmpty().withMessage("Provide company name"),check('roleInCompany').notEmpty().withMessage("Provide the company name"),check('email').notEmpty().withMessage("Provide Email ID").isEmail().withMessage('Should Provide Email'),check('password').exists().notEmpty().withMessage('Please type your password')], async (req, res) => {
+router.post('/account/create',[check('firstName').notEmpty().withMessage('First Name is required.').isAlpha().withMessage('First Name should be String'),check('lastName').notEmpty().withMessage('Last Name is required.').isAlpha().withMessage('Last Name should be String'),check('companyName').notEmpty().withMessage("Provide company name"),check('roleInCompany').notEmpty().withMessage("Provide the company name"),check('email').notEmpty().withMessage("Provide Email ID").isEmail().withMessage('Should Provide Email'),check('password').exists().notEmpty().withMessage('Please type your password'),body().custom(body => {
+  const keys = ['firstName','lastName','companyName','roleInCompany','email','password'];
+  return Object.keys(body).every(key => keys.includes(key));
+}).withMessage('Some extra parameters are sent')], async (req, res) => {
   const e = validationResult(req);
   if(!e.isEmpty()){
     const firstError = e.array().map(error => error.msg)[0];
@@ -151,8 +154,14 @@ router.post('/account/create',[check('firstName').notEmpty().withMessage('First 
  *         400 - Already exists or an error occured
  *         500 - Unexpected errors
  */
-router.post('/account/verify',async(req,res)=>{
-
+router.post('/account/verify',[check("jwtToken").notEmpty(),body().custom(body => {
+  const keys = ['jwtToken'];
+  return Object.keys(body).every(key => keys.includes(key));
+}).withMessage('Some extra parameters are sent')],async(req,res)=>{
+  const errors = validationResult(req);
+  if(!errors.isEmpty()){
+    return res.status(400).json({Message:'Bad Request'})
+  }
 
     // will recieve an encrypted jwt token
     var encryptedToken = req.body.jwtToken.replace(/ /g, '+');

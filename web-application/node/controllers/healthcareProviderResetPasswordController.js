@@ -1,7 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { check, validationResult } = require('express-validator');
+const { check,body,validationResult } = require('express-validator');
 var { HealthcareProvider} = require('../models/healthcareProvider');
 const nodemailer = require("nodemailer");
 const { google } = require("googleapis");
@@ -25,9 +25,12 @@ const fs = require('fs');
  * Input: User/Patient email
  * Output: 401 - Email not found (or) 200 - Email has been sent
  */
-router.post('/', [check('email').notEmpty().isEmail()],(req, res) => {
-  const errors = validationResult(req);
-  if(!errors.isEmpty()){
+router.post('/', [check('email').notEmpty().isEmail(),body().custom(body => {
+  const keys = ["email"];
+  return Object.keys(body).every(key => keys.includes(key));
+}).withMessage('Some extra parameters are sent')],async(req, res) => {
+  const err = validationResult(req);
+  if(!err.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
   }
   console.log("request is recieved and being processed")
@@ -88,7 +91,14 @@ router.post('/', [check('email').notEmpty().isEmail()],(req, res) => {
 /**
  * Verify the jwt token and return the if valid or not
  */
-router.post('/check', async (req, res)=>{
+router.post('/check', [check("jwtToken").notEmpty(),body().custom(body => {
+  const keys = ['jwtToken'];
+  return Object.keys(body).every(key => keys.includes(key));
+}).withMessage('Some extra parameters are sent')],async(req,res)=>{
+  const errors = validationResult(req);
+  if(!errors.isEmpty()){
+    return res.status(400).json({Message:'Bad Request'})
+  }
 
   // The token we get here is encrypted, so we need to decode it
   // will recieve an encrypted jwt token

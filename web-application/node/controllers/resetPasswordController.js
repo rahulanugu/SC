@@ -1,5 +1,5 @@
 const express = require('express');
-const { check, validationResult } = require('express-validator');
+const { check,body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 var { Patient } = require('../models/user');
@@ -25,10 +25,13 @@ const fs = require('fs');
  * Input: User/Patient email
  * Output: 401 - Email not found (or) 200 - Email has been sent
  */
-router.post('/', [check('email').notEmpty().isEmail()],async (req, res) => {
-  const errors = validationResult(req);
-  if(!errors.isEmpty()){
-    return res.status(400).json({Message:'Bad Request'})
+router.post('/', [check('email').notEmpty().isEmail(),body().custom(body => {
+  const keys = ['email'];
+  return Object.keys(body).every(key => keys.includes(key));
+}).withMessage('Some extra parameters are sent')],async (req, res) => {
+  const e = validationResult(req);
+  if(!e.isEmpty()){
+    return res.status(400).json({Message:'Bad Request'});
   }
 
   if (!req.body.email || (req.body.email === " ")) return req.status(401).json({
@@ -100,7 +103,14 @@ router.post('/', [check('email').notEmpty().isEmail()],async (req, res) => {
 /**
  * Verify the jwt token and return the if valid or not
  */
-router.post('/check', async (req, res) => {
+router.post('/check', [check("jwtToken").notEmpty(),body().custom(body => {
+  const keys = ['jwtToken'];
+  return Object.keys(body).every(key => keys.includes(key));
+}).withMessage('Some extra parameters are sent')],async(req,res)=>{
+  const errors = validationResult(req);
+  if(!errors.isEmpty()){
+    return res.status(400).json({Message:'Bad Request'})
+  }
 
   // The token we get here is encrypted, so we need to decode it
   // will recieve an encrypted jwt token
@@ -121,7 +131,14 @@ router.post('/check', async (req, res) => {
 
 });
 
-router.post('/change_password', async (req, res) => {
+router.post('/change_password', [check("jwtToken").notEmpty(),body().custom(body => {
+  const keys = ['jwtToken'];
+  return Object.keys(body).every(key => keys.includes(key));
+}).withMessage('Some extra parameters are sent')],async(req,res)=>{
+  const errors = validationResult(req);
+  if(!errors.isEmpty()){
+    return res.status(400).json({Message:'Bad Request'})
+  }
   console.log("Reached change password")
   const str = req.body;
 

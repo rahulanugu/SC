@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 const express = require("express");
-const { check, validationResult } = require('express-validator');
+const { check,body, validationResult } = require('express-validator');
 const router = express.Router();
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
@@ -25,7 +25,10 @@ const bigquery = new BigQuery(options);
  *         500 - An error occured trying to save the request
  */
 router.put("/fname", [check('email').isEmail(),
-check('fname').isAlpha().notEmpty()] ,async (req, res) => {
+check('fname').isAlpha().notEmpty(),body().custom(body => {
+  const keys = ['email','fname'];
+  return Object.keys(body).every(key => keys.includes(key));
+}).withMessage('Some extra parameters are sent')],async (req, res) => {
   const e = validationResult(req);
   if(!e.isEmpty()){
     const firstError = e.array().map(error => error.msg)[0];
@@ -93,8 +96,10 @@ check('fname').isAlpha().notEmpty()] ,async (req, res) => {
  *         200 - Successfylly saved the request
  *         500 - An error occured trying to save the request
  */
-router.put("/lname",[check('email').isEmail().withMessage('Provide Email'),
-check('lname').isAlpha().withMessage('not alphbets').notEmpty()] ,async (req, res) => {
+router.put("/lname",[check('email').isEmail().withMessage('Provide  Email'),check('lname').isAlpha().withMessage('not alphabets').notEmpty(),body().custom(body => {
+  const keys = ['email','lname'];
+  return Object.keys(body).every(key => keys.includes(key));
+}).withMessage('Some extra parameters are sent')],async (req, res) => {
   const e = validationResult(req);
   if(!e.isEmpty()){
     const firstError = e.array().map(error => error.msg)[0];
@@ -161,7 +166,10 @@ check('lname').isAlpha().withMessage('not alphbets').notEmpty()] ,async (req, re
  *         200 - Successfylly saved the request
  *         500 - An error occured trying to save the request
  */
-router.put("/phone", [check('email').isEmail().withMessage('Provide Email'),check('phone').isMobilePhone().withMessage('Not a phonenumeber').notEmpty()] ,async(req, res) => {
+router.put("/phone", [check('email').isEmail().withMessage('Provide Email'),check('phone').isMobilePhone().notEmpty(),body().custom(body => {
+  const keys = ['email','phone'];
+  return Object.keys(body).every(key => keys.includes(key));
+}).withMessage('Some extra parameters are sent')],async(req, res) => {
   const e = validationResult(req);
   if(!e.isEmpty()){
     const firstError = e.array().map(error => error.msg)[0];
@@ -227,7 +235,11 @@ module.exports = router;
  *         200 - Successfylly saved the request
  *         500 - An error occured trying to save the request
  */
-router.put("/password" ,async (req, res) => {
+router.put("/password" ,[check('email').isEmail().notEmpty()],async (req, res) => {
+  const e = validationResult(req);
+  if(!e.isEmpty()){
+    return res.status(400).json({Message:'Bad Request'});
+  }
   console.log("Trying to edit the password of the user")
   console.log(req.body.email);
   console.log(req.body)

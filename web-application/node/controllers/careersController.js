@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { check, validationResult } = require('express-validator');
+const { check,body, validationResult } = require('express-validator');
 const ObjectId = require('mongoose').Types.ObjectId;
 var { JobOpening } = require("../models/jobOpenings");
 var { JobApplication } = require("../models/jobApplications");
@@ -92,7 +92,14 @@ function generateId(count) {
   return str;
 }
 
-router.post("/jobposting",async (req, res) => {
+router.post("/jobposting",[check("title").notEmpty(),check('description').notEmpty(),check("salary").notEmpty(),check("location").notEmpty(),check("email").notEmpty(),check('category').notEmpty(),body().custom(body => {
+  const keys = ['title','description','salary','location','email','category'];
+  return Object.keys(body).every(key => keys.includes(key));
+}).withMessage('Some extra parameters are sent')],async(req, res) => {
+  const err = validationResult(req);
+  if(!err.isEmpty()){
+    return res.status(400).json({Message:'Bad Request'})
+  }
     console.log("posting a job to the database");
     req.body['_id'] = generateId(10);
     /*if(Object.keys(req.body).length!=7){
@@ -158,7 +165,7 @@ router.get('/jobposting', (req, res) => {
  *         200 - Returned along with all the job openings fron the given category
  *         404 - If there are no jobOpning available in the category the db.
  */
-router.get('/jobposting/:jobcategory',[check('jobcategory').isEmpty(),check('jobcategory').isInt()], (req, res) => {
+router.get('/jobposting/:jobcategory',[check('jobcategory').notEmpty(),check('jobcategory')], (req, res) => {
   const errors = validationResult(req);
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
@@ -193,7 +200,14 @@ router.get('/jobposting/:jobcategory',[check('jobcategory').isEmpty(),check('job
  *         200 - If the job category is succcesfully saved in the database
  *         500 - If the job couldn't be saved in the database
  */
-router.post("/jobcategory",async (req, res) => {
+router.post("/jobcategory",[check("title").notEmpty(),check('description').notEmpty(),body().custom(body => {
+  const keys = ['title','description'];
+  return Object.keys(body).every(key => keys.includes(key));
+}).withMessage('Some extra parameters are sent')],async(req, res) => {
+  const e = validationResult(req);
+  if(!e.isEmpty()){
+    return res.status(400).json({Message:'Bad Request'})
+  }
   console.log("posting a jobcategory to the database");
   req.body['_id'] = generateId(10);
     /*if(Object.keys(req.body).length!=3){
