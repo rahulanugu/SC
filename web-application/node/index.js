@@ -31,23 +31,28 @@ app.use(bodyParser.json());
 
 //for local deploy uncomment below code & comment out for production
 //allow cors to access port that angular app runs on
-// app.use(
-//   cors({
-//     origin: "http://localhost:4200"
-//   })
-// );
-
-// app.use((req, res, next) => {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header(
-//     "Access-Control-Allow-Headers",
-//     "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-//   );
-// });
-
-//for production mode uncomment below code & comment out for local
 
 
+//Comment this in local as well. Requests are not being handled
+//Also on port 8080, testing of API is bad. Console.log isn't working
+//Only when requests come from 4200(UI), console.log is working
+//Finally, it's important to serve static comment for testing of few APIs.
+
+/* app.use(
+   cors({
+     origin: "http://localhost:4200"
+   })
+ );
+
+ app.use((req, res, next) => {
+   res.header("Access-Control-Allow-Origin", "*");
+   res.header(
+     "Access-Control-Allow-Headers",
+     "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+   );
+ });*/
+
+//for production mode uncomment below code and for local(local requests are handled on 8080 alone if commented)
 app.use(function (req, res, next) {
 
   // Website you wish to allow to connect
@@ -72,7 +77,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-//Uncomment out the below code in production mode.
+//Uncomment out the below code in production mode and local mode.
 app.use(express.static(path.join(__dirname, "./dist/my-app")));
 
 // start express server
@@ -93,7 +98,7 @@ app.use("/backend/deactivate", deactivateController )
 app.use("/backend/reactivate", reactivateController )
 app.use("/backend/editpatient" , editPatientController)
 
-//Uncomment out the below code for production mode.
+//Uncomment out the below code in production mode and local mode.
 app.get("*", (req, res) => {
   return res.sendFile(path.join(__dirname, "./dist/my-app/index.html"));
 });
