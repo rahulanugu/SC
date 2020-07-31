@@ -1,6 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const { check, validationResult } = require('express-validator');
 var { HealthcareProvider} = require('../models/healthcareProvider');
 const nodemailer = require("nodemailer");
 const { google } = require("googleapis");
@@ -11,7 +12,7 @@ var Utility = require('../utility');
 var router = express.Router();
 const {BigQuery} = require('@google-cloud/bigquery');
 const options = {
-    keyFilename: '/Users/srikarpothumahanti/Desktop/scriptchain/web-application/node/serviceAccountKeys/scriptchainprod-96d141251382.json',
+    keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
     projectId: 'scriptchainprod'
 
 };
@@ -24,13 +25,15 @@ const fs = require('fs');
  * Input: User/Patient email
  * Output: 401 - Email not found (or) 200 - Email has been sent
  */
-router.post('/', async (req, res)=>{
+router.post('/', [check('email').notEmpty().isEmail()],(req, res) => {
+  const errors = validationResult(req);
+  if(!errors.isEmpty()){
+    return res.status(400).json({Message:'Bad Request'})
+  }
   console.log("request is recieved and being processed")
 
-    if(!req.body.email || (req.body.email === " ")) return req.status(401).json({
-        message: "Email is not provided"
-
-    });
+    if(!req.body.email || (req.body.email === " "))
+      return res.status(401).json({message: "Email is not provided"});
     //const healthcareProvider = await HealthcareProvider.findOne({ email: req.body.email });
 
     const query = 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProviders` WHERE email=@email';
@@ -52,7 +55,7 @@ router.post('/', async (req, res)=>{
           const token = await jwt.sign({healthcareProvider}, "santosh", { expiresIn: 120 });
           const encryptedToken = Utility.EncryptToken(token);
           //mail the token
-          sendVerificationMail(req.body.email,healthcareProvider.firstName,encryptedToken);
+          //sendVerificationMail(req.body.email,healthcareProvider.firstName,encryptedToken);
 
           res.status(200).json({
               message: "Email has been sent to reset password"

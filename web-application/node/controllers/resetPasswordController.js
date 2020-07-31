@@ -1,4 +1,5 @@
 const express = require('express');
+const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 var { Patient } = require('../models/user');
@@ -10,7 +11,7 @@ var Utility = require('../utility');
 var router = express.Router();
 const {BigQuery} = require('@google-cloud/bigquery');
 const options = {
-    keyFilename: '/Users/srikarpothumahanti/Desktop/scriptchain/web-application/node/serviceAccountKeys/scriptchainprod-96d141251382.json',
+    keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
     projectId: 'scriptchainprod'
 
 };
@@ -24,7 +25,11 @@ const fs = require('fs');
  * Input: User/Patient email
  * Output: 401 - Email not found (or) 200 - Email has been sent
  */
-router.post('/', async (req, res) => {
+router.post('/', [check('email').notEmpty().isEmail()],async (req, res) => {
+  const errors = validationResult(req);
+  if(!errors.isEmpty()){
+    return res.status(400).json({Message:'Bad Request'})
+  }
 
   if (!req.body.email || (req.body.email === " ")) return req.status(401).json({
     message: "Email is not provided"
@@ -49,7 +54,7 @@ router.post('/', async (req, res) => {
           const token = await jwt.sign({ patient }, "santosh", { expiresIn: 120 });
           const encryptedToken = Utility.EncryptToken(token);
           //mail the token
-          sendVerificationMail(req.body.email, patient[0].fname, encryptedToken);
+          //sendVerificationMail(req.body.email, patient[0].fname, encryptedToken);
 
           res.status(200).json({
             message: "Email has been sent to reset password"
@@ -76,7 +81,7 @@ router.post('/', async (req, res) => {
 
   // create JSON Web Token
   // *******make sure to change secret word to something secure and put it in env variable*****
-  
+
 
   //save the token
   //   const resetPasswordToken = new ResetPasswordToken ({

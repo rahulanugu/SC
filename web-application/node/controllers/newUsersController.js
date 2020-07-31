@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const { check, validationResult } = require('express-validator');
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
 const { NewRequestAccessUser } = require("../models/newRequestAccessUser");
@@ -19,7 +20,7 @@ oauth2Client.setCredentials({
 const accessToken = oauth2Client.getAccessToken();
 const {BigQuery} = require('@google-cloud/bigquery');
 const options = {
-    keyFilename: '/Users/srikarpothumahanti/Desktop/scriptchain/web-application/node/serviceAccountKeys/scriptchainprod-96d141251382.json',
+    keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
     projectId: 'scriptchainprod'
 
 };
@@ -42,8 +43,12 @@ function generateId(count) {
   }
   return str;
 }
-router.post("/", async (req, res) => {
-
+router.post("/",[check('fname').notEmpty().withMessage('First Name is required.').isAlpha().withMessage('First Name should be String'),check('lname').notEmpty().withMessage('Last Name is required.').isAlpha().withMessage('Last Name should be String'),check('email').notEmpty().withMessage("Provide Email ID").isEmail().withMessage('Should Provide Email'),check('typeOfUser').notEmpty().withMessage('Should Provide typeOfUser')], async (req, res) => {
+  const e = validationResult(req);
+  if(!e.isEmpty()){
+    const firstError = e.array().map(error => error.msg)[0];
+    return res.status(400).json({ error: firstError });
+  }
   const query = 'SELECT * FROM `scriptchainprod.ScriptChain.newUsers` WHERE email=@email';
   // req.body.email+'"';
   const bigQueryOptions = {

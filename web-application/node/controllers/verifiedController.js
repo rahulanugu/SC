@@ -1,4 +1,5 @@
 const express = require('express');
+const { check, validationResult } = require('express-validator');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const ObjectId = require('mongoose').Types.ObjectId;
@@ -11,7 +12,7 @@ const fs = require('fs');
 const {BigQuery} = require('@google-cloud/bigquery');
 const { pathToFileURL } = require('url');
 const options = {
-    keyFilename: '/Users/srikarpothumahanti/Desktop/scriptchain/web-application/node/serviceAccountKeys/scriptchainprod-96d141251382.json',
+    keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
     projectId: 'scriptchainprod'
 
 };
@@ -29,7 +30,7 @@ const bigquery = new BigQuery(options);
 //     secretOrKey: 'santosh'
 
 // };
-  
+
 // const strategy = new JwtStrategy(opts, (payload, next) => {
 //     // User.forge({ id: payload.id }).fetch().then(res => {
 //     //   next(null, res);
@@ -60,10 +61,10 @@ function generateId(count) {
 router.post('/',async(req, res) => {
 
     console.log("Creating an actual user after verification in the database");
-    
+
     //the body consists of an encrypted jwt token
     //console.log("req bdy is "+req.body.jwtToken)
-    
+
     //the incoming strings are improperly formatted with '+' being replaced with spaces
 
     //correcting the format by replacing spaces with '+'
@@ -89,7 +90,7 @@ router.post('/',async(req, res) => {
     }else{
         res.status(500).json({message:"DB Error"});
     }
-      
+
     });
 
 
@@ -108,7 +109,7 @@ router.post('/',async(req, res) => {
     delete patient['zip'];
     delete patient['country'];
     delete patient['email'];
-    
+
     const verifieduser = {
         _id: generateId(10),
         fname: decodedValue.tokeBody.fname,
@@ -119,7 +120,7 @@ router.post('/',async(req, res) => {
     const filename1 = 'verifieduserTmp.json';
     const datasetId = 'ScriptChain';
     const tableId1 = 'verifieduser';
-    fs.writeFileSync(filename1, JSON.stringify(verifieduser));         
+    fs.writeFileSync(filename1, JSON.stringify(verifieduser));
     const table1 = bigquery.dataset(datasetId).table(tableId1);
     // Check the job's status for errors
     //const errors = job.status.errors;
@@ -128,7 +129,7 @@ router.post('/',async(req, res) => {
 
     const filename2 = 'patientTmp.json';
     const tableId2 = 'patients';
-    fs.writeFileSync(filename2, JSON.stringify(patient));         
+    fs.writeFileSync(filename2, JSON.stringify(patient));
     const table2 = bigquery.dataset(datasetId).table(tableId2);
     table2.load(filename2,(err2,res2) =>{
         if (!err2) {

@@ -6,6 +6,7 @@
 const nodemailer = require('nodemailer');
 const log = console.log;
 const express = require('express');
+const { check, validationResult } = require('express-validator');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const ObjectId = require('mongoose').Types.ObjectId;
@@ -39,7 +40,7 @@ oauth2Client.setCredentials({
 const accessToken = oauth2Client.getAccessToken();
 const {BigQuery} = require('@google-cloud/bigquery');
 const options = {
-    keyFilename: '/Users/srikarpothumahanti/Desktop/scriptchain/web-application/node/serviceAccountKeys/scriptchainprod-96d141251382.json',
+    keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
     projectId: 'scriptchainprod'
 
 };
@@ -62,8 +63,13 @@ function generateId(count) {
   }
   return str;
 }
-router.post('/account/create',async(req,res)=>{
-
+router.post('/account/create',[check('firstName').notEmpty().withMessage('First Name is required.').isAlpha().withMessage('First Name should be String'),check('lastName').notEmpty().withMessage('Last Name is required.').isAlpha().withMessage('Last Name should be String'),check('companyName').notEmpty().withMessage("Provide company name"),check('roleInCompany').notEmpty().withMessage("Provide the company name"),check('email').notEmpty().withMessage("Provide Email ID").isEmail().withMessage('Should Provide Email'),check('password').exists().notEmpty().withMessage('Please type your password')], async (req, res) => {
+  const e = validationResult(req);
+  if(!e.isEmpty()){
+    const firstError = e.array().map(error => error.msg)[0];
+    return res.status(400).json({ error: firstError });
+  }
+    try{
     //Check if user alread exists
     const query= 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProviders` WHERE email=@email';
     // req.body.email+'"';
@@ -87,10 +93,11 @@ router.post('/account/create',async(req,res)=>{
     //Create a jwt token with details provided in body as payload
     const tokeBody = req.body;
     const token = await jwt.sign({tokeBody}, "santosh", { expiresIn: 300 });
+    console.log("JWT function")
 
     //encrypt the token
     var encryptedToken = Utility.EncryptToken(token);
-
+    console.log("Encrpt token")
     //save the token for reference purposes - optional
     var idToken = randtoken.generate(16);
     const tokenSchema = new TokenSchema({
@@ -98,6 +105,7 @@ router.post('/account/create',async(req,res)=>{
         token: idToken,
         email: req.body.email
     })
+    console.log("update token")
     //Update the mongo here
     /*tokenSchema.save((err,doc)=>{
         if(err){
@@ -110,7 +118,7 @@ router.post('/account/create',async(req,res)=>{
     const tableId = 'tokenSchema';
 
     fs.writeFileSync(filename, JSON.stringify(tokenSchema));
-    
+    console.log("write file")
     const [job] = await bigquery
       .dataset(datasetId)
       .table(tableId).load(filename);
@@ -118,17 +126,22 @@ router.post('/account/create',async(req,res)=>{
     if (errors && errors.length > 0) {
       console.log("Reference token could not be saved");
     }
+    console.log("End")
+    res.status(200).send({message: "Verification mail with jwt token is sent"});
+  }catch(e){
+    console.log(e)
+  }
 
 
     //Send the email with the verification email
 
-    sendVerificationMail(req.body.email,req.body.firstName,encryptedToken, (err,data) => {
+    /*sendVerificationMail(req.body.email,req.body.firstName,encryptedToken, (err,data) => {
         //Invoked the callback function od the sendverification email object
         if(err){
             res.status(500).send({message: "An error has occured trying to send the mail"});
         }
         res.status(200).send({message: "Verification mail with jwt token is sent"});
-    });
+    });*/
 })
 
 /**
@@ -139,6 +152,7 @@ router.post('/account/create',async(req,res)=>{
  *         500 - Unexpected errors
  */
 router.post('/account/verify',async(req,res)=>{
+
 
     // will recieve an encrypted jwt token
     var encryptedToken = req.body.jwtToken.replace(/ /g, '+');

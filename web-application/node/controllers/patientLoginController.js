@@ -1,5 +1,5 @@
 const express = require('express');
-
+const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 
 const jwt = require('jsonwebtoken');
@@ -10,7 +10,7 @@ const { DeactivatedPatient } = require('../models/deactivatedUser');
 var router = express.Router();
 const {BigQuery} = require('@google-cloud/bigquery');
 const options = {
-    keyFilename: '/Users/srikarpothumahanti/Desktop/scriptchain/web-application/node/serviceAccountKeys/scriptchainprod-96d141251382.json',
+    keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
     projectId: 'scriptchainprod'
 
 };
@@ -22,7 +22,11 @@ const bigquery = new BigQuery(options);
  * Output: 401 - Invalid password or email
  *         200 - Jwt Token and first name
  */
-router.post('/', async (req, res)=>{
+router.post('/',[check('email').notEmpty().isEmail(),check('password').notEmpty().exists()],(req, res) => {
+  const errors = validationResult(req);
+  if(!errors.isEmpty()){
+    return res.status(400).json({Message:'Bad Request'})
+  }
     //const patient = await Patient.findOne({Email: req.body.email});
     //if the patient is not found, try finding it in the deactivated patients collection
 
@@ -33,7 +37,7 @@ router.post('/', async (req, res)=>{
       params: {email:req.body.email}
     }
 
-    
+
     bigquery.query(bigQueryOptions1, async function(err, patient) {
       if (!err) {
         if (patient.length==0){
@@ -52,7 +56,7 @@ router.post('/', async (req, res)=>{
               }else{
                 return res.status(303).json({
                   message: "The email being handled has been deactivated"
-                }); 
+                });
               }
             }
           });
@@ -60,16 +64,16 @@ router.post('/', async (req, res)=>{
           const validpassword = await bcrypt.compare(req.body.password, patient[0].password);
 
           if(!validpassword) return res.status(401).json({
-      
+
             message:"Invalid username or password"
           });
-      
+
           console.log('logged in');
-      
+
           //form json tokens
           const token = jwt.sign({_id:patient[0]._id,fname:patient[0].fname}, 'abc');
-          
-         
+
+
           res.status(200).json({
               idToken: token,
               fname:patient[0].fname,
