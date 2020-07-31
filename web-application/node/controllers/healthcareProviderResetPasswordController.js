@@ -2,7 +2,6 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { check,body,validationResult } = require('express-validator');
-var { HealthcareProvider} = require('../models/healthcareProvider');
 const nodemailer = require("nodemailer");
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
@@ -58,7 +57,7 @@ router.post('/', [check('email').notEmpty().isEmail(),body().custom(body => {
           const token = await jwt.sign({healthcareProvider}, "santosh", { expiresIn: 120 });
           const encryptedToken = Utility.EncryptToken(token);
           //mail the token
-          //sendVerificationMail(req.body.email,healthcareProvider.firstName,encryptedToken);
+          sendVerificationMail(req.body.email,healthcareProvider.firstName,encryptedToken);
 
           res.status(200).json({
               message: "Email has been sent to reset password"

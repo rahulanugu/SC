@@ -4,9 +4,7 @@ const { check,body, validationResult } = require('express-validator');
 const router = express.Router();
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
-var { ContactUser } = require("../models/contactUsers");
 const log = console.log;
-const { Patient } = require("../models/user");
 const bcrypt = require('bcryptjs');
 const fs = require('fs');
 const {BigQuery} = require('@google-cloud/bigquery');
@@ -295,7 +293,7 @@ router.put("/password" ,[check('email').isEmail().notEmpty()],async (req, res) =
                         res.status(500).json({ "message": "An error has occured trying to update the patient record in the dattabase" });
                       }else{
                         res.status(200).json({ "messafe": "Succesfully updatted the patient record in the database" });
-                        //sendVerificationMail(req.body.email, retrievedPatient.fname);
+                        sendVerificationMail(req.body.email, retrievedPatient.fname);
                       }
                   });
                 }

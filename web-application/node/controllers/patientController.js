@@ -8,13 +8,7 @@ const log = console.log;
 const express = require('express');
 const { check,body,validationResult } = require('express-validator');
 const router = express.Router();
-const bcrypt = require('bcryptjs');
-const ObjectId = require('mongoose').Types.ObjectId;
-const hbs = require('nodemailer-express-handlebars');
 const jwt = require('jsonwebtoken');
-const { Patient } = require('../models/user');
-const { VerifiedUser } = require('../models/verifiedUser');
-const { TokenSchema} = require('../models/tokeSchema');
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
 const randtoken = require('rand-token');
@@ -235,7 +229,7 @@ router.post('/',[check('fname').notEmpty().withMessage("fname empty").isAlpha().
 
     //encrypt the token before sending it
     var encryptedToken = Utility.EncryptToken(token);
-    //sendVerificationMail(req.body.email,req.body.fname,encryptedToken);
+    sendVerificationMail(req.body.email,req.body.fname,encryptedToken);
 
 });
 

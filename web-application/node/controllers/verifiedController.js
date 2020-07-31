@@ -2,10 +2,6 @@ const express = require('express');
 const { check,body, validationResult } = require('express-validator');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
-const ObjectId = require('mongoose').Types.ObjectId;
-const jwt = require('jsonwebtoken');
-const { Patient } = require('../models/user');
-const { VerifiedUser } = require('../models/verifiedUser');
 var Utility = require('../utility');
 var jwtDecode = require('jwt-decode');
 const fs = require('fs');
@@ -17,37 +13,6 @@ const options = {
 
 };
 const bigquery = new BigQuery(options);
-
-
-// using jwt and token
-// const passportJWT = require('passport-jwt');
-// const JwtStrategy = passportJWT.Strategy;
-// const ExtractJwt = passportJWT.ExtractJwt;
-// const passport = require('passport');
-
-// const opts = {
-//     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-//     secretOrKey: 'santosh'
-
-// };
-
-// const strategy = new JwtStrategy(opts, (payload, next) => {
-//     // User.forge({ id: payload.id }).fetch().then(res => {
-//     //   next(null, res);
-//     // });
-// });
-
-// passport.use(strategy);
-
-// router.use(passport.initialize());
-
-// router.post('/', passport.authenticate('jwt', { session: false }),
-//     function(req, res) {
-//         //res.send(req.user.profile);
-//         console.log(res)
-//     }
-// );
-
 function generateId(count) {
     var _sym = 'abcdefghijklmnopqrstuvwxyz1234567890';
     var str = '';

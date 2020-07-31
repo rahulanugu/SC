@@ -1,10 +1,6 @@
 const express = require("express");
 const { check,body, validationResult } = require('express-validator');
 const router = express.Router();
-const { Patient } = require('../models/user');
-const { HealthcareProvider} = require('../models/healthcareProvider');
-const { DeactivatedPatient } = require('../models/deactivatedUser');
-const { DeactivatedHealthcareProvider } = require('../models/deactivatedHealthcareProvider');
 const jwt = require('jsonwebtoken');
 const nodemailer = require("nodemailer");
 const { google } = require("googleapis");
@@ -68,7 +64,7 @@ router.post("/patient/request",[check('email').notEmpty().isEmail(),body().custo
           console.log('test');
           const token = jwt.sign({_id:patient._id,fname:patient.fname,email:patient.Email}, 'santosh', { expiresIn: 500 });
 
-          //sendVerificationMail(req.body.email,patient.fname,token);
+          sendVerificationMail(req.body.email,patient.fname,token);
 
           return res.status(200).json(
               {
@@ -126,7 +122,7 @@ router.post("/healthcare/request",[check('email').notEmpty().isEmail(),body().cu
           //generate a jwt token with email,name
           const token = jwt.sign({_id:healthcareProvider._id,firstName:healthcareProvider.firstName,email:healthcareProvider.email}, 'santosh', { expiresIn: 500 });
 
-          //sendVerificationMailHealthcare(req.body.email,healthcareProvider.firstName,token);
+          sendVerificationMailHealthcare(req.body.email,healthcareProvider.firstName,token);
 
           return res.status(200).json(
               {
