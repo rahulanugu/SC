@@ -1,13 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const { Patient } = require('../models/user');
 const { check,body,validationResult } = require('express-validator');
-const { HealthcareProvider } = require('../models/healthcareProvider');
-const { DeactivatedPatient } = require('../models/deactivatedUser');
-const { DeactivatedHealthcareProvider } = require('../models/deactivatedHealthcareProvider');
 const fs = require('fs');
 const {BigQuery} = require('@google-cloud/bigquery');
-const { table } = require("console");
 const options = {
     keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
     projectId: 'scriptchainprod'

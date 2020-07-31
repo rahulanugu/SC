@@ -1,12 +1,7 @@
 const express = require('express');
 const { check,body,validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
-
 const jwt = require('jsonwebtoken');
-var { Patient } = require('../models/user');
-const { DeactivatedPatient } = require('../models/deactivatedUser');
-
-
 var router = express.Router();
 const {BigQuery} = require('@google-cloud/bigquery');
 const options = {

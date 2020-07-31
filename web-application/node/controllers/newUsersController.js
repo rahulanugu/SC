@@ -3,7 +3,6 @@ const router = express.Router();
 const { check,body, validationResult } = require('express-validator');
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
-const { NewRequestAccessUser } = require("../models/newRequestAccessUser");
 const nodemailer = require("nodemailer");
 
 const oauth2Client = new OAuth2(

@@ -1,16 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const { check,body, validationResult } = require('express-validator');
-const ObjectId = require('mongoose').Types.ObjectId;
-var { JobOpening } = require("../models/jobOpenings");
-var { JobApplication } = require("../models/jobApplications");
-var {JobCategory} = require("../models/jobCategories");
-const multer = require('multer');
-const GridFsStorage = require("multer-gridfs-storage");
-const crypto = require("crypto");
-const path = require("path");
-const mongoose = require("../db");
-const mongoURI = "mongodb+srv://scriptchain:hello925@cluster0-se5v0.gcp.mongodb.net/scriptchain?retryWrites=true&w=majority"
 const fs = require('fs');
 const {BigQuery} = require('@google-cloud/bigquery');
 const options = {
@@ -25,54 +15,6 @@ const bigquery = new BigQuery(options);
  * web application.
  */
 
-//creating a new db connection for local use
-const conn = mongoose.createConnection(mongoURI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-});
-
-//Checkingg if tthe file id of the requored format
-const fileFilter = (req,file,cb) => {
-    console.log("THe file is being checked");
-    if(file.mimetype === "application/pdf"){
-        cb(null,true);
-    } else{
-        cb(new Error("Invalid type of file is being tried to upload, please send pdf only."),false);
-        cb(null,false);
-    }
-
-}
-
-//getting the gridfs from db instance
-let gfs;
-conn.once("open", () => {
-  // init stream
-  gfs = new mongoose.mongo.GridFSBucket(conn.db, {
-    bucketName: "resumes"
-  });
-});
-
-//creating a new storage file
-const storage = new GridFsStorage({
-    url: mongoURI,
-    file: (req, file) => {
-      return new Promise((resolve, reject) => {
-        crypto.randomBytes(16, (err, buf) => {
-          if (err) {
-            return reject(err);
-          }
-          const filename = file.originalname
-          const fileInfo = {
-            filename: filename,
-            bucketName: "resumes"
-          };
-          resolve(fileInfo);
-        });
-      });
-    }
-  });
-
-const upload = multer({storage,fileFilter: fileFilter});
 
 /**
  * The method will create a job to the database
@@ -102,11 +44,6 @@ router.post("/jobposting",[check("title").notEmpty(),check('description').notEmp
   }
     console.log("posting a job to the database");
     req.body['_id'] = generateId(10);
-    /*if(Object.keys(req.body).length!=7){
-      res.status(500).json({
-        message: "Cannot save job in the database"
-      })
-    }*/
     const filename = 'jobPostingTmp.json';
     const datasetId = 'ScriptChain';
     const tableId = 'jobOpenings';
@@ -141,6 +78,9 @@ router.post("/jobposting",[check("title").notEmpty(),check('description').notEmp
  *         404 - If there are no jobOpning available in the db.
  */
 router.get('/jobposting', (req, res) => {
+  if(Object.keys(req.body).length>0){
+    return res.status(400).json({Message:'Bad Request'})
+  }
     const datasetId = 'ScriptChain';
     const tableId = 'jobOpenings';
     const table = bigquery
@@ -165,7 +105,10 @@ router.get('/jobposting', (req, res) => {
  *         200 - Returned along with all the job openings fron the given category
  *         404 - If there are no jobOpning available in the category the db.
  */
-router.get('/jobposting/:jobcategory',[check('jobcategory').notEmpty(),check('jobcategory')], (req, res) => {
+router.get('/jobposting/:jobcategory',[check('jobcategory').notEmpty(),body().custom(body => {
+  const keys = ['jobcategory'];
+  return Object.keys(body).every(key => keys.includes(key));
+}).withMessage('Some extra parameters are sent')], (req, res) => {
   const errors = validationResult(req);
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
@@ -210,11 +153,6 @@ router.post("/jobcategory",[check("title").notEmpty(),check('description').notEm
   }
   console.log("posting a jobcategory to the database");
   req.body['_id'] = generateId(10);
-    /*if(Object.keys(req.body).length!=3){
-      res.status(500).json({
-        message: "An error has occured trying to save the job categgory in the database"
-      })
-    }*/
     const filename = 'jobCategoryTmp.json';
     const datasetId = 'ScriptChain';
     const tableId = 'jobCategories';
@@ -249,6 +187,9 @@ router.post("/jobcategory",[check("title").notEmpty(),check('description').notEm
  *         404 - If there are no jobCategory available in the db.
  */
 router.get('/jobcategory', (req, res) => {
+  if(Object.keys(req.body).length>0){
+    return res.status(400).json({Message:'Bad Request'})
+  }
   const query = 'SELECT * FROM `scriptchainprod.ScriptChain.jobCategories` WHERE 1=1';
   bigquery.query(query, function(err, rows) {
     if(!err) {
@@ -298,188 +239,5 @@ router.get('/jobposting/job/:jobid',[check('jobid').notEmpty(),check('jobid').is
       }
     });
 });
-
-
-// method used to post a jobapplication to the database  : tested - false
-/**
- * The method will save the job application in the database
- * Input: Job application details as specified in the JobApplication schema + The resume file
- * Output: The status of the save operation
- *         201 - succesfully saved the applicattion in db
- *         500 - When an error occurs trying to the save the application
- */
-router.post("/jobapplication",upload.single('resume'), async (req, res,) => {
-    console.log("New Job Application Recieved, trying to post to database");
-    //console.log(req);
-    //console.log(req.file);
-    req.body['_id'] = generateId(10);
-    /*if(Object.keys(req.body).length!=11){
-      res.status(500).json({
-        message: "Cannot save jobapplication in the database"
-      })
-    }*/
-    const filename = 'jobApplicationTmp.json';
-    const datasetId = 'ScriptChain';
-    const tableId = 'jobApplications';
-
-    fs.writeFileSync(filename, JSON.stringify(req.body));
-
-    const [job] = await bigquery
-      .dataset(datasetId)
-      .table(tableId).load(filename);
-
-    // Check the job's status for errors
-    const errors = job.status.errors;
-    if (errors && errors.length > 0) {
-      res.status(500).json({
-        message: "Cannot save jobapplication in the database"
-      })
-    }else{
-      console.log(`Job ${job.id} completed.`);
-      res.status(200).json({
-        message: "Job Application saved in the database"
-      });
-    }
-});
-
-/**
- * Method is used to retrieve a specific resume of application from the database
- * Input: Name of the resume
- * Output: Resume if found
- *         200 - Resume is found
- *         404 - Resume with the given name was not found
- */
-
- //MongoDB
-router.get("/jobapplication/:filename", (req, res) => {
-    // console.log('id', req.params.id)
-    const file = gfs
-      .find({
-        filename: req.params.filename
-      })
-      .toArray((err, files) => {
-        if (!files || files.length === 0) {
-          return res.status(404).json({
-            err: "no files exist"
-          });
-        }
-        gfs.openDownloadStreamByName(req.params.filename).pipe(res);
-      });
-});
-
-
-//get a list of all the resumes in the bucket
-/**
- * The method will be used to get a list of all the resumes from the mongo bucket
- * Input: N/A
- * Output: A list of all the resumes
- *         200 - All resumes found
- *         404 - Could not find any resume in the database
- */
-//MongoDB
-router.get("/files", (req, res) => {
-    console.log("Trying to retrieve all the resumes from the bucket resumes")
-    gfs.find().toArray((err, files) => {
-      // check if files
-      if (!files || files.length === 0) {
-        return res.status(404).json({
-          err: "no files exist"
-        });
-      }
-      return res.status(200).json(files);
-    });
-  });
-
-
-/**
- * Mailer for sending the emails
- * @param {First name of reciever} fname
- * @param {Destination of Email} email
- */
-function mailer(fname, email) {
-    let transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        type: "OAuth2",
-        user: "noreply@scriptchain.co",
-        clientId:
-          "16828344230-21i76oqle90ehsrsrpptnb8ek2vqfjfp.apps.googleusercontent.com",
-        clientSecret: "ZYdS8bspVNCyBrSnxkMxzF2d",
-        refreshToken: "1/dK9w2flF6s52UnPPsQvjcM35pXvwu5z8PSQULIWCCgo",
-        accessToken: accessToken
-      }
-    });
-    let mailOptions = {
-      from: "badchhapesumod100@gmail.com",
-      to: email,
-      subject: "Hey it's Moh from ScriptChain",
-      html:
-        `<!DOCTYPE html>
-            <html lang="en">
-            <head>
-              <title>Bootstrap Example</title>
-              <meta charset="utf-8">
-            <link rel="stylesheet"
-              href="https://fonts.googleapis.com/css?family=Roboto">
-
-              <style>
-              .panelFooter{
-                  font-family: 'Roboto';
-                  background-color: #f2f5df;
-                  padding-top: 4px;
-                  padding-bottom: 4px;
-                  border-bottom-left-radius: 15px;
-                  border-bottom-right-radius: 15px;
-              }
-
-                .container1{
-                  width: 100%;
-                  font-family: 'Roboto';
-                  background-color: #00acc1;
-                  padding-top: 8px;
-                  padding-bottom: 8px;
-                  border-top-left-radius: 12px;
-                  border-top-right-radius: 12px;
-                }
-                h2{
-                  color: white;
-                font-family: 'Roboto', serif;
-                }
-            h1{
-
-                  font-family: 'Roboto', serif;
-            }
-                .para{
-                  font-family: 'Roboto';
-                  margin-left: 16px;
-                  margin-right: 16px;
-                }
-              </style>
-            </head>
-            <body>
-            <div class="container">
-              <div class="container1">
-                  <h2 align="center">Welcome to ScriptChain</h2>
-              </div>
-              <h1 align="center">We're thrilled to hear from you!</h1>
-              <p class="para">Hi ` +
-        fname +
-        `,</p>
-              <p class="para">We have received your submission and someone from the ScriptChain team will be in contact with you shortly. Stay tuned.</p>
-               <br><br>
-             <div class="panelFooter">
-                <p align="center" >This message was sent from ScriptChain LLC., Boston, MA</p>
-              </div>
-            </div>
-            </body>
-            </html>`
-    };
-    transporter.sendMail(mailOptions, (err, data) => {
-      if (err) {
-        return log("Error occurs");
-      }
-      return log("Email sent!!!");
-    });
-}
 
 module.exports = router;

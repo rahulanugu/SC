@@ -9,12 +9,8 @@ const express = require('express');
 const { check, body, validationResult } = require('express-validator');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
-const ObjectId = require('mongoose').Types.ObjectId;
 const hbs = require('nodemailer-express-handlebars');
 const jwt = require('jsonwebtoken');
-const { Patient } = require('../models/user');
-const { VerifiedUser } = require('../models/verifiedUser');
-const { HealthcareProvider} = require('../models/healthcareProvider');
 const { TokenSchema} = require('../models/tokeSchema');
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
@@ -138,13 +134,13 @@ router.post('/account/create',[check('firstName').notEmpty().withMessage('First 
 
     //Send the email with the verification email
 
-    /*sendVerificationMail(req.body.email,req.body.firstName,encryptedToken, (err,data) => {
+    sendVerificationMail(req.body.email,req.body.firstName,encryptedToken, (err,data) => {
         //Invoked the callback function od the sendverification email object
         if(err){
             res.status(500).send({message: "An error has occured trying to send the mail"});
         }
         res.status(200).send({message: "Verification mail with jwt token is sent"});
-    });*/
+    });
 })
 
 /**

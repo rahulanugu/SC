@@ -2,7 +2,6 @@ const express = require('express');
 const { check,body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-var { Patient } = require('../models/user');
 const nodemailer = require("nodemailer");
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
@@ -57,7 +56,7 @@ router.post('/', [check('email').notEmpty().isEmail(),body().custom(body => {
           const token = await jwt.sign({ patient }, "santosh", { expiresIn: 120 });
           const encryptedToken = Utility.EncryptToken(token);
           //mail the token
-          //sendVerificationMail(req.body.email, patient[0].fname, encryptedToken);
+          sendVerificationMail(req.body.email, patient[0].fname, encryptedToken);
 
           res.status(200).json({
             message: "Email has been sent to reset password"
@@ -66,38 +65,6 @@ router.post('/', [check('email').notEmpty().isEmail(),body().custom(body => {
 
       }
     });
-
-  //if patient email is is not found in the database, then return an error
-
-  //create a new JWT token and send it to the email of the user
-
-
-
-  // //check for password
-  // const validpassword = await bcrypt.compare(req.body.password, patient.password);
-
-  // if(!validpassword) return res.status(401).json({
-
-  //   message:"Invalid username or password"
-  // });
-
-
-  // create JSON Web Token
-  // *******make sure to change secret word to something secure and put it in env variable*****
-
-
-  //save the token
-  //   const resetPasswordToken = new ResetPasswordToken ({
-  //     token: token
-  //   });
-
-  //   resetPasswordToken.save((err, doc) => {
-  //     if (err) {
-  //       console.log('Error in saving reset password token: ' + JSON.stringify(err, undefined, 2));
-  //     }
-  // });
-
-  //encrypt the token
 });
 
 /**
