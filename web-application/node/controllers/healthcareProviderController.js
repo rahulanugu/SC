@@ -9,7 +9,6 @@ const express = require('express');
 const { check, body, validationResult } = require('express-validator');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
-const hbs = require('nodemailer-express-handlebars');
 const jwt = require('jsonwebtoken');
 const { TokenSchema} = require('../models/tokeSchema');
 const { google } = require("googleapis");
