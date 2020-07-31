@@ -1,4 +1,3 @@
-const nodemailer = require("nodemailer");
 const express = require("express");
 const { check,body, validationResult } = require('express-validator');
 const router = express.Router();
