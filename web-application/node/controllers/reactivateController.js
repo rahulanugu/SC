@@ -1,4 +1,5 @@
 const express = require("express");
+const { check, validationResult } = require('express-validator');
 const router = express.Router();
 const { Patient } = require('../models/user');
 const { HealthcareProvider} = require('../models/healthcareProvider');
@@ -12,7 +13,7 @@ var jwtDecode = require('jwt-decode');
 const fs = require('fs');
 const {BigQuery} = require('@google-cloud/bigquery');
 const options = {
-    keyFilename: '/Users/srikarpothumahanti/Desktop/scriptchain/web-application/node/serviceAccountKeys/scriptchainprod-96d141251382.json',
+    keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
     projectId: 'scriptchainprod'
 
 };
@@ -36,8 +37,14 @@ function generateId(count) {
   }
   return str;
 }
-router.post("/patient/request", async (req, res) => {
+router.post("/patient/request",[check('email').notEmpty().isEmail()],async (req, res) => {
+  const errors = validationResult(req);
+  if(!errors.isEmpty()){
+    return res.status(400).json({Message:'Bad Request'})
+  }
+    try{
     //find the patient
+
     console.log("Reactivating patient is being requested")
     //const patient = await DeactivatedPatient.findOne({Email : req.body.email});
     const query = 'SELECT * FROM `scriptchainprod.ScriptChain.deactivatedPatients` WHERE Email=@Email';
@@ -58,8 +65,8 @@ router.post("/patient/request", async (req, res) => {
           console.log('test');
           const token = jwt.sign({_id:patient._id,fname:patient.fname,email:patient.Email}, 'santosh', { expiresIn: 500 });
 
-          sendVerificationMail(req.body.email,patient.fname,token);
-      
+          //sendVerificationMail(req.body.email,patient.fname,token);
+
           return res.status(200).json(
               {
                   "message": "Email Sent"
@@ -69,10 +76,13 @@ router.post("/patient/request", async (req, res) => {
       }else{
         console.log(err);
       }
-    });
 
+    });
+  }catch(err){
+    console.log(err);
+  }
     //generate a jwt token with email,name
-    
+
     //email the token
 });
 
@@ -84,7 +94,11 @@ router.post("/patient/request", async (req, res) => {
  *          A mail with jwt token for verification will be sent to the user
  *         404 - user not found
  */
-router.post("/healthcare/request", async (req, res) => {
+router.post("/healthcare/request",[check('email').notEmpty().isEmail()],async (req, res) => {
+  const errors = validationResult(req);
+  if(!errors.isEmpty()){
+    return res.status(400).json({Message:'Bad Request'})
+  }
   //find the healthcareprovider
   console.log("Reactivating healthcareprovider is being requested")
   //const healthcareProvider = await DeactivatedHealthcareProvider.findOne({email : req.body.email});
@@ -106,7 +120,7 @@ router.post("/healthcare/request", async (req, res) => {
           //generate a jwt token with email,name
           const token = jwt.sign({_id:healthcareProvider._id,firstName:healthcareProvider.firstName,email:healthcareProvider.email}, 'santosh', { expiresIn: 500 });
 
-          sendVerificationMailHealthcare(req.body.email,healthcareProvider.firstName,token);
+          //sendVerificationMailHealthcare(req.body.email,healthcareProvider.firstName,token);
 
           return res.status(200).json(
               {
@@ -166,7 +180,7 @@ router.post("/patient/activate", async (req, res) => {
       if (!err) {
         if(rows.length>0){
           const patient = rows[0];
-          
+
           const filename = 'reactivatePatientsTmp.json';
           const datasetId = 'ScriptChain';
           const tableId = 'patients';

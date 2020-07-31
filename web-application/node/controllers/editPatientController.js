@@ -1,5 +1,6 @@
 const nodemailer = require("nodemailer");
 const express = require("express");
+const { check, validationResult } = require('express-validator');
 const router = express.Router();
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
@@ -10,7 +11,7 @@ const bcrypt = require('bcryptjs');
 const fs = require('fs');
 const {BigQuery} = require('@google-cloud/bigquery');
 const options = {
-    keyFilename: '/Users/srikarpothumahanti/Desktop/scriptchain/web-application/node/serviceAccountKeys/scriptchainprod-96d141251382.json',
+    keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
     projectId: 'scriptchainprod'
 
 };
@@ -23,7 +24,13 @@ const bigquery = new BigQuery(options);
  *         200 - Successfylly saved the request
  *         500 - An error occured trying to save the request
  */
-router.put("/fname", async (req, res) => {
+router.put("/fname", [check('email').isEmail(),
+check('fname').isAlpha().notEmpty()] ,async (req, res) => {
+  const e = validationResult(req);
+  if(!e.isEmpty()){
+    const firstError = e.array().map(error => error.msg)[0];
+    return res.status(400).json({ error: firstError });
+  }
 
   //const retrievedPatient = await Patient.findOne({ Email: req.body.email })
 
@@ -86,7 +93,13 @@ router.put("/fname", async (req, res) => {
  *         200 - Successfylly saved the request
  *         500 - An error occured trying to save the request
  */
-router.put("/lname", async (req, res) => {
+router.put("/lname",[check('email').isEmail().withMessage('Provide Email'),
+check('lname').isAlpha().withMessage('not alphbets').notEmpty()] ,async (req, res) => {
+  const e = validationResult(req);
+  if(!e.isEmpty()){
+    const firstError = e.array().map(error => error.msg)[0];
+    return res.status(400).json({ error: firstError });
+  }
 
   const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
     // req.body.email+'"';
@@ -148,7 +161,12 @@ router.put("/lname", async (req, res) => {
  *         200 - Successfylly saved the request
  *         500 - An error occured trying to save the request
  */
-router.put("/phone", async (req, res) => {
+router.put("/phone", [check('email').isEmail().withMessage('Provide Email'),check('phone').isMobilePhone().withMessage('Not a phonenumeber').notEmpty()] ,async(req, res) => {
+  const e = validationResult(req);
+  if(!e.isEmpty()){
+    const firstError = e.array().map(error => error.msg)[0];
+    return res.status(400).json({ error: firstError });
+  }
 
   const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
     // req.body.email+'"';
@@ -209,12 +227,10 @@ module.exports = router;
  *         200 - Successfylly saved the request
  *         500 - An error occured trying to save the request
  */
-router.put("/password", async (req, res) => {
-
+router.put("/password" ,async (req, res) => {
   console.log("Trying to edit the password of the user")
   console.log(req.body.email);
   console.log(req.body)
-
   const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
     // req.body.email+'"';
     const bigQueryOptions = {
@@ -267,7 +283,7 @@ router.put("/password", async (req, res) => {
                         res.status(500).json({ "message": "An error has occured trying to update the patient record in the dattabase" });
                       }else{
                         res.status(200).json({ "messafe": "Succesfully updatted the patient record in the database" });
-                        sendVerificationMail(req.body.email, retrievedPatient.fname);
+                        //sendVerificationMail(req.body.email, retrievedPatient.fname);
                       }
                   });
                 }

@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const { check, validationResult } = require('express-validator');
 const ObjectId = require('mongoose').Types.ObjectId;
 var { JobOpening } = require("../models/jobOpenings");
 var { JobApplication } = require("../models/jobApplications");
@@ -13,7 +14,7 @@ const mongoURI = "mongodb+srv://scriptchain:hello925@cluster0-se5v0.gcp.mongodb.
 const fs = require('fs');
 const {BigQuery} = require('@google-cloud/bigquery');
 const options = {
-    keyFilename: '/Users/srikarpothumahanti/Desktop/scriptchain/web-application/node/serviceAccountKeys/scriptchainprod-96d141251382.json',
+    keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
     projectId: 'scriptchainprod'
 
 };
@@ -140,10 +141,11 @@ router.get('/jobposting', (req, res) => {
       .table(tableId);
     table.getRows((err, rows) => {
       if (!err) {
-        res.status(200).json(rows);
-      }else{
+        if(rows.length>0)
+          res.status(200).json(rows);
+      else
         res.status(404).send({message: "Could not retrieve job openings from DB"});
-        next();
+        // next();
       }
     });
 });
@@ -156,7 +158,11 @@ router.get('/jobposting', (req, res) => {
  *         200 - Returned along with all the job openings fron the given category
  *         404 - If there are no jobOpning available in the category the db.
  */
-router.get('/jobposting/:jobcategory', (req, res) => {
+router.get('/jobposting/:jobcategory',[check('jobcategory').isEmpty(),check('jobcategory').isInt()], (req, res) => {
+  const errors = validationResult(req);
+  if(!errors.isEmpty()){
+    return res.status(400).json({Message:'Bad Request'})
+  }
   const query = 'SELECT * FROM `scriptchainprod.ScriptChain.jobOpenings` WHERE category=@category';
   // req.params.jobcategory+'"';
   const bigQueryOptions = {
@@ -166,10 +172,15 @@ router.get('/jobposting/:jobcategory', (req, res) => {
   }
   bigquery.query(bigQueryOptions, function(err, rows) {
     if(!err) {
-      res.status(200).json(rows);
-    }else{
+      if(rows.length>0)
+        res.status(200).json(rows);
+    else
       res.status(404).send({message: "Could not retrieve job openings from DB"});
-      next();
+      // next();
+    }
+    else{
+      res.status(500).send({message: "Server Error"});
+      console.log(err);
     }
   });
 });
@@ -245,23 +256,31 @@ router.get('/jobcategory', (req, res) => {
  *         200 - If the job is found
  *         404 - If the job with the given Id is not found
  */
-router.get('/jobposting/job/:jobid', (req, res) => {
+// router.get('/jobposting/job/:jobid', (req, res) => {
 
-    console.log("trying to retrieve the job")
-
-    const query1 = 'SELECT * FROM `scriptchainprod.ScriptChain.jobOpenings` WHERE _id=@id';
-  // req.params.jobid+'"';
-  const bigQueryOptions1 = {
-    query: query1,
-    location: 'US',
-    params: {id:req.params.jobid}
+router.get('/jobposting/job/:jobid',[check('jobid').notEmpty(),check('jobid').isLength(10)],(req, res) => {
+  const errors = validationResult(req);
+  if(!errors.isEmpty()){
+    return res.status(400).json({Message:'Bad Request'})
   }
-    bigquery.query(bigQueryOptions1, function(err, rows) {
+    const query = 'SELECT * FROM `scriptchainprod.ScriptChain.jobOpenings` WHERE _id=@id';
+  // req.params.jobid+'"';
+    const bigQueryOptions = {
+      query: query,
+      location: 'US',
+      params: {id:req.params.jobid}
+     }
+    bigquery.query(bigQueryOptions, function(err, rows) {
       if(!err) {
-        res.status(200).json(rows);
-      }else{
-        res.status(404).send({message: "Could not retrieve job openings from DB"});
-        next();
+        if(rows.length>0)
+          res.status(200).json(rows);
+        else
+          res.status(404).send({message: "Job ID doesn't exist"});
+        //next();
+      }
+      else{
+        res.status(500).send({message: "Server Error"});
+        console.log(err);
       }
     });
 });
@@ -275,7 +294,7 @@ router.get('/jobposting/job/:jobid', (req, res) => {
  *         201 - succesfully saved the applicattion in db
  *         500 - When an error occurs trying to the save the application
  */
-router.post("/jobapplication",upload.single('resume'), async (req, res, next) => {
+router.post("/jobapplication",upload.single('resume'), async (req, res,) => {
     console.log("New Job Application Recieved, trying to post to database");
     //console.log(req);
     //console.log(req.file);
@@ -317,7 +336,7 @@ router.post("/jobapplication",upload.single('resume'), async (req, res, next) =>
  *         404 - Resume with the given name was not found
  */
 
- //MongoDB 
+ //MongoDB
 router.get("/jobapplication/:filename", (req, res) => {
     // console.log('id', req.params.id)
     const file = gfs

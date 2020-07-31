@@ -1,5 +1,6 @@
 const nodemailer = require("nodemailer");
 const express = require("express");
+const { check, validationResult } = require('express-validator');
 const router = express.Router();
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
@@ -20,8 +21,9 @@ const accessToken = oauth2Client.getAccessToken();
 
 const fs = require('fs');
 const {BigQuery} = require('@google-cloud/bigquery');
+
 const options = {
-    keyFilename: '/Users/srikarpothumahanti/Desktop/scriptchain/web-application/node/serviceAccountKeys/scriptchainprod-96d141251382.json',
+    keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
     projectId: 'scriptchainprod'
 
 };
@@ -44,7 +46,11 @@ function generateId(count) {
   return str;
 }
 
-router.post("/", async (req, res) => {
+router.post("/",[check('fname').notEmpty().isAlpha(),check('lname').notEmpty().isAlpha(),check('email').isEmail(),check('message').notEmpty()], async (req, res) => {
+  const e = validationResult(req);
+  if(!e.isEmpty()){
+    return res.status(400).json({Message:'Bad Request'})
+  }
   console.log("hello");
   req.body['_id'] = generateId(10);
   const filename = 'contactUserTmp.json';
@@ -52,7 +58,7 @@ router.post("/", async (req, res) => {
   const tableId = 'contactUsers';
 
   fs.writeFileSync(filename, JSON.stringify(req.body));
-  
+
   const [job] = await bigquery
     .dataset(datasetId)
     .table(tableId).load(filename);
@@ -73,8 +79,8 @@ router.post("/", async (req, res) => {
 
   /**
    * Mailer for sending the emails
-   * @param {First name of reciever} fname 
-   * @param {Destination of Email} email 
+   * @param {First name of reciever} fname
+   * @param {Destination of Email} email
    */
   function mailer(fname, email) {
     let transporter = nodemailer.createTransport({
@@ -100,7 +106,7 @@ router.post("/", async (req, res) => {
           <meta charset="utf-8">
         <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Roboto">
-        
+
           <style>
           .panelFooter{
               font-family: 'Roboto';
@@ -108,7 +114,7 @@ router.post("/", async (req, res) => {
               padding-top: 4px;
               padding-bottom: 4px;
           }
-         
+
             .container1{
               width: 100%;
               font-family: 'Roboto';
@@ -121,7 +127,7 @@ router.post("/", async (req, res) => {
             font-family: 'Roboto', serif;
             }
         h1{
-                
+
               font-family: 'Roboto', serif;
         }
             .para{

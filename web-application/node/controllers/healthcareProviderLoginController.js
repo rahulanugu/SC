@@ -1,5 +1,5 @@
 const express = require('express');
-
+const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 
 const jwt = require('jsonwebtoken');
@@ -11,7 +11,7 @@ const { DeactivatedHealthcareProvider } = require('../models/deactivatedHealthca
 var router = express.Router();
 const {BigQuery} = require('@google-cloud/bigquery');
 const options = {
-    keyFilename: '/Users/srikarpothumahanti/Desktop/scriptchain/web-application/node/serviceAccountKeys/scriptchainprod-96d141251382.json',
+    keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
     projectId: 'scriptchainprod'
 
 };
@@ -22,7 +22,12 @@ const fs = require('fs');
  * Input: Body containing username and password.
  * Output: Jwt token and 200 status on success or 401 on failure
  */
-router.post('/', async (req, res) => {
+router.post('/',[check('emailAddress').notEmpty().isEmail(),check('password').notEmpty().exists()],async (req, res) => {
+  const errors = validationResult(req);
+  if(!errors.isEmpty()){
+    return res.status(400).json({Message:'Bad Request'})
+  }
+    try{
     console.log("Reached the login controller for the healthcare")
     console.log(req.body);
     //const healthcareProvider = await HealthcareProvider.findOne({ email: req.body.emailAddress });
@@ -34,6 +39,7 @@ router.post('/', async (req, res) => {
       location: 'US',
       params: {email:req.body.emailAddress}
     }
+    // console.log("require bigQueryoptions");
     bigquery.query(bigQueryOptions, async function(err, rows) {
       if(!err) {
         if(rows.length==0){
@@ -79,6 +85,9 @@ router.post('/', async (req, res) => {
         }
       }
     });
+  }catch(e){
+    console.log(e);
+  }
 
 
 

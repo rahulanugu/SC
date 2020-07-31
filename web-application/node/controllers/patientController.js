@@ -1,11 +1,12 @@
 /**
  * patientController.js
  * Uses express to create a RESTful API
- * Defines endpoints that allows application to perform CRUD operations  
+ * Defines endpoints that allows application to perform CRUD operations
  */
 const nodemailer = require('nodemailer');
 const log = console.log;
 const express = require('express');
+const { check, validationResult } = require('express-validator');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const ObjectId = require('mongoose').Types.ObjectId;
@@ -21,7 +22,7 @@ var Utility = require('../utility');
 const fs = require('fs');
 const {BigQuery} = require('@google-cloud/bigquery');
 const options = {
-    keyFilename: '/Users/srikarpothumahanti/Desktop/scriptchain/web-application/node/serviceAccountKeys/scriptchainprod-96d141251382.json',
+    keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
     projectId: 'scriptchainprod'
 
 };
@@ -37,7 +38,6 @@ oauth2Client.setCredentials({
     refresh_token:
       "ya29.GluBB_c8WGD6HI2wTAiAKnPeLap6FdqDdQYhplWyAPjw_ZBSNUNEMOfmsrVSDoHTAZWc8cjKHXXEEY_oMVJUq4YaoSD1LLseWzPNt2hcY2lCdhXAeuCxvDPbl6QP"
   });
-
 const accessToken = oauth2Client.getAccessToken()
 // http://localhost:3000/patient/
 
@@ -59,12 +59,13 @@ function generateId(count) {
   return str;
 }
 
-router.get('/', (req, res) => {
+router.get('/',async (req, res) => {
     console.log('you have entered');
     // Authentication to enter this?
     // How to secure this?
     // Need some sort of hack check. How do we check it?
     // Possible type of hacks for an API.
+
     const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE 1=1';
     bigquery.query(query, function(err, doc) {
       if (!err) {
@@ -74,7 +75,7 @@ router.get('/', (req, res) => {
           res.status(404).send({message: "No patients found"})
         }
       }
-      else {  
+      else {
         res.status(500).json({message: "DB Error"});
         console.log('Error in retrieving patients: ' + JSON.stringify(err, undefined, 2));
       }
@@ -90,7 +91,11 @@ router.get('/', (req, res) => {
  *         200 - patient details are found
  *         404 - An error occured/ No patients found
  */
-router.get('/:id', (req, res) => {
+router.get('/:id',[check('id').notEmpty()],(req, res) => {
+  const errors = validationResult(req);
+  if(!errors.isEmpty()){
+    return res.status(400).json({Message:'Bad Request'})
+  }
   //validation for id is a side task
   //express validation is a side task
   //usage of headers, how UI handles it?
@@ -120,7 +125,7 @@ router.get('/:id', (req, res) => {
  * Input: user object
  * Output: message whether the subscriber exists or not
  */
-router.post('/:verify',async(req,res)=>{   
+router.post('/:verify',async(req,res)=>{
   if(req.params.verify!="verify"){
     res.status(400).json({message: "Bad Request"});
   }
@@ -149,11 +154,21 @@ router.post('/:verify',async(req,res)=>{
  * Output: 400 - the user already exists
  *         200 - sent the verification mail
  */
-router.post('/',async(req,res)=>{
+router.post('/',[check('fname').notEmpty().withMessage("fname empty").isAlpha().withMessage('fname alpha'),check('lname').notEmpty().withMessage('lname not empty').isAlpha().withMessage("lname not empty"),check('Email').isEmail().withMessage('email').notEmpty().withMessage('email empty').exists().withMessage('email not exists'),check("address").notEmpty().withMessage('address empty'),check('phone').notEmpty().withMessage('phone number is empty'),check('birthday').notEmpty().withMessage('birthday is empty').isDate().withMessage('not date'),check('sex').notEmpty().withMessage('sex is empty'),check('ssn').notEmpty().withMessage('ssn is empty'),check('allergies').notEmpty().withMessage('allergies is empty'),check('ec').notEmpty().withMessage('ec is empty'),check('ecPhone').notEmpty().withMessage('ec phone not empty'),check('ecRelationship').notEmpty().withMessage('ecrelation not empty').isAlpha().withMessage('ec relation has to be alpha'),check("password").exists().withMessage('password not exists').notEmpty().withMessage('password is empty'),check('anemia').isBoolean(),check("asthma").isBoolean(),check("arthritis").isBoolean(),check("cancer").isBoolean(),check("gout").isBoolean(),check("diabetes").isBoolean(),check("emotionalDisorder").isBoolean(),check("epilepsy").isBoolean(),check("fainting").isBoolean(),check("gallstones").isBoolean(),check("heartDisease").isBoolean(),check("heartAttack").isBoolean(),check("rheumaticFever").isBoolean(),check("highBP").isBoolean(),check("digestiveProblems").isBoolean(),check("ulcerative").isBoolean(),check("ulcerDisease").isBoolean(),check("hepatitis").isBoolean(),check("kidneyDiseases").isBoolean(),check("liverDisease").isBoolean(),check("sleepApnea").isBoolean(),check("papMachine").isBoolean(),check("thyroid").isBoolean(),check("tuberculosis").isBoolean(),check("venereal").isBoolean(),check("neurologicalDisorders").isBoolean(),check("bleedingDisorders").isBoolean(),check("lungDisease").isBoolean(),check("emphysema").isBoolean(),check("none").isBoolean(),check("drink").notEmpty().withMessage('drink empty'),check("smoke").notEmpty().withMessage('smoke empty')],async (req, res) => {
+  const err = validationResult(req);
+  if(!err.isEmpty()){
+    const firstError = err.array().map(error => error.msg)[0];
+    return res.status(400).json({ error: firstError });
+  }
+  const e= validationResult(req);
+  if(!e.isEmpty()){
+    return res.status(400).json({Message:"Bad Request"});
+  }
 
     const tokeBody = req.body;
     // check if email already exist
     //const checkCurrentSubscriber = await VerifiedUser.findOne({email: req.body.email})
+    console.log(req);
     const query1= 'SELECT * FROM `scriptchainprod.ScriptChain.verifieduser` WHERE email = @email';
     const bigQueryOptions1 = {
       query: query1,
@@ -208,7 +223,7 @@ router.post('/',async(req,res)=>{
     const tableId = 'tokenSchema';
 
     fs.writeFileSync(filename, JSON.stringify(tokenSchema));
-    
+
     const [job] = await bigquery
       .dataset(datasetId)
       .table(tableId).load(filename);
@@ -217,9 +232,9 @@ router.post('/',async(req,res)=>{
 
     //encrypt the token before sending it
     var encryptedToken = Utility.EncryptToken(token);
-    sendVerificationMail(req.body.email,req.body.fname,encryptedToken);
+    //sendVerificationMail(req.body.email,req.body.fname,encryptedToken);
 
-})
+});
 
 
 const sendVerificationMail = (email,fname,encryptedToken)=>{
@@ -229,7 +244,7 @@ const sendVerificationMail = (email,fname,encryptedToken)=>{
         service : 'gmail',
         auth: {
             type: "OAuth2",
-            user: "moh@scriptchain.co", 
+            user: "moh@scriptchain.co",
             clientId: "867282827024-auj9ljqodshuhf3lq5n8r79q28b4ovun.apps.googleusercontent.com",
             clientSecret: "zjrK7viSEMoPXsEmVI_R7I6O",
             refreshToken: "1//04OyV2qLPD5iYCgYIARAAGAQSNwF-L9IrfYyKF4kF_HhkGaFjxxnxdgxU6tDbQ1l-BLlOIPtXtCDOSj9IkwiWekXwLCNWn9ruUiE",
@@ -239,7 +254,7 @@ const sendVerificationMail = (email,fname,encryptedToken)=>{
 
     //  create mail option with custom template, verification link and Json Web Token
     const mailOptions = {
-        from: 'noreply@scriptchain.co', 
+        from: 'noreply@scriptchain.co',
         to: email,
         subject: 'NO REPLY AT SCRIPTCHAIN.CO! Hey it\'s Moh from ScriptChain',
         html: `<!DOCTYPE html>
@@ -247,7 +262,7 @@ const sendVerificationMail = (email,fname,encryptedToken)=>{
         <head>
           <title>Bootstrap Example</title>
           <meta charset="utf-8">
-        
+
           <style>
           .panelFooter{
               font-family: Arial;
@@ -326,7 +341,7 @@ const sendVerificationMail = (email,fname,encryptedToken)=>{
           </div>
         </div>
         </body>
-        </html>        
+        </html>
         `
     }
 

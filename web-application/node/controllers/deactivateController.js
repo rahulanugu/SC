@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { Patient } = require('../models/user');
+const { check, validationResult } = require('express-validator');
 const { HealthcareProvider } = require('../models/healthcareProvider');
 const { DeactivatedPatient } = require('../models/deactivatedUser');
 const { DeactivatedHealthcareProvider } = require('../models/deactivatedHealthcareProvider');
@@ -8,7 +9,7 @@ const fs = require('fs');
 const {BigQuery} = require('@google-cloud/bigquery');
 const { table } = require("console");
 const options = {
-    keyFilename: '/Users/srikarpothumahanti/Desktop/scriptchain/web-application/node/serviceAccountKeys/scriptchainprod-96d141251382.json',
+    keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
     projectId: 'scriptchainprod'
 
 };
@@ -25,9 +26,13 @@ const bigquery = new BigQuery(options);
  *         500 - An error occured trying to perform the request
  *         404 - Patient not found
  */
-
-router.post("/patient", async (req, res) => {
-    console.log("reached deacivate controller");
+// doubt
+router.post("/patient",[check('Email').notEmpty().isEmail()], async (req, res) => {
+  const e = validationResult(req);
+  if(!e.isEmpty()){
+    return res.status(400).json({Message:'Bad Request'});
+  }
+    console.log("reached deacivate patient controller");
     const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@Email';
     // req.body.Email+'"';
     const bigQueryOptions = {
@@ -93,7 +98,11 @@ router.post("/patient", async (req, res) => {
  */
 
 //Update the code
-router.post("/healthcare", async (req, res) => {
+router.post("/healthcare",[check('email').notEmpty().isEmail()], async (req, res) => {
+  const e = validationResult(req);
+  if(!e.isEmpty()){
+    return res.status(400).json({Message:'Bad Request'});
+  }
     console.log("reached deacivate controller");
 
     const query = 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProviders` WHERE email=@email';
