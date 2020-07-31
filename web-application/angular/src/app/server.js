@@ -10,6 +10,8 @@
 
  // dependencies =======================================================
  const express = require('express'),
+
+//following are the packages required for node js server
     path = require('path'),
     bodyParser = require('body-parser'),
     cors = require('cors'),
@@ -18,7 +20,7 @@
 
     const app = express();
     app.use(bodyParser.json());
-    app.use(cors()); 
+    app.use(cors());
     let port = process.env.PORT || 4000;
     mongoose.Promise = global.Promise;
 
