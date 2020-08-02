@@ -67,13 +67,17 @@ router.post('/', [check('email').notEmpty().isEmail(),body().custom(body => {
     });
 });
 
+/*
+,
+*/
 /**
  * Verify the jwt token and return the if valid or not
  */
-router.post('/check', [check("jwtToken").notEmpty(),body().custom(body => {
-  const keys = ['jwtToken'];
+router.post('/check',[check("token").notEmpty(),body().custom(body => {
+  const keys = ['token'];
   return Object.keys(body).every(key => keys.includes(key));
 }).withMessage('Some extra parameters are sent')],async(req,res)=>{
+  console.log(req.body);
   const errors = validationResult(req);
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
@@ -97,11 +101,13 @@ router.post('/check', [check("jwtToken").notEmpty(),body().custom(body => {
 
 
 });
-
-router.post('/change_password', [check("jwtToken").notEmpty(),body().custom(body => {
-  const keys = ['jwtToken'];
+/*
+*/
+router.post('/change_password',[check("token").notEmpty(),check("password").notEmpty(),body().custom(body => {
+  const keys = ['token','password'];
   return Object.keys(body).every(key => keys.includes(key));
 }).withMessage('Some extra parameters are sent')],async(req,res)=>{
+  //console.log(req);
   const errors = validationResult(req);
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})

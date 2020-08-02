@@ -147,8 +147,8 @@ router.post("/healthcare/request",[check('email').notEmpty().isEmail(),body().cu
  *         500 - An error occured trying to perform the request
  *         404 - Patient not found
  */
-router.post("/patient/activate", [check("jwtToken").notEmpty(),body().custom(body => {
-  const keys = ['jwtToken'];
+router.post("/patient/activate", [check("token").notEmpty(),body().custom(body => {
+  const keys = ['token'];
   return Object.keys(body).every(key => keys.includes(key));
 }).withMessage('Some extra parameters are sent')],async(req,res)=>{
   const errors = validationResult(req);
@@ -243,8 +243,8 @@ router.post("/patient/activate", [check("jwtToken").notEmpty(),body().custom(bod
  *         500 - An error occured trying to perform the request
  *         404 - HealthcareProvider not found
  */
-router.post("/healthcare/activate", [check("jwtToken").notEmpty(),body().custom(body => {
-  const keys = ['jwtToken'];
+router.post("/healthcare/activate", [check("token").notEmpty(),body().custom(body => {
+  const keys = ['token'];
   return Object.keys(body).every(key => keys.includes(key));
 }).withMessage('Some extra parameters are sent')],async(req,res)=>{
   const errors = validationResult(req);

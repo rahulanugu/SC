@@ -90,8 +90,8 @@ router.post('/', [check('email').notEmpty().isEmail(),body().custom(body => {
 /**
  * Verify the jwt token and return the if valid or not
  */
-router.post('/check', [check("jwtToken").notEmpty(),body().custom(body => {
-  const keys = ['jwtToken'];
+router.post('/check', [check("token").notEmpty(),body().custom(body => {
+  const keys = ['token'];
   return Object.keys(body).every(key => keys.includes(key));
 }).withMessage('Some extra parameters are sent')],async(req,res)=>{
   const errors = validationResult(req);
@@ -118,7 +118,10 @@ router.post('/check', [check("jwtToken").notEmpty(),body().custom(body => {
 
 });
 
-router.post('/change_password', async(req,res) => {
+router.post('/change_password',[check("token").notEmpty(),check("password").notEmpty(),body().custom(body => {
+  const keys = ['token','password'];
+  return Object.keys(body).every(key => keys.includes(key));
+}).withMessage('Some extra parameters are sent')], async(req,res) => {
   console.log("Reached change password for healthcare provider")
   const str = req.body;
 
