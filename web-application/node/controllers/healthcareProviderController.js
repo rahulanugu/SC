@@ -58,8 +58,9 @@ function generateId(count) {
   }
   return str;
 }
-router.post('/account/create',[check('firstName').notEmpty().withMessage('First Name is required.').isAlpha().withMessage('First Name should be String'),check('lastName').notEmpty().withMessage('Last Name is required.').isAlpha().withMessage('Last Name should be String'),check('companyName').notEmpty().withMessage("Provide company name"),check('roleInCompany').notEmpty().withMessage("Provide the company name"),check('email').notEmpty().withMessage("Provide Email ID").isEmail().withMessage('Should Provide Email'),check('password').exists().notEmpty().withMessage('Please type your password'),body().custom(body => {
-  const keys = ['firstName','lastName','companyName','roleInCompany','email','password'];
+router.post('/account/create',[check('firstName').notEmpty().withMessage('First Name is required.').isAlpha().withMessage('First Name should be String'),check('lastName').notEmpty().withMessage('Last Name is required.').isAlpha().withMessage('Last Name should be String'),check('companyName').notEmpty().withMessage("Provide company name"),check('roleInCompany').notEmpty().withMessage("Provide the company name"),check('email').notEmpty().withMessage("Provide Email ID").isEmail().withMessage('Should Provide Email'),check('password').exists().notEmpty().withMessage('Please type your password'),
+check('phone').notEmpty().withMessage('Phone Number is required.'),body().custom(body => {
+  const keys = ['firstName','lastName','companyName','roleInCompany','email','password','phone'];
   return Object.keys(body).every(key => keys.includes(key));
 }).withMessage('Some extra parameters are sent')], async (req, res) => {
   const e = validationResult(req);
@@ -67,7 +68,6 @@ router.post('/account/create',[check('firstName').notEmpty().withMessage('First 
     const firstError = e.array().map(error => error.msg)[0];
     return res.status(400).json({ error: firstError });
   }
-    try{
     //Check if user alread exists
     const query= 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProviders` WHERE email=@email';
     // req.body.email+'"';
@@ -124,11 +124,9 @@ router.post('/account/create',[check('firstName').notEmpty().withMessage('First 
     if (errors && errors.length > 0) {
       console.log("Reference token could not be saved");
     }
-    console.log("End")
-    res.status(200).send({message: "Verification mail with jwt token is sent"});
-  }catch(e){
-    console.log(e)
-  }
+    //console.log("End")
+    //res1.status(200).send({message: "Verification mail with jwt token is sent"});
+    console.log("Verification mail with jwt token is sent");
 
 
     //Send the email with the verification email
