@@ -12,7 +12,7 @@ const options = {
 const bigquery = new BigQuery(options);
 //http request for patient login http://localhost:3000/patient-login/
 /**
- * This method validates the user/patient to log in to the portall.
+ * This method validates the user/patient to log in to the portal.
  * Input: Body, will contain email and the password of the user
  * Output: 401 - Invalid password or email
  *         200 - Jwt Token and first name
