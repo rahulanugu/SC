@@ -7,15 +7,24 @@ chai.use(chaiHttp);
 describe('/POST a query', () => {
   it('create a query', () => {
     let queryPost = {
-      'fname': 'John',
-      'lname': 'Doe',
       'email': 'johndoe@gmail.com',
-      'message': 'Hello'
       }
       chai.request('http://localhost:8080')
-          .post('/patient')
+          .post('/backend/deactivate/patient')
           .send(queryPost)
           .end((err, res) => {
           });
       });
     });
+  describe('/POST a query', () => {
+      it('create a query', () => {
+        let queryPost = {
+          'email': 'johndoe@gmail.com',
+          }
+          chai.request('http://localhost:8080')
+              .post('/backend/deactivate/healthcare')
+              .send(queryPost)
+              .end((err, res) => {
+              });
+          });
+        });
