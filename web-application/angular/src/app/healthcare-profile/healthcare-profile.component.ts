@@ -51,6 +51,7 @@ export class HealthcareProfileComponent implements OnInit {
   }
 
   openPatientProfile(patientId){
+
     console.log("patientId being rtried to access is "+patientId)
     this.router.navigate(["healthcare-profile/patient/",patientId]);
   }
