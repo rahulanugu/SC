@@ -31,7 +31,7 @@ Register Paitent Form
                     <label>Email*</label>
                     <input [class.is-invalid]="Form.get('email').invalid && Form.get('email').touched" formControlName="email" type="email" class="form-control" required>
                     <small [class.d-none]="Form.get('email').valid || Form.get('email').untouched" class="text-danger">Email is required.</small>
-                    <small  *ngIf = userAlreadyExist class="text-danger">Email is required.</small>
+                    <small  *ngIf = userAlreadyExist class="text-danger">User already exists</small>
                   </div>
                   <div class="form-group">
                     <label>Phone*</label>
@@ -42,6 +42,11 @@ Register Paitent Form
                     <label>Company Name*</label>
                     <input [class.is-invalid]="Form.get('companyName').invalid && Form.get('companyName').touched" formControlName="companyName" type="text" class="form-control" required>
                     <small [class.d-none]="Form.get('companyName').valid || Form.get('companyName').untouched" class="text-danger">Company Name is required.</small>
+                  </div>
+                  <div class="form-group">
+                    <label>EHR*</label>
+                    <input [class.is-invalid]="Form.get('ehr').invalid && Form.get('ehr').touched" formControlName="ehr" type="text" class="form-control" required>
+                    <small [class.d-none]="Form.get('ehr').valid || Form.get('ehr').untouched" class="text-danger">EHR is required.</small>
                   </div>
                   <div class="form-group">
                     <label>Role in Company*</label>

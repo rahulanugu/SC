@@ -53,6 +53,7 @@ export class HealthcareRegisterComponent implements OnInit {
     lastName: ["", Validators.required],
     email: ["", Validators.required],
     companyName: ["", Validators.required],
+    ehr: ["", Validators.required],
     roleInCompany: ["", Validators.required],
     password: ["", Validators.required],
     phone: ["", [Validators.required, CustomValidator.phoneValidator]]
