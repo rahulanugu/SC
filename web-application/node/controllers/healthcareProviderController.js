@@ -58,9 +58,13 @@ function generateId(count) {
   }
   return str;
 }
-router.post('/account/create',[check('firstName').notEmpty().withMessage('First Name is required.').isAlpha().withMessage('First Name should be String'),check('lastName').notEmpty().withMessage('Last Name is required.').isAlpha().withMessage('Last Name should be String'),check('companyName').notEmpty().withMessage("Provide company name"),check('roleInCompany').notEmpty().withMessage("Provide the company name"),check('email').notEmpty().withMessage("Provide Email ID").isEmail().withMessage('Should Provide Email'),check('password').exists().notEmpty().withMessage('Please type your password'),
-check('phone').notEmpty().withMessage('Phone Number is required.'),body().custom(body => {
-  const keys = ['firstName','lastName','companyName','roleInCompany','email','password','phone'];
+router.post('/account/create',[check('firstName').notEmpty().withMessage('First Name is required.').isAlpha().withMessage('First Name should be String')
+,check('lastName').notEmpty().withMessage('Last Name is required.').isAlpha().withMessage('Last Name should be String')
+,check('companyName').notEmpty().withMessage("Provide company name"),check('roleInCompany').notEmpty().withMessage("Provide the company name")
+,check('email').notEmpty().withMessage("Provide Email ID").isEmail().withMessage('Should Provide Email')
+,check('password').exists().notEmpty().withMessage('Please type your password'),
+check('phone').notEmpty().withMessage('Phone Number is required.'),check('ehr').notEmpty().withMessage('EHR is required.'),body().custom(body => {
+  const keys = ['firstName','lastName','companyName','roleInCompany','email','ehr','password','phone'];
   return Object.keys(body).every(key => keys.includes(key));
 }).withMessage('Some extra parameters are sent')], async (req, res) => {
   const e = validationResult(req);
