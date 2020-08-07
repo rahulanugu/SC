@@ -38,9 +38,9 @@ app.use(bodyParser.json());
 //Only when requests come from 4200(UI), console.log is working
 //Finally, it's important to serve static comment for testing of few APIs.
 
-/* app.use(
+ app.use(
    cors({
-     origin: "http://localhost:4200"
+     origin: "http://scriptchain.co"
    })
  );
 
@@ -50,7 +50,7 @@ app.use(bodyParser.json());
      "Access-Control-Allow-Headers",
      "Origin, X-Requested-With, Content-Type, Accept, Authorization"
    );
- });*/
+ });
 
 //for production mode uncomment below code and for local(local requests are handled on 8080 alone if commented)
 app.use(function (req, res, next) {
