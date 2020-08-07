@@ -42,9 +42,10 @@ export class HealthcareLoginComponent implements OnInit {
       res => {
         console.log(res)
         localStorage.setItem('token',res["idToken"])
-         localStorage.setItem('fname',res["firstName"])
-         localStorage.setItem('email', this.Form.value.emailAddress)
-        this.router.navigate(['healthcare-profile'])
+        localStorage.setItem('fname',res["firstName"])
+        localStorage.setItem('email', this.Form.value.emailAddress)
+        window.location.href = "https://uscdi.epic.com/interconnect-uscdi-oauth/oauth2/authorize?response_type=code&redirect_uri=https%3A%2F%2Fscriptchain.co%2Fhealthcare-profile&client_id=f0439b63-30ad-4103-8bb5-b58da64693c7"
+        //this.router.navigate(['healthcare-profile'])
       },
       err => {
         console.log(err)
