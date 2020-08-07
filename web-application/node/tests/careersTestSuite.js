@@ -18,7 +18,7 @@ describe('/POST Create a job', () => {
       'category': 'Design'
       }
       chai.request('http://localhost:8080')
-          .post('/jobposting')
+          .post('careers/jobposting')
           .send(jobPost)
           .end((err, res) => {
           });
@@ -49,7 +49,7 @@ describe('/POST Create jobcategory', () => {
       'description': 'Theyre in charge of determining what features the development team should build, working with UI and UX to figure out how to streamline the interface and overall user experience, and ensuring the product makes it to market.',
       }
       chai.request('http://localhost:8080')
-          .post('/jobcategory')
+          .post('careers/jobcategory')
           .send(jobPost)
           .end((err, res) => {
           });
@@ -71,9 +71,84 @@ describe('/POST jobapplication', () => {
       'resume': 'johnresume.pdf'
       }
       chai.request('http://localhost:8080')
-      .post("/jobapplication")
+      .post("careers/jobapplication")
       .send(jobApplication)
       .end((err, res) => {
           });
         });
     });
+// test case for the job openings by category
+// describe('test case for the job openings by category', () => {
+//   it('Should have been particular job category page ', (done) => {
+//       chai.request('http://localhost:8080')
+//       .get('/jobposting/:jobcategory')
+//       .end((err, res) => {
+//           if (err) {
+//               done(err)
+//           }
+//           expect(res).to.have.status(200);
+//           done()
+//       })
+//   })
+// })
+
+// //Test suite for the careers controller to get category function
+// describe('test case for the jobcategory', () => {
+//   it('Should have been categorypage', (done) => {
+//       chai.request('http://localhost:8080')
+//       .get('/jobcategory')
+//       .end((err, res) => {
+//           if (err) {
+//               done(err)
+//           }
+//           expect(res).to.have.status(200);
+//           done()
+//       })
+//   })
+// })
+
+// // Test suite to retrieve the job by id
+// describe('test case to retrieve the job by id', () => {
+//   it('Should have been particular job category page ', (done) => {
+//       chai.request('http://localhost:8080')
+//       .get('/jobposting/job/:jobid')
+//       .end((err, res) => {
+//           if (err) {
+//               done(err)
+//           }
+//           expect(res).to.have.status(200);
+//           done()
+//       })
+//   })
+// })
+
+// // Test suite to retrieve a specific resume of application
+// describe('to retrieve a specific resume of application', () => {
+//   it('Should have been resume of particular job applicant', (done) => {
+//       chai.request('http://localhost:8080')
+//       .get("/jobapplication/:filename")
+//       .end((err, res) => {
+//           if (err) {
+//               done(err)
+//           }
+//           expect(res).to.have.status(200);
+//           done()
+//       })
+//   })
+// })
+
+// // Test case for the list of all the resumes
+// describe('to retrieve the list of resumes', () => {
+//   it('Should have all the resumes', (done) => {
+//       chai.request('http://localhost:8080')
+//       .get("/files")
+//       .end((err, res) => {
+//           if (err) {
+//               done(err)
+//           }
+//           expect(res).to.have.status(200);
+//           done()
+//       })
+//   })
+// })
+
