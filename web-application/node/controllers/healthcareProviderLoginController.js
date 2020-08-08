@@ -1,5 +1,5 @@
 const express = require('express');
-const { check,body,validationResult } = require('express-validator');
+//const { check,body,validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 var router = express.Router();
@@ -16,14 +16,17 @@ const fs = require('fs');
  * Input: Body containing username and password.
  * Output: Jwt token and 200 status on success or 401 on failure
  */
-router.post('/',[check('emailAddress').notEmpty().isEmail(),check('password').notEmpty(),body().custom(body => {
+/*
+,[check('emailAddress').notEmpty().isEmail(),check('password').notEmpty(),body().custom(body => {
   const keys = ['emailAddress','password'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')],async (req, res) => {
-  const errors = validationResult(req);
+}).withMessage('Some extra parameters are sent')]
+*/
+router.post('/',async (req, res) => {
+  /*const errors = validationResult(req);
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
-  }
+  }*/
     try{
     console.log("Reached the login controller for the healthcare")
     console.log(req.body);
@@ -95,14 +98,17 @@ router.post('/',[check('emailAddress').notEmpty().isEmail(),check('password').no
  * Input: JwtToken
  * Output: 200 on success , 401,400 on error
  */
-router.post('/verifytokenintegrity',[check("jwtToken").notEmpty(),body().custom(body => {
+/*
+,[check("jwtToken").notEmpty(),body().custom(body => {
   const keys = ['jwtToken'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')],async(req,res)=>{
-  const errors = validationResult(req);
+}).withMessage('Some extra parameters are sent')]
+*/
+router.post('/verifytokenintegrity',async(req,res)=>{
+  /*const errors = validationResult(req);
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
-  }
+  }*/
 
     console.log("Verifying the integrity of the jwt token")
     console.log(req.body.jwtToken);

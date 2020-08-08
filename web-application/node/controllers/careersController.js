@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { check,body, validationResult } = require('express-validator');
+//const { check,body, validationResult } = require('express-validator');
 const fs = require('fs');
 const {BigQuery} = require('@google-cloud/bigquery');
 const options = {
@@ -33,15 +33,18 @@ function generateId(count) {
   }
   return str;
 }
-
-router.post("/jobposting",[check("title").notEmpty(),check('description').notEmpty(),check("salary").notEmpty(),check("location").notEmpty(),check("email").notEmpty(),check('category').notEmpty(),body().custom(body => {
+/*
+,[check("title").notEmpty(),check('description').notEmpty(),check("salary").notEmpty(),check("location").notEmpty(),check("email").notEmpty(),check('category').notEmpty(),body().custom(body => {
   const keys = ['title','description','salary','location','email','category'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')],async(req, res) => {
-  const err = validationResult(req);
+}).withMessage('Some extra parameters are sent')]
+*/
+
+router.post("/jobposting",async(req, res) => {
+  /*const err = validationResult(req);
   if(!err.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
-  }
+  }*/
     console.log("posting a job to the database");
     req.body['_id'] = generateId(10);
     const filename = 'jobPostingTmp.json';
@@ -113,14 +116,17 @@ router.get('/getchallenge?:challenge', (req, res) => {
  *         200 - Returned along with all the job openings fron the given category
  *         404 - If there are no jobOpning available in the category the db.
  */
-router.get('/jobposting/:jobcategory',[check('jobcategory').notEmpty(),body().custom(body => {
+/*
+,[check('jobcategory').notEmpty(),body().custom(body => {
   const keys = ['jobcategory'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')], (req, res) => {
-  const errors = validationResult(req);
+}).withMessage('Some extra parameters are sent')]
+*/
+router.get('/jobposting/:jobcategory', (req, res) => {
+  /*const errors = validationResult(req);
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
-  }
+  }*/
   const query = 'SELECT * FROM `scriptchainprod.ScriptChain.jobOpenings` WHERE category=@category';
   // req.params.jobcategory+'"';
   const bigQueryOptions = {
@@ -151,14 +157,17 @@ router.get('/jobposting/:jobcategory',[check('jobcategory').notEmpty(),body().cu
  *         200 - If the job category is succcesfully saved in the database
  *         500 - If the job couldn't be saved in the database
  */
-router.post("/jobcategory",[check("title").notEmpty(),check('description').notEmpty(),body().custom(body => {
+/*
+,[check("title").notEmpty(),check('description').notEmpty(),body().custom(body => {
   const keys = ['title','description'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')],async(req, res) => {
-  const e = validationResult(req);
+}).withMessage('Some extra parameters are sent')]
+*/
+router.post("/jobcategory",async(req, res) => {
+  /*const e = validationResult(req);
   if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
-  }
+  }*/
   console.log("posting a jobcategory to the database");
   req.body['_id'] = generateId(10);
     const filename = 'jobCategoryTmp.json';
@@ -221,11 +230,12 @@ router.get('/jobcategory', (req, res) => {
  */
 // router.get('/jobposting/job/:jobid', (req, res) => {
 
-router.get('/jobposting/job/:jobid',[check('jobid').notEmpty(),check('jobid').isLength(10)],(req, res) => {
-  const errors = validationResult(req);
+//,[check('jobid').notEmpty(),check('jobid').isLength(10)]
+router.get('/jobposting/job/:jobid',(req, res) => {
+  /*const errors = validationResult(req);
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
-  }
+  }*/
     const query = 'SELECT * FROM `scriptchainprod.ScriptChain.jobOpenings` WHERE _id=@id';
   // req.params.jobid+'"';
     const bigQueryOptions = {

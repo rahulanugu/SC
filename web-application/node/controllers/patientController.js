@@ -6,7 +6,7 @@
 const nodemailer = require('nodemailer');
 const log = console.log;
 const express = require('express');
-const { check,body,validationResult } = require('express-validator');
+//const { check,body,validationResult } = require('express-validator');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const { google } = require("googleapis");
@@ -85,11 +85,12 @@ router.get('/',async (req, res) => {
  *         200 - patient details are found
  *         404 - An error occured/ No patients found
  */
-router.get('/:id',[check('id').notEmpty()],(req, res) => {
-  const errors = validationResult(req);
+//,[check('id').notEmpty()]
+router.get('/:id',(req, res) => {
+  /*const errors = validationResult(req);
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
-  }
+  }*/
   //validation for id is a side task
   //express validation is a side task
   //usage of headers, how UI handles it?
@@ -151,7 +152,8 @@ router.post('/:verify',async(req,res)=>{
 /*
 ,
 */
-router.post('/',[check('fname').notEmpty().withMessage("fname empty").isAlpha().withMessage('fname alpha'),
+/*
+,[check('fname').notEmpty().withMessage("fname empty").isAlpha().withMessage('fname alpha'),
 check('lname').notEmpty().withMessage('lname not empty').isAlpha().withMessage("lname not empty"),
 check('email').isEmail().withMessage('email').notEmpty().withMessage('email empty').exists().withMessage('email not exists'),
 check("street").notEmpty().withMessage('street empty'),check("city").notEmpty().withMessage('city empty'),
@@ -180,8 +182,10 @@ check("smoke").notEmpty().withMessage('smoke empty'),body().custom(body => {
   "liverDisease","sleepApnea","papMachine","thyroid","tuberculosis","venereal","neurologicalDisorders",
   "bleedingDisorders","lungDisease","emphysema","none","drink","smoke"];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')],async(req, res) => {
-  console.log(req.body);
+}).withMessage('Some extra parameters are sent')]
+*/
+router.post('/',async(req, res) => {
+  /*console.log(req.body);
   const err = validationResult(req);
   if(!err.isEmpty()){
     const firstError = err.array().map(error => error.msg)[0];
@@ -190,7 +194,7 @@ check("smoke").notEmpty().withMessage('smoke empty'),body().custom(body => {
   const e= validationResult(req);
   if(!e.isEmpty()){
     return res.status(400).json({Message:"Bad Request"});
-  }
+  }*/
 
     const tokeBody = req.body;
     // check if email already exist

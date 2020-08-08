@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 const express = require("express");
-const { check,body, validationResult } = require('express-validator');
+//const { check,body, validationResult } = require('express-validator');
 const router = express.Router();
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
@@ -22,16 +22,19 @@ const bigquery = new BigQuery(options);
  *         200 - Successfylly saved the request
  *         500 - An error occured trying to save the request
  */
-router.put("/fname", [check('email').isEmail(),
+/*
+, [check('email').isEmail(),
 check('fname').isAlpha().notEmpty(),body().custom(body => {
   const keys = ['email','fname'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')],async (req, res) => {
-  const e = validationResult(req);
+}).withMessage('Some extra parameters are sent')]
+*/
+router.put("/fname",async (req, res) => {
+  /*const e = validationResult(req);
   if(!e.isEmpty()){
     const firstError = e.array().map(error => error.msg)[0];
     return res.status(400).json({ error: firstError });
-  }
+  }*/
 
   //const retrievedPatient = await Patient.findOne({ Email: req.body.email })
 
@@ -94,15 +97,18 @@ check('fname').isAlpha().notEmpty(),body().custom(body => {
  *         200 - Successfylly saved the request
  *         500 - An error occured trying to save the request
  */
-router.put("/lname",[check('email').isEmail().withMessage('Provide  Email'),check('lname').isAlpha().withMessage('not alphabets').notEmpty(),body().custom(body => {
+/*
+,[check('email').isEmail().withMessage('Provide  Email'),check('lname').isAlpha().withMessage('not alphabets').notEmpty(),body().custom(body => {
   const keys = ['email','lname'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')],async (req, res) => {
-  const e = validationResult(req);
+}).withMessage('Some extra parameters are sent')]
+*/
+router.put("/lname",async (req, res) => {
+  /*const e = validationResult(req);
   if(!e.isEmpty()){
     const firstError = e.array().map(error => error.msg)[0];
     return res.status(400).json({ error: firstError });
-  }
+  }*/
 
   const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
     // req.body.email+'"';
@@ -164,15 +170,18 @@ router.put("/lname",[check('email').isEmail().withMessage('Provide  Email'),chec
  *         200 - Successfylly saved the request
  *         500 - An error occured trying to save the request
  */
-router.put("/phone", [check('email').isEmail().withMessage('Provide Email'),check('phone').isMobilePhone().notEmpty(),body().custom(body => {
+/*
+, [check('email').isEmail().withMessage('Provide Email'),check('phone').isMobilePhone().notEmpty(),body().custom(body => {
   const keys = ['email','phone'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')],async(req, res) => {
-  const e = validationResult(req);
+}).withMessage('Some extra parameters are sent')]
+*/
+router.put("/phone",async(req, res) => {
+  /*const e = validationResult(req);
   if(!e.isEmpty()){
     const firstError = e.array().map(error => error.msg)[0];
     return res.status(400).json({ error: firstError });
-  }
+  }*/
 
   const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
     // req.body.email+'"';
@@ -233,11 +242,12 @@ module.exports = router;
  *         200 - Successfylly saved the request
  *         500 - An error occured trying to save the request
  */
-router.put("/password" ,[check('email').isEmail().notEmpty()],async (req, res) => {
-  const e = validationResult(req);
+//,[check('email').isEmail().notEmpty()]
+router.put("/password" ,async (req, res) => {
+  /*const e = validationResult(req);
   if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'});
-  }
+  }*/
   console.log("Trying to edit the password of the user")
   console.log(req.body.email);
   console.log(req.body)

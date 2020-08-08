@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { check,body,validationResult } = require('express-validator');
+//const { check,body,validationResult } = require('express-validator');
 const fs = require('fs');
 const {BigQuery} = require('@google-cloud/bigquery');
 const options = {
@@ -22,14 +22,17 @@ const bigquery = new BigQuery(options);
  *         404 - Patient not found
  */
 // doubt
-router.post("/patient",[check('Email').notEmpty().isEmail(),body().custom(body => {
+/*
+,[check('Email').notEmpty().isEmail(),body().custom(body => {
   const keys = ['Email'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')], async (req, res) => {
-  const e = validationResult(req);
+}).withMessage('Some extra parameters are sent')]
+*/
+router.post("/patient", async (req, res) => {
+  /*const e = validationResult(req);
   if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'});
-  }
+  }*/
     console.log("reached deacivate patient controller");
     const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@Email';
     // req.body.Email+'"';
@@ -96,14 +99,17 @@ router.post("/patient",[check('Email').notEmpty().isEmail(),body().custom(body =
  */
 
 //Update the code
-router.post("/healthcare",[check('email').notEmpty().isEmail(),body().custom(body => {
+/*
+,[check('email').notEmpty().isEmail(),body().custom(body => {
   const keys = ['email'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')],async (req, res) => {
-  const e = validationResult(req);
+}).withMessage('Some extra parameters are sent')]
+*/
+router.post("/healthcare",async (req, res) => {
+  /*const e = validationResult(req);
   if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'});
-  }
+  }*/
     console.log("reached deacivate controller");
 
     const query = 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProviders` WHERE email=@email';
