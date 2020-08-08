@@ -21,6 +21,16 @@ const randtoken = require('rand-token');
 var Utility = require('../utility')
 var jwtDecode = require('jwt-decode');
 
+const {BigQuery} = require('@google-cloud/bigquery');
+const options = {
+    keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
+    projectId: 'scriptchainprod'
+
+};
+const bigquery = new BigQuery(options);
+const fs = require('fs');
+
+
 
 //Creating a new oauthclientt for mailing
 const oauth2Client = new OAuth2(
@@ -38,6 +48,16 @@ oauth2Client.setCredentials({
 // retrieve an access token from oauthclient
 const accessToken = oauth2Client.getAccessToken()
 
+function generateId(count) {
+  var _sym = 'abcdefghijklmnopqrstuvwxyz1234567890';
+  var str = '';
+
+  for(var i = 0; i < count; i++) {
+      str += _sym[parseInt(Math.random() * (_sym.length))];
+  }
+  return str;
+}
+
 /**
  * Request the creation of a new healthcareprovider user
  * Input: Body, contains the details that are specified in healthcare provider data model
@@ -47,44 +67,75 @@ const accessToken = oauth2Client.getAccessToken()
  */
 router.post('/account/create',async(req,res)=>{
     
-    //Check if user alread exists
-    const checkIfExists = await HealthcareProvider.findOne({email: req.body.email});
-    if(checkIfExists){
-        console.log("Check email if exists")
-        return res.status(400).send({
-            message: 'User already exists'
-        })
-    }
-    console.log("email does not exist")
-
-    //Create a jwt token with details provided in body as payload
-    const tokeBody = req.body;
-    const token = await jwt.sign({tokeBody}, "santosh", { expiresIn: 300 });
-
-    //encrypt the token
-    var encryptedToken = Utility.EncryptToken(token);
-
-    //save the token for reference purposes - optional
-    var idToken = randtoken.generate(16);
-    const tokenSchema = new TokenSchema({
-        token: idToken,
-        email: req.body.email
-    })
-    tokenSchema.save((err,doc)=>{
-        if(err){
-            console.log("Reference token could not be saved")
+  const query= 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProviders` WHERE email=@email';
+  // req.body.email+'"';
+  const bigQueryOptions = {
+    query: query,
+    location: 'US',
+    params: {email:req.body.email}
+  }
+  bigquery.query(bigQueryOptions, function(err, row) {
+    if(!err) {
+        if (row.length>0){
+          return res.status(400).send({
+              message: 'User already exists'
+          })
         }
-    })
+      }
+  });
 
-    //Send the email with the verification email
+  console.log("email does not exist")
 
-    sendVerificationMail(req.body.email,req.body.firstName,encryptedToken, (err,data) => {
-        //Invoked the callback function od the sendverification email object
-        if(err){
-            res.status(500),send({message: "An error has occured trying to send the mail"});
-        }
-        res.status(200).send({message: "Verification mail with jwt token is sent"});
-    });
+  //Create a jwt token with details provided in body as payload
+  const tokeBody = req.body;
+  const token = await jwt.sign({tokeBody}, "santosh", { expiresIn: 300 });
+  console.log("JWT function")
+
+  //encrypt the token
+  var encryptedToken = Utility.EncryptToken(token);
+  console.log("Encrpt token")
+  //save the token for reference purposes - optional
+  var idToken = randtoken.generate(16);
+  const tokenSchema = new TokenSchema({
+      '_id': generateId(10),
+      token: idToken,
+      email: req.body.email
+  })
+  console.log("update token")
+  //Update the mongo here
+  /*tokenSchema.save((err,doc)=>{
+      if(err){
+          console.log("Reference token could not be saved")
+      }
+  })*/
+
+  const filename = 'tokenSchemaTmp.json';
+  const datasetId = 'ScriptChain';
+  const tableId = 'tokenSchema';
+
+  fs.writeFileSync(filename, JSON.stringify(tokenSchema));
+  console.log("write file")
+  const [job] = await bigquery
+    .dataset(datasetId)
+    .table(tableId).load(filename);
+  const errors = job.status.errors;
+  if (errors && errors.length > 0) {
+    console.log("Reference token could not be saved");
+  }
+  //console.log("End")
+  //res1.status(200).send({message: "Verification mail with jwt token is sent"});
+  console.log("Verification mail with jwt token is sent");
+
+
+  //Send the email with the verification email
+
+  sendVerificationMail(req.body.email,req.body.firstName,encryptedToken, (err,data) => {
+      //Invoked the callback function od the sendverification email object
+      if(err){
+          res.status(500).send({message: "An error has occured trying to send the mail"});
+      }
+      res.status(200).send({message: "Verification mail with jwt token is sent"});
+  });
 })
 
 /**
