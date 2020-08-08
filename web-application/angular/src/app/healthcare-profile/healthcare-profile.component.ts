@@ -19,8 +19,6 @@ export class HealthcareProfileComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    localStorage.setItem('code',window.location.href.split("?")[1]);
-    console.log(localStorage.getItem('code'));
     this.providerFirstName = localStorage.getItem('fname');
     this.dataService.getPosts().subscribe(posts => {
       this.allPatients = posts
@@ -51,7 +49,6 @@ export class HealthcareProfileComponent implements OnInit {
   }
 
   openPatientProfile(patientId){
-
     console.log("patientId being rtried to access is "+patientId)
     this.router.navigate(["healthcare-profile/patient/",patientId]);
   }

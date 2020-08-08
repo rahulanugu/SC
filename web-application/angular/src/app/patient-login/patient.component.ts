@@ -45,10 +45,9 @@ export class PatientComponent implements OnInit {
     
       onVerified(token){
         // verification using token and jwt
-        this.patientService.postVerifiredToken(token).subscribe((res)=>{
+        this.patientService.postVerifiredToken(token).subscribe(()=>{
           document.getElementById('verificationsuccessful').style.display = "block";
           localStorage.removeItem('user-jwt');
-          console.log(res);
         });
       }
   //check if user exist or not if user exist receive JWT and add to browser's local storage
