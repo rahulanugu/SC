@@ -1,15 +1,19 @@
 /**
  * patientController.js
  * Uses express to create a RESTful API
- * Defines endpoints that allows application to perform CRUD operations
+ * Defines endpoints that allows application to perform CRUD operations  
  */
 const nodemailer = require('nodemailer');
 const log = console.log;
 const express = require('express');
-//const { check, body, validationResult } = require('express-validator');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
+const ObjectId = require('mongoose').Types.ObjectId;
+const hbs = require('nodemailer-express-handlebars');
 const jwt = require('jsonwebtoken');
+const { Patient } = require('../models/user');
+const { VerifiedUser } = require('../models/verifiedUser');
+const { HealthcareProvider} = require('../models/healthcareProvider');
 const { TokenSchema} = require('../models/tokeSchema');
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
@@ -32,15 +36,7 @@ oauth2Client.setCredentials({
 });
 
 // retrieve an access token from oauthclient
-const accessToken = oauth2Client.getAccessToken();
-const {BigQuery} = require('@google-cloud/bigquery');
-const options = {
-    keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
-    projectId: 'scriptchainprod'
-
-};
-const bigquery = new BigQuery(options);
-const fs = require('fs');
+const accessToken = oauth2Client.getAccessToken()
 
 /**
  * Request the creation of a new healthcareprovider user
@@ -49,99 +45,43 @@ const fs = require('fs');
  *         500 - Error status
  *         400 - Already exists
  */
-function generateId(count) {
-  var _sym = 'abcdefghijklmnopqrstuvwxyz1234567890';
-  var str = '';
-
-  for(var i = 0; i < count; i++) {
-      str += _sym[parseInt(Math.random() * (_sym.length))];
-  }
-  return str;
-}
-/*
-[check('firstName').notEmpty().withMessage('First Name is required.').isAlpha().withMessage('First Name should be String')
-,check('lastName').notEmpty().withMessage('Last Name is required.').isAlpha().withMessage('Last Name should be String')
-,check('companyName').notEmpty().withMessage("Provide company name"),check('roleInCompany').notEmpty().withMessage("Provide the company name")
-,check('email').notEmpty().withMessage("Provide Email ID").isEmail().withMessage('Should Provide Email')
-,check('password').exists().notEmpty().withMessage('Please type your password'),
-check('phone').notEmpty().withMessage('Phone Number is required.'),check('ehr').notEmpty().withMessage('EHR is required.'),body().custom(body => {
-  const keys = ['firstName','lastName','companyName','roleInCompany','email','ehr','password','phone'];
-  return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')],
-*/
-router.post('/account/create', async (req, res) => {
-  /*const e = validationResult(req);
-  if(!e.isEmpty()){
-    const firstError = e.array().map(error => error.msg)[0];
-    return res.status(400).json({ error: firstError });
-  }*/
+router.post('/account/create',async(req,res)=>{
+    
     //Check if user alread exists
-    const query= 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProviders` WHERE email=@email';
-    // req.body.email+'"';
-    const bigQueryOptions = {
-      query: query,
-      location: 'US',
-      params: {email:req.body.email}
+    const checkIfExists = await HealthcareProvider.findOne({email: req.body.email});
+    if(checkIfExists){
+        console.log("Check email if exists")
+        return res.status(400).send({
+            message: 'User already exists'
+        })
     }
-    bigquery.query(bigQueryOptions, function(err, row) {
-      if(!err) {
-          if (row.length>0){
-            return res.status(400).send({
-                message: 'User already exists'
-            })
-          }
-        }
-    });
-
     console.log("email does not exist")
 
     //Create a jwt token with details provided in body as payload
     const tokeBody = req.body;
     const token = await jwt.sign({tokeBody}, "santosh", { expiresIn: 300 });
-    console.log("JWT function")
 
     //encrypt the token
     var encryptedToken = Utility.EncryptToken(token);
-    console.log("Encrpt token")
+
     //save the token for reference purposes - optional
     var idToken = randtoken.generate(16);
     const tokenSchema = new TokenSchema({
-        '_id': generateId(10),
         token: idToken,
         email: req.body.email
     })
-    console.log("update token")
-    //Update the mongo here
-    /*tokenSchema.save((err,doc)=>{
+    tokenSchema.save((err,doc)=>{
         if(err){
             console.log("Reference token could not be saved")
         }
-    })*/
-
-    const filename = 'tokenSchemaTmp.json';
-    const datasetId = 'ScriptChain';
-    const tableId = 'tokenSchema';
-
-    fs.writeFileSync(filename, JSON.stringify(tokenSchema));
-    console.log("write file")
-    const [job] = await bigquery
-      .dataset(datasetId)
-      .table(tableId).load(filename);
-    const errors = job.status.errors;
-    if (errors && errors.length > 0) {
-      console.log("Reference token could not be saved");
-    }
-    //console.log("End")
-    //res1.status(200).send({message: "Verification mail with jwt token is sent"});
-    console.log("Verification mail with jwt token is sent");
-
+    })
 
     //Send the email with the verification email
 
     sendVerificationMail(req.body.email,req.body.firstName,encryptedToken, (err,data) => {
         //Invoked the callback function od the sendverification email object
         if(err){
-            res.status(500).send({message: "An error has occured trying to send the mail"});
+            res.status(500),send({message: "An error has occured trying to send the mail"});
         }
         res.status(200).send({message: "Verification mail with jwt token is sent"});
     });
@@ -154,18 +94,8 @@ router.post('/account/create', async (req, res) => {
  *         400 - Already exists or an error occured
  *         500 - Unexpected errors
  */
-/*
-,[check("jwtToken").notEmpty(),body().custom(body => {
-  const keys = ['jwtToken'];
-  return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')]
-*/
 router.post('/account/verify',async(req,res)=>{
-  /*const errors = validationResult(req);
-  if(!errors.isEmpty()){
-    return res.status(400).json({Message:'Bad Request'})
-  }*/
-
+    
     // will recieve an encrypted jwt token
     var encryptedToken = req.body.jwtToken.replace(/ /g, '+');
 
@@ -178,55 +108,40 @@ router.post('/account/verify',async(req,res)=>{
     var decodedValue = jwtDecode(decryptedToken);
 
     //Before creating a new provider, check if already exists
+    const checkIfExists = await HealthcareProvider.findOne({email: decodedValue.tokeBody.email});
 
-
-    const query = 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProviders` WHERE email=@email';
-    // decodedValue.tokeBody.email+'"';
-    const bigQueryOptions = {
-      query: query,
-      location: 'US',
-      params: {email:decodedValue.tokeBody.email}
+    if(checkIfExists){
+        return res.status(400).send({
+            message: 'User already exists'
+        })
     }
-    bigquery.query(bigQueryOptions, function(err, row) {
-      if(!err) {
-          if (row.length>0){
-            console.log("Check email if exists")
-            return res.status(400).send({
-                message: 'User already exists'
-            })
-          }
-        }
-    });
-
-
 
     //Create a new user in the database
     //encrypt the password
     const salt = await bcrypt.genSaltSync(10);
     const hashpassword = await bcrypt.hash(decodedValue.tokeBody.password, salt);
 
-    json = decodedValue.tokeBody;
-    json['password'] = hashpassword;
-    json['_id'] = generateId(10);
+    //create a new healthcare provider object with the attributes from the decoded request body
+    const healthcareProvider = new HealthcareProvider({
+        firstName: decodedValue.tokeBody.firstName,
+        lastName: decodedValue.tokeBody.lastName,
+        companyName: decodedValue.tokeBody.companyName,
+        location: decodedValue.tokeBody.location,
+        roleInCompany: decodedValue.tokeBody.roleInCompany,
+        email: decodedValue.tokeBody.email,
+        password: hashpassword,
+        phone: decodedValue.tokeBody.phone
+    })
 
-    const filename = 'healthcareProviderTmp.json';
-    const datasetId = 'ScriptChain';
-    const tableId = 'healthcareProviders';
-
-    fs.writeFileSync(filename, JSON.stringify(json));
-
-    const table = bigquery.dataset(datasetId).table(tableId);
-
-    // Check the job's status for errors
-    //const errors = job.status.errors;
-    table.load(filename,(err,res1) =>{
-        if (err && err.length > 0) {
-          console.log('Error in saving patient: ' + JSON.stringify(err, undefined, 2));
-          res.status(500).send({message: 'An error has occured trying to create a new helathcareprovider user'})
-
-        }else{
-            //console.log(`Job ${job.id} completed.`);
+    healthcareProvider.save((err,doc) => {
+        if (!err) {
+            // returns saved patient and 24hex char unique id
+            
             res.status(200).send({message: 'The user has been created'});
+        }
+        else {
+            console.log('Error in saving patient: ' + JSON.stringify(err, undefined, 2));
+            res.status(500).send({message: 'An error has occured trying to create a new helathcareprovider user'})
         }
     });
 
@@ -239,7 +154,7 @@ const sendVerificationMail = (email,fname,encryptedToken, callback)=>{
         service : 'gmail',
         auth: {
             type: "OAuth2",
-            user: "moh@scriptchain.co",
+            user: "moh@scriptchain.co", 
             clientId: "867282827024-auj9ljqodshuhf3lq5n8r79q28b4ovun.apps.googleusercontent.com",
             clientSecret: "zjrK7viSEMoPXsEmVI_R7I6O",
             refreshToken: "1//04OyV2qLPD5iYCgYIARAAGAQSNwF-L9IrfYyKF4kF_HhkGaFjxxnxdgxU6tDbQ1l-BLlOIPtXtCDOSj9IkwiWekXwLCNWn9ruUiE",
@@ -249,7 +164,7 @@ const sendVerificationMail = (email,fname,encryptedToken, callback)=>{
 
     //  create mail option with custom template, verification link and Json Web Token
     const mailOptions = {
-        from: 'noreply@scriptchain.co',
+        from: 'noreply@scriptchain.co', 
         to: email,
         subject: 'NO REPLY AT SCRIPTCHAIN.CO! Hey it\'s Moh from ScriptChain',
         html: `<!DOCTYPE html>
@@ -257,7 +172,7 @@ const sendVerificationMail = (email,fname,encryptedToken, callback)=>{
         <head>
           <title>Bootstrap Example</title>
           <meta charset="utf-8">
-
+        
           <style>
           .panelFooter{
               font-family: Arial;
@@ -336,7 +251,7 @@ const sendVerificationMail = (email,fname,encryptedToken, callback)=>{
           </div>
         </div>
         </body>
-        </html>
+        </html>        
         `
     }
     // send email

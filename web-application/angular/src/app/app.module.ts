@@ -44,12 +44,9 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDialogModule} from '@angular/material/dialog';
-import {MatListModule} from '@angular/material/list';
-import {MatSidenavModule} from '@angular/material/sidenav';
 
 import { HomePageComponent } from './home-page/home-page.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
-import { SideBarComponent } from './sidebar/sidebar.component';
 import { DataService } from './data.service';
 import { HealthcareProfileComponent } from './healthcare-profile/healthcare-profile.component';
 import { MatRadioModule } from '@angular/material/radio';
@@ -101,7 +98,6 @@ import { MatConfirmDialogComponent } from './mat-confirm-dialog/mat-confirm-dial
 
     HomePageComponent,
     SearchBarComponent,
-    SideBarComponent,
     HealthcareProfileComponent,
     PatientHealthcareviewComponent,
     Error404Component,
@@ -134,9 +130,7 @@ import { MatConfirmDialogComponent } from './mat-confirm-dialog/mat-confirm-dial
     MatFormFieldModule,
     MatRadioModule,
     HighchartsChartModule,
-    MatDialogModule,
-    MatSidenavModule,
-    MatListModule
+    MatDialogModule
    ],
   providers: [
     DbService,
