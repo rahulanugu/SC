@@ -1,7 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { check,body,validationResult } = require('express-validator');
+//const { check,body,validationResult } = require('express-validator');
 const nodemailer = require("nodemailer");
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
@@ -24,15 +24,18 @@ const fs = require('fs');
  * Input: User/Patient email
  * Output: 401 - Email not found (or) 200 - Email has been sent
  */
-router.post('/', [check('email').notEmpty().isEmail(),body().custom(body => {
+/*
+, [check('email').notEmpty().isEmail(),body().custom(body => {
   const keys = ["email"];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')],async(req, res) => {
-  const err = validationResult(req);
+}).withMessage('Some extra parameters are sent')]
+*/
+router.post('/',async(req, res) => {
+  /*const err = validationResult(req);
   if(!err.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
   }
-  console.log("request is recieved and being processed")
+  console.log("request is recieved and being processed")*/
 
     if(!req.body.email || (req.body.email === " "))
       return res.status(401).json({message: "Email is not provided"});
@@ -90,14 +93,17 @@ router.post('/', [check('email').notEmpty().isEmail(),body().custom(body => {
 /**
  * Verify the jwt token and return the if valid or not
  */
-router.post('/check', [check("token").notEmpty(),body().custom(body => {
+/*
+, [check("token").notEmpty(),body().custom(body => {
   const keys = ['token'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')],async(req,res)=>{
-  const errors = validationResult(req);
+}).withMessage('Some extra parameters are sent')]
+*/
+router.post('/check',async(req,res)=>{
+  /*const errors = validationResult(req);
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
-  }
+  }*/
 
   // The token we get here is encrypted, so we need to decode it
   // will recieve an encrypted jwt token
@@ -117,11 +123,14 @@ router.post('/check', [check("token").notEmpty(),body().custom(body => {
 
 
 });
-
-router.post('/change_password',[check("token").notEmpty(),check("password").notEmpty(),body().custom(body => {
+/*
+,[check("token").notEmpty(),check("password").notEmpty(),body().custom(body => {
   const keys = ['token','password'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')], async(req,res) => {
+}).withMessage('Some extra parameters are sent')]
+*/
+
+router.post('/change_password', async(req,res) => {
   console.log("Reached change password for healthcare provider")
   const str = req.body;
 
