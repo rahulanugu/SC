@@ -22,12 +22,12 @@ var Utility = require('../utility')
 var jwtDecode = require('jwt-decode');
 
 const {BigQuery} = require('@google-cloud/bigquery');
-const options = {
+/*const options = {
     keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
     projectId: 'scriptchainprod'
 
-};
-const bigquery = new BigQuery(options);
+};*/
+const bigquery = new BigQuery();
 const fs = require('fs');
 
 
