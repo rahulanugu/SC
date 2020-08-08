@@ -23,12 +23,12 @@ var jwtDecode = require('jwt-decode');
 
 const {BigQuery} = require('@google-cloud/bigquery');
 /*const options = {
-    keyFilename: 'controllers/scriptchainprod-96d141251382.json',
+    keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
     projectId: 'scriptchainprod'
 
 };*/
 const bigquery = new BigQuery();
-const fs = require('fs');
+//const fs = require('fs');
 
 
 
@@ -96,34 +96,30 @@ router.post('/account/create',async(req,res)=>{
   console.log("Encrpt token")
   //save the token for reference purposes - optional
   var idToken = randtoken.generate(16);
-  const tokenSchema = new TokenSchema({
-      '_id': generateId(10),
-      token: idToken,
-      email: req.body.email
-  })
-  console.log("update token")
-  //Update the mongo here
-  /*tokenSchema.save((err,doc)=>{
-      if(err){
-          console.log("Reference token could not be saved")
-      }
-  })*/
-
-  const filename = 'tokenSchemaTmp.json';
-  const datasetId = 'ScriptChain';
-  const tableId = 'tokenSchema';
-
-  fs.writeFileSync(filename, JSON.stringify(tokenSchema));
-  console.log("write file")
-  const [job] = await bigquery
-    .dataset(datasetId)
-    .table(tableId).load(filename);
-  const errors = job.status.errors;
-  if (errors && errors.length > 0) {
-    console.log("Reference token could not be saved");
+  
+  var json = {
+    'id': generateId(10),
+    token: idToken,
+    email: req.body.email
+  };
+  var query1= "INSERT INTO `scriptchainprod.ScriptChain.tokenSchema` VALUES ("
+  for(var myKey in json) {
+    query1+="'"+json[myKey]+"', ";
   }
-  //console.log("End")
-  //res1.status(200).send({message: "Verification mail with jwt token is sent"});
+  query1 = query1.slice(0,query1.length-2);
+  query1 += ")";
+  console.log(query1);
+  const bigQueryOptions1 = {
+    query: query1,
+    location: 'US'
+  }
+  bigquery.query(bigQueryOptions1, function(err, row) {
+    if(!err) {
+        console.log('inserted successfully');
+    }else{
+      console.log(err);
+    }
+  });
   console.log("Verification mail with jwt token is sent");
 
 
