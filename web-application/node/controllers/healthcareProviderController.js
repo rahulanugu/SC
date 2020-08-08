@@ -6,7 +6,7 @@
 const nodemailer = require('nodemailer');
 const log = console.log;
 const express = require('express');
-const { check, body, validationResult } = require('express-validator');
+//const { check, body, validationResult } = require('express-validator');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -70,11 +70,11 @@ check('phone').notEmpty().withMessage('Phone Number is required.'),check('ehr').
 }).withMessage('Some extra parameters are sent')],
 */
 router.post('/account/create', async (req, res) => {
-  const e = validationResult(req);
+  /*const e = validationResult(req);
   if(!e.isEmpty()){
     const firstError = e.array().map(error => error.msg)[0];
     return res.status(400).json({ error: firstError });
-  }
+  }*/
     //Check if user alread exists
     const query= 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProviders` WHERE email=@email';
     // req.body.email+'"';
@@ -154,14 +154,17 @@ router.post('/account/create', async (req, res) => {
  *         400 - Already exists or an error occured
  *         500 - Unexpected errors
  */
-router.post('/account/verify',[check("jwtToken").notEmpty(),body().custom(body => {
+/*
+,[check("jwtToken").notEmpty(),body().custom(body => {
   const keys = ['jwtToken'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')],async(req,res)=>{
-  const errors = validationResult(req);
+}).withMessage('Some extra parameters are sent')]
+*/
+router.post('/account/verify',async(req,res)=>{
+  /*const errors = validationResult(req);
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
-  }
+  }*/
 
     // will recieve an encrypted jwt token
     var encryptedToken = req.body.jwtToken.replace(/ /g, '+');

@@ -1,5 +1,5 @@
 const express = require('express');
-const { check,body,validationResult } = require('express-validator');
+//const { check,body,validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 var router = express.Router();
@@ -17,14 +17,17 @@ const bigquery = new BigQuery(options);
  * Output: 401 - Invalid password or email
  *         200 - Jwt Token and first name
  */
-router.post('/',[check('email').notEmpty().isEmail(),check('password').notEmpty(),body().custom(body => {
+/*
+,[check('email').notEmpty().isEmail(),check('password').notEmpty(),body().custom(body => {
   const keys = ['email','password'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')],async (req, res) => {
-  const errors = validationResult(req);
+}).withMessage('Some extra parameters are sent')]
+*/
+router.post('/',async (req, res) => {
+  /*const errors = validationResult(req);
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
-  }
+  }*/
     //const patient = await Patient.findOne({Email: req.body.email});
     //if the patient is not found, try finding it in the deactivated patients collection
 
