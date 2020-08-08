@@ -1,5 +1,5 @@
 const express = require("express");
-const { check,body, validationResult } = require('express-validator');
+//const { check,body, validationResult } = require('express-validator');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const nodemailer = require("nodemailer");
@@ -33,14 +33,17 @@ function generateId(count) {
   }
   return str;
 }
-router.post("/patient/request",[check('email').notEmpty().isEmail(),body().custom(body => {
+/*
+,[check('email').notEmpty().isEmail(),body().custom(body => {
   const keys = ['email'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')],async (req, res) => {
-  const e = validationResult(req);
+}).withMessage('Some extra parameters are sent')]
+*/
+router.post("/patient/request",async (req, res) => {
+  /*const e = validationResult(req);
   if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'});
-  }
+  }*/
     try{
     //find the patient
 
@@ -93,14 +96,17 @@ router.post("/patient/request",[check('email').notEmpty().isEmail(),body().custo
  *          A mail with jwt token for verification will be sent to the user
  *         404 - user not found
  */
-router.post("/healthcare/request",[check('email').notEmpty().isEmail(),body().custom(body => {
+/*
+,[check('email').notEmpty().isEmail(),body().custom(body => {
   const keys = ['email'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')],async (req, res) => {
-  const e = validationResult(req);
+}).withMessage('Some extra parameters are sent')]
+*/
+router.post("/healthcare/request",async (req, res) => {
+  /*const e = validationResult(req);
   if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'});
-  }
+  }*/
   //find the healthcareprovider
   console.log("Reactivating healthcareprovider is being requested")
   //const healthcareProvider = await DeactivatedHealthcareProvider.findOne({email : req.body.email});
@@ -147,14 +153,17 @@ router.post("/healthcare/request",[check('email').notEmpty().isEmail(),body().cu
  *         500 - An error occured trying to perform the request
  *         404 - Patient not found
  */
-router.post("/patient/activate", [check("token").notEmpty(),body().custom(body => {
+/*
+, [check("token").notEmpty(),body().custom(body => {
   const keys = ['token'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')],async(req,res)=>{
-  const errors = validationResult(req);
+}).withMessage('Some extra parameters are sent')]
+*/
+router.post("/patient/activate",async(req,res)=>{
+  /*const errors = validationResult(req);
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
-  }
+  }*/
 
     //check validity of token
 
@@ -243,14 +252,17 @@ router.post("/patient/activate", [check("token").notEmpty(),body().custom(body =
  *         500 - An error occured trying to perform the request
  *         404 - HealthcareProvider not found
  */
-router.post("/healthcare/activate", [check("token").notEmpty(),body().custom(body => {
+/*
+, [check("token").notEmpty(),body().custom(body => {
   const keys = ['token'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')],async(req,res)=>{
-  const errors = validationResult(req);
+}).withMessage('Some extra parameters are sent')]
+*/
+router.post("/healthcare/activate",async(req,res)=>{
+  /*const errors = validationResult(req);
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
-  }
+  }*/
   //check validity of token
 
  const verification = await jwt.verify(req.body.token, 'santosh', (err, data) => {

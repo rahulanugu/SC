@@ -1,5 +1,5 @@
 const express = require('express');
-const { check,body, validationResult } = require('express-validator');
+//const { check,body, validationResult } = require('express-validator');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 var Utility = require('../utility');
@@ -22,14 +22,17 @@ function generateId(count) {
     return str;
 }
 
-router.post('/',[check("jwtToken").notEmpty(),body().custom(body => {
+/*
+,[check("jwtToken").notEmpty(),body().custom(body => {
   const keys = ['jwtToken'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')],async(req,res)=>{
-  const errors = validationResult(req);
+}).withMessage('Some extra parameters are sent')]
+*/
+router.post('/',async(req,res)=>{
+  /*const errors = validationResult(req);
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
-  }
+  }*/
 
     console.log("Creating an actual user after verification in the database");
 
