@@ -21,13 +21,10 @@ export class HealthcareResetPasswordComponent implements OnInit {
   submit(){
     this.service.requestPasswordChangeForHealthcare(this.email).subscribe(
       response => {
-        console.log(response);
-        console.log(this.visible);
         this.errorVisible = false;
         this.visible = !this.visible;
       },
       error => {
-        console.log(error);
         this.errorVisible = true;
       }
     );

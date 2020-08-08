@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-//const { check,body, validationResult } = require('express-validator');
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
+const { NewRequestAccessUser } = require("../models/newRequestAccessUser");
 const nodemailer = require("nodemailer");
 
 const oauth2Client = new OAuth2(
@@ -17,14 +17,6 @@ oauth2Client.setCredentials({
 });
 
 const accessToken = oauth2Client.getAccessToken();
-const {BigQuery} = require('@google-cloud/bigquery');
-const options = {
-    keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
-    projectId: 'scriptchainprod'
-
-};
-const bigquery = new BigQuery(options);
-const fs = require('fs');
 
 /**
  * Method to save a new rew request access user
@@ -33,71 +25,38 @@ const fs = require('fs');
  *         200 - Succesfully saved the request
  *         500 - Couldnot complete the request of saving the new request access user
  */
-function generateId(count) {
-  var _sym = 'abcdefghijklmnopqrstuvwxyz1234567890';
-  var str = '';
+router.post("/", async (req, res) => {
+  const emailExist = await NewRequestAccessUser.findOne({
+    email: req.body.email
+  });
+  if (emailExist) {
+    return res.status(400).json({
+      message: "Email is already registered"
+    });
+  }
 
-  for(var i = 0; i < count; i++) {
-      str += _sym[parseInt(Math.random() * (_sym.length))];
-  }
-  return str;
-}
-/*
-,[check('fname').notEmpty().withMessage('First Name is required.').isAlpha().withMessage('First Name should be String'),check('lname').notEmpty().withMessage('Last Name is required.').isAlpha().withMessage('Last Name should be String'),check('email').notEmpty().withMessage("Provide Email ID").isEmail().withMessage('Should Provide Email'),check('typeOfUser').notEmpty().withMessage('Should Provide typeOfUser'),body().custom(body => {
-  const keys = ['fname','lname','email','typeOfUser'];
-  return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')]
-*/
-router.post("/",async (req, res) => {
-  /*const e = validationResult(req);
-  if(!e.isEmpty()){
-    const firstError = e.array().map(error => error.msg)[0];
-    return res.status(400).json({ error: firstError });
-  }*/
-  const query = 'SELECT * FROM `scriptchainprod.ScriptChain.newUsers` WHERE email=@email';
-  // req.body.email+'"';
-  const bigQueryOptions = {
-    query: query,
-    location: 'US',
-    params: {email:req.body.email}
-  }
-  bigquery.query(bigQueryOptions, function(err, rows) {
-    if(!err) {
-      if(rows.length>0){
-        return res.status(400).json({
-          message: "Email is already registered"
-        });
-      }
+  var newrequestaccessuser = new NewRequestAccessUser({
+    fname: req.body.fname,
+    lname: req.body.lname,
+    email: req.body.email,
+    typeOfUser: req.body.typeOfUser
+  });
+  newrequestaccessuser.save((err, doc) => {
+    if (!err) {
+      res.status(200).json({
+        message: "Your message has been saved"
+      });
+      mailer(req.body.fname, req.body.email);
+    } else {
+      console.log("error in saving requested access user");
+      res.status(500).send({ messsage: "An error has occured trying to execute the request" })
     }
   });
 
-  const filename = 'newUsersTmp.json';
-  const datasetId = 'ScriptChain';
-  const tableId = 'newUsers';
-  req.body['_id'] = generateId(10);
-  fs.writeFileSync(filename, JSON.stringify(req.body));
-
-  const [job] = await bigquery
-    .dataset(datasetId)
-    .table(tableId).load(filename);
-
-  // Check the job's status for errors
-  const errors = job.status.errors;
-  if (errors && errors.length > 0) {
-    console.log("error in saving requested access user");
-      res.status(500).send({ messsage: "An error has occured trying to execute the request" })
-  }else{
-    console.log(`Job ${job.id} completed.`);
-    res.status(200).json({
-      message: "Your message has been saved"
-    });
-    mailer(req.body.fname, req.body.email);
-  }
-
   /**
  * Mailer for sending the emails
- * @param {First name of reciever} fname
- * @param {Destination of Email} email
+ * @param {First name of reciever} fname 
+ * @param {Destination of Email} email 
  */
   const mailer = (fname, email) => {
     //create a transporter with OAuth2
@@ -126,7 +85,7 @@ router.post("/",async (req, res) => {
               <meta charset="utf-8">
             <link rel="stylesheet"
               href="https://fonts.googleapis.com/css?family=Roboto">
-
+            
               <style>
               .panelFooter{
                   font-family: 'Roboto';
@@ -136,7 +95,7 @@ router.post("/",async (req, res) => {
                   border-bottom-left-radius: 15px;
                   border-bottom-right-radius: 15px;
               }
-
+             
                 .container1{
                   width: 100%;
                   font-family: 'Roboto';
@@ -151,7 +110,7 @@ router.post("/",async (req, res) => {
                 font-family: 'Roboto', serif;
                 }
             h1{
-
+                    
                   font-family: 'Roboto', serif;
             }
                 .para{
