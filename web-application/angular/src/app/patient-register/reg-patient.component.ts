@@ -171,8 +171,7 @@ export class RegPatientComponent implements OnInit {
     this.patientService
       .checkUser(this.patientService.selectedPatient.email)
       .subscribe(doc => {
-        console.log(doc);
-        if (doc == "Does not exist") {
+        if (doc == "doesnot exist") {
           document.getElementById("emailValue").style.borderColor = "";
           if (this.patientService.selectedPatient.password == this.values) {
             this.passwordNotMatch = false;

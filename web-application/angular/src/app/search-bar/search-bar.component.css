@@ -7,13 +7,3 @@
   .example-radio-button {
     margin: 5px;
   }
-
-  .inputBox{
-    border: 1px solid black;
-    border-radius: 4px;
-    padding: 10px;
-  }
-
-  ::ng-deep .mat-form-field-underline{
-    display: none;
-}
