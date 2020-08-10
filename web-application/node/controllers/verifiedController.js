@@ -1,51 +1,41 @@
 const express = require('express');
+const { check,body, validationResult } = require('express-validator');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
-const ObjectId = require('mongoose').Types.ObjectId;
-const jwt = require('jsonwebtoken');
-const { Patient } = require('../models/user');
-const { VerifiedUser } = require('../models/verifiedUser');
 var Utility = require('../utility');
 var jwtDecode = require('jwt-decode');
+const fs = require('fs');
+const {BigQuery} = require('@google-cloud/bigquery');
+const options = {
+    keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
+    projectId: 'scriptchainprod'
 
+};
+const bigquery = new BigQuery(options);
+function generateId(count) {
+    var _sym = 'abcdefghijklmnopqrstuvwxyz1234567890';
+    var str = '';
 
+    for(var i = 0; i < count; i++) {
+        str += _sym[parseInt(Math.random() * (_sym.length))];
+    }
+    return str;
+}
 
-// using jwt and token
-// const passportJWT = require('passport-jwt');
-// const JwtStrategy = passportJWT.Strategy;
-// const ExtractJwt = passportJWT.ExtractJwt;
-// const passport = require('passport');
-
-// const opts = {
-//     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-//     secretOrKey: 'santosh'
-
-// };
-  
-// const strategy = new JwtStrategy(opts, (payload, next) => {
-//     // User.forge({ id: payload.id }).fetch().then(res => {
-//     //   next(null, res);
-//     // });
-// });
-
-// passport.use(strategy);
-
-// router.use(passport.initialize());
-
-// router.post('/', passport.authenticate('jwt', { session: false }),
-//     function(req, res) {
-//         //res.send(req.user.profile);
-//         console.log(res)
-//     }
-// );
-
-router.post('/',async(req, res) => {
+router.post('/',[check("jwtToken").notEmpty(),body().custom(body => {
+  const keys = ['jwtToken'];
+  return Object.keys(body).every(key => keys.includes(key));
+}).withMessage('Some extra parameters are sent')],async(req,res)=>{
+  const errors = validationResult(req);
+  if(!errors.isEmpty()){
+    return res.status(400).json({Message:'Bad Request'})
+  }
 
     console.log("Creating an actual user after verification in the database");
-    
+
     //the body consists of an encrypted jwt token
     //console.log("req bdy is "+req.body.jwtToken)
-    
+
     //the incoming strings are improperly formatted with '+' being replaced with spaces
 
     //correcting the format by replacing spaces with '+'
@@ -57,93 +47,96 @@ router.post('/',async(req, res) => {
     //decoding the token
     var decodedValue = jwtDecode(decryptedToken);
 
-    const checkCurrentSubscriber = await VerifiedUser.findOne({email: decodedValue.tokeBody.email})
-
-    if (checkCurrentSubscriber){
-        return res.status(400).send('Subscriber already exists')
+    const query = 'SELECT * FROM `scriptchainprod.ScriptChain.verifieduser` WHERE email=@email';
+    const bigQueryOptions={
+        query:query,
+        location:'US',
+        params:{email:decodedValue.tokeBody.email}
+    }
+    bigquery.query(bigQueryOptions, function(err, checkCurrentSubscriber) {
+      if (!err) {
+        if (checkCurrentSubscriber.length>0){
+            return res.json('Subscriber already Exists')
+        }
+    }else{
+        res.status(500).json({message:"DB Error"});
     }
 
-    console.log('checkCurrentSubscriber',checkCurrentSubscriber);
+    });
+
+
     //encrypt the password
     const salt = await bcrypt.genSaltSync(10);
     const hashpassword = await bcrypt.hash(decodedValue.tokeBody.password, salt);
 
     //add new patient
-    const patient = new Patient({
+    const patient = decodedValue.tokeBody;
+    patient['password'] = hashpassword;
+    patient['_id'] = generateId(10);
+    patient['Email'] =  new String(patient['email']);
+    delete patient['street'];
+    delete patient['city'];
+    delete patient['state'];
+    delete patient['zip'];
+    delete patient['country'];
+    delete patient['email'];
+
+    var verifieduser = {
+        _id: generateId(10),
         fname: decodedValue.tokeBody.fname,
         lname: decodedValue.tokeBody.lname,
-        Email: decodedValue.tokeBody.email,
-        address: decodedValue.tokeBody.address,
-        phone: decodedValue.tokeBody.phone,
-        birthday: decodedValue.tokeBody.birthday,
-        sex: decodedValue.tokeBody.sex,
-        ssn: decodedValue.tokeBody.ssn,
-        allergies: decodedValue.tokeBody.allergies,
-        ec: decodedValue.tokeBody.ec,
-        ecPhone: decodedValue.tokeBody.ecPhone,
-        ecRelationship: decodedValue.tokeBody.ecRelationship,
-        password: hashpassword,
-        anemia: decodedValue.tokeBody.anemia,
-        asthma:decodedValue.tokeBody.asthma,
-        arthritis: decodedValue.tokeBody.arthritis,
-        cancer: decodedValue.tokeBody.cancer,
-        gout: decodedValue.tokeBody.gout,
-        diabetes: decodedValue.tokeBody.diabetes,
-        emotionalDisorder: decodedValue.tokeBody.emotionalDisorder,
-        epilepsy: decodedValue.tokeBody.epilepsy,
-        fainting: decodedValue.tokeBody.fainting,
-        gallstones: decodedValue.tokeBody.gallstones,
-        heartDisease: decodedValue.tokeBody.heartDisease,
-        heartAttack: decodedValue.tokeBody.heartAttack,
-        rheumaticFever: decodedValue.tokeBody.rheumaticFever,
-        highBP: decodedValue.tokeBody.highBP,
-        digestiveProblems: decodedValue.tokeBody.digestiveProblems,
-        ulcerative: decodedValue.tokeBody.ulcerative,
-        ulcerDisease: decodedValue.tokeBody.ulcerDisease,
-        hepatitis: decodedValue.tokeBody.hepatitis,
-        kidneyDiseases: decodedValue.tokeBody.kidneyDiseases,
-        liverDisease: decodedValue.tokeBody.liverDisease ,
-        sleepApnea: decodedValue.tokeBody.sleepApnea,
-        papMachine: decodedValue.tokeBody.papMachine,
-        thyroid: decodedValue.tokeBody.thyroid,
-        tuberculosis: decodedValue.tokeBody.tuberculosis,
-        venereal: decodedValue.tokeBody.venereal,
-        neurologicalDisorders: decodedValue.tokeBody.neurologicalDisorders,
-        bleedingDisorders: decodedValue.tokeBody.bleedingDisorders,
-        lungDisease: decodedValue.tokeBody.lungDisease,
-        emphysema: decodedValue.tokeBody.emphysema,
-        none: decodedValue.tokeBody.none,
-        drink: decodedValue.tokeBody.drink,
-        smoke: decodedValue.tokeBody.smoke
+        email: patient['Email'],
+    };
+
+    var query3= "INSERT INTO `scriptchainprod.ScriptChain.verifieduser` VALUES ("
+    for(var myKey in verifieduser) {
+      query3+="'"+verifieduser[myKey]+"', ";
+    }
+    query3 = query3.slice(0,query3.length-2);
+    query3 += ")";
+    console.log(query3);
+    const bigQueryOptions3 = {
+      query: query3,
+      location: 'US'
+    }
+    bigquery.query(bigQueryOptions3, function(err, row) {
+      if(!err) {
+          console.log('Inserted successfully');
+      }else{
+        console.log("error");
+        console.log(err);
+      }
     });
 
-    const verifieduser= new VerifiedUser({
-        fname: decodedValue.tokeBody.fname,
-        lname: decodedValue.tokeBody.lname,
-        email: decodedValue.tokeBody.email,
-    })
-
-    verifieduser.save((err,doc)=>{
-        if(err){
-            console.log(err)
-        }
-        // if(!err){
-        //     res.send(doc);
-        // }else{
-        //     console.log('Error in saving subscriber: ' + JSON.stringify(err, undefined, 2));
-        // }
-    })
-
-    patient.save((err, doc) => {
-        if (!err) {
-            // returns saved patient and 24hex char unique id
-            
-            res.send(doc);
-        }
-        else {
-            console.log('Error in saving patient: ' + JSON.stringify(err, undefined, 2));
-        }
+    var query4= "INSERT INTO `scriptchainprod.ScriptChain.patients` (";
+    for(var myKey in patient) {
+        query4+=myKey+", ";
+    }
+    query4 = query4.slice(0,query4.length-2);
+    query4+= ") VALUES (";
+    for(var myKey in patient) {
+        if(patient[myKey]==false || patient[myKey]==true)
+            query4+=patient[myKey]+",";
+        else
+            query4+="'"+patient[myKey]+"', ";
+    }
+    query4 = query4.slice(0,query4.length-2);
+    query4 += ")";
+    console.log(query4);
+    const bigQueryOptions4 = {
+      query: query4,
+      location: 'US'
+    }
+    bigquery.query(bigQueryOptions4, function(err, row) {
+      if(!err) {
+        res.send(JSON.stringify(patient['_id']));
+          console.log('Inserted successfully');
+      }else{
+        console.log("error");
+        console.log(err);
+      }
     });
+
 });
 
 module.exports = router;

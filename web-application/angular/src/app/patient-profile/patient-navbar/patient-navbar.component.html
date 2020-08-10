@@ -7,20 +7,22 @@
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand mx-sm-4" href="#"><b>ScriptChain</b></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
+    <div class ="brand">
+      <a class="navbar-brand brand-link mx-sm-4" href="#"><b>ScriptChain</b></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+    
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mx-auto">
+      <ul class="navbar-nav ml-auto">
 
-        <li class="nav-item dropdown mx-sm-4">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="modal"
+        <!--<li class="nav-item dropdown mx-sm-3">-->
+          <!--<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="modal"
             data-target="#medicalhistory" aria-haspopup="true" aria-expanded="false">
             <img src="../../assets/medicalhistory.png">&nbsp;&nbsp;&nbsp;Medical History
-          </a>
+          </a>-->
           <div class="modal fade" id="medicalhistory" tabindex="-1" role="dialog" aria-labelledby="doctornotemodal"
             aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
@@ -97,12 +99,12 @@
               </div>
             </div>
           </div>
-        </li>
-        <li class="nav-item dropdown mx-sm-4">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="modal"
+        <!--</li>
+        <li class="nav-item dropdown mx-sm-3">-->
+          <!--<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="modal"
             data-target="#history" aria-haspopup="true" aria-expanded="false">
             <img src="../../assets/prescription.png">&nbsp;&nbsp;&nbsp;Prescription History
-          </a>
+          </a>-->
           <div class="modal fade" id="history" tabindex="-1" role="dialog" aria-labelledby="doctornotemodal"
             aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
@@ -169,12 +171,12 @@
           </div>
 
 
-        </li>
-        <li class="nav-item dropdown mx-sm-4">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="modal"
+        <!--</li>
+        <li class="nav-item dropdown mx-sm-3">-->
+          <!--<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="modal"
             data-target="#iinfo" aria-haspopup="true" aria-expanded="false">
             <img src="../../assets/insurancecard.png">&nbsp;&nbsp;&nbsp;Insurance Information
-          </a>
+          </a>-->
           <div class="modal fade" id="iinfo" tabindex="-1" role="dialog" aria-labelledby="doctornotemodal"
             aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
@@ -298,12 +300,12 @@
           </div>
 
 
-        </li>
-        <li class="nav-item dropdown mx-sm-4">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="modal"
+        <!--</li>
+        <li class="nav-item dropdown mx-sm-12">-->
+          <!--<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="modal"
             data-target="#doctornote" aria-haspopup="true" aria-expanded="false">
             <img src="../../assets/doctornote.png">&nbsp;&nbsp;&nbsp;Doctor's Note
-          </a>
+          </a>-->
           <div class="modal fade" id="doctornote" tabindex="-1" role="dialog" aria-labelledby="doctornotemodal"
             aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
@@ -365,11 +367,11 @@
               </div>
             </div>
           </div>
-        </li>
-        <li class="nav-item dropdown mx-sm-4">
+        <!--</li>-->
+        <li class="nav-item dropdown mx-sm-3">
           <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="modal"
              aria-haspopup="true" aria-expanded="false" (click)="profile()">
-            <img src="../../assets/doctornote.png">&nbsp;&nbsp;&nbsp;Edit Profile
+            <!--<img src="../../assets/doctornote.png">&nbsp;&nbsp;&nbsp;-->Edit Profile
           </a>
         </li>
       </ul>
@@ -377,7 +379,7 @@
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>-->
-      <ul class="navbar-nav ml-auto">
+      <ul class="navbar-nav">
         <!---->
         <li class="nav-item mx-sm-4">
           <button type="button" (click)="logout()" class="btn btn-primary btn-sm"><b>Logout</b></button>
