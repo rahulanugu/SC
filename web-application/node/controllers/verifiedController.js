@@ -53,90 +53,88 @@ router.post('/',[check("jwtToken").notEmpty(),body().custom(body => {
         location:'US',
         params:{email:decodedValue.tokeBody.email}
     }
-    bigquery.query(bigQueryOptions, function(err, checkCurrentSubscriber) {
+    bigquery.query(bigQueryOptions, async function(err, checkCurrentSubscriber) {
       if (!err) {
         if (checkCurrentSubscriber.length>0){
             return res.json('Subscriber already Exists')
+        }else{
+          //encrypt the password
+          const salt = await bcrypt.genSaltSync(10);
+          const hashpassword = await bcrypt.hash(decodedValue.tokeBody.password, salt);
+
+          //add new patient
+          const patient = decodedValue.tokeBody;
+          patient['password'] = hashpassword;
+          patient['_id'] = generateId(10);
+          patient['Email'] =  new String(patient['email']);
+          delete patient['street'];
+          delete patient['city'];
+          delete patient['state'];
+          delete patient['zip'];
+          delete patient['country'];
+          delete patient['email'];
+
+          var verifieduser = {
+              _id: generateId(10),
+              fname: decodedValue.tokeBody.fname,
+              lname: decodedValue.tokeBody.lname,
+              email: patient['Email'],
+          };
+
+          var query3= "INSERT INTO `scriptchainprod.ScriptChain.verifieduser` VALUES ("
+          for(var myKey in verifieduser) {
+            query3+="'"+verifieduser[myKey]+"', ";
+          }
+          query3 = query3.slice(0,query3.length-2);
+          query3 += ")";
+          console.log(query3);
+          const bigQueryOptions3 = {
+            query: query3,
+            location: 'US'
+          }
+          bigquery.query(bigQueryOptions3, function(err, row) {
+            if(!err) {
+                console.log('Inserted successfully');
+            }else{
+              console.log("error");
+              console.log(err);
+            }
+          });
+
+          var query4= "INSERT INTO `scriptchainprod.ScriptChain.patients` (";
+          for(var myKey in patient) {
+              query4+=myKey+", ";
+          }
+          query4 = query4.slice(0,query4.length-2);
+          query4+= ") VALUES (";
+          for(var myKey in patient) {
+              if(patient[myKey]==false || patient[myKey]==true)
+                  query4+=patient[myKey]+",";
+              else
+                  query4+="'"+patient[myKey]+"', ";
+          }
+          query4 = query4.slice(0,query4.length-2);
+          query4 += ")";
+          console.log(query4);
+          const bigQueryOptions4 = {
+            query: query4,
+            location: 'US'
+          }
+          bigquery.query(bigQueryOptions4, function(err, row) {
+            if(!err) {
+              res.send(JSON.stringify(patient['_id']));
+                console.log('Inserted successfully');
+            }else{
+              console.log("error");
+              console.log(err);
+            }
+          });
         }
     }else{
         res.status(500).json({message:"DB Error"});
     }
 
     });
-
-
-    //encrypt the password
-    const salt = await bcrypt.genSaltSync(10);
-    const hashpassword = await bcrypt.hash(decodedValue.tokeBody.password, salt);
-
-    //add new patient
-    const patient = decodedValue.tokeBody;
-    patient['password'] = hashpassword;
-    patient['_id'] = generateId(10);
-    patient['Email'] =  new String(patient['email']);
-    delete patient['street'];
-    delete patient['city'];
-    delete patient['state'];
-    delete patient['zip'];
-    delete patient['country'];
-    delete patient['email'];
-
-    var verifieduser = {
-        _id: generateId(10),
-        fname: decodedValue.tokeBody.fname,
-        lname: decodedValue.tokeBody.lname,
-        email: patient['Email'],
-    };
-
-    var query3= "INSERT INTO `scriptchainprod.ScriptChain.verifieduser` VALUES ("
-    for(var myKey in verifieduser) {
-      query3+="'"+verifieduser[myKey]+"', ";
-    }
-    query3 = query3.slice(0,query3.length-2);
-    query3 += ")";
-    console.log(query3);
-    const bigQueryOptions3 = {
-      query: query3,
-      location: 'US'
-    }
-    bigquery.query(bigQueryOptions3, function(err, row) {
-      if(!err) {
-          console.log('Inserted successfully');
-      }else{
-        console.log("error");
-        console.log(err);
-      }
-    });
-
-    var query4= "INSERT INTO `scriptchainprod.ScriptChain.patients` (";
-    for(var myKey in patient) {
-        query4+=myKey+", ";
-    }
-    query4 = query4.slice(0,query4.length-2);
-    query4+= ") VALUES (";
-    for(var myKey in patient) {
-        if(patient[myKey]==false || patient[myKey]==true)
-            query4+=patient[myKey]+",";
-        else
-            query4+="'"+patient[myKey]+"', ";
-    }
-    query4 = query4.slice(0,query4.length-2);
-    query4 += ")";
-    console.log(query4);
-    const bigQueryOptions4 = {
-      query: query4,
-      location: 'US'
-    }
-    bigquery.query(bigQueryOptions4, function(err, row) {
-      if(!err) {
-        res.send(JSON.stringify(patient['_id']));
-          console.log('Inserted successfully');
-      }else{
-        console.log("error");
-        console.log(err);
-      }
-    });
-
 });
 
 module.exports = router;

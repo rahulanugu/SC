@@ -181,7 +181,6 @@ check("smoke").notEmpty().withMessage('smoke empty'),body().custom(body => {
   "bleedingDisorders","lungDisease","emphysema","none","drink","smoke"];
   return Object.keys(body).every(key => keys.includes(key));
 }).withMessage('Some extra parameters are sent')],async(req, res) => {
-  console.log(req.body);
   const err = validationResult(req);
   if(!err.isEmpty()){
     const firstError = err.array().map(error => error.msg)[0];
@@ -202,75 +201,73 @@ check("smoke").notEmpty().withMessage('smoke empty'),body().custom(body => {
       location: 'US',
       params: {email:tokeBody.email}
     }
-    bigquery.query(bigQueryOptions1, function(err, checkCurrentSubscriber) {
+    bigquery.query(bigQueryOptions1, async function(err, checkCurrentSubscriber) {
       if (!err) {
         if (checkCurrentSubscriber.length>0){
-          return res.json('Subscriber already exists')
+          res.json('Subscriber already exists')
         }else{
-          return res.json("Does not exist")
-        }
+          //res.json("Does not exist")
+          console.log('first pass');
+          const query2 = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
+          const bigQueryOptions2 = {
+            query: query2,
+            location: 'US',
+            params: {email:tokeBody.email}
+          }
+          bigquery.query(bigQueryOptions2, async function(err, checkEmailExist) {
+            if (!err) {
+              if (checkEmailExist.length>0){
+                return res.status(400).send('Email already exists');
+              }else{// create JSON Web Token
+                // *******make sure to change secret word to something secure and put it in env variable*****
+                console.log('second pass');
+                const token = await jwt.sign({tokeBody}, "santosh", { expiresIn: 180 });
+      
+                // using jwt and token
+                res.status(200).json(token)
+      
+                var idToken = randtoken.generate(16);
+      
+                var tokenSchema = {
+                  '_id': generateId(10),
+                  'token': idToken,
+                  'email': req.body.email
+                };
+      
+                var query3= "INSERT INTO `scriptchainprod.ScriptChain.tokenSchema` VALUES ("
+                for(var myKey in tokenSchema) {
+                  query3+="'"+tokenSchema[myKey]+"', ";
+                }
+                query3 = query3.slice(0,query3.length-2);
+                query3 += ")";
+                console.log(query3);
+                const bigQueryOptions3 = {
+                  query: query3,
+                  location: 'US'
+                }
+                bigquery.query(bigQueryOptions3, function(err, row) {
+                  if(!err) {
+                      console.log('Inserted successfully');
+                      // Check the job's status for errors
+                      //encrypt the token before sending it
+                      var encryptedToken = Utility.EncryptToken(token);
+                      console.log('third pass and mail sent');
+                      sendVerificationMail(req.body.email,req.body.fname,encryptedToken);
+                  }else{
+                    console.log("error");
+                    console.log(err);
+                  }
+                });
+              }
+            }else{
+              res.status(500).json({message:'DB Error'});
+            }
+          });
+        }  
       }else{
         res.status(500).json({message:'DB Error'});
       }
     });
-
-    const query2 = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
-    const bigQueryOptions2 = {
-      query: query2,
-      location: 'US',
-      params: {email:tokeBody.email}
-    }
-    bigquery.query(bigQueryOptions2, function(err, checkEmailExist) {
-      if (!err) {
-        if (checkEmailExist.length>0){
-          return res.status(400).send('Email already exists');
-        }
-      }else{
-        res.status(500).json({message:'DB Error'});
-      }
-    });
-
-    // create JSON Web Token
-    // *******make sure to change secret word to something secure and put it in env variable*****
-    const token = await jwt.sign({tokeBody}, "santosh", { expiresIn: 180 });
-
-    // using jwt and token
-    res.status(200).json(token)
-
-    var idToken = randtoken.generate(16);
-
-    var tokenSchema = {
-      '_id': generateId(10),
-      'token': idToken,
-      'email': req.body.email
-    };
-
-    var query3= "INSERT INTO `scriptchainprod.ScriptChain.tokenSchema` VALUES ("
-    for(var myKey in tokenSchema) {
-      query3+="'"+tokenSchema[myKey]+"', ";
-    }
-    query3 = query3.slice(0,query3.length-2);
-    query3 += ")";
-    console.log(query3);
-    const bigQueryOptions3 = {
-      query: query3,
-      location: 'US'
-    }
-    bigquery.query(bigQueryOptions3, function(err, row) {
-      if(!err) {
-          console.log('Inserted successfully');
-      }else{
-        console.log("error");
-        console.log(err);
-      }
-    });
-
-    // Check the job's status for errors                                                         (req.body.email,req.body.fname,idToken);
-
-    //encrypt the token before sending it
-    var encryptedToken = Utility.EncryptToken(token);
-    sendVerificationMail(req.body.email,req.body.fname,encryptedToken);
-
 });
 
 
