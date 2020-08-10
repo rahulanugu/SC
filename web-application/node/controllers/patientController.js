@@ -1,23 +1,26 @@
 /**
  * patientController.js
  * Uses express to create a RESTful API
- * Defines endpoints that allows application to perform CRUD operations  
+ * Defines endpoints that allows application to perform CRUD operations
  */
 const nodemailer = require('nodemailer');
 const log = console.log;
 const express = require('express');
+const { check,body,validationResult } = require('express-validator');
 const router = express.Router();
-const bcrypt = require('bcryptjs');
-const ObjectId = require('mongoose').Types.ObjectId;
-const hbs = require('nodemailer-express-handlebars');
 const jwt = require('jsonwebtoken');
-const { Patient } = require('../models/user');
-const { VerifiedUser } = require('../models/verifiedUser');
-const { TokenSchema} = require('../models/tokeSchema');
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
 const randtoken = require('rand-token');
-var Utility = require('../utility')
+var Utility = require('../utility');
+const fs = require('fs');
+const {BigQuery} = require('@google-cloud/bigquery');
+const options = {
+    keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
+    projectId: 'scriptchainprod'
+
+};
+const bigquery = new BigQuery(options);
 
 const oauth2Client = new OAuth2(
     "Y16828344230-21i76oqle90ehsrsrpptnb8ek2vqfjfp.apps.googleusercontent.com",
@@ -29,7 +32,6 @@ oauth2Client.setCredentials({
     refresh_token:
       "ya29.GluBB_c8WGD6HI2wTAiAKnPeLap6FdqDdQYhplWyAPjw_ZBSNUNEMOfmsrVSDoHTAZWc8cjKHXXEEY_oMVJUq4YaoSD1LLseWzPNt2hcY2lCdhXAeuCxvDPbl6QP"
   });
-
 const accessToken = oauth2Client.getAccessToken()
 // http://localhost:3000/patient/
 
@@ -41,16 +43,36 @@ const accessToken = oauth2Client.getAccessToken()
  *         200 - Succesfully retrieved all the patients in the database
  *         404 - No patients in the database
  */
-router.get('/', (req, res) => {
+function generateId(count) {
+  var _sym = 'abcdefghijklmnopqrstuvwxyz1234567890';
+  var str = '';
+
+  for(var i = 0; i < count; i++) {
+      str += _sym[parseInt(Math.random() * (_sym.length))];
+  }
+  return str;
+}
+
+router.get('/',async (req, res) => {
     console.log('you have entered');
-    Patient.find((err, doc) => {
-        if (!err) {
-            res.status(200).json(doc)
+    // Authentication to enter this?
+    // How to secure this?
+    // Need some sort of hack check. How do we check it?
+    // Possible type of hacks for an API.
+
+    const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE 1=1';
+    bigquery.query(query, function(err, doc) {
+      if (!err) {
+        if(doc){
+          res.status(200).json(doc);
+        }else{
+          res.status(404).send({message: "No patients found"})
         }
-        else {
-            res.status(404).send({message: "No patients found"})
-            console.log('Error in retrieving patients: ' + JSON.stringify(err, undefined, 2));
-        }
+      }
+      else {
+        res.status(500).json({message: "DB Error"});
+        console.log('Error in retrieving patients: ' + JSON.stringify(err, undefined, 2));
+      }
     });
 });
 
@@ -63,21 +85,33 @@ router.get('/', (req, res) => {
  *         200 - patient details are found
  *         404 - An error occured/ No patients found
  */
-router.get('/:id', (req, res) => {
-    // check if id is valid
-    if(!ObjectId.isValid(req.params.id))
-        return res.status(404).send(`No record with given id: ${req.params.id}`);
-    else {
-        Patient.findById(req.params.id, (err, doc) => {
-            if (!err) {
-                res.status(200).send(doc);
-            }
-            else {
-                res.status(404).send({message: "Could not find patients"})
-                console.log('Error in retrieving patient with id: ' + JSON.stringify(err, undefined, 2));
-            }
-        })
+router.get('/:id',[check('id').notEmpty()],(req, res) => {
+  const errors = validationResult(req);
+  if(!errors.isEmpty()){
+    return res.status(400).json({Message:'Bad Request'})
+  }
+  //validation for id is a side task
+  //express validation is a side task
+  //usage of headers, how UI handles it?
+  //helmet npm package usage?
+  const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE _id = @id';
+  const bigQueryOptions = {
+    query: query,
+    location: 'US',
+    params: {id:req.params.id}
+  }
+  bigquery.query(bigQueryOptions, function(err, doc) {
+    if (!err) {
+      if(doc.length==1){
+        res.status(200).json(doc[0]);
+      }else{
+        res.status(404).send({message: "No patient with the provided id found"});
+      }
+    }else{
+      res.status(500).json({message: "DB Error"});
+      console.log('Error in retrieving patients: ' + JSON.stringify(err, undefined, 2));
     }
+  });
 });
 
 /**
@@ -86,65 +120,158 @@ router.get('/:id', (req, res) => {
  * Output: message whether the subscriber exists or not
  */
 router.post('/:verify',async(req,res)=>{
-    console.log('/:verify',req.body.user)
-    const userGiven = req.body;
-    console.log(userGiven.user)
-    const checkCurrentSubscriber = await VerifiedUser.findOne({email: userGiven.user})
-
-    if (checkCurrentSubscriber){
+  if(req.params.verify!="verify"){
+    res.status(400).json({message: "Bad Request"});
+  }
+  const query = 'SELECT * FROM `scriptchainprod.ScriptChain.verifieduser` WHERE email = @email';
+  const bigQueryOptions = {
+    query: query,
+    location: 'US',
+    params: {email:req.body.user}
+  }
+  bigquery.query(bigQueryOptions, function(err, checkCurrentSubscriber) {
+    if (!err) {
+      if (checkCurrentSubscriber.length>0){
         return res.json('Subscriber already exists')
+      }else{
+          return res.json('Does not exist')
+      }
     }else{
-        return res.json('doesnot exist')
+      res.status(500).json({message: "DB Error"});
     }
-
-})
+  });
+});
 
 /**
- * This metthod will check if the user/patientt already exists in the system and sends a verification email if not
+ * This metthod will check if the user/patient already exists in the system and sends a verification email if not
  * Input: Body, will contain the JWT token that contains user/patient as defined in the respective schemas
  * Output: 400 - the user already exists
  *         200 - sent the verification mail
  */
-router.post('/',async(req,res)=>{
+/*
+,
+*/
+router.post('/',[check('fname').notEmpty().withMessage("fname empty").isAlpha().withMessage('fname alpha'),
+check('lname').notEmpty().withMessage('lname not empty').isAlpha().withMessage("lname not empty"),
+check('email').isEmail().withMessage('email').notEmpty().withMessage('email empty').exists().withMessage('email not exists'),
+check("street").notEmpty().withMessage('street empty'),check("city").notEmpty().withMessage('city empty'),
+check("state").notEmpty().withMessage('state empty'),check("zip").notEmpty().withMessage('zip empty')
+,check("country").notEmpty().withMessage('country empty'),check("address").notEmpty().withMessage('address empty'),
+check('phone').notEmpty().withMessage('phone number is empty'),check('birthday').notEmpty().withMessage('birthday is empty').isDate().withMessage('not date'),
+check('sex').notEmpty().withMessage('sex is empty'),check('ssn').notEmpty().withMessage('ssn is empty'),
+check('allergies').notEmpty().withMessage('allergies is empty'),check('ec').notEmpty().withMessage('ec is empty'),
+check('ecPhone').notEmpty().withMessage('ec phone not empty'),check('ecRelationship').notEmpty().withMessage('ecrelation not empty').isAlpha().withMessage('ec relation has to be alpha'),
+check("password").exists().withMessage('password not exists').notEmpty().withMessage('password is empty'),
+check('anemia').isBoolean(),check("asthma").isBoolean(),check("arthritis").isBoolean(),check("cancer").isBoolean(),
+check("gout").isBoolean(),check("diabetes").isBoolean(),check("emotionalDisorder").isBoolean(),
+check("epilepsy").isBoolean(),check("fainting").isBoolean(),check("gallstones").isBoolean(),
+check("heartDisease").isBoolean(),check("heartAttack").isBoolean(),check("rheumaticFever").isBoolean(),
+check("highBP").isBoolean(),check("digestiveProblems").isBoolean(),check("ulcerative").isBoolean(),
+check("ulcerDisease").isBoolean(),check("hepatitis").isBoolean(),check("kidneyDiseases").isBoolean(),
+check("liverDisease").isBoolean(),check("sleepApnea").isBoolean(),check("papMachine").isBoolean(),
+check("thyroid").isBoolean(),check("tuberculosis").isBoolean(),check("venereal").isBoolean(),
+check("neurologicalDisorders").isBoolean(),check("bleedingDisorders").isBoolean(),check("lungDisease").isBoolean(),
+check("emphysema").isBoolean(),check("none").isBoolean(),check("drink").notEmpty().withMessage('drink empty'),
+check("smoke").notEmpty().withMessage('smoke empty'),body().custom(body => {
+  const keys = ['fname','lname','email','street','city','state','zip','country','address','phone','birthday',
+  'sex','ssn','allergies','ec','ecPhone','ecRelationship',"password",'anemia',"asthma","arthritis","cancer",
+  "gout","diabetes","emotionalDisorder","epilepsy","fainting","gallstones","heartDisease","heartAttack",
+  "rheumaticFever","highBP","digestiveProblems","ulcerative","ulcerDisease","hepatitis","kidneyDiseases",
+  "liverDisease","sleepApnea","papMachine","thyroid","tuberculosis","venereal","neurologicalDisorders",
+  "bleedingDisorders","lungDisease","emphysema","none","drink","smoke"];
+  return Object.keys(body).every(key => keys.includes(key));
+}).withMessage('Some extra parameters are sent')],async(req, res) => {
+  console.log(req.body);
+  const err = validationResult(req);
+  if(!err.isEmpty()){
+    const firstError = err.array().map(error => error.msg)[0];
+    return res.status(400).json({ error: firstError });
+  }
+  const e= validationResult(req);
+  if(!e.isEmpty()){
+    return res.status(400).json({Message:"Bad Request"});
+  }
 
     const tokeBody = req.body;
     // check if email already exist
-    const checkCurrentSubscriber = await VerifiedUser.findOne({email: req.body.email})
-
-    if (checkCurrentSubscriber){
-        return res.status(400).send('Subscriber already exists')
+    //const checkCurrentSubscriber = await VerifiedUser.findOne({email: req.body.email})
+    //console.log(req);
+    const query1= 'SELECT * FROM `scriptchainprod.ScriptChain.verifieduser` WHERE email = @email';
+    const bigQueryOptions1 = {
+      query: query1,
+      location: 'US',
+      params: {email:tokeBody.email}
     }
+    bigquery.query(bigQueryOptions1, function(err, checkCurrentSubscriber) {
+      if (!err) {
+        if (checkCurrentSubscriber.length>0){
+          return res.json('Subscriber already exists')
+        }else{
+          return res.json("Does not exist")
+        }
+      }else{
+        res.status(500).json({message:'DB Error'});
+      }
+    });
 
-    const checkEmailExist = await Patient.findOne({Email: req.body.email})
-
-    if (checkEmailExist){
-        return res.status(400).send('Email already exists')
+    const query2 = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
+    const bigQueryOptions2 = {
+      query: query2,
+      location: 'US',
+      params: {email:tokeBody.email}
     }
+    bigquery.query(bigQueryOptions2, function(err, checkEmailExist) {
+      if (!err) {
+        if (checkEmailExist.length>0){
+          return res.status(400).send('Email already exists');
+        }
+      }else{
+        res.status(500).json({message:'DB Error'});
+      }
+    });
 
     // create JSON Web Token
     // *******make sure to change secret word to something secure and put it in env variable*****
     const token = await jwt.sign({tokeBody}, "santosh", { expiresIn: 180 });
 
-    console.log("Token "+token);
     // using jwt and token
     res.status(200).json(token)
 
     var idToken = randtoken.generate(16);
 
-    const tokenSchema = new TokenSchema({
-        token: idToken,
-        email: req.body.email
-    })
+    var tokenSchema = {
+      '_id': generateId(10),
+      'token': idToken,
+      'email': req.body.email
+    };
 
-    tokenSchema.save((err,doc)=>{})
+    var query3= "INSERT INTO `scriptchainprod.ScriptChain.tokenSchema` VALUES ("
+    for(var myKey in tokenSchema) {
+      query3+="'"+tokenSchema[myKey]+"', ";
+    }
+    query3 = query3.slice(0,query3.length-2);
+    query3 += ")";
+    console.log(query3);
+    const bigQueryOptions3 = {
+      query: query3,
+      location: 'US'
+    }
+    bigquery.query(bigQueryOptions3, function(err, row) {
+      if(!err) {
+          console.log('Inserted successfully');
+      }else{
+        console.log("error");
+        console.log(err);
+      }
+    });
 
-    //sendVerificationMail(req.body.email,req.body.fname,idToken);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          (req.body.email,req.body.fname,idToken);
+    // Check the job's status for errors                                                         (req.body.email,req.body.fname,idToken);
 
     //encrypt the token before sending it
     var encryptedToken = Utility.EncryptToken(token);
     sendVerificationMail(req.body.email,req.body.fname,encryptedToken);
 
-})
+});
 
 
 const sendVerificationMail = (email,fname,encryptedToken)=>{
@@ -154,7 +281,7 @@ const sendVerificationMail = (email,fname,encryptedToken)=>{
         service : 'gmail',
         auth: {
             type: "OAuth2",
-            user: "moh@scriptchain.co", 
+            user: "moh@scriptchain.co",
             clientId: "867282827024-auj9ljqodshuhf3lq5n8r79q28b4ovun.apps.googleusercontent.com",
             clientSecret: "zjrK7viSEMoPXsEmVI_R7I6O",
             refreshToken: "1//04OyV2qLPD5iYCgYIARAAGAQSNwF-L9IrfYyKF4kF_HhkGaFjxxnxdgxU6tDbQ1l-BLlOIPtXtCDOSj9IkwiWekXwLCNWn9ruUiE",
@@ -164,7 +291,7 @@ const sendVerificationMail = (email,fname,encryptedToken)=>{
 
     //  create mail option with custom template, verification link and Json Web Token
     const mailOptions = {
-        from: 'noreply@scriptchain.co', 
+        from: 'noreply@scriptchain.co',
         to: email,
         subject: 'NO REPLY AT SCRIPTCHAIN.CO! Hey it\'s Moh from ScriptChain',
         html: `<!DOCTYPE html>
@@ -172,7 +299,6 @@ const sendVerificationMail = (email,fname,encryptedToken)=>{
         <head>
           <title>Bootstrap Example</title>
           <meta charset="utf-8">
-        
           <style>
           .panelFooter{
               font-family: Arial;
@@ -244,14 +370,14 @@ const sendVerificationMail = (email,fname,encryptedToken)=>{
           <h1 align="center"style="font-family: arial;">YOU'RE ALMOST DONE REGISTERING!</h1>
           <p class="para">Hi `+fname+`,</p>
           <p class="para">Welcome to ScriptChain! We are glad that you have registered, there is just one more step to verify your account. <b>Please click the link below to verify your email address.</b></p>
-        <p align="center"><a href="http://scriptchain.co/patientlogin?verify=`+encryptedToken+`"><button>Verify Your E-mail Address</button></a></p><br><br>
+        <p align="center"><a href="http://localhost:4200/patientlogin?verify=`+encryptedToken+`"><button>Verify Your E-mail Address</button></a></p><br><br>
         <p align="center" class="para">If you have any questions or concerns feel free to reach out to <a href="mailto:customer-care@scriptchain.co">customer-care@scriptchain.co</a></p>
           <div class="panelFooter">
             <p align="center" >This message was sent from ScriptChain LLC., Boston, MA</p>
           </div>
         </div>
         </body>
-        </html>        
+        </html>
         `
     }
 
