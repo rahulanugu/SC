@@ -80,62 +80,62 @@ check('phone').notEmpty().withMessage('Phone Number is required.'),check('ehr').
       location: 'US',
       params: {email:req.body.email}
     }
-    bigquery.query(bigQueryOptions, function(err, row) {
+    bigquery.query(bigQueryOptions, async function(err, row) {
       if(!err) {
           if (row.length>0){
             return res.status(400).send({
                 message: 'User already exists'
             })
+          }else{
+            console.log("email does not exist")
+
+            //Create a jwt token with details provided in body as payload
+            const tokeBody = req.body;
+            const token = await jwt.sign({tokeBody}, "santosh", { expiresIn: 300 });
+            console.log("JWT function")
+        
+            //encrypt the token
+            var encryptedToken = Utility.EncryptToken(token);
+            console.log("Encrpt token")
+            //save the token for reference purposes - optional
+            var idToken = randtoken.generate(16);
+            var json = {
+              'id': generateId(10),
+              token: idToken,
+              email: req.body.email
+            };
+            var query1= "INSERT INTO `scriptchainprod.ScriptChain.tokenSchema` VALUES ("
+            for(var myKey in json) {
+              query1+="'"+json[myKey]+"', ";
+            }
+            query1 = query1.slice(0,query1.length-2);
+            query1 += ")";
+            console.log(query1);
+            const bigQueryOptions1 = {
+              query: query1,
+              location: 'US'
+            }
+            bigquery.query(bigQueryOptions1, function(err, row) {
+              if(!err) {
+                  console.log('Inserted successfully');
+              }else{
+                console.log(err);
+              }
+            });
+            console.log("Verification mail with jwt token is sent");
+        
+        
+            //Send the email with the verification email
+        
+            sendVerificationMail(req.body.email,req.body.firstName,encryptedToken, (err,data) => {
+                //Invoked the callback function od the sendverification email object
+                if(err){
+                    res.status(500).send({message: "An error has occured trying to send the mail"});
+                }
+                res.status(200).send({message: "Verification mail with jwt token is sent"});
+            });
           }
         }
-    });
-
-    console.log("email does not exist")
-
-    //Create a jwt token with details provided in body as payload
-    const tokeBody = req.body;
-    const token = await jwt.sign({tokeBody}, "santosh", { expiresIn: 300 });
-    console.log("JWT function")
-
-    //encrypt the token
-    var encryptedToken = Utility.EncryptToken(token);
-    console.log("Encrpt token")
-    //save the token for reference purposes - optional
-    var idToken = randtoken.generate(16);
-    var json = {
-      'id': generateId(10),
-      token: idToken,
-      email: req.body.email
-    };
-    var query1= "INSERT INTO `scriptchainprod.ScriptChain.tokenSchema` VALUES ("
-    for(var myKey in json) {
-      query1+="'"+json[myKey]+"', ";
-    }
-    query1 = query1.slice(0,query1.length-2);
-    query1 += ")";
-    console.log(query1);
-    const bigQueryOptions1 = {
-      query: query1,
-      location: 'US'
-    }
-    bigquery.query(bigQueryOptions1, function(err, row) {
-      if(!err) {
-          console.log('Inserted successfully');
-      }else{
-        console.log(err);
-      }
-    });
-    console.log("Verification mail with jwt token is sent");
-
-
-    //Send the email with the verification email
-
-    sendVerificationMail(req.body.email,req.body.firstName,encryptedToken, (err,data) => {
-        //Invoked the callback function od the sendverification email object
-        if(err){
-            res.status(500).send({message: "An error has occured trying to send the mail"});
-        }
-        res.status(200).send({message: "Verification mail with jwt token is sent"});
     });
 })
 
@@ -176,50 +176,52 @@ router.post('/account/verify',[check("jwtToken").notEmpty(),body().custom(body =
       location: 'US',
       params: {email:decodedValue.tokeBody.email}
     }
-    bigquery.query(bigQueryOptions, function(err, row) {
+    bigquery.query(bigQueryOptions, async function(err, row) {
       if(!err) {
           if (row.length>0){
             console.log("Check email if exists")
             return res.status(400).send({
                 message: 'User already exists'
             })
+          }else{
+          //Create a new user in the database
+          //encrypt the password
+          const salt = await bcrypt.genSaltSync(10);
+          const hashpassword = await bcrypt.hash(decodedValue.tokeBody.password, salt);
+
+          json = decodedValue.tokeBody;
+          json['password'] = hashpassword;
+          json['_id'] = generateId(10);
+
+          var query1= "INSERT INTO `scriptchainprod.ScriptChain.healthcareProviders` (";
+          for(var myKey in json) {
+            query1+=myKey+", ";
+          }
+          query1 = query1.slice(0,query1.length-2);
+          query1+= ") VALUES (";
+          for(var myKey in json) {
+            query1+="'"+json[myKey]+"', ";
+          }
+          query1 = query1.slice(0,query1.length-2);
+          query1 += ")";
+          console.log(query1);
+          const bigQueryOptions1 = {
+            query: query1,
+            location: 'US'
+          }
+          bigquery.query(bigQueryOptions1, function(err, row) {
+            if(!err) {
+                console.log('Inserted successfully');
+                res.status(200).send({message: 'The user has been created'});
+            }else{
+              console.log(err);
+              res.status(500).send({message: 'An error has occured trying to create a new healthcareprovider user'})
+            }
+          });
           }
         }
     });
-    //Create a new user in the database
-    //encrypt the password
-    const salt = await bcrypt.genSaltSync(10);
-    const hashpassword = await bcrypt.hash(decodedValue.tokeBody.password, salt);
-
-    json = decodedValue.tokeBody;
-    json['password'] = hashpassword;
-    json['_id'] = generateId(10);
-
-    var query1= "INSERT INTO `scriptchainprod.ScriptChain.healthcareProviders` (";
-    for(var myKey in json) {
-      query1+=myKey+", ";
-    }
-    query1 = query1.slice(0,query1.length-2);
-    query1+= ") VALUES (";
-    for(var myKey in json) {
-      query1+="'"+json[myKey]+"', ";
-    }
-    query1 = query1.slice(0,query1.length-2);
-    query1 += ")";
-    console.log(query1);
-    const bigQueryOptions1 = {
-      query: query1,
-      location: 'US'
-    }
-    bigquery.query(bigQueryOptions1, function(err, row) {
-      if(!err) {
-          console.log('Inserted successfully');
-          res.status(200).send({message: 'The user has been created'});
-      }else{
-        console.log(err);
-        res.status(500).send({message: 'An error has occured trying to create a new healthcareprovider user'})
-      }
-    });
+    
 
 });
 
