@@ -31,9 +31,11 @@ function generateId(count) {
 router.post("/",[check('fname').notEmpty().isAlpha(),check('lname').notEmpty().isAlpha(),check('email').isEmail(),check('message').notEmpty(),body().custom(body => {
   const keys = ['fname','lname','email','message'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')],async(req, res) => {
+})],async(req, res) => {
   const err = validationResult(req);
-    if (!err.isEmpty()) return res.status(400).send(err.array({ onlyFirstError: true }))
+  if(!err.isEmpty()){
+    return res.status(400).json({Message:'Bad Request'})
+  }
   //console.log("hello");
   req.body['_id'] = generateId(10);
 

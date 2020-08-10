@@ -42,14 +42,13 @@ function generateId(count) {
   }
   return str;
 }
-router.post("/",[check('fname').notEmpty().withMessage('First Name is required.').isAlpha().withMessage('First Name should be String'),check('lname').notEmpty().withMessage('Last Name is required.').isAlpha().withMessage('Last Name should be String'),check('email').notEmpty().withMessage("Provide Email ID").isEmail().withMessage('Should Provide Email'),check('typeOfUser').notEmpty().withMessage('Should Provide typeOfUser'),body().custom(body => {
+router.post("/",[check('fname').notEmpty().isAlpha(),check('lname').notEmpty().isAlpha(),check('email').notEmpty().isEmail(),check('typeOfUser').notEmpty(),body().custom(body => {
   const keys = ['fname','lname','email','typeOfUser'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')],async (req, res) => {
+})],async (req, res) => {
   const e = validationResult(req);
-  if(!e.isEmpty()){
-    const firstError = e.array().map(error => error.msg)[0];
-    return res.status(400).json({ error: firstError });
+  if(!errors.isEmpty()){
+    return res.status(400).json({Message:'Bad Request'})
   }
   const query = 'SELECT * FROM `scriptchainprod.ScriptChain.newUsers` WHERE email=@email';
   // req.body.email+'"';

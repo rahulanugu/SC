@@ -27,7 +27,7 @@ const fs = require('fs');
 router.post('/', [check('email').notEmpty().isEmail(),body().custom(body => {
   const keys = ['email'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')],async (req, res) => {
+})],async (req, res) => {
   const e = validationResult(req);
   if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'});
@@ -76,7 +76,7 @@ router.post('/', [check('email').notEmpty().isEmail(),body().custom(body => {
 router.post('/check',[check("token").notEmpty(),body().custom(body => {
   const keys = ['token'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')],async(req,res)=>{
+})],async(req,res)=>{
   console.log(req.body);
   const errors = validationResult(req);
   if(!errors.isEmpty()){
@@ -106,7 +106,7 @@ router.post('/check',[check("token").notEmpty(),body().custom(body => {
 router.post('/change_password',[check("token").notEmpty(),check("password").notEmpty(),body().custom(body => {
   const keys = ['token','password'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')],async(req,res)=>{
+})],async(req,res)=>{
   //console.log(req);
   const errors = validationResult(req);
   if(!errors.isEmpty()){

@@ -151,28 +151,56 @@ router.post('/:verify',async(req,res)=>{
 /*
 ,
 */
-router.post('/',[check('fname').notEmpty().withMessage("fname empty").isAlpha().withMessage('fname alpha'),
-check('lname').notEmpty().withMessage('lname not empty').isAlpha().withMessage("lname not empty"),
-check('email').isEmail().withMessage('email').notEmpty().withMessage('email empty').exists().withMessage('email not exists'),
-check("street").notEmpty().withMessage('street empty'),check("city").notEmpty().withMessage('city empty'),
-check("state").notEmpty().withMessage('state empty'),check("zip").notEmpty().withMessage('zip empty')
-,check("country").notEmpty().withMessage('country empty'),check("address").notEmpty().withMessage('address empty'),
-check('phone').notEmpty().withMessage('phone number is empty'),check('birthday').notEmpty().withMessage('birthday is empty').isDate().withMessage('not date'),
-check('sex').notEmpty().withMessage('sex is empty'),check('ssn').notEmpty().withMessage('ssn is empty'),
-check('allergies').notEmpty().withMessage('allergies is empty'),check('ec').notEmpty().withMessage('ec is empty'),
-check('ecPhone').notEmpty().withMessage('ec phone not empty'),check('ecRelationship').notEmpty().withMessage('ecrelation not empty').isAlpha().withMessage('ec relation has to be alpha'),
-check("password").exists().withMessage('password not exists').notEmpty().withMessage('password is empty'),
-check('anemia').isBoolean(),check("asthma").isBoolean(),check("arthritis").isBoolean(),check("cancer").isBoolean(),
-check("gout").isBoolean(),check("diabetes").isBoolean(),check("emotionalDisorder").isBoolean(),
-check("epilepsy").isBoolean(),check("fainting").isBoolean(),check("gallstones").isBoolean(),
-check("heartDisease").isBoolean(),check("heartAttack").isBoolean(),check("rheumaticFever").isBoolean(),
-check("highBP").isBoolean(),check("digestiveProblems").isBoolean(),check("ulcerative").isBoolean(),
-check("ulcerDisease").isBoolean(),check("hepatitis").isBoolean(),check("kidneyDiseases").isBoolean(),
-check("liverDisease").isBoolean(),check("sleepApnea").isBoolean(),check("papMachine").isBoolean(),
-check("thyroid").isBoolean(),check("tuberculosis").isBoolean(),check("venereal").isBoolean(),
-check("neurologicalDisorders").isBoolean(),check("bleedingDisorders").isBoolean(),check("lungDisease").isBoolean(),
-check("emphysema").isBoolean(),check("none").isBoolean(),check("drink").notEmpty().withMessage('drink empty'),
-check("smoke").notEmpty().withMessage('smoke empty'),body().custom(body => {
+router.post('/',[check('fname').notEmpty().isAlpha(),
+check('lname').notEmpty().isAlpha(),
+check('email').isEmail().notEmpty(),
+check("street").notEmpty(),
+check("city").notEmpty(),
+check("state").notEmpty(),
+check("zip").notEmpty(),
+check("country").notEmpty(),
+check("address").notEmpty(),
+check('phone').notEmpty(),
+check('birthday').notEmpty().isDate(),
+check('sex').notEmpty(),
+check('ssn').notEmpty(),
+check('allergies').notEmpty(),
+check('ec').notEmpty(),
+check('ecPhone').notEmpty(),
+check('ecRelationship').notEmpty().isAlpha(),
+check("password").exists().notEmpty(),
+check('anemia').isBoolean(),
+check("asthma").isBoolean(),
+check("arthritis").isBoolean(),
+check("cancer").isBoolean(),
+check("gout").isBoolean(),
+check("diabetes").isBoolean(),
+check("emotionalDisorder").isBoolean(),
+check("epilepsy").isBoolean(),
+check("fainting").isBoolean(),
+check("gallstones").isBoolean(),
+check("heartDisease").isBoolean(),
+check("heartAttack").isBoolean(),
+check("rheumaticFever").isBoolean(),
+check("highBP").isBoolean(),
+check("digestiveProblems").isBoolean(),
+check("ulcerative").isBoolean(),
+check("ulcerDisease").isBoolean(),
+check("hepatitis").isBoolean(),
+check("kidneyDiseases").isBoolean(),
+check("liverDisease").isBoolean(),
+check("sleepApnea").isBoolean(),
+check("papMachine").isBoolean(),
+check("thyroid").isBoolean(),
+check("tuberculosis").isBoolean(),
+check("venereal").isBoolean(),
+check("neurologicalDisorders").isBoolean(),
+check("bleedingDisorders").isBoolean(),
+check("lungDisease").isBoolean(),
+check("emphysema").isBoolean(),
+check("none").isBoolean(),check("drink").notEmpty(),
+check("smoke").notEmpty(),
+body().custom(body => {
   const keys = ['fname','lname','email','street','city','state','zip','country','address','phone','birthday',
   'sex','ssn','allergies','ec','ecPhone','ecRelationship',"password",'anemia',"asthma","arthritis","cancer",
   "gout","diabetes","emotionalDisorder","epilepsy","fainting","gallstones","heartDisease","heartAttack",
@@ -180,12 +208,7 @@ check("smoke").notEmpty().withMessage('smoke empty'),body().custom(body => {
   "liverDisease","sleepApnea","papMachine","thyroid","tuberculosis","venereal","neurologicalDisorders",
   "bleedingDisorders","lungDisease","emphysema","none","drink","smoke"];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')],async(req, res) => {
-  const err = validationResult(req);
-  if(!err.isEmpty()){
-    const firstError = err.array().map(error => error.msg)[0];
-    return res.status(400).json({ error: firstError });
-  }
+})],async(req, res) => {
   const e= validationResult(req);
   if(!e.isEmpty()){
     return res.status(400).json({Message:"Bad Request"});
@@ -222,18 +245,18 @@ check("smoke").notEmpty().withMessage('smoke empty'),body().custom(body => {
                 // *******make sure to change secret word to something secure and put it in env variable*****
                 console.log('second pass');
                 const token = await jwt.sign({tokeBody}, "santosh", { expiresIn: 180 });
-      
+
                 // using jwt and token
                 res.status(200).json(token)
-      
+
                 var idToken = randtoken.generate(16);
-      
+
                 var tokenSchema = {
                   '_id': generateId(10),
                   'token': idToken,
                   'email': req.body.email
                 };
-      
+
                 var query3= "INSERT INTO `scriptchainprod.ScriptChain.tokenSchema` VALUES ("
                 for(var myKey in tokenSchema) {
                   query3+="'"+tokenSchema[myKey]+"', ";
@@ -263,7 +286,7 @@ check("smoke").notEmpty().withMessage('smoke empty'),body().custom(body => {
               res.status(500).json({message:'DB Error'});
             }
           });
-        }  
+        }
       }else{
         res.status(500).json({message:'DB Error'});
       }

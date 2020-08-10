@@ -25,7 +25,7 @@ function generateId(count) {
 router.post('/',[check("jwtToken").notEmpty(),body().custom(body => {
   const keys = ['jwtToken'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')],async(req,res)=>{
+})],async(req,res)=>{
   const errors = validationResult(req);
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
