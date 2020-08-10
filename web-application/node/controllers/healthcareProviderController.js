@@ -1,35 +1,21 @@
 /**
  * patientController.js
  * Uses express to create a RESTful API
- * Defines endpoints that allows application to perform CRUD operations  
+ * Defines endpoints that allows application to perform CRUD operations
  */
 const nodemailer = require('nodemailer');
 const log = console.log;
 const express = require('express');
+const { check, body, validationResult } = require('express-validator');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
-const ObjectId = require('mongoose').Types.ObjectId;
-const hbs = require('nodemailer-express-handlebars');
 const jwt = require('jsonwebtoken');
-const { Patient } = require('../models/user');
-const { VerifiedUser } = require('../models/verifiedUser');
-const { HealthcareProvider} = require('../models/healthcareProvider');
 const { TokenSchema} = require('../models/tokeSchema');
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
 const randtoken = require('rand-token');
 var Utility = require('../utility')
 var jwtDecode = require('jwt-decode');
-
-const {BigQuery} = require('@google-cloud/bigquery');
-/*const options = {
-    keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
-    projectId: 'scriptchainprod'
-
-};*/
-const bigquery = new BigQuery();
-//const fs = require('fs');
-
 
 
 //Creating a new oauthclientt for mailing
@@ -46,8 +32,23 @@ oauth2Client.setCredentials({
 });
 
 // retrieve an access token from oauthclient
-const accessToken = oauth2Client.getAccessToken()
+const accessToken = oauth2Client.getAccessToken();
+const {BigQuery} = require('@google-cloud/bigquery');
+const options = {
+    keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
+    projectId: 'scriptchainprod'
 
+};
+const bigquery = new BigQuery(options);
+const fs = require('fs');
+
+/**
+ * Request the creation of a new healthcareprovider user
+ * Input: Body, contains the details that are specified in healthcare provider data model
+ * Output: 200 - Success status, and the email is sent
+ *         500 - Error status
+ *         400 - Already exists
+ */
 function generateId(count) {
   var _sym = 'abcdefghijklmnopqrstuvwxyz1234567890';
   var str = '';
@@ -57,81 +58,85 @@ function generateId(count) {
   }
   return str;
 }
-
-/**
- * Request the creation of a new healthcareprovider user
- * Input: Body, contains the details that are specified in healthcare provider data model
- * Output: 200 - Success status, and the email is sent
- *         500 - Error status
- *         400 - Already exists
- */
-router.post('/account/create',async(req,res)=>{
-    
-  const query= 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProviders` WHERE email=@email';
-  // req.body.email+'"';
-  const bigQueryOptions = {
-    query: query,
-    location: 'US',
-    params: {email:req.body.email}
+router.post('/account/create',[check('firstName').notEmpty().withMessage('First Name is required.').isAlpha().withMessage('First Name should be String')
+,check('lastName').notEmpty().withMessage('Last Name is required.').isAlpha().withMessage('Last Name should be String')
+,check('companyName').notEmpty().withMessage("Provide company name"),check('roleInCompany').notEmpty().withMessage("Provide the company name")
+,check('email').notEmpty().withMessage("Provide Email ID").isEmail().withMessage('Should Provide Email')
+,check('password').exists().notEmpty().withMessage('Please type your password'),
+check('phone').notEmpty().withMessage('Phone Number is required.'),check('ehr').notEmpty().withMessage('EHR is required.'),body().custom(body => {
+  const keys = ['firstName','lastName','companyName','roleInCompany','email','ehr','password','phone'];
+  return Object.keys(body).every(key => keys.includes(key));
+}).withMessage('Some extra parameters are sent')], async (req, res) => {
+  const e = validationResult(req);
+  if(!e.isEmpty()){
+    const firstError = e.array().map(error => error.msg)[0];
+    return res.status(400).json({ error: firstError });
   }
-  bigquery.query(bigQueryOptions, function(err, row) {
-    if(!err) {
-        if (row.length>0){
-          return res.status(400).send({
-              message: 'User already exists'
-          })
-        }
-      }
-  });
-
-  console.log("email does not exist")
-
-  //Create a jwt token with details provided in body as payload
-  const tokeBody = req.body;
-  const token = await jwt.sign({tokeBody}, "santosh", { expiresIn: 300 });
-  console.log("JWT function")
-
-  //encrypt the token
-  var encryptedToken = Utility.EncryptToken(token);
-  console.log("Encrpt token")
-  //save the token for reference purposes - optional
-  var idToken = randtoken.generate(16);
-  
-  var json = {
-    'id': generateId(10),
-    token: idToken,
-    email: req.body.email
-  };
-  var query1= "INSERT INTO `scriptchainprod.ScriptChain.tokenSchema` VALUES ("
-  for(var myKey in json) {
-    query1+="'"+json[myKey]+"', ";
-  }
-  query1 = query1.slice(0,query1.length-2);
-  query1 += ")";
-  console.log(query1);
-  const bigQueryOptions1 = {
-    query: query1,
-    location: 'US'
-  }
-  bigquery.query(bigQueryOptions1, function(err, row) {
-    if(!err) {
-        console.log('inserted successfully');
-    }else{
-      console.log(err);
+    //Check if user alread exists
+    const query= 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProviders` WHERE email=@email';
+    // req.body.email+'"';
+    const bigQueryOptions = {
+      query: query,
+      location: 'US',
+      params: {email:req.body.email}
     }
-  });
-  console.log("Verification mail with jwt token is sent");
+    bigquery.query(bigQueryOptions, function(err, row) {
+      if(!err) {
+          if (row.length>0){
+            return res.status(400).send({
+                message: 'User already exists'
+            })
+          }
+        }
+    });
 
+    console.log("email does not exist")
 
-  //Send the email with the verification email
+    //Create a jwt token with details provided in body as payload
+    const tokeBody = req.body;
+    const token = await jwt.sign({tokeBody}, "santosh", { expiresIn: 300 });
+    console.log("JWT function")
 
-  sendVerificationMail(req.body.email,req.body.firstName,encryptedToken, (err,data) => {
-      //Invoked the callback function od the sendverification email object
-      if(err){
-          res.status(500).send({message: "An error has occured trying to send the mail"});
+    //encrypt the token
+    var encryptedToken = Utility.EncryptToken(token);
+    console.log("Encrpt token")
+    //save the token for reference purposes - optional
+    var idToken = randtoken.generate(16);
+    var json = {
+      'id': generateId(10),
+      token: idToken,
+      email: req.body.email
+    };
+    var query1= "INSERT INTO `scriptchainprod.ScriptChain.tokenSchema` VALUES ("
+    for(var myKey in json) {
+      query1+="'"+json[myKey]+"', ";
+    }
+    query1 = query1.slice(0,query1.length-2);
+    query1 += ")";
+    console.log(query1);
+    const bigQueryOptions1 = {
+      query: query1,
+      location: 'US'
+    }
+    bigquery.query(bigQueryOptions1, function(err, row) {
+      if(!err) {
+          console.log('Inserted successfully');
+      }else{
+        console.log(err);
       }
-      res.status(200).send({message: "Verification mail with jwt token is sent"});
-  });
+    });
+    console.log("Verification mail with jwt token is sent");
+
+
+    //Send the email with the verification email
+
+    sendVerificationMail(req.body.email,req.body.firstName,encryptedToken, (err,data) => {
+        //Invoked the callback function od the sendverification email object
+        if(err){
+            res.status(500).send({message: "An error has occured trying to send the mail"});
+        }
+        res.status(200).send({message: "Verification mail with jwt token is sent"});
+    });
 })
 
 /**
@@ -141,8 +146,15 @@ router.post('/account/create',async(req,res)=>{
  *         400 - Already exists or an error occured
  *         500 - Unexpected errors
  */
-router.post('/account/verify',async(req,res)=>{
-    
+router.post('/account/verify',[check("jwtToken").notEmpty(),body().custom(body => {
+  const keys = ['jwtToken'];
+  return Object.keys(body).every(key => keys.includes(key));
+}).withMessage('Some extra parameters are sent')],async(req,res)=>{
+  const errors = validationResult(req);
+  if(!errors.isEmpty()){
+    return res.status(400).json({Message:'Bad Request'})
+  }
+
     // will recieve an encrypted jwt token
     var encryptedToken = req.body.jwtToken.replace(/ /g, '+');
 
@@ -155,41 +167,58 @@ router.post('/account/verify',async(req,res)=>{
     var decodedValue = jwtDecode(decryptedToken);
 
     //Before creating a new provider, check if already exists
-    const checkIfExists = await HealthcareProvider.findOne({email: decodedValue.tokeBody.email});
 
-    if(checkIfExists){
-        return res.status(400).send({
-            message: 'User already exists'
-        })
+
+    const query = 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProviders` WHERE email=@email';
+    // decodedValue.tokeBody.email+'"';
+    const bigQueryOptions = {
+      query: query,
+      location: 'US',
+      params: {email:decodedValue.tokeBody.email}
     }
-
+    bigquery.query(bigQueryOptions, function(err, row) {
+      if(!err) {
+          if (row.length>0){
+            console.log("Check email if exists")
+            return res.status(400).send({
+                message: 'User already exists'
+            })
+          }
+        }
+    });
     //Create a new user in the database
     //encrypt the password
     const salt = await bcrypt.genSaltSync(10);
     const hashpassword = await bcrypt.hash(decodedValue.tokeBody.password, salt);
 
-    //create a new healthcare provider object with the attributes from the decoded request body
-    const healthcareProvider = new HealthcareProvider({
-        firstName: decodedValue.tokeBody.firstName,
-        lastName: decodedValue.tokeBody.lastName,
-        companyName: decodedValue.tokeBody.companyName,
-        location: decodedValue.tokeBody.location,
-        roleInCompany: decodedValue.tokeBody.roleInCompany,
-        email: decodedValue.tokeBody.email,
-        password: hashpassword,
-        phone: decodedValue.tokeBody.phone
-    })
+    json = decodedValue.tokeBody;
+    json['password'] = hashpassword;
+    json['_id'] = generateId(10);
 
-    healthcareProvider.save((err,doc) => {
-        if (!err) {
-            // returns saved patient and 24hex char unique id
-            
-            res.status(200).send({message: 'The user has been created'});
-        }
-        else {
-            console.log('Error in saving patient: ' + JSON.stringify(err, undefined, 2));
-            res.status(500).send({message: 'An error has occured trying to create a new helathcareprovider user'})
-        }
+    var query1= "INSERT INTO `scriptchainprod.ScriptChain.healthcareProviders` (";
+    for(var myKey in json) {
+      query1+=myKey+", ";
+    }
+    query1 = query1.slice(0,query1.length-2);
+    query1+= ") VALUES (";
+    for(var myKey in json) {
+      query1+="'"+json[myKey]+"', ";
+    }
+    query1 = query1.slice(0,query1.length-2);
+    query1 += ")";
+    console.log(query1);
+    const bigQueryOptions1 = {
+      query: query1,
+      location: 'US'
+    }
+    bigquery.query(bigQueryOptions1, function(err, row) {
+      if(!err) {
+          console.log('Inserted successfully');
+          res.status(200).send({message: 'The user has been created'});
+      }else{
+        console.log(err);
+        res.status(500).send({message: 'An error has occured trying to create a new healthcareprovider user'})
+      }
     });
 
 });
@@ -201,7 +230,7 @@ const sendVerificationMail = (email,fname,encryptedToken, callback)=>{
         service : 'gmail',
         auth: {
             type: "OAuth2",
-            user: "moh@scriptchain.co", 
+            user: "moh@scriptchain.co",
             clientId: "867282827024-auj9ljqodshuhf3lq5n8r79q28b4ovun.apps.googleusercontent.com",
             clientSecret: "zjrK7viSEMoPXsEmVI_R7I6O",
             refreshToken: "1//04OyV2qLPD5iYCgYIARAAGAQSNwF-L9IrfYyKF4kF_HhkGaFjxxnxdgxU6tDbQ1l-BLlOIPtXtCDOSj9IkwiWekXwLCNWn9ruUiE",
@@ -211,7 +240,7 @@ const sendVerificationMail = (email,fname,encryptedToken, callback)=>{
 
     //  create mail option with custom template, verification link and Json Web Token
     const mailOptions = {
-        from: 'noreply@scriptchain.co', 
+        from: 'noreply@scriptchain.co',
         to: email,
         subject: 'NO REPLY AT SCRIPTCHAIN.CO! Hey it\'s Moh from ScriptChain',
         html: `<!DOCTYPE html>
@@ -219,7 +248,6 @@ const sendVerificationMail = (email,fname,encryptedToken, callback)=>{
         <head>
           <title>Bootstrap Example</title>
           <meta charset="utf-8">
-        
           <style>
           .panelFooter{
               font-family: Arial;
@@ -291,14 +319,14 @@ const sendVerificationMail = (email,fname,encryptedToken, callback)=>{
           <h1 align="center"style="font-family: arial;">YOU'RE ALMOST DONE REGISTERING!</h1>
           <p class="para">Hi `+fname+`,</p>
           <p class="para">Welcome to ScriptChain! We are glad that you have registered, there is just one more step to verify your account. <b>Please click the link below to verify your email address.</b></p>
-        <p align="center"><a href="http://scriptchain.co/healthcare/verify?verifytoken=`+encryptedToken+`"><button>Verify Your E-mail Address</button></a></p><br><br>
+        <p align="center"><a href="http://localhost:4200/healthcare/verify?verifytoken=`+encryptedToken+`"><button>Verify Your E-mail Address</button></a></p><br><br>
         <p align="center" class="para">If you have any questions or concerns feel free to reach out to <a href="mailto:customer-care@scriptchain.co">customer-care@scriptchain.co</a></p>
           <div class="panelFooter">
             <p align="center" >This message was sent from ScriptChain LLC., Boston, MA</p>
           </div>
         </div>
         </body>
-        </html>        
+        </html>
         `
     }
     // send email
@@ -311,5 +339,4 @@ const sendVerificationMail = (email,fname,encryptedToken, callback)=>{
         callback(null,data);
     });
 }
-
 module.exports = router;

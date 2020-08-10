@@ -1,0 +1,35 @@
+<div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
+
+  <mat-sidenav-container class="example-sidenav-container"
+                         [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+    <mat-sidenav #snav mode="side" opened
+                 [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+      <mat-nav-list>
+        <a class="nav-link" href="#" role="button" data-toggle="modal"
+            data-target="#medicalhistory" aria-haspopup="true" aria-expanded="false">
+            <!--<img src="../../assets/medicalhistory.png">&nbsp;&nbsp;&nbsp;-->Medical History
+        </a>
+        <a class="nav-link" href="#" role="button" data-toggle="modal"
+            data-target="#history" aria-haspopup="true" aria-expanded="false">
+            <!--<img src="../../assets/prescription.png">&nbsp;&nbsp;&nbsp;-->Prescription History
+        </a>
+        <a class="nav-link" href="#" role="button" data-toggle="modal"
+            data-target="#iinfo" aria-haspopup="true" aria-expanded="false">
+            <!--<img src="../../assets/insurancecard.png">&nbsp;&nbsp;&nbsp;-->Insurance Information
+          </a>
+          <a class="nav-link" href="#" role="button" data-toggle="modal"
+            data-target="#doctornote" aria-haspopup="true" aria-expanded="false">
+            <!--<img src="../../assets/doctornote.png">&nbsp;&nbsp;&nbsp;-->Doctor's Note
+          </a>
+        <!--<a mat-list-item routerLink="." *ngFor="let nav of fillerNav">{{nav}}</a>-->
+      </mat-nav-list>
+    </mat-sidenav>
+
+  </mat-sidenav-container>
+</div>
+
+
+
+<!-- Copyright 2020 Google LLC. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->

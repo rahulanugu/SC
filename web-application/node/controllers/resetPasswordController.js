@@ -1,17 +1,21 @@
 const express = require('express');
+const { check,body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-var { Patient } = require('../models/user');
 const nodemailer = require("nodemailer");
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
 var jwtDecode = require('jwt-decode');
 var Utility = require('../utility');
-
-
-
-
 var router = express.Router();
+const {BigQuery} = require('@google-cloud/bigquery');
+const options = {
+    keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
+    projectId: 'scriptchainprod'
+
+};
+const bigquery = new BigQuery(options);
+const fs = require('fs');
 //The controller is used for generating a JWT token to initiate a password reset request
 
 /**
@@ -20,70 +24,70 @@ var router = express.Router();
  * Input: User/Patient email
  * Output: 401 - Email not found (or) 200 - Email has been sent
  */
-router.post('/', async (req, res) => {
+router.post('/', [check('email').notEmpty().isEmail(),body().custom(body => {
+  const keys = ['email'];
+  return Object.keys(body).every(key => keys.includes(key));
+}).withMessage('Some extra parameters are sent')],async (req, res) => {
+  const e = validationResult(req);
+  if(!e.isEmpty()){
+    return res.status(400).json({Message:'Bad Request'});
+  }
 
   if (!req.body.email || (req.body.email === " ")) return req.status(401).json({
     message: "Email is not provided"
 
   });
   //try finding the email in the database
-  const patient = await Patient.findOne({ Email: req.body.email });
 
-  //if patient email is is not found in the database, then return an error
-  if (!patient) return res.status(401).json({
+  const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
+  // '+'"'+req.body.email+'"';
+  const bigQueryOptions = {
+    query: query,
+    location: 'US',
+    params: {email:req.body.email}
+  }
+    bigquery.query(bigQueryOptions, async function(err, patient) {
+      if (!err) {
+        if (patient.length==0){
+           return res.status(401).json({
+            message: "Invalid Email"
+          });
+        }else{
+          const token = await jwt.sign({ patient }, "santosh", { expiresIn: 120 });
+          const encryptedToken = Utility.EncryptToken(token);
+          //mail the token
+          sendVerificationMail(req.body.email, patient[0].fname, encryptedToken);
 
-    message: "Invalid Email"
-  });
+          res.status(200).json({
+            message: "Email has been sent to reset password"
+          });
+        }
 
-  //create a new JWT token and send it to the email of the user
-
-
-
-  // //check for password
-  // const validpassword = await bcrypt.compare(req.body.password, patient.password);
-
-  // if(!validpassword) return res.status(401).json({
-
-  //   message:"Invalid username or password"
-  // });
-
-
-  // create JSON Web Token
-  // *******make sure to change secret word to something secure and put it in env variable*****
-  const token = await jwt.sign({ patient }, "santosh", { expiresIn: 120 });
-
-  //save the token
-  //   const resetPasswordToken = new ResetPasswordToken ({
-  //     token: token
-  //   });
-
-  //   resetPasswordToken.save((err, doc) => {
-  //     if (err) {
-  //       console.log('Error in saving reset password token: ' + JSON.stringify(err, undefined, 2));
-  //     }
-  // });
-
-  //encrypt the token
-
-  const encryptedToken = Utility.EncryptToken(token);
-  //mail the token
-  sendVerificationMail(req.body.email, patient.fname, encryptedToken);
-
-  res.status(200).json({
-    message: "Email has been sent to reset password"
-  });
+      }
+    });
 });
 
+/*
+,
+*/
 /**
  * Verify the jwt token and return the if valid or not
  */
-router.post('/check', async (req, res) => {
+router.post('/check',[check("token").notEmpty(),body().custom(body => {
+  const keys = ['token'];
+  return Object.keys(body).every(key => keys.includes(key));
+}).withMessage('Some extra parameters are sent')],async(req,res)=>{
+  console.log(req.body);
+  const errors = validationResult(req);
+  if(!errors.isEmpty()){
+    return res.status(400).json({Message:'Bad Request'})
+  }
 
   // The token we get here is encrypted, so we need to decode it
   // will recieve an encrypted jwt token
   console.log("checking the validity of tthe password in check")
   var encryptedToken = req.body.token.replace(/ /g, '+');
-  console.log(encryptedToken)
+  //console.log(encryptedToken)
 
   jwt.verify(Utility.DecryptToken(encryptedToken), 'santosh', (err, verifiedJwt) => {
     if (err) {
@@ -97,8 +101,17 @@ router.post('/check', async (req, res) => {
 
 
 });
-
-router.post('/change_password', async (req, res) => {
+/*
+*/
+router.post('/change_password',[check("token").notEmpty(),check("password").notEmpty(),body().custom(body => {
+  const keys = ['token','password'];
+  return Object.keys(body).every(key => keys.includes(key));
+}).withMessage('Some extra parameters are sent')],async(req,res)=>{
+  //console.log(req);
+  const errors = validationResult(req);
+  if(!errors.isEmpty()){
+    return res.status(400).json({Message:'Bad Request'})
+  }
   console.log("Reached change password")
   const str = req.body;
 
@@ -107,7 +120,7 @@ router.post('/change_password', async (req, res) => {
   var correctedToken = req.body.token.replace(/ /g, '+');
   const decryptedToken = Utility.DecryptToken(correctedToken);
 
-  console.log("corrected token \n" + correctedToken)
+  //console.log("corrected token \n" + correctedToken)
   //verify jwt token
   jwt.verify(decryptedToken, 'santosh', (err, verifiedJwt) => {
     if (err) {
@@ -125,22 +138,71 @@ router.post('/change_password', async (req, res) => {
       console.log(decodedValue);
       //.tokebody of decodedvalue will contain the value of json object
       //find the email and update the object
-      Patient.findOne({ Email: decodedValue.patient.Email }, async function (err, doc) {
-        if (doc != null) {
-          const salt = bcrypt.genSaltSync(10);
-          const hashpassword = await bcrypt.hash(req.body.password, salt);
-          console.log(hashpassword)
-          Patient.update({ _id: doc._id }, { $set: { password: hashpassword } }, function (err, response) {
-            if (!response) {
-              res.status(500).send({ message: "Could not update the record" });
-            } else {
-              console.log("Here")
-              console.log(response);
-              res.status(200).send({ message: "Record has been updated" });
+      const query1 = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@Email';
+      // +'"'+req.body.email+'"';
+      const bigQueryOptions1 = {
+        query: query1,
+        location: 'US',
+        params: {Email:decodedValue.patient[0].Email}
+      }
+      bigquery.query(bigQueryOptions1, async function(err, doc) {
+        if (!err) {
+          if (doc.length>0){
+            console.log('Selected');
+            const salt = bcrypt.genSaltSync(10);
+            const hashpassword = await bcrypt.hash(req.body.password, salt);
+            const patient = doc[0];
+            patient['password'] = hashpassword;
+            console.log(hashpassword);
+            const query2 = 'DELETE FROM `scriptchainprod.ScriptChain.patients` WHERE _id=@id';
+            // +'"'+req.body.email+'"';
+            console.log(patient);
+            const bigQueryOptions2 = {
+              query: query2,
+              location: 'US',
+              params: {id:patient['_id']}
             }
-          });
-        } else {
-          res.status(404).send({ message: "email not found" })
+            bigquery.query(bigQueryOptions2, function(err, row1) {
+              if(!err){
+                console.log('Deleted');
+
+                var query3= "INSERT INTO `scriptchainprod.ScriptChain.patients` (";
+                for(var myKey in patient) {
+                  query3+=myKey+", ";
+                }
+                query3 = query3.slice(0,query3.length-2);
+                query3+= ") VALUES (";
+                for(var myKey in patient) {
+                  if(patient[myKey]==false || patient[myKey]==true)
+                    query3+=patient[myKey]+",";
+                  else
+                    query3+="'"+patient[myKey]+"', ";
+                }
+                query3 = query3.slice(0,query3.length-2);
+                query3 += ")";
+                console.log(query3)
+                const bigQueryOptions3 = {
+                  query: query3,
+                  location: 'US'
+                }
+                bigquery.query(bigQueryOptions3, function(err, row) {
+                  if(!err) {
+                      console.log('Inserted successfully');
+                      res.status(200).send({message:"Record has been updated"});
+                  }else{
+                    console.log(err);
+                    res.status(500).send({message:"Could not update the record"});
+                  }
+                });
+              }
+              else{
+                console.log(err);
+              }
+            });
+          }
+          else {
+            res.status(404).send({ message: "email not found" })
+          }
         }
       });
     }
@@ -157,6 +219,7 @@ const accessToken = oauth2Client.getAccessToken();
 
 const sendVerificationMail = (email, fname, encryptedToken) => {
 
+  console.log(fname);
   //create a transporter with OAuth2
   const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -180,7 +243,6 @@ const sendVerificationMail = (email, fname, encryptedToken) => {
         <head>
           <title>Bootstrap Example</title>
           <meta charset="utf-8">
-        
           <style>
           .panelFooter{
               font-family: Arial;
@@ -216,7 +278,6 @@ const sendVerificationMail = (email, fname, encryptedToken) => {
               text-decoration: none;
               display: inline-block;
               font-size: 17px;
-            
             }
             .container{
               max-width: 280px;
@@ -250,14 +311,14 @@ const sendVerificationMail = (email, fname, encryptedToken) => {
           </div>
           <h1 align="center"style="font-family: arial;">Please follow the link to reset your password</h1>
           <p class="para">Hi `+ fname + `,</p>
-        <p align="center"><a href="http://scriptchain.co/patient/password/resetpage?token=`+ encryptedToken + `?email=` + email + `"><button>Reset Password</button></a></p><br><br>
+        <p align="center"><a href="http://localhost:4200/patient/password/resetpage?token=`+ encryptedToken + `?email=` + email + `"><button>Reset Password</button></a></p><br><br>
         <p align="center" class="para">If you have any questions or concerns feel free to reach out to <a href="mailto:customer-care@scriptchain.co">customer-care@scriptchain.co</a></p>
           <div class="panelFooter">
             <p align="center" >This message was sent from ScriptChain LLC., Boston, MA</p>
           </div>
         </div>
         </body>
-        </html>  
+        </html>
         `
   }
 
