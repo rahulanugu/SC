@@ -36,7 +36,7 @@ function generateId(count) {
 router.post("/patient/request",[check('email').notEmpty().isEmail(),body().custom(body => {
   const keys = ['email'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')],async (req, res) => {
+})],async (req, res) => {
   const e = validationResult(req);
   if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'});
@@ -96,7 +96,7 @@ router.post("/patient/request",[check('email').notEmpty().isEmail(),body().custo
 router.post("/healthcare/request",[check('email').notEmpty().isEmail(),body().custom(body => {
   const keys = ['email'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')],async (req, res) => {
+})],async (req, res) => {
   const e = validationResult(req);
   if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'});
@@ -150,7 +150,7 @@ router.post("/healthcare/request",[check('email').notEmpty().isEmail(),body().cu
 router.post("/patient/activate", [check("token").notEmpty(),body().custom(body => {
   const keys = ['token'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')],async(req,res)=>{
+})],async(req,res)=>{
   const errors = validationResult(req);
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
@@ -256,7 +256,7 @@ router.post("/patient/activate", [check("token").notEmpty(),body().custom(body =
 router.post("/healthcare/activate", [check("token").notEmpty(),body().custom(body => {
   const keys = ['token'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')],async(req,res)=>{
+})],async(req,res)=>{
   const errors = validationResult(req);
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
@@ -339,7 +339,7 @@ router.post("/healthcare/activate", [check("token").notEmpty(),body().custom(bod
               }
             });
             }
-          
+
         }
    else {
       console.log("Email is not found.")

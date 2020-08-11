@@ -26,13 +26,11 @@ router.put("/fname", [check('email').isEmail(),
 check('fname').isAlpha().notEmpty(),body().custom(body => {
   const keys = ['email','fname'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')],async (req, res) => {
+})],async (req, res) => {
   const e = validationResult(req);
   if(!e.isEmpty()){
-    const firstError = e.array().map(error => error.msg)[0];
-    return res.status(400).json({ error: firstError });
+    return res.status(400).json({Message:'Bad Request'});
   }
-
   //const retrievedPatient = await Patient.findOne({ Email: req.body.email })
 
   const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
@@ -104,14 +102,13 @@ check('fname').isAlpha().notEmpty(),body().custom(body => {
  *         200 - Successfylly saved the request
  *         500 - An error occured trying to save the request
  */
-router.put("/lname",[check('email').isEmail().withMessage('Provide  Email'),check('lname').isAlpha().withMessage('not alphabets').notEmpty(),body().custom(body => {
+router.put("/lname",[check('email').isEmail(),check('lname').isAlpha().notEmpty(),body().custom(body => {
   const keys = ['email','lname'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')],async (req, res) => {
+})],async (req, res) => {
   const e = validationResult(req);
   if(!e.isEmpty()){
-    const firstError = e.array().map(error => error.msg)[0];
-    return res.status(400).json({ error: firstError });
+    return res.status(400).json({Message:'Bad Request'});
   }
 
   const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
@@ -183,14 +180,13 @@ router.put("/lname",[check('email').isEmail().withMessage('Provide  Email'),chec
  *         200 - Successfylly saved the request
  *         500 - An error occured trying to save the request
  */
-router.put("/phone", [check('email').isEmail().withMessage('Provide Email'),check('phone').isMobilePhone().notEmpty(),body().custom(body => {
+router.put("/phone", [check('email').isEmail(),check('phone').isMobilePhone().notEmpty(),body().custom(body => {
   const keys = ['email','phone'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')],async(req, res) => {
+})],async(req, res) => {
   const e = validationResult(req);
   if(!e.isEmpty()){
-    const firstError = e.array().map(error => error.msg)[0];
-    return res.status(400).json({ error: firstError });
+    return res.status(400).json({Message:'Bad Request'});
   }
 
   const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
@@ -261,11 +257,11 @@ module.exports = router;
  *         200 - Successfylly saved the request
  *         500 - An error occured trying to save the request
  */
-router.put("/password" , [check('email').isEmail().withMessage('Provide Email')
+router.put("/password" , [check('email').isEmail()
 ,check('newPassword').notEmpty(),check('oldPassword').notEmpty(),body().custom(body => {
   const keys = ['email','newPassword','oldPassword'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')],async (req, res) => {
+})],async (req, res) => {
   const e = validationResult(req);
   if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'});

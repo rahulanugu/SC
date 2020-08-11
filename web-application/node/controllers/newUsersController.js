@@ -45,11 +45,10 @@ function generateId(count) {
 router.post("/",[check('fname').notEmpty().isAlpha(),check('lname').notEmpty().isAlpha(),check('email').notEmpty().isEmail(),check('typeOfUser').notEmpty(),body().custom(body => {
   const keys = ['_id','fname','lname','email','typeOfUser'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')],async (req, res) => {
+})],async (req, res) => {
   const e = validationResult(req);
-  if(!e.isEmpty()){
-    const firstError = e.array().map(error => error.msg)[0];
-    return res.status(400).json({ error: firstError });
+  if(!errors.isEmpty()){
+    return res.status(400).json({Message:'Bad Request'})
   }
   const query = 'SELECT * FROM `scriptchainprod.ScriptChain.newUsers` WHERE email=@email';
   // req.body.email+'"';

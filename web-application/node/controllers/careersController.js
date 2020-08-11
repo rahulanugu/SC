@@ -37,7 +37,7 @@ function generateId(count) {
 router.post("/jobposting",[check("title").notEmpty(),check('description').notEmpty(),check("salary").notEmpty(),check("location").notEmpty(),check("email").notEmpty(),check('category').notEmpty(),body().custom(body => {
   const keys = ['title','description','salary','location','email','category'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')],async(req, res) => {
+})],async(req, res) => {
     const err = validationResult(req);
     if(!err.isEmpty()){
       return res.status(400).json({Message:'Bad Request'})

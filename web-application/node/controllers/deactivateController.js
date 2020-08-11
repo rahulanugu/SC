@@ -28,7 +28,7 @@ const bigquery = new BigQuery(options);
 router.post("/patient",[check('email').notEmpty().isEmail(),body().custom(body => {
     const keys = ['email'];
     return Object.keys(body).every(key => keys.includes(key));
-  }).withMessage('Some extra parameters are sent')], async (req, res) => {
+  })], async (req, res) => {
   const e = validationResult(req);
   if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'});
@@ -116,7 +116,7 @@ router.post("/patient",[check('email').notEmpty().isEmail(),body().custom(body =
 router.post("/healthcare",[check('email').notEmpty().isEmail(),body().custom(body => {
     const keys = ['email'];
     return Object.keys(body).every(key => keys.includes(key));
-  }).withMessage('Some extra parameters are sent')],async (req, res) => {
+  })],async (req, res) => {
   const e = validationResult(req);
   if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'});

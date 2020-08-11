@@ -27,7 +27,7 @@ const fs = require('fs');
 router.post('/', [check('email').notEmpty().isEmail(),body().custom(body => {
   const keys = ["email"];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')],async(req, res) => {
+})],async(req, res) => {
   const err = validationResult(req);
   if(!err.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
@@ -93,7 +93,7 @@ router.post('/', [check('email').notEmpty().isEmail(),body().custom(body => {
 router.post('/check', [check("token").notEmpty(),body().custom(body => {
   const keys = ['token'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')],async(req,res)=>{
+})],async(req,res)=>{
   const errors = validationResult(req);
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
@@ -121,7 +121,10 @@ router.post('/check', [check("token").notEmpty(),body().custom(body => {
 router.post('/change_password',[check("token").notEmpty(),check("password").notEmpty(),body().custom(body => {
   const keys = ['token','password'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')], async(req,res) => {
+})], async(req,res) => {
+  if(!e.isEmpty()){
+    return res.status(400).json({Message:'Bad Request'});
+  }
   console.log("Reached change password for healthcare provider")
   const str = req.body;
 
@@ -192,7 +195,7 @@ router.post('/change_password',[check("token").notEmpty(),check("password").notE
                       console.log("Here")
                       res.status(200).send({message:"Record has been updated"});
                     }else{
-                      res.status(500).send({message:"Could not update the record"});               
+                      res.status(500).send({message:"Could not update the record"});
                      }
                   });
                 });
