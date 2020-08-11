@@ -28,8 +28,8 @@ function generateId(count) {
   return str;
 }
 
-router.post("/",[check('fname').notEmpty().isAlpha(),check('lname').notEmpty().isAlpha(),check('email').isEmail(),check('message').notEmpty(),body().custom(body => {
-  const keys = ['fname','lname','email','message'];
+router.post("/",[check('FirstName').notEmpty().isAlpha(),check('LastName').notEmpty().isAlpha(),check('Email').isEmail(),check('Message').notEmpty(),body().custom(body => {
+  const keys = ['FirstName','LastName','Email','Message'];
   return Object.keys(body).every(key => keys.includes(key));
 }).withMessage('Some extra parameters are sent')],async(req, res) => {
   const err = validationResult(req);
