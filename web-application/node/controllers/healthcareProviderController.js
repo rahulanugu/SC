@@ -58,19 +58,21 @@ function generateId(count) {
   }
   return str;
 }
-router.post('/account/create',[check('firstName').notEmpty().withMessage('First Name is required.').isAlpha().withMessage('First Name should be String')
-,check('lastName').notEmpty().withMessage('Last Name is required.').isAlpha().withMessage('Last Name should be String')
-,check('companyName').notEmpty().withMessage("Provide company name"),check('roleInCompany').notEmpty().withMessage("Provide the company name")
-,check('email').notEmpty().withMessage("Provide Email ID").isEmail().withMessage('Should Provide Email')
-,check('password').exists().notEmpty().withMessage('Please type your password'),
-check('phone').notEmpty().withMessage('Phone Number is required.'),check('ehr').notEmpty().withMessage('EHR is required.'),body().custom(body => {
+router.post('/account/create',
+[check('firstName').notEmpty().isAlpha()
+,check('lastName').notEmpty().isAlpha()
+,check('companyName').notEmpty(),check('roleInCompany').notEmpty()
+,check('email').notEmpty().isEmail()
+,check('password').exists().notEmpty()
+,check('phone').notEmpty()
+,check('ehr').notEmpty()
+,body().custom(body => {
   const keys = ['firstName','lastName','companyName','roleInCompany','email','ehr','password','phone'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')], async (req, res) => {
+})], async (req, res) => {
   const e = validationResult(req);
   if(!e.isEmpty()){
-    const firstError = e.array().map(error => error.msg)[0];
-    return res.status(400).json({ error: firstError });
+    return res.status(400).json({Message:'Bad Request'});
   }
     //Check if user alread exists
     const query= 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProviders` WHERE email=@email';
@@ -93,7 +95,7 @@ check('phone').notEmpty().withMessage('Phone Number is required.'),check('ehr').
             const tokeBody = req.body;
             const token = await jwt.sign({tokeBody}, "santosh", { expiresIn: 300 });
             console.log("JWT function")
-        
+
             //encrypt the token
             var encryptedToken = Utility.EncryptToken(token);
             console.log("Encrpt token")
@@ -123,10 +125,10 @@ check('phone').notEmpty().withMessage('Phone Number is required.'),check('ehr').
               }
             });
             console.log("Verification mail with jwt token is sent");
-        
-        
+
+
             //Send the email with the verification email
-        
+
             sendVerificationMail(req.body.email,req.body.firstName,encryptedToken, (err,data) => {
                 //Invoked the callback function od the sendverification email object
                 if(err){
@@ -149,7 +151,7 @@ check('phone').notEmpty().withMessage('Phone Number is required.'),check('ehr').
 router.post('/account/verify',[check("jwtToken").notEmpty(),body().custom(body => {
   const keys = ['jwtToken'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')],async(req,res)=>{
+})],async(req,res)=>{
   const errors = validationResult(req);
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
@@ -221,7 +223,7 @@ router.post('/account/verify',[check("jwtToken").notEmpty(),body().custom(body =
           }
         }
     });
-    
+
 
 });
 
