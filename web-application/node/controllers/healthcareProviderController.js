@@ -107,11 +107,13 @@ router.post('/account/create',
             };
             var query1= "INSERT INTO `scriptchainprod.ScriptChain.tokenSchema` VALUES ("
 
+            //REPLACE THIS AFTER VALUES
             for(var myKey in json) {
               query1+="@"+myKey+",";
               //query1+="'"+json[myKey]+"', ";
             }
             query1 = query1.slice(0,query1.length-1);
+            //REPLACE THIS AFTER VALUES
             query1 += ")";
             console.log(query1);
             const bigQueryOptions1 = {
