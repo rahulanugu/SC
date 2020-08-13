@@ -47,13 +47,14 @@ router.post("/jobposting",[check("title").notEmpty(),check('description').notEmp
 
     var query= "INSERT INTO `scriptchainprod.ScriptChain.jobOpenings` VALUES ("
     for(var myKey in req.body) {
-      query+="'"+req.body[myKey]+"', ";
+      query+="@"+myKey+",";
     }
-    query = query.slice(0,query.length-2);
+    query = query.slice(0,query.length-1);
     query += ")";
     const bigQueryOptions = {
       query: query,
-      location: 'US'
+      location: 'US',
+      params: req.body
     }
     bigquery.query(bigQueryOptions, function(err, row) {
       if(!err) {
@@ -156,24 +157,29 @@ router.get('/jobposting/:jobcategory', (req, res) => {
   return Object.keys(body).every(key => keys.includes(key));
 }).withMessage('Some extra parameters are sent')]
 */
-router.post("/jobcategory",async(req, res) => {
-  /*const e = validationResult(req);
-  if(!e.isEmpty()){
-    return res.status(400).json({Message:'Bad Request'})
-  }*/
+router.post("/jobcategory",[check("title").notEmpty(),check('description').notEmpty(),body().custom(body => {
+  const keys = ['title','description'];
+  return Object.keys(body).every(key => keys.includes(key));
+})],async(req, res) => {
+    const err = validationResult(req);
+    if(!err.isEmpty()){
+      return res.status(400).json({Message:'Bad Request'})
+    }
+
   console.log("posting a jobcategory to the database");
   req.body['_id'] = generateId(10);
 
   var query= "INSERT INTO `scriptchainprod.ScriptChain.jobCategories` VALUES ("
   for(var myKey in req.body) {
-    query+="'"+req.body[myKey]+"', ";
+    query+="@"+myKey+",";
   }
-  query = query.slice(0,query.length-2);
+  query = query.slice(0,query.length-1);
   query += ")";
   console.log(query);
   const bigQueryOptions = {
     query: query,
-    location: 'US'
+    location: 'US',
+    params: req.body
   }
   bigquery.query(bigQueryOptions, function(err, row) {
     if(!err) {

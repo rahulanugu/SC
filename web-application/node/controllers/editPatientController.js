@@ -69,15 +69,18 @@ check('fname').isAlpha().notEmpty(),body().custom(body => {
                 query3+= ") VALUES (";
                 for(var myKey in patient) {
                   if(patient[myKey]==false || patient[myKey]==true)
-                    query3+=patient[myKey]+",";
+                    query3+="@"+myKey+",";
+
                   else
-                    query3+="'"+patient[myKey]+"', ";
+                    query3+="@"+myKey+",";
+
                 }
-                query3 = query3.slice(0,query3.length-2);
+                query3 = query3.slice(0,query3.length-1);
                 query3 += ")";
                   const bigQueryOptions = {
                       query: query3,
-                      location: 'US'
+                      location: 'US',
+                      params: patient
                   }
                   bigquery.query(bigQueryOptions, function(err, row) {
                     if(!err) {
@@ -146,15 +149,18 @@ router.put("/lname",[check('email').isEmail(),check('lname').isAlpha().notEmpty(
                 query3+= ") VALUES (";
                 for(var myKey in patient) {
                   if(patient[myKey]==false || patient[myKey]==true)
-                    query3+=patient[myKey]+",";
+                        query3+="@"+myKey+",";
+
                   else
-                    query3+="'"+patient[myKey]+"', ";
+                      query3+="@"+myKey+",";
+
                 }
-                query3 = query3.slice(0,query3.length-2);
+                query3 = query3.slice(0,query3.length-1);
                 query3 += ")";
                   const bigQueryOptions = {
                       query: query3,
-                      location: 'US'
+                      location: 'US',
+                      params: patient
                   }
                   bigquery.query(bigQueryOptions, function(err, row) {
                     if(!err) {
@@ -222,15 +228,16 @@ router.put("/phone", [check('email').isEmail(),check('phone').isMobilePhone().no
                 query3+= ") VALUES (";
                 for(var myKey in patient) {
                   if(patient[myKey]==false || patient[myKey]==true)
-                    query3+=patient[myKey]+",";
+                      query3+="@"+myKey+",";
                   else
-                    query3+="'"+patient[myKey]+"', ";
+                      query3+="@"+myKey+",";
                 }
-                query3 = query3.slice(0,query3.length-2);
+                query3 = query3.slice(0,query3.length-1);
                 query3 += ")";
                   const bigQueryOptions = {
                       query: query3,
-                      location: 'US'
+                      location: 'US',
+                      params: patient
                   }
                   bigquery.query(bigQueryOptions, function(err, row) {
                     if(!err) {
@@ -315,15 +322,16 @@ router.put("/password" , [check('email').isEmail()
                 query3+= ") VALUES (";
                 for(var myKey in patient) {
                   if(patient[myKey]==false || patient[myKey]==true)
-                    query3+=patient[myKey]+",";
+                      query3+="@"+myKey+",";
                   else
-                    query3+="'"+patient[myKey]+"', ";
+                      query3+="@"+myKey+",";
                 }
-                query3 = query3.slice(0,query3.length-2);
+                query3 = query3.slice(0,query3.length-1);
                 query3 += ")";
                   const bigQueryOptions = {
                       query: query3,
-                      location: 'US'
+                      location: 'US',
+                      params: patient
                   }
                   bigquery.query(bigQueryOptions, function(err, row) {
                     if(!err) {
