@@ -10,6 +10,7 @@ const options = {
 
 };
 const bigquery = new BigQuery(options);
+const API_KEY = "scriptChain@13$67ahi1";
 //http request for patient login http://localhost:3000/patient-login/
 /**
  * This method validates the user/patient to log in to the portal.
@@ -24,6 +25,9 @@ router.post('/',[check('email').notEmpty().isEmail(),check('password').notEmpty(
   const errors = validationResult(req);
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
+  }
+  if(req.query.API_KEY!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
   }
     //const patient = await Patient.findOne({Email: req.body.email});
     //if the patient is not found, try finding it in the deactivated patients collection

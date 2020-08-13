@@ -15,7 +15,7 @@ const options = {
 
 };
 const bigquery = new BigQuery(options);
-
+const API_KEY = "scriptChain@13$67ahi1";
 //The controller is used for generating a JWT token to initiate a password reset request
 
 /**
@@ -31,6 +31,9 @@ router.post('/', [check('email').notEmpty().isEmail(),body().custom(body => {
   const e = validationResult(req);
   if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'});
+  }
+  if(req.query.API_KEY!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
   }
 
   if (!req.body.email || (req.body.email === " ")) return req.status(401).json({
@@ -82,6 +85,9 @@ router.post('/check',[check("token").notEmpty(),body().custom(body => {
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
   }
+  // if(req.query.API_KEY!=API_KEY){
+  //   return res.status(401).json({Message:'Unauthorized'});
+  // }
 
   // The token we get here is encrypted, so we need to decode it
   // will recieve an encrypted jwt token
@@ -112,6 +118,9 @@ router.post('/change_password',[check("token").notEmpty(),check("password").notE
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
   }
+  // if(req.query.API_KEY!=API_KEY){
+  //   return res.status(401).json({Message:'Unauthorized'});
+  // }
   console.log("Reached change password")
   const str = req.body;
 
