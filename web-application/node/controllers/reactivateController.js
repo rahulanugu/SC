@@ -194,22 +194,25 @@ router.post("/patient/activate", [check("token").notEmpty(),body().custom(body =
 
           var query4= "INSERT INTO `scriptchainprod.ScriptChain.patients` (";
           for(var myKey in patient) {
-              query4+=myKey+", ";
+            query4+=myKey+", ";
+
           }
           query4 = query4.slice(0,query4.length-2);
           query4+= ") VALUES (";
           for(var myKey in patient) {
               if(patient[myKey]==false || patient[myKey]==true)
-                  query4+=patient[myKey]+",";
+                    query4+="@"+myKey+",";
+
               else
-                  query4+="'"+patient[myKey]+"', ";
+                query4+="@"+myKey+",";
           }
-          query4 = query4.slice(0,query4.length-2);
+          query4 = query4.slice(0,query4.length-1);
           query4 += ")";
           console.log(query4);
           const bigQueryOptions4 = {
             query: query4,
-            location: 'US'
+            location: 'US',
+            params: patient
           }
           bigquery.query(bigQueryOptions4, function(err, row) {
             if(!err) {
@@ -306,16 +309,19 @@ router.post("/healthcare/activate", [check("token").notEmpty(),body().custom(bod
           query4+= ") VALUES (";
           for(var myKey in retrievedHealthcareProvider) {
               if(retrievedHealthcareProvider[myKey]==false || retrievedHealthcareProvider[myKey]==true)
-                  query4+=retrievedHealthcareProvider[myKey]+",";
+                  query4+="@"+myKey+",";
+
               else
-                  query4+="'"+retrievedHealthcareProvider[myKey]+"', ";
+                  query4+="@"+myKey+",";
+
           }
-          query4 = query4.slice(0,query4.length-2);
+          query4 = query4.slice(0,query4.length-1);
           query4 += ")";
           console.log(query4);
           const bigQueryOptions4 = {
             query: query4,
-            location: 'US'
+            location: 'US',
+            params: retrievedHealthcareProvider
           }
           bigquery.query(bigQueryOptions4, function(err, row) {
             if(!err) {

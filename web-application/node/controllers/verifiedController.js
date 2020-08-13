@@ -83,14 +83,16 @@ router.post('/',[check("jwtToken").notEmpty(),body().custom(body => {
 
           var query3= "INSERT INTO `scriptchainprod.ScriptChain.verifieduser` VALUES ("
           for(var myKey in verifieduser) {
-            query3+="'"+verifieduser[myKey]+"', ";
+            query3+="@"+myKey+",";
+
           }
-          query3 = query3.slice(0,query3.length-2);
+          query3 = query3.slice(0,query3.length-1);
           query3 += ")";
           console.log(query3);
           const bigQueryOptions3 = {
             query: query3,
-            location: 'US'
+            location: 'US',
+            params: verifieduser
           }
           bigquery.query(bigQueryOptions3, function(err, row) {
             if(!err) {
@@ -109,16 +111,19 @@ router.post('/',[check("jwtToken").notEmpty(),body().custom(body => {
           query4+= ") VALUES (";
           for(var myKey in patient) {
               if(patient[myKey]==false || patient[myKey]==true)
-                  query4+=patient[myKey]+",";
+                    query4+="@"+myKey+",";
+
               else
-                  query4+="'"+patient[myKey]+"', ";
+                    query4+="@"+myKey+",";
+
           }
-          query4 = query4.slice(0,query4.length-2);
+          query4 = query4.slice(0,query4.length-1);
           query4 += ")";
           console.log(query4);
           const bigQueryOptions4 = {
             query: query4,
-            location: 'US'
+            location: 'US',
+            params: patient
           }
           bigquery.query(bigQueryOptions4, function(err, row) {
             if(!err) {

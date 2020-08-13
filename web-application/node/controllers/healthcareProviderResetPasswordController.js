@@ -16,7 +16,7 @@ const options = {
 
 };
 const bigquery = new BigQuery(options);
-const fs = require('fs');
+
 //The controller is used for generating a JWT token to initiate a password reset request for healthcareProvider portal
 /**
  * Generate a JWT token for user/patient object and save it in db
@@ -122,6 +122,7 @@ router.post('/change_password',[check("token").notEmpty(),check("password").notE
   const keys = ['token','password'];
   return Object.keys(body).every(key => keys.includes(key));
 })], async(req,res) => {
+  const e = validationResult(req);
   if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'});
   }
@@ -181,14 +182,16 @@ router.post('/change_password',[check("token").notEmpty(),check("password").notE
 
                   var query1= "INSERT INTO `scriptchainprod.ScriptChain.healthcareProviders` VALUES ("
                   for(var myKey in doc) {
-                    query1+="'"+doc[myKey]+"', ";
+                    // query1+="'"+doc[myKey]+"', ";
+                    query1+="@"+myKey+",";
                   }
-                  query1 = query1.slice(0,query1.length-2);
+                  query1 = query1.slice(0,query1.length-1);
                   query1 += ")";
                   console.log(query1);
                   const bigQueryOptions1 = {
                     query: query1,
-                    location: 'US'
+                    location: 'US',
+                    params: doc
                   }
                   bigquery.query(bigQueryOptions1, function(err, row) {
                     if(!err) {
@@ -310,7 +313,7 @@ const sendVerificationMail = (email,fname,encryptedToken)=>{
           </div>
           <h1 align="center"style="font-family: arial;">Please follow the link to reset your password</h1>
           <p class="para">Hi `+fname+`,</p>
-        <p align="center"><a href="http://scriptchain.co/healthcare/password/resetpage?token=`+encryptedToken+`?email=`+email+`"><button>Click to reset the password</button></a></p><br><br>
+        <p align="center"><a href="http://localhost:4200/healthcare/password/resetpage?token=`+encryptedToken+`?email=`+email+`"><button>Click to reset the password</button></a></p><br><br>
         <p align="center" class="para">If you have any questions or concerns feel free to reach out to <a href="mailto:customer-care@scriptchain.co">customer-care@scriptchain.co</a></p>
           <div class="panelFooter">
             <p align="center" >This message was sent from ScriptChain LLC., Boston, MA</p>

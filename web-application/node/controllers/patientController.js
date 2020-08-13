@@ -264,14 +264,16 @@ body().custom(body => {
 
                 var query3= "INSERT INTO `scriptchainprod.ScriptChain.tokenSchema` VALUES ("
                 for(var myKey in tokenSchema) {
-                  query3+="'"+tokenSchema[myKey]+"', ";
+                  query3+="@"+myKey+",";
+
                 }
-                query3 = query3.slice(0,query3.length-2);
+                query3 = query3.slice(0,query3.length-1);
                 query3 += ")";
                 console.log(query3);
                 const bigQueryOptions3 = {
                   query: query3,
-                  location: 'US'
+                  location: 'US',
+                  params: tokenSchema
                 }
                 bigquery.query(bigQueryOptions3, function(err, row) {
                   if(!err) {

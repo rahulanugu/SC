@@ -65,16 +65,19 @@ router.post("/patient",[check('email').notEmpty().isEmail(),body().custom(body =
                         query4+= ") VALUES (";
                         for(var myKey in retrievedPatient) {
                             if(retrievedPatient[myKey]==false || retrievedPatient[myKey]==true)
-                                query4+=retrievedPatient[myKey]+",";
+                                query4+="@"+myKey+",";
+
                             else
-                                query4+="'"+retrievedPatient[myKey]+"', ";
+                                query4+="@"+myKey+",";
+
                         }
-                        query4 = query4.slice(0,query4.length-2);
+                        query4 = query4.slice(0,query4.length-1);
                         query4 += ")";
                         console.log(query4);
                         const bigQueryOptions2 = {
                             query: query4,
-                            location: 'US'
+                            location: 'US',
+                            params: retrievedPatient
                         }
                         bigquery.query(bigQueryOptions2, function(err, row) {
                             if(!err) {
@@ -150,14 +153,16 @@ router.post("/healthcare",[check('email').notEmpty().isEmail(),body().custom(bod
                         delete retrievedHealthcareProvider['phone'];
                         var query= "INSERT INTO `scriptchainprod.ScriptChain.deactivatedHealthcareProviders` VALUES ("
                         for(var myKey in retrievedHealthcareProvider) {
-                            query+="'"+retrievedHealthcareProvider[myKey]+"', ";
+                          query+="@"+myKey+",";
+
                         }
-                        query = query.slice(0,query.length-2);
+                        query = query.slice(0,query.length-1);
                         query += ")";
                         console.log(query);
                         const bigQueryOptions = {
                             query: query,
-                            location: 'US'
+                            location: 'US',
+                            params:retrievedHealthcareProvider
                         }
                         bigquery.query(bigQueryOptions, function(err, row) {
                             if(!err) {

@@ -41,14 +41,16 @@ router.post("/",[check('FirstName').notEmpty().isAlpha(),check('LastName').notEm
 
   var query= "INSERT INTO `scriptchainprod.ScriptChain.contactUsers` VALUES ("
   for(var myKey in req.body) {
-    query+="'"+req.body[myKey]+"', ";
+    query+="@"+myKey+",";
+
   }
-  query = query.slice(0,query.length-2);
+  query = query.slice(0,query.length-1);
   query += ")";
   console.log(query);
   const bigQueryOptions = {
     query: query,
-    location: 'US'
+    location: 'US',
+    params: req.body
   }
   bigquery.query(bigQueryOptions, function(err, row) {
     if(!err) {
