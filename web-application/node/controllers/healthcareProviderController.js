@@ -40,7 +40,6 @@ const options = {
 
 };
 const bigquery = new BigQuery(options);
-const fs = require('fs');
 
 /**
  * Request the creation of a new healthcareprovider user
@@ -102,20 +101,23 @@ router.post('/account/create',
             //save the token for reference purposes - optional
             var idToken = randtoken.generate(16);
             var json = {
-              'id': generateId(10),
+              '_id': generateId(10),
               token: idToken,
-              email: req.body.email
+              email: req.body.email,
             };
             var query1= "INSERT INTO `scriptchainprod.ScriptChain.tokenSchema` VALUES ("
+
             for(var myKey in json) {
-              query1+="'"+json[myKey]+"', ";
+              query1+="@"+myKey+",";
+              //query1+="'"+json[myKey]+"', ";
             }
-            query1 = query1.slice(0,query1.length-2);
+            query1 = query1.slice(0,query1.length-1);
             query1 += ")";
             console.log(query1);
             const bigQueryOptions1 = {
               query: query1,
-              location: 'US'
+              location: 'US',
+              params: json
             }
             bigquery.query(bigQueryOptions1, function(err, row) {
               if(!err) {
@@ -201,15 +203,18 @@ router.post('/account/verify',[check("jwtToken").notEmpty(),body().custom(body =
           }
           query1 = query1.slice(0,query1.length-2);
           query1+= ") VALUES (";
+
           for(var myKey in json) {
-            query1+="'"+json[myKey]+"', ";
+            query1+="@"+myKey+",";
+            //query1+="'"+json[myKey]+"', ";
           }
-          query1 = query1.slice(0,query1.length-2);
+          query1 = query1.slice(0,query1.length-1);
           query1 += ")";
           console.log(query1);
           const bigQueryOptions1 = {
             query: query1,
-            location: 'US'
+            location: 'US',
+            params: json
           }
           bigquery.query(bigQueryOptions1, function(err, row) {
             if(!err) {
