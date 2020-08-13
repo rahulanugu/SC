@@ -21,7 +21,7 @@ const options = {
 
 };
 const bigquery = new BigQuery(options);
-
+const API_KEY = "scriptChain@13$67ahi1";
 const oauth2Client = new OAuth2(
     "Y16828344230-21i76oqle90ehsrsrpptnb8ek2vqfjfp.apps.googleusercontent.com",
     "ZYdS8bspVNCyBrSnxkMxzF2d",
@@ -54,6 +54,11 @@ function generateId(count) {
 }
 
 router.get('/',async (req, res) => {
+    //ADD THIS
+    if(req.query.API_KEY!=API_KEY){
+      return res.status(401).json({Message:'Unauthorized'});
+    }
+    //ADD THIS
     console.log('you have entered');
     // Authentication to enter this?
     // How to secure this?
