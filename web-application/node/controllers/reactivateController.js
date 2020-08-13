@@ -6,7 +6,6 @@ const nodemailer = require("nodemailer");
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
 var jwtDecode = require('jwt-decode');
-const fs = require('fs');
 const {BigQuery} = require('@google-cloud/bigquery');
 const options = {
     keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
@@ -14,6 +13,7 @@ const options = {
 
 };
 const bigquery = new BigQuery(options);
+const API_KEY = "scriptChain@13$67ahi1";
 //The controller handles the requests for reactivating user accounts
 
 /**
@@ -40,6 +40,9 @@ router.post("/patient/request",[check('email').notEmpty().isEmail(),body().custo
   const e = validationResult(req);
   if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'});
+  }
+  if(req.query.API_KEY!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
   }
     try{
     //find the patient
@@ -101,6 +104,9 @@ router.post("/healthcare/request",[check('email').notEmpty().isEmail(),body().cu
   if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'});
   }
+  if(req.query.API_KEY!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
+  }
   //find the healthcareprovider
   console.log("Reactivating healthcareprovider is being requested")
   //const healthcareProvider = await DeactivatedHealthcareProvider.findOne({email : req.body.email});
@@ -154,6 +160,9 @@ router.post("/patient/activate", [check("token").notEmpty(),body().custom(body =
   const errors = validationResult(req);
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
+  }
+  if(req.query.API_KEY!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
   }
 
     //check validity of token
@@ -263,6 +272,9 @@ router.post("/healthcare/activate", [check("token").notEmpty(),body().custom(bod
   const errors = validationResult(req);
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
+  }
+  if(req.query.API_KEY!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
   }
   //check validity of token
 

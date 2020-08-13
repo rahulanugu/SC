@@ -24,6 +24,7 @@ const options = {
 
 };
 const bigquery = new BigQuery(options);
+const API_KEY = "scriptChain@13$67ahi1";
 
 
 /**
@@ -43,12 +44,15 @@ function generateId(count) {
   return str;
 }
 router.post("/",[check('fname').notEmpty().isAlpha(),check('lname').notEmpty().isAlpha(),check('email').notEmpty().isEmail(),check('typeOfUser').notEmpty(),body().custom(body => {
-  const keys = ['_id','fname','lname','email','typeOfUser'];
+  const keys = ['fname','lname','email','typeOfUser'];
   return Object.keys(body).every(key => keys.includes(key));
 })],async (req, res) => {
   const e = validationResult(req);
   if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
+  }
+  if(req.query.API_KEY!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
   }
   const query = 'SELECT * FROM `scriptchainprod.ScriptChain.newUsers` WHERE email=@email';
   // req.body.email+'"';

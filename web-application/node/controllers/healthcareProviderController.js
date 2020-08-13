@@ -40,7 +40,7 @@ const options = {
 
 };
 const bigquery = new BigQuery(options);
-
+const API_KEY = "scriptChain@13$67ahi1";
 /**
  * Request the creation of a new healthcareprovider user
  * Input: Body, contains the details that are specified in healthcare provider data model
@@ -72,6 +72,9 @@ router.post('/account/create',
   const e = validationResult(req);
   if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'});
+  }
+  if(req.query.API_KEY!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
   }
     //Check if user alread exists
     const query= 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProviders` WHERE email=@email';
@@ -159,6 +162,9 @@ router.post('/account/verify',[check("jwtToken").notEmpty(),body().custom(body =
   const errors = validationResult(req);
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
+  }
+  if(req.query.API_KEY!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
   }
 
     // will recieve an encrypted jwt token

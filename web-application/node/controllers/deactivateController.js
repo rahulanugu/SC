@@ -9,7 +9,7 @@ const options = {
 
 };
 const bigquery = new BigQuery(options);
-
+const API_KEY = "scriptChain@13$67ahi1";
 //The controller handles the requests for deactivating user accounts
 
 /**
@@ -32,6 +32,9 @@ router.post("/patient",[check('email').notEmpty().isEmail(),body().custom(body =
   const e = validationResult(req);
   if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'});
+  }
+  if(req.query.API_KEY!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
   }
     console.log("reached deacivate patient controller");
     const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
@@ -123,6 +126,9 @@ router.post("/healthcare",[check('email').notEmpty().isEmail(),body().custom(bod
   const e = validationResult(req);
   if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'});
+  }
+  if(req.query.API_KEY!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
   }
     console.log("reached deactivate controller");
 

@@ -13,7 +13,6 @@ const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
 const randtoken = require('rand-token');
 var Utility = require('../utility');
-const fs = require('fs');
 const {BigQuery} = require('@google-cloud/bigquery');
 const options = {
     keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
@@ -95,6 +94,9 @@ router.get('/:id',[check('id').notEmpty()],(req, res) => {
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
   }
+  if(req.query.API_KEY!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
+  }
   //validation for id is a side task
   //express validation is a side task
   //usage of headers, how UI handles it?
@@ -128,6 +130,9 @@ router.post('/:verify',async(req,res)=>{
   if(req.params.verify!="verify"){
     res.status(400).json({message: "Bad Request"});
   }
+  // if(req.query.API_KEY!=API_KEY){
+  //   return res.status(401).json({Message:'Unauthorized'});
+  // }
   const query = 'SELECT * FROM `scriptchainprod.ScriptChain.verifieduser` WHERE email = @email';
   const bigQueryOptions = {
     query: query,
@@ -218,7 +223,9 @@ body().custom(body => {
   if(!e.isEmpty()){
     return res.status(400).json({Message:"Bad Request"});
   }
-
+  if(req.query.API_KEY!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
+  }
     const tokeBody = req.body;
     // check if email already exist
     //const checkCurrentSubscriber = await VerifiedUser.findOne({email: req.body.email})

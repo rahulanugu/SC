@@ -7,7 +7,7 @@ const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
 var jwtDecode = require('jwt-decode');
 var Utility = require('../utility');
-
+const API_KEY = "scriptChain@13$67ahi1";
 var router = express.Router();
 const {BigQuery} = require('@google-cloud/bigquery');
 const options = {
@@ -31,6 +31,9 @@ router.post('/', [check('email').notEmpty().isEmail(),body().custom(body => {
   const err = validationResult(req);
   if(!err.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
+  }
+  if(req.query.API_KEY!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
   }
   console.log("request is recieved and being processed")
 
@@ -98,6 +101,9 @@ router.post('/check', [check("token").notEmpty(),body().custom(body => {
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
   }
+  // if(req.query.API_KEY!=API_KEY){
+  //   return res.status(401).json({Message:'Unauthorized'});
+  // }
 
   // The token we get here is encrypted, so we need to decode it
   // will recieve an encrypted jwt token
@@ -126,6 +132,9 @@ router.post('/change_password',[check("token").notEmpty(),check("password").notE
   if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'});
   }
+  // if(req.query.API_KEY!=API_KEY){
+  //   return res.status(401).json({Message:'Unauthorized'});
+  // }
   console.log("Reached change password for healthcare provider")
   const str = req.body;
 
