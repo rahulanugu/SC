@@ -22,10 +22,12 @@ router.post('/',[check('email').notEmpty().isEmail(),check('password').notEmpty(
   const keys = ['email','password'];
   return Object.keys(body).every(key => keys.includes(key));
 })],async (req, res) => {
+  console.log(req.query);
   const errors = validationResult(req);
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
   }
+  
   if(req.query.API_KEY!=API_KEY){
     return res.status(401).json({Message:'Unauthorized'});
   }

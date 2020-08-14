@@ -44,10 +44,12 @@ function generateId(count) {
   return str;
 }
 router.post("/",[check('fname').notEmpty().isAlpha(),check('lname').notEmpty().isAlpha(),check('email').notEmpty().isEmail(),check('typeOfUser').notEmpty(),body().custom(body => {
-  const keys = ['fname','lname','email','typeOfUser'];
+  const keys = ['_id','fname','lname','email','typeOfUser'];
   return Object.keys(body).every(key => keys.includes(key));
 })],async (req, res) => {
+  console.log(req.query);
   const e = validationResult(req);
+  console.log(e);
   if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
   }

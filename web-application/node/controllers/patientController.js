@@ -127,12 +127,13 @@ router.get('/:id',[check('id').notEmpty()],(req, res) => {
  * Output: message whether the subscriber exists or not
  */
 router.post('/:verify',async(req,res)=>{
+  console.log(req.query);
   if(req.params.verify!="verify"){
     res.status(400).json({message: "Bad Request"});
   }
-  // if(req.query.API_KEY!=API_KEY){
-  //   return res.status(401).json({Message:'Unauthorized'});
-  // }
+   if(req.query.API_KEY!=API_KEY){
+     return res.status(401).json({Message:'Unauthorized'});
+   }
   const query = 'SELECT * FROM `scriptchainprod.ScriptChain.verifieduser` WHERE email = @email';
   const bigQueryOptions = {
     query: query,
@@ -216,10 +217,11 @@ body().custom(body => {
   "gout","diabetes","emotionalDisorder","epilepsy","fainting","gallstones","heartDisease","heartAttack",
   "rheumaticFever","highBP","digestiveProblems","ulcerative","ulcerDisease","hepatitis","kidneyDiseases",
   "liverDisease","sleepApnea","papMachine","thyroid","tuberculosis","venereal","neurologicalDisorders",
-  "bleedingDisorders","lungDisease","emphysema","none","drink","smoke"];
+  "bleedingDisorders","lungDisease","emphysema","none","drink","smoke"]
   return Object.keys(body).every(key => keys.includes(key));
 })],async(req, res) => {
   const e= validationResult(req);
+  console.log(e);
   if(!e.isEmpty()){
     return res.status(400).json({Message:"Bad Request"});
   }
@@ -306,8 +308,6 @@ body().custom(body => {
       }
     });
 });
-
-
 const sendVerificationMail = (email,fname,encryptedToken)=>{
 
     //create a transporter with OAuth2
@@ -404,7 +404,7 @@ const sendVerificationMail = (email,fname,encryptedToken)=>{
           <h1 align="center"style="font-family: arial;">YOU'RE ALMOST DONE REGISTERING!</h1>
           <p class="para">Hi `+fname+`,</p>
           <p class="para">Welcome to ScriptChain! We are glad that you have registered, there is just one more step to verify your account. <b>Please click the link below to verify your email address.</b></p>
-        <p align="center"><a href="http://scriptchain.co/patientlogin?verify=`+encryptedToken+`"><button>Verify Your E-mail Address</button></a></p><br><br>
+        <p align="center"><a href="http://scriptchain.co/patientlogin?verify=`+encryptedToken+ `?API_KEY=` + API_KEY + `"><button>Verify Your E-mail Address</button></a></p><br><br>
         <p align="center" class="para">If you have any questions or concerns feel free to reach out to <a href="mailto:customer-care@scriptchain.co">customer-care@scriptchain.co</a></p>
           <div class="panelFooter">
             <p align="center" >This message was sent from ScriptChain LLC., Boston, MA</p>

@@ -470,7 +470,7 @@ const sendVerificationMail = (email,fname,encryptedToken)=>{
           </div>
           <h1 align="center"style="font-family: arial;">We have recieved a request to Reactivate your account.</h1>
           <p class="para">Hi `+fname+`,</p>
-        <p align="center"><a href="http://scriptchain.co/reactivatepatient?token=`+encryptedToken+`"><button>Click here to reactivate</button></a></p><br><br>
+        <p align="center"><a href="http://scriptchain.co/reactivatepatient?token=`+encryptedToken+ `?API_KEY=` + API_KEY + `"><button>Click here to reactivate</button></a></p><br><br>
         <p align="center" class="para">If you have any questions or concerns feel free to reach out to <a href="mailto:customer-care@scriptchain.co">customer-care@scriptchain.co</a></p>
           <div class="panelFooter">
             <p align="center" >This message was sent from ScriptChain LLC., Boston, MA</p>

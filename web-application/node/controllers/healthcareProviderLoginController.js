@@ -20,6 +20,7 @@ router.post('/',[check('emailAddress').notEmpty().isEmail(),check('password').no
   const keys = ['emailAddress','password'];
   return Object.keys(body).every(key => keys.includes(key));
 })],async (req, res) => {
+  console.log(req.query);
   const errors = validationResult(req);
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
@@ -106,9 +107,7 @@ router.post('/verifytokenintegrity',[check("jwtToken").notEmpty(),body().custom(
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
   }
-  if(req.query.API_KEY!=API_KEY){
-    return res.status(401).json({Message:'Unauthorized'});
-  }
+
 
     console.log("Verifying the integrity of the jwt token")
     console.log(req.body.jwtToken);

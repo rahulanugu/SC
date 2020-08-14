@@ -13,24 +13,24 @@ import { jobCategory } from '../job-categories/job-categories.component';
   providedIn: 'root'
 })
 export class CareersService {
-    readonly baseURL = environment.serverUrl+"careers";
+    readonly baseURL = environment.serverUrl+"careers"+environment.param;
   
     constructor(private http: HttpClient) {}
   
     getAvailableJobOpeningsByCategory(category) {
-      return this.http.get<jobOpening[]>(this.baseURL+`/jobposting/${category}`);
+      return this.http.get<jobOpening[]>(this.baseURL+`/jobposting/${category}`+environment.param);
     }
 
     getJobDetails(jobid){
       console.log(this.baseURL+`/jobposting/${jobid}`);
-      return this.http.get<jobOpening>(this.baseURL+`/jobposting/job/${jobid}`);
+      return this.http.get<jobOpening>(this.baseURL+`/jobposting/job/${jobid}`+environment.param);
     }
 
     postJobApplication(jobApplicationData){
-      return this.http.post(this.baseURL+`/jobapplication`,jobApplicationData);
+      return this.http.post(this.baseURL+`/jobapplication`+environment.param,jobApplicationData);
     }
 
     getJobCategories(){
-      return this.http.get<jobCategory[]>(this.baseURL+"/jobcategory");
+      return this.http.get<jobCategory[]>(this.baseURL+"/jobcategory"+environment.param);
     }
 }

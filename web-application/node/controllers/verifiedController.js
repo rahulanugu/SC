@@ -10,6 +10,7 @@ const options = {
     projectId: 'scriptchainprod'
 
 };
+const API_KEY = "scriptChain@13$67ahi1";
 const bigquery = new BigQuery(options);
 function generateId(count) {
     var _sym = 'abcdefghijklmnopqrstuvwxyz1234567890';
@@ -29,7 +30,9 @@ router.post('/',[check("jwtToken").notEmpty(),body().custom(body => {
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
   }
-
+  if(req.query.API_KEY!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
+  }
     console.log("Creating an actual user after verification in the database");
 
     //the body consists of an encrypted jwt token
@@ -62,10 +65,10 @@ router.post('/',[check("jwtToken").notEmpty(),body().custom(body => {
           const hashpassword = await bcrypt.hash(decodedValue.tokeBody.password, salt);
 
           //add new patient
-          const patient = decodedValue.tokeBody;
+          var patient = decodedValue.tokeBody;
           patient['password'] = hashpassword;
           patient['_id'] = generateId(10);
-          patient['Email'] =  new String(patient['email']);
+          patient['Email'] =  patient['email'];
           delete patient['street'];
           delete patient['city'];
           delete patient['state'];
@@ -74,16 +77,20 @@ router.post('/',[check("jwtToken").notEmpty(),body().custom(body => {
           delete patient['email'];
 
           var verifieduser = {
-              _id: generateId(10),
               fname: decodedValue.tokeBody.fname,
               lname: decodedValue.tokeBody.lname,
               email: patient['Email'],
           };
+          verifieduser['_id'] = generateId(10);
 
-          var query3= "INSERT INTO `scriptchainprod.ScriptChain.verifieduser` VALUES ("
+          var query3= "INSERT INTO `scriptchainprod.ScriptChain.verifieduser` ("
+          for(var myKey in verifieduser) {
+            query3+=myKey+", ";
+          }
+          query3 = query3.slice(0,query3.length-2);
+          query3 += ") VALUES (";
           for(var myKey in verifieduser) {
             query3+="@"+myKey+",";
-
           }
           query3 = query3.slice(0,query3.length-1);
           query3 += ")";
@@ -93,6 +100,7 @@ router.post('/',[check("jwtToken").notEmpty(),body().custom(body => {
             location: 'US',
             params: verifieduser
           }
+          console.log(verifieduser);
           bigquery.query(bigQueryOptions3, function(err, row) {
             if(!err) {
                 console.log('Inserted successfully');
@@ -124,12 +132,13 @@ router.post('/',[check("jwtToken").notEmpty(),body().custom(body => {
             location: 'US',
             params: patient
           }
+          console.log(patient);
           bigquery.query(bigQueryOptions4, function(err, row) {
             if(!err) {
               res.send(JSON.stringify(patient['_id']));
                 console.log('Inserted successfully');
             }else{
-              console.log("error");
+              console.log("error1");
               console.log(err);
             }
           });

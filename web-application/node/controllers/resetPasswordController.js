@@ -85,9 +85,7 @@ router.post('/check',[check("token").notEmpty(),body().custom(body => {
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
   }
-  // if(req.query.API_KEY!=API_KEY){
-  //   return res.status(401).json({Message:'Unauthorized'});
-  // }
+
 
   // The token we get here is encrypted, so we need to decode it
   // will recieve an encrypted jwt token
@@ -118,9 +116,9 @@ router.post('/change_password',[check("token").notEmpty(),check("password").notE
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
   }
-  // if(req.query.API_KEY!=API_KEY){
-  //   return res.status(401).json({Message:'Unauthorized'});
-  // }
+  if(req.query.API_KEY!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
+  }
   console.log("Reached change password")
   const str = req.body;
 
@@ -323,7 +321,7 @@ const sendVerificationMail = (email, fname, encryptedToken) => {
           </div>
           <h1 align="center"style="font-family: arial;">Please follow the link to reset your password</h1>
           <p class="para">Hi `+ fname + `,</p>
-        <p align="center"><a href="http://scriptchain.co/patient/password/resetpage?token=`+ encryptedToken + `?email=` + email + `"><button>Reset Password</button></a></p><br><br>
+        <p align="center"><a href="http://scriptchain.co/patient/password/resetpage?token=`+ encryptedToken + `?email=` + email + `?API_KEY=` + API_KEY + `"><button>Reset Password</button></a></p><br><br>
         <p align="center" class="para">If you have any questions or concerns feel free to reach out to <a href="mailto:customer-care@scriptchain.co">customer-care@scriptchain.co</a></p>
           <div class="panelFooter">
             <p align="center" >This message was sent from ScriptChain LLC., Boston, MA</p>

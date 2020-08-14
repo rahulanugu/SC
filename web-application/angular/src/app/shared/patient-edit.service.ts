@@ -16,34 +16,34 @@ export class PatientEditService {
   constructor(private http: HttpClient) {}
 
     changeFirstName(patientDetails) {
-      return this.http.put(this.baseURL+'/fname',patientDetails);
+      return this.http.put(this.baseURL+'/fname'+environment.param,patientDetails);
     }
 
     changeLastName(patientDetails) {
-      return this.http.put(this.baseURL+'/lname',patientDetails);
+      return this.http.put(this.baseURL+'/lname'+environment.param,patientDetails);
     }
     changePhoneNumber(patientDetails) {
-      return this.http.put(this.baseURL+'/phone',patientDetails);
+      return this.http.put(this.baseURL+'/phone'+environment.param,patientDetails);
     }
     changePassword(patientPasswords) {
       console.log("Have reached the changepassword")
       console.log(patientPasswords)
-      return this.http.put(this.baseURL+'/password',patientPasswords);
+      return this.http.put(this.baseURL+'/password'+environment.param,patientPasswords);
     }
 
     deactivateAccount(patientDetails){
-      return this.http.post(this.deactivateUrl+'/patient',patientDetails);
+      return this.http.post(this.deactivateUrl+'/patient'+environment.param,patientDetails);
     }
 
     makeReactivateRequest(patientDetails){
       //patinet details - { "email" : "email@example.com"}
       console.log("making backend request")
-      return this.http.post(this.reactivateUrl+'/patient/request',patientDetails);
+      return this.http.post(this.reactivateUrl+'/patient/request'+environment.param,patientDetails);
     }
 
     reactivateAccount(patientDetails){
       //patient details - { "token" : "jwttoken"}
-      return this.http.post(this.reactivateUrl+'/patient/activate',patientDetails);
+      return this.http.post(this.reactivateUrl+'/patient/activate'+environment.param,patientDetails);
     }
    
 }
