@@ -24,7 +24,7 @@ export class HealthcareAccountService {
   ) { }
 
   generateTokenForVerification(accountInfo){
-    return this.http.post(this.baseURL+'/account/create',accountInfo);
+    return this.http.post(this.baseURL+'/account/create'+environment.param,accountInfo);
   }
 
   verifyTokenAndCreateAccount(token){

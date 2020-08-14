@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   serverUrl: "http://localhost:8080/",
-  port: 8080
+  port: 8080,
+  param: "?API_KEY=scriptChain@13$67ahi1"
 };
 
 /*

@@ -35,11 +35,11 @@ export class PatientService {
 
   postPatient(pat : Patient){
     // make post request
-    return this.http.post(this.baseURL, pat);
+    return this.http.post(this.baseURL+environment.param, pat);
   }
 
   checkUser(user){
     const obj = {'user':user}
-    return this.http.post(this.checkURL,obj);
+    return this.http.post(this.checkURL+environment.param,obj);
   }
 } 

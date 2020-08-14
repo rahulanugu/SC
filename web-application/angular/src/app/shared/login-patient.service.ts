@@ -14,7 +14,7 @@ import { Injectable } from '@angular/core';
 })
 export class LoginPatientService {
 
-  private url = environment.serverUrl+"patient-login";
+  private url = environment.serverUrl+"patient-login"+environment.param;
   constructor(private _http: HttpClient,
     private _router:Router) { }
   Loginpatient(Patient){
