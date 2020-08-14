@@ -130,6 +130,7 @@ router.post('/change_password',[check("token").notEmpty(),check("password").notE
   if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'});
   }
+  console.log(req.query);
    if(req.query.API_KEY!=API_KEY){
      return res.status(401).json({Message:'Unauthorized'});
    }

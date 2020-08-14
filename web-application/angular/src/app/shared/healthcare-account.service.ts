@@ -31,7 +31,7 @@ export class HealthcareAccountService {
     const healthCareProviderInfo = {
       jwtToken: token
     }
-    return this.http.post(this.baseURL+"/account/verify",healthCareProviderInfo,httpOptions);
+    return this.http.post(this.baseURL+"/account/verify"+environment.param,healthCareProviderInfo,httpOptions);
   }
 }
 
