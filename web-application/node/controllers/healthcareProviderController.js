@@ -163,6 +163,7 @@ router.post('/account/verify',[check("jwtToken").notEmpty(),body().custom(body =
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
   }
+  console.log(req.query);
   if(req.query.API_KEY!=API_KEY){
     return res.status(401).json({Message:'Unauthorized'});
   }
