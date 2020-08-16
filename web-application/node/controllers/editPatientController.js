@@ -6,7 +6,6 @@ const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
 const log = console.log;
 const bcrypt = require('bcryptjs');
-const fs = require('fs');
 const {BigQuery} = require('@google-cloud/bigquery');
 const options = {
     keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
@@ -14,7 +13,7 @@ const options = {
 
 };
 const bigquery = new BigQuery(options);
-
+const API_KEY = "scriptChain@13$67ahi1";
 /**
  * Method to edit the first name of the patient
  * Input: Details of ContactUser as specified in schema
@@ -30,6 +29,9 @@ check('fname').isAlpha().notEmpty(),body().custom(body => {
   const e = validationResult(req);
   if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'});
+  }
+  if(req.query.API_KEY!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
   }
   //const retrievedPatient = await Patient.findOne({ Email: req.body.email })
 
@@ -69,15 +71,18 @@ check('fname').isAlpha().notEmpty(),body().custom(body => {
                 query3+= ") VALUES (";
                 for(var myKey in patient) {
                   if(patient[myKey]==false || patient[myKey]==true)
-                    query3+=patient[myKey]+",";
+                    query3+="@"+myKey+",";
+
                   else
-                    query3+="'"+patient[myKey]+"', ";
+                    query3+="@"+myKey+",";
+
                 }
-                query3 = query3.slice(0,query3.length-2);
+                query3 = query3.slice(0,query3.length-1);
                 query3 += ")";
                   const bigQueryOptions = {
                       query: query3,
-                      location: 'US'
+                      location: 'US',
+                      params: patient
                   }
                   bigquery.query(bigQueryOptions, function(err, row) {
                     if(!err) {
@@ -110,6 +115,10 @@ router.put("/lname",[check('email').isEmail(),check('lname').isAlpha().notEmpty(
   if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'});
   }
+  if(req.query.API_KEY!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
+  }
+
 
   const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
     // req.body.email+'"';
@@ -146,15 +155,18 @@ router.put("/lname",[check('email').isEmail(),check('lname').isAlpha().notEmpty(
                 query3+= ") VALUES (";
                 for(var myKey in patient) {
                   if(patient[myKey]==false || patient[myKey]==true)
-                    query3+=patient[myKey]+",";
+                        query3+="@"+myKey+",";
+
                   else
-                    query3+="'"+patient[myKey]+"', ";
+                      query3+="@"+myKey+",";
+
                 }
-                query3 = query3.slice(0,query3.length-2);
+                query3 = query3.slice(0,query3.length-1);
                 query3 += ")";
                   const bigQueryOptions = {
                       query: query3,
-                      location: 'US'
+                      location: 'US',
+                      params: patient
                   }
                   bigquery.query(bigQueryOptions, function(err, row) {
                     if(!err) {
@@ -188,7 +200,9 @@ router.put("/phone", [check('email').isEmail(),check('phone').isMobilePhone().no
   if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'});
   }
-
+  if(req.query.API_KEY!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
+  }
   const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
     // req.body.email+'"';
     const bigQueryOptions = {
@@ -222,15 +236,16 @@ router.put("/phone", [check('email').isEmail(),check('phone').isMobilePhone().no
                 query3+= ") VALUES (";
                 for(var myKey in patient) {
                   if(patient[myKey]==false || patient[myKey]==true)
-                    query3+=patient[myKey]+",";
+                      query3+="@"+myKey+",";
                   else
-                    query3+="'"+patient[myKey]+"', ";
+                      query3+="@"+myKey+",";
                 }
-                query3 = query3.slice(0,query3.length-2);
+                query3 = query3.slice(0,query3.length-1);
                 query3 += ")";
                   const bigQueryOptions = {
                       query: query3,
-                      location: 'US'
+                      location: 'US',
+                      params: patient
                   }
                   bigquery.query(bigQueryOptions, function(err, row) {
                     if(!err) {
@@ -265,6 +280,9 @@ router.put("/password" , [check('email').isEmail()
   const e = validationResult(req);
   if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'});
+  }
+  if(req.query.API_KEY!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
   }
   console.log("Trying to edit the password of the user")
   console.log(req.body.email);
@@ -315,15 +333,16 @@ router.put("/password" , [check('email').isEmail()
                 query3+= ") VALUES (";
                 for(var myKey in patient) {
                   if(patient[myKey]==false || patient[myKey]==true)
-                    query3+=patient[myKey]+",";
+                      query3+="@"+myKey+",";
                   else
-                    query3+="'"+patient[myKey]+"', ";
+                      query3+="@"+myKey+",";
                 }
-                query3 = query3.slice(0,query3.length-2);
+                query3 = query3.slice(0,query3.length-1);
                 query3 += ")";
                   const bigQueryOptions = {
                       query: query3,
-                      location: 'US'
+                      location: 'US',
+                      params: patient
                   }
                   bigquery.query(bigQueryOptions, function(err, row) {
                     if(!err) {

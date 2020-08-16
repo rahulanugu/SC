@@ -40,8 +40,7 @@ const options = {
 
 };
 const bigquery = new BigQuery(options);
-const fs = require('fs');
-
+const API_KEY = "scriptChain@13$67ahi1";
 /**
  * Request the creation of a new healthcareprovider user
  * Input: Body, contains the details that are specified in healthcare provider data model
@@ -74,6 +73,9 @@ router.post('/account/create',
   if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'});
   }
+  if(req.query.API_KEY!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
+  }
     //Check if user alread exists
     const query= 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProviders` WHERE email=@email';
     // req.body.email+'"';
@@ -102,20 +104,25 @@ router.post('/account/create',
             //save the token for reference purposes - optional
             var idToken = randtoken.generate(16);
             var json = {
-              'id': generateId(10),
+              '_id': generateId(10),
               token: idToken,
-              email: req.body.email
+              email: req.body.email,
             };
             var query1= "INSERT INTO `scriptchainprod.ScriptChain.tokenSchema` VALUES ("
+
+            //REPLACE THIS AFTER VALUES
             for(var myKey in json) {
-              query1+="'"+json[myKey]+"', ";
+              query1+="@"+myKey+",";
+              //query1+="'"+json[myKey]+"', ";
             }
-            query1 = query1.slice(0,query1.length-2);
+            query1 = query1.slice(0,query1.length-1);
+            //REPLACE THIS AFTER VALUES
             query1 += ")";
             console.log(query1);
             const bigQueryOptions1 = {
               query: query1,
-              location: 'US'
+              location: 'US',
+              params: json
             }
             bigquery.query(bigQueryOptions1, function(err, row) {
               if(!err) {
@@ -155,6 +162,10 @@ router.post('/account/verify',[check("jwtToken").notEmpty(),body().custom(body =
   const errors = validationResult(req);
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
+  }
+  console.log(req.query);
+  if(req.query.API_KEY!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
   }
 
     // will recieve an encrypted jwt token
@@ -201,15 +212,18 @@ router.post('/account/verify',[check("jwtToken").notEmpty(),body().custom(body =
           }
           query1 = query1.slice(0,query1.length-2);
           query1+= ") VALUES (";
+
           for(var myKey in json) {
-            query1+="'"+json[myKey]+"', ";
+            query1+="@"+myKey+",";
+            //query1+="'"+json[myKey]+"', ";
           }
-          query1 = query1.slice(0,query1.length-2);
+          query1 = query1.slice(0,query1.length-1);
           query1 += ")";
           console.log(query1);
           const bigQueryOptions1 = {
             query: query1,
-            location: 'US'
+            location: 'US',
+            params: json
           }
           bigquery.query(bigQueryOptions1, function(err, row) {
             if(!err) {
@@ -323,7 +337,7 @@ const sendVerificationMail = (email,fname,encryptedToken, callback)=>{
           <h1 align="center"style="font-family: arial;">YOU'RE ALMOST DONE REGISTERING!</h1>
           <p class="para">Hi `+fname+`,</p>
           <p class="para">Welcome to ScriptChain! We are glad that you have registered, there is just one more step to verify your account. <b>Please click the link below to verify your email address.</b></p>
-        <p align="center"><a href="http://scriptchain.co/healthcare/verify?verifytoken=`+encryptedToken+`"><button>Verify Your E-mail Address</button></a></p><br><br>
+        <p align="center"><a href="http://scriptchain.co/healthcare/verify?verifytoken=`+encryptedToken + `?API_KEY=` + API_KEY + `"><button>Verify Your E-mail Address</button></a></p><br><br>
         <p align="center" class="para">If you have any questions or concerns feel free to reach out to <a href="mailto:customer-care@scriptchain.co">customer-care@scriptchain.co</a></p>
           <div class="panelFooter">
             <p align="center" >This message was sent from ScriptChain LLC., Boston, MA</p>

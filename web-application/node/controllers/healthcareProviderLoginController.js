@@ -10,6 +10,7 @@ const options = {
 
 };
 const bigquery = new BigQuery(options);
+const API_KEY = "scriptChain@13$67ahi1";
 /**
  * Authenticate the healthcare user login attempt
  * Input: Body containing username and password.
@@ -19,9 +20,13 @@ router.post('/',[check('emailAddress').notEmpty().isEmail(),check('password').no
   const keys = ['emailAddress','password'];
   return Object.keys(body).every(key => keys.includes(key));
 })],async (req, res) => {
+  console.log(req.query);
   const errors = validationResult(req);
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
+  }
+  if(req.query.API_KEY!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
   }
     try{
     console.log("Reached the login controller for the healthcare")
@@ -102,6 +107,7 @@ router.post('/verifytokenintegrity',[check("jwtToken").notEmpty(),body().custom(
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
   }
+
 
     console.log("Verifying the integrity of the jwt token")
     console.log(req.body.jwtToken);

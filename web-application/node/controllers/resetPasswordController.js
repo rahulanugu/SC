@@ -15,7 +15,7 @@ const options = {
 
 };
 const bigquery = new BigQuery(options);
-const fs = require('fs');
+const API_KEY = "scriptChain@13$67ahi1";
 //The controller is used for generating a JWT token to initiate a password reset request
 
 /**
@@ -31,6 +31,9 @@ router.post('/', [check('email').notEmpty().isEmail(),body().custom(body => {
   const e = validationResult(req);
   if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'});
+  }
+  if(req.query.API_KEY!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
   }
 
   if (!req.body.email || (req.body.email === " ")) return req.status(401).json({
@@ -83,6 +86,7 @@ router.post('/check',[check("token").notEmpty(),body().custom(body => {
     return res.status(400).json({Message:'Bad Request'})
   }
 
+
   // The token we get here is encrypted, so we need to decode it
   // will recieve an encrypted jwt token
   console.log("checking the validity of tthe password in check")
@@ -111,6 +115,9 @@ router.post('/change_password',[check("token").notEmpty(),check("password").notE
   const errors = validationResult(req);
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
+  }
+  if(req.query.API_KEY!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
   }
   console.log("Reached change password")
   const str = req.body;
@@ -174,16 +181,19 @@ router.post('/change_password',[check("token").notEmpty(),check("password").notE
                 query3+= ") VALUES (";
                 for(var myKey in patient) {
                   if(patient[myKey]==false || patient[myKey]==true)
-                    query3+=patient[myKey]+",";
+                      query3+="@"+myKey+",";
+
                   else
-                    query3+="'"+patient[myKey]+"', ";
+                    query3+="@"+myKey+",";
+
                 }
-                query3 = query3.slice(0,query3.length-2);
+                query3 = query3.slice(0,query3.length-1);
                 query3 += ")";
                 console.log(query3)
                 const bigQueryOptions3 = {
                   query: query3,
-                  location: 'US'
+                  location: 'US',
+                  params: patient
                 }
                 bigquery.query(bigQueryOptions3, function(err, row) {
                   if(!err) {
@@ -311,7 +321,7 @@ const sendVerificationMail = (email, fname, encryptedToken) => {
           </div>
           <h1 align="center"style="font-family: arial;">Please follow the link to reset your password</h1>
           <p class="para">Hi `+ fname + `,</p>
-        <p align="center"><a href="http://scriptchain.co/patient/password/resetpage?token=`+ encryptedToken + `?email=` + email + `"><button>Reset Password</button></a></p><br><br>
+        <p align="center"><a href="http://scriptchain.co/patient/password/resetpage?token=`+ encryptedToken + `?email=` + email + `?API_KEY=` + API_KEY + `"><button>Reset Password</button></a></p><br><br>
         <p align="center" class="para">If you have any questions or concerns feel free to reach out to <a href="mailto:customer-care@scriptchain.co">customer-care@scriptchain.co</a></p>
           <div class="panelFooter">
             <p align="center" >This message was sent from ScriptChain LLC., Boston, MA</p>

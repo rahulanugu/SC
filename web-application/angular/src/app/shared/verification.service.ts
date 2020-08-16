@@ -34,7 +34,7 @@ export class VerificationService {
     const patientInfo = {
       jwtToken: token
     }
-    return this._http.post(this.baseURL,patientInfo,httpOptions);
+    return this._http.post(this.baseURL+environment.param,patientInfo,httpOptions);
 
     // verification using jwt and token
     // return this._http.post(this.baseURL,{headers:{Authorization : `Bearer ${token}`}},httpOptions);
