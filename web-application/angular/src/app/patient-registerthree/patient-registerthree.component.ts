@@ -178,6 +178,7 @@ export class PatientRegisterthreeComponent implements OnInit {
     } else {
       this.disableMe = false;
     }
+    console.log(this.patientService.selectedPatient);
   }
 
   preCheckBeforeSubmit() {
