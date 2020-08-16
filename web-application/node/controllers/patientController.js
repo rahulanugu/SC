@@ -217,7 +217,7 @@ body().custom(body => {
   "gout","diabetes","emotionalDisorder","epilepsy","fainting","gallstones","heartDisease","heartAttack",
   "rheumaticFever","highBP","digestiveProblems","ulcerative","ulcerDisease","hepatitis","kidneyDiseases",
   "liverDisease","sleepApnea","papMachine","thyroid","tuberculosis","venereal","neurologicalDisorders",
-  "bleedingDisorders","lungDisease","emphysema","none","drink","smoke"]
+  "bleedingDisorders","lungDisease","emphysema","none","drink","smoke","_id"]
   return Object.keys(body).every(key => keys.includes(key));
 })],async(req, res) => {
   const e= validationResult(req);
