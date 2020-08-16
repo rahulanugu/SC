@@ -13,7 +13,6 @@ const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
 const randtoken = require('rand-token');
 var Utility = require('../utility');
-const fs = require('fs');
 const {BigQuery} = require('@google-cloud/bigquery');
 const options = {
     keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
@@ -21,7 +20,7 @@ const options = {
 
 };
 const bigquery = new BigQuery(options);
-
+const API_KEY = "scriptChain@13$67ahi1";
 const oauth2Client = new OAuth2(
     "Y16828344230-21i76oqle90ehsrsrpptnb8ek2vqfjfp.apps.googleusercontent.com",
     "ZYdS8bspVNCyBrSnxkMxzF2d",
@@ -54,6 +53,11 @@ function generateId(count) {
 }
 
 router.get('/',async (req, res) => {
+    //ADD THIS
+    if(req.query.API_KEY!=API_KEY){
+      return res.status(401).json({Message:'Unauthorized'});
+    }
+    //ADD THIS
     console.log('you have entered');
     // Authentication to enter this?
     // How to secure this?
@@ -90,6 +94,9 @@ router.get('/:id',[check('id').notEmpty()],(req, res) => {
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
   }
+  if(req.query.API_KEY!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
+  }
   //validation for id is a side task
   //express validation is a side task
   //usage of headers, how UI handles it?
@@ -120,9 +127,13 @@ router.get('/:id',[check('id').notEmpty()],(req, res) => {
  * Output: message whether the subscriber exists or not
  */
 router.post('/:verify',async(req,res)=>{
+  console.log(req.query);
   if(req.params.verify!="verify"){
     res.status(400).json({message: "Bad Request"});
   }
+   if(req.query.API_KEY!=API_KEY){
+     return res.status(401).json({Message:'Unauthorized'});
+   }
   const query = 'SELECT * FROM `scriptchainprod.ScriptChain.verifieduser` WHERE email = @email';
   const bigQueryOptions = {
     query: query,
@@ -206,14 +217,17 @@ body().custom(body => {
   "gout","diabetes","emotionalDisorder","epilepsy","fainting","gallstones","heartDisease","heartAttack",
   "rheumaticFever","highBP","digestiveProblems","ulcerative","ulcerDisease","hepatitis","kidneyDiseases",
   "liverDisease","sleepApnea","papMachine","thyroid","tuberculosis","venereal","neurologicalDisorders",
-  "bleedingDisorders","lungDisease","emphysema","none","drink","smoke"];
+  "bleedingDisorders","lungDisease","emphysema","none","drink","smoke"]
   return Object.keys(body).every(key => keys.includes(key));
 })],async(req, res) => {
   const e= validationResult(req);
+  console.log(e);
   if(!e.isEmpty()){
     return res.status(400).json({Message:"Bad Request"});
   }
-
+  if(req.query.API_KEY!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
+  }
     const tokeBody = req.body;
     // check if email already exist
     //const checkCurrentSubscriber = await VerifiedUser.findOne({email: req.body.email})
@@ -259,14 +273,16 @@ body().custom(body => {
 
                 var query3= "INSERT INTO `scriptchainprod.ScriptChain.tokenSchema` VALUES ("
                 for(var myKey in tokenSchema) {
-                  query3+="'"+tokenSchema[myKey]+"', ";
+                  query3+="@"+myKey+",";
+
                 }
-                query3 = query3.slice(0,query3.length-2);
+                query3 = query3.slice(0,query3.length-1);
                 query3 += ")";
                 console.log(query3);
                 const bigQueryOptions3 = {
                   query: query3,
-                  location: 'US'
+                  location: 'US',
+                  params: tokenSchema
                 }
                 bigquery.query(bigQueryOptions3, function(err, row) {
                   if(!err) {
@@ -292,8 +308,6 @@ body().custom(body => {
       }
     });
 });
-
-
 const sendVerificationMail = (email,fname,encryptedToken)=>{
 
     //create a transporter with OAuth2
@@ -390,7 +404,7 @@ const sendVerificationMail = (email,fname,encryptedToken)=>{
           <h1 align="center"style="font-family: arial;">YOU'RE ALMOST DONE REGISTERING!</h1>
           <p class="para">Hi `+fname+`,</p>
           <p class="para">Welcome to ScriptChain! We are glad that you have registered, there is just one more step to verify your account. <b>Please click the link below to verify your email address.</b></p>
-        <p align="center"><a href="http://scriptchain.co/patientlogin?verify=`+encryptedToken+`"><button>Verify Your E-mail Address</button></a></p><br><br>
+        <p align="center"><a href="http://scriptchain.co/patientlogin?verify=`+encryptedToken+ `?API_KEY=` + API_KEY + `"><button>Verify Your E-mail Address</button></a></p><br><br>
         <p align="center" class="para">If you have any questions or concerns feel free to reach out to <a href="mailto:customer-care@scriptchain.co">customer-care@scriptchain.co</a></p>
           <div class="panelFooter">
             <p align="center" >This message was sent from ScriptChain LLC., Boston, MA</p>

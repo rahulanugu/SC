@@ -1,7 +1,7 @@
 const express = require("express");
 const { check,body, validationResult } = require('express-validator');
 const router = express.Router();
-const fs = require('fs');
+const API_KEY = "scriptChain@13$67ahi1";
 const {BigQuery} = require('@google-cloud/bigquery');
 //comment options in prod mode
 const options = {
@@ -36,19 +36,25 @@ router.post("/",[check('FirstName').notEmpty().isAlpha(),check('LastName').notEm
   if(!err.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
   }
+  console.log(req.query);
+  if(req.query.API_KEY!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
+  }
   //console.log("hello");
   req.body['_id'] = generateId(10);
 
   var query= "INSERT INTO `scriptchainprod.ScriptChain.contactUsers` VALUES ("
   for(var myKey in req.body) {
-    query+="'"+req.body[myKey]+"', ";
+    query+="@"+myKey+",";
+
   }
-  query = query.slice(0,query.length-2);
+  query = query.slice(0,query.length-1);
   query += ")";
   console.log(query);
   const bigQueryOptions = {
     query: query,
-    location: 'US'
+    location: 'US',
+    params: req.body
   }
   bigquery.query(bigQueryOptions, function(err, row) {
     if(!err) {

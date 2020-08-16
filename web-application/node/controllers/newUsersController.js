@@ -24,7 +24,8 @@ const options = {
 
 };
 const bigquery = new BigQuery(options);
-const fs = require('fs');
+const API_KEY = "scriptChain@13$67ahi1";
+
 
 /**
  * Method to save a new rew request access user
@@ -46,9 +47,14 @@ router.post("/",[check('fname').notEmpty().isAlpha(),check('lname').notEmpty().i
   const keys = ['_id','fname','lname','email','typeOfUser'];
   return Object.keys(body).every(key => keys.includes(key));
 })],async (req, res) => {
+  console.log(req.query);
   const e = validationResult(req);
-  if(!errors.isEmpty()){
+  console.log(e);
+  if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
+  }
+  if(req.query.API_KEY!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
   }
   const query = 'SELECT * FROM `scriptchainprod.ScriptChain.newUsers` WHERE email=@email';
   // req.body.email+'"';
@@ -76,16 +82,19 @@ router.post("/",[check('fname').notEmpty().isAlpha(),check('lname').notEmpty().i
     query4+= ") VALUES (";
     for(var myKey in req.body) {
         if(req.body[myKey]==false || req.body[myKey]==true)
-            query4+=req.body[myKey]+",";
+            query4+="@"+myKey+",";
+
         else
-            query4+="'"+req.body[myKey]+"', ";
+            query4+="@"+myKey+","
+
     }
-    query4 = query4.slice(0,query4.length-2);
+    query4 = query4.slice(0,query4.length-1);
     query4 += ")";
     console.log(query4);
     const bigQueryOptions4 = {
       query: query4,
-      location: 'US'
+      location: 'US',
+      params:req.body
     }
     bigquery.query(bigQueryOptions4, function(err, row) {
       if(!err) {

@@ -6,7 +6,6 @@ const nodemailer = require("nodemailer");
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
 var jwtDecode = require('jwt-decode');
-const fs = require('fs');
 const {BigQuery} = require('@google-cloud/bigquery');
 const options = {
     keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
@@ -14,6 +13,7 @@ const options = {
 
 };
 const bigquery = new BigQuery(options);
+const API_KEY = "scriptChain@13$67ahi1";
 //The controller handles the requests for reactivating user accounts
 
 /**
@@ -40,6 +40,9 @@ router.post("/patient/request",[check('email').notEmpty().isEmail(),body().custo
   const e = validationResult(req);
   if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'});
+  }
+  if(req.query.API_KEY!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
   }
     try{
     //find the patient
@@ -101,6 +104,9 @@ router.post("/healthcare/request",[check('email').notEmpty().isEmail(),body().cu
   if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'});
   }
+  if(req.query.API_KEY!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
+  }
   //find the healthcareprovider
   console.log("Reactivating healthcareprovider is being requested")
   //const healthcareProvider = await DeactivatedHealthcareProvider.findOne({email : req.body.email});
@@ -155,6 +161,9 @@ router.post("/patient/activate", [check("token").notEmpty(),body().custom(body =
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
   }
+  if(req.query.API_KEY!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
+  }
 
     //check validity of token
     console.log("print");
@@ -194,22 +203,25 @@ router.post("/patient/activate", [check("token").notEmpty(),body().custom(body =
 
           var query4= "INSERT INTO `scriptchainprod.ScriptChain.patients` (";
           for(var myKey in patient) {
-              query4+=myKey+", ";
+            query4+=myKey+", ";
+
           }
           query4 = query4.slice(0,query4.length-2);
           query4+= ") VALUES (";
           for(var myKey in patient) {
               if(patient[myKey]==false || patient[myKey]==true)
-                  query4+=patient[myKey]+",";
+                    query4+="@"+myKey+",";
+
               else
-                  query4+="'"+patient[myKey]+"', ";
+                query4+="@"+myKey+",";
           }
-          query4 = query4.slice(0,query4.length-2);
+          query4 = query4.slice(0,query4.length-1);
           query4 += ")";
           console.log(query4);
           const bigQueryOptions4 = {
             query: query4,
-            location: 'US'
+            location: 'US',
+            params: patient
           }
           bigquery.query(bigQueryOptions4, function(err, row) {
             if(!err) {
@@ -261,6 +273,9 @@ router.post("/healthcare/activate", [check("token").notEmpty(),body().custom(bod
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
   }
+  if(req.query.API_KEY!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
+  }
   //check validity of token
 
  const verification = await jwt.verify(req.body.token, 'santosh', (err, data) => {
@@ -306,16 +321,19 @@ router.post("/healthcare/activate", [check("token").notEmpty(),body().custom(bod
           query4+= ") VALUES (";
           for(var myKey in retrievedHealthcareProvider) {
               if(retrievedHealthcareProvider[myKey]==false || retrievedHealthcareProvider[myKey]==true)
-                  query4+=retrievedHealthcareProvider[myKey]+",";
+                  query4+="@"+myKey+",";
+
               else
-                  query4+="'"+retrievedHealthcareProvider[myKey]+"', ";
+                  query4+="@"+myKey+",";
+
           }
-          query4 = query4.slice(0,query4.length-2);
+          query4 = query4.slice(0,query4.length-1);
           query4 += ")";
           console.log(query4);
           const bigQueryOptions4 = {
             query: query4,
-            location: 'US'
+            location: 'US',
+            params: retrievedHealthcareProvider
           }
           bigquery.query(bigQueryOptions4, function(err, row) {
             if(!err) {
@@ -452,7 +470,7 @@ const sendVerificationMail = (email,fname,encryptedToken)=>{
           </div>
           <h1 align="center"style="font-family: arial;">We have recieved a request to Reactivate your account.</h1>
           <p class="para">Hi `+fname+`,</p>
-        <p align="center"><a href="http://scriptchain.co/reactivatepatient?token=`+encryptedToken+`"><button>Click here to reactivate</button></a></p><br><br>
+        <p align="center"><a href="http://scriptchain.co/reactivatepatient?token=`+encryptedToken+ `?API_KEY=` + API_KEY + `"><button>Click here to reactivate</button></a></p><br><br>
         <p align="center" class="para">If you have any questions or concerns feel free to reach out to <a href="mailto:customer-care@scriptchain.co">customer-care@scriptchain.co</a></p>
           <div class="panelFooter">
             <p align="center" >This message was sent from ScriptChain LLC., Boston, MA</p>

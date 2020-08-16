@@ -24,7 +24,7 @@ export class DataService {
 
 
   getPosts(): Observable<Patient[]>{
-    return this.http.get<Patient[]>(this.postUrl);  
+    return this.http.get<Patient[]>(this.postUrl+environment.param);  
   }
 
   //gives the search results of posts based on search options

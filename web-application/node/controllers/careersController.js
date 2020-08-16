@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
+const API_KEY = "scriptChain@13$67ahi1";
 const { check,body, validationResult } = require('express-validator');
 const {BigQuery} = require('@google-cloud/bigquery');
 const options = {
     keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
     projectId: 'scriptchainprod'
-
 };
 const bigquery = new BigQuery(options);
 
@@ -42,18 +42,22 @@ router.post("/jobposting",[check("title").notEmpty(),check('description').notEmp
     if(!err.isEmpty()){
       return res.status(400).json({Message:'Bad Request'})
     }
+    if(req.query.API_KEY!=API_KEY){
+      return res.status(401).json({Message:'Unauthorized'});
+    }
     console.log("posting a job to the database");
     req.body['_id'] = generateId(10);
 
     var query= "INSERT INTO `scriptchainprod.ScriptChain.jobOpenings` VALUES ("
     for(var myKey in req.body) {
-      query+="'"+req.body[myKey]+"', ";
+      query+="@"+myKey+",";
     }
-    query = query.slice(0,query.length-2);
+    query = query.slice(0,query.length-1);
     query += ")";
     const bigQueryOptions = {
       query: query,
-      location: 'US'
+      location: 'US',
+      params: req.body
     }
     bigquery.query(bigQueryOptions, function(err, row) {
       if(!err) {
@@ -83,6 +87,9 @@ router.get('/jobposting', (req, res) => {
   if(Object.keys(req.body).length>0){
     return res.status(400).json({Message:'Bad Request'})
   }
+  if(req.query.API_KEY!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
+  }
   const query= 'SELECT * FROM `scriptchainprod.ScriptChain.jobOpenings` WHERE 1=1';
   const bigQueryOptions = {
     query: query,
@@ -92,7 +99,7 @@ router.get('/jobposting', (req, res) => {
     if(!err) {
         if (row.length>0){
           console.log("In careersController[jobposting]: Rows returned");
-          res.status(200).json(rows);
+          res.status(200).json(row);
         }else{
           console.log("In careersController[jobposting]: Could not retrieve job openings from DB")
           res.status(404).send({message: "Could not retrieve job openings from DB"});
@@ -116,10 +123,13 @@ router.get('/jobposting', (req, res) => {
 }).withMessage('Some extra parameters are sent')]
 */
 router.get('/jobposting/:jobcategory', (req, res) => {
-  /*const errors = validationResult(req);
+  const errors = validationResult(req);
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
-  }*/
+  }
+  if(req.query.API_KEY!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
+  }
   const query = 'SELECT * FROM `scriptchainprod.ScriptChain.jobOpenings` WHERE category=@category';
   // req.params.jobcategory+'"';
   const bigQueryOptions = {
@@ -150,30 +160,33 @@ router.get('/jobposting/:jobcategory', (req, res) => {
  *         200 - If the job category is succcesfully saved in the database
  *         500 - If the job couldn't be saved in the database
  */
-/*
-,[check("title").notEmpty(),check('description').notEmpty(),body().custom(body => {
+
+router.post("/jobcategory",[check("title").notEmpty(),check('description').notEmpty(),body().custom(body => {
   const keys = ['title','description'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')]
-*/
-router.post("/jobcategory",async(req, res) => {
-  /*const e = validationResult(req);
-  if(!e.isEmpty()){
-    return res.status(400).json({Message:'Bad Request'})
-  }*/
+})],async(req, res) => {
+    const err = validationResult(req);
+    if(!err.isEmpty()){
+      return res.status(400).json({Message:'Bad Request'})
+    }
+    if(req.query.API_KEY!=API_KEY){
+      return res.status(401).json({Message:'Unauthorized'});
+    }
+
   console.log("posting a jobcategory to the database");
   req.body['_id'] = generateId(10);
 
   var query= "INSERT INTO `scriptchainprod.ScriptChain.jobCategories` VALUES ("
   for(var myKey in req.body) {
-    query+="'"+req.body[myKey]+"', ";
+    query+="@"+myKey+",";
   }
-  query = query.slice(0,query.length-2);
+  query = query.slice(0,query.length-1);
   query += ")";
   console.log(query);
   const bigQueryOptions = {
     query: query,
-    location: 'US'
+    location: 'US',
+    params: req.body
   }
   bigquery.query(bigQueryOptions, function(err, row) {
     if(!err) {
@@ -202,6 +215,9 @@ router.get('/jobcategory', (req, res) => {
   if(Object.keys(req.body).length>0){
     return res.status(400).json({Message:'Bad Request'})
   }
+  if(req.query.API_KEY!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
+  }
   const query = 'SELECT * FROM `scriptchainprod.ScriptChain.jobCategories` WHERE 1=1';
   bigquery.query(query, function(err, rows) {
     if(!err) {
@@ -223,14 +239,13 @@ router.get('/jobcategory', (req, res) => {
  *         200 - If the job is found
  *         404 - If the job with the given Id is not found
  */
-// router.get('/jobposting/job/:jobid', (req, res) => {
-
-//,[check('jobid').notEmpty(),check('jobid').isLength(10)]
 router.get('/jobposting/job/:jobid',(req, res) => {
-  /*const errors = validationResult(req);
-  if(!errors.isEmpty()){
+  if(Object.keys(req.body).length>0){
     return res.status(400).json({Message:'Bad Request'})
-  }*/
+  }
+  if(req.query.API_KEY!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
+  }
     const query = 'SELECT * FROM `scriptchainprod.ScriptChain.jobOpenings` WHERE _id=@id';
   // req.params.jobid+'"';
     const bigQueryOptions = {
