@@ -10,7 +10,7 @@ import * as Highcharts from 'highcharts';
 export class PatientHealthcareviewComponent implements OnInit {
 
   highcharts5 = Highcharts;
-   chartOptions5 = {   
+   chartOptions5 = {
       chart : {
          type:'pie',
          options3d: {
@@ -20,7 +20,7 @@ export class PatientHealthcareviewComponent implements OnInit {
          }
       },
       title : {
-         text: 'Comprehensive Patient medical history'   
+         text: 'Comprehensive Patient medical history'
       },
       tooltip : {
          pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -65,68 +65,78 @@ export class PatientHealthcareviewComponent implements OnInit {
    };
 
    highcharts2 = Highcharts;
-   chartOptions2 = {   
-      chart: {
-         type: 'bar'
-      },
-      title: {
-         text: 'Historic World Population by Region'
-      },
-      subtitle : {
-         text: 'Source: Wikipedia.org'  
-      },
-      legend : {
-         layout: 'vertical',
-         align: 'left',
-         verticalAlign: 'top',
-         x: 250,
-         y: 100,
-         floating: true,
-         borderWidth: 1
-         },
-         xAxis:{
-            categories: ['Africa', 'America', 'Asia', 'Europe', 'Oceania'], title: {
-            text: null
-         } 
-      },
-      yAxis : {
-         min: 0, title: {
-            text: 'Population (millions)', align: 'high'
-         },
-         labels: {
-            overflow: 'justify'
-         }
-      },
-      tooltip : {
-         valueSuffix: ' millions'
-      },
-      plotOptions : {
-         bar: {
-            dataLabels: {
-               enabled: true
-            }
-         }
-      },
-      credits:{
-         enabled: false
-      },
-      series: [
-         {
-            name: 'Year 1800',
-            data: [107, 31, 635, 203, 2]
-         }, 
-         {
-            name: 'Year 1900',
-            data: [133, 156, 947, 408, 6]
-         }, 
-         {
-            name: 'Year 2008',
-            data: [973, 914, 4054, 732, 34]      
-         }
-      ]
-   };
+  chartOptions2 = {
+     chart: {
+        type: 'bar',
+
+     },
+     title: {
+        text: 'CardioVascular Risk Factor'
+     },
+     legend : {
+        layout: 'horizontal',
+        align: 'right',
+        verticalAlign: 'top',
+        x: 250,
+        y: 100,
+        floating: true,
+        borderWidth: 1
+        },
+        xAxis:{
+           categories: ['Congestive Heart Failure', 'Old myocardial infarction',
+           'Hypertension', 'ASHD coronary artery', 'Atrial Fibrilliation'], title: {
+           text: null
+        },lineColor: 'transparent'
+     },
+     yAxis : {
+        min: 0,
+        title: {
+           text: 'Risk Score (percentage)', align: 'middle'
+        },
+        visible:false,
+        gridLineColor: 'transparent',
+        gridTextColor: '#ffffff',
+        lineColor: 'transparent',
+        tickColor: 'transparent',
+        showEmpty: false,
+
+        labels: {
+           overflow: 'allow'
+        },
+     },
+     tooltip : {
+        valueSuffix: ' ({point.percentage:.0f}%)'
+     },
+     plotOptions : {
+    //   series:{
+    //     colorByPoint: true,
+    //  },
+
+        bar: {
+           dataLabels: {
+              enabled: true,
+              allowOverlap: true,
+              useHTML: true,
+           }
+        }
+     },
+     credits:{
+        enabled: false
+     },
+     series: [
+        {
+           data: [80, 30, 20, 5, 50],
+          //  pointPadding: 0,
+          //  groupPadding: 0.1
+          stacking: 'normal',
+          pointWidth: 30,
+          pointPadding: 0.2,
+        },
+     ]
+  };
+
    highcharts3 = Highcharts;
-   chartOptions3 = {   
+   chartOptions3 = {
       chart: {
         type: 'bar'
       },
@@ -134,7 +144,7 @@ export class PatientHealthcareviewComponent implements OnInit {
          text: 'Historic World Population by Region'
       },
       subtitle : {
-         text: 'Source: Wikipedia.org'  
+         text: 'Source: Wikipedia.org'
       },
       legend : {
          layout: 'vertical',
@@ -144,12 +154,12 @@ export class PatientHealthcareviewComponent implements OnInit {
          y: 100,
          floating: true,
          borderWidth: 1,
-        
+
          },
          xAxis:{
             categories: ['Africa', 'America', 'Asia', 'Europe', 'Oceania'], title: {
             text: null
-         } 
+         }
       },
       yAxis : {
          min: 0, title: {
@@ -179,25 +189,25 @@ export class PatientHealthcareviewComponent implements OnInit {
          {
             name: 'Year 1800',
             data: [107, 31, 635, 203, 2]
-         }, 
+         },
          {
             name: 'Year 1900',
             data: [133, 156, 947, 408, 6]
-         }, 
+         },
          {
             name: 'Year 2008',
-            data: [973, 914, 4054, 732, 34]      
+            data: [973, 914, 4054, 732, 34]
          }
       ]
    };
    highcharts4 = Highcharts;
-   chartOptions4 = {   
+   chartOptions4 = {
       chart : {
          plotBorderWidth: null,
          plotShadow: false
       },
       title : {
-         text: 'Browser market shares at a specific website, 2014'   
+         text: 'Browser market shares at a specific website, 2014'
       },
       tooltip : {
          pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -207,7 +217,7 @@ export class PatientHealthcareviewComponent implements OnInit {
             shadow: false,
             center: ['50%', '50%'],
             size:'45%',
-            innerSize: '20%'            
+            innerSize: '20%'
          }
       },
       series : [{
@@ -229,7 +239,7 @@ export class PatientHealthcareviewComponent implements OnInit {
       }]
    };
    highcharts = Highcharts;
-   chartOptions = {   
+   chartOptions = {
       chart: {
          type: "spline"
       },
@@ -243,10 +253,10 @@ export class PatientHealthcareviewComponent implements OnInit {
          categories:["Jan", "Feb", "Mar", "Apr", "May", "Jun",
             "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
       },
-      yAxis: {          
+      yAxis: {
          title:{
             text:"Temperature °C"
-         } 
+         }
       },
       tooltip: {
          valueSuffix:" °C"
