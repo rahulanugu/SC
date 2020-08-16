@@ -109,17 +109,18 @@ export class PatientRegisterthreeComponent implements OnInit {
   }
 
   uncheckall(name: string) {
-    let checkType = document.getElementById("uncheck");
+    let checkType = document.getElementById("uncheck") as HTMLInputElement;
     let stored = JSON.parse(localStorage.getItem("Patient-info"));
     this.diseaseArray.splice(0, this.diseaseArray.length);
 
-    if (checkType.getAttribute("ng-reflect-model") == "false") {
+    console.log(checkType.checked);
+    if (checkType.checked /*checkType.getAttribute("ng-reflect-model") == "false"*/) {
       this.diseaseArray.push(name);
     } else {
       this.diseaseArray.pop();
     }
 
-    if (checkType.getAttribute("ng-reflect-model") == "false") {
+    if (checkType.checked /*checkType.getAttribute("ng-reflect-model") == "false"*/) {
       this.patientService.selectedPatient = {
         _id: stored._id,
         fname: stored.fname,
@@ -183,7 +184,8 @@ export class PatientRegisterthreeComponent implements OnInit {
 
   preCheckBeforeSubmit() {
     let stored = JSON.parse(localStorage.getItem("Patient-info"));
-
+    console.log(this.patientService.selectedPatient);
+    console.log(this.diseaseArray);
     if (
       this.patientService.selectedPatient.drink.length == 0 &&
       this.patientService.selectedPatient.smoke.length == 0 &&
