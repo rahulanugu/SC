@@ -7,12 +7,12 @@ const OAuth2 = google.auth.OAuth2;
 const log = console.log;
 const bcrypt = require('bcryptjs');
 const {BigQuery} = require('@google-cloud/bigquery');
-/*const options = {
-    keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
-    projectId: 'scriptchainprod'
+const options = {
+    keyFilename: 'serviceAccountKeys/scriptchain-259015-689b82dcb0fe.json',
+    projectId: 'scriptchain-259015'
 
-};*/
-const bigquery = new BigQuery();
+};
+const bigquery = new BigQuery(options);
 const API_KEY = "scriptChain@13$67ahi1";
 /**
  * Method to edit the first name of the patient
@@ -39,7 +39,6 @@ check('fname').isAlpha().notEmpty(),body().custom(body => {
     // req.body.email+'"';
     const bigQueryOptions = {
       query: query,
-      location: 'US',
       params: {email:req.body.email}
     }
     bigquery.query(bigQueryOptions, function(err, row) {
@@ -52,7 +51,6 @@ check('fname').isAlpha().notEmpty(),body().custom(body => {
           // req.body.email+'"';
           const bigQueryOptions1 = {
             query: query1,
-            location: 'US',
             params: {email:req.body.email}
           }
           bigquery.query(bigQueryOptions1, function(err, row1) {
@@ -81,7 +79,6 @@ check('fname').isAlpha().notEmpty(),body().custom(body => {
                 query3 += ")";
                   const bigQueryOptions = {
                       query: query3,
-                      location: 'US',
                       params: patient
                   }
                   bigquery.query(bigQueryOptions, function(err, row) {
@@ -124,7 +121,6 @@ router.put("/lname",[check('email').isEmail(),check('lname').isAlpha().notEmpty(
     // req.body.email+'"';
     const bigQueryOptions = {
       query: query,
-      location: 'US',
       params: {email:req.body.email}
     }
     bigquery.query(bigQueryOptions, function(err, row) {
@@ -137,7 +133,6 @@ router.put("/lname",[check('email').isEmail(),check('lname').isAlpha().notEmpty(
           // req.body.email+'"';
           const bigQueryOptions1 = {
             query: query1,
-            location: 'US',
             params: {email:req.body.email}
           }
           bigquery.query(bigQueryOptions1, function(err, row1) {
@@ -165,7 +160,6 @@ router.put("/lname",[check('email').isEmail(),check('lname').isAlpha().notEmpty(
                 query3 += ")";
                   const bigQueryOptions = {
                       query: query3,
-                      location: 'US',
                       params: patient
                   }
                   bigquery.query(bigQueryOptions, function(err, row) {
@@ -207,7 +201,6 @@ router.put("/phone", [check('email').isEmail(),check('phone').isMobilePhone().no
     // req.body.email+'"';
     const bigQueryOptions = {
       query: query,
-      location: 'US',
       params: {email:req.body.email}
     }
     bigquery.query(bigQueryOptions, function(err, row) {
@@ -219,7 +212,6 @@ router.put("/phone", [check('email').isEmail(),check('phone').isMobilePhone().no
           // req.body.email+'"';
           const bigQueryOptions1 = {
             query: query1,
-            location: 'US',
             params: {email:req.body.email}
           }
           bigquery.query(bigQueryOptions1, function(err, row1) {
@@ -244,7 +236,6 @@ router.put("/phone", [check('email').isEmail(),check('phone').isMobilePhone().no
                 query3 += ")";
                   const bigQueryOptions = {
                       query: query3,
-                      location: 'US',
                       params: patient
                   }
                   bigquery.query(bigQueryOptions, function(err, row) {
@@ -291,7 +282,6 @@ router.put("/password" , [check('email').isEmail()
     // req.body.email+'"';
     const bigQueryOptions = {
       query: query,
-      location: 'US',
       params: {email:req.body.email}
     }
     bigquery.query(bigQueryOptions, async function(err, row) {
@@ -315,7 +305,6 @@ router.put("/password" , [check('email').isEmail()
             // req.body.email+'"';
             const bigQueryOptions1 = {
               query: query1,
-              location: 'US',
               params: {email:req.body.email}
             }
             bigquery.query(bigQueryOptions1, function(err, row1) {
@@ -341,7 +330,6 @@ router.put("/password" , [check('email').isEmail()
                 query3 += ")";
                   const bigQueryOptions = {
                       query: query3,
-                      location: 'US',
                       params: patient
                   }
                   bigquery.query(bigQueryOptions, function(err, row) {

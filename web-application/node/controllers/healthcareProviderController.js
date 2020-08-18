@@ -34,12 +34,12 @@ oauth2Client.setCredentials({
 // retrieve an access token from oauthclient
 const accessToken = oauth2Client.getAccessToken();
 const {BigQuery} = require('@google-cloud/bigquery');
-/*const options = {
-    keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
-    projectId: 'scriptchainprod'
+const options = {
+    keyFilename: 'serviceAccountKeys/scriptchain-259015-689b82dcb0fe.json',
+    projectId: 'scriptchain-259015'
 
-};*/
-const bigquery = new BigQuery();
+};
+const bigquery = new BigQuery(options);
 const API_KEY = "scriptChain@13$67ahi1";
 /**
  * Request the creation of a new healthcareprovider user
@@ -57,8 +57,8 @@ function generateId(count) {
   }
   return str;
 }
-router.post('/account/create',
-[check('firstName').notEmpty().isAlpha()
+
+router.post('/account/create',[check('firstName').notEmpty().isAlpha()
 ,check('lastName').notEmpty().isAlpha()
 ,check('companyName').notEmpty(),check('roleInCompany').notEmpty()
 ,check('email').notEmpty().isEmail()
@@ -81,7 +81,6 @@ router.post('/account/create',
     // req.body.email+'"';
     const bigQueryOptions = {
       query: query,
-      location: 'US',
       params: {email:req.body.email}
     }
     bigquery.query(bigQueryOptions, async function(err, row) {
@@ -91,6 +90,7 @@ router.post('/account/create',
                 message: 'User already exists'
             })
           }else{
+            
             console.log("email does not exist")
 
             //Create a jwt token with details provided in body as payload
@@ -121,7 +121,6 @@ router.post('/account/create',
             console.log(query1);
             const bigQueryOptions1 = {
               query: query1,
-              location: 'US',
               params: json
             }
             bigquery.query(bigQueryOptions1, function(err, row) {
@@ -144,6 +143,9 @@ router.post('/account/create',
                 res.status(200).send({message: "Verification mail with jwt token is sent"});
             });
           }
+        }else{
+          console.log(err);
+          res.status(500).send({message: "An error has occured trying to send the mail"});
         }
     });
 })
@@ -186,7 +188,6 @@ router.post('/account/verify',[check("jwtToken").notEmpty(),body().custom(body =
     // decodedValue.tokeBody.email+'"';
     const bigQueryOptions = {
       query: query,
-      location: 'US',
       params: {email:decodedValue.tokeBody.email}
     }
     bigquery.query(bigQueryOptions, async function(err, row) {
@@ -222,7 +223,6 @@ router.post('/account/verify',[check("jwtToken").notEmpty(),body().custom(body =
           console.log(query1);
           const bigQueryOptions1 = {
             query: query1,
-            location: 'US',
             params: json
           }
           bigquery.query(bigQueryOptions1, function(err, row) {

@@ -3,12 +3,12 @@ const router = express.Router();
 const { check,body,validationResult } = require('express-validator');
 const fs = require('fs');
 const {BigQuery} = require('@google-cloud/bigquery');
-/*const options = {
-    keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
-    projectId: 'scriptchainprod'
+const options = {
+    keyFilename: 'serviceAccountKeys/scriptchain-259015-689b82dcb0fe.json',
+    projectId: 'scriptchain-259015'
 
-};*/
-const bigquery = new BigQuery();
+};
+const bigquery = new BigQuery(options);
 const API_KEY = "scriptChain@13$67ahi1";
 //The controller handles the requests for deactivating user accounts
 
@@ -41,7 +41,6 @@ router.post("/patient",[check('email').notEmpty().isEmail(),body().custom(body =
     // req.body.Email+'"';
     const bigQueryOptions = {
       query: query,
-      location: 'US',
       params: {email:req.body.email}
     }
     bigquery.query(bigQueryOptions, function(err, row) {
@@ -52,7 +51,6 @@ router.post("/patient",[check('email').notEmpty().isEmail(),body().custom(body =
                 const retrievedPatient = row[0];
                 const bigQueryOptions1 = {
                   query: query1,
-                  location: 'US',
                   params: {email:req.body.email}
                 }
                 bigquery.query(bigQueryOptions1, function(err, row1) {
@@ -79,7 +77,6 @@ router.post("/patient",[check('email').notEmpty().isEmail(),body().custom(body =
                         console.log(query4);
                         const bigQueryOptions2 = {
                             query: query4,
-                            location: 'US',
                             params: retrievedPatient
                         }
                         bigquery.query(bigQueryOptions2, function(err, row) {
@@ -136,7 +133,6 @@ router.post("/healthcare",[check('email').notEmpty().isEmail(),body().custom(bod
     // req.body.Email+'"';
     const bigQueryOptions = {
       query: query,
-      location: 'US',
       params: {email:req.body.email}
     }
     bigquery.query(bigQueryOptions, function(err, row) {
@@ -148,7 +144,6 @@ router.post("/healthcare",[check('email').notEmpty().isEmail(),body().custom(bod
                 console.log(retrievedHealthcareProvider);
                 const bigQueryOptions1 = {
                   query: query1,
-                  location: 'US',
                   params: {email:req.body.email}
                 }
                 bigquery.query(bigQueryOptions1, function(err, row1) {
@@ -167,7 +162,6 @@ router.post("/healthcare",[check('email').notEmpty().isEmail(),body().custom(bod
                         console.log(query);
                         const bigQueryOptions = {
                             query: query,
-                            location: 'US',
                             params:retrievedHealthcareProvider
                         }
                         bigquery.query(bigQueryOptions, function(err, row) {
