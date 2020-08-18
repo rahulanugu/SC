@@ -4,12 +4,12 @@ const router = express.Router();
 const API_KEY = "scriptChain@13$67ahi1";
 const {BigQuery} = require('@google-cloud/bigquery');
 //comment options in prod mode
-const options = {
+/*const options = {
     keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
     projectId: 'scriptchainprod'
 
-};
-const bigquery = new BigQuery(options);
+};*/
+const bigquery = new BigQuery();
 /**
  * Method to save the customer query to the database
  * Input: Details of ContactUser as specified in schema
@@ -43,7 +43,7 @@ router.post("/",[check('FirstName').notEmpty().isAlpha(),check('LastName').notEm
   //console.log("hello");
   req.body['_id'] = generateId(10);
 
-  var query= "INSERT INTO `scriptchainprod.ScriptChain.contactUsers` VALUES ("
+  var query= "INSERT INTO `scriptchain-259015.dataset1.contactUsers` VALUES ("
   for(var myKey in req.body) {
     query+="@"+myKey+",";
 
