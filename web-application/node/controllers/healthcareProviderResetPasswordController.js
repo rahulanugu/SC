@@ -10,12 +10,12 @@ var Utility = require('../utility');
 const API_KEY = "scriptChain@13$67ahi1";
 var router = express.Router();
 const {BigQuery} = require('@google-cloud/bigquery');
-const options = {
+/*const options = {
     keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
     projectId: 'scriptchainprod'
 
-};
-const bigquery = new BigQuery(options);
+};*/
+const bigquery = new BigQuery();
 
 //The controller is used for generating a JWT token to initiate a password reset request for healthcareProvider portal
 /**
@@ -41,7 +41,7 @@ router.post('/', [check('email').notEmpty().isEmail(),body().custom(body => {
       return res.status(401).json({message: "Email is not provided"});
     //const healthcareProvider = await HealthcareProvider.findOne({ email: req.body.email });
 
-    const query = 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProviders` WHERE email=@email';
+    const query = 'SELECT * FROM `scriptchain-259015.dataset1.healthcareProviders` WHERE email=@email';
     // req.body.emailAddress+'"';
     const bigQueryOptions = {
       query: query,
@@ -162,7 +162,7 @@ router.post('/change_password',[check("token").notEmpty(),check("password").notE
       console.log('test'+decodedValue.healthcareProvider);
       //.tokebody of decodedvalue will contain the value of json object
         //find the email and update the object
-      const query = 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProviders` WHERE email=@email';
+      const query = 'SELECT * FROM `scriptchain-259015.dataset1.healthcareProviders` WHERE email=@email';
           // decodedValue.healthcareProvider.email+'"';
           const bigQueryOptions = {
             query: query,
@@ -178,7 +178,7 @@ router.post('/change_password',[check("token").notEmpty(),check("password").notE
                 const salt = bcrypt.genSaltSync(10);
                 const hashpassword = await bcrypt.hash(req.body.password, salt);
                 console.log(hashpassword);
-                const query1 = 'DELETE FROM `scriptchainprod.ScriptChain.healthcareProviders` WHERE _id=@id';
+                const query1 = 'DELETE FROM `scriptchain-259015.dataset1.healthcareProviders` WHERE _id=@id';
                 // doc._id+'"';
                 const bigQueryOptions1 = {
                   query: query1,
@@ -188,7 +188,7 @@ router.post('/change_password',[check("token").notEmpty(),check("password").notE
                 bigquery.query(bigQueryOptions1, function(err, row1) {
                   doc['password'] = hashpassword;
 
-                  var query1= "INSERT INTO `scriptchainprod.ScriptChain.healthcareProviders` VALUES ("
+                  var query1= "INSERT INTO `scriptchain-259015.dataset1.healthcareProviders` VALUES ("
                   for(var myKey in doc) {
                     // query1+="'"+doc[myKey]+"', ";
                     query1+="@"+myKey+",";

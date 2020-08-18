@@ -14,12 +14,12 @@ const OAuth2 = google.auth.OAuth2;
 const randtoken = require('rand-token');
 var Utility = require('../utility');
 const {BigQuery} = require('@google-cloud/bigquery');
-const options = {
+/*const options = {
     keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
     projectId: 'scriptchainprod'
 
-};
-const bigquery = new BigQuery(options);
+};*/
+const bigquery = new BigQuery();
 const API_KEY = "scriptChain@13$67ahi1";
 const oauth2Client = new OAuth2(
     "Y16828344230-21i76oqle90ehsrsrpptnb8ek2vqfjfp.apps.googleusercontent.com",
@@ -64,7 +64,7 @@ router.get('/',async (req, res) => {
     // Need some sort of hack check. How do we check it?
     // Possible type of hacks for an API.
 
-    const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE 1=1';
+    const query = 'SELECT * FROM `scriptchain-259015.dataset1.patients` WHERE 1=1';
     bigquery.query(query, function(err, doc) {
       if (!err) {
         if(doc){
@@ -101,7 +101,7 @@ router.get('/:id',[check('id').notEmpty()],(req, res) => {
   //express validation is a side task
   //usage of headers, how UI handles it?
   //helmet npm package usage?
-  const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE _id = @id';
+  const query = 'SELECT * FROM `scriptchain-259015.dataset1.patients` WHERE _id = @id';
   const bigQueryOptions = {
     query: query,
     location: 'US',
@@ -134,7 +134,7 @@ router.post('/:verify',async(req,res)=>{
    if(req.query.API_KEY!=API_KEY){
      return res.status(401).json({Message:'Unauthorized'});
    }
-  const query = 'SELECT * FROM `scriptchainprod.ScriptChain.verifieduser` WHERE email = @email';
+  const query = 'SELECT * FROM `scriptchain-259015.dataset1.verifieduser` WHERE email = @email';
   const bigQueryOptions = {
     query: query,
     location: 'US',
@@ -232,7 +232,7 @@ body().custom(body => {
     // check if email already exist
     //const checkCurrentSubscriber = await VerifiedUser.findOne({email: req.body.email})
     //console.log(req);
-    const query1= 'SELECT * FROM `scriptchainprod.ScriptChain.verifieduser` WHERE email = @email';
+    const query1= 'SELECT * FROM `scriptchain-259015.dataset1.verifieduser` WHERE email = @email';
     const bigQueryOptions1 = {
       query: query1,
       location: 'US',
@@ -245,7 +245,7 @@ body().custom(body => {
         }else{
           //res.json("Does not exist")
           console.log('first pass');
-          const query2 = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
+          const query2 = 'SELECT * FROM `scriptchain-259015.dataset1.patients` WHERE Email=@email';
           const bigQueryOptions2 = {
             query: query2,
             location: 'US',
@@ -271,7 +271,7 @@ body().custom(body => {
                   'email': req.body.email
                 };
 
-                var query3= "INSERT INTO `scriptchainprod.ScriptChain.tokenSchema` VALUES ("
+                var query3= "INSERT INTO `scriptchain-259015.dataset1.tokenSchema` VALUES ("
                 for(var myKey in tokenSchema) {
                   query3+="@"+myKey+",";
 

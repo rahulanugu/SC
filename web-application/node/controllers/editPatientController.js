@@ -7,12 +7,12 @@ const OAuth2 = google.auth.OAuth2;
 const log = console.log;
 const bcrypt = require('bcryptjs');
 const {BigQuery} = require('@google-cloud/bigquery');
-const options = {
+/*const options = {
     keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
     projectId: 'scriptchainprod'
 
-};
-const bigquery = new BigQuery(options);
+};*/
+const bigquery = new BigQuery();
 const API_KEY = "scriptChain@13$67ahi1";
 /**
  * Method to edit the first name of the patient
@@ -35,7 +35,7 @@ check('fname').isAlpha().notEmpty(),body().custom(body => {
   }
   //const retrievedPatient = await Patient.findOne({ Email: req.body.email })
 
-  const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
+  const query = 'SELECT * FROM `scriptchain-259015.dataset1.patients` WHERE Email=@email';
     // req.body.email+'"';
     const bigQueryOptions = {
       query: query,
@@ -48,7 +48,7 @@ check('fname').isAlpha().notEmpty(),body().custom(body => {
           //console.log(row);
           const retrievedPatient = row[0];
           retrievedPatient.fname = req.body.fname;
-          const query1 = 'DELETE FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
+          const query1 = 'DELETE FROM `scriptchain-259015.dataset1.patients` WHERE Email=@email';
           // req.body.email+'"';
           const bigQueryOptions1 = {
             query: query1,
@@ -63,7 +63,7 @@ check('fname').isAlpha().notEmpty(),body().custom(body => {
                 //console.log('deleted');
 
                 var patient = retrievedPatient;
-                var query3= "INSERT INTO `scriptchainprod.ScriptChain.patients` (";
+                var query3= "INSERT INTO `scriptchain-259015.dataset1.patients` (";
                 for(var myKey in patient) {
                   query3+=myKey+", ";
                 }
@@ -120,7 +120,7 @@ router.put("/lname",[check('email').isEmail(),check('lname').isAlpha().notEmpty(
   }
 
 
-  const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
+  const query = 'SELECT * FROM `scriptchain-259015.dataset1.patients` WHERE Email=@email';
     // req.body.email+'"';
     const bigQueryOptions = {
       query: query,
@@ -133,7 +133,7 @@ router.put("/lname",[check('email').isEmail(),check('lname').isAlpha().notEmpty(
           //console.log(row);
           const retrievedPatient = row[0];
           retrievedPatient.lname = req.body.lname;
-          const query1 = 'DELETE FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
+          const query1 = 'DELETE FROM `scriptchain-259015.dataset1.patients` WHERE Email=@email';
           // req.body.email+'"';
           const bigQueryOptions1 = {
             query: query1,
@@ -147,7 +147,7 @@ router.put("/lname",[check('email').isEmail(),check('lname').isAlpha().notEmpty(
               }else{
                 //console.log('deleted');
                 var patient = retrievedPatient;
-                var query3= "INSERT INTO `scriptchainprod.ScriptChain.patients` (";
+                var query3= "INSERT INTO `scriptchain-259015.dataset1.patients` (";
                 for(var myKey in patient) {
                   query3+=myKey+", ";
                 }
@@ -203,7 +203,7 @@ router.put("/phone", [check('email').isEmail(),check('phone').isMobilePhone().no
   if(req.query.API_KEY!=API_KEY){
     return res.status(401).json({Message:'Unauthorized'});
   }
-  const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
+  const query = 'SELECT * FROM `scriptchain-259015.dataset1.patients` WHERE Email=@email';
     // req.body.email+'"';
     const bigQueryOptions = {
       query: query,
@@ -215,7 +215,7 @@ router.put("/phone", [check('email').isEmail(),check('phone').isMobilePhone().no
         if (row.length>0){
           const retrievedPatient = row[0];
           retrievedPatient.phone = req.body.phone;
-          const query1= 'DELETE FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
+          const query1= 'DELETE FROM `scriptchain-259015.dataset1.patients` WHERE Email=@email';
           // req.body.email+'"';
           const bigQueryOptions1 = {
             query: query1,
@@ -228,7 +228,7 @@ router.put("/phone", [check('email').isEmail(),check('phone').isMobilePhone().no
                   next();
               }else{
                 var patient = retrievedPatient;
-                var query3= "INSERT INTO `scriptchainprod.ScriptChain.patients` (";
+                var query3= "INSERT INTO `scriptchain-259015.dataset1.patients` (";
                 for(var myKey in patient) {
                   query3+=myKey+", ";
                 }
@@ -287,7 +287,7 @@ router.put("/password" , [check('email').isEmail()
   console.log("Trying to edit the password of the user")
   console.log(req.body.email);
   console.log(req.body)
-  const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
+  const query = 'SELECT * FROM `scriptchain-259015.dataset1.patients` WHERE Email=@email';
     // req.body.email+'"';
     const bigQueryOptions = {
       query: query,
@@ -311,7 +311,7 @@ router.put("/password" , [check('email').isEmail()
             const salt = await bcrypt.genSaltSync(10);
             const hashpassword = await bcrypt.hash(req.body.newPassword, salt);
             retrievedPatient.password = hashpassword;
-            const query1 = 'DELETE FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
+            const query1 = 'DELETE FROM `scriptchain-259015.dataset1.patients` WHERE Email=@email';
             // req.body.email+'"';
             const bigQueryOptions1 = {
               query: query1,
@@ -325,7 +325,7 @@ router.put("/password" , [check('email').isEmail()
                 }else{
                   //console.log('deleted');
                   var patient = retrievedPatient;
-                var query3= "INSERT INTO `scriptchainprod.ScriptChain.patients` (";
+                var query3= "INSERT INTO `scriptchain-259015.dataset1.patients` (";
                 for(var myKey in patient) {
                   query3+=myKey+", ";
                 }

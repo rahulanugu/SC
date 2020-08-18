@@ -34,12 +34,12 @@ oauth2Client.setCredentials({
 // retrieve an access token from oauthclient
 const accessToken = oauth2Client.getAccessToken();
 const {BigQuery} = require('@google-cloud/bigquery');
-const options = {
+/*const options = {
     keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
     projectId: 'scriptchainprod'
 
-};
-const bigquery = new BigQuery(options);
+};*/
+const bigquery = new BigQuery();
 const API_KEY = "scriptChain@13$67ahi1";
 /**
  * Request the creation of a new healthcareprovider user
@@ -77,7 +77,7 @@ router.post('/account/create',
     return res.status(401).json({Message:'Unauthorized'});
   }
     //Check if user alread exists
-    const query= 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProviders` WHERE email=@email';
+    const query= 'SELECT * FROM `scriptchain-259015.dataset1.healthcareProviders` WHERE email=@email';
     // req.body.email+'"';
     const bigQueryOptions = {
       query: query,
@@ -108,7 +108,7 @@ router.post('/account/create',
               token: idToken,
               email: req.body.email,
             };
-            var query1= "INSERT INTO `scriptchainprod.ScriptChain.tokenSchema` VALUES ("
+            var query1= "INSERT INTO `scriptchain-259015.dataset1.tokenSchema` VALUES ("
 
             //REPLACE THIS AFTER VALUES
             for(var myKey in json) {
@@ -182,7 +182,7 @@ router.post('/account/verify',[check("jwtToken").notEmpty(),body().custom(body =
     //Before creating a new provider, check if already exists
 
 
-    const query = 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProviders` WHERE email=@email';
+    const query = 'SELECT * FROM `scriptchain-259015.dataset1.healthcareProviders` WHERE email=@email';
     // decodedValue.tokeBody.email+'"';
     const bigQueryOptions = {
       query: query,
@@ -206,7 +206,7 @@ router.post('/account/verify',[check("jwtToken").notEmpty(),body().custom(body =
           json['password'] = hashpassword;
           json['_id'] = generateId(10);
 
-          var query1= "INSERT INTO `scriptchainprod.ScriptChain.healthcareProviders` (";
+          var query1= "INSERT INTO `scriptchain-259015.dataset1.healthcareProviders` (";
           for(var myKey in json) {
             query1+=myKey+", ";
           }

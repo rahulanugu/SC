@@ -3,12 +3,12 @@ const router = express.Router();
 const { check,body,validationResult } = require('express-validator');
 const fs = require('fs');
 const {BigQuery} = require('@google-cloud/bigquery');
-const options = {
+/*const options = {
     keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
     projectId: 'scriptchainprod'
 
-};
-const bigquery = new BigQuery(options);
+};*/
+const bigquery = new BigQuery();
 const API_KEY = "scriptChain@13$67ahi1";
 //The controller handles the requests for deactivating user accounts
 
@@ -37,7 +37,7 @@ router.post("/patient",[check('email').notEmpty().isEmail(),body().custom(body =
     return res.status(401).json({Message:'Unauthorized'});
   }
     console.log("reached deacivate patient controller");
-    const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
+    const query = 'SELECT * FROM `scriptchain-259015.dataset1.patients` WHERE Email=@email';
     // req.body.Email+'"';
     const bigQueryOptions = {
       query: query,
@@ -47,7 +47,7 @@ router.post("/patient",[check('email').notEmpty().isEmail(),body().custom(body =
     bigquery.query(bigQueryOptions, function(err, row) {
         if(!err) {
             if (row.length>0){
-                const query1 = 'DELETE FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
+                const query1 = 'DELETE FROM `scriptchain-259015.dataset1.patients` WHERE Email=@email';
                 // req.body.Email+'"';
                 const retrievedPatient = row[0];
                 const bigQueryOptions1 = {
@@ -60,7 +60,7 @@ router.post("/patient",[check('email').notEmpty().isEmail(),body().custom(body =
                         res.status(500).json({"message": "account could not be deactivated due to an error"});
                         next();
                     }else{
-                        var query4= "INSERT INTO `scriptchainprod.ScriptChain.deactivatedPatients` (";
+                        var query4= "INSERT INTO `scriptchain-259015.dataset1.deactivatedPatients` (";
                         for(var myKey in retrievedPatient) {
                             query4+=myKey+", ";
                         }
@@ -132,7 +132,7 @@ router.post("/healthcare",[check('email').notEmpty().isEmail(),body().custom(bod
   }
     console.log("reached deactivate controller");
 
-    const query = 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProviders` WHERE email=@email';
+    const query = 'SELECT * FROM `scriptchain-259015.dataset1.healthcareProviders` WHERE email=@email';
     // req.body.Email+'"';
     const bigQueryOptions = {
       query: query,
@@ -142,7 +142,7 @@ router.post("/healthcare",[check('email').notEmpty().isEmail(),body().custom(bod
     bigquery.query(bigQueryOptions, function(err, row) {
         if(!err) {
             if (row.length>0){
-                const query1 = 'DELETE FROM `scriptchainprod.ScriptChain.healthcareProviders` WHERE email=@email';
+                const query1 = 'DELETE FROM `scriptchain-259015.dataset1.healthcareProviders` WHERE email=@email';
                 // req.body.Email+'"';
                 const retrievedHealthcareProvider = row[0];
                 console.log(retrievedHealthcareProvider);
@@ -157,7 +157,7 @@ router.post("/healthcare",[check('email').notEmpty().isEmail(),body().custom(bod
                         next();
                     }else{
                         delete retrievedHealthcareProvider['phone'];
-                        var query= "INSERT INTO `scriptchainprod.ScriptChain.deactivatedHealthcareProviders` VALUES ("
+                        var query= "INSERT INTO `scriptchain-259015.dataset1.deactivatedHealthcareProviders` VALUES ("
                         for(var myKey in retrievedHealthcareProvider) {
                           query+="@"+myKey+",";
 
