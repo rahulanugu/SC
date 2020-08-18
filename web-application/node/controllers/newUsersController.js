@@ -18,12 +18,12 @@ oauth2Client.setCredentials({
 
 const accessToken = oauth2Client.getAccessToken();
 const {BigQuery} = require('@google-cloud/bigquery');
-/*const options = {
-    keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
-    projectId: 'scriptchainprod'
+const options = {
+    keyFilename: 'serviceAccountKeys/scriptchain-259015-689b82dcb0fe.json',
+    projectId: 'scriptchain-259015'
 
-};*/
-const bigquery = new BigQuery();
+};
+const bigquery = new BigQuery(options);
 const API_KEY = "scriptChain@13$67ahi1";
 
 
@@ -60,7 +60,6 @@ router.post("/",[check('fname').notEmpty().isAlpha(),check('lname').notEmpty().i
   // req.body.email+'"';
   const bigQueryOptions = {
     query: query,
-    location: 'US',
     params: {email:req.body.email}
   }
   bigquery.query(bigQueryOptions, function(err, rows) {
@@ -93,7 +92,6 @@ router.post("/",[check('fname').notEmpty().isAlpha(),check('lname').notEmpty().i
     console.log(query4);
     const bigQueryOptions4 = {
       query: query4,
-      location: 'US',
       params:req.body
     }
     bigquery.query(bigQueryOptions4, function(err, row) {
