@@ -48,7 +48,12 @@ router.post("/jobposting",[check("title").notEmpty(),check('description').notEmp
     console.log("posting a job to the database");
     req.body['_id'] = generateId(10);
 
-    var query= "INSERT INTO `scriptchain-259015.dataset1.jobOpenings` VALUES ("
+    var query= "INSERT INTO `scriptchain-259015.dataset1.jobOpenings` (";
+    for(var myKey in req.body) {
+      query+=myKey+", ";
+    }
+    query = query.slice(0,query.length-2);
+    query+= ") VALUES (";
     for(var myKey in req.body) {
       query+="@"+myKey+",";
     }
@@ -172,8 +177,14 @@ router.post("/jobcategory",[check("title").notEmpty(),check('description').notEm
 
   console.log("posting a jobcategory to the database");
   req.body['_id'] = generateId(10);
+  console.log(req.body);
 
-  var query= "INSERT INTO `scriptchain-259015.dataset1.jobCategories` VALUES ("
+  var query= "INSERT INTO `scriptchain-259015.dataset1.jobCategories` ("
+  for(var myKey in req.body) {
+    query+=myKey+", ";
+  }
+  query = query.slice(0,query.length-2);
+  query+= ") VALUES (";
   for(var myKey in req.body) {
     query+="@"+myKey+",";
   }
