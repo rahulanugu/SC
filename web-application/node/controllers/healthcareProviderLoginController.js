@@ -4,12 +4,12 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 var router = express.Router();
 const {BigQuery} = require('@google-cloud/bigquery');
-const options = {
+/*const options = {
     keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
     projectId: 'scriptchainprod'
 
-};
-const bigquery = new BigQuery(options);
+};*/
+const bigquery = new BigQuery();
 const API_KEY = "scriptChain@13$67ahi1";
 /**
  * Authenticate the healthcare user login attempt
@@ -33,7 +33,7 @@ router.post('/',[check('emailAddress').notEmpty().isEmail(),check('password').no
     console.log(req.body);
     //const healthcareProvider = await HealthcareProvider.findOne({ email: req.body.emailAddress });
 
-    const query = 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProviders` WHERE email=@email';
+    const query = 'SELECT * FROM `scriptchain-259015.dataset1.healthcareProviders` WHERE email=@email';
     // req.body.emailAddress+'"';
     const bigQueryOptions = {
       query: query,
@@ -44,7 +44,7 @@ router.post('/',[check('emailAddress').notEmpty().isEmail(),check('password').no
     bigquery.query(bigQueryOptions, async function(err, rows) {
       if(!err) {
         if(rows.length==0){
-          const query1 = 'SELECT * FROM `scriptchainprod.ScriptChain.deactivatedHealthcareProvider` WHERE email=@email';
+          const query1 = 'SELECT * FROM `scriptchain-259015.dataset1.deactivatedHealthcareProvider` WHERE email=@email';
           // req.body.emailAddress+'"';
           const bigQueryOptions1 = {
             query: query1,

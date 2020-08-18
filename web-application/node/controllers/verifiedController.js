@@ -5,13 +5,13 @@ const bcrypt = require('bcryptjs');
 var Utility = require('../utility');
 var jwtDecode = require('jwt-decode');
 const {BigQuery} = require('@google-cloud/bigquery');
-const options = {
+/*const options = {
     keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
     projectId: 'scriptchainprod'
 
-};
+};*/
 const API_KEY = "scriptChain@13$67ahi1";
-const bigquery = new BigQuery(options);
+const bigquery = new BigQuery();
 function generateId(count) {
     var _sym = 'abcdefghijklmnopqrstuvwxyz1234567890';
     var str = '';
@@ -49,7 +49,7 @@ router.post('/',[check("jwtToken").notEmpty(),body().custom(body => {
     //decoding the token
     var decodedValue = jwtDecode(decryptedToken);
 
-    const query = 'SELECT * FROM `scriptchainprod.ScriptChain.verifieduser` WHERE email=@email';
+    const query = 'SELECT * FROM `scriptchain-259015.dataset1.verifieduser` WHERE email=@email';
     const bigQueryOptions={
         query:query,
         location:'US',
@@ -83,7 +83,7 @@ router.post('/',[check("jwtToken").notEmpty(),body().custom(body => {
           };
           verifieduser['_id'] = generateId(10);
 
-          var query3= "INSERT INTO `scriptchainprod.ScriptChain.verifieduser` ("
+          var query3= "INSERT INTO `scriptchain-259015.dataset1.verifieduser` ("
           for(var myKey in verifieduser) {
             query3+=myKey+", ";
           }
@@ -110,7 +110,7 @@ router.post('/',[check("jwtToken").notEmpty(),body().custom(body => {
             }
           });
 
-          var query4= "INSERT INTO `scriptchainprod.ScriptChain.patients` (";
+          var query4= "INSERT INTO `scriptchain-259015.dataset1.patients` (";
           for(var myKey in patient) {
               query4+=myKey+", ";
           }

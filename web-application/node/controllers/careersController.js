@@ -3,11 +3,11 @@ const router = express.Router();
 const API_KEY = "scriptChain@13$67ahi1";
 const { check,body, validationResult } = require('express-validator');
 const {BigQuery} = require('@google-cloud/bigquery');
-const options = {
+/*const options = {
     keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
     projectId: 'scriptchainprod'
-};
-const bigquery = new BigQuery(options);
+};*/
+const bigquery = new BigQuery();
 
 /**
  * The contoller is used to serve the needs of the careers portal of the
@@ -48,7 +48,7 @@ router.post("/jobposting",[check("title").notEmpty(),check('description').notEmp
     console.log("posting a job to the database");
     req.body['_id'] = generateId(10);
 
-    var query= "INSERT INTO `scriptchainprod.ScriptChain.jobOpenings` VALUES ("
+    var query= "INSERT INTO `scriptchain-259015.dataset1.jobOpenings` VALUES ("
     for(var myKey in req.body) {
       query+="@"+myKey+",";
     }
@@ -90,7 +90,7 @@ router.get('/jobposting', (req, res) => {
   if(req.query.API_KEY!=API_KEY){
     return res.status(401).json({Message:'Unauthorized'});
   }
-  const query= 'SELECT * FROM `scriptchainprod.ScriptChain.jobOpenings` WHERE 1=1';
+  const query= 'SELECT * FROM `scriptchain-259015.dataset1.jobOpenings` WHERE 1=1';
   const bigQueryOptions = {
     query: query,
     location: 'US'
@@ -130,7 +130,7 @@ router.get('/jobposting/:jobcategory', (req, res) => {
   if(req.query.API_KEY!=API_KEY){
     return res.status(401).json({Message:'Unauthorized'});
   }
-  const query = 'SELECT * FROM `scriptchainprod.ScriptChain.jobOpenings` WHERE category=@category';
+  const query = 'SELECT * FROM `scriptchain-259015.dataset1.jobOpenings` WHERE category=@category';
   // req.params.jobcategory+'"';
   const bigQueryOptions = {
     query: query,
@@ -176,7 +176,7 @@ router.post("/jobcategory",[check("title").notEmpty(),check('description').notEm
   console.log("posting a jobcategory to the database");
   req.body['_id'] = generateId(10);
 
-  var query= "INSERT INTO `scriptchainprod.ScriptChain.jobCategories` VALUES ("
+  var query= "INSERT INTO `scriptchain-259015.dataset1.jobCategories` VALUES ("
   for(var myKey in req.body) {
     query+="@"+myKey+",";
   }
@@ -218,7 +218,7 @@ router.get('/jobcategory', (req, res) => {
   if(req.query.API_KEY!=API_KEY){
     return res.status(401).json({Message:'Unauthorized'});
   }
-  const query = 'SELECT * FROM `scriptchainprod.ScriptChain.jobCategories` WHERE 1=1';
+  const query = 'SELECT * FROM `scriptchain-259015.dataset1.jobCategories` WHERE 1=1';
   bigquery.query(query, function(err, rows) {
     if(!err) {
       res.status(200).json(rows);
@@ -246,7 +246,7 @@ router.get('/jobposting/job/:jobid',(req, res) => {
   if(req.query.API_KEY!=API_KEY){
     return res.status(401).json({Message:'Unauthorized'});
   }
-    const query = 'SELECT * FROM `scriptchainprod.ScriptChain.jobOpenings` WHERE _id=@id';
+    const query = 'SELECT * FROM `scriptchain-259015.dataset1.jobOpenings` WHERE _id=@id';
   // req.params.jobid+'"';
     const bigQueryOptions = {
       query: query,
