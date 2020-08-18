@@ -3,11 +3,11 @@ const router = express.Router();
 const API_KEY = "scriptChain@13$67ahi1";
 const { check,body, validationResult } = require('express-validator');
 const {BigQuery} = require('@google-cloud/bigquery');
-/*const options = {
-    keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
-    projectId: 'scriptchainprod'
-};*/
-const bigquery = new BigQuery();
+const options = {
+    keyFilename: 'serviceAccountKeys/scriptchain-259015-689b82dcb0fe.json',
+    projectId: 'scriptchain-259015'
+};
+const bigquery = new BigQuery(options);
 
 /**
  * The contoller is used to serve the needs of the careers portal of the
@@ -56,7 +56,6 @@ router.post("/jobposting",[check("title").notEmpty(),check('description').notEmp
     query += ")";
     const bigQueryOptions = {
       query: query,
-      location: 'US',
       params: req.body
     }
     bigquery.query(bigQueryOptions, function(err, row) {
@@ -92,8 +91,7 @@ router.get('/jobposting', (req, res) => {
   }
   const query= 'SELECT * FROM `scriptchain-259015.dataset1.jobOpenings` WHERE 1=1';
   const bigQueryOptions = {
-    query: query,
-    location: 'US'
+    query: query
   }
   bigquery.query(bigQueryOptions, function(err, row) {
     if(!err) {
@@ -134,7 +132,6 @@ router.get('/jobposting/:jobcategory', (req, res) => {
   // req.params.jobcategory+'"';
   const bigQueryOptions = {
     query: query,
-    location: 'US',
     params: {category:req.params.jobcategory}
   }
   bigquery.query(bigQueryOptions, function(err, rows) {
@@ -185,7 +182,6 @@ router.post("/jobcategory",[check("title").notEmpty(),check('description').notEm
   console.log(query);
   const bigQueryOptions = {
     query: query,
-    location: 'US',
     params: req.body
   }
   bigquery.query(bigQueryOptions, function(err, row) {
@@ -250,7 +246,6 @@ router.get('/jobposting/job/:jobid',(req, res) => {
   // req.params.jobid+'"';
     const bigQueryOptions = {
       query: query,
-      location: 'US',
       params: {id:req.params.jobid}
      }
     bigquery.query(bigQueryOptions, function(err, rows) {

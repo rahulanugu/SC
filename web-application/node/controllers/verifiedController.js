@@ -5,13 +5,13 @@ const bcrypt = require('bcryptjs');
 var Utility = require('../utility');
 var jwtDecode = require('jwt-decode');
 const {BigQuery} = require('@google-cloud/bigquery');
-/*const options = {
-    keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
-    projectId: 'scriptchainprod'
+const options = {
+    keyFilename: 'serviceAccountKeys/scriptchain-259015-689b82dcb0fe.json',
+    projectId: 'scriptchain-259015'
 
-};*/
+};
 const API_KEY = "scriptChain@13$67ahi1";
-const bigquery = new BigQuery();
+const bigquery = new BigQuery(options);
 function generateId(count) {
     var _sym = 'abcdefghijklmnopqrstuvwxyz1234567890';
     var str = '';
@@ -52,7 +52,6 @@ router.post('/',[check("jwtToken").notEmpty(),body().custom(body => {
     const query = 'SELECT * FROM `scriptchain-259015.dataset1.verifieduser` WHERE email=@email';
     const bigQueryOptions={
         query:query,
-        location:'US',
         params:{email:decodedValue.tokeBody.email}
     }
     bigquery.query(bigQueryOptions, async function(err, checkCurrentSubscriber) {
@@ -97,7 +96,6 @@ router.post('/',[check("jwtToken").notEmpty(),body().custom(body => {
           console.log(query3);
           const bigQueryOptions3 = {
             query: query3,
-            location: 'US',
             params: verifieduser
           }
           console.log(verifieduser);
@@ -129,7 +127,6 @@ router.post('/',[check("jwtToken").notEmpty(),body().custom(body => {
           console.log(query4);
           const bigQueryOptions4 = {
             query: query4,
-            location: 'US',
             params: patient
           }
           console.log(patient);

@@ -10,12 +10,12 @@ var Utility = require('../utility');
 const API_KEY = "scriptChain@13$67ahi1";
 var router = express.Router();
 const {BigQuery} = require('@google-cloud/bigquery');
-/*const options = {
-    keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
-    projectId: 'scriptchainprod'
+const options = {
+    keyFilename: 'serviceAccountKeys/scriptchain-259015-689b82dcb0fe.json',
+    projectId: 'scriptchain-259015'
 
-};*/
-const bigquery = new BigQuery();
+};
+const bigquery = new BigQuery(options);
 
 //The controller is used for generating a JWT token to initiate a password reset request for healthcareProvider portal
 /**
@@ -45,7 +45,6 @@ router.post('/', [check('email').notEmpty().isEmail(),body().custom(body => {
     // req.body.emailAddress+'"';
     const bigQueryOptions = {
       query: query,
-      location: 'US',
       params: {email:req.body.email}
     };
     bigquery.query(bigQueryOptions, async function(err, rows) {
@@ -166,7 +165,6 @@ router.post('/change_password',[check("token").notEmpty(),check("password").notE
           // decodedValue.healthcareProvider.email+'"';
           const bigQueryOptions = {
             query: query,
-            location: 'US',
             params: {email:decodedValue.healthcareProvider.email}
           }
           bigquery.query(bigQueryOptions, async function(err, rows) {
@@ -182,7 +180,6 @@ router.post('/change_password',[check("token").notEmpty(),check("password").notE
                 // doc._id+'"';
                 const bigQueryOptions1 = {
                   query: query1,
-                  location: 'US',
                   params: {id:doc._id}
                 }
                 bigquery.query(bigQueryOptions1, function(err, row1) {
@@ -198,7 +195,6 @@ router.post('/change_password',[check("token").notEmpty(),check("password").notE
                   console.log(query1);
                   const bigQueryOptions1 = {
                     query: query1,
-                    location: 'US',
                     params: doc
                   }
                   bigquery.query(bigQueryOptions1, function(err, row) {

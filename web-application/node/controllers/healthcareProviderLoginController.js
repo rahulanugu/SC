@@ -4,12 +4,12 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 var router = express.Router();
 const {BigQuery} = require('@google-cloud/bigquery');
-/*const options = {
-    keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
-    projectId: 'scriptchainprod'
+const options = {
+    keyFilename: 'serviceAccountKeys/scriptchain-259015-689b82dcb0fe.json',
+    projectId: 'scriptchain-259015'
 
-};*/
-const bigquery = new BigQuery();
+};
+const bigquery = new BigQuery(options);
 const API_KEY = "scriptChain@13$67ahi1";
 /**
  * Authenticate the healthcare user login attempt
@@ -37,7 +37,6 @@ router.post('/',[check('emailAddress').notEmpty().isEmail(),check('password').no
     // req.body.emailAddress+'"';
     const bigQueryOptions = {
       query: query,
-      location: 'US',
       params: {email:req.body.emailAddress}
     }
     // console.log("require bigQueryoptions");
@@ -48,7 +47,6 @@ router.post('/',[check('emailAddress').notEmpty().isEmail(),check('password').no
           // req.body.emailAddress+'"';
           const bigQueryOptions1 = {
             query: query1,
-            location: 'US',
             params: {email:req.body.emailAddress}
           }
           bigquery.query(bigQueryOptions1, function(err, rows1) {

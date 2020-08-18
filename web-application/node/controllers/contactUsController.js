@@ -4,12 +4,12 @@ const router = express.Router();
 const API_KEY = "scriptChain@13$67ahi1";
 const {BigQuery} = require('@google-cloud/bigquery');
 //comment options in prod mode
-/*const options = {
-    keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
-    projectId: 'scriptchainprod'
+const options = {
+    keyFilename: 'serviceAccountKeys/scriptchain-259015-689b82dcb0fe.json',
+    projectId: 'scriptchain-259015'
 
-};*/
-const bigquery = new BigQuery();
+};
+const bigquery = new BigQuery(options);
 /**
  * Method to save the customer query to the database
  * Input: Details of ContactUser as specified in schema
@@ -53,7 +53,6 @@ router.post("/",[check('FirstName').notEmpty().isAlpha(),check('LastName').notEm
   console.log(query);
   const bigQueryOptions = {
     query: query,
-    location: 'US',
     params: req.body
   }
   bigquery.query(bigQueryOptions, function(err, row) {
