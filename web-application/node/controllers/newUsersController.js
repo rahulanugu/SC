@@ -18,12 +18,12 @@ oauth2Client.setCredentials({
 
 const accessToken = oauth2Client.getAccessToken();
 const {BigQuery} = require('@google-cloud/bigquery');
-const options = {
+/*const options = {
     keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
     projectId: 'scriptchainprod'
 
-};
-const bigquery = new BigQuery(options);
+};*/
+const bigquery = new BigQuery();
 const API_KEY = "scriptChain@13$67ahi1";
 
 
@@ -56,7 +56,7 @@ router.post("/",[check('fname').notEmpty().isAlpha(),check('lname').notEmpty().i
   if(req.query.API_KEY!=API_KEY){
     return res.status(401).json({Message:'Unauthorized'});
   }
-  const query = 'SELECT * FROM `scriptchainprod.ScriptChain.newUsers` WHERE email=@email';
+  const query = 'SELECT * FROM `scriptchain-259015.dataset1.newUsers` WHERE email=@email';
   // req.body.email+'"';
   const bigQueryOptions = {
     query: query,
@@ -74,7 +74,7 @@ router.post("/",[check('fname').notEmpty().isAlpha(),check('lname').notEmpty().i
   });
   req.body['_id'] = generateId(10);
 
-  var query4= "INSERT INTO `scriptchainprod.ScriptChain.newUsers` (";
+  var query4= "INSERT INTO `scriptchain-259015.dataset1.newUsers` (";
   for(var myKey in req.body) {
       query4+=myKey+", ";
   }

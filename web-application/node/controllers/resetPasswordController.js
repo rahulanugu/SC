@@ -9,12 +9,12 @@ var jwtDecode = require('jwt-decode');
 var Utility = require('../utility');
 var router = express.Router();
 const {BigQuery} = require('@google-cloud/bigquery');
-const options = {
+/*const options = {
     keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
     projectId: 'scriptchainprod'
 
-};
-const bigquery = new BigQuery(options);
+};*/
+const bigquery = new BigQuery();
 const API_KEY = "scriptChain@13$67ahi1";
 //The controller is used for generating a JWT token to initiate a password reset request
 
@@ -42,7 +42,7 @@ router.post('/', [check('email').notEmpty().isEmail(),body().custom(body => {
   });
   //try finding the email in the database
 
-  const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
+  const query = 'SELECT * FROM `scriptchain-259015.dataset1.patients` WHERE Email=@email';
   // '+'"'+req.body.email+'"';
   const bigQueryOptions = {
     query: query,
@@ -145,7 +145,7 @@ router.post('/change_password',[check("token").notEmpty(),check("password").notE
       console.log(decodedValue);
       //.tokebody of decodedvalue will contain the value of json object
       //find the email and update the object
-      const query1 = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@Email';
+      const query1 = 'SELECT * FROM `scriptchain-259015.dataset1.patients` WHERE Email=@Email';
       // +'"'+req.body.email+'"';
       const bigQueryOptions1 = {
         query: query1,
@@ -161,7 +161,7 @@ router.post('/change_password',[check("token").notEmpty(),check("password").notE
             const patient = doc[0];
             patient['password'] = hashpassword;
             console.log(hashpassword);
-            const query2 = 'DELETE FROM `scriptchainprod.ScriptChain.patients` WHERE _id=@id';
+            const query2 = 'DELETE FROM `scriptchain-259015.dataset1.patients` WHERE _id=@id';
             // +'"'+req.body.email+'"';
             console.log(patient);
             const bigQueryOptions2 = {
@@ -173,7 +173,7 @@ router.post('/change_password',[check("token").notEmpty(),check("password").notE
               if(!err){
                 console.log('Deleted');
 
-                var query3= "INSERT INTO `scriptchainprod.ScriptChain.patients` (";
+                var query3= "INSERT INTO `scriptchain-259015.dataset1.patients` (";
                 for(var myKey in patient) {
                   query3+=myKey+", ";
                 }
