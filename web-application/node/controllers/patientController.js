@@ -14,12 +14,12 @@ const OAuth2 = google.auth.OAuth2;
 const randtoken = require('rand-token');
 var Utility = require('../utility');
 const {BigQuery} = require('@google-cloud/bigquery');
-/*const options = {
-    keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
-    projectId: 'scriptchainprod'
+const options = {
+    keyFilename: 'serviceAccountKeys/scriptchain-259015-689b82dcb0fe.json',
+    projectId: 'scriptchain-259015'
 
-};*/
-const bigquery = new BigQuery();
+};
+const bigquery = new BigQuery(options);
 const API_KEY = "scriptChain@13$67ahi1";
 const oauth2Client = new OAuth2(
     "Y16828344230-21i76oqle90ehsrsrpptnb8ek2vqfjfp.apps.googleusercontent.com",
@@ -104,7 +104,6 @@ router.get('/:id',[check('id').notEmpty()],(req, res) => {
   const query = 'SELECT * FROM `scriptchain-259015.dataset1.patients` WHERE _id = @id';
   const bigQueryOptions = {
     query: query,
-    location: 'US',
     params: {id:req.params.id}
   }
   bigquery.query(bigQueryOptions, function(err, doc) {
@@ -137,7 +136,6 @@ router.post('/:verify',async(req,res)=>{
   const query = 'SELECT * FROM `scriptchain-259015.dataset1.verifieduser` WHERE email = @email';
   const bigQueryOptions = {
     query: query,
-    location: 'US',
     params: {email:req.body.user}
   }
   bigquery.query(bigQueryOptions, function(err, checkCurrentSubscriber) {
@@ -235,7 +233,6 @@ body().custom(body => {
     const query1= 'SELECT * FROM `scriptchain-259015.dataset1.verifieduser` WHERE email = @email';
     const bigQueryOptions1 = {
       query: query1,
-      location: 'US',
       params: {email:tokeBody.email}
     }
     bigquery.query(bigQueryOptions1, async function(err, checkCurrentSubscriber) {
@@ -248,7 +245,6 @@ body().custom(body => {
           const query2 = 'SELECT * FROM `scriptchain-259015.dataset1.patients` WHERE Email=@email';
           const bigQueryOptions2 = {
             query: query2,
-            location: 'US',
             params: {email:tokeBody.email}
           }
           bigquery.query(bigQueryOptions2, async function(err, checkEmailExist) {
@@ -281,7 +277,6 @@ body().custom(body => {
                 console.log(query3);
                 const bigQueryOptions3 = {
                   query: query3,
-                  location: 'US',
                   params: tokenSchema
                 }
                 bigquery.query(bigQueryOptions3, function(err, row) {
