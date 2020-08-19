@@ -9,7 +9,9 @@ const options = {
 
 };
 const bigquery = new BigQuery(options);
+var aes256 = require('aes256');
 const API_KEY = "scriptChain@13$67ahi1";
+const key = "hosenkinosumabeni";
 //The controller handles the requests for deactivating user accounts
 
 /**
@@ -33,7 +35,9 @@ router.post("/patient",[check('email').notEmpty().isEmail(),body().custom(body =
   if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'});
   }
-  if(req.query.API_KEY!=API_KEY){
+  var decrypted = aes256.decrypt(key, req.query.API_KEY);
+  console.log(decrypted);
+  if(decrypted!=API_KEY){
     return res.status(401).json({Message:'Unauthorized'});
   }
     console.log("reached deacivate patient controller");
@@ -124,7 +128,9 @@ router.post("/healthcare",[check('email').notEmpty().isEmail(),body().custom(bod
   if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'});
   }
-  if(req.query.API_KEY!=API_KEY){
+  var decrypted = aes256.decrypt(key, req.query.API_KEY);
+  console.log(decrypted);
+  if(decrypted!=API_KEY){
     return res.status(401).json({Message:'Unauthorized'});
   }
     console.log("reached deactivate controller");

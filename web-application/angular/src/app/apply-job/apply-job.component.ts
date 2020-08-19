@@ -12,7 +12,7 @@ import { CareersService } from '../shared/careers.service';
   styleUrls: ['./apply-job.component.css']
 })
 export class ApplyJobComponent implements OnInit {
-  job : jobOpening
+  job : jobOpening;
 
   constructor(
     private route: ActivatedRoute,
@@ -20,8 +20,10 @@ export class ApplyJobComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    //console.log(this.route.snapshot.params['jobid']);
     this.service.getJobDetails(this.route.snapshot.params['jobid']).subscribe(
       response => {
+        //console.log(response);
         this.job = response;
       },
       error => {

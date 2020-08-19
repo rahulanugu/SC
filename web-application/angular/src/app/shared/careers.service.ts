@@ -22,7 +22,7 @@ export class CareersService {
     }
 
     getJobDetails(jobid){
-      console.log(this.baseURL+`/jobposting/${jobid}`);
+      //console.log(this.baseURL+`/jobposting/job/${jobid}`+environment.param);
       return this.http.get<jobOpening>(this.baseURL+`/jobposting/job/${jobid}`+environment.param);
     }
 

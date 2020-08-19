@@ -20,7 +20,6 @@ const options = {
 
 };
 const bigquery = new BigQuery(options);
-const API_KEY = "scriptChain@13$67ahi1";
 const oauth2Client = new OAuth2(
     "Y16828344230-21i76oqle90ehsrsrpptnb8ek2vqfjfp.apps.googleusercontent.com",
     "ZYdS8bspVNCyBrSnxkMxzF2d",
@@ -31,7 +30,10 @@ oauth2Client.setCredentials({
     refresh_token:
       "ya29.GluBB_c8WGD6HI2wTAiAKnPeLap6FdqDdQYhplWyAPjw_ZBSNUNEMOfmsrVSDoHTAZWc8cjKHXXEEY_oMVJUq4YaoSD1LLseWzPNt2hcY2lCdhXAeuCxvDPbl6QP"
   });
-const accessToken = oauth2Client.getAccessToken()
+const accessToken = oauth2Client.getAccessToken();
+var aes256 = require('aes256');
+const API_KEY = "scriptChain@13$67ahi1";
+const key = "hosenkinosumabeni";
 // http://localhost:3000/patient/
 
 // get list of all patients
@@ -54,7 +56,9 @@ function generateId(count) {
 
 router.get('/',async (req, res) => {
     //ADD THIS
-    if(req.query.API_KEY!=API_KEY){
+    var decrypted = aes256.decrypt(key, req.query.API_KEY);
+    console.log(decrypted);
+    if(decrypted!=API_KEY){
       return res.status(401).json({Message:'Unauthorized'});
     }
     //ADD THIS
@@ -94,7 +98,9 @@ router.get('/:id',[check('id').notEmpty()],(req, res) => {
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
   }
-  if(req.query.API_KEY!=API_KEY){
+  var decrypted = aes256.decrypt(key, req.query.API_KEY);
+  console.log(decrypted);
+  if(decrypted!=API_KEY){
     return res.status(401).json({Message:'Unauthorized'});
   }
   //validation for id is a side task
@@ -130,7 +136,9 @@ router.post('/:verify',async(req,res)=>{
   if(req.params.verify!="verify"){
     res.status(400).json({message: "Bad Request"});
   }
-   if(req.query.API_KEY!=API_KEY){
+  var decrypted = aes256.decrypt(key, req.query.API_KEY);
+  console.log(decrypted);
+   if(decrypted!=API_KEY){
      return res.status(401).json({Message:'Unauthorized'});
    }
   const query = 'SELECT * FROM `scriptchain-259015.dataset1.verifieduser` WHERE email = @email';
@@ -223,7 +231,9 @@ body().custom(body => {
   if(!e.isEmpty()){
     return res.status(400).json({Message:"Bad Request"});
   }
-  if(req.query.API_KEY!=API_KEY){
+  var decrypted = aes256.decrypt(key, req.query.API_KEY);
+  console.log(decrypted);
+  if(decrypted!=API_KEY){
     return res.status(401).json({Message:'Unauthorized'});
   }
     const tokeBody = req.body;

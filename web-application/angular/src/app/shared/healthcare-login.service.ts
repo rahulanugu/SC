@@ -29,7 +29,7 @@ export class HealthcareLoginService {
     var requestBody = {
       jwtToken: jwtString
     }
-    console.log(requestBody);
+    //console.log(requestBody);
     return this.http.post(this.baseURL+"/verifytokenintegrity",requestBody);
   }
 }

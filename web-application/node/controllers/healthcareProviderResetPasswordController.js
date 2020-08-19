@@ -7,7 +7,6 @@ const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
 var jwtDecode = require('jwt-decode');
 var Utility = require('../utility');
-const API_KEY = "scriptChain@13$67ahi1";
 var router = express.Router();
 const {BigQuery} = require('@google-cloud/bigquery');
 const options = {
@@ -16,6 +15,9 @@ const options = {
 
 };
 const bigquery = new BigQuery(options);
+var aes256 = require('aes256');
+const API_KEY = "scriptChain@13$67ahi1";
+const key = "hosenkinosumabeni";
 
 //The controller is used for generating a JWT token to initiate a password reset request for healthcareProvider portal
 /**
@@ -32,7 +34,9 @@ router.post('/', [check('email').notEmpty().isEmail(),body().custom(body => {
   if(!err.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
   }
-  if(req.query.API_KEY!=API_KEY){
+  var decrypted = aes256.decrypt(key, req.query.API_KEY);
+  console.log(decrypted);
+  if(decrypted!=API_KEY){
     return res.status(401).json({Message:'Unauthorized'});
   }
   console.log("request is recieved and being processed")
@@ -129,8 +133,9 @@ router.post('/change_password',[check("token").notEmpty(),check("password").notE
   if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'});
   }
-  console.log(req.query);
-   if(req.query.API_KEY!=API_KEY){
+  var decrypted = aes256.decrypt(key, req.query.API_KEY);
+  console.log(decrypted);
+   if(decrypted!=API_KEY){
      return res.status(401).json({Message:'Unauthorized'});
    }
   console.log("Reached change password for healthcare provider")

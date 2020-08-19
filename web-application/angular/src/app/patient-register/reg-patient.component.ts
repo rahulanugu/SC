@@ -165,13 +165,13 @@ export class RegPatientComponent implements OnInit {
   }
 
   checkUserBeforeSubmit() {
-    console.log("checkUserBeforeSubmit");
+    //console.log("checkUserBeforeSubmit");
     let stored = JSON.parse(localStorage.getItem("Patient-info"));
 
     this.patientService
       .checkUser(this.patientService.selectedPatient.email)
       .subscribe(doc => {
-        console.log(doc);
+        //console.log(doc);
         if (doc == "Does not exist") {
           document.getElementById("emailValue").style.borderColor = "";
           if (this.patientService.selectedPatient.password == this.values) {
@@ -266,7 +266,7 @@ export class RegPatientComponent implements OnInit {
   }
 
   showFirst() {
-    console.log("enter showFirst");
+    //console.log("enter showFirst");
   }
 
   // Sumbit step 1/3
@@ -277,6 +277,6 @@ export class RegPatientComponent implements OnInit {
     country: string,
     zip: string
   ) {
-    console.log("form 1 sumbitted");
+    //console.log("form 1 sumbitted");
   }
 }
