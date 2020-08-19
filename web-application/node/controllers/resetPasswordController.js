@@ -15,7 +15,9 @@ const options = {
 
 };
 const bigquery = new BigQuery(options);
+var aes256 = require('aes256');
 const API_KEY = "scriptChain@13$67ahi1";
+const key = "hosenkinosumabeni";
 //The controller is used for generating a JWT token to initiate a password reset request
 
 /**
@@ -32,7 +34,9 @@ router.post('/', [check('email').notEmpty().isEmail(),body().custom(body => {
   if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'});
   }
-  if(req.query.API_KEY!=API_KEY){
+  var decrypted = aes256.decrypt(key, req.query.API_KEY);
+  console.log(decrypted);
+  if(decrypted!=API_KEY){
     return res.status(401).json({Message:'Unauthorized'});
   }
 
@@ -115,7 +119,9 @@ router.post('/change_password',[check("token").notEmpty(),check("password").notE
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
   }
-  if(req.query.API_KEY!=API_KEY){
+  var decrypted = aes256.decrypt(key, req.query.API_KEY);
+  console.log(decrypted);
+  if(decrypted!=API_KEY){
     return res.status(401).json({Message:'Unauthorized'});
   }
   console.log("Reached change password")

@@ -26,8 +26,8 @@ export class PatientEditService {
       return this.http.put(this.baseURL+'/phone'+environment.param,patientDetails);
     }
     changePassword(patientPasswords) {
-      console.log("Have reached the changepassword")
-      console.log(patientPasswords)
+      //console.log("Have reached the changepassword")
+      //console.log(patientPasswords)
       return this.http.put(this.baseURL+'/password'+environment.param,patientPasswords);
     }
 
@@ -37,7 +37,7 @@ export class PatientEditService {
 
     makeReactivateRequest(patientDetails){
       //patinet details - { "email" : "email@example.com"}
-      console.log("making backend request")
+      //console.log("making backend request")
       return this.http.post(this.reactivateUrl+'/patient/request'+environment.param,patientDetails);
     }
 

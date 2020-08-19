@@ -10,7 +10,9 @@ const options = {
 
 };
 const bigquery = new BigQuery(options);
+var aes256 = require('aes256');
 const API_KEY = "scriptChain@13$67ahi1";
+const key = "hosenkinosumabeni";
 /**
  * Authenticate the healthcare user login attempt
  * Input: Body containing username and password.
@@ -25,7 +27,9 @@ router.post('/',[check('emailAddress').notEmpty().isEmail(),check('password').no
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
   }
-  if(req.query.API_KEY!=API_KEY){
+  var decrypted = aes256.decrypt(key, req.query.API_KEY);
+  console.log(decrypted);
+  if(decrypted!=API_KEY){
     return res.status(401).json({Message:'Unauthorized'});
   }
     try{

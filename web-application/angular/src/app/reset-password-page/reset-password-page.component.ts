@@ -41,36 +41,36 @@ export class ResetPasswordPageComponent implements OnInit {
       if(!this.token){
         this.router.navigate(['/error500'])
       }
-      console.log("token is here "+this.token);
+      //console.log("token is here "+this.token);
     })
     //on intialization of the page, decode the jwt token and then see if the email for it exists in the db
     this.service.verifyJwtStatus(this.token).subscribe(
     res =>{
-        console.log("Token verified");
+        //console.log("Token verified");
       },
       //If an error occurs verifying the jwt token, then redirect
     err => {
-      console.log("Token might have expired");
+      //console.log("Token might have expired");
       this.router.navigate(['/error500'])
     });  
     //now on submission of passwords that match, will have to send back a request with new password and jwt token
   }
 
   onSubmission(){
-      console.log(this.Form.value)
+      //console.log(this.Form.value)
       if(!(this.Form.value.password === this.Form.value.rePassword)){
         this.errorVisible = true;
       }else {
         this.resetPasswordService.makePasswordChange(this.token,this.Form.value.password).subscribe(
           response => {
-            console.log(response);
-            console.log(this.visible);
+            //console.log(response);
+            //console.log(this.visible);
             this.errorVisible = false;
             this.visible = !this.visible;
           },
           error => {
-            console.log(error);
-            console.log(this.errorUpdating);
+            //console.log(error);
+            //console.log(this.errorUpdating);
             this.errorVisible = false;
             this.errorUpdating = true; 
           }
