@@ -11,9 +11,10 @@ export class jobOpening{
     public _id: string,
     public title:string,
     public description:string,
-    public salary:number,
+    public salary:string,
     public location:string,
     public email:string,
+    public link:string
   ){}
 }
 

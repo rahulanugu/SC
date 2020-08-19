@@ -13,7 +13,9 @@ const options = {
 
 };
 const bigquery = new BigQuery(options);
+var aes256 = require('aes256');
 const API_KEY = "scriptChain@13$67ahi1";
+const key = "hosenkinosumabeni";
 /**
  * Method to edit the first name of the patient
  * Input: Details of ContactUser as specified in schema
@@ -30,7 +32,9 @@ check('fname').isAlpha().notEmpty(),body().custom(body => {
   if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'});
   }
-  if(req.query.API_KEY!=API_KEY){
+  var decrypted = aes256.decrypt(key, req.query.API_KEY);
+  console.log(decrypted);
+  if(decrypted!=API_KEY){
     return res.status(401).json({Message:'Unauthorized'});
   }
   //const retrievedPatient = await Patient.findOne({ Email: req.body.email })
@@ -112,7 +116,9 @@ router.put("/lname",[check('email').isEmail(),check('lname').isAlpha().notEmpty(
   if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'});
   }
-  if(req.query.API_KEY!=API_KEY){
+  var decrypted = aes256.decrypt(key, req.query.API_KEY);
+  console.log(decrypted);
+  if(decrypted!=API_KEY){
     return res.status(401).json({Message:'Unauthorized'});
   }
 
@@ -194,7 +200,9 @@ router.put("/phone", [check('email').isEmail(),check('phone').isMobilePhone().no
   if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'});
   }
-  if(req.query.API_KEY!=API_KEY){
+  var decrypted = aes256.decrypt(key, req.query.API_KEY);
+  console.log(decrypted);
+  if(decrypted!=API_KEY){
     return res.status(401).json({Message:'Unauthorized'});
   }
   const query = 'SELECT * FROM `scriptchain-259015.dataset1.patients` WHERE Email=@email';
@@ -272,7 +280,9 @@ router.put("/password" , [check('email').isEmail()
   if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'});
   }
-  if(req.query.API_KEY!=API_KEY){
+  var decrypted = aes256.decrypt(key, req.query.API_KEY);
+  console.log(decrypted);
+  if(decrypted!=API_KEY){
     return res.status(401).json({Message:'Unauthorized'});
   }
   console.log("Trying to edit the password of the user")

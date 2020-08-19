@@ -33,7 +33,7 @@ export class HealthcareVerifyComponent implements OnInit {
     this.route.queryParams.subscribe(params=>{
       this.token=params.verifytoken;
       if(this.token){
-        console.log(this.token)
+        //console.log(this.token)
         this.healthcareAccountService.verifyTokenAndCreateAccount(this.token).subscribe(
           res=>{
             document.getElementById('verificationerror').style.display = "none";
@@ -50,7 +50,7 @@ export class HealthcareVerifyComponent implements OnInit {
         document.getElementById('verificationsuccessful').style.display = "none";
         document.getElementById('verificationerror').style.display = "block";
         window.location.hash = "verificationerror";
-        console.log('no data');
+        //console.log('no data');
       }
     })
     

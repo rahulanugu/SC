@@ -102,14 +102,14 @@ export class SearchBarComponent implements OnInit {
 
   //search param is the filter of search
   filterPostList(event, searchParam) {
-    console.log(this.myControl);
+    //console.log(this.myControl);
     var posts = event.source.value;
 
     if (!posts) {
       this.dataService.searchOption = [];
     }
     else {
-      console.log("not")
+      //console.log("not")
       this.myControl.disable();
       this.dataService.searchOption.push(posts);
       this.dataService.searchOption.push(this.filterSelection);

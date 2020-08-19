@@ -21,7 +21,7 @@ export class HealthcareManageProfileComponent implements OnInit {
   }
 
   deactivateUser(){
-    console.log("attempting to deactivate the user")
+    //console.log("attempting to deactivate the user")
     var patientDetails = {
       email: localStorage.getItem('email')
     }

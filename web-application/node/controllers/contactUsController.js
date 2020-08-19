@@ -1,7 +1,6 @@
 const express = require("express");
 const { check,body, validationResult } = require('express-validator');
 const router = express.Router();
-const API_KEY = "scriptChain@13$67ahi1";
 const {BigQuery} = require('@google-cloud/bigquery');
 //comment options in prod mode
 const options = {
@@ -10,6 +9,9 @@ const options = {
 
 };
 const bigquery = new BigQuery(options);
+var aes256 = require('aes256');
+const API_KEY = "scriptChain@13$67ahi1";
+const key = "hosenkinosumabeni";
 /**
  * Method to save the customer query to the database
  * Input: Details of ContactUser as specified in schema
@@ -36,8 +38,9 @@ router.post("/",[check('FirstName').notEmpty().isAlpha(),check('LastName').notEm
   if(!err.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
   }
-  console.log(req.query);
-  if(req.query.API_KEY!=API_KEY){
+  var decrypted = aes256.decrypt(key, req.query.API_KEY);
+  console.log(decrypted);
+  if(decrypted!=API_KEY){
     return res.status(401).json({Message:'Unauthorized'});
   }
   //console.log("hello");

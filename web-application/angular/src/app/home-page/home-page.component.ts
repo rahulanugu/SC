@@ -33,7 +33,7 @@ export class HomePageComponent implements OnInit {
       this.post = this.dataService.postsData;
     }
 
-    console.log(this.post)
+    //console.log(this.post)
   }
 
 }

@@ -40,7 +40,9 @@ const options = {
 
 };
 const bigquery = new BigQuery(options);
+var aes256 = require('aes256');
 const API_KEY = "scriptChain@13$67ahi1";
+const key = "hosenkinosumabeni";
 /**
  * Request the creation of a new healthcareprovider user
  * Input: Body, contains the details that are specified in healthcare provider data model
@@ -73,7 +75,9 @@ router.post('/account/create',[check('firstName').notEmpty().isAlpha()
   if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'});
   }
-  if(req.query.API_KEY!=API_KEY){
+  var decrypted = aes256.decrypt(key, req.query.API_KEY);
+  console.log(decrypted);
+  if(decrypted!=API_KEY){
     return res.status(401).json({Message:'Unauthorized'});
   }
     //Check if user alread exists
@@ -165,8 +169,9 @@ router.post('/account/verify',[check("jwtToken").notEmpty(),body().custom(body =
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
   }
-  console.log(req.query);
-  if(req.query.API_KEY!=API_KEY){
+  var decrypted = aes256.decrypt(key, req.query.API_KEY);
+  console.log(decrypted);
+  if(decrypted!=API_KEY){
     return res.status(401).json({Message:'Unauthorized'});
   }
 
