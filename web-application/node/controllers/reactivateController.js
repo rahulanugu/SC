@@ -13,7 +13,9 @@ const options = {
 
 };
 const bigquery = new BigQuery(options);
+var aes256 = require('aes256');
 const API_KEY = "scriptChain@13$67ahi1";
+const key = "hosenkinosumabeni";
 //The controller handles the requests for reactivating user accounts
 
 /**
@@ -41,7 +43,9 @@ router.post("/patient/request",[check('email').notEmpty().isEmail(),body().custo
   if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'});
   }
-  if(req.query.API_KEY!=API_KEY){
+  var decrypted = aes256.decrypt(key, req.query.API_KEY);
+  console.log(decrypted);
+  if(decrypted!=API_KEY){
     return res.status(401).json({Message:'Unauthorized'});
   }
     try{
@@ -103,7 +107,9 @@ router.post("/healthcare/request",[check('email').notEmpty().isEmail(),body().cu
   if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'});
   }
-  if(req.query.API_KEY!=API_KEY){
+  var decrypted = aes256.decrypt(key, req.query.API_KEY);
+  console.log(decrypted);
+  if(decrypted!=API_KEY){
     return res.status(401).json({Message:'Unauthorized'});
   }
   //find the healthcareprovider
@@ -159,7 +165,9 @@ router.post("/patient/activate", [check("token").notEmpty(),body().custom(body =
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
   }
-  if(req.query.API_KEY!=API_KEY){
+  var decrypted = aes256.decrypt(key, req.query.API_KEY);
+  console.log(decrypted);
+  if(decrypted!=API_KEY){
     return res.status(401).json({Message:'Unauthorized'});
   }
 
@@ -268,7 +276,9 @@ router.post("/healthcare/activate", [check("token").notEmpty(),body().custom(bod
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
   }
-  if(req.query.API_KEY!=API_KEY){
+  var decrypted = aes256.decrypt(key, req.query.API_KEY);
+  console.log(decrypted);
+  if(decrypted!=API_KEY){
     return res.status(401).json({Message:'Unauthorized'});
   }
   //check validity of token

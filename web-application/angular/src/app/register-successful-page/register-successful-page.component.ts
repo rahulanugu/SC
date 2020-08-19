@@ -23,7 +23,7 @@ export class RegisterSuccessfulPageComponent implements OnInit {
 
   showFinalPage(){
     let stored = JSON.parse(localStorage.getItem("user-jwt"))
-    console.log(stored);
+    //console.log(stored);
     if(stored ==null){
       this.firstPage();
     }else{

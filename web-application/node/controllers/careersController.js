@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const API_KEY = "scriptChain@13$67ahi1";
 const { check,body, validationResult } = require('express-validator');
 const {BigQuery} = require('@google-cloud/bigquery');
 const options = {
@@ -8,6 +7,9 @@ const options = {
     projectId: 'scriptchain-259015'
 };
 const bigquery = new BigQuery(options);
+var aes256 = require('aes256');
+const API_KEY = "scriptChain@13$67ahi1";
+const key = "hosenkinosumabeni";
 
 /**
  * The contoller is used to serve the needs of the careers portal of the
@@ -34,15 +36,17 @@ function generateId(count) {
 }
 
 
-router.post("/jobposting",[check("title").notEmpty(),check('description').notEmpty(),check("salary").notEmpty(),check("location").notEmpty(),check("email").notEmpty(),check('category').notEmpty(),body().custom(body => {
-  const keys = ['title','description','salary','location','email','category'];
+router.post("/jobposting",[check("title").notEmpty(),check('description').notEmpty(),check("salary").notEmpty(),check("location").notEmpty(),check("email").notEmpty(),check('category').notEmpty(),check('link').notEmpty(),body().custom(body => {
+  const keys = ['title','description','salary','location','email','category','link'];
   return Object.keys(body).every(key => keys.includes(key));
 })],async(req, res) => {
     const err = validationResult(req);
     if(!err.isEmpty()){
       return res.status(400).json({Message:'Bad Request'})
     }
-    if(req.query.API_KEY!=API_KEY){
+    var decrypted = aes256.decrypt(key, req.query.API_KEY);
+    console.log(decrypted);
+    if(decrypted!=API_KEY){
       return res.status(401).json({Message:'Unauthorized'});
     }
     console.log("posting a job to the database");
@@ -91,7 +95,9 @@ router.get('/jobposting', (req, res) => {
   if(Object.keys(req.body).length>0){
     return res.status(400).json({Message:'Bad Request'})
   }
-  if(req.query.API_KEY!=API_KEY){
+  var decrypted = aes256.decrypt(key, req.query.API_KEY);
+  console.log(decrypted);
+  if(decrypted!=API_KEY){
     return res.status(401).json({Message:'Unauthorized'});
   }
   const query= 'SELECT * FROM `scriptchain-259015.dataset1.jobOpenings` WHERE 1=1';
@@ -130,7 +136,9 @@ router.get('/jobposting/:jobcategory', (req, res) => {
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
   }
-  if(req.query.API_KEY!=API_KEY){
+  var decrypted = aes256.decrypt(key, req.query.API_KEY);
+  console.log(decrypted);
+  if(decrypted!=API_KEY){
     return res.status(401).json({Message:'Unauthorized'});
   }
   const query = 'SELECT * FROM `scriptchain-259015.dataset1.jobOpenings` WHERE category=@category';
@@ -171,7 +179,9 @@ router.post("/jobcategory",[check("title").notEmpty(),check('description').notEm
     if(!err.isEmpty()){
       return res.status(400).json({Message:'Bad Request'})
     }
-    if(req.query.API_KEY!=API_KEY){
+    var decrypted = aes256.decrypt(key, req.query.API_KEY);
+    console.log(decrypted);
+    if(decrypted!=API_KEY){
       return res.status(401).json({Message:'Unauthorized'});
     }
 
@@ -222,7 +232,9 @@ router.get('/jobcategory', (req, res) => {
   if(Object.keys(req.body).length>0){
     return res.status(400).json({Message:'Bad Request'})
   }
-  if(req.query.API_KEY!=API_KEY){
+  var decrypted = aes256.decrypt(key, req.query.API_KEY);
+  console.log(decrypted);
+  if(decrypted!=API_KEY){
     return res.status(401).json({Message:'Unauthorized'});
   }
   const query = 'SELECT * FROM `scriptchain-259015.dataset1.jobCategories` WHERE 1=1';
@@ -247,14 +259,18 @@ router.get('/jobcategory', (req, res) => {
  *         404 - If the job with the given Id is not found
  */
 router.get('/jobposting/job/:jobid',(req, res) => {
+  console.log(req.params);
   if(Object.keys(req.body).length>0){
     return res.status(400).json({Message:'Bad Request'})
   }
-  if(req.query.API_KEY!=API_KEY){
+  var decrypted = aes256.decrypt(key, req.query.API_KEY);
+  console.log(decrypted);
+  if(decrypted!=API_KEY){
     return res.status(401).json({Message:'Unauthorized'});
   }
     const query = 'SELECT * FROM `scriptchain-259015.dataset1.jobOpenings` WHERE _id=@id';
   // req.params.jobid+'"';
+  console.log(req.params);
     const bigQueryOptions = {
       query: query,
       params: {id:req.params.jobid}
@@ -262,7 +278,7 @@ router.get('/jobposting/job/:jobid',(req, res) => {
     bigquery.query(bigQueryOptions, function(err, rows) {
       if(!err) {
         if(rows.length>0)
-          res.status(200).json(rows);
+          res.status(200).json(rows[0]);
         else
           res.status(404).send({message: "Job ID doesn't exist"});
         //next();
