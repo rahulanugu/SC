@@ -1,0 +1,4 @@
+Txt001|Written informed consent.
+Txt002|Age 18 years or older.
+Txt003|informed consent.
+Txt004|Male or female.

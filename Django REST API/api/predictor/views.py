@@ -17,7 +17,9 @@ from rest_framework.settings import api_settings
 import logging
 from pprint import pprint
 from django.conf import settings
-from predictor import EHRInterface as EHR
+from predictor.EHRInterface import EpicInterface as epic
+import os
+import subprocess
 
 # Logger Configuration
 logging.config.dictConfig({
@@ -56,9 +58,31 @@ logger = logging.getLogger(__name__)
 
 
 def hello_world(request):
+    '''
     print('In Base URL Echo')
     #context = {"data": "Hello World!"}
-    return HttpResponse("Hello World!")
+    os.chdir("./metamap")
+    f = open("test/srikar.txt", "w")
+    f.write("Kidney problem is present in the patient")
+    f.close()
+    subprocess.run(["./metamaplite.sh","--indexdir=data/ivf/2020AA/USABase","test/srikar.txt","--overwrite"]) 
+    #f = open("test/srikar.mmi", "r")
+    with open("test/srikar.mmi") as f:
+        content = f.readlines()
+    doc_notes = ['acab','anab','comd','cgab','dsyn','inpo','mobd','neop','sosy']
+    for note in doc_notes:
+        matching = [s for s in content if note in s]
+    print(matching)
+    medications = ['phsu', 'antb', 'orch', 'inch', 'imft', 'topp', 'clnd']
+    for medic in medications:
+        matchingmedic = [s for s in content if medic in s]
+    print(matchingmedic)
+    f.close()
+    return HttpResponse("Hello World!") 
+    '''
+    epic.parseText()
+    return HttpResponse("Hello World!") 
+
 
 
 class CustomeJSONParser(BaseParser):
