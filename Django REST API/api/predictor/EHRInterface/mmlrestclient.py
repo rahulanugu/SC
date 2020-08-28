@@ -123,7 +123,7 @@ def process(argdict):
     acceptfmt = argdict['res_content_type']
     return handle_request(argdict['url'], acceptfmt, payload)
 
-def main(args):
+def main():
     dict = {
         'url': 'https://ii-public2.nlm.nih.gov/metamaplite/rest/annotate',
         'file': './predictor/test/test.txt',
@@ -136,21 +136,19 @@ def main(args):
         'resultformat':'mmi'
     }
     resp = process(dict)
-    sys.stderr.write('resp = %s\n' % resp)
-    if dict['output'] == 'stdout':
-        sys.stdout.write('%s\n' % resp.text)
-    else:
-        fp = open(dict['output'], 'w')
-        fp.write('%s\n' % resp.text)
-        fp.close()
-    with open("./predictor/test/test.mmi") as f:
-        content = f.readlines()
+    content = resp.text
+    content_arr = content.splitlines()
+    print(content)
+    matching=[]
     doc_notes = ['acab','anab','comd','cgab','dsyn','inpo','mobd','neop','sosy']
     for note in doc_notes:
-        matching = [s for s in content if note in s]
-    print(matching)
+        matching = [e for e in content_arr if note in e]
     medications = ['phsu', 'antb', 'orch', 'inch', 'imft', 'topp', 'clnd']
     for medic in medications:
-        matchingmedic = [s for s in content if medic in s]
-    print(matchingmedic)
-    f.close()
+        matchingmedic = [s for s in content_arr if medic in s]
+    output = {
+        "matching":matching,
+        "matchingmedic": matchingmedic
+    }
+    print(output)
+    return output
