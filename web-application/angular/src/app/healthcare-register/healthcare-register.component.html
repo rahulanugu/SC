@@ -45,8 +45,14 @@ Register Paitent Form
                   </div>
                   <div class="form-group">
                     <label>EHR*</label>
-                    <input [class.is-invalid]="Form.get('ehr').invalid && Form.get('ehr').touched" formControlName="ehr" type="text" class="form-control" required>
-                    <small [class.d-none]="Form.get('ehr').valid || Form.get('ehr').untouched" class="text-danger">EHR is required.</small>
+                    <select class="form-control" formControlName="ehr" required>
+                      <option value="Epic">Epic</option>
+                      <option value="All_Scripts">All Scripts</option>
+                      <option value="Cerner">Cerner</option>
+                      <option value="Athena_Health">Athena Health</option>
+                    </select>
+                    <!--<input [class.is-invalid]="Form.get('ehr').invalid && Form.get('ehr').touched" formControlName="ehr" type="text" class="form-control" required>
+                    <small [class.d-none]="Form.get('ehr').valid || Form.get('ehr').untouched" class="text-danger">EHR is required.</small>-->
                   </div>
                   <div class="form-group">
                     <label>Role in Company*</label>
