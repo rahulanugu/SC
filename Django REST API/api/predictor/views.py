@@ -18,6 +18,7 @@ import logging
 from pprint import pprint
 from django.conf import settings
 from predictor.EHRInterface import EpicInterface as epic
+from predictor.EHRInterface import Distron as distron
 import os
 import subprocess
 
@@ -58,9 +59,9 @@ logger = logging.getLogger(__name__)
 
 
 def hello_world(request):
-    text = "Txt001|Written informed consent.\nTxt002|Age 18 years or older.\nTxt003|informed consent.\nTxt004|Male or female."
+    #text = "Txt001|Written informed consent.\nTxt002|Age 18 years or older.\nTxt003|informed consent.\nTxt004|Male or female."
     #text = "Txt001|Kidney problem is there"
-    epic.parseText(text)
+    distron.generate_analytics()
     return HttpResponse("Hello World!") 
 
 
