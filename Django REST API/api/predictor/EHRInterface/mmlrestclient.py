@@ -137,18 +137,4 @@ def main():
     }
     resp = process(dict)
     content = resp.text
-    content_arr = content.splitlines()
-    print(content)
-    matching=[]
-    doc_notes = ['acab','anab','comd','cgab','dsyn','inpo','mobd','neop','sosy']
-    for note in doc_notes:
-        matching = [e for e in content_arr if note in e]
-    medications = ['phsu', 'antb', 'orch', 'inch', 'imft', 'topp', 'clnd']
-    for medic in medications:
-        matchingmedic = [s for s in content_arr if medic in s]
-    output = {
-        "matching":matching,
-        "matchingmedic": matchingmedic
-    }
-    print(output)
-    return output
+    return content

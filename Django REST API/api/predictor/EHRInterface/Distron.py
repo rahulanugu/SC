@@ -44,7 +44,8 @@ def preprocess():
        '51275', '51277', '51279', '51301', '51491', '51498']
   labs = pd.DataFrame([], columns=top50lab_cpt)
   X_features = X_features.join(labs)
-  print(X_features)
+  #print(X_features)
+  #print(data['Lab Events'][0]['value'])
   for l in data['Lab Events']:
     # get cpt of l['code'] using mapping
     #if cpt in cols
@@ -66,8 +67,7 @@ def preprocess():
   meds_used = [entry["name"] for entry in data['Medications']] # this is the list of medications used by the subject
   # we need to pass each element of this list through metamap and get the result. 
   # pass the output through a process method.
-  print(meds_used)
-  metamap_med_list = epic.parseText(meds_used)# output from process method
+  metamap_med_list = epic.parseMedications(meds_used)# output from process method
   medications = keras.preprocessing.sequence.pad_sequences([[med_vocab[med] for med in metamap_med_list if med in med_vocab]], maxlen=35)
 
 #=============================================================== 
@@ -75,11 +75,11 @@ def preprocess():
 
   map_vocab = pd.read_pickle("Mappings_vocab.pkl")
   note = data['Notes'] # this is the Doctors note for the subject
-  # Process the note
+  # Process the note. we need to filter out negative statements
   # we need to pass this note through metamap and get the result. 
-  # pass the output through a process method.
+  # pass the output through a process method. -- this is to extract the highlighted word
   
-  metamap_note_maps = epic.parseText(note)# output from process method
+  metamap_note_maps = epic.parseNotes(note)# output from process method
   mappings = keras.preprocessing.sequence.pad_sequences([[map_vocab[maps] for maps in metamap_note_maps if maps in map_vocab]], maxlen=50)
  
 #===============================================================
