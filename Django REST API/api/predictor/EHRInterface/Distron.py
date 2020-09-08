@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import pickle
 import json
+import os
 from sklearn.preprocessing import StandardScaler
 import tensorflow as tf
 from tensorflow import keras
@@ -11,6 +12,7 @@ from tensorflow.keras import backend as K
 from tensorflow.keras.models import Model
 from predictor.EHRInterface import EpicInterface as epic
 from predictor.EHRInterface import Model_config
+
 
 
 # Need to have JSON, 1 saved StandardScaler object, medications vocab, procedures vocab, mappings vocab, 4 saved model weights, Model_config.py
@@ -44,43 +46,68 @@ def preprocess():
        '51275', '51277', '51279', '51301', '51491', '51498']
   labs = pd.DataFrame([], columns=top50lab_cpt)
   X_features = X_features.join(labs)
+  
   #print(X_features)
   #print(data['Lab Events'][0]['value'])
+  content = ""
+  with open("./predictor/EHRInterface/MRSMAP.RRF") as f:
+    content = f.readlines()
+  dicti = {}
+  for i in range(len(content)):
+    splitted = content[i].split('|')
+    loinc=splitted[4]
+    cpt=splitted[8]
+    dicti[loinc]=cpt
   for l in data['Lab Events']:
     # get cpt of l['code'] using mapping
     #if cpt in cols
-    X_features[l] = l['value']
+    #print(l['code'])
+    loinc = l['code']
+    print(l['code'])
+    cpt=""
+    if loinc in dicti.keys():
+      cpt=dicti[l['code']]
+    if cpt in X_features.columns.tolist():
+      X_features[l] = l['value']   
+  dt = pd.read_csv("./predictor/EHRInterface/final_data.csv")
+  scaler = StandardScaler()
+  scaler.fit(dt)
+  #filehandler = open('scale_it.obj', 'wb')
+  #pickle.dump(dt_, filehandler)
+  #scaler = pickle.load(open('scale_it.obj', 'rb')) 
 
-  scaler = pickle.load(open('scale_it.obj', 'rb')) 
   X_features = np.concatenate((X_features.values[:,:1],scaler.transform(X_features.values[:,1:])),axis = 1)
 
 #=============================================================== 
 #======================== Procedures =========================== 
 
-  proc_vocab = pd.read_pickle("Procedures_vocab.pkl")
+  proc_vocab = pd.read_pickle("./predictor/EHRInterface/Procedures_vocab.pkl")
   procedures = keras.preprocessing.sequence.pad_sequences([[proc_vocab[entry["code"]] for entry in data['Procedures'] if entry["code"] in proc_vocab]], maxlen=8)
 
 #=============================================================== 
 #======================= Medications =========================== 
 
-  med_vocab = pd.read_pickle("Drug_vocab.pkl")
-  meds_used = [entry["name"] for entry in data['Medications']] # this is the list of medications used by the subject
-  # we need to pass each element of this list through metamap and get the result. 
-  # pass the output through a process method.
-  metamap_med_list = epic.parseMedications(meds_used)# output from process method
-  medications = keras.preprocessing.sequence.pad_sequences([[med_vocab[med] for med in metamap_med_list if med in med_vocab]], maxlen=35)
+  med_vocab = pd.read_pickle("./predictor/EHRInterface/Drug_vocab.pkl")
+  medications=[]
+  if 'Medications' in data:
+    meds_used = [entry["name"] for entry in data['Medications']] # this is the list of medications used by the subject
+    # we need to pass each element of this list through metamap and get the result. 
+    # pass the output through a process method.
+    metamap_med_list = epic.parseMedications(meds_used)# output from process method
+    medications = keras.preprocessing.sequence.pad_sequences([[med_vocab[med] for med in metamap_med_list if med in med_vocab]], maxlen=35)
 
 #=============================================================== 
 #========================== Notes ============================== 
-
-  map_vocab = pd.read_pickle("Mappings_vocab.pkl")
-  note = data['Notes'] # this is the Doctors note for the subject
-  # Process the note. we need to filter out negative statements
-  # we need to pass this note through metamap and get the result. 
-  # pass the output through a process method. -- this is to extract the highlighted word
-  
-  metamap_note_maps = epic.parseNotes(note)# output from process method
-  mappings = keras.preprocessing.sequence.pad_sequences([[map_vocab[maps] for maps in metamap_note_maps if maps in map_vocab]], maxlen=50)
+  mappings=[]
+  if 'Notes' in data:
+    map_vocab = pd.read_pickle("./predictor/EHRInterface/Mappings_vocab.pkl")
+    note = data['Notes'] # this is the Doctors note for the subject
+    # Process the note. we need to filter out negative statements
+    # we need to pass this note through metamap and get the result. 
+    # pass the output through a process method. -- this is to extract the highlighted word
+    
+    metamap_note_maps = epic.parseNotes(note)# output from process method
+    mappings = keras.preprocessing.sequence.pad_sequences([[map_vocab[maps] for maps in metamap_note_maps if maps in map_vocab]], maxlen=50)
  
 #===============================================================
 
@@ -92,10 +119,10 @@ def preprocess():
 def generate_analytics():
   X_features, procedures, medications, mappings = preprocess()
   model_4280, model_4019, model_41401, model_42731 = Model_config.compile_model(), Model_config.compile_model(), Model_config.compile_model(), Model_config.compile_model()
-  model_4280.load_weights('distron_4280.h5')
-  model_4019.load_weights('distron_4019.h5')
-  model_41401.load_weights('distron_41401.h5')
-  model_42731.load_weights('distron_42731.h5')
+  model_4019.load_weights('./predictor/EHRInterface/distron_4019.h5')
+  model_4280.load_weights('./predictor/EHRInterface/distron_4280.h5')
+  model_41401.load_weights('./predictor/EHRInterface/distron_41401.h5')
+  model_42731.load_weights('./predictor/EHRInterface/distron_42731.h5')
 
   predictions = {}
   predictions['Congestive Heart Failure'] = model_4280.predict([mappings, procedures, medications, X_features]) >= thresholds["Congestive Heart Failure"]
