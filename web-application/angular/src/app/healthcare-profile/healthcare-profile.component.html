@@ -1,11 +1,11 @@
 
 <div>
   <app-patient-navbar></app-patient-navbar> 
-  <h3 style="text-align: center; float: left; padding-left: 17.5%; padding-top: 20px;">Hello Dr. {{providerFirstName}}</h3>
+  <!--<h3 style="text-align: center; float: left; padding-left: 17.5%; padding-top: 20px;">Hello Dr. {{providerFirstName}}</h3>-->
   <!-- <button type="button" (click)="logout()" style="float: right; margin-right: 5%;"class="btn btn-primary btn-sm"><b>Logout</b></button> -->
 </div>
-<sidenav></sidenav>
-<div style="margin:auto; width: 65%; margin-top: 30px;">
+<!--<sidenav></sidenav>-->
+<!--<div style="margin:auto; width: 65%; margin-top: 30px;">
   <app-search-bar (onSelectedOption)="onSelectedOption($event)"></app-search-bar>  
 </div>
   <div *ngFor = "let patient of filteredPatients" class="group">
@@ -14,4 +14,172 @@
     <p><b>Last Name: </b>{{patient.lname}}</p>
     <p><b>Email:  </b>{{patient.Email}}</p>
     <button (click)= "openPatientProfile(patient._id)"> View </button>
-  </div>
+  </div>-->
+  <mat-tab-group dynamicHeight>
+    <!-- #enddocregion dynamic-height -->
+      <mat-tab label="Basic">
+        <div class="example-small-box mat-elevation-z4">
+          <mat-grid-list cols = "12" rowHeight = "100px">
+            <mat-grid-tile [colspan] = "3" [rowspan] = "1">
+              <mat-form-field >
+                <mat-label>First Name</mat-label>
+                <input matInput (keyup)="applyFilter($event.target.value)" >
+              </mat-form-field>
+            </mat-grid-tile>
+          
+            <mat-grid-tile [colspan] = "3" [rowspan] = "1">
+              <mat-form-field >
+                <mat-label>Last Name</mat-label>
+                <input matInput (keyup)="applyFilter($event.target.value)" >
+              </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile [colspan] = "3" [rowspan] = "1">
+              <mat-form-field >
+                <mat-label>Data of Birth</mat-label>
+                <input matInput (keyup)="applyFilter($event.target.value)" >
+              </mat-form-field>
+            </mat-grid-tile>
+      
+            <mat-grid-tile [colspan] = "2" [rowspan] = "1">
+              <mat-form-field>
+                <mat-label>Gender</mat-label>
+                <mat-select>
+                  <mat-option value="male">Male</mat-option>
+                  <mat-option value="female">Female</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </mat-grid-tile>
+          </mat-grid-list>
+        </div>
+      </mat-tab>
+      <mat-tab label="Advanced">
+        <div class="example-large-box mat-elevation-z4">
+          <mat-grid-list cols = "12" rowHeight = "100px">
+            <mat-grid-tile [colspan] = "3" [rowspan] = "1">
+              <mat-form-field >
+                <mat-label>First Name</mat-label>
+                <input matInput (keyup)="applyFilter($event.target.value)" >
+              </mat-form-field>
+            </mat-grid-tile>
+          
+            <mat-grid-tile [colspan] = "3" [rowspan] = "1">
+              <mat-form-field >
+                <mat-label>Last Name</mat-label>
+                <input matInput (keyup)="applyFilter($event.target.value)" >
+              </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile [colspan] = "3" [rowspan] = "1">
+              <mat-form-field >
+                <mat-label>Data of Birth</mat-label>
+                <input matInput (keyup)="applyFilter($event.target.value)" >
+              </mat-form-field>
+            </mat-grid-tile>
+      
+            <mat-grid-tile [colspan] = "2" [rowspan] = "1">
+              <mat-form-field>
+                <mat-label>Gender</mat-label>
+                <mat-select>
+                  <mat-option value="male">Male</mat-option>
+                  <mat-option value="female">Female</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </mat-grid-tile>
+          </mat-grid-list>
+
+          <mat-grid-list cols = "12" rowHeight = "100px">
+
+            <mat-grid-tile [colspan] = "3" [rowspan] = "1">
+              <mat-form-field>
+                <mat-label>ID Type</mat-label>
+                <mat-select>
+                  <mat-option value="type1">Type 1</mat-option>
+                  <mat-option value="type2">Type 2</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile [colspan] = "3" [rowspan] = "1">
+              <mat-form-field >
+                <mat-label>ID Number</mat-label>
+                <input matInput (keyup)="applyFilter($event.target.value)" >
+              </mat-form-field>
+            </mat-grid-tile>
+          
+            <mat-grid-tile [colspan] = "3" [rowspan] = "1">
+              <mat-form-field >
+                <mat-label>SSN</mat-label>
+                <input matInput (keyup)="applyFilter($event.target.value)" >
+              </mat-form-field>
+            </mat-grid-tile>
+
+            
+
+
+          </mat-grid-list>
+
+          <mat-grid-list cols = "12" rowHeight = "100px">
+
+            <mat-grid-tile [colspan] = "3" [rowspan] = "1">
+              <mat-form-field >
+                <mat-label>Phone Number</mat-label>
+                <input matInput (keyup)="applyFilter($event.target.value)" >
+              </mat-form-field>
+            </mat-grid-tile>
+            
+            <mat-grid-tile [colspan] = "3" [rowspan] = "1">
+              <mat-form-field >
+                <mat-label>Email Address</mat-label>
+                <input matInput (keyup)="applyFilter($event.target.value)" >
+              </mat-form-field>
+            </mat-grid-tile>
+
+            
+
+          </mat-grid-list>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- S.No Column -->
+    <ng-container matColumnDef="sno">
+      <th mat-header-cell *matHeaderCellDef> S.No</th>
+      <td mat-cell *matCellDef="let element"> {{element.sno}} </td>
+    </ng-container>
+  
+    <!-- Fname Column -->
+    <ng-container matColumnDef="fname">
+      <th mat-header-cell *matHeaderCellDef> First Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.fname}} </td>
+    </ng-container>
+  
+    <!-- Lname Column -->
+    <ng-container matColumnDef="lname">
+      <th mat-header-cell *matHeaderCellDef> Last Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.lname}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="sex">
+      <th mat-header-cell *matHeaderCellDef> Gender </th>
+      <td mat-cell *matCellDef="let element"> {{element.sex}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="birthday">
+      <th mat-header-cell *matHeaderCellDef> DOB </th>
+      <td mat-cell *matCellDef="let element"> {{element.birthday}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="view">
+      <th mat-header-cell *matHeaderCellDef> Show View </th>
+      <td mat-cell *matCellDef="let element"> <button (click)= "openPatientProfile(element.view)"> View </button> </td>
+    </ng-container>
+  
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>

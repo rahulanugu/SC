@@ -40,12 +40,13 @@ export class HealthcareLoginComponent implements OnInit {
     console.log(this.Form.value);
     this.healthcareLoginService.healthcareProviderLogin(this.Form.value).subscribe(
       res => {
-        console.log(res)
+        /*console.log(res)
+        window.location.href = "https://fhir.epic.com/interconnect-fhir-oauth/oauth2/authorize?response_type=code&redirect_uri=https%3A%2F%2Fscriptchain.co%2Fhealthcare-profile&client_id=f0439b63-30ad-4103-8bb5-b58da64693c7"
+        */
         localStorage.setItem('token',res["idToken"])
         localStorage.setItem('fname',res["firstName"])
         localStorage.setItem('email', this.Form.value.emailAddress)
-        window.location.href = "https://fhir.epic.com/interconnect-fhir-oauth/oauth2/authorize?response_type=code&redirect_uri=https%3A%2F%2Fscriptchain.co%2Fhealthcare-profile&client_id=f0439b63-30ad-4103-8bb5-b58da64693c7"
-        //this.router.navigate(['healthcare-profile'])
+        this.router.navigate(['healthcare-profile'])
       },
       err => {
         console.log(err)
