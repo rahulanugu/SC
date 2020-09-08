@@ -93,9 +93,9 @@ class TokenEmbedding(layers.Layer):
 embed_dim = 32  # Embedding size for each token
 num_heads = 2  # Number of attention heads
 ff_dim = 32  # Hidden layer size in feed forward network inside transformer
-vocab_size_maps = 11857
-vocab_size_proc = 2010
-vocab_size_med = 2451
+vocab_size_maps = 11856
+vocab_size_proc = 2009
+vocab_size_med = 4525
 
 def compile_model():
     # For Metamap
