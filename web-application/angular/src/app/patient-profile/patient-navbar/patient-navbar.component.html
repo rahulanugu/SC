@@ -366,23 +366,23 @@
               </div>
             </div>
           </div>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <img src="../../assets/leslie.jpg" width="40" height="40" class="rounded-circle">
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#" id="navbarDropdown" role="button" data-toggle="modal"
-             aria-haspopup="true" aria-expanded="false" (click)="profile()">
-           Edit Profile
-          </a>
-          <a class="dropdown-item" href="#" (click)="logout()">
-            Logout
-          </a>
-        </div>
-      </li>   
-    </ul>
-    <ul class="col-xs-2"></ul>
+          <li class="nav-item dropdown mx-sm-3">
+            <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="modal"
+               aria-haspopup="true" aria-expanded="false" (click)="profile()">
+              <!--<img src="../../assets/doctornote.png">&nbsp;&nbsp;&nbsp;-->Edit Profile
+            </a>
+          </li>
+        </ul>
+        <!--<form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>-->
+        <ul class="navbar-nav">
+          <!---->
+          <li class="nav-item mx-sm-4">
+            <button type="button" (click)="logout()" class="btn btn-primary btn-sm"><b>Logout</b></button>
+          </li>
+  
+        </ul>
     </div>
   </nav>
