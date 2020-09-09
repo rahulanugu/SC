@@ -15,7 +15,7 @@ from predictor.EHRInterface import Model_config
 
 
 
-# Need to have JSON, 1 saved StandardScaler object, medications vocab, procedures vocab, mappings vocab, 4 saved model weights, Model_config.py
+# Need to have JSON, 4 saved StandardScaler objects, medications vocab, procedures vocab, mappings vocab, 4 saved model weights, Model_config.py
 
 thresholds = {'Congestive Heart Failure': 0.5, 'Hypertension': 0.5, 'ASHD coronary artery': 0.5, 'Atrial Fibrilliation':0.5}
 
@@ -25,7 +25,7 @@ thresholds = {'Congestive Heart Failure': 0.5, 'Hypertension': 0.5, 'ASHD corona
 def preprocess():
 
   with open('./predictor/EHRInterface/EpicPatientData.json') as f:
-    data = json.load(f)
+    data = json.load(f)#fetch this from epic
 
 #============= GENDER + AGE + 50 LAB TEST ====================== 
 
@@ -44,6 +44,7 @@ def preprocess():
        '50983', '51006', '51144', '51146', '51200', '51221', '51222', '51237',
        '51244', '51248', '51249', '51250', '51254', '51256', '51265', '51274',
        '51275', '51277', '51279', '51301', '51491', '51498']
+  #use loinc codes directly
   labs = pd.DataFrame([], columns=top50lab_cpt)
   X_features = X_features.join(labs)
   
@@ -59,11 +60,8 @@ def preprocess():
     cpt=splitted[8]
     dicti[loinc]=cpt
   for l in data['Lab Events']:
-    # get cpt of l['code'] using mapping
-    #if cpt in cols
-    #print(l['code'])
     loinc = l['code']
-    print(l['code'])
+    print(loinc)
     cpt=""
     if loinc in dicti.keys():
       cpt=dicti[l['code']]
@@ -75,7 +73,8 @@ def preprocess():
   #filehandler = open('scale_it.obj', 'wb')
   #pickle.dump(dt_, filehandler)
   #scaler = pickle.load(open('scale_it.obj', 'rb')) 
-
+  #train the scaler with age first and cpts later from the datasets
+  #Add regularization for the distron model while training
   X_features = np.concatenate((X_features.values[:,:1],scaler.transform(X_features.values[:,1:])),axis = 1)
 
 #=============================================================== 
