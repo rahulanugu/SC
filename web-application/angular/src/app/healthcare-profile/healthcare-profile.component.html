@@ -15,150 +15,173 @@
     <p><b>Email:  </b>{{patient.Email}}</p>
     <button (click)= "openPatientProfile(patient._id)"> View </button>
   </div>-->
-  <mat-tab-group dynamicHeight>
-    <!-- #enddocregion dynamic-height -->
-      <mat-tab label="Basic">
-        <div class="example-small-box mat-elevation-z4">
-          <mat-grid-list cols = "12" rowHeight = "100px">
-            <mat-grid-tile [colspan] = "3" [rowspan] = "1">
-              <mat-form-field >
-                <mat-label>First Name</mat-label>
-                <input matInput (keyup)="applyFilter($event.target.value)" >
-              </mat-form-field>
-            </mat-grid-tile>
-          
-            <mat-grid-tile [colspan] = "3" [rowspan] = "1">
-              <mat-form-field >
-                <mat-label>Last Name</mat-label>
-                <input matInput (keyup)="applyFilter($event.target.value)" >
-              </mat-form-field>
-            </mat-grid-tile>
-
-            <mat-grid-tile [colspan] = "3" [rowspan] = "1">
-              <mat-form-field >
-                <mat-label>Data of Birth</mat-label>
-                <input matInput (keyup)="applyFilter($event.target.value)" >
-              </mat-form-field>
-            </mat-grid-tile>
-      
-            <mat-grid-tile [colspan] = "2" [rowspan] = "1">
-              <mat-form-field>
-                <mat-label>Gender</mat-label>
-                <mat-select>
-                  <mat-option value="male">Male</mat-option>
-                  <mat-option value="female">Female</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </mat-grid-tile>
-          </mat-grid-list>
+  <div class = "container">
+    <div class="row"><h2 style="margin: 2% 38% 0% 38%;"><b>Hello Dr.Noori!</b></h2>
+    <p style="margin-left: 1.5%;"><b>Search your patients here</b></p></div>
+    
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="basic-tab" data-toggle="tab" href="#basic" role="tab" aria-controls="basic"
+          aria-selected="true">Basic</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="advanced-tab" data-toggle="tab" href="#advanced" role="tab" aria-controls="advanced"
+          aria-selected="false">Advanced</a>
+      </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="basic" role="tabpanel" aria-labelledby="basic-tab">
+        <div class="form-row">
+          <div class="col-md-1"></div>
+          <div class="form-group col-md-2">
+            <label for="inputFname"><b>First Name</b></label>
+            <input type="text" class="form-control" id="inputFname">
+          </div>
+          <div class="col-md-1"></div>
+          <div class="form-group col-md-2">
+            <label for="inputLname"><b>Last Name</b></label>
+            <input type="text" class="form-control" id="inputLname">
+          </div>
+          <div class="col-md-1"></div>
+          <div class="form-group col-md-2">
+            <label for="inputdob"><b>Date of Birth</b></label>
+            <input type="text" class="form-control" id="inputdob">
+          </div>
+          <div class="col-md-1"></div>
+          <div class="form-group col-md-1">
+            <label for="inputGender"><b>Gender</b></label>
+            <select class="form-control" id="inputGender">
+              <option selected></option>
+              <option value="1">M</option>
+              <option value="0">F</option>
+            </select>
+          </div>
         </div>
-      </mat-tab>
-      <mat-tab label="Advanced">
-        <div class="example-large-box mat-elevation-z4">
-          <mat-grid-list cols = "12" rowHeight = "100px">
-            <mat-grid-tile [colspan] = "3" [rowspan] = "1">
-              <mat-form-field >
-                <mat-label>First Name</mat-label>
-                <input matInput (keyup)="applyFilter($event.target.value)" >
-              </mat-form-field>
-            </mat-grid-tile>
-          
-            <mat-grid-tile [colspan] = "3" [rowspan] = "1">
-              <mat-form-field >
-                <mat-label>Last Name</mat-label>
-                <input matInput (keyup)="applyFilter($event.target.value)" >
-              </mat-form-field>
-            </mat-grid-tile>
-
-            <mat-grid-tile [colspan] = "3" [rowspan] = "1">
-              <mat-form-field >
-                <mat-label>Data of Birth</mat-label>
-                <input matInput (keyup)="applyFilter($event.target.value)" >
-              </mat-form-field>
-            </mat-grid-tile>
-      
-            <mat-grid-tile [colspan] = "2" [rowspan] = "1">
-              <mat-form-field>
-                <mat-label>Gender</mat-label>
-                <mat-select>
-                  <mat-option value="male">Male</mat-option>
-                  <mat-option value="female">Female</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </mat-grid-tile>
-          </mat-grid-list>
-
-          <mat-grid-list cols = "12" rowHeight = "100px">
-
-            <mat-grid-tile [colspan] = "3" [rowspan] = "1">
-              <mat-form-field>
-                <mat-label>ID Type</mat-label>
-                <mat-select>
-                  <mat-option value="type1">Type 1</mat-option>
-                  <mat-option value="type2">Type 2</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </mat-grid-tile>
-
-            <mat-grid-tile [colspan] = "3" [rowspan] = "1">
-              <mat-form-field >
-                <mat-label>ID Number</mat-label>
-                <input matInput (keyup)="applyFilter($event.target.value)" >
-              </mat-form-field>
-            </mat-grid-tile>
-          
-            <mat-grid-tile [colspan] = "3" [rowspan] = "1">
-              <mat-form-field >
-                <mat-label>SSN</mat-label>
-                <input matInput (keyup)="applyFilter($event.target.value)" >
-              </mat-form-field>
-            </mat-grid-tile>
-
-            
-
-
-          </mat-grid-list>
-
-          <mat-grid-list cols = "12" rowHeight = "100px">
-
-            <mat-grid-tile [colspan] = "3" [rowspan] = "1">
-              <mat-form-field >
-                <mat-label>Phone Number</mat-label>
-                <input matInput (keyup)="applyFilter($event.target.value)" >
-              </mat-form-field>
-            </mat-grid-tile>
-            
-            <mat-grid-tile [colspan] = "3" [rowspan] = "1">
-              <mat-form-field >
-                <mat-label>Email Address</mat-label>
-                <input matInput (keyup)="applyFilter($event.target.value)" >
-              </mat-form-field>
-            </mat-grid-tile>
-
-            
-
-          </mat-grid-list>
+        <div class="form-row">
+          <div class="col-md-10">    
+          </div>
+          <div class="button-grp">
+            <button type="button" class="btn btn-turq">Search</button>
+          </div>
         </div>
-      </mat-tab>
-    </mat-tab-group>
+      </div>
+      <div class="tab-pane fade" id="advanced" role="tabpanel" aria-labelledby="advanced-tab">
+        <div class="form-row">
+          <div class="col-md-1"></div>
+          <div class="form-group col-md-2">
+            <label for="inputFname"><b>First Name</b></label>
+            <input type="text" class="form-control" id="inputFname">
+          </div>
+          <div class="col-md-1"></div>
+          <div class="form-group col-md-2">
+            <label for="inputLname"><b>Last Name</b></label>
+            <input type="text" class="form-control" id="inputLname">
+          </div>
+          <div class="col-md-1"></div>
+          <div class="form-group col-md-2">
+            <label for="inputdob"><b>Date of Birth</b></label>
+            <input type="text" class="form-control" id="inputdob">
+          </div>
+          <div class="col-md-1"></div>
+          <div class="form-group col-md-1">
+            <label for="inputGender"><b>Gender</b></label>
+            <select class="form-control" id="inputGender">
+              <option selected></option>
+              <option value="1">M</option>
+              <option value="0">F</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-md-1"></div>
+          <div class="form-group col-md-1">
+            <label for="inputIdType"><b>ID Type</b></label>
+            <select class="form-control" id="inputIdType">
+              <option selected></option>
+              <option value="1">Type 1</option>
+              <option value="0">Type 2</option>
+            </select>
+          </div>
+          <div class="col-md-2"></div>
+          <div class="form-group col-md-3">
+            <label for="inputid"><b>ID Number</b></label>
+            <input type="text" class="form-control" id="inputid">
+          </div>
+          <div class="col-md-1"></div>
+          <div class="form-group col-md-3">
+            <label for="inputssn"><b>SSN</b></label>
+            <input type="text" class="form-control" id="inputssn">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-md-1"></div>
+          <div class="form-group col-md-2">
+            <label for="inputphone"><b>Phone Number</b></label>
+            <input type="text" class="form-control" id="inputphone">
+          </div>
+          <div class="col-md-1"></div>
+          <div class="form-group col-md-3">
+            <label for="inputemail"><b>Email Address</b></label>
+            <input type="text" class="form-control" id="inputemail">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-md-10">    
+          </div>
+          <div class="button-grp">
+            <button type="button" class="btn btn-turq">Search</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p><b>Today's Patients</b></p>
+    <div class="box">
+      <div class="row">
+        <div class="col-md-2" style="margin-bottom: 1%;"><b>Jerry Smith</b></div>
+        <div class="col-md-2">Driver's License</div>
+        <div class="col-md-2">NHL12345678</div>
+        <div class="col-md-1"></div>
+        <div class="col-md-3">Massachusettes Medical Group</div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">07/04/1956</div>
+        <div class="col-md-2">Last 4 digits of SSN</div>
+        <div class="col-md-2">0010</div>
+        <div class="col-md-1"></div>
+        <div class="col-md-3">Department of Cardiology</div>
+        <div class="col-md-2">
+          <button type="button" class="btn btn-details"(click)= "openPatientProfile(element.view)">View Details</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2" style="margin-bottom: 1%;">Male</div>
+        <div class="col-md-2">Phone Number</div>
+        <div class="col-md-2">(123)456-789</div>
+        <div class="col-md-1"></div>
+        <div class="col-md-3">Dr. Beth Smith</div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">New York City, NY</div>
+        <div class="col-md-2">Email Address</div>
+        <div class="col-md-2">Jerry.Smith@gmail.com</div>
+        <div class="col-md-1"></div>
+        <div class="col-md-3">COPD,CHF,Diabetes(Type 2)</div>
+      </div>
+      
+    </div>
+    <!--
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-    <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
-
-    <!-- S.No Column -->
     <ng-container matColumnDef="sno">
       <th mat-header-cell *matHeaderCellDef> S.No</th>
       <td mat-cell *matCellDef="let element"> {{element.sno}} </td>
     </ng-container>
-  
-    <!-- Fname Column -->
+
     <ng-container matColumnDef="fname">
       <th mat-header-cell *matHeaderCellDef> First Name </th>
       <td mat-cell *matCellDef="let element"> {{element.fname}} </td>
     </ng-container>
-  
-    <!-- Lname Column -->
+
     <ng-container matColumnDef="lname">
       <th mat-header-cell *matHeaderCellDef> Last Name </th>
       <td mat-cell *matCellDef="let element"> {{element.lname}} </td>
@@ -182,4 +205,5 @@
   
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+  </table>-->
+</div>

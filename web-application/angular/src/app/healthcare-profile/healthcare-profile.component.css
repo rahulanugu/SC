@@ -17,3 +17,43 @@ table {
   .example-full-width {
     width: 100%;
   }
+
+  #basic,#advanced{
+    background-color: white;
+    padding-bottom:3%;
+  }
+
+  .btn-turq{
+    background-color: teal;
+    color:white;
+    padding-left: 40%;
+    padding-right: 40%;
+    margin-left: -3%;
+  }
+  .button-grp{
+    margin-top: 2%;
+    margin-left: 1%;
+  }
+  .container{
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  }
+
+  #myTabContent{
+    padding-top:5%;
+  }
+
+  .box{
+    background-color: white;
+  }
+  .btn-details{
+    background-color: teal;
+    color:white;
+    padding-left: 10%;
+    padding-right: 10%;
+    margin-left: -8%;
+    margin-top: 2%;
+  }
+  .nav-item a{
+    color:black;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  }
