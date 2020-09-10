@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import {MatGridListModule} from '@angular/material';
 import { ReactiveFormsModule} from '@angular/forms';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -46,14 +47,16 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatListModule} from '@angular/material/list';
 import {MatSidenavModule} from '@angular/material/sidenav';
-
+import {MatTableModule} from '@angular/material/table';
+import {MatSelectModule} from '@angular/material/select';
+import {MatTabsModule} from '@angular/material/tabs';
 import { HomePageComponent } from './home-page/home-page.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { SideBarComponent } from './sidebar/sidebar.component';
 import { DataService } from './data.service';
 import { HealthcareProfileComponent } from './healthcare-profile/healthcare-profile.component';
 import { MatRadioModule } from '@angular/material/radio';
-import { PatientHealthcareviewComponent } from './patient-healthcareview/patient-healthcareview.component'; 
+import { PatientHealthcareviewComponent } from './patient-healthcareview/patient-healthcareview.component';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { Error404Component } from './error404/error404.component';
 import { Error500Component } from './error500/error500.component';
@@ -114,7 +117,7 @@ import { MatConfirmDialogComponent } from './mat-confirm-dialog/mat-confirm-dial
     HealthcareManageProfileComponent,
     ReactivateHealthcareProviderComponent,
     MatConfirmDialogComponent,
-    
+
 
   ],
 
@@ -127,6 +130,7 @@ import { MatConfirmDialogComponent } from './mat-confirm-dialog/mat-confirm-dial
     TextMaskModule,
     RouterModule,
     ReactiveFormsModule,
+    MatTableModule,
     MatIconModule,
     MatInputModule,
     MatAutocompleteModule,
@@ -136,7 +140,10 @@ import { MatConfirmDialogComponent } from './mat-confirm-dialog/mat-confirm-dial
     HighchartsChartModule,
     MatDialogModule,
     MatSidenavModule,
-    MatListModule
+    MatListModule,
+    MatGridListModule,
+    MatSelectModule,
+    MatTabsModule
    ],
   providers: [
     DbService,
