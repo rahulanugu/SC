@@ -29,7 +29,7 @@ export class JobCategoriesComponent implements OnInit {
   panelExpanded = false;
 
   clickedCategory(id){
-    console.log("id: "+id);
+    //console.log("id: "+id);
   }
   jobCategories: jobCategory[];
 
@@ -42,7 +42,7 @@ export class JobCategoriesComponent implements OnInit {
     this.service.getJobCategories().subscribe(
       res => {
         this.jobCategories = res;
-        console.log(res);
+        //console.log(res);
       },
       err => {
         this.router.navigate(['/name']);

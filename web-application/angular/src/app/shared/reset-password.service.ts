@@ -21,7 +21,7 @@ export class ResetPasswordService {
     let body = {
       email: string
     }
-    return this.http.post(this.baseURL,body);
+    return this.http.post(this.baseURL+environment.param,body);
   }
 
   makePasswordChange(token,password){
@@ -30,14 +30,14 @@ export class ResetPasswordService {
       token: token,
       password: password
     }
-    return this.http.post(this.baseURL+'/change_password',body);
+    return this.http.post(this.baseURL+'/change_password'+environment.param,body);
   }
 
   requestPasswordChangeForHealthcare(string) {
     let body = {
       email: string
     }
-    return this.http.post(this.baseUrlHealthcare,body);
+    return this.http.post(this.baseUrlHealthcare+environment.param,body);
   }
 
   makePasswordChangeForHealthcare(token,password){
@@ -46,7 +46,7 @@ export class ResetPasswordService {
       token: token,
       password: password
     }
-    return this.http.post(this.baseUrlHealthcare+'/change_password',body);
+    return this.http.post(this.baseUrlHealthcare+'/change_password'+environment.param,body);
   }
 
 

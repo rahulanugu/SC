@@ -1,20 +1,21 @@
 const nodemailer = require("nodemailer");
 const express = require("express");
-//const { check,body, validationResult } = require('express-validator');
+const { check,body, validationResult } = require('express-validator');
 const router = express.Router();
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
 const log = console.log;
 const bcrypt = require('bcryptjs');
-const fs = require('fs');
 const {BigQuery} = require('@google-cloud/bigquery');
 const options = {
-    keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
-    projectId: 'scriptchainprod'
+    keyFilename: 'serviceAccountKeys/scriptchain-259015-689b82dcb0fe.json',
+    projectId: 'scriptchain-259015'
 
 };
 const bigquery = new BigQuery(options);
-
+var aes256 = require('aes256');
+const API_KEY = "scriptChain@13$67ahi1";
+const key = "hosenkinosumabeni";
 /**
  * Method to edit the first name of the patient
  * Input: Details of ContactUser as specified in schema
@@ -22,27 +23,26 @@ const bigquery = new BigQuery(options);
  *         200 - Successfylly saved the request
  *         500 - An error occured trying to save the request
  */
-/*
-, [check('email').isEmail(),
+router.put("/fname", [check('email').isEmail(),
 check('fname').isAlpha().notEmpty(),body().custom(body => {
   const keys = ['email','fname'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')]
-*/
-router.put("/fname",async (req, res) => {
-  /*const e = validationResult(req);
+})],async (req, res) => {
+  const e = validationResult(req);
   if(!e.isEmpty()){
-    const firstError = e.array().map(error => error.msg)[0];
-    return res.status(400).json({ error: firstError });
-  }*/
-
+    return res.status(400).json({Message:'Bad Request'});
+  }
+  var decrypted = aes256.decrypt(key, req.query.API_KEY);
+  console.log(decrypted);
+  if(decrypted!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
+  }
   //const retrievedPatient = await Patient.findOne({ Email: req.body.email })
 
-  const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
+  const query = 'SELECT * FROM `scriptchain-259015.dataset1.patients` WHERE Email=@email';
     // req.body.email+'"';
     const bigQueryOptions = {
       query: query,
-      location: 'US',
       params: {email:req.body.email}
     }
     bigquery.query(bigQueryOptions, function(err, row) {
@@ -51,11 +51,10 @@ router.put("/fname",async (req, res) => {
           //console.log(row);
           const retrievedPatient = row[0];
           retrievedPatient.fname = req.body.fname;
-          const query1 = 'DELETE FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
+          const query1 = 'DELETE FROM `scriptchain-259015.dataset1.patients` WHERE Email=@email';
           // req.body.email+'"';
           const bigQueryOptions1 = {
             query: query1,
-            location: 'US',
             params: {email:req.body.email}
           }
           bigquery.query(bigQueryOptions1, function(err, row1) {
@@ -64,22 +63,34 @@ router.put("/fname",async (req, res) => {
                   next();
               }else{
                 //console.log('deleted');
-                const filename = 'editPatientsTmp.json';
-                const datasetId = 'ScriptChain';
-                const tableId = 'patients';
 
-                fs.writeFileSync(filename, JSON.stringify(row[0]));
+                var patient = retrievedPatient;
+                var query3= "INSERT INTO `scriptchain-259015.dataset1.patients` (";
+                for(var myKey in patient) {
+                  query3+=myKey+", ";
+                }
+                query3 = query3.slice(0,query3.length-2);
+                query3+= ") VALUES (";
+                for(var myKey in patient) {
+                  if(patient[myKey]==false || patient[myKey]==true)
+                    query3+="@"+myKey+",";
 
-                const table = bigquery.dataset(datasetId).table(tableId);
+                  else
+                    query3+="@"+myKey+",";
 
-                // Check the job's status for errors
-                //const errors = job.status.errors;
-                table.load(filename,(err,res1) =>{
-                    if (err && err.length > 0) {
-                      res.status(500).json({ "message": "An error has occured trying to update the patient record in the dattabase" });
+                }
+                query3 = query3.slice(0,query3.length-1);
+                query3 += ")";
+                  const bigQueryOptions = {
+                      query: query3,
+                      params: patient
+                  }
+                  bigquery.query(bigQueryOptions, function(err, row) {
+                    if(!err) {
+                      res.status(200).json({ "message": "Succesfully updatted the patient record in the database" });
                     }else{
-                      res.status(200).json({ "messafe": "Succesfully updatted the patient record in the database" });
-                    }
+                      res.status(500).json({ "message": "An error has occured trying to update the patient record in the dattabase" });
+                  }
                 });
               }
             });
@@ -97,24 +108,25 @@ router.put("/fname",async (req, res) => {
  *         200 - Successfylly saved the request
  *         500 - An error occured trying to save the request
  */
-/*
-,[check('email').isEmail().withMessage('Provide  Email'),check('lname').isAlpha().withMessage('not alphabets').notEmpty(),body().custom(body => {
+router.put("/lname",[check('email').isEmail(),check('lname').isAlpha().notEmpty(),body().custom(body => {
   const keys = ['email','lname'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')]
-*/
-router.put("/lname",async (req, res) => {
-  /*const e = validationResult(req);
+})],async (req, res) => {
+  const e = validationResult(req);
   if(!e.isEmpty()){
-    const firstError = e.array().map(error => error.msg)[0];
-    return res.status(400).json({ error: firstError });
-  }*/
+    return res.status(400).json({Message:'Bad Request'});
+  }
+  var decrypted = aes256.decrypt(key, req.query.API_KEY);
+  console.log(decrypted);
+  if(decrypted!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
+  }
 
-  const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
+
+  const query = 'SELECT * FROM `scriptchain-259015.dataset1.patients` WHERE Email=@email';
     // req.body.email+'"';
     const bigQueryOptions = {
       query: query,
-      location: 'US',
       params: {email:req.body.email}
     }
     bigquery.query(bigQueryOptions, function(err, row) {
@@ -123,11 +135,10 @@ router.put("/lname",async (req, res) => {
           //console.log(row);
           const retrievedPatient = row[0];
           retrievedPatient.lname = req.body.lname;
-          const query1 = 'DELETE FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
+          const query1 = 'DELETE FROM `scriptchain-259015.dataset1.patients` WHERE Email=@email';
           // req.body.email+'"';
           const bigQueryOptions1 = {
             query: query1,
-            location: 'US',
             params: {email:req.body.email}
           }
           bigquery.query(bigQueryOptions1, function(err, row1) {
@@ -136,22 +147,33 @@ router.put("/lname",async (req, res) => {
                   next();
               }else{
                 //console.log('deleted');
-                const filename = 'editPatientsTmp.json';
-                const datasetId = 'ScriptChain';
-                const tableId = 'patients';
+                var patient = retrievedPatient;
+                var query3= "INSERT INTO `scriptchain-259015.dataset1.patients` (";
+                for(var myKey in patient) {
+                  query3+=myKey+", ";
+                }
+                query3 = query3.slice(0,query3.length-2);
+                query3+= ") VALUES (";
+                for(var myKey in patient) {
+                  if(patient[myKey]==false || patient[myKey]==true)
+                        query3+="@"+myKey+",";
 
-                fs.writeFileSync(filename, JSON.stringify(row[0]));
+                  else
+                      query3+="@"+myKey+",";
 
-                const table = bigquery.dataset(datasetId).table(tableId);
-
-                // Check the job's status for errors
-                //const errors = job.status.errors;
-                table.load(filename,(err,res1) =>{
-                    if (err && err.length > 0) {
-                      res.status(500).json({ "message": "An error has occured trying to update the patient record in the dattabase" });
+                }
+                query3 = query3.slice(0,query3.length-1);
+                query3 += ")";
+                  const bigQueryOptions = {
+                      query: query3,
+                      params: patient
+                  }
+                  bigquery.query(bigQueryOptions, function(err, row) {
+                    if(!err) {
+                      res.status(200).json({ "message": "Succesfully updatted the patient record in the database" });
                     }else{
-                      res.status(200).json({ "messafe": "Succesfully updatted the patient record in the database" });
-                    }
+                      res.status(500).json({ "message": "An error has occured trying to update the patient record in the dattabase" });
+                  }
                 });
               }
             });
@@ -170,24 +192,23 @@ router.put("/lname",async (req, res) => {
  *         200 - Successfylly saved the request
  *         500 - An error occured trying to save the request
  */
-/*
-, [check('email').isEmail().withMessage('Provide Email'),check('phone').isMobilePhone().notEmpty(),body().custom(body => {
+router.put("/phone", [check('email').isEmail(),check('phone').isMobilePhone().notEmpty(),body().custom(body => {
   const keys = ['email','phone'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')]
-*/
-router.put("/phone",async(req, res) => {
-  /*const e = validationResult(req);
+})],async(req, res) => {
+  const e = validationResult(req);
   if(!e.isEmpty()){
-    const firstError = e.array().map(error => error.msg)[0];
-    return res.status(400).json({ error: firstError });
-  }*/
-
-  const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
+    return res.status(400).json({Message:'Bad Request'});
+  }
+  var decrypted = aes256.decrypt(key, req.query.API_KEY);
+  console.log(decrypted);
+  if(decrypted!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
+  }
+  const query = 'SELECT * FROM `scriptchain-259015.dataset1.patients` WHERE Email=@email';
     // req.body.email+'"';
     const bigQueryOptions = {
       query: query,
-      location: 'US',
       params: {email:req.body.email}
     }
     bigquery.query(bigQueryOptions, function(err, row) {
@@ -195,11 +216,10 @@ router.put("/phone",async(req, res) => {
         if (row.length>0){
           const retrievedPatient = row[0];
           retrievedPatient.phone = req.body.phone;
-          const query1= 'DELETE FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
+          const query1= 'DELETE FROM `scriptchain-259015.dataset1.patients` WHERE Email=@email';
           // req.body.email+'"';
           const bigQueryOptions1 = {
             query: query1,
-            location: 'US',
             params: {email:req.body.email}
           }
           bigquery.query(bigQueryOptions1, function(err, row1) {
@@ -207,22 +227,31 @@ router.put("/phone",async(req, res) => {
                   res.status(500).json({"message": "account could not be deactivated due to an error"});
                   next();
               }else{
-                const filename = 'editPatientsTmp.json';
-                const datasetId = 'ScriptChain';
-                const tableId = 'patients';
-
-                fs.writeFileSync(filename, JSON.stringify(row[0]));
-
-                const table = bigquery.dataset(datasetId).table(tableId);
-
-                // Check the job's status for errors
-                //const errors = job.status.errors;
-                table.load(filename,(err,res1) =>{
-                    if (err && err.length > 0) {
-                      res.status(500).json({ "message": "An error has occured trying to update the patient record in the dattabase" });
+                var patient = retrievedPatient;
+                var query3= "INSERT INTO `scriptchain-259015.dataset1.patients` (";
+                for(var myKey in patient) {
+                  query3+=myKey+", ";
+                }
+                query3 = query3.slice(0,query3.length-2);
+                query3+= ") VALUES (";
+                for(var myKey in patient) {
+                  if(patient[myKey]==false || patient[myKey]==true)
+                      query3+="@"+myKey+",";
+                  else
+                      query3+="@"+myKey+",";
+                }
+                query3 = query3.slice(0,query3.length-1);
+                query3 += ")";
+                  const bigQueryOptions = {
+                      query: query3,
+                      params: patient
+                  }
+                  bigquery.query(bigQueryOptions, function(err, row) {
+                    if(!err) {
+                      res.status(200).json({ "message": "Succesfully updatted the patient record in the database" });
                     }else{
-                      res.status(200).json({ "messafe": "Succesfully updatted the patient record in the database" });
-                    }
+                      res.status(500).json({ "message": "An error has occured trying to update the patient record in the dattabase" });
+                  }
                 });
               }
             });
@@ -242,20 +271,27 @@ module.exports = router;
  *         200 - Successfylly saved the request
  *         500 - An error occured trying to save the request
  */
-//,[check('email').isEmail().notEmpty()]
-router.put("/password" ,async (req, res) => {
-  /*const e = validationResult(req);
+router.put("/password" , [check('email').isEmail()
+,check('newPassword').notEmpty(),check('oldPassword').notEmpty(),body().custom(body => {
+  const keys = ['email','newPassword','oldPassword'];
+  return Object.keys(body).every(key => keys.includes(key));
+})],async (req, res) => {
+  const e = validationResult(req);
   if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'});
-  }*/
+  }
+  var decrypted = aes256.decrypt(key, req.query.API_KEY);
+  console.log(decrypted);
+  if(decrypted!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
+  }
   console.log("Trying to edit the password of the user")
   console.log(req.body.email);
   console.log(req.body)
-  const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
+  const query = 'SELECT * FROM `scriptchain-259015.dataset1.patients` WHERE Email=@email';
     // req.body.email+'"';
     const bigQueryOptions = {
       query: query,
-      location: 'US',
       params: {email:req.body.email}
     }
     bigquery.query(bigQueryOptions, async function(err, row) {
@@ -275,11 +311,10 @@ router.put("/password" ,async (req, res) => {
             const salt = await bcrypt.genSaltSync(10);
             const hashpassword = await bcrypt.hash(req.body.newPassword, salt);
             retrievedPatient.password = hashpassword;
-            const query1 = 'DELETE FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
+            const query1 = 'DELETE FROM `scriptchain-259015.dataset1.patients` WHERE Email=@email';
             // req.body.email+'"';
             const bigQueryOptions1 = {
               query: query1,
-              location: 'US',
               params: {email:req.body.email}
             }
             bigquery.query(bigQueryOptions1, function(err, row1) {
@@ -288,28 +323,36 @@ router.put("/password" ,async (req, res) => {
                     next();
                 }else{
                   //console.log('deleted');
-                  const filename = 'editPatientsTmp.json';
-                  const datasetId = 'ScriptChain';
-                  const tableId = 'patients';
-
-                  fs.writeFileSync(filename, JSON.stringify(row[0]));
-
-                  const table = bigquery.dataset(datasetId).table(tableId);
-
-                  // Check the job's status for errors
-                  //const errors = job.status.errors;
-                  table.load(filename,(err,res1) =>{
-                      if (err && err.length > 0) {
-                        res.status(500).json({ "message": "An error has occured trying to update the patient record in the dattabase" });
-                      }else{
-                        res.status(200).json({ "messafe": "Succesfully updatted the patient record in the database" });
-                        sendVerificationMail(req.body.email, retrievedPatient.fname);
-                      }
-                  });
+                  var patient = retrievedPatient;
+                var query3= "INSERT INTO `scriptchain-259015.dataset1.patients` (";
+                for(var myKey in patient) {
+                  query3+=myKey+", ";
                 }
-              });
-            }
+                query3 = query3.slice(0,query3.length-2);
+                query3+= ") VALUES (";
+                for(var myKey in patient) {
+                  if(patient[myKey]==false || patient[myKey]==true)
+                      query3+="@"+myKey+",";
+                  else
+                      query3+="@"+myKey+",";
+                }
+                query3 = query3.slice(0,query3.length-1);
+                query3 += ")";
+                  const bigQueryOptions = {
+                      query: query3,
+                      params: patient
+                  }
+                  bigquery.query(bigQueryOptions, function(err, row) {
+                    if(!err) {
+                      res.status(200).json({ "message": "Succesfully updatted the patient record in the database" });
+                    }else{
+                      res.status(500).json({ "message": "An error has occured trying to update the patient record in the dattabase" });
+                  }
+                });
+              }
+            });
           }
+        }
         }else{
           res.status(404).json({ "messsage": "Email not found" })
         }
@@ -353,7 +396,6 @@ const sendVerificationMail = (email, fname) => {
               <meta charset="utf-8">
             <link rel="stylesheet"
               href="https://fonts.googleapis.com/css?family=Roboto">
-
               <style>
               .panelFooter{
                   font-family: 'Roboto';
@@ -363,7 +405,6 @@ const sendVerificationMail = (email, fname) => {
                   border-bottom-left-radius: 15px;
                   border-bottom-right-radius: 15px;
               }
-
                 .container1{
                   width: 100%;
                   font-family: 'Roboto';
@@ -378,7 +419,6 @@ const sendVerificationMail = (email, fname) => {
                 font-family: 'Roboto', serif;
                 }
             h1{
-
                   font-family: 'Roboto', serif;
             }
                 .para{

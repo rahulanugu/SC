@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-//const { check,body, validationResult } = require('express-validator');
+const { check,body, validationResult } = require('express-validator');
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
 const nodemailer = require("nodemailer");
@@ -18,13 +18,17 @@ oauth2Client.setCredentials({
 
 const accessToken = oauth2Client.getAccessToken();
 const {BigQuery} = require('@google-cloud/bigquery');
+const { compareSync } = require("bcryptjs");
 const options = {
-    keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
-    projectId: 'scriptchainprod'
+    keyFilename: 'serviceAccountKeys/scriptchain-259015-689b82dcb0fe.json',
+    projectId: 'scriptchain-259015'
 
 };
 const bigquery = new BigQuery(options);
-const fs = require('fs');
+var aes256 = require('aes256');
+const API_KEY = "scriptChain@13$67ahi1";
+const key = "hosenkinosumabeni";
+
 
 /**
  * Method to save a new rew request access user
@@ -42,57 +46,76 @@ function generateId(count) {
   }
   return str;
 }
-/*
-,[check('fname').notEmpty().withMessage('First Name is required.').isAlpha().withMessage('First Name should be String'),check('lname').notEmpty().withMessage('Last Name is required.').isAlpha().withMessage('Last Name should be String'),check('email').notEmpty().withMessage("Provide Email ID").isEmail().withMessage('Should Provide Email'),check('typeOfUser').notEmpty().withMessage('Should Provide typeOfUser'),body().custom(body => {
-  const keys = ['fname','lname','email','typeOfUser'];
+router.post("/",[check('fname').notEmpty().isAlpha(),check('lname').notEmpty().isAlpha(),check('email').notEmpty().isEmail(),check('typeOfUser').notEmpty(),body().custom(body => {
+  const keys = ['_id','fname','lname','email','typeOfUser'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')]
-*/
-router.post("/",async (req, res) => {
-  /*const e = validationResult(req);
+})],async (req, res) => {
+  //console.log(req.query);
+  //var encrypted = aes256.encrypt(key, API_KEY);
+  //console.log(encrypted);
+  const e = validationResult(req);
+  console.log(e+"test");
   if(!e.isEmpty()){
-    const firstError = e.array().map(error => error.msg)[0];
-    return res.status(400).json({ error: firstError });
-  }*/
-  const query = 'SELECT * FROM `scriptchainprod.ScriptChain.newUsers` WHERE email=@email';
+    return res.status(400).json({Message:'Bad Request'})
+  }
+  var decrypted = aes256.decrypt(key, req.query.API_KEY);
+  console.log(decrypted);
+  if(decrypted!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
+  }
+  const query = 'SELECT * FROM `scriptchain-259015.dataset1.newUsers` WHERE email=@email';
   // req.body.email+'"';
   const bigQueryOptions = {
     query: query,
-    location: 'US',
     params: {email:req.body.email}
   }
   bigquery.query(bigQueryOptions, function(err, rows) {
     if(!err) {
       if(rows.length>0){
-        return res.status(400).json({
+        console.log('test1');
+        return res.status(200).json({
           message: "Email is already registered"
         });
-      }
+      }else{
+        req.body['_id'] = generateId(10);
+
+        var query4= "INSERT INTO `scriptchain-259015.dataset1.newUsers` (";
+        for(var myKey in req.body) {
+            query4+=myKey+", ";
+        }
+        query4 = query4.slice(0,query4.length-2);
+          query4+= ") VALUES (";
+          for(var myKey in req.body) {
+              if(req.body[myKey]==false || req.body[myKey]==true)
+                  query4+="@"+myKey+",";
+      
+              else
+                  query4+="@"+myKey+","
+      
+          }
+          query4 = query4.slice(0,query4.length-1);
+          query4 += ")";
+          console.log(query4);
+          const bigQueryOptions4 = {
+            query: query4,
+            params:req.body
+          }
+          bigquery.query(bigQueryOptions4, function(err, row) {
+            if(!err) {
+              res.status(200).json({
+                message: "Your message has been saved"
+              });
+              mailer(req.body.fname, req.body.email);
+            }else{
+              console.log(err);
+              console.log("error in saving requested access user");
+              res.status(500).send({ messsage: "An error has occured trying to execute the request" })
+            }
+          });
+        }
     }
   });
-
-  const filename = 'newUsersTmp.json';
-  const datasetId = 'ScriptChain';
-  const tableId = 'newUsers';
-  req.body['_id'] = generateId(10);
-  fs.writeFileSync(filename, JSON.stringify(req.body));
-
-  const [job] = await bigquery
-    .dataset(datasetId)
-    .table(tableId).load(filename);
-
-  // Check the job's status for errors
-  const errors = job.status.errors;
-  if (errors && errors.length > 0) {
-    console.log("error in saving requested access user");
-      res.status(500).send({ messsage: "An error has occured trying to execute the request" })
-  }else{
-    console.log(`Job ${job.id} completed.`);
-    res.status(200).json({
-      message: "Your message has been saved"
-    });
-    mailer(req.body.fname, req.body.email);
-  }
+  
 
   /**
  * Mailer for sending the emails
@@ -126,7 +149,6 @@ router.post("/",async (req, res) => {
               <meta charset="utf-8">
             <link rel="stylesheet"
               href="https://fonts.googleapis.com/css?family=Roboto">
-
               <style>
               .panelFooter{
                   font-family: 'Roboto';
@@ -136,7 +158,6 @@ router.post("/",async (req, res) => {
                   border-bottom-left-radius: 15px;
                   border-bottom-right-radius: 15px;
               }
-
                 .container1{
                   width: 100%;
                   font-family: 'Roboto';
@@ -151,7 +172,6 @@ router.post("/",async (req, res) => {
                 font-family: 'Roboto', serif;
                 }
             h1{
-
                   font-family: 'Roboto', serif;
             }
                 .para{

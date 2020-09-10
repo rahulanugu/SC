@@ -29,16 +29,16 @@ export class PatientComponent implements OnInit {
 
   ngOnInit() {
     document.getElementById('verificationsuccessful').style.display = "none";
-    console.log("patient component is reached");
+    //console.log("patient component is reached");
     window.scrollTo(0,0);
     this.activatedRoute.queryParams.subscribe(params=>{
-      console.log(params);
+      //console.log(params);
       this.token=params.verify;
       this.jwtToken= params.verify;
       if(this.token){
         this.onVerified(this.jwtToken);
       }else{
-        console.log('no data');
+        //console.log('no data');
       }
     })
   }
@@ -48,16 +48,16 @@ export class PatientComponent implements OnInit {
         this.patientService.postVerifiredToken(token).subscribe((res)=>{
           document.getElementById('verificationsuccessful').style.display = "block";
           localStorage.removeItem('user-jwt');
-          console.log(res);
+          //console.log(res);
         });
       }
   //check if user exist or not if user exist receive JWT and add to browser's local storage
   onSubmit(){
-    console.log("clicked submit")
+    //console.log("clicked submit")
     this._patientloginservice.Loginpatient(this.patientmodel).subscribe(
 
       res => {
-        console.log(res)
+        //console.log(res)
         localStorage.setItem('token',res.idToken)
         localStorage.setItem('fname',res.fname)
         localStorage.setItem('email',res.email)
@@ -65,8 +65,8 @@ export class PatientComponent implements OnInit {
         
       },
       err => {
-        console.log("Error is")
-        console.log(err)
+        //console.log("Error is")
+        //console.log(err)
         if(err.status == 401){
           document.querySelector('#email').classList.remove('is-invalid');
           document.querySelector('#invalidEmailPrompt').classList.add('d-none');    
@@ -76,15 +76,15 @@ export class PatientComponent implements OnInit {
 
 
         }else if(err.status == 303){
-          console.log("deactivated email handling")
+          //console.log("deactivated email handling")
           //send a reactivare mail
           this.patientEditService.makeReactivateRequest({email : this.patientmodel.email}).subscribe(
             response => {
-              console.log("response is recieved")
+              //console.log("response is recieved")
               document.querySelector('#deactivatedEmail').classList.remove('d-none');
             },
             error => {
-              console.log("error is recieved")
+              //console.log("error is recieved")
               this._router.navigate['error500']
             }
           );
