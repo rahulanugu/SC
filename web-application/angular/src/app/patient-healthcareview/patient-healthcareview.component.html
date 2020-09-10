@@ -1,29 +1,186 @@
-<highcharts-chart
-   [Highcharts] = "highcharts5" 
-   [options] = "chartOptions5" 
-   style = "width: 100%; height: 800px; display: block;">
-</highcharts-chart>
 
-<highcharts-chart
-   [Highcharts] = "highcharts2" 
-   [options] = "chartOptions2" 
-   style = "width: 50%; height: 400px; display: block; float: left;">
-</highcharts-chart>
+<div>
+   <app-patient-navbar></app-patient-navbar> 
+   <!--<h3 style="text-align: center; float: left; padding-left: 17.5%; padding-top: 20px;">Hello Dr. {{providerFirstName}}</h3>-->
+   <!-- <button type="button" (click)="logout()" style="float: right; margin-right: 5%;"class="btn btn-primary btn-sm"><b>Logout</b></button> -->
+ </div>
+<div class="container mt-4">
+   <div class="container">
+   <div class="row">
+      <p style="padding-left: 5px;">
+         <a href="/healthcare-profile" style="color:black;text-decoration: none;margin-bottom: 10px;cursor: pointer;"><b><i class="arrow left"></i>Back To Search</b></a>
+      </p>
+   </div>
+     <div class="row row-cols-4">
+       <div class="col-xs-2">
 
-<highcharts-chart
-   [Highcharts] = "highcharts3" 
-   [options] = "chartOptions3" 
-   style = "width: 50%; height: 400px; display: block; float: right;">
-</highcharts-chart>
+         <img src="../../assets/leslie.jpg" width="120" height="120">
+        </div>
+        <div class="col-md-4" id="firstname">
+        </div>
+        <div class="col-md-4" id="dob">
+       </div>
+       <div class="col-md-2" id="sex">
+       </div>
 
-<highcharts-chart
-   [Highcharts] = "highcharts4" 
-   [options] = "chartOptions4" 
-   style = "width: 50%; height: 400px; display: block; float: left;">
-</highcharts-chart>
+     </div>
+     <div class="row">
+      <div class="col-md-5" id="readmission_symptoms">
+         <div id="readmission" style="margin-top:15%">
+            <h4 style="text-align:center;">Readmission Risk</h4>
+            <h1 style="color:teal;text-align: center;">25%</h1>
+            <ul id="indicators">
+               <li id="serious">Serious</li>
+               <li id="med">Mediocre</li>
+               <li id="safe">Safe</li>
+               <li id="within">Within 10 days</li>
+            </ul>
+         </div>
+         <div id="symptoms" style="margin-top:25%">
+            <h4 style="text-align:center;">Symptoms & Chief Complaint</h4>
+            <p style="text-align:center;">Liver disease exists for the patient</p>
+            <ul>
+               <li>Heart looks quite good for the patient though</li>
+            </ul>
+         </div>
+         
+      </div>
+      <div class="tile__media">
+         <img src="../../assets/images/img1.jpg" class="tile__img">
+      </div>
+     </div>
+   </div>
+   <div class="row">
+      <div class="col-md-12 info">
+         <h2 style="text-align:center;">COPD Analysis</h2><br>
+         <h4>Patient's Information</h4><br>
+         <ul>
+            <li>Lab Results&emsp;LDL/Cholestrol: <span style="color:red">185</span>mg/mL
+               &emsp;|&emsp;LDR(Real)-C: <span style="color:red">166</span>mg/mL
+               &emsp;|&emsp;Cholestrol: <span style="color:red">285</span>mg/mL</li>
+            <li>The patient has suffered from <b>Chest pain, mild body pains</b></li>
+         </ul><br>
+         <h4>Recommended Medications</h4><br>
+         <ul id="capsules">
+            <li>Capsule 1</li>
+            <li>Capsule 2</li>
+            <li>Capsule 3</li>
+            <li>Capsule 4</li>
+            <li>Capsule 5</li>
+            <li>Capsule 6</li>
+            <li>Capsule 7</li>
+            <li>Capsule 8</li>
+            <li>Capsule 9</li>
+            <li>Capsule 10</li>
+         </ul>
+      </div>
+   </div>
 
-<highcharts-chart
-   [Highcharts] = "highcharts" 
-   [options] = "chartOptions" 
-   style = "width: 50%; height: 400px; display: block; float: right;">
-</highcharts-chart>
+   <h1 id="firstname"></h1>
+ 
+ 
+ <div class="row" id="scroller">
+   <div id="leftdiv" (click)="scrollLeft()"><img src="../../assets/left.png" class="img"></div>
+   <div id="rightdiv" (click)="scrollRight()"><img src="../../assets/right.png" class="img"></div>
+    <div class="row__inner">
+ 
+      <div class="tile" (click)="displaybelow2()">
+        <div class="tile__media">
+          <img src="../../assets/images/img1.jpg" class="tile__img">
+        </div>
+      </div>
+ 
+      <div class="tile" (click)="displaybelow3()">
+       <div class="tile__media">
+          <img src="../../assets/images/img2.jpg" class="tile__img">
+          <!--<highcharts-chart
+          [Highcharts] = "highcharts3" 
+          [options] = "chartOptions3" 
+          style = "height: 250px;">
+       </highcharts-chart>-->
+       
+       </div>
+     </div>
+ 
+     <div class="tile" (click)="displaybelow4()">
+       <div class="tile__media">
+          <img src="../../assets/images/img3.jpg" class="tile__img">
+          <!--<highcharts-chart
+          [Highcharts] = "highcharts4" 
+          [options] = "chartOptions4" 
+          style = "height: 250px;">
+       </highcharts-chart>-->
+       
+       </div>
+       
+     </div>
+ 
+     <div class="tile" (click)="displaybelow()">
+      <div class="tile__media">
+       <img src="../../assets/images/img4.jpg" class="tile__img">
+       <!--<highcharts-chart
+       [Highcharts] = "highcharts" 
+       [options] = "chartOptions" 
+       style = "height: 250px;">
+    </highcharts-chart>-->
+      
+      </div>
+      
+    </div>
+ 
+ 
+ 
+ 
+ 
+ <!--<highcharts-chart
+    [Highcharts] = "highcharts4" 
+    [options] = "chartOptions4" 
+    style = "width: 24%; height: 400px; display: block; float: left;">
+ </highcharts-chart>
+ <highcharts-chart
+    [Highcharts] = "highcharts" 
+    [options] = "chartOptions" 
+    style = "width: 24%; height: 400px; display: block; float: right;">
+ </highcharts-chart>-->
+ </div>
+ <!--<button id="left" (click)="scrollLeft()">left</button>
+ <button id="right" (click)="scrollRight()">right</button>-->
+ 
+ </div>
+ <ng-container *ngIf="bottomdiv2">
+    <highcharts-chart
+       [Highcharts] = "highcharts2" 
+       [options] = "chartOptions2" 
+       style = "width: 50%; height: 500px; display: block;">
+    </highcharts-chart>
+ </ng-container>
+ <ng-container *ngIf="bottomdiv3">
+    <highcharts-chart
+       [Highcharts] = "highcharts3" 
+       [options] = "chartOptions3" 
+       style = "width: 50%; height: 500px; display: block;">
+    </highcharts-chart>
+ </ng-container>
+ <ng-container *ngIf="bottomdiv4">
+    <highcharts-chart
+       [Highcharts] = "highcharts4" 
+       [options] = "chartOptions4" 
+       style = "width: 50%; height: 500px; display: block;">
+    </highcharts-chart>
+ </ng-container>
+ <ng-container *ngIf="bottomdiv">
+    <highcharts-chart
+       [Highcharts] = "highcharts" 
+       [options] = "chartOptions" 
+       style = "width: 50%; height: 500px; display: block;">
+    </highcharts-chart>
+ </ng-container>
+ 
+ <ng-container *ngIf="bottomdiv5">
+    <highcharts-chart
+       [Highcharts] = "highcharts5" 
+       [options] = "chartOptions5" 
+       style = "width: 50%; height: 800px; display: block;">
+    </highcharts-chart>
+ </ng-container>
+</div>
