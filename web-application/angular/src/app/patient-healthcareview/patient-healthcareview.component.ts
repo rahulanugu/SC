@@ -8,6 +8,57 @@ import * as Highcharts from 'highcharts';
   styleUrls: ['./patient-healthcareview.component.css']
 })
 export class PatientHealthcareviewComponent implements OnInit {
+   public bottomdiv2:boolean = false;
+   public bottomdiv3:boolean = false;
+   public bottomdiv4:boolean = false;
+   public bottomdiv:boolean = false;
+   public bottomdiv5:boolean = false;
+   displaybelow2(){
+      this.bottomdiv2 = !this.bottomdiv2;
+      this.bottomdiv = false;
+      this.bottomdiv3 = false;
+      this.bottomdiv4 = false;
+   }
+   displaybelow3(){
+    this.bottomdiv3 = !this.bottomdiv3;
+    this.bottomdiv = false;
+    this.bottomdiv2 = false;
+    this.bottomdiv4 = false;
+ }
+    displaybelow4(){
+       this.bottomdiv4 = !this.bottomdiv4;
+       this.bottomdiv = false;
+       this.bottomdiv3 = false;
+       this.bottomdiv2 = false;
+    }
+    displaybelow(){
+       this.bottomdiv = !this.bottomdiv;
+       this.bottomdiv2 = false;
+       this.bottomdiv3 = false;
+       this.bottomdiv4 = false;
+    }
+    scrollRight(){
+       var e = <HTMLDivElement> (document.getElementById("scroller"));
+       var scrollAmount = 0;
+       var slideTimer = setInterval(function(){
+          e.scrollLeft += 30;
+          scrollAmount += 30;
+          if(scrollAmount >= 300){
+             window.clearInterval(slideTimer);
+          }
+       }, 25);
+    }
+    scrollLeft(){
+       var e = <HTMLDivElement> (document.getElementById("scroller"));
+       var scrollAmount = 0;
+       var slideTimer = setInterval(function(){
+          e.scrollLeft -= 30;
+          scrollAmount += 30;
+          if(scrollAmount >= 300){
+             window.clearInterval(slideTimer);
+          }
+       }, 25);
+    }
 
   highcharts5 = Highcharts;
    chartOptions5 = {   
@@ -272,7 +323,13 @@ export class PatientHealthcareviewComponent implements OnInit {
    };
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit() {
+   document.getElementById('firstname').innerHTML = "<span class='text'><h4>Leslie Wang</h4></span><br>\
+   <span class='text'><b>Medical Record No.(MRN): </b>YTK12345678</span><br><span class='text'><b>Phone Number: </b>(123)456-7890</span>";
+   document.getElementById('dob').innerHTML = "<span class='text'><b>DOB: </b>07/16/1970</span><br>\
+   <span class='text'><b>Email Address: </b>Leslie.Wang@gmail.com</span>";
+   document.getElementById('sex').innerHTML = "<span class='text'><b>Sex: </b>Female</span><br>\
+   <span class='text'><b>Pronoun: </b>She/Her</span><br><span class='text'><b>Place: </b>Boston/MA</span>";
+ }
 
 }
