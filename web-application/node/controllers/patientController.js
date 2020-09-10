@@ -6,22 +6,20 @@
 const nodemailer = require('nodemailer');
 const log = console.log;
 const express = require('express');
-//const { check,body,validationResult } = require('express-validator');
+const { check,body,validationResult } = require('express-validator');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
 const randtoken = require('rand-token');
 var Utility = require('../utility');
-const fs = require('fs');
 const {BigQuery} = require('@google-cloud/bigquery');
 const options = {
-    keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
-    projectId: 'scriptchainprod'
+    keyFilename: 'serviceAccountKeys/scriptchain-259015-689b82dcb0fe.json',
+    projectId: 'scriptchain-259015'
 
 };
 const bigquery = new BigQuery(options);
-
 const oauth2Client = new OAuth2(
     "Y16828344230-21i76oqle90ehsrsrpptnb8ek2vqfjfp.apps.googleusercontent.com",
     "ZYdS8bspVNCyBrSnxkMxzF2d",
@@ -32,7 +30,10 @@ oauth2Client.setCredentials({
     refresh_token:
       "ya29.GluBB_c8WGD6HI2wTAiAKnPeLap6FdqDdQYhplWyAPjw_ZBSNUNEMOfmsrVSDoHTAZWc8cjKHXXEEY_oMVJUq4YaoSD1LLseWzPNt2hcY2lCdhXAeuCxvDPbl6QP"
   });
-const accessToken = oauth2Client.getAccessToken()
+const accessToken = oauth2Client.getAccessToken();
+var aes256 = require('aes256');
+const API_KEY = "scriptChain@13$67ahi1";
+const key = "hosenkinosumabeni";
 // http://localhost:3000/patient/
 
 // get list of all patients
@@ -54,13 +55,20 @@ function generateId(count) {
 }
 
 router.get('/',async (req, res) => {
+    //ADD THIS
+    var decrypted = aes256.decrypt(key, req.query.API_KEY);
+    console.log(decrypted);
+    if(decrypted!=API_KEY){
+      return res.status(401).json({Message:'Unauthorized'});
+    }
+    //ADD THIS
     console.log('you have entered');
     // Authentication to enter this?
     // How to secure this?
     // Need some sort of hack check. How do we check it?
     // Possible type of hacks for an API.
 
-    const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE 1=1';
+    const query = 'SELECT * FROM `scriptchain-259015.dataset1.patients` WHERE 1=1';
     bigquery.query(query, function(err, doc) {
       if (!err) {
         if(doc){
@@ -85,20 +93,23 @@ router.get('/',async (req, res) => {
  *         200 - patient details are found
  *         404 - An error occured/ No patients found
  */
-//,[check('id').notEmpty()]
-router.get('/:id',(req, res) => {
-  /*const errors = validationResult(req);
+router.get('/:id',[check('id').notEmpty()],(req, res) => {
+  const errors = validationResult(req);
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
-  }*/
+  }
+  var decrypted = aes256.decrypt(key, req.query.API_KEY);
+  console.log(decrypted);
+  if(decrypted!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
+  }
   //validation for id is a side task
   //express validation is a side task
   //usage of headers, how UI handles it?
   //helmet npm package usage?
-  const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE _id = @id';
+  const query = 'SELECT * FROM `scriptchain-259015.dataset1.patients` WHERE _id = @id';
   const bigQueryOptions = {
     query: query,
-    location: 'US',
     params: {id:req.params.id}
   }
   bigquery.query(bigQueryOptions, function(err, doc) {
@@ -121,13 +132,18 @@ router.get('/:id',(req, res) => {
  * Output: message whether the subscriber exists or not
  */
 router.post('/:verify',async(req,res)=>{
+  console.log(req.query);
   if(req.params.verify!="verify"){
     res.status(400).json({message: "Bad Request"});
   }
-  const query = 'SELECT * FROM `scriptchainprod.ScriptChain.verifieduser` WHERE email = @email';
+  var decrypted = aes256.decrypt(key, req.query.API_KEY);
+  console.log(decrypted);
+   if(decrypted!=API_KEY){
+     return res.status(401).json({Message:'Unauthorized'});
+   }
+  const query = 'SELECT * FROM `scriptchain-259015.dataset1.verifieduser` WHERE email = @email';
   const bigQueryOptions = {
     query: query,
-    location: 'US',
     params: {email:req.body.user}
   }
   bigquery.query(bigQueryOptions, function(err, checkCurrentSubscriber) {
@@ -152,122 +168,151 @@ router.post('/:verify',async(req,res)=>{
 /*
 ,
 */
-/*
-,[check('fname').notEmpty().withMessage("fname empty").isAlpha().withMessage('fname alpha'),
-check('lname').notEmpty().withMessage('lname not empty').isAlpha().withMessage("lname not empty"),
-check('email').isEmail().withMessage('email').notEmpty().withMessage('email empty').exists().withMessage('email not exists'),
-check("street").notEmpty().withMessage('street empty'),check("city").notEmpty().withMessage('city empty'),
-check("state").notEmpty().withMessage('state empty'),check("zip").notEmpty().withMessage('zip empty')
-,check("country").notEmpty().withMessage('country empty'),check("address").notEmpty().withMessage('address empty'),
-check('phone').notEmpty().withMessage('phone number is empty'),check('birthday').notEmpty().withMessage('birthday is empty').isDate().withMessage('not date'),
-check('sex').notEmpty().withMessage('sex is empty'),check('ssn').notEmpty().withMessage('ssn is empty'),
-check('allergies').notEmpty().withMessage('allergies is empty'),check('ec').notEmpty().withMessage('ec is empty'),
-check('ecPhone').notEmpty().withMessage('ec phone not empty'),check('ecRelationship').notEmpty().withMessage('ecrelation not empty').isAlpha().withMessage('ec relation has to be alpha'),
-check("password").exists().withMessage('password not exists').notEmpty().withMessage('password is empty'),
-check('anemia').isBoolean(),check("asthma").isBoolean(),check("arthritis").isBoolean(),check("cancer").isBoolean(),
-check("gout").isBoolean(),check("diabetes").isBoolean(),check("emotionalDisorder").isBoolean(),
-check("epilepsy").isBoolean(),check("fainting").isBoolean(),check("gallstones").isBoolean(),
-check("heartDisease").isBoolean(),check("heartAttack").isBoolean(),check("rheumaticFever").isBoolean(),
-check("highBP").isBoolean(),check("digestiveProblems").isBoolean(),check("ulcerative").isBoolean(),
-check("ulcerDisease").isBoolean(),check("hepatitis").isBoolean(),check("kidneyDiseases").isBoolean(),
-check("liverDisease").isBoolean(),check("sleepApnea").isBoolean(),check("papMachine").isBoolean(),
-check("thyroid").isBoolean(),check("tuberculosis").isBoolean(),check("venereal").isBoolean(),
-check("neurologicalDisorders").isBoolean(),check("bleedingDisorders").isBoolean(),check("lungDisease").isBoolean(),
-check("emphysema").isBoolean(),check("none").isBoolean(),check("drink").notEmpty().withMessage('drink empty'),
-check("smoke").notEmpty().withMessage('smoke empty'),body().custom(body => {
+router.post('/',[check('fname').notEmpty().isAlpha(),
+check('lname').notEmpty().isAlpha(),
+check('email').isEmail().notEmpty(),
+check("street").notEmpty(),
+check("city").notEmpty(),
+check("state").notEmpty(),
+check("zip").notEmpty(),
+check("country").notEmpty(),
+check("address").notEmpty(),
+check('phone').notEmpty(),
+check('birthday').notEmpty().isDate(),
+check('sex').notEmpty(),
+check('ssn').notEmpty(),
+check('allergies').notEmpty(),
+check('ec').notEmpty(),
+check('ecPhone').notEmpty(),
+check('ecRelationship').notEmpty().isAlpha(),
+check("password").exists().notEmpty(),
+check('anemia').isBoolean(),
+check("asthma").isBoolean(),
+check("arthritis").isBoolean(),
+check("cancer").isBoolean(),
+check("gout").isBoolean(),
+check("diabetes").isBoolean(),
+check("emotionalDisorder").isBoolean(),
+check("epilepsy").isBoolean(),
+check("fainting").isBoolean(),
+check("gallstones").isBoolean(),
+check("heartDisease").isBoolean(),
+check("heartAttack").isBoolean(),
+check("rheumaticFever").isBoolean(),
+check("highBP").isBoolean(),
+check("digestiveProblems").isBoolean(),
+check("ulcerative").isBoolean(),
+check("ulcerDisease").isBoolean(),
+check("hepatitis").isBoolean(),
+check("kidneyDiseases").isBoolean(),
+check("liverDisease").isBoolean(),
+check("sleepApnea").isBoolean(),
+check("papMachine").isBoolean(),
+check("thyroid").isBoolean(),
+check("tuberculosis").isBoolean(),
+check("venereal").isBoolean(),
+check("neurologicalDisorders").isBoolean(),
+check("bleedingDisorders").isBoolean(),
+check("lungDisease").isBoolean(),
+check("emphysema").isBoolean(),
+check("none").isBoolean(),check("drink").notEmpty(),
+check("smoke").notEmpty(),
+body().custom(body => {
   const keys = ['fname','lname','email','street','city','state','zip','country','address','phone','birthday',
   'sex','ssn','allergies','ec','ecPhone','ecRelationship',"password",'anemia',"asthma","arthritis","cancer",
   "gout","diabetes","emotionalDisorder","epilepsy","fainting","gallstones","heartDisease","heartAttack",
   "rheumaticFever","highBP","digestiveProblems","ulcerative","ulcerDisease","hepatitis","kidneyDiseases",
   "liverDisease","sleepApnea","papMachine","thyroid","tuberculosis","venereal","neurologicalDisorders",
-  "bleedingDisorders","lungDisease","emphysema","none","drink","smoke"];
+  "bleedingDisorders","lungDisease","emphysema","none","drink","smoke","_id"]
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')]
-*/
-router.post('/',async(req, res) => {
-  /*console.log(req.body);
-  const err = validationResult(req);
-  if(!err.isEmpty()){
-    const firstError = err.array().map(error => error.msg)[0];
-    return res.status(400).json({ error: firstError });
-  }
+})],async(req, res) => {
   const e= validationResult(req);
+  console.log(e);
   if(!e.isEmpty()){
     return res.status(400).json({Message:"Bad Request"});
-  }*/
-
+  }
+  var decrypted = aes256.decrypt(key, req.query.API_KEY);
+  console.log(decrypted);
+  if(decrypted!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
+  }
     const tokeBody = req.body;
     // check if email already exist
     //const checkCurrentSubscriber = await VerifiedUser.findOne({email: req.body.email})
     //console.log(req);
-    const query1= 'SELECT * FROM `scriptchainprod.ScriptChain.verifieduser` WHERE email = @email';
+    const query1= 'SELECT * FROM `scriptchain-259015.dataset1.verifieduser` WHERE email = @email';
     const bigQueryOptions1 = {
       query: query1,
-      location: 'US',
       params: {email:tokeBody.email}
     }
-    bigquery.query(bigQueryOptions1, function(err, checkCurrentSubscriber) {
+    bigquery.query(bigQueryOptions1, async function(err, checkCurrentSubscriber) {
       if (!err) {
         if (checkCurrentSubscriber.length>0){
-          return res.json('Subscriber already exists')
+          res.json('Subscriber already exists')
         }else{
-          return res.json("Does not exist")
+          //res.json("Does not exist")
+          console.log('first pass');
+          const query2 = 'SELECT * FROM `scriptchain-259015.dataset1.patients` WHERE Email=@email';
+          const bigQueryOptions2 = {
+            query: query2,
+            params: {email:tokeBody.email}
+          }
+          bigquery.query(bigQueryOptions2, async function(err, checkEmailExist) {
+            if (!err) {
+              if (checkEmailExist.length>0){
+                return res.status(400).send('Email already exists');
+              }else{// create JSON Web Token
+                // *******make sure to change secret word to something secure and put it in env variable*****
+                console.log('second pass');
+                const token = await jwt.sign({tokeBody}, "santosh", { expiresIn: 180 });
+
+                // using jwt and token
+                res.status(200).json(token)
+
+                var idToken = randtoken.generate(16);
+
+                var tokenSchema = {
+                  '_id': generateId(10),
+                  'token': idToken,
+                  'email': req.body.email
+                };
+
+                var query3= "INSERT INTO `scriptchain-259015.dataset1.tokenSchema` VALUES ("
+                for(var myKey in tokenSchema) {
+                  query3+="@"+myKey+",";
+
+                }
+                query3 = query3.slice(0,query3.length-1);
+                query3 += ")";
+                console.log(query3);
+                const bigQueryOptions3 = {
+                  query: query3,
+                  params: tokenSchema
+                }
+                bigquery.query(bigQueryOptions3, function(err, row) {
+                  if(!err) {
+                      console.log('Inserted successfully');
+                      // Check the job's status for errors
+                      //encrypt the token before sending it
+                      var encryptedToken = Utility.EncryptToken(token);
+                      console.log('third pass and mail sent');
+                      sendVerificationMail(req.body.email,req.body.fname,encryptedToken);
+                  }else{
+                    console.log("error");
+                    console.log(err);
+                  }
+                });
+              }
+            }else{
+              res.status(500).json({message:'DB Error'});
+            }
+          });
         }
       }else{
         res.status(500).json({message:'DB Error'});
       }
     });
-
-    const query2 = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
-    const bigQueryOptions2 = {
-      query: query2,
-      location: 'US',
-      params: {email:tokeBody.email}
-    }
-    bigquery.query(bigQueryOptions2, function(err, checkEmailExist) {
-      if (!err) {
-        if (checkEmailExist.length>0){
-          return res.status(400).send('Email already exists');
-        }
-      }else{
-        res.status(500).json({message:'DB Error'});
-      }
-    });
-
-    // create JSON Web Token
-    // *******make sure to change secret word to something secure and put it in env variable*****
-    const token = await jwt.sign({tokeBody}, "santosh", { expiresIn: 180 });
-
-    // using jwt and token
-    res.status(200).json(token)
-
-    var idToken = randtoken.generate(16);
-
-    var tokenSchema = {
-      '_id': generateId(10),
-      'token': idToken,
-      'email': req.body.email
-    };
-
-    const filename = 'tokenSchemaTmp.json';
-    const datasetId = 'ScriptChain';
-    const tableId = 'tokenSchema';
-
-    fs.writeFileSync(filename, JSON.stringify(tokenSchema));
-
-    const [job] = await bigquery
-      .dataset(datasetId)
-      .table(tableId).load(filename);
-
-    // Check the job's status for errors                                                         (req.body.email,req.body.fname,idToken);
-
-    //encrypt the token before sending it
-    var encryptedToken = Utility.EncryptToken(token);
-    sendVerificationMail(req.body.email,req.body.fname,encryptedToken);
-
 });
-
-
 const sendVerificationMail = (email,fname,encryptedToken)=>{
 
     //create a transporter with OAuth2
@@ -293,7 +338,6 @@ const sendVerificationMail = (email,fname,encryptedToken)=>{
         <head>
           <title>Bootstrap Example</title>
           <meta charset="utf-8">
-
           <style>
           .panelFooter{
               font-family: Arial;
@@ -365,7 +409,7 @@ const sendVerificationMail = (email,fname,encryptedToken)=>{
           <h1 align="center"style="font-family: arial;">YOU'RE ALMOST DONE REGISTERING!</h1>
           <p class="para">Hi `+fname+`,</p>
           <p class="para">Welcome to ScriptChain! We are glad that you have registered, there is just one more step to verify your account. <b>Please click the link below to verify your email address.</b></p>
-        <p align="center"><a href="http://scriptchain.co/patientlogin?verify=`+encryptedToken+`"><button>Verify Your E-mail Address</button></a></p><br><br>
+        <p align="center"><a href="http://scriptchain.co/patientlogin?verify=`+encryptedToken+ `?API_KEY=` + API_KEY + `"><button>Verify Your E-mail Address</button></a></p><br><br>
         <p align="center" class="para">If you have any questions or concerns feel free to reach out to <a href="mailto:customer-care@scriptchain.co">customer-care@scriptchain.co</a></p>
           <div class="panelFooter">
             <p align="center" >This message was sent from ScriptChain LLC., Boston, MA</p>

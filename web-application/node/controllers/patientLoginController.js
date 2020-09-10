@@ -1,15 +1,18 @@
 const express = require('express');
-//const { check,body,validationResult } = require('express-validator');
+const { check,body,validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 var router = express.Router();
 const {BigQuery} = require('@google-cloud/bigquery');
 const options = {
-    keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
-    projectId: 'scriptchainprod'
+    keyFilename: 'serviceAccountKeys/scriptchain-259015-689b82dcb0fe.json',
+    projectId: 'scriptchain-259015'
 
 };
 const bigquery = new BigQuery(options);
+var aes256 = require('aes256');
+const API_KEY = "scriptChain@13$67ahi1";
+const key = "hosenkinosumabeni";
 //http request for patient login http://localhost:3000/patient-login/
 /**
  * This method validates the user/patient to log in to the portal.
@@ -17,24 +20,26 @@ const bigquery = new BigQuery(options);
  * Output: 401 - Invalid password or email
  *         200 - Jwt Token and first name
  */
-/*
-,[check('email').notEmpty().isEmail(),check('password').notEmpty(),body().custom(body => {
+router.post('/',[check('email').notEmpty().isEmail(),check('password').notEmpty(),body().custom(body => {
   const keys = ['email','password'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')]
-*/
-router.post('/',async (req, res) => {
-  /*const errors = validationResult(req);
+})],async (req, res) => {
+  console.log(req.query);
+  const errors = validationResult(req);
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
-  }*/
+  }
+  var decrypted = aes256.decrypt(key, req.query.API_KEY);
+  console.log(decrypted);
+  if(decrypted!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
+  }
     //const patient = await Patient.findOne({Email: req.body.email});
     //if the patient is not found, try finding it in the deactivated patients collection
 
-    const query1 = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@email';
+    const query1 = 'SELECT * FROM `scriptchain-259015.dataset1.patients` WHERE Email=@email';
     const bigQueryOptions1={
       query:query1,
-      location: 'US',
       params: {email:req.body.email}
     }
 
@@ -42,10 +47,9 @@ router.post('/',async (req, res) => {
     bigquery.query(bigQueryOptions1, async function(err, patient) {
       if (!err) {
         if (patient.length==0){
-          const query2 = 'SELECT * FROM `scriptchainprod.ScriptChain.deactivatedPatients` WHERE Email=@email';
+          const query2 = 'SELECT * FROM `scriptchain-259015.dataset1.deactivatedPatients` WHERE Email=@email';
           const bigQueryOptions2={
             query:query2,
-            location: 'US',
             params: {email:req.body.email}
           }
           bigquery.query(bigQueryOptions2, function(err1, deactivatedPatient) {

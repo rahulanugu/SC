@@ -18,19 +18,19 @@ export class CareersService {
     constructor(private http: HttpClient) {}
   
     getAvailableJobOpeningsByCategory(category) {
-      return this.http.get<jobOpening[]>(this.baseURL+`/jobposting/${category}`);
+      return this.http.get<jobOpening[]>(this.baseURL+`/jobposting/${category}`+environment.param);
     }
 
     getJobDetails(jobid){
-      console.log(this.baseURL+`/jobposting/${jobid}`);
-      return this.http.get<jobOpening>(this.baseURL+`/jobposting/job/${jobid}`);
+      //console.log(this.baseURL+`/jobposting/job/${jobid}`+environment.param);
+      return this.http.get<jobOpening>(this.baseURL+`/jobposting/job/${jobid}`+environment.param);
     }
 
     postJobApplication(jobApplicationData){
-      return this.http.post(this.baseURL+`/jobapplication`,jobApplicationData);
+      return this.http.post(this.baseURL+`/jobapplication`+environment.param,jobApplicationData);
     }
 
     getJobCategories(){
-      return this.http.get<jobCategory[]>(this.baseURL+"/jobcategory");
+      return this.http.get<jobCategory[]>(this.baseURL+"/jobcategory"+environment.param);
     }
 }

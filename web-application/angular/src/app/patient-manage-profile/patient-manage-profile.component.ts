@@ -40,9 +40,9 @@ export class PatientManageProfileComponent implements OnInit {
   }
 
   onSubmission(){
-    console.log("trying to submit")
+    //console.log("trying to submit")
     if(!(this.Form.value.password === this.Form.value.rePassword)){
-      console.log("reentered passwords dont match")
+      //console.log("reentered passwords dont match")
       this.passwordsMatch = false;
 
       this.visible=true;
@@ -62,7 +62,7 @@ export class PatientManageProfileComponent implements OnInit {
       }
       this.patientEditService.changePassword(patientDetails).subscribe(
         response => {
-          console.log("Response is recieved")
+          //console.log("Response is recieved")
           this.visible = false;
           this.passwordsMatch = true;
           this.wrongPassword=false;
@@ -93,7 +93,7 @@ export class PatientManageProfileComponent implements OnInit {
   deactivateUser(){
     this.dialogService.openConfirmDialog('Confirm to deactivate account').afterClosed().subscribe(res=>{
       if(res){
-        console.log("attempting to deactivate the user")
+        //console.log("attempting to deactivate the user")
     var patientDetails = {
       email: localStorage.getItem('email')
     }

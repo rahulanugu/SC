@@ -2,17 +2,17 @@ var express = require('express');
 var router = express.Router();
 const {BigQuery} = require('@google-cloud/bigquery');
 const options = {
-    keyFilename: '/Users/srikarpothumahanti/Desktop/scriptchain/web-application/node/serviceAccountKeys/scriptchainprod-96d141251382.json',
-    projectId: 'scriptchainprod'
+    keyFilename: '/Users/srikarpothumahanti/Desktop/scriptchain/web-application/node/serviceAccountKeys/scriptchain-259015-689b82dcb0fe.json',
+    projectId: 'scriptchain-259015'
 
 };
 const bigquery = new BigQuery(options);
 createTable();
 async function createTable() {
 
-    const datasetId = "ScriptChain";
+    const datasetId = "dataset1";
     const tableId = "deactivatedHealthcareProviders";
-    const schema = '_id:string, firstName:string, lastName:string, companyName:string, roleInCompany:string,email:string,password:string';
+    const schema = '_id:string, firstName:string, lastName:string, companyName:string, roleInCompany:string,ehr:string,email:string,password:string';
 
   const options = {
     schema: schema,

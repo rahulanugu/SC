@@ -1,15 +1,17 @@
 const express = require("express");
 const router = express.Router();
-//const { check,body,validationResult } = require('express-validator');
+const { check,body,validationResult } = require('express-validator');
 const fs = require('fs');
 const {BigQuery} = require('@google-cloud/bigquery');
 const options = {
-    keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
-    projectId: 'scriptchainprod'
+    keyFilename: 'serviceAccountKeys/scriptchain-259015-689b82dcb0fe.json',
+    projectId: 'scriptchain-259015'
 
 };
 const bigquery = new BigQuery(options);
-
+var aes256 = require('aes256');
+const API_KEY = "scriptChain@13$67ahi1";
+const key = "hosenkinosumabeni";
 //The controller handles the requests for deactivating user accounts
 
 /**
@@ -23,59 +25,75 @@ const bigquery = new BigQuery(options);
  */
 // doubt
 /*
-,[check('Email').notEmpty().isEmail(),body().custom(body => {
-  const keys = ['Email'];
-  return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')]
+
 */
-router.post("/patient", async (req, res) => {
-  /*const e = validationResult(req);
+router.post("/patient",[check('email').notEmpty().isEmail(),body().custom(body => {
+    const keys = ['email'];
+    return Object.keys(body).every(key => keys.includes(key));
+  })], async (req, res) => {
+  const e = validationResult(req);
   if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'});
-  }*/
+  }
+  var decrypted = aes256.decrypt(key, req.query.API_KEY);
+  console.log(decrypted);
+  if(decrypted!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
+  }
     console.log("reached deacivate patient controller");
-    const query = 'SELECT * FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@Email';
+    const query = 'SELECT * FROM `scriptchain-259015.dataset1.patients` WHERE Email=@email';
     // req.body.Email+'"';
     const bigQueryOptions = {
       query: query,
-      location: 'US',
-      params: {Email:req.body.Email}
+      params: {email:req.body.email}
     }
     bigquery.query(bigQueryOptions, function(err, row) {
         if(!err) {
             if (row.length>0){
-                const query1 = 'DELETE FROM `scriptchainprod.ScriptChain.patients` WHERE Email=@Email';
+                const query1 = 'DELETE FROM `scriptchain-259015.dataset1.patients` WHERE Email=@email';
                 // req.body.Email+'"';
                 const retrievedPatient = row[0];
                 const bigQueryOptions1 = {
                   query: query1,
-                  location: 'US',
-                  params: {Email:req.body.Email}
+                  params: {email:req.body.email}
                 }
                 bigquery.query(bigQueryOptions1, function(err, row1) {
                     if(err){
                         res.status(500).json({"message": "account could not be deactivated due to an error"});
                         next();
                     }else{
-                        const filename = 'deactivatePatientsTmp.json';
-                        const datasetId = 'ScriptChain';
-                        const tableId = 'deactivatedPatients';
-                        fs.writeFileSync(filename, JSON.stringify(retrievedPatient));
+                        var query4= "INSERT INTO `scriptchain-259015.dataset1.deactivatedPatients` (";
+                        for(var myKey in retrievedPatient) {
+                            query4+=myKey+", ";
+                        }
+                        query4 = query4.slice(0,query4.length-2);
+                        query4+= ") VALUES (";
+                        for(var myKey in retrievedPatient) {
+                            if(retrievedPatient[myKey]==false || retrievedPatient[myKey]==true)
+                                query4+="@"+myKey+",";
 
-                        const table = bigquery.dataset(datasetId).table(tableId);
+                            else
+                                query4+="@"+myKey+",";
 
-                        // Check the job's status for errors
-                        //const errors = job.status.errors;
-                        table.load(filename,(err,res1) =>{
-                            if (err && err.length > 0) {
-                                console.log("Error occured in deactivate controller"+err);
-                                res.status(500).json({"message": "account could not be deactivated due to an error"});
-                                console.log('Error in saving patient: ' + JSON.stringify(err, undefined, 2));
-                            }else{
-                                //console.log(`Job ${job.id} completed.`);
+                        }
+                        query4 = query4.slice(0,query4.length-1);
+                        query4 += ")";
+                        console.log(query4);
+                        const bigQueryOptions2 = {
+                            query: query4,
+                            params: retrievedPatient
+                        }
+                        bigquery.query(bigQueryOptions2, function(err, row) {
+                            if(!err) {
+                                console.log("In deactivateController[patient, POST]: Inserted successfully");;
                                 res.status(200).json({
                                     "message":"account has been deactivated"
                                 });
+                            }else{
+                            console.log(err);
+                            res.status(500).json({
+                                "message": "account could not be deactivated due to an error"
+                            })
                             }
                         });
                     }
@@ -100,35 +118,38 @@ router.post("/patient", async (req, res) => {
 
 //Update the code
 /*
-,[check('email').notEmpty().isEmail(),body().custom(body => {
-  const keys = ['email'];
-  return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')]
+
 */
-router.post("/healthcare",async (req, res) => {
-  /*const e = validationResult(req);
+router.post("/healthcare",[check('email').notEmpty().isEmail(),body().custom(body => {
+    const keys = ['email'];
+    return Object.keys(body).every(key => keys.includes(key));
+  })],async (req, res) => {
+  const e = validationResult(req);
   if(!e.isEmpty()){
     return res.status(400).json({Message:'Bad Request'});
-  }*/
-    console.log("reached deacivate controller");
+  }
+  var decrypted = aes256.decrypt(key, req.query.API_KEY);
+  console.log(decrypted);
+  if(decrypted!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
+  }
+    console.log("reached deactivate controller");
 
-    const query = 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProviders` WHERE email=@email';
+    const query = 'SELECT * FROM `scriptchain-259015.dataset1.healthcareProviders` WHERE email=@email';
     // req.body.Email+'"';
     const bigQueryOptions = {
       query: query,
-      location: 'US',
       params: {email:req.body.email}
     }
     bigquery.query(bigQueryOptions, function(err, row) {
         if(!err) {
             if (row.length>0){
-                const query1 = 'DELETE FROM `scriptchainprod.ScriptChain.healthcareProviders` WHERE email=@email';
+                const query1 = 'DELETE FROM `scriptchain-259015.dataset1.healthcareProviders` WHERE email=@email';
                 // req.body.Email+'"';
                 const retrievedHealthcareProvider = row[0];
                 console.log(retrievedHealthcareProvider);
                 const bigQueryOptions1 = {
                   query: query1,
-                  location: 'US',
                   params: {email:req.body.email}
                 }
                 bigquery.query(bigQueryOptions1, function(err, row1) {
@@ -136,27 +157,30 @@ router.post("/healthcare",async (req, res) => {
                         res.status(500).json({"message": "account could not be deactivated due to an error"});
                         next();
                     }else{
-                        const filename = 'deactivateHealthcareProvidersTmp.json';
-                        const datasetId = 'ScriptChain';
-                        const tableId = 'deactivatedHealthcareProviders';
                         delete retrievedHealthcareProvider['phone'];
+                        var query= "INSERT INTO `scriptchain-259015.dataset1.deactivatedHealthcareProviders` VALUES ("
+                        for(var myKey in retrievedHealthcareProvider) {
+                          query+="@"+myKey+",";
 
-                        fs.writeFileSync(filename, JSON.stringify(retrievedHealthcareProvider));
-
-                        const table = bigquery.dataset(datasetId).table(tableId);
-
-                        // Check the job's status for errors
-                        //const errors = job.status.errors;
-                        table.load(filename,(err,res1) =>{
-                            if (err && err.length > 0) {
-                                console.log("Error occured in deactivate controller"+err);
-                                res.status(500).json({"message": "account could not be deactivated due to an error"});
-                                console.log('Error in saving healthcare provider: ' + JSON.stringify(err, undefined, 2));
-                            }else{
-                                //console.log(`Job ${job.id} completed.`);
+                        }
+                        query = query.slice(0,query.length-1);
+                        query += ")";
+                        console.log(query);
+                        const bigQueryOptions = {
+                            query: query,
+                            params:retrievedHealthcareProvider
+                        }
+                        bigquery.query(bigQueryOptions, function(err, row) {
+                            if(!err) {
+                                console.log("In deactivateController[healthcare, POST]: Inserted successfully");;
                                 res.status(200).json({
                                     "message":"account has been deactivated"
                                 });
+                            }else{
+                            console.log(err);
+                            res.status(500).json({
+                                "message": "account could not be deactivated due to an error"
+                            })
                             }
                         });
                     }

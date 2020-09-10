@@ -49,9 +49,9 @@ export class HealthcareLoginComponent implements OnInit {
         this.router.navigate(['healthcare-profile'])
       },
       err => {
-        console.log(err)
-        console.log("Error is")
-        console.log(err)
+        //console.log(err)
+        //console.log("Error is")
+        //console.log(err)
         if(err.status == 401){
           document.querySelector('#emailAddress').classList.remove('is-invalid');
           document.querySelector('#invalidEmailPrompt').classList.add('d-none');    
@@ -61,20 +61,20 @@ export class HealthcareLoginComponent implements OnInit {
 
 
         }else if(err.status == 303){
-          console.log("deactivated email handling")
+          //console.log("deactivated email handling")
           //send a reactivare mail
           this.healthcareEditService.makeReactivateRequest({email : this.Form.value.emailAddress}).subscribe(
             response => {
-              console.log("response is recieved")
+              //console.log("response is recieved")
               document.querySelector('#deactivatedEmail').classList.remove('d-none');
             },
             error => {
-              console.log("error is recieved")
+              //console.log("error is recieved")
               this.router.navigate['error500']
             }
           );
         } else {
-          console.log("errorcode")
+          //console.log("errorcode")
           document.querySelector('#invalidPasswordPrompt').classList.add('d-none');    
           document.querySelector('#emailAddress').classList.add('is-invalid');
           document.querySelector('#password').classList.add('is-invalid');

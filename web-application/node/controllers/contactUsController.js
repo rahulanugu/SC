@@ -1,15 +1,17 @@
 const express = require("express");
-//const { check,body, validationResult } = require('express-validator');
+const { check,body, validationResult } = require('express-validator');
 const router = express.Router();
-const fs = require('fs');
 const {BigQuery} = require('@google-cloud/bigquery');
-
+//comment options in prod mode
 const options = {
-    keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
-    projectId: 'scriptchainprod'
+    keyFilename: 'serviceAccountKeys/scriptchain-259015-689b82dcb0fe.json',
+    projectId: 'scriptchain-259015'
 
 };
 const bigquery = new BigQuery(options);
+var aes256 = require('aes256');
+const API_KEY = "scriptChain@13$67ahi1";
+const key = "hosenkinosumabeni";
 /**
  * Method to save the customer query to the database
  * Input: Details of ContactUser as specified in schema
@@ -27,40 +29,47 @@ function generateId(count) {
   }
   return str;
 }
-/*
-,[check('fname').notEmpty().isAlpha(),check('lname').notEmpty().isAlpha(),check('email').isEmail(),check('message').notEmpty(),body().custom(body => {
-  const keys = ['fname','lname','email','message'];
+
+router.post("/",[check('FirstName').notEmpty().isAlpha(),check('LastName').notEmpty().isAlpha(),check('Email').isEmail(),check('Message').notEmpty(),body().custom(body => {
+  const keys = ['FirstName','LastName','Email','Message'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')]
-*/
-
-router.post("/",async(req, res) => {
-  /*const err = validationResult(req);
-    if (!err.isEmpty()) return res.status(400).send(err.array({ onlyFirstError: true }))
-
-  console.log("hello");*/
-  req.body['_id'] = generateId(10);
-  const filename = 'contactUserTmp.json';
-  const datasetId = 'ScriptChain';
-  const tableId = 'contactUsers';
-
-  fs.writeFileSync(filename, JSON.stringify(req.body));
-
-  const [job] = await bigquery
-    .dataset(datasetId)
-    .table(tableId).load(filename);
-
-  // Check the job's status for errors
-  const errors = job.status.errors;
-  if (errors && errors.length > 0) {
-    res.status(500).json({
-      message: "An error has occured trying to process your request"
-    })
-  }else{
-    console.log(`Job ${job.id} completed.`);
-    res.status(200).json({
-      message: "Your message has been saved"
-    });
+})],async(req, res) => {
+  const err = validationResult(req);
+  if(!err.isEmpty()){
+    return res.status(400).json({Message:'Bad Request'})
   }
+  var decrypted = aes256.decrypt(key, req.query.API_KEY);
+  console.log(decrypted);
+  if(decrypted!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
+  }
+  //console.log("hello");
+  req.body['_id'] = generateId(10);
+
+  var query= "INSERT INTO `scriptchain-259015.dataset1.contactUsers` VALUES ("
+  for(var myKey in req.body) {
+    query+="@"+myKey+",";
+
+  }
+  query = query.slice(0,query.length-1);
+  query += ")";
+  console.log(query);
+  const bigQueryOptions = {
+    query: query,
+    params: req.body
+  }
+  bigquery.query(bigQueryOptions, function(err, row) {
+    if(!err) {
+        console.log("In contactUsController[root, POST]: Inserted successfully");;
+        res.status(200).json({
+          message: "Your message has been saved"
+        });
+    }else{
+      console.log(err);
+      res.status(500).json({
+        message: "An error has occured trying to process your request"
+      })
+    }
+  });
 });
 module.exports = router;
