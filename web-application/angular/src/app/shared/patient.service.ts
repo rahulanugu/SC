@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
 import { Patient } from './patient.model';
+import { PatientBasic } from './patient.basic.model';
 import { environment } from 'src/environments/environment';
 
 /**
@@ -32,6 +33,10 @@ export class PatientService {
   readonly checkURL = environment.serverUrl+'patient/verify'
 
   constructor(private http:HttpClient) { }
+
+  getPatient(): Observable<PatientBasic[]>{
+    return this.http.get<PatientBasic[]>(this.baseURL);
+  }
 
   postPatient(pat : Patient){
     // make post request

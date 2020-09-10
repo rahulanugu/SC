@@ -1,11 +1,11 @@
 
 <div>
   <app-patient-navbar></app-patient-navbar> 
-  <h3 style="text-align: center; float: left; padding-left: 17.5%; padding-top: 20px;">Hello Dr. {{providerFirstName}}</h3>
+  <!--<h3 style="text-align: center; float: left; padding-left: 17.5%; padding-top: 20px;">Hello Dr. {{providerFirstName}}</h3>-->
   <!-- <button type="button" (click)="logout()" style="float: right; margin-right: 5%;"class="btn btn-primary btn-sm"><b>Logout</b></button> -->
 </div>
-<sidenav></sidenav>
-<div style="margin:auto; width: 65%; margin-top: 30px;">
+<!--<sidenav></sidenav>-->
+<!--<div style="margin:auto; width: 65%; margin-top: 30px;">
   <app-search-bar (onSelectedOption)="onSelectedOption($event)"></app-search-bar>  
 </div>
   <div *ngFor = "let patient of filteredPatients" class="group">
@@ -14,4 +14,196 @@
     <p><b>Last Name: </b>{{patient.lname}}</p>
     <p><b>Email:  </b>{{patient.Email}}</p>
     <button (click)= "openPatientProfile(patient._id)"> View </button>
-  </div>
+  </div>-->
+  <div class = "container">
+    <div class="row"><h2 style="margin: 2% 38% 0% 38%;"><b>Hello Dr.Noori!</b></h2>
+    <p style="margin-left: 1.5%;"><b>Search your patients here</b></p></div>
+    
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="basic-tab" data-toggle="tab" href="#basic" role="tab" aria-controls="basic"
+          aria-selected="true">Basic</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="advanced-tab" data-toggle="tab" href="#advanced" role="tab" aria-controls="advanced"
+          aria-selected="false">Advanced</a>
+      </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="basic" role="tabpanel" aria-labelledby="basic-tab">
+        <div class="form-row">
+          <div class="col-md-1"></div>
+          <div class="form-group col-md-2">
+            <label for="inputFname"><b>First Name</b></label>
+            <input type="text" class="form-control" id="inputFname">
+          </div>
+          <div class="col-md-1"></div>
+          <div class="form-group col-md-2">
+            <label for="inputLname"><b>Last Name</b></label>
+            <input type="text" class="form-control" id="inputLname">
+          </div>
+          <div class="col-md-1"></div>
+          <div class="form-group col-md-2">
+            <label for="inputdob"><b>Date of Birth</b></label>
+            <input type="text" class="form-control" id="inputdob">
+          </div>
+          <div class="col-md-1"></div>
+          <div class="form-group col-md-1">
+            <label for="inputGender"><b>Gender</b></label>
+            <select class="form-control" id="inputGender">
+              <option selected></option>
+              <option value="1">M</option>
+              <option value="0">F</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-md-10">    
+          </div>
+          <div class="button-grp">
+            <button type="button" class="btn btn-turq">Search</button>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="advanced" role="tabpanel" aria-labelledby="advanced-tab">
+        <div class="form-row">
+          <div class="col-md-1"></div>
+          <div class="form-group col-md-2">
+            <label for="inputFname"><b>First Name</b></label>
+            <input type="text" class="form-control" id="inputFname">
+          </div>
+          <div class="col-md-1"></div>
+          <div class="form-group col-md-2">
+            <label for="inputLname"><b>Last Name</b></label>
+            <input type="text" class="form-control" id="inputLname">
+          </div>
+          <div class="col-md-1"></div>
+          <div class="form-group col-md-2">
+            <label for="inputdob"><b>Date of Birth</b></label>
+            <input type="text" class="form-control" id="inputdob">
+          </div>
+          <div class="col-md-1"></div>
+          <div class="form-group col-md-1">
+            <label for="inputGender"><b>Gender</b></label>
+            <select class="form-control" id="inputGender">
+              <option selected></option>
+              <option value="1">M</option>
+              <option value="0">F</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-md-1"></div>
+          <div class="form-group col-md-1">
+            <label for="inputIdType"><b>ID Type</b></label>
+            <select class="form-control" id="inputIdType">
+              <option selected></option>
+              <option value="1">Type 1</option>
+              <option value="0">Type 2</option>
+            </select>
+          </div>
+          <div class="col-md-2"></div>
+          <div class="form-group col-md-3">
+            <label for="inputid"><b>ID Number</b></label>
+            <input type="text" class="form-control" id="inputid">
+          </div>
+          <div class="col-md-1"></div>
+          <div class="form-group col-md-3">
+            <label for="inputssn"><b>SSN</b></label>
+            <input type="text" class="form-control" id="inputssn">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-md-1"></div>
+          <div class="form-group col-md-2">
+            <label for="inputphone"><b>Phone Number</b></label>
+            <input type="text" class="form-control" id="inputphone">
+          </div>
+          <div class="col-md-1"></div>
+          <div class="form-group col-md-3">
+            <label for="inputemail"><b>Email Address</b></label>
+            <input type="text" class="form-control" id="inputemail">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-md-10">    
+          </div>
+          <div class="button-grp">
+            <button type="button" class="btn btn-turq">Search</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p><b>Today's Patients</b></p>
+    <div class="box">
+      <div class="row">
+        <div class="col-md-2" style="margin-bottom: 1%;"><b>Leslie Wang</b></div>
+        <div class="col-md-2">Driver's License</div>
+        <div class="col-md-2">NHL12345678</div>
+        <div class="col-md-1"></div>
+        <div class="col-md-3">Massachusettes Medical Group</div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">07/16/1970</div>
+        <div class="col-md-2">Last 4 digits of SSN</div>
+        <div class="col-md-2">0010</div>
+        <div class="col-md-1"></div>
+        <div class="col-md-3">Department of Cardiology</div>
+        <div class="col-md-2">
+          <button type="button" class="btn btn-details"(click)= "openPatientProfile(1234)">View Details</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2" style="margin-bottom: 1%;">Female</div>
+        <div class="col-md-2">Phone Number</div>
+        <div class="col-md-2">(123)456-789</div>
+        <div class="col-md-1"></div>
+        <div class="col-md-3">Dr. Beth Smith</div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">New York City, NY</div>
+        <div class="col-md-2">Email Address</div>
+        <div class="col-md-2">Leslie.Wang@gmail.com</div>
+        <div class="col-md-1"></div>
+        <div class="col-md-3">COPD,CHF,Diabetes(Type 2)</div>
+      </div>
+      
+    </div>
+    <!--
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="sno">
+      <th mat-header-cell *matHeaderCellDef> S.No</th>
+      <td mat-cell *matCellDef="let element"> {{element.sno}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="fname">
+      <th mat-header-cell *matHeaderCellDef> First Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.fname}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="lname">
+      <th mat-header-cell *matHeaderCellDef> Last Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.lname}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="sex">
+      <th mat-header-cell *matHeaderCellDef> Gender </th>
+      <td mat-cell *matCellDef="let element"> {{element.sex}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="birthday">
+      <th mat-header-cell *matHeaderCellDef> DOB </th>
+      <td mat-cell *matCellDef="let element"> {{element.birthday}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="view">
+      <th mat-header-cell *matHeaderCellDef> Show View </th>
+      <td mat-cell *matCellDef="let element"> <button (click)= "openPatientProfile(element.view)"> View </button> </td>
+    </ng-container>
+  
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>-->
+</div>
