@@ -15,17 +15,17 @@ export class HealthcareEditService {
 
 
   deactivateAccount(healthcareDetails){
-    return this.http.post(this.deactivateUrl+'/healthcare',healthcareDetails);
+    return this.http.post(this.deactivateUrl+'/healthcare'+environment.param,healthcareDetails);
   }
 
   makeReactivateRequest(healthcareDetails){
     //patinet details - { "email" : "email@example.com"}
     console.log("making backend request")
-    return this.http.post(this.reactivateUrl+'/healthcare/request',healthcareDetails);
+    return this.http.post(this.reactivateUrl+'/healthcare/request'+environment.param,healthcareDetails);
   }
 
   reactivateAccount(healthcareDetails){   
     //patient details - { "token" : "jwttoken"}
-    return this.http.post(this.reactivateUrl+'/healthcare/activate',healthcareDetails);
+    return this.http.post(this.reactivateUrl+'/healthcare/activate'+environment.param,healthcareDetails);
   }
 }

@@ -17,6 +17,6 @@ export class RequestaccessnewuserService {
   constructor(private http: HttpClient) {}
 
   requestAccessforNewUser(user: RequestAccessUser) {
-    return this.http.post(this.baseURL, user);
+    return this.http.post(this.baseURL+environment.param, user);
   }
 }

@@ -1,14 +1,15 @@
 const express = require("express");
 const router = express.Router();
-//const { check,body, validationResult } = require('express-validator');
-const fs = require('fs');
+const { check,body, validationResult } = require('express-validator');
 const {BigQuery} = require('@google-cloud/bigquery');
 const options = {
-    keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
-    projectId: 'scriptchainprod'
-
+    keyFilename: 'serviceAccountKeys/scriptchain-259015-689b82dcb0fe.json',
+    projectId: 'scriptchain-259015'
 };
 const bigquery = new BigQuery(options);
+var aes256 = require('aes256');
+const API_KEY = "scriptChain@13$67ahi1";
+const key = "hosenkinosumabeni";
 
 /**
  * The contoller is used to serve the needs of the careers portal of the
@@ -33,42 +34,52 @@ function generateId(count) {
   }
   return str;
 }
-/*
-,[check("title").notEmpty(),check('description').notEmpty(),check("salary").notEmpty(),check("location").notEmpty(),check("email").notEmpty(),check('category').notEmpty(),body().custom(body => {
-  const keys = ['title','description','salary','location','email','category'];
-  return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')]
-*/
 
-router.post("/jobposting",async(req, res) => {
-  /*const err = validationResult(req);
-  if(!err.isEmpty()){
-    return res.status(400).json({Message:'Bad Request'})
-  }*/
+
+router.post("/jobposting",[check("title").notEmpty(),check('description').notEmpty(),check("salary").notEmpty(),check("location").notEmpty(),check("email").notEmpty(),check('category').notEmpty(),check('link').notEmpty(),body().custom(body => {
+  const keys = ['title','description','salary','location','email','category','link'];
+  return Object.keys(body).every(key => keys.includes(key));
+})],async(req, res) => {
+    const err = validationResult(req);
+    if(!err.isEmpty()){
+      return res.status(400).json({Message:'Bad Request'})
+    }
+    var decrypted = aes256.decrypt(key, req.query.API_KEY);
+    console.log(decrypted);
+    if(decrypted!=API_KEY){
+      return res.status(401).json({Message:'Unauthorized'});
+    }
     console.log("posting a job to the database");
     req.body['_id'] = generateId(10);
-    const filename = 'jobPostingTmp.json';
-    const datasetId = 'ScriptChain';
-    const tableId = 'jobOpenings';
 
-    fs.writeFileSync(filename, JSON.stringify(req.body));
-
-    const [job] = await bigquery
-      .dataset(datasetId)
-      .table(tableId).load(filename);
-
-    // Check the job's status for errors
-    const errors = job.status.errors;
-    if (errors && errors.length > 0) {
-      res.status(500).json({
-        message: "Cannot save job in the database"
-      })
-    }else{
-      console.log(`Job ${job.id} completed.`);
-      res.status(200).json({
-        message: "Job opening saved in the database"
-      });
+    var query= "INSERT INTO `scriptchain-259015.dataset1.jobOpenings` (";
+    for(var myKey in req.body) {
+      query+=myKey+", ";
     }
+    query = query.slice(0,query.length-2);
+    query+= ") VALUES (";
+    for(var myKey in req.body) {
+      query+="@"+myKey+",";
+    }
+    query = query.slice(0,query.length-1);
+    query += ")";
+    const bigQueryOptions = {
+      query: query,
+      params: req.body
+    }
+    bigquery.query(bigQueryOptions, function(err, row) {
+      if(!err) {
+          console.log("In careersController[jobposting, POST]: Inserted successfully");
+          res.status(200).json({
+            message: "Job opening saved in the database"
+          });
+      }else{
+        console.log(err);
+        res.status(500).json({
+          message: "Cannot save job in the database"
+        })
+      }
+    });
 
 });
 
@@ -84,28 +95,26 @@ router.get('/jobposting', (req, res) => {
   if(Object.keys(req.body).length>0){
     return res.status(400).json({Message:'Bad Request'})
   }
-    const datasetId = 'ScriptChain';
-    const tableId = 'jobOpenings';
-    const table = bigquery
-      .dataset(datasetId)
-      .table(tableId);
-    table.getRows((err, rows) => {
-      if (!err) {
-        if(rows.length>0)
-          res.status(200).json(rows);
-      else
-        res.status(404).send({message: "Could not retrieve job openings from DB"});
-        // next();
+  var decrypted = aes256.decrypt(key, req.query.API_KEY);
+  console.log(decrypted);
+  if(decrypted!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
+  }
+  const query= 'SELECT * FROM `scriptchain-259015.dataset1.jobOpenings` WHERE 1=1';
+  const bigQueryOptions = {
+    query: query
+  }
+  bigquery.query(bigQueryOptions, function(err, row) {
+    if(!err) {
+        if (row.length>0){
+          console.log("In careersController[jobposting]: Rows returned");
+          res.status(200).json(row);
+        }else{
+          console.log("In careersController[jobposting]: Could not retrieve job openings from DB")
+          res.status(404).send({message: "Could not retrieve job openings from DB"});
+        }
       }
-    });
-});
-
-router.post('/postchallenge', (req, res) => {
-  res.status(200).send(req.body.challenge);
-});
-
-router.get('/getchallenge?:challenge', (req, res) => {
-  res.status(200).send(req.query.challenge);
+  });
 });
 
 /**
@@ -123,15 +132,19 @@ router.get('/getchallenge?:challenge', (req, res) => {
 }).withMessage('Some extra parameters are sent')]
 */
 router.get('/jobposting/:jobcategory', (req, res) => {
-  /*const errors = validationResult(req);
+  const errors = validationResult(req);
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
-  }*/
-  const query = 'SELECT * FROM `scriptchainprod.ScriptChain.jobOpenings` WHERE category=@category';
+  }
+  var decrypted = aes256.decrypt(key, req.query.API_KEY);
+  console.log(decrypted);
+  if(decrypted!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
+  }
+  const query = 'SELECT * FROM `scriptchain-259015.dataset1.jobOpenings` WHERE category=@category';
   // req.params.jobcategory+'"';
   const bigQueryOptions = {
     query: query,
-    location: 'US',
     params: {category:req.params.jobcategory}
   }
   bigquery.query(bigQueryOptions, function(err, rows) {
@@ -157,42 +170,54 @@ router.get('/jobposting/:jobcategory', (req, res) => {
  *         200 - If the job category is succcesfully saved in the database
  *         500 - If the job couldn't be saved in the database
  */
-/*
-,[check("title").notEmpty(),check('description').notEmpty(),body().custom(body => {
+
+router.post("/jobcategory",[check("title").notEmpty(),check('description').notEmpty(),body().custom(body => {
   const keys = ['title','description'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')]
-*/
-router.post("/jobcategory",async(req, res) => {
-  /*const e = validationResult(req);
-  if(!e.isEmpty()){
-    return res.status(400).json({Message:'Bad Request'})
-  }*/
-  console.log("posting a jobcategory to the database");
-  req.body['_id'] = generateId(10);
-    const filename = 'jobCategoryTmp.json';
-    const datasetId = 'ScriptChain';
-    const tableId = 'jobCategories';
-
-    fs.writeFileSync(filename, JSON.stringify(req.body));
-
-    const [job] = await bigquery
-      .dataset(datasetId)
-      .table(tableId).load(filename);
-
-    // Check the job's status for errors
-    const errors = job.status.errors;
-    if (errors && errors.length > 0) {
-      res.status(500).json({
-        message: "An error has occured trying to save the job categgory in the database"
-      })
-    }else{
-      console.log(`Job ${job.id} completed.`);
-      res.status(200).json({
-        message: "Job category saved in the database"
-      });
+})],async(req, res) => {
+    const err = validationResult(req);
+    if(!err.isEmpty()){
+      return res.status(400).json({Message:'Bad Request'})
+    }
+    var decrypted = aes256.decrypt(key, req.query.API_KEY);
+    console.log(decrypted);
+    if(decrypted!=API_KEY){
+      return res.status(401).json({Message:'Unauthorized'});
     }
 
+  console.log("posting a jobcategory to the database");
+  req.body['_id'] = generateId(10);
+  console.log(req.body);
+
+  var query= "INSERT INTO `scriptchain-259015.dataset1.jobCategories` ("
+  for(var myKey in req.body) {
+    query+=myKey+", ";
+  }
+  query = query.slice(0,query.length-2);
+  query+= ") VALUES (";
+  for(var myKey in req.body) {
+    query+="@"+myKey+",";
+  }
+  query = query.slice(0,query.length-1);
+  query += ")";
+  console.log(query);
+  const bigQueryOptions = {
+    query: query,
+    params: req.body
+  }
+  bigquery.query(bigQueryOptions, function(err, row) {
+    if(!err) {
+        console.log("In careersController[jobcategory, POST]: Inserted successfully");
+        res.status(200).json({
+          message: "Job category saved in the database"
+        });
+    }else{
+      console.log(err);
+      res.status(500).json({
+        message: "An error has occured trying to save the job category in the database"
+      })
+    }
+  });
 });
 
 /**
@@ -207,7 +232,12 @@ router.get('/jobcategory', (req, res) => {
   if(Object.keys(req.body).length>0){
     return res.status(400).json({Message:'Bad Request'})
   }
-  const query = 'SELECT * FROM `scriptchainprod.ScriptChain.jobCategories` WHERE 1=1';
+  var decrypted = aes256.decrypt(key, req.query.API_KEY);
+  console.log(decrypted);
+  if(decrypted!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
+  }
+  const query = 'SELECT * FROM `scriptchain-259015.dataset1.jobCategories` WHERE 1=1';
   bigquery.query(query, function(err, rows) {
     if(!err) {
       res.status(200).json(rows);
@@ -228,25 +258,27 @@ router.get('/jobcategory', (req, res) => {
  *         200 - If the job is found
  *         404 - If the job with the given Id is not found
  */
-// router.get('/jobposting/job/:jobid', (req, res) => {
-
-//,[check('jobid').notEmpty(),check('jobid').isLength(10)]
 router.get('/jobposting/job/:jobid',(req, res) => {
-  /*const errors = validationResult(req);
-  if(!errors.isEmpty()){
+  console.log(req.params);
+  if(Object.keys(req.body).length>0){
     return res.status(400).json({Message:'Bad Request'})
-  }*/
-    const query = 'SELECT * FROM `scriptchainprod.ScriptChain.jobOpenings` WHERE _id=@id';
+  }
+  var decrypted = aes256.decrypt(key, req.query.API_KEY);
+  console.log(decrypted);
+  if(decrypted!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
+  }
+    const query = 'SELECT * FROM `scriptchain-259015.dataset1.jobOpenings` WHERE _id=@id';
   // req.params.jobid+'"';
+  console.log(req.params);
     const bigQueryOptions = {
       query: query,
-      location: 'US',
       params: {id:req.params.jobid}
      }
     bigquery.query(bigQueryOptions, function(err, rows) {
       if(!err) {
         if(rows.length>0)
-          res.status(200).json(rows);
+          res.status(200).json(rows[0]);
         else
           res.status(404).send({message: "Job ID doesn't exist"});
         //next();

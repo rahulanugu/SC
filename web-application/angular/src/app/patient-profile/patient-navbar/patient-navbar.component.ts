@@ -20,7 +20,7 @@ export class PatientNavbarComponent implements OnInit {
   ngOnInit() {
     this.patientData = this._PatientDataService.getPatientVitals();
     this.insuranceExpense = this._PatientDataService.getInsuranceExpenses();
-    console.log(this.patientData[0]);
+    //console.log(this.patientData[0]);
   }
   logout() {
     this._loginPatientService.logOutPatient();

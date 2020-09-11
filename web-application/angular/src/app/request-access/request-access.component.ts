@@ -31,11 +31,16 @@ export class RequestAccessComponent implements OnInit {
       .requestAccessforNewUser(this.requestaccessservice.user)
       .subscribe(
         res => {
-          document.getElementById("rform").remove();
-          document.getElementById("userexistalready").style.display = "none";
-          document.getElementById("requestAccessSuccess").style.display =
-            "block";
-          window.scrollTo(0, 0);
+          if(res['message'].includes("registered")){
+            document.getElementById("userexistalready").style.display = "block";
+            window.scrollTo(0, 0);
+          }else{
+            document.getElementById("rform").remove();
+            document.getElementById("userexistalready").style.display = "none";
+            document.getElementById("requestAccessSuccess").style.display =
+              "block";
+            window.scrollTo(0, 0);
+          }
         },
         err => {
           document.getElementById("userexistalready").style.display = "block";
