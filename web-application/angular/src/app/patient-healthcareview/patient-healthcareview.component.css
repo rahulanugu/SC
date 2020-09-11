@@ -14,8 +14,10 @@
     transform: rotate(135deg);
     -webkit-transform: rotate(135deg);
   }
-  .row {
+  .scrol{
     overflow: scroll;
+  }
+  .row {
     width: 100%;
   }
   .row__inner {
