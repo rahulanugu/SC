@@ -5,6 +5,7 @@
     padding: 15px;
     margin-top:12px;
 }
+
 table {
     width: 100%;
   }
@@ -39,7 +40,7 @@ table {
   }
 
   #myTabContent{
-    padding-top:5%;
+    padding-top:2%;
   }
 
   .box{

@@ -1,3 +1,6 @@
 /* Add application styles & imports to this file! */
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import url( 'https://fonts.googleapis.com/css?family=Roboto:400,700|Material+Icons');
+body{
+    background-color: #f8f9fb;
+}

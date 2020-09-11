@@ -15,7 +15,7 @@
     -webkit-transform: rotate(135deg);
   }
   .scrol{
-    overflow: scroll;
+    overflow-x: scroll;
   }
   .row {
     width: 100%;
@@ -50,25 +50,15 @@
     -o-object-fit: cover;
        object-fit: cover;
   }
+  .tile__img1 {
+    width: 620px;
+    height: 430px;
+    -o-object-fit: cover;
+       object-fit: cover;
+  }
   .tile:hover{
     opacity: 1;
   }
-  /*.row__inner:hover {
-    -webkit-transform: translate3d(-62.5px, 0, 0);
-            transform: translate3d(-62.5px, 0, 0);
-  }
-  .row__inner:hover .tile {
-    opacity: 0.3;
-  }
-  .row__inner:hover .tile:hover {
-    -webkit-transform: scale(1.2);
-            transform: scale(1.2);
-    opacity: 1;
-  }
-  .tile:hover ~ .tile {
-    -webkit-transform: translate3d(125px, 0, 0);
-            transform: translate3d(125px, 0, 0);
-  }*/
 .info{
     padding-left: 5%;
     padding-right: 5%;
@@ -147,4 +137,15 @@ ul#indicators li{
     z-index: 2;
     right:12%;
     margin-top: 15%;
+  }
+
+  .profile{
+    background-color: white;
+    padding: 10px;
+    box-shadow: 4px 5px 6px -6px grey;
+  }
+
+  #readmission_symptoms{
+    padding-left: 0px!important;
+    padding-right: 0px!important;
   }
