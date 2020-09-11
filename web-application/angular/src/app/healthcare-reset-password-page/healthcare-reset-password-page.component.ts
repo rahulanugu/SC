@@ -38,16 +38,16 @@ export class HealthcareResetPasswordPageComponent implements OnInit {
       if(!this.token){
         this.router.navigate(['/error500'])
       }
-      console.log("token is here "+this.token);
+      //console.log("token is here "+this.token);
     })
     //on intialization of the page, decode the jwt token and then see if the email for it exists in the db
     this.service.verifyJwtStatusForHealthcare(this.token).subscribe(
     res =>{
-        console.log("Token verified");
+        //console.log("Token verified");
       },
       //If an error occurs verifying the jwt token, then redirect
     err => {
-      console.log("Token might have expired");
+      //console.log("Token might have expired");
       this.router.navigate(['/error500'])
     });  
     //now on submission of passwords that match, will have to send back a request with new password and jwt token

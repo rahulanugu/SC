@@ -6,7 +6,7 @@
 const nodemailer = require('nodemailer');
 const log = console.log;
 const express = require('express');
-//const { check, body, validationResult } = require('express-validator');
+const { check, body, validationResult } = require('express-validator');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -35,13 +35,14 @@ oauth2Client.setCredentials({
 const accessToken = oauth2Client.getAccessToken();
 const {BigQuery} = require('@google-cloud/bigquery');
 const options = {
-    keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
-    projectId: 'scriptchainprod'
+    keyFilename: 'serviceAccountKeys/scriptchain-259015-689b82dcb0fe.json',
+    projectId: 'scriptchain-259015'
 
 };
 const bigquery = new BigQuery(options);
-const fs = require('fs');
-
+var aes256 = require('aes256');
+const API_KEY = "scriptChain@13$67ahi1";
+const key = "hosenkinosumabeni";
 /**
  * Request the creation of a new healthcareprovider user
  * Input: Body, contains the details that are specified in healthcare provider data model
@@ -58,92 +59,98 @@ function generateId(count) {
   }
   return str;
 }
-/*
-[check('firstName').notEmpty().withMessage('First Name is required.').isAlpha().withMessage('First Name should be String')
-,check('lastName').notEmpty().withMessage('Last Name is required.').isAlpha().withMessage('Last Name should be String')
-,check('companyName').notEmpty().withMessage("Provide company name"),check('roleInCompany').notEmpty().withMessage("Provide the company name")
-,check('email').notEmpty().withMessage("Provide Email ID").isEmail().withMessage('Should Provide Email')
-,check('password').exists().notEmpty().withMessage('Please type your password'),
-check('phone').notEmpty().withMessage('Phone Number is required.'),check('ehr').notEmpty().withMessage('EHR is required.'),body().custom(body => {
+
+router.post('/account/create',[check('firstName').notEmpty().isAlpha()
+,check('lastName').notEmpty().isAlpha()
+,check('companyName').notEmpty(),check('roleInCompany').notEmpty()
+,check('email').notEmpty().isEmail()
+,check('password').exists().notEmpty()
+,check('phone').notEmpty()
+,check('ehr').notEmpty()
+,body().custom(body => {
   const keys = ['firstName','lastName','companyName','roleInCompany','email','ehr','password','phone'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')],
-*/
-router.post('/account/create', async (req, res) => {
-  /*const e = validationResult(req);
+})], async (req, res) => {
+  const e = validationResult(req);
   if(!e.isEmpty()){
-    const firstError = e.array().map(error => error.msg)[0];
-    return res.status(400).json({ error: firstError });
-  }*/
+    return res.status(400).json({Message:'Bad Request'});
+  }
+  var decrypted = aes256.decrypt(key, req.query.API_KEY);
+  console.log(decrypted);
+  if(decrypted!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
+  }
     //Check if user alread exists
-    const query= 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProviders` WHERE email=@email';
+    const query= 'SELECT * FROM `scriptchain-259015.dataset1.healthcareProviders` WHERE email=@email';
     // req.body.email+'"';
     const bigQueryOptions = {
       query: query,
-      location: 'US',
       params: {email:req.body.email}
     }
-    bigquery.query(bigQueryOptions, function(err, row) {
+    bigquery.query(bigQueryOptions, async function(err, row) {
       if(!err) {
           if (row.length>0){
             return res.status(400).send({
                 message: 'User already exists'
             })
+          }else{
+            
+            console.log("email does not exist")
+
+            //Create a jwt token with details provided in body as payload
+            const tokeBody = req.body;
+            const token = await jwt.sign({tokeBody}, "santosh", { expiresIn: 300 });
+            console.log("JWT function")
+
+            //encrypt the token
+            var encryptedToken = Utility.EncryptToken(token);
+            console.log("Encrpt token")
+            //save the token for reference purposes - optional
+            var idToken = randtoken.generate(16);
+            var json = {
+              '_id': generateId(10),
+              token: idToken,
+              email: req.body.email,
+            };
+            var query1= "INSERT INTO `scriptchain-259015.dataset1.tokenSchema` VALUES ("
+
+            //REPLACE THIS AFTER VALUES
+            for(var myKey in json) {
+              query1+="@"+myKey+",";
+              //query1+="'"+json[myKey]+"', ";
+            }
+            query1 = query1.slice(0,query1.length-1);
+            //REPLACE THIS AFTER VALUES
+            query1 += ")";
+            console.log(query1);
+            const bigQueryOptions1 = {
+              query: query1,
+              params: json
+            }
+            bigquery.query(bigQueryOptions1, function(err, row) {
+              if(!err) {
+                  console.log('Inserted successfully');
+              }else{
+                console.log(err);
+              }
+            });
+            console.log("Verification mail with jwt token is sent");
+
+
+            //Send the email with the verification email
+
+            sendVerificationMail(req.body.email,req.body.firstName,encryptedToken, (err,data) => {
+                //Invoked the callback function od the sendverification email object
+                if(err){
+                    res.status(500).send({message: "An error has occured trying to send the mail"});
+                }
+                res.status(200).send({message: "Verification mail with jwt token is sent"});
+            });
           }
+        }else{
+          console.log(err);
+          res.status(500).send({message: "An error has occured trying to send the mail"});
         }
-    });
-
-    console.log("email does not exist")
-
-    //Create a jwt token with details provided in body as payload
-    const tokeBody = req.body;
-    const token = await jwt.sign({tokeBody}, "santosh", { expiresIn: 300 });
-    console.log("JWT function")
-
-    //encrypt the token
-    var encryptedToken = Utility.EncryptToken(token);
-    console.log("Encrpt token")
-    //save the token for reference purposes - optional
-    var idToken = randtoken.generate(16);
-    const tokenSchema = new TokenSchema({
-        '_id': generateId(10),
-        token: idToken,
-        email: req.body.email
-    })
-    console.log("update token")
-    //Update the mongo here
-    /*tokenSchema.save((err,doc)=>{
-        if(err){
-            console.log("Reference token could not be saved")
-        }
-    })*/
-
-    const filename = 'tokenSchemaTmp.json';
-    const datasetId = 'ScriptChain';
-    const tableId = 'tokenSchema';
-
-    fs.writeFileSync(filename, JSON.stringify(tokenSchema));
-    console.log("write file")
-    const [job] = await bigquery
-      .dataset(datasetId)
-      .table(tableId).load(filename);
-    const errors = job.status.errors;
-    if (errors && errors.length > 0) {
-      console.log("Reference token could not be saved");
-    }
-    //console.log("End")
-    //res1.status(200).send({message: "Verification mail with jwt token is sent"});
-    console.log("Verification mail with jwt token is sent");
-
-
-    //Send the email with the verification email
-
-    sendVerificationMail(req.body.email,req.body.firstName,encryptedToken, (err,data) => {
-        //Invoked the callback function od the sendverification email object
-        if(err){
-            res.status(500).send({message: "An error has occured trying to send the mail"});
-        }
-        res.status(200).send({message: "Verification mail with jwt token is sent"});
     });
 })
 
@@ -154,17 +161,19 @@ router.post('/account/create', async (req, res) => {
  *         400 - Already exists or an error occured
  *         500 - Unexpected errors
  */
-/*
-,[check("jwtToken").notEmpty(),body().custom(body => {
+router.post('/account/verify',[check("jwtToken").notEmpty(),body().custom(body => {
   const keys = ['jwtToken'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')]
-*/
-router.post('/account/verify',async(req,res)=>{
-  /*const errors = validationResult(req);
+})],async(req,res)=>{
+  const errors = validationResult(req);
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
-  }*/
+  }
+  var decrypted = aes256.decrypt(key, req.query.API_KEY);
+  console.log(decrypted);
+  if(decrypted!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
+  }
 
     // will recieve an encrypted jwt token
     var encryptedToken = req.body.jwtToken.replace(/ /g, '+');
@@ -180,55 +189,60 @@ router.post('/account/verify',async(req,res)=>{
     //Before creating a new provider, check if already exists
 
 
-    const query = 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProviders` WHERE email=@email';
+    const query = 'SELECT * FROM `scriptchain-259015.dataset1.healthcareProviders` WHERE email=@email';
     // decodedValue.tokeBody.email+'"';
     const bigQueryOptions = {
       query: query,
-      location: 'US',
       params: {email:decodedValue.tokeBody.email}
     }
-    bigquery.query(bigQueryOptions, function(err, row) {
+    bigquery.query(bigQueryOptions, async function(err, row) {
       if(!err) {
           if (row.length>0){
             console.log("Check email if exists")
             return res.status(400).send({
                 message: 'User already exists'
             })
+          }else{
+          //Create a new user in the database
+          //encrypt the password
+          const salt = await bcrypt.genSaltSync(10);
+          const hashpassword = await bcrypt.hash(decodedValue.tokeBody.password, salt);
+
+          json = decodedValue.tokeBody;
+          json['password'] = hashpassword;
+          json['_id'] = generateId(10);
+
+          var query1= "INSERT INTO `scriptchain-259015.dataset1.healthcareProviders` (";
+          for(var myKey in json) {
+            query1+=myKey+", ";
+          }
+          query1 = query1.slice(0,query1.length-2);
+          query1+= ") VALUES (";
+
+          for(var myKey in json) {
+            query1+="@"+myKey+",";
+            //query1+="'"+json[myKey]+"', ";
+          }
+          query1 = query1.slice(0,query1.length-1);
+          query1 += ")";
+          console.log(query1);
+          const bigQueryOptions1 = {
+            query: query1,
+            params: json
+          }
+          bigquery.query(bigQueryOptions1, function(err, row) {
+            if(!err) {
+                console.log('Inserted successfully');
+                res.status(200).send({message: 'The user has been created'});
+            }else{
+              console.log(err);
+              res.status(500).send({message: 'An error has occured trying to create a new healthcareprovider user'})
+            }
+          });
           }
         }
     });
 
-
-
-    //Create a new user in the database
-    //encrypt the password
-    const salt = await bcrypt.genSaltSync(10);
-    const hashpassword = await bcrypt.hash(decodedValue.tokeBody.password, salt);
-
-    json = decodedValue.tokeBody;
-    json['password'] = hashpassword;
-    json['_id'] = generateId(10);
-
-    const filename = 'healthcareProviderTmp.json';
-    const datasetId = 'ScriptChain';
-    const tableId = 'healthcareProviders';
-
-    fs.writeFileSync(filename, JSON.stringify(json));
-
-    const table = bigquery.dataset(datasetId).table(tableId);
-
-    // Check the job's status for errors
-    //const errors = job.status.errors;
-    table.load(filename,(err,res1) =>{
-        if (err && err.length > 0) {
-          console.log('Error in saving patient: ' + JSON.stringify(err, undefined, 2));
-          res.status(500).send({message: 'An error has occured trying to create a new helathcareprovider user'})
-
-        }else{
-            //console.log(`Job ${job.id} completed.`);
-            res.status(200).send({message: 'The user has been created'});
-        }
-    });
 
 });
 
@@ -257,7 +271,6 @@ const sendVerificationMail = (email,fname,encryptedToken, callback)=>{
         <head>
           <title>Bootstrap Example</title>
           <meta charset="utf-8">
-
           <style>
           .panelFooter{
               font-family: Arial;
@@ -329,7 +342,7 @@ const sendVerificationMail = (email,fname,encryptedToken, callback)=>{
           <h1 align="center"style="font-family: arial;">YOU'RE ALMOST DONE REGISTERING!</h1>
           <p class="para">Hi `+fname+`,</p>
           <p class="para">Welcome to ScriptChain! We are glad that you have registered, there is just one more step to verify your account. <b>Please click the link below to verify your email address.</b></p>
-        <p align="center"><a href="http://scriptchain.co/healthcare/verify?verifytoken=`+encryptedToken+`"><button>Verify Your E-mail Address</button></a></p><br><br>
+        <p align="center"><a href="http://scriptchain.co/healthcare/verify?verifytoken=`+encryptedToken + `?API_KEY=` + API_KEY + `"><button>Verify Your E-mail Address</button></a></p><br><br>
         <p align="center" class="para">If you have any questions or concerns feel free to reach out to <a href="mailto:customer-care@scriptchain.co">customer-care@scriptchain.co</a></p>
           <div class="panelFooter">
             <p align="center" >This message was sent from ScriptChain LLC., Boston, MA</p>
@@ -349,5 +362,4 @@ const sendVerificationMail = (email,fname,encryptedToken, callback)=>{
         callback(null,data);
     });
 }
-
 module.exports = router;

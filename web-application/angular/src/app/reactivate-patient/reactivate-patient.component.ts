@@ -27,18 +27,18 @@ export class ReactivatePatientComponent implements OnInit {
   }
 
   reactivateUser(userToken){
-    console.log("reactivateuser() invoked")
+    //console.log("reactivateuser() invoked")
     const patientdetails = {
       token : userToken
     }
     this.patientEditService.reactivateAccount(patientdetails).subscribe(
       response => {
-        console.log("successfully reactivated the account");
+        //console.log("successfully reactivated the account");
       },
 
       error => {
-        console.log(error)
-        console.log("An error occured trying to reactivate")
+        //console.log(error)
+        //console.log("An error occured trying to reactivate")
         this._router.navigate(['error500'])
       }
     );

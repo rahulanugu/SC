@@ -1,53 +1,56 @@
 const express = require('express');
-//const { check,body,validationResult } = require('express-validator');
+const { check,body,validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 var router = express.Router();
 const {BigQuery} = require('@google-cloud/bigquery');
 const options = {
-    keyFilename: 'serviceAccountKeys/scriptchainprod-96d141251382.json',
-    projectId: 'scriptchainprod'
+    keyFilename: 'serviceAccountKeys/scriptchain-259015-689b82dcb0fe.json',
+    projectId: 'scriptchain-259015'
 
 };
 const bigquery = new BigQuery(options);
-const fs = require('fs');
+var aes256 = require('aes256');
+const API_KEY = "scriptChain@13$67ahi1";
+const key = "hosenkinosumabeni";
 /**
  * Authenticate the healthcare user login attempt
  * Input: Body containing username and password.
  * Output: Jwt token and 200 status on success or 401 on failure
  */
-/*
-,[check('emailAddress').notEmpty().isEmail(),check('password').notEmpty(),body().custom(body => {
+router.post('/',[check('emailAddress').notEmpty().isEmail(),check('password').notEmpty(),body().custom(body => {
   const keys = ['emailAddress','password'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')]
-*/
-router.post('/',async (req, res) => {
-  /*const errors = validationResult(req);
+})],async (req, res) => {
+  console.log(req.query);
+  const errors = validationResult(req);
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
-  }*/
+  }
+  var decrypted = aes256.decrypt(key, req.query.API_KEY);
+  console.log(decrypted);
+  if(decrypted!=API_KEY){
+    return res.status(401).json({Message:'Unauthorized'});
+  }
     try{
     console.log("Reached the login controller for the healthcare")
     console.log(req.body);
     //const healthcareProvider = await HealthcareProvider.findOne({ email: req.body.emailAddress });
 
-    const query = 'SELECT * FROM `scriptchainprod.ScriptChain.healthcareProviders` WHERE email=@email';
+    const query = 'SELECT * FROM `scriptchain-259015.dataset1.healthcareProviders` WHERE email=@email';
     // req.body.emailAddress+'"';
     const bigQueryOptions = {
       query: query,
-      location: 'US',
       params: {email:req.body.emailAddress}
     }
     // console.log("require bigQueryoptions");
     bigquery.query(bigQueryOptions, async function(err, rows) {
       if(!err) {
         if(rows.length==0){
-          const query1 = 'SELECT * FROM `scriptchainprod.ScriptChain.deactivatedHealthcareProvider` WHERE email=@email';
+          const query1 = 'SELECT * FROM `scriptchain-259015.dataset1.deactivatedHealthcareProvider` WHERE email=@email';
           // req.body.emailAddress+'"';
           const bigQueryOptions1 = {
             query: query1,
-            location: 'US',
             params: {email:req.body.emailAddress}
           }
           bigquery.query(bigQueryOptions1, function(err, rows1) {
@@ -98,17 +101,15 @@ router.post('/',async (req, res) => {
  * Input: JwtToken
  * Output: 200 on success , 401,400 on error
  */
-/*
-,[check("jwtToken").notEmpty(),body().custom(body => {
+router.post('/verifytokenintegrity',[check("jwtToken").notEmpty(),body().custom(body => {
   const keys = ['jwtToken'];
   return Object.keys(body).every(key => keys.includes(key));
-}).withMessage('Some extra parameters are sent')]
-*/
-router.post('/verifytokenintegrity',async(req,res)=>{
-  /*const errors = validationResult(req);
+})],async(req,res)=>{
+  const errors = validationResult(req);
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
-  }*/
+  }
+
 
     console.log("Verifying the integrity of the jwt token")
     console.log(req.body.jwtToken);

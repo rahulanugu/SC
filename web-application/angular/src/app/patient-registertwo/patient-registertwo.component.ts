@@ -248,7 +248,7 @@ export class PatientRegistertwoComponent implements OnInit {
   }
 
   goBackOne() {
-    console.log("go back one");
+    //console.log("go back one");
     this.myFunction();
 
     let stored = JSON.parse(localStorage.getItem("Patient-info"));
@@ -320,7 +320,7 @@ export class PatientRegistertwoComponent implements OnInit {
   }
 
   showSecond() {
-    console.log("enter showSecond");
+    //console.log("enter showSecond");
     this.myFunction();
     // document.getElementById("part1").style.visibility="hidden";
     document.getElementById("part2").style.visibility = "visible";
@@ -332,6 +332,6 @@ export class PatientRegistertwoComponent implements OnInit {
 
   // Submit step 2/3
   onSubmit2(form: NgForm) {
-    console.log("form 2 sumbitted");
+    //console.log("form 2 sumbitted");
   }
 }

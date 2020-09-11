@@ -43,6 +43,8 @@ export class HealthcareProfileComponent implements OnInit {
   }
 
   ngOnInit() {
+    //localStorage.setItem('code',window.location.href.split("?")[1]);
+    //console.log(localStorage.getItem('code'));
     this.providerFirstName = localStorage.getItem('fname');
     this.dataService.getPosts().subscribe(posts => {
       this.allPatients = posts
@@ -58,17 +60,14 @@ export class HealthcareProfileComponent implements OnInit {
   }
 
   onSelectedOption(e) {
-
-    console.log("checking datakkks "+this.dataService.searchOption)
-
-    //The search filtter is recieved and put in k here
+  //The search filtter is recieved and put in k here
     var k = e[1];
     this.getFilteredExpenseList(k);
   }
 
   getFilteredExpenseList(searchFilter) {
     //function to get the data from searchbar component
-    console.log("Search flter that should be used is "+searchFilter)
+    //console.log("Search flter that should be used is "+searchFilter)
     if (this.dataService.searchOption.length > 0)
       {this.allPatients = this.dataService.filteredListOptions(searchFilter);
       this.filteredPatients = this.allPatients;}
@@ -76,11 +75,11 @@ export class HealthcareProfileComponent implements OnInit {
       this.allPatients = this.dataService.postsData;
     }
 
-    console.log(this.allPatients)
+    //console.log(this.allPatients)
   }
 
   openPatientProfile(patientId){
-    console.log("patientId being rtried to access is "+patientId)
+    //console.log("patientId being rtried to access is "+patientId)
     this.router.navigate(["healthcare-profile/patient/",patientId]);
   }
 

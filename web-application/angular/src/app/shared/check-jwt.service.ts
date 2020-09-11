@@ -20,14 +20,14 @@ export class CheckJwtService {
       const reqBody = {
         "token": str
       }
-      return this.http.post(this.baseURL,reqBody);
+      return this.http.post(this.baseURL+environment.param,reqBody);
     }
 
     verifyJwtStatusForHealthcare(str) {
       const reqBody = {
         "token": str
       }
-      return this.http.post(this.baseUrlHealthcare,reqBody);
+      return this.http.post(this.baseUrlHealthcare+environment.param,reqBody);
     }
   
 }
