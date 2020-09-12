@@ -18,24 +18,28 @@ export class PatientHealthcareviewComponent implements OnInit {
       this.bottomdiv = false;
       this.bottomdiv3 = false;
       this.bottomdiv4 = false;
+      window.scrollTo({top:document.body.scrollHeight,behavior: 'smooth'});
    }
    displaybelow3(){
     this.bottomdiv3 = !this.bottomdiv3;
     this.bottomdiv = false;
     this.bottomdiv2 = false;
     this.bottomdiv4 = false;
+    window.scrollTo({top:document.body.scrollHeight,behavior: 'smooth'});
  }
     displaybelow4(){
        this.bottomdiv4 = !this.bottomdiv4;
        this.bottomdiv = false;
        this.bottomdiv3 = false;
        this.bottomdiv2 = false;
+       window.scrollTo({top:document.body.scrollHeight,behavior: 'smooth'});
     }
     displaybelow(){
        this.bottomdiv = !this.bottomdiv;
        this.bottomdiv2 = false;
        this.bottomdiv3 = false;
        this.bottomdiv4 = false;
+       window.scrollTo({top:document.body.scrollHeight,behavior: 'smooth'});
     }
     scrollRight(){
        var e = <HTMLDivElement> (document.getElementById("scroller"));
