@@ -47,14 +47,14 @@
   .tile__img {
     width: 600px;
     height: 400px;
-    -o-object-fit: cover;
-       object-fit: cover;
+    -o-object-fit: fill;
+       object-fit: fill;
   }
   .tile__img1 {
     width: 620px;
     height: 430px;
-    -o-object-fit: cover;
-       object-fit: cover;
+    -o-object-fit: fill;
+       object-fit: fill;
   }
   .tile:hover{
     opacity: 1;
