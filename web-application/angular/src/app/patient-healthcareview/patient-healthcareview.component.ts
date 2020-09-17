@@ -186,6 +186,11 @@ export class PatientHealthcareviewComponent implements OnInit {
           stacking: 'normal',
           pointWidth: 30,
           pointPadding: 0.2,
+          events:{
+             click: function (event) {
+                  document.getElementById("dataToPlace").innerHTML = " ("+this.data[event.point.index].category+")";
+            }
+          }
         },
      ]
   };
@@ -196,10 +201,7 @@ export class PatientHealthcareviewComponent implements OnInit {
         type: 'bar'
       },
       title: {
-         text: 'Historic World Population by Region'
-      },
-      subtitle : {
-         text: 'Source: Wikipedia.org'
+         text: 'Historic Patient Data'
       },
       legend : {
          layout: 'vertical',
@@ -212,13 +214,13 @@ export class PatientHealthcareviewComponent implements OnInit {
 
          },
          xAxis:{
-            categories: ['Africa', 'America', 'Asia', 'Europe', 'Oceania'], title: {
+            categories: ['Kidney Risk', 'Liver Risk', 'Heart Risk', 'Brain Risk', 'Lung Risk'], title: {
             text: null
          }
       },
       yAxis : {
          min: 0, title: {
-            text: 'Population (millions)', align: 'high'
+            text: 'Risk', align: 'high'
          },
          labels: {
             overflow: 'justify'
@@ -242,15 +244,15 @@ export class PatientHealthcareviewComponent implements OnInit {
       },
       series: [
          {
-            name: 'Year 1800',
+            name: 'Year 2017',
             data: [107, 31, 635, 203, 2]
          },
          {
-            name: 'Year 1900',
+            name: 'Year 2018',
             data: [133, 156, 947, 408, 6]
          },
          {
-            name: 'Year 2008',
+            name: 'Year 2019',
             data: [973, 914, 4054, 732, 34]
          }
       ]
@@ -262,7 +264,7 @@ export class PatientHealthcareviewComponent implements OnInit {
          plotShadow: false
       },
       title : {
-         text: 'Browser market shares at a specific website, 2014'
+         text: 'Hospitals visited'
       },
       tooltip : {
          pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -277,19 +279,13 @@ export class PatientHealthcareviewComponent implements OnInit {
       },
       series : [{
          type: 'pie',
-         name: 'Browser share',
+         name: 'Hospitals share',
          data: [
-            ['Firefox',   45.0],
-            ['IE',       26.8],
-            {
-               name: 'Chrome',
-               y: 12.8,
-               sliced: true,
-               selected: true
-            },
-            ['Safari',    8.5],
-            ['Opera',     6.2],
-            ['Others',      0.7]
+            ['Stony Brook',   45.0],
+            ['Mayo Clinic',    26.8],
+            ['Cleveland Clinic',    8.5],
+            ['Johns Hopkins Hospital',     6.2],
+            ['MA General Hospital',      0.7]
          ]
       }]
    };
