@@ -48,14 +48,18 @@
          
       </div>
       <div class="tile__media" style="padding-left: 10px;padding-top: 14px;box-shadow: 4px 5px 6px -6px grey;">
-         <img src="../../assets/images/img0.jpg" class="tile__img1">
+         <highcharts-chart
+            [Highcharts] = "highcharts2" 
+            [options] = "chartOptions2" 
+            style = "display: block; ">
+         </highcharts-chart>
       </div>
      </div>
    </div>
    <div class="row">
       <div class="col-md-12 info" style="padding:20px;background-color: white;box-shadow: 4px 5px 6px -6px grey;">
          <h2 style="text-align:center;">COPD Analysis</h2><br>
-         <h4>Patient's Information</h4><br>
+         <h4>Patient's Information<span id="dataToPlace"></span></h4><br>
          <ul>
             <li>Lab Results&emsp;LDL/Cholestrol: <span style="color:red">185</span>mg/mL
                &emsp;|&emsp;LDR(Real)-C: <span style="color:red">166</span>mg/mL
