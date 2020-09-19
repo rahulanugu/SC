@@ -43,8 +43,8 @@ export class HealthcareProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    //localStorage.setItem('code',window.location.href.split("?")[1]);
-    //console.log(localStorage.getItem('code'));
+    localStorage.setItem('code',window.location.href.split("?")[1]);
+    console.log(localStorage.getItem('code'));
     this.providerFirstName = localStorage.getItem('fname');
     this.dataService.getPosts().subscribe(posts => {
       this.allPatients = posts
