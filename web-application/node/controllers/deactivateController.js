@@ -8,7 +8,7 @@ const options = {
     projectId: 'scriptchain-259015'
 
 };
-const bigquery = new BigQuery(options);
+const bigquery = new BigQuery();
 var aes256 = require('aes256');
 const API_KEY = "scriptChain@13$67ahi1";
 const key = "hosenkinosumabeni";

@@ -27,9 +27,7 @@ table {
   .btn-turq{
     background-color: teal;
     color:white;
-    padding-left: 40%;
-    padding-right: 40%;
-    margin-left: -3%;
+    width:100px;
   }
   .button-grp{
     margin-top: 2%;
