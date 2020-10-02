@@ -14,11 +14,6 @@ const OAuth2 = google.auth.OAuth2;
 const randtoken = require('rand-token');
 var Utility = require('../utility');
 const {BigQuery} = require('@google-cloud/bigquery');
-const options = {
-    keyFilename: 'serviceAccountKeys/scriptchain-259015-689b82dcb0fe.json',
-    projectId: 'scriptchain-259015'
-
-};
 const bigquery = new BigQuery();
 const oauth2Client = new OAuth2(
     "Y16828344230-21i76oqle90ehsrsrpptnb8ek2vqfjfp.apps.googleusercontent.com",
