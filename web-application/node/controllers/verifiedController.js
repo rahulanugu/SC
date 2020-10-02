@@ -13,7 +13,7 @@ const options = {
 var aes256 = require('aes256');
 const API_KEY = "scriptChain@13$67ahi1";
 const key = "hosenkinosumabeni";
-const bigquery = new BigQuery(options);
+const bigquery = new BigQuery();
 function generateId(count) {
     var _sym = 'abcdefghijklmnopqrstuvwxyz1234567890';
     var str = '';

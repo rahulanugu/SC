@@ -9,7 +9,7 @@ const options = {
     projectId: 'scriptchain-259015'
 
 };
-const bigquery = new BigQuery(options);
+const bigquery = new BigQuery();
 var aes256 = require('aes256');
 const API_KEY = "scriptChain@13$67ahi1";
 const key = "hosenkinosumabeni";
@@ -80,7 +80,6 @@ router.post('/',[check('emailAddress').notEmpty().isEmail(),check('password').no
           });
 
           const token = jwt.sign({ _id: healthcareProvider._id, fname: healthcareProvider.firstName }, 'abc', { expiresIn: 60*60*3 });
-
           res.status(200).json({
               idToken: token,
               firstName: healthcareProvider.firstName

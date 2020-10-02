@@ -19,6 +19,9 @@ export class HealthcareProfileComponent implements OnInit {
   providerFirstName: string;
   dataSource: MatTableDataSource<Object>;
   displayedColumns: string[] = ['sno','fname', 'lname', 'sex','birthday','view'];
+  fName: string;
+  lName: string;
+  dob: string;
 
   constructor(
     private dataService: DataService,
@@ -49,6 +52,13 @@ export class HealthcareProfileComponent implements OnInit {
     this.dataService.getPosts().subscribe(posts => {
       this.allPatients = posts
       this.dataService.postsData = posts
+    });
+  }
+
+  search(){
+    //console.log("test");
+    this.service.search(this.fName,this.lName,this.dob).subscribe(res=>{
+        console.log(res);
     });
   }
 
