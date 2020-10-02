@@ -19,7 +19,7 @@ const options = {
     projectId: 'scriptchain-259015'
 
 };
-const bigquery = new BigQuery(options);
+const bigquery = new BigQuery();
 const oauth2Client = new OAuth2(
     "Y16828344230-21i76oqle90ehsrsrpptnb8ek2vqfjfp.apps.googleusercontent.com",
     "ZYdS8bspVNCyBrSnxkMxzF2d",
