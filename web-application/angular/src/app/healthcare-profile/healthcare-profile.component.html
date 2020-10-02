@@ -31,63 +31,75 @@
     </ul>
     <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade show active" id="basic" role="tabpanel" aria-labelledby="basic-tab" 
-      style="box-shadow: 4px 5px 6px -6px grey;">
+      style="box-shadow: 1px 1px 10px 3px lightgray;">
         <div class="form-row" style="padding-top: 3%;">
           <div class="col-md-1"></div>
           <div class="form-group col-md-2">
             <label for="inputFname"><b>First Name</b></label>
-            <input type="text" class="form-control" id="inputFname">
+            <input type="text" class="form-control" id="inputFname" [(ngModel)]="fName">
           </div>
           <div class="col-md-1"></div>
           <div class="form-group col-md-2">
             <label for="inputLname"><b>Last Name</b></label>
-            <input type="text" class="form-control" id="inputLname">
+            <input type="text" class="form-control" id="inputLname" [(ngModel)]="lName">
           </div>
           <div class="col-md-1"></div>
           <div class="form-group col-md-2">
-            <label for="inputdob"><b>Date of Birth</b></label>
-            <input type="text" class="form-control" id="inputdob">
+            <label for="inputstart"><b>Date of Birth</b></label>
+            <input type="text" class="form-control" id="inputdob" [(ngModel)]="dob">
           </div>
           <div class="col-md-1"></div>
           <div class="form-group col-md-1">
             <label for="inputGender"><b>Gender</b></label>
-            <select class="form-control" id="inputGender">
+            <select class="form-control" id="inputGenderadv">
               <option selected></option>
               <option value="1">M</option>
               <option value="0">F</option>
             </select>
           </div>
         </div>
+        <div class="form-row" style="padding-top: 3%;"> 
+          <div class="col-md-1"></div>
+          <div class="form-group col-md-2">
+            <label for="inputstart"><b>Start date</b></label>
+            <input type="text" class="form-control" id="inputstart">
+          </div>
+          <div class="col-md-1"></div>
+          <div class="form-group col-md-2">
+            <label for="inputend"><b>End date</b></label>
+            <input type="text" class="form-control" id="inputend">
+          </div>
+        </div>
         <div class="form-row">
           <div class="col-md-10">    
           </div>
           <div class="button-grp">
-            <button type="button" class="btn btn-turq">Search</button>
+            <button type="button" (click)="search()" class="btn btn-turq">Search</button>
           </div>
         </div>
       </div>
       <div class="tab-pane fade" id="advanced" role="tabpanel" aria-labelledby="advanced-tab" 
-      style="box-shadow: 4px 5px 6px -6px grey;">
+      style="box-shadow: 1px 1px 10px 3px lightgray;">
         <div class="form-row" style="padding-top: 3%;">
           <div class="col-md-1"></div>
           <div class="form-group col-md-2">
             <label for="inputFname"><b>First Name</b></label>
-            <input type="text" class="form-control" id="inputFname">
+            <input type="text" class="form-control" id="inputFnameadv">
           </div>
           <div class="col-md-1"></div>
           <div class="form-group col-md-2">
             <label for="inputLname"><b>Last Name</b></label>
-            <input type="text" class="form-control" id="inputLname">
+            <input type="text" class="form-control" id="inputLnameadv">
           </div>
           <div class="col-md-1"></div>
           <div class="form-group col-md-2">
             <label for="inputdob"><b>Date of Birth</b></label>
-            <input type="text" class="form-control" id="inputdob">
+            <input type="text" class="form-control" id="inputdobadv">
           </div>
           <div class="col-md-1"></div>
           <div class="form-group col-md-1">
             <label for="inputGender"><b>Gender</b></label>
-            <select class="form-control" id="inputGender">
+            <select class="form-control" id="inputGenderadv">
               <option selected></option>
               <option value="1">M</option>
               <option value="0">F</option>
@@ -138,7 +150,7 @@
     </div>
     <br>
     <p><b>Today's Patients</b></p>
-    <div class="box" style="padding:10px;box-shadow: 4px 5px 6px -6px grey;">
+    <div class="box" style="padding:10px;box-shadow: 1px 1px 10px 3px lightgray;">
       <div class="row">
         <div class="col-md-2" style="margin-bottom: 1%;"><b>Leslie Wang</b></div>
         <div class="col-md-2"><b>Driver's License</b></div>
