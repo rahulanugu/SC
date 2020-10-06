@@ -40,6 +40,7 @@ export class HealthcareLoginComponent implements OnInit {
     console.log(this.Form.value);
     this.healthcareLoginService.healthcareProviderLogin(this.Form.value).subscribe(
       res => {
+        console.log("test");
         localStorage.setItem('token',res["idToken"])
         localStorage.setItem('fname',res["firstName"])
         localStorage.setItem('email', this.Form.value.emailAddress)
@@ -50,7 +51,7 @@ export class HealthcareLoginComponent implements OnInit {
         //this.router.navigate(['healthcare-profile'])
       },
       err => {
-        //console.log(err)
+        console.log(err)
         //console.log("Error is")
         //console.log(err)
         if(err.status == 401){
