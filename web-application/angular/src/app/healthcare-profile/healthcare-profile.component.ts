@@ -5,7 +5,7 @@ import { PatientService } from '../shared/patient.service';
 import { Router } from '@angular/router';
 import { PatientBasic } from '../shared/patient.basic.model';
 import {MatTableDataSource} from '@angular/material';
-import { HttpClient, } from '@angular/common/http';
+import { HttpClient,HttpHeaders} from '@angular/common/http';
 
 @Component({
   selector: 'app-healthcare-profile',
@@ -49,12 +49,16 @@ export class HealthcareProfileComponent implements OnInit {
 
   ngOnInit() {
     localStorage.setItem('code',window.location.href.split("?")[1].split("=")[1]);
-    console.log(localStorage.getItem('code'));
-    var obj={'grant_type':'authorization_code','code':localStorage.getItem('code'),
-  'redirect_uri':'https://www.scriptchain.co/healthcare-profile','client_id':'788a5f45-8fcc-4ad9-bce6-e7eeefc8ac41'};
-    this.http.post("https://fhir.epic.com/interconnect-fhir-oauth/oauth2/token", obj).subscribe(
+    //localStorage.setItem('code','eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ1cm46b2lkOmZoaXIiLCJjbGllbnRfaWQiOiI3ODhhNWY0NS04ZmNjLTRhZDktYmNlNi1lN2VlZWZjOGFjNDEiLCJlcGljLmVjaSI6InVybjplcGljOlVTQ0RJLW9uLUZISVIiLCJlcGljLm1ldGFkYXRhIjoiV0Zpa0lCckdoVzd6bDVoTVcyZGM4azZadG5HajlveWtWX0xTbElIdzFJcDRPd0RJMEExckZEbU9PbnY4YmlHajRxREJjVUF4azc4RUc2eTlONERWZU9fdjFndGs3YzZFc0FwczJmMkNfWDNfdF9yM1laUDB5QngxMGNwaGxGc2wiLCJlcGljLnRva2VudHlwZSI6ImNvZGUiLCJleHAiOjE2MDIwMTIyODksImlhdCI6MTYwMjAxMTk4OSwiaXNzIjoidXJuOm9pZDpmaGlyIiwianRpIjoiMDZkYzUyNTYtZDA2Yy00MzVmLThiYjktODUyZjYxNmQ5Mjc0IiwibmJmIjoxNjAyMDExOTg5LCJzdWIiOiJlbVNqckVEMEVCWlAybFU3ZVN5UEU2dzMifQ.TN9BWYw5oSX_U4BDOz-j2G9tJwv6uv56JZ213njW93ql7EvX-eHuV1aa7bOIrJoF8iGO4x54DoAAec5NMbvJE-XD_dZ6mFMQoVRhAuc8orPQuBZBWrNmyvftHAhgwlgPPeDC6q3OgJc3dpjh497jbLeTBms2xK9sNEIyfevUZfVurouxN5KlyHzFcw1HAdXfyixeEr03ONRCuxB60T8gl2x8z7ymWKg7vz1oRtqtU_2Z7ePRZp29lwEaADiFXdvXwJyhnTUejSNKdmggxV6btRZUcdnUDtn0yXRavAjw5Y6XCj2g0b40aLLaOLkNqltrCXi2xdOvejKFpTh_yPzJlw');
+    const code = localStorage.getItem('code');
+    const headers = {'Content-Type': 'application/x-www-form-urlencoded'};
+    const body=`grant_type=authorization_code&code=${code}&redirect_uri=https://www.scriptchain.co/healthcare-profile&client_id=788a5f45-8fcc-4ad9-bce6-e7eeefc8ac41`;
+    this.http.post("https://fhir.epic.com/interconnect-fhir-oauth/oauth2/token", body,{headers}).subscribe(
       res => {
+        console.log(res);
         localStorage.setItem('access_token',res["access_token"]);
+      },err=>{
+        console.log(err);
       });
     this.providerFirstName = localStorage.getItem('fname');
     this.dataService.getPosts().subscribe(posts => {
