@@ -5,6 +5,7 @@ import { PatientService } from '../shared/patient.service';
 import { Router } from '@angular/router';
 import { PatientBasic } from '../shared/patient.basic.model';
 import {MatTableDataSource} from '@angular/material';
+import { HttpClient, } from '@angular/common/http';
 
 @Component({
   selector: 'app-healthcare-profile',
@@ -26,7 +27,8 @@ export class HealthcareProfileComponent implements OnInit {
   constructor(
     private dataService: DataService,
     private service : PatientService,
-    private router: Router
+    private router: Router,
+    private http:HttpClient
   ) { 
     this.service.getPatient().subscribe((patients) => {
       var tmpArr = []
@@ -48,6 +50,12 @@ export class HealthcareProfileComponent implements OnInit {
   ngOnInit() {
     localStorage.setItem('code',window.location.href.split("?")[1]);
     console.log(localStorage.getItem('code'));
+    var obj={'grant_type':'authorization_code','code':localStorage.getItem('code'),
+  'redirect_uri':'https://www.scriptchain.co/healthcare-profile','client_id':'788a5f45-8fcc-4ad9-bce6-e7eeefc8ac41'};
+    this.http.post("https://fhir.epic.com/interconnect-fhir-oauth/oauth2/token", obj).subscribe(
+      res => {
+        localStorage.setItem('access_token',res["access_token"]);
+      });
     this.providerFirstName = localStorage.getItem('fname');
     this.dataService.getPosts().subscribe(posts => {
       this.allPatients = posts
