@@ -40,7 +40,7 @@ export class HealthcareLoginComponent implements OnInit {
     console.log(this.Form.value);
     this.healthcareLoginService.healthcareProviderLogin(this.Form.value).subscribe(
       res => {
-        console.log("test");
+        //console.log("test");
         localStorage.setItem('token',res["idToken"])
         localStorage.setItem('fname',res["firstName"])
         localStorage.setItem('email', this.Form.value.emailAddress)

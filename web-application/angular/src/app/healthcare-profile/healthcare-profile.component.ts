@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { PatientBasic } from '../shared/patient.basic.model';
 import {MatTableDataSource} from '@angular/material';
 import { HttpClient,HttpHeaders} from '@angular/common/http';
+import { DIR_DOCUMENT } from '@angular/cdk/bidi';
 
 @Component({
   selector: 'app-healthcare-profile',
@@ -23,6 +24,7 @@ export class HealthcareProfileComponent implements OnInit {
   fName: string;
   lName: string;
   dob: string;
+  addrow:string;
 
   constructor(
     private dataService: DataService,
@@ -69,8 +71,27 @@ export class HealthcareProfileComponent implements OnInit {
 
   search(){
     //console.log("test");
+    let elem = document.getElementsByClassName("boxes")[0];
     this.service.search(this.fName,this.lName,this.dob).subscribe(res=>{
         console.log(res);
+        var name = res["entry"][0].resource.name[0].text.split(" ")[1];
+        var dob = res["entry"][0].resource.birthDate;
+        var gender = res["entry"][0].resource.gender;
+        var phone = res["entry"][0].resource.telecom[0].value;
+        var care = res["entry"][0].resource.careProvider[0].display;
+        elem.insertAdjacentHTML('afterbegin',"<div class='box' style='margin-bottom:3%;padding:10px;box-shadow: 1px 1px 10px 3px lightgray;'>"+
+    "<div class='row'><div class='col-md-2' style='margin-bottom: 1%;'>"+
+    "<b>"+name+"</b></div><div class='col-md-2'><b>Driver's License</b></div><div class='col-md-2'></div>"+
+    "<div class='col-md-1'></div><div class='col-md-3'>"+care+"</div></div>"+
+    "<div class='row'><div class='col-md-2'>"+dob+"</div><div class='col-md-2'><b>Last 4 digits of SSN</b></div>"+
+    "<div class='col-md-2'></div><div class='col-md-1'></div><div class='col-md-3'></div>"+
+    "<div class='col-md-2'><button type='button' style='background-color:teal;color: white;padding-left: 10%;padding-right: 10%;margin-left: -8%;margin-top: 2%;' class='btn btn-details'(click)= 'openPatientProfile(1234)'>View Details</button>"+
+    "</div></div><div class='row'><div class='col-md-2' style='margin-bottom: 1%;'>"+gender.charAt(0).toUpperCase() + gender.slice(1)+"</div>"+
+    "<div class='col-md-2'><b>Phone Number</b></div><div class='col-md-2'>"+phone+"</div><div class='col-md-1'></div>"+
+    "<div class='col-md-3'></div></div>"+
+  "<div class='row'><div class='col-md-2'>New York City, NY</div><div class='col-md-2'><b>Email Address</b></div>"+
+    "<div class='col-md-2'></div><div class='col-md-1'></div><div class='col-md-3'></div></div></div>");
+  
     });
   }
 
