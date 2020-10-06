@@ -48,7 +48,7 @@ export class HealthcareProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    localStorage.setItem('code',window.location.href.split("?")[1]);
+    localStorage.setItem('code',window.location.href.split("?")[1].split("=")[1]);
     console.log(localStorage.getItem('code'));
     var obj={'grant_type':'authorization_code','code':localStorage.getItem('code'),
   'redirect_uri':'https://www.scriptchain.co/healthcare-profile','client_id':'788a5f45-8fcc-4ad9-bce6-e7eeefc8ac41'};
