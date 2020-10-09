@@ -7,6 +7,7 @@ import { PatientBasic } from '../shared/patient.basic.model';
 import {MatTableDataSource} from '@angular/material';
 import { HttpClient,HttpHeaders} from '@angular/common/http';
 import { DIR_DOCUMENT } from '@angular/cdk/bidi';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-healthcare-profile',
@@ -32,7 +33,7 @@ export class HealthcareProfileComponent implements OnInit {
     private router: Router,
     private http:HttpClient
   ) { 
-    this.service.getPatient().subscribe((patients) => {
+    /*this.service.getPatient().subscribe((patients) => {
       var tmpArr = []
       for (let i = 0; i < patients.length; i++) {
         var tmp = {}
@@ -46,19 +47,22 @@ export class HealthcareProfileComponent implements OnInit {
       }
       console.log(tmpArr);
       this.dataSource = new MatTableDataSource(tmpArr);
-     });
+     });*/
   }
 
   ngOnInit() {
-    localStorage.setItem('code',window.location.href.split("?")[1].split("=")[1]);
-    //localStorage.setItem('code','eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ1cm46b2lkOmZoaXIiLCJjbGllbnRfaWQiOiI3ODhhNWY0NS04ZmNjLTRhZDktYmNlNi1lN2VlZWZjOGFjNDEiLCJlcGljLmVjaSI6InVybjplcGljOlVTQ0RJLW9uLUZISVIiLCJlcGljLm1ldGFkYXRhIjoiV0Zpa0lCckdoVzd6bDVoTVcyZGM4azZadG5HajlveWtWX0xTbElIdzFJcDRPd0RJMEExckZEbU9PbnY4YmlHajRxREJjVUF4azc4RUc2eTlONERWZU9fdjFndGs3YzZFc0FwczJmMkNfWDNfdF9yM1laUDB5QngxMGNwaGxGc2wiLCJlcGljLnRva2VudHlwZSI6ImNvZGUiLCJleHAiOjE2MDIwMTIyODksImlhdCI6MTYwMjAxMTk4OSwiaXNzIjoidXJuOm9pZDpmaGlyIiwianRpIjoiMDZkYzUyNTYtZDA2Yy00MzVmLThiYjktODUyZjYxNmQ5Mjc0IiwibmJmIjoxNjAyMDExOTg5LCJzdWIiOiJlbVNqckVEMEVCWlAybFU3ZVN5UEU2dzMifQ.TN9BWYw5oSX_U4BDOz-j2G9tJwv6uv56JZ213njW93ql7EvX-eHuV1aa7bOIrJoF8iGO4x54DoAAec5NMbvJE-XD_dZ6mFMQoVRhAuc8orPQuBZBWrNmyvftHAhgwlgPPeDC6q3OgJc3dpjh497jbLeTBms2xK9sNEIyfevUZfVurouxN5KlyHzFcw1HAdXfyixeEr03ONRCuxB60T8gl2x8z7ymWKg7vz1oRtqtU_2Z7ePRZp29lwEaADiFXdvXwJyhnTUejSNKdmggxV6btRZUcdnUDtn0yXRavAjw5Y6XCj2g0b40aLLaOLkNqltrCXi2xdOvejKFpTh_yPzJlw');
+    //localStorage.setItem('code',window.location.href.split("?")[1].split("=")[1]);
+    localStorage.setItem('code','eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ1cm46b2lkOmZoaXIiLCJjbGllbnRfaWQiOiI3ODhhNWY0NS04ZmNjLTRhZDktYmNlNi1lN2VlZWZjOGFjNDEiLCJlcGljLmVjaSI6InVybjplcGljOlVTQ0RJLW9uLUZISVIiLCJlcGljLm1ldGFkYXRhIjoickhVQlAtUnFtOTAxQ1FTWmlJWkE2emxUOEVJSlRhWEducUlYZ2Q0ZHBpZ2JRelQ2dW84elFVZ1dMVUVnQk1Qam0tNTNhekRPR3FVN3JORXJQSWdXOWFkbUd5OXl6MUJTbWJFYk80TEN0SkVTLUt3aldiTEVLcVFPYmlSWmY4OVgiLCJlcGljLnRva2VudHlwZSI6ImNvZGUiLCJleHAiOjE2MDIyNDQzNzMsImlhdCI6MTYwMjI0NDA3MywiaXNzIjoidXJuOm9pZDpmaGlyIiwianRpIjoiZDhkN2VmY2ItNTI1Zi00YTg4LThiNzQtMWNmNDA1OTlmZTMwIiwibmJmIjoxNjAyMjQ0MDczLCJzdWIiOiJlbVNqckVEMEVCWlAybFU3ZVN5UEU2dzMifQ.JrGxt9-ystIXnB6cyT2_HF2oCtA13CeJM_N68rVqbPOIyGh21Z81n4pmSyB5JtkADJM7nmNshkf0ETf3S4faB_VdTKJ3cwvpwfnMg2xV0dHt0o0nDu2MG8TwvB14fZcxPaq67HyqTvl_0pazwFbYVbI2jJ3PVRC-qtaZfWBu-_ER23w9VC3vYqwk4G7uoX4iOClkYRNGfeNj0Pd_qA4Y3GrMoRBXtS36fq-YGWxdkCs2mBl6y_8mNJELvr3_VHlZaz6uV5bopwqER5VnSe20TqdBE8Yv5xhtSl-L_dxXHijjeKXfiEbGS6v3BJwjkwZ5H2KITH54ZUGd0H2KNIeIdQ');
     const code = localStorage.getItem('code');
     const headers = {'Content-Type': 'application/x-www-form-urlencoded'};
-    const body=`grant_type=authorization_code&code=${code}&redirect_uri=https://www.scriptchain.co/healthcare-profile&client_id=788a5f45-8fcc-4ad9-bce6-e7eeefc8ac41`;
+    const body=`grant_type=authorization_code&code=${code}&redirect_uri=https://www.scriptchain.co/home&client_id=788a5f45-8fcc-4ad9-bce6-e7eeefc8ac41`;
     this.http.post("https://fhir.epic.com/interconnect-fhir-oauth/oauth2/token", body,{headers}).subscribe(
       res => {
         console.log(res);
-        localStorage.setItem('access_token',res["access_token"]);
+        //localStorage.setItem('access_token',res["access_token"]);
+        this.dataService.storeInCache(code,res["access_token"]).subscribe((res)=>{
+          console.log(res);
+        });
       },err=>{
         console.log(err);
       });
@@ -72,26 +76,28 @@ export class HealthcareProfileComponent implements OnInit {
   search(){
     //console.log("test");
     let elem = document.getElementsByClassName("boxes")[0];
-    this.service.search(this.fName,this.lName,this.dob).subscribe(res=>{
-        console.log(res);
-        var name = res["entry"][0].resource.name[0].text.split(" ")[1];
-        var dob = res["entry"][0].resource.birthDate;
-        var gender = res["entry"][0].resource.gender;
-        var phone = res["entry"][0].resource.telecom[0].value;
-        var care = res["entry"][0].resource.careProvider[0].display;
-        elem.insertAdjacentHTML('afterbegin',"<div class='box' style='margin-bottom:3%;padding:10px;box-shadow: 1px 1px 10px 3px lightgray;'>"+
-    "<div class='row'><div class='col-md-2' style='margin-bottom: 1%;'>"+
-    "<b>"+name+"</b></div><div class='col-md-2'><b>Driver's License</b></div><div class='col-md-2'></div>"+
-    "<div class='col-md-1'></div><div class='col-md-3'>"+care+"</div></div>"+
-    "<div class='row'><div class='col-md-2'>"+dob+"</div><div class='col-md-2'><b>Last 4 digits of SSN</b></div>"+
-    "<div class='col-md-2'></div><div class='col-md-1'></div><div class='col-md-3'></div>"+
-    "<div class='col-md-2'><button type='button' style='background-color:teal;color: white;padding-left: 10%;padding-right: 10%;margin-left: -8%;margin-top: 2%;' class='btn btn-details'(click)= 'openPatientProfile(1234)'>View Details</button>"+
-    "</div></div><div class='row'><div class='col-md-2' style='margin-bottom: 1%;'>"+gender.charAt(0).toUpperCase() + gender.slice(1)+"</div>"+
-    "<div class='col-md-2'><b>Phone Number</b></div><div class='col-md-2'>"+phone+"</div><div class='col-md-1'></div>"+
-    "<div class='col-md-3'></div></div>"+
-  "<div class='row'><div class='col-md-2'>New York City, NY</div><div class='col-md-2'><b>Email Address</b></div>"+
-    "<div class='col-md-2'></div><div class='col-md-1'></div><div class='col-md-3'></div></div></div>");
-  
+    this.dataService.getFromCache(localStorage.getItem("code")).subscribe(res1=>{
+      this.dataService.search(this.fName,this.lName,this.dob,res1).subscribe(res=>{
+          console.log(res);
+          var name = res["entry"][0].resource.name[0].text.split(" ")[1];
+          var dob = res["entry"][0].resource.birthDate;
+          var gender = res["entry"][0].resource.gender;
+          var phone = res["entry"][0].resource.telecom[0].value;
+          var care = res["entry"][0].resource.careProvider[0].display;
+          elem.insertAdjacentHTML('afterbegin',"<div class='box' style='margin-bottom:3%;padding:10px;box-shadow: 1px 1px 10px 3px lightgray;'>"+
+      "<div class='row'><div class='col-md-2' style='margin-bottom: 1%;'>"+
+      "<b>"+name+"</b></div><div class='col-md-2'><b>Driver's License</b></div><div class='col-md-2'></div>"+
+      "<div class='col-md-1'></div><div class='col-md-3'>"+care+"</div></div>"+
+      "<div class='row'><div class='col-md-2'>"+dob+"</div><div class='col-md-2'><b>Last 4 digits of SSN</b></div>"+
+      "<div class='col-md-2'></div><div class='col-md-1'></div><div class='col-md-3'></div>"+
+      "<div class='col-md-2'><button type='button' style='background-color:teal;color: white;padding-left: 10%;padding-right: 10%;margin-left: -8%;margin-top: 2%;' class='btn btn-details'(click)= 'openPatientProfile(1234)'>View Details</button>"+
+      "</div></div><div class='row'><div class='col-md-2' style='margin-bottom: 1%;'>"+gender.charAt(0).toUpperCase() + gender.slice(1)+"</div>"+
+      "<div class='col-md-2'><b>Phone Number</b></div><div class='col-md-2'>"+phone+"</div><div class='col-md-1'></div>"+
+      "<div class='col-md-3'></div></div>"+
+    "<div class='row'><div class='col-md-2'>New York City, NY</div><div class='col-md-2'><b>Email Address</b></div>"+
+      "<div class='col-md-2'></div><div class='col-md-1'></div><div class='col-md-3'></div></div></div>");
+    
+      });
     });
   }
 
