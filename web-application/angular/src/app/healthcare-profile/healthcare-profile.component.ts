@@ -55,7 +55,7 @@ export class HealthcareProfileComponent implements OnInit {
     //localStorage.setItem('code','eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ1cm46b2lkOmZoaXIiLCJjbGllbnRfaWQiOiI3ODhhNWY0NS04ZmNjLTRhZDktYmNlNi1lN2VlZWZjOGFjNDEiLCJlcGljLmVjaSI6InVybjplcGljOlVTQ0RJLW9uLUZISVIiLCJlcGljLm1ldGFkYXRhIjoickhVQlAtUnFtOTAxQ1FTWmlJWkE2emxUOEVJSlRhWEducUlYZ2Q0ZHBpZ2JRelQ2dW84elFVZ1dMVUVnQk1Qam0tNTNhekRPR3FVN3JORXJQSWdXOWFkbUd5OXl6MUJTbWJFYk80TEN0SkVTLUt3aldiTEVLcVFPYmlSWmY4OVgiLCJlcGljLnRva2VudHlwZSI6ImNvZGUiLCJleHAiOjE2MDIyNDQzNzMsImlhdCI6MTYwMjI0NDA3MywiaXNzIjoidXJuOm9pZDpmaGlyIiwianRpIjoiZDhkN2VmY2ItNTI1Zi00YTg4LThiNzQtMWNmNDA1OTlmZTMwIiwibmJmIjoxNjAyMjQ0MDczLCJzdWIiOiJlbVNqckVEMEVCWlAybFU3ZVN5UEU2dzMifQ.JrGxt9-ystIXnB6cyT2_HF2oCtA13CeJM_N68rVqbPOIyGh21Z81n4pmSyB5JtkADJM7nmNshkf0ETf3S4faB_VdTKJ3cwvpwfnMg2xV0dHt0o0nDu2MG8TwvB14fZcxPaq67HyqTvl_0pazwFbYVbI2jJ3PVRC-qtaZfWBu-_ER23w9VC3vYqwk4G7uoX4iOClkYRNGfeNj0Pd_qA4Y3GrMoRBXtS36fq-YGWxdkCs2mBl6y_8mNJELvr3_VHlZaz6uV5bopwqER5VnSe20TqdBE8Yv5xhtSl-L_dxXHijjeKXfiEbGS6v3BJwjkwZ5H2KITH54ZUGd0H2KNIeIdQ');
     const code = localStorage.getItem('code');
     const headers = {'Content-Type': 'application/x-www-form-urlencoded'};
-    const body=`grant_type=authorization_code&code=${code}&redirect_uri=https://www.scriptchain.co/home&client_id=788a5f45-8fcc-4ad9-bce6-e7eeefc8ac41`;
+    const body=`grant_type=authorization_code&code=${code}&redirect_uri=https://www.scriptchain.co/healthcare-profile&client_id=788a5f45-8fcc-4ad9-bce6-e7eeefc8ac41`;
     this.http.post("https://fhir.epic.com/interconnect-fhir-oauth/oauth2/token", body,{headers}).subscribe(
       res => {
         console.log(res);
