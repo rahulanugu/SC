@@ -56,7 +56,7 @@ app.use(bodyParser.json());
 //for production mode uncomment below code and for local(local requests are handled on 8080 alone if commented)
 app.use(function (req, res, next) {
 
-  res.cookie('cookie','value',{signed:true});
+  //res.cookie('cookie','value',{signed:true});
   // Website you wish to allow to connect
   var whitelist = [
     'https://www.scriptchain.co',
