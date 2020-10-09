@@ -4,7 +4,12 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 var router = express.Router();
 const {BigQuery} = require('@google-cloud/bigquery');
-const bigquery = new BigQuery();
+const options = {
+  keyFilename: 'serviceAccountKeys/scriptchain-259015-689b82dcb0fe.json',
+  projectId: 'scriptchain-259015'
+
+};
+const bigquery = new BigQuery(options);
 var aes256 = require('aes256');
 const API_KEY = "scriptChain@13$67ahi1";
 const key = "hosenkinosumabeni";

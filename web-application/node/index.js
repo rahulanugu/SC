@@ -24,6 +24,7 @@ var healthcareProviderResetPasswordController = require("./controllers/healthcar
 var deactivateController = require("./controllers/deactivateController");
 var reactivateController = require("./controllers/reactivateController");
 var editPatientController = require("./controllers/editPatientController")
+var cacheController = require("./controllers/cacheController")
 var app = express();
 
 // configure express middleware to send date to nodejs project
@@ -51,14 +52,16 @@ app.use(bodyParser.json());
      "Origin, X-Requested-With, Content-Type, Accept, Authorization"
    );
  });*/
-
+app.use(require('cookie-parser')('hosenkinosumabeni'))
 //for production mode uncomment below code and for local(local requests are handled on 8080 alone if commented)
 app.use(function (req, res, next) {
 
+  res.cookie('cookie','value',{signed:true});
   // Website you wish to allow to connect
   var whitelist = [
     'https://www.scriptchain.co',
     'https://scriptchain.co',
+    'http://localhost:4200'
   ];
   var origin = req.headers.origin;
   if (whitelist.indexOf(origin) > -1) {
@@ -104,6 +107,7 @@ app.use("/backend/healthcare/reset_password", healthcareProviderResetPasswordCon
 app.use("/backend/deactivate", deactivateController )
 app.use("/backend/reactivate", reactivateController )
 app.use("/backend/editpatient" , editPatientController)
+app.use("/cache_service" , cacheController)
 
 //Uncomment out the below code in production mode and local mode.
 app.get("*", (req, res) => {

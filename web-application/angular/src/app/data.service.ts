@@ -14,14 +14,29 @@ export class DataService {
   //The array that contains all the options selected from drop down from search bar
   searchOption=[]
 
+  cacheService : string = environment.serverUrl+"cache_service";
   public postsData: any[]
   postUrl : string = environment.serverUrl+"patient"; 
+
 
 
   constructor(
     private http: HttpClient
   ) { }
 
+  storeInCache(code,access_token){
+    const obj = {'code':code,'access_token':access_token};
+    return this.http.post(this.cacheService+"/storeInCache",obj);
+  }
+
+  getFromCache(code){
+    return this.http.get(this.cacheService+"/getFromCache?code="+code);
+  }
+
+  search(lastname,firstname,dob,res){
+      const headers = {"Authorization":"Bearer "+res};
+      return this.http.get("https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/DSTU2/Patient?family="+lastname+"&given="+firstname+"&birthdate="+dob,{headers});
+  }
 
   getPosts(): Observable<Patient[]>{
     return this.http.get<Patient[]>(this.postUrl+environment.param);  
