@@ -52,7 +52,7 @@ app.use(bodyParser.json());
      "Origin, X-Requested-With, Content-Type, Accept, Authorization"
    );
  });*/
-app.use(require('cookie-parser')('hosenkinosumabeni'))
+//app.use(require('cookie-parser')('hosenkinosumabeni'))
 //for production mode uncomment below code and for local(local requests are handled on 8080 alone if commented)
 app.use(function (req, res, next) {
 
