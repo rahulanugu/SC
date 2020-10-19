@@ -80,11 +80,11 @@ def preprocess():
       X_features[cpt] = l['value']
       if lionc=='718-7':
         X_features['50811']=l['value']
-  pre_data = pd.read_pickle('./predictor/EHRInterface/lab_normal_vals.pkl')
+  pre_data = pd.read_pickle('./predictor/models/lab_normal_vals.pkl')
   for cpt in X_features.columns.tolist():
     if math.isnan(X_features[cpt]):
       X_features[cpt]=pre_data[int(cpt)]
-  data1 = pickle.load(open('./predictor/EHRInterface/data_4019.pkl', 'rb')) 
+  data1 = pickle.load(open('./predictor/models/data_4019.pkl', 'rb')) 
   #dt = pd.read_csv("./predictor/EHRInterface/final_data.csv")
   scaler1 = StandardScaler()
   #print(data1.head())
@@ -104,13 +104,13 @@ def preprocess():
 #=============================================================== 
 #======================== Procedures =========================== 
 
-  proc_vocab = pd.read_pickle("./predictor/EHRInterface/Procedures_vocab.pkl")
+  proc_vocab = pd.read_pickle("./predictor/models/Procedures_vocab.pkl")
   procedures = keras.preprocessing.sequence.pad_sequences([[proc_vocab[entry["code"]] for entry in data['Procedures'] if entry["code"] in proc_vocab]], maxlen=8)
 
 #=============================================================== 
 #======================= Medications =========================== 
 
-  med_vocab = pd.read_pickle("./predictor/EHRInterface/Drug_vocab.pkl")
+  med_vocab = pd.read_pickle("./predictor/models/Drug_vocab.pkl")
   if 'Medications' not in data:
     data['Medications']=[]
   meds_used = [entry["name"] for entry in data['Medications']] # this is the list of medications used by the subject
@@ -121,7 +121,7 @@ def preprocess():
 
 #=============================================================== 
 #========================== Notes ============================== 
-  map_vocab = pd.read_pickle("./predictor/EHRInterface/Mappings_vocab.pkl")
+  map_vocab = pd.read_pickle("./predictor/models/Mappings_vocab.pkl")
   if 'Notes' not in data:
     data['Notes']=""
   note = data['Notes'] # this is the Doctors note for the subject
@@ -143,7 +143,7 @@ def generate_analytics():
   X_features, procedures, medications, mappings = preprocess()
   #model_4280, model_4019, model_41401, model_42731 = Model_config.compile_model(), Model_config.compile_model(), Model_config.compile_model(), Model_config.compile_model()
   model_4019=Model_config.compile_model()
-  model_4019.load_weights('./predictor/EHRInterface/distron_4019.h5')
+  model_4019.load_weights('./predictor/models/distron_4019.h5')
   #model_4280.load_weights('./predictor/EHRInterface/distron_4280.h5')
   #model_41401.load_weights('./predictor/EHRInterface/distron_41401.h5')
   #model_42731.load_weights('./predictor/EHRInterface/distron_42731.h5')
