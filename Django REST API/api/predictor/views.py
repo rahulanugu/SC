@@ -18,7 +18,6 @@ import logging
 from pprint import pprint
 from django.conf import settings
 from predictor.EHRInterface import EpicInterface as epic
-from predictor.EHRInterface import Distron as distron
 import os
 import subprocess
 
@@ -59,9 +58,29 @@ logger = logging.getLogger(__name__)
 
 
 def hello_world(request):
-    #text = "Txt001|Written informed consent.\nTxt002|Age 18 years or older.\nTxt003|informed consent.\nTxt004|Male or female."
-    #text = "Txt001|Kidney problem is there"
-    distron.generate_analytics()
+    '''
+    print('In Base URL Echo')
+    #context = {"data": "Hello World!"}
+    os.chdir("./metamap")
+    f = open("test/srikar.txt", "w")
+    f.write("Kidney problem is present in the patient")
+    f.close()
+    subprocess.run(["./metamaplite.sh","--indexdir=data/ivf/2020AA/USABase","test/srikar.txt","--overwrite"]) 
+    #f = open("test/srikar.mmi", "r")
+    with open("test/srikar.mmi") as f:
+        content = f.readlines()
+    doc_notes = ['acab','anab','comd','cgab','dsyn','inpo','mobd','neop','sosy']
+    for note in doc_notes:
+        matching = [s for s in content if note in s]
+    print(matching)
+    medications = ['phsu', 'antb', 'orch', 'inch', 'imft', 'topp', 'clnd']
+    for medic in medications:
+        matchingmedic = [s for s in content if medic in s]
+    print(matchingmedic)
+    f.close()
+    return HttpResponse("Hello World!") 
+    '''
+    epic.parseText()
     return HttpResponse("Hello World!") 
 
 
