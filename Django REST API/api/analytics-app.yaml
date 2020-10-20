@@ -1,7 +1,7 @@
 runtime: python
 
 # the PROJECT-DIRECTORY is the one with settings.py and wsgi.py
-entrypoint: gunicorn -b :$PORT api.wsgi # specific to a GUnicorn HTTP server deployment
+entrypoint: gunicorn -b :$PORT api.wsgi --timeout 120 --workers=3 --threads=3 --worker-connections=1000 --log-level debug # specific to a GUnicorn HTTP server deployment
 env: flex # for Google Cloud Flexible App Engine
 
 # any environment variables you want to pass to your application.
