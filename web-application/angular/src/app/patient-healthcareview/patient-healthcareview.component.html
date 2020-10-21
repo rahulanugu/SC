@@ -11,33 +11,131 @@
          <a href="/healthcare-profile" style="color:black;text-decoration: none;margin-bottom: 10px;cursor: pointer;"><b><i class="arrow left"></i>Back To Search</b></a>
       </p>
    </div>
-     <div class="row row-cols-4 profile">
-       <div class="col-xs-2">
-
-         <img src="../../assets/leslie.jpg" width="120" height="120">
-        </div>
-        <div class="col-md-4" id="firstname">
-        </div>
-        <div class="col-md-4" id="dob">
-       </div>
-       <div class="col-md-2" id="sex">
-       </div>
-
-     </div>
+   <div class="box" style="padding:10px;box-shadow: 1px 1px 10px 3px lightgray;">
+      <div class="row" style="border-bottom: 2px solid #E1E4EB;">
+        <div class="col-md-2" style="margin-bottom: 1%;"><img src="../../assets/Avatar.png"/>
+          <b style="margin-left:3%;">Leslie Wang</b></div>
+          <div class="col-md-5" ></div>
+          <div class="col-md-4" style="padding:1%">Next Appointment&nbsp;&nbsp;&nbsp;&nbsp;mm/dd/yyyy&nbsp;&nbsp;&nbsp;&nbsp;11:30 am</div>
+      </div>
+      <div class="row row1">
+        <div class="col-md-1"><b>DOB</b></div>
+        <div class="col-md-2">07/16/1970</div>
+        <div class="col-md-3"><b>Driver's License</b></div>
+        <div class="col-md-3">NHL12345678</div>
+        <div class="col-md-3">Massachusettes Medical Group</div>
+      </div>
+      <div class="row row1">
+        <div class="col-md-1"><b>Sex</b></div>
+        <div class="col-md-2">Female</div>
+        <div class="col-md-3"><b>Last 4 digits of SSN</b></div>
+        <div class="col-md-3">0010</div>
+        <div class="col-md-3">Department of Cardiology</div>
+      </div>
+      <div class="row row1">
+        <div class="col-md-1"><b>Residence</b></div>
+        <div class="col-md-2">New York City, NY</div>
+        <div class="col-md-3"><b>Phone Number</b></div>
+        <div class="col-md-3">(123)456-789</div>
+        <div class="col-md-3">Dr. Beth Smith</div>
+      </div>
+      <div class="row row1">
+        <div class="col-md-1"><b>MRN</b></div>
+        <div class="col-md-2">YTK12345675</div>
+        <div class="col-md-3"><b>Email</b></div>
+        <div class="col-md-3">Leslie.Wang@gmail.com</div>
+        <div class="col-md-3">COPD,CHF,Diabetes(Type 2)</div>
+      </div>
+      
+    </div>
      <div class="row">
       <div class="col-md-5" id="readmission_symptoms">
-         <div id="readmission" style="margin-top:3%;padding:35px 5px 57px 5px;background-color: white;
+         <div id="readmission" style="padding:5px 5px 57px 5px;background-color: white;
          box-shadow: 1px 1px 10px 3px lightgray;">
-            <h4 style="text-align:center;">Readmission Risk</h4>
-            <h1 style="color:teal;text-align: center;">25%</h1>
+            <div style="border-bottom:2px solid #B0B4BF; padding:10px 0px 10px 10px;">
+               <h4>Readmission Risk</h4>
+            </div>
+            <div style="margin-top: 3%;margin-bottom: -2%;">
+            Within 30 days
+            <button class="btn btn-success btn-sm" style="float:right;margin-right: 22%;">
+               Low</button>
+            </div>
+            <div class="progress" style="margin-top: 5%;">
+               <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="24"
+               aria-valuemin="0" aria-valuemax="100" style="width:24%"><span>24%</span>
+               </div>
+            </div>
             <ul id="indicators">
                <li id="serious">Serious</li>
                <li id="med">Mediocre</li>
                <li id="safe">Safe</li>
-               <li id="within">Within 10 days</li>
             </ul>
          </div>
-         <div id="symptoms" style="margin-top:4%;padding:45px 10px 57px 10px;background-color: white;
+         <div id="chartContainer" style="height: 320px;margin-top:4%;padding:45px 10px 57px 0px;background-color: white;
+         box-shadow: 1px 1px 10px 3px lightgray;">
+            <!--<h4 style="text-align:center;">Symptoms & Chief Complaint</h4>
+            <p style="text-align:center;">Liver disease exists for the patient</p>
+            <ul>
+               <li>Heart looks quite good for the patient though</li>
+            </ul>-->
+         </div>
+         
+      </div>
+      <div class="col-md-1"></div>
+      <div class="tile__media col-md-6">
+         <div style="height: 400px;background-color: white; padding-left: 10px;padding-top: 14px;box-shadow: 1px 1px 10px 3px lightgray;">
+         <div style="border-bottom:2px solid #B0B4BF; padding:10px 0px 10px 10px;">
+            <h4>Risk Analysis</h4>
+         </div>
+         <div style="margin-top: 1%;margin-bottom: -6%;">
+         <p style="padding-top: 1%;display: inline-block;">Congestive Health Failure</p>
+         <span><button class="btn btn-danger btn-sm" style="float:right;margin-right: 22%;">
+            High</button></span></div>
+         <div class="progress" style="margin-top: 5%;" (click)= "openNextView(1234,93)"> 
+            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="93"
+            aria-valuemin="0" aria-valuemax="100" style="width:93%"><span>93%</span>
+            </div>
+            
+         </div>
+         
+         <div style="margin-top: 1%;margin-bottom: -6%;">
+            <p style="padding-top: 1%;display: inline-block;">Chronic Obstructive Pulmonary Disease</p>
+            <span><button class="btn btn-danger btn-sm" style="float:right;margin-right: 22%;">
+               High</button></span></div>
+         <div class="progress" style="margin-top: 5%;">
+            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="78"
+            aria-valuemin="0" aria-valuemax="100" style="width:78%"><span>78%</span>
+            </div>
+         </div>
+         <div style="margin-top: 1%;margin-bottom: -6%;">
+            <p style="padding-top: 1%;display: inline-block;">Bronchitis</p>
+            <span><button class="btn btn-warning btn-sm" style="float:right;margin-right: 22%;color:white">
+               Moderate</button></span></div>
+         <div class="progress" style="margin-top: 5%;">
+            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="72"
+            aria-valuemin="0" aria-valuemax="100" style="width:72%"><span>72%</span>
+            </div>
+         </div>
+         <div style="margin-top: 1%;margin-bottom: -6%;">
+            <p style="padding-top: 1%;display: inline-block;">Pneumonia</p>
+            <span><button class="btn btn-warning btn-sm" style="float:right;margin-right: 22%;color:white">
+               Moderate</button></span></div>
+         <div class="progress" style="margin-top: 5%;">
+            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="51"
+            aria-valuemin="0" aria-valuemax="100" style="width:51%"><span>51%</span>
+            </div>
+         </div>
+         <div style="margin-top: 1%;margin-bottom: -6%;">
+            <p style="padding-top: 1%;display: inline-block;">Emphysema</p>
+            <span><button class="btn btn-success btn-sm" style="float:right;margin-right: 22%;">
+               Low</button></span></div>
+         <div class="progress" style="margin-top: 5%;">
+            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="25"
+            aria-valuemin="0" aria-valuemax="100" style="width:25%"><span>25%</span>
+            </div>
+         </div>
+      </div>
+         <div id="symptoms" style="margin-top:4%;padding:15px 10px 57px 0px;background-color: white;
          box-shadow: 1px 1px 10px 3px lightgray;">
             <h4 style="text-align:center;">Symptoms & Chief Complaint</h4>
             <p style="text-align:center;">Liver disease exists for the patient</p>
@@ -45,148 +143,8 @@
                <li>Heart looks quite good for the patient though</li>
             </ul>
          </div>
-         
-      </div>
-      <div class="tile__media col-md-7" style="padding-left: 10px;padding-top: 14px;box-shadow: 1px 1px 10px 3px lightgray;">
-         <highcharts-chart
-            [Highcharts] = "highcharts2" 
-            [options] = "chartOptions2" 
-            style = "display: block; ">
-         </highcharts-chart>
       </div>
      </div>
    </div>
-   <div class="row">
-      <div class="info" style="padding-top:20px;padding-bottom:10px;background-color: white;box-shadow: 1px 1px 10px 3px lightgray;">
-         <h2 style="text-align:center;">COPD Analysis</h2><br>
-         <h4>Patient's Information<span id="dataToPlace"></span></h4><br>
-         <ul>
-            <li>Lab Results&emsp;LDL/Cholestrol: <span style="color:red">185</span>mg/mL
-               &emsp;|&emsp;LDR(Real)-C: <span style="color:red">166</span>mg/mL
-               &emsp;|&emsp;Cholestrol: <span style="color:red">285</span>mg/mL</li>
-            <li>The patient has suffered from <b>Chest pain, mild body pains</b></li>
-         </ul><br>
-         <h4>Drug Recommendation Class</h4><br>
-         <ul id="capsules">
-            <li>Capsule 1</li>
-            <li>Capsule 2</li>
-            <li>Capsule 3</li>
-            <li>Capsule 4</li>
-            <li>Capsule 5</li>
-            <li>Capsule 6</li>
-            <li>Capsule 7</li>
-            <li>Capsule 8</li>
-            <li>Capsule 9</li>
-            <li>Capsule 10</li>
-         </ul>
-      </div>
-   </div>
-
-   <h1 id="firstname"></h1>
- 
- 
- <div class="row scrol" id="scroller">
-   <div id="leftdiv" (click)="scrollLeft()"><img src="../../assets/left.png" class="img"></div>
-   <div id="rightdiv" (click)="scrollRight()"><img src="../../assets/right.png" class="img"></div>
-    <div class="row__inner">
- 
-      <div class="tile" (click)="displaybelow2()">
-        <div class="tile__media" style="margin-left:20px;">
-          <img src="../../assets/images/img0.jpg" class="tile__img">
-        </div>
-      </div>
- 
-      <div class="tile" (click)="displaybelow3()">
-       <div class="tile__media">
-          <img src="../../assets/images/img2.jpg" class="tile__img">
-          <!--<highcharts-chart
-          [Highcharts] = "highcharts3" 
-          [options] = "chartOptions3" 
-          style = "height: 250px;">
-       </highcharts-chart>-->
-       
-       </div>
-     </div>
- 
-     <div class="tile" (click)="displaybelow4()">
-       <div class="tile__media">
-          <img src="../../assets/images/img3.jpg" class="tile__img">
-          <!--<highcharts-chart
-          [Highcharts] = "highcharts4" 
-          [options] = "chartOptions4" 
-          style = "height: 250px;">
-       </highcharts-chart>-->
-       
-       </div>
-       
-     </div>
- 
-     <div class="tile" (click)="displaybelow()">
-      <div class="tile__media">
-       <img src="../../assets/images/img4.jpg" class="tile__img">
-       <!--<highcharts-chart
-       [Highcharts] = "highcharts" 
-       [options] = "chartOptions" 
-       style = "height: 250px;">
-    </highcharts-chart>-->
-      
-      </div>
-      
-    </div>
- 
- 
- 
- 
- 
- <!--<highcharts-chart
-    [Highcharts] = "highcharts4" 
-    [options] = "chartOptions4" 
-    style = "width: 24%; height: 400px; display: block; float: left;">
- </highcharts-chart>
- <highcharts-chart
-    [Highcharts] = "highcharts" 
-    [options] = "chartOptions" 
-    style = "width: 24%; height: 400px; display: block; float: right;">
- </highcharts-chart>-->
- </div>
- <!--<button id="left" (click)="scrollLeft()">left</button>
- <button id="right" (click)="scrollRight()">right</button>-->
- 
- </div>
- <ng-container *ngIf="bottomdiv2">
-    <highcharts-chart
-       [Highcharts] = "highcharts2" 
-       [options] = "chartOptions2" 
-       style = "width: 50%; height: 400px; display: block; margin-left: 25%;padding-bottom: 20px;">
-    </highcharts-chart>
- </ng-container>
- <ng-container *ngIf="bottomdiv3">
-    <highcharts-chart
-       [Highcharts] = "highcharts3" 
-       [options] = "chartOptions3" 
-       style = "width: 50%; height: 400px; display: block; margin-left: 25%;padding-bottom: 20px;">
-    </highcharts-chart>
- </ng-container>
- <ng-container *ngIf="bottomdiv4">
-    <highcharts-chart
-       [Highcharts] = "highcharts4" 
-       [options] = "chartOptions4" 
-       style = "width: 50%; height: 400px; display: block; margin-left: 25%;padding-bottom: 20px;">
-    </highcharts-chart>
- </ng-container>
- <ng-container *ngIf="bottomdiv">
-    <highcharts-chart
-       [Highcharts] = "highcharts" 
-       [options] = "chartOptions" 
-       style = "width: 50%; height: 400px; display: block; margin-left: 25%;padding-bottom: 20px;">
-    </highcharts-chart>
- </ng-container>
- 
- <ng-container *ngIf="bottomdiv5">
-    <highcharts-chart
-       [Highcharts] = "highcharts5" 
-       [options] = "chartOptions5" 
-       style = "width: 50%; height: 800px; display: block;">
-    </highcharts-chart>
- </ng-container>
 </div>
+<app-patient-footer></app-patient-footer> 

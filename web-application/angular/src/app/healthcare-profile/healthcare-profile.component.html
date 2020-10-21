@@ -17,7 +17,7 @@
   </div>-->
   <div class = "container">
     <div class="row"><h2 style="margin: 2% 38% 0% 38%;"><b>Hello Dr.Noori!</b></h2>
-    <p style="margin-left: 1.5%;"><b>Search your patients here</b></p></div>
+    <p style="margin-left: 1.5%;"><b><img src="../../assets/MagnifyingGlass.png"/> Search your patients here</b></p></div>
     
     <ul class="nav nav-tabs" id="myTab" role="tablist">
       <li class="nav-item">
@@ -32,8 +32,8 @@
     <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade show active" id="basic" role="tabpanel" aria-labelledby="basic-tab" 
       style="box-shadow: 1px 1px 10px 3px lightgray;">
-        <div class="form-row" style="padding-top: 3%;">
-          <div class="col-md-1"></div>
+      <p class="text">Patient Info</p>
+        <div class="form-row first-row" style="padding-top: 1%;">
           <div class="form-group col-md-2">
             <label for="inputFname"><b>First Name</b></label>
             <input type="text" class="form-control" id="inputFname" [(ngModel)]="fName">
@@ -46,28 +46,19 @@
           <div class="col-md-1"></div>
           <div class="form-group col-md-2">
             <label for="inputstart"><b>Date of Birth</b></label>
-            <input type="text" class="form-control" id="inputdob" [(ngModel)]="dob">
-          </div>
-          <div class="col-md-1"></div>
-          <div class="form-group col-md-1">
-            <label for="inputGender"><b>Gender</b></label>
-            <select class="form-control" id="inputGenderadv">
-              <option selected></option>
-              <option value="1">M</option>
-              <option value="0">F</option>
-            </select>
+            <input type="date" placeholder="mm/dd/yyyy" class="form-control" id="inputdob" [(ngModel)]="dob">
           </div>
         </div>
-        <div class="form-row" style="padding-top: 3%;"> 
-          <div class="col-md-1"></div>
+        <p class="text">Appointment Range</p>
+        <div class="form-row" style="padding-top: 1%;"> 
           <div class="form-group col-md-2">
             <label for="inputstart"><b>Start date</b></label>
-            <input type="text" class="form-control" id="inputstart">
+            <input type="date" placeholder="mm/dd/yyyy" class="form-control" id="inputstart">
           </div>
           <div class="col-md-1"></div>
           <div class="form-group col-md-2">
             <label for="inputend"><b>End date</b></label>
-            <input type="text" class="form-control" id="inputend">
+            <input type="date" placeholder="mm/dd/yyyy" class="form-control" id="inputend">
           </div>
         </div>
         <div class="form-row">
@@ -152,35 +143,40 @@
     <p><b>Today's Patients</b></p>
     <div class="boxes"> 
     <div class="box" style="padding:10px;box-shadow: 1px 1px 10px 3px lightgray;">
-      <div class="row">
-        <div class="col-md-2" style="margin-bottom: 1%;"><b>Leslie Wang</b></div>
-        <div class="col-md-2"><b>Driver's License</b></div>
-        <div class="col-md-2">NHL12345678</div>
-        <div class="col-md-1"></div>
+      <div class="row" style="border-bottom: 2px solid #E1E4EB;">
+        <div class="col-md-2" style="margin-bottom: 1%;"><img src="../../assets/Avatar.png"/>
+          <b style="margin-left:3%;padding:1%">Leslie Wang</b></div>
+          <div class="col-md-5" ></div>
+          <div class="col-md-4" style="padding:1%">Next Appointment Today 11:30 am</div>
+            <div class="col-md-1" style="padding:1%">
+              <img src="../../assets/view.png" style="cursor:pointer" (click)= "openPatientProfile(1234)"/></div>
+      </div>
+      <div class="row row1">
+        <div class="col-md-1"><b>DOB</b></div>
+        <div class="col-md-2">07/16/1970</div>
+        <div class="col-md-3"><b>Driver's License</b></div>
+        <div class="col-md-3">NHL12345678</div>
         <div class="col-md-3">Massachusettes Medical Group</div>
       </div>
-      <div class="row">
-        <div class="col-md-2">07/16/1970</div>
-        <div class="col-md-2"><b>Last 4 digits of SSN</b></div>
-        <div class="col-md-2">0010</div>
-        <div class="col-md-1"></div>
+      <div class="row row1">
+        <div class="col-md-1"><b>Sex</b></div>
+        <div class="col-md-2">Female</div>
+        <div class="col-md-3"><b>Last 4 digits of SSN</b></div>
+        <div class="col-md-3">0010</div>
         <div class="col-md-3">Department of Cardiology</div>
-        <div class="col-md-2">
-          <button type="button" class="btn btn-details"(click)= "openPatientProfile(1234)">View Details</button>
-        </div>
       </div>
-      <div class="row">
-        <div class="col-md-2" style="margin-bottom: 1%;">Female</div>
-        <div class="col-md-2"><b>Phone Number</b></div>
-        <div class="col-md-2">(123)456-789</div>
-        <div class="col-md-1"></div>
+      <div class="row row1">
+        <div class="col-md-1"><b>Residence</b></div>
+        <div class="col-md-2">New York City, NY</div>
+        <div class="col-md-3"><b>Phone Number</b></div>
+        <div class="col-md-3">(123)456-789</div>
         <div class="col-md-3">Dr. Beth Smith</div>
       </div>
-      <div class="row">
-        <div class="col-md-2">New York City, NY</div>
-        <div class="col-md-2"><b>Email Address</b></div>
-        <div class="col-md-2">Leslie.Wang@gmail.com</div>
-        <div class="col-md-1"></div>
+      <div class="row row1">
+        <div class="col-md-1"><b>MRN</b></div>
+        <div class="col-md-2">YTK12345675</div>
+        <div class="col-md-3"><b>Email</b></div>
+        <div class="col-md-3">Leslie.Wang@gmail.com</div>
         <div class="col-md-3">COPD,CHF,Diabetes(Type 2)</div>
       </div>
       
@@ -224,3 +220,4 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>-->
 </div>
+<app-patient-footer></app-patient-footer> 
