@@ -1,0 +1,14 @@
+.navbar{
+    padding:0!important;
+    background: #2D5059!important;
+    height:80px;
+}
+
+.navbar-nav{
+    float:right;
+    color:white;
+}
+
+.nav-item{
+    padding: .5rem 1.5rem;  
+}
