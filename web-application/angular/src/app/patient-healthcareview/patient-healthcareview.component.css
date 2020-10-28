@@ -73,20 +73,23 @@
   }
   ul#indicators {
   list-style: none;
-  margin-top: 4%;
+
 }
 ul#indicators li{
     float: left;
     display: block;
-    margin-right: 7%;
-    font-size:12px; 
+    margin-right: 10%;
+    font-size:14px; 
+}
+ul li:before {
+  font-size: 170%;
 }
 #within{
     margin-left: 3em;
 }
   ul li#serious::before {
     content: "\2022";
-    color: red;
+    color: #C13932;
     font-weight: bold;
     display: inline-block; 
     width: 1em;
@@ -94,7 +97,7 @@ ul#indicators li{
   }
   ul li#med::before {
     content: "\2022";
-    color: yellowgreen;
+    color: #DEAE33;
     font-weight: bold;
     display: inline-block; 
     width: 1em;
@@ -102,7 +105,7 @@ ul#indicators li{
   }
   ul li#safe::before {
     content: "\2022";
-    color: teal;
+    color: #429855;
     font-weight: bold;
     display: inline-block; 
     width: 1em;
@@ -152,7 +155,7 @@ ul#indicators li{
 
   .box{
     background-color: white;
-    margin-bottom: 5%;
+    margin-bottom: 2%;
   }
 
   .box .row1{
@@ -177,4 +180,11 @@ ul#indicators li{
 
   .progress{
     width: 80%;
+  }
+
+  .high{
+    margin-left: 8%;
+    border-radius: 15px;
+    padding-right: 4%;
+    padding-left: 4%;
   }
