@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as Highcharts from 'highcharts';
-import * as CanvasJS from '../../assets/js/canvasjs.min';
+import * as CanvasJS from '../../assets/js/canvasjs.min.js';
 import { Router } from '@angular/router';
 
 @Component({
