@@ -27,6 +27,7 @@ import { HomePageComponent } from "./home-page/home-page.component";
 import { HealthcareProfileComponent } from "./healthcare-profile/healthcare-profile.component";
 import { HealthcareAuthGuard } from "./healthcare-auth.guard";
 import { PatientHealthcareviewComponent } from "./patient-healthcareview/patient-healthcareview.component";
+import { PatientHealthcareviewnextComponent } from "./patient-healthcareviewnext/patient-healthcareviewnext.component";
 import { Error404Component } from "./error404/error404.component";
 import { Error500Component } from "./error500/error500.component";
 import { HealthcareResetPasswordComponent } from "./healthcare-reset-password/healthcare-reset-password.component";
@@ -75,6 +76,7 @@ const routes: Routes = [
   { path: "searchTest", component:HomePageComponent, canActivate: [HealthcareAuthGuard]},
   { path: "healthcare-profile", component: HealthcareProfileComponent, canActivate: [HealthcareAuthGuard]},
   { path: "healthcare-profile/patient/:patientid", component: PatientHealthcareviewComponent, canActivate: [HealthcareAuthGuard]},
+  { path: "healthcare-profile/patient/:patientid/:diseaseid", component: PatientHealthcareviewnextComponent},
   { path: "healthcare-profile/editprofile", component: HealthcareManageProfileComponent}
 ];
 

@@ -43,6 +43,7 @@ table {
 
   .box{
     background-color: white;
+    margin-bottom: 5%;
   }
   .btn-details{
     background-color: teal;
@@ -55,4 +56,31 @@ table {
   .nav-item a{
     color:black;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  }
+
+  .text{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+    color: #575B66;
+    margin-left:5.1%;
+    padding-top: 3%;
+  }
+
+  .first-row{
+    border-bottom: 2px solid #E1E4EB;
+    padding-bottom: 3%;
+  }
+
+  .form-row{
+    padding-left: 5%;
+  }
+
+  input{
+    width:109%;
+  }
+
+  .box .row1{
+    padding-top: 1%;
   }

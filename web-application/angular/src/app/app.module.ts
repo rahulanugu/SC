@@ -32,6 +32,7 @@ import { PatientRegistertwoComponent} from './patient-registertwo/patient-regist
 import { PatientRegisterthreeComponent } from './patient-registerthree/patient-registerthree.component';
 import { RegisterSuccessfulPageComponent} from './register-successful-page/register-successful-page.component';
 import { PatientNavbarComponent } from './patient-profile/patient-navbar/patient-navbar.component';
+import { PatientFooterComponent } from './patient-profile/patient-footer/patient-footer.component';
 import { CareersComponent } from './careers/careers.component';
 import { JobOpeningsComponent } from './job-openings/job-openings.component';
 import { JobCategoriesComponent } from './job-categories/job-categories.component';
@@ -57,6 +58,7 @@ import { DataService } from './data.service';
 import { HealthcareProfileComponent } from './healthcare-profile/healthcare-profile.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { PatientHealthcareviewComponent } from './patient-healthcareview/patient-healthcareview.component';
+import { PatientHealthcareviewnextComponent } from './patient-healthcareviewnext/patient-healthcareviewnext.component';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { Error404Component } from './error404/error404.component';
 import { Error500Component } from './error500/error500.component';
@@ -94,6 +96,7 @@ import { MatConfirmDialogComponent } from './mat-confirm-dialog/mat-confirm-dial
     PatientRegistertwoComponent,
     RegisterSuccessfulPageComponent,
     PatientNavbarComponent,
+    PatientFooterComponent,
     CareersComponent,
     JobOpeningsComponent,
     JobCategoriesComponent,
@@ -107,6 +110,7 @@ import { MatConfirmDialogComponent } from './mat-confirm-dialog/mat-confirm-dial
     SideBarComponent,
     HealthcareProfileComponent,
     PatientHealthcareviewComponent,
+    PatientHealthcareviewnextComponent,
     Error404Component,
     Error500Component,
     HealthcareResetPasswordComponent,

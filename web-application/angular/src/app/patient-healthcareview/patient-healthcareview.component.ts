@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as Highcharts from 'highcharts';
-
+import * as CanvasJS from '../../assets/js/canvasjs.min.js';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-patient-healthcareview',
@@ -331,9 +332,41 @@ export class PatientHealthcareviewComponent implements OnInit {
          }
       ]
    };
-  constructor() { }
+   openNextView(patientId,diseaseId){
+      //console.log("patientId being rtried to access is "+patientId)
+      this.router.navigate(["healthcare-profile/patient/"+patientId+"/"+diseaseId]);
+    }
+  constructor(private router: Router) {}
 
   ngOnInit() {
+   var chart = new CanvasJS.Chart("chartContainer",{
+      title:{
+      text: "Vitals"
+      },
+      axisY:{
+        includeZero: false
+
+      },
+      data: [
+      {
+        type: "line",
+
+        dataPoints: [
+        { x: new Date(2012, 0, 1), y: 97, indexLabel: "97" },
+        { x: new Date(2012, 1, 1), y: 97.2, indexLabel: "97.2"},
+          { x: new Date(2012, 2, 1), y: 97.4, indexLabel: "97.4"},
+        { x: new Date(2012, 3, 1), y: 98, indexLabel: "98" },
+        { x: new Date(2012, 4, 1), y: 98.2, indexLabel: "98.2" },
+        { x: new Date(2012, 5, 1), y: 98.7, indexLabel: "98.7" },
+        { x: new Date(2012, 6, 1), y: 99, indexLabel: "highest 99",markerColor: "red", markerType: "triangle" },
+        { x: new Date(2012, 7, 1), y: 98.8, indexLabel: "98.8" },
+        { x: new Date(2012, 8, 1), y: 98.6, indexLabel: "98.6" , }
+  
+        ]
+      }
+      ]
+    });
+    chart.render();
    document.getElementById('firstname').innerHTML = "<span class='text'><h4>Leslie Wang</h4></span><br>\
    <span class='text'><b>Medical Record No.(MRN): </b>YTK12345678</span><br><span class='text'><b>Phone Number: </b>(123)456-7890</span>";
    document.getElementById('dob').innerHTML = "<span class='text'><b>DOB: </b>07/16/1970</span><br>\
