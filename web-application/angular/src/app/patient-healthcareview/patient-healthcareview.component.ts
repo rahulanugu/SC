@@ -299,8 +299,8 @@ export class PatientHealthcareviewComponent implements OnInit {
          text: "Vitals"
       },
       xAxis:{
-         categories:["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+         categories:["Sun", "Mon", "Tue", "Wed", "Thu", "Fri",
+            "Sat"]
       },
       yAxis: {
          title:{
@@ -312,7 +312,7 @@ export class PatientHealthcareviewComponent implements OnInit {
       },
       series: [
          {
-            data: [97, 97.2, 97.5, 98, 98.2, 99.5, 97.5, 98.6]
+            data: [97, 97.2, 97.5, 98, 98.2, 99.5, 97.5]
          }
       ]
    };
