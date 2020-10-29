@@ -60,8 +60,7 @@ app.use(function (req, res, next) {
   // Website you wish to allow to connect
   var whitelist = [
     'https://www.scriptchain.co',
-    'https://scriptchain.co',
-    'http://localhost:4200'
+    'https://scriptchain.co'
   ];
   var origin = req.headers.origin;
   if (whitelist.indexOf(origin) > -1) {
