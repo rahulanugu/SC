@@ -140,9 +140,60 @@
       </div>
     </div>
     <br>
-    <p><b>Today's Patients</b></p>
-    <div class="boxes"> 
-    <div class="box" style="padding:10px;box-shadow: 1px 1px 10px 3px lightgray;">
+    <ul class="nav nav-tabs" id="searchtab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="todays-tab" data-toggle="tab" href="#todayspat" role="tab" aria-controls="basic"
+          aria-selected="true"><img src="../../assets/todayspatients.png" style="padding-right: 0.5%;padding-bottom: 0.5%;"/><b>Today's Patients</b></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="search-tab" data-toggle="tab" href="#searchoutput" role="tab" aria-controls="advanced"
+          aria-selected="false"><img src="../../assets/searchresults.png" style="padding-right: 0.5%;padding-bottom: 0.5%;"/><b>Search Results</b></a>
+      </li>
+    </ul>
+    <div class="tab-content" style="padding-top:2%">
+    <div class="boxes tab-pane fade show active" id="todayspat" role="tabpanel" aria-labelledby="todays-tab"> 
+      <div class="box" style="padding:10px;box-shadow: 1px 1px 10px 3px lightgray;">
+        <div class="row" style="border-bottom: 2px solid #E1E4EB;">
+          <div class="col-md-2" style="margin-bottom: 1%;"><img src="../../assets/Avatar.png"/>
+            <b style="margin-left:3%;padding:1%">Leslie Wang</b></div>
+            <div class="col-md-5" ></div>
+            <div class="col-md-4" style="padding:1%">Next Appointment Today 11:30 am</div>
+              <div class="col-md-1" style="padding:1%">
+                <img src="../../assets/view.png" style="cursor:pointer" (click)= "openPatientProfile(1234)"/></div>
+        </div>
+        <div class="row row1">
+          <div class="col-md-1"><b>DOB</b></div>
+          <div class="col-md-2">07/16/1970</div>
+          <div class="col-md-3"><b>Driver's License</b></div>
+          <div class="col-md-3">NHL12345678</div>
+          <div class="col-md-3">Massachusettes Medical Group</div>
+        </div>
+        <div class="row row1">
+          <div class="col-md-1"><b>Sex</b></div>
+          <div class="col-md-2">Female</div>
+          <div class="col-md-3"><b>Last 4 digits of SSN</b></div>
+          <div class="col-md-3">0010</div>
+          <div class="col-md-3">Department of Cardiology</div>
+        </div>
+        <div class="row row1">
+          <div class="col-md-1"><b>Residence</b></div>
+          <div class="col-md-2">New York City, NY</div>
+          <div class="col-md-3"><b>Phone Number</b></div>
+          <div class="col-md-3">(123)456-789</div>
+          <div class="col-md-3">Dr. Beth Smith</div>
+        </div>
+        <div class="row row1">
+          <div class="col-md-1"><b>MRN</b></div>
+          <div class="col-md-2">YTK12345675</div>
+          <div class="col-md-3"><b>Email</b></div>
+          <div class="col-md-3">Leslie.Wang@gmail.com</div>
+          <div class="col-md-3">COPD,CHF,Diabetes(Type 2)</div>
+        </div>
+        
+      </div>
+  </div>
+  <div class="searchresults tab-pane fade" id="searchoutput" role="tabpanel" aria-labelledby="search-tab" >
+    <!--<div class="box" style="padding:10px;box-shadow: 1px 1px 10px 3px lightgray;">
       <div class="row" style="border-bottom: 2px solid #E1E4EB;">
         <div class="col-md-2" style="margin-bottom: 1%;"><img src="../../assets/Avatar.png"/>
           <b style="margin-left:3%;padding:1%">Leslie Wang</b></div>
@@ -152,7 +203,7 @@
               <img src="../../assets/view.png" style="cursor:pointer" (click)= "openPatientProfile(1234)"/></div>
       </div>
       <div class="row row1">
-        <div class="col-md-1"><b>DOB</b></div>
+        <div class="col-md-1"><b>DOB1</b></div>
         <div class="col-md-2">07/16/1970</div>
         <div class="col-md-3"><b>Driver's License</b></div>
         <div class="col-md-3">NHL12345678</div>
@@ -180,8 +231,9 @@
         <div class="col-md-3">COPD,CHF,Diabetes(Type 2)</div>
       </div>
       
-    </div>
+    </div>-->
   </div>
+</div>
     <!--
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
