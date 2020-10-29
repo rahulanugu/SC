@@ -27,7 +27,7 @@
             ],
             "scripts": [
               "./node_modules/jquery/dist/jquery.min.js",
-              "./src/assets/js/canvasjs.min"
+              "./src/assets/js/canvasjs.min.js"
             ]
           },
           "configurations": {
