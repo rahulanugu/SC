@@ -296,10 +296,7 @@ export class PatientHealthcareviewComponent implements OnInit {
          type: "spline"
       },
       title: {
-         text: "Monthly Average Temperature"
-      },
-      subtitle: {
-         text: "Source: WorldClimate.com"
+         text: "Vitals"
       },
       xAxis:{
          categories:["Jan", "Feb", "Mar", "Apr", "May", "Jun",
@@ -307,28 +304,15 @@ export class PatientHealthcareviewComponent implements OnInit {
       },
       yAxis: {
          title:{
-            text:"Temperature °C"
+            text:"Temperature °F"
          }
       },
       tooltip: {
-         valueSuffix:" °C"
+         valueSuffix:" °F"
       },
       series: [
          {
-            name: 'Tokyo',
-            data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2,26.5, 23.3, 18.3, 13.9, 9.6]
-         },
-         {
-            name: 'New York',
-            data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8,24.1, 20.1, 14.1, 8.6, 2.5]
-         },
-         {
-            name: 'Berlin',
-            data: [-0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0]
-         },
-         {
-            name: 'London',
-            data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
+            data: [97, 97.2, 97.5, 98, 98.2, 99.5, 97.5, 98.6]
          }
       ]
    };
@@ -339,7 +323,7 @@ export class PatientHealthcareviewComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit() {
-   var chart = new CanvasJS.Chart("chartContainer",{
+   /*var chart = new CanvasJS.Chart("chartContainer",{
       title:{
       text: "Vitals"
       },
@@ -366,7 +350,7 @@ export class PatientHealthcareviewComponent implements OnInit {
       }
       ]
     });
-    chart.render();
+    chart.render();*/
    document.getElementById('firstname').innerHTML = "<span class='text'><h4>Leslie Wang</h4></span><br>\
    <span class='text'><b>Medical Record No.(MRN): </b>YTK12345678</span><br><span class='text'><b>Phone Number: </b>(123)456-7890</span>";
    document.getElementById('dob').innerHTML = "<span class='text'><b>DOB: </b>07/16/1970</span><br>\
