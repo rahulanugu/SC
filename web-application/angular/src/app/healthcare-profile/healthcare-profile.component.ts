@@ -52,7 +52,6 @@ export class HealthcareProfileComponent implements OnInit {
 
   ngOnInit() {
     localStorage.setItem('code',window.location.href.split("?")[1].split("=")[1]);
-    //localStorage.setItem('code','eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ1cm46b2lkOmZoaXIiLCJjbGllbnRfaWQiOiI3ODhhNWY0NS04ZmNjLTRhZDktYmNlNi1lN2VlZWZjOGFjNDEiLCJlcGljLmVjaSI6InVybjplcGljOlVTQ0RJLW9uLUZISVIiLCJlcGljLm1ldGFkYXRhIjoickhVQlAtUnFtOTAxQ1FTWmlJWkE2emxUOEVJSlRhWEducUlYZ2Q0ZHBpZ2JRelQ2dW84elFVZ1dMVUVnQk1Qam0tNTNhekRPR3FVN3JORXJQSWdXOWFkbUd5OXl6MUJTbWJFYk80TEN0SkVTLUt3aldiTEVLcVFPYmlSWmY4OVgiLCJlcGljLnRva2VudHlwZSI6ImNvZGUiLCJleHAiOjE2MDIyNDQzNzMsImlhdCI6MTYwMjI0NDA3MywiaXNzIjoidXJuOm9pZDpmaGlyIiwianRpIjoiZDhkN2VmY2ItNTI1Zi00YTg4LThiNzQtMWNmNDA1OTlmZTMwIiwibmJmIjoxNjAyMjQ0MDczLCJzdWIiOiJlbVNqckVEMEVCWlAybFU3ZVN5UEU2dzMifQ.JrGxt9-ystIXnB6cyT2_HF2oCtA13CeJM_N68rVqbPOIyGh21Z81n4pmSyB5JtkADJM7nmNshkf0ETf3S4faB_VdTKJ3cwvpwfnMg2xV0dHt0o0nDu2MG8TwvB14fZcxPaq67HyqTvl_0pazwFbYVbI2jJ3PVRC-qtaZfWBu-_ER23w9VC3vYqwk4G7uoX4iOClkYRNGfeNj0Pd_qA4Y3GrMoRBXtS36fq-YGWxdkCs2mBl6y_8mNJELvr3_VHlZaz6uV5bopwqER5VnSe20TqdBE8Yv5xhtSl-L_dxXHijjeKXfiEbGS6v3BJwjkwZ5H2KITH54ZUGd0H2KNIeIdQ');
     const code = localStorage.getItem('code');
     const headers = {'Content-Type': 'application/x-www-form-urlencoded'};
     const body=`grant_type=authorization_code&code=${code}&redirect_uri=https://www.scriptchain.co/healthcare-profile&client_id=788a5f45-8fcc-4ad9-bce6-e7eeefc8ac41`;
@@ -77,6 +76,7 @@ export class HealthcareProfileComponent implements OnInit {
     //console.log("test");
     let elem = document.getElementsByClassName("searchresults")[0];
     this.dataService.getFromCache(localStorage.getItem("code")).subscribe(res1=>{
+      //let res1 = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ1cm46b2lkOmZoaXIiLCJjbGllbnRfaWQiOiI3ODhhNWY0NS04ZmNjLTRhZDktYmNlNi1lN2VlZWZjOGFjNDEiLCJlcGljLmVjaSI6InVybjplcGljOlVTQ0RJLW9uLUZISVIiLCJlcGljLm1ldGFkYXRhIjoibl9ybjlGaW82VHpHSklEWnVzSTktRkRjajl5Qk03YmpnbXFtUm5ldHVRaDJESlpUZ0xPZUpub1QtczJvUDFwUmpJNHB5el84N0h4ZzFqLVRocTF5VmpPR3RGeTkwMkoxSFNaSFNrWTkzeFkxbVRnYnhqSmNNWDVaZzRGc0lOMWMiLCJlcGljLnRva2VudHlwZSI6ImFjY2VzcyIsImV4cCI6MTYwNDA0NzA0MCwiaWF0IjoxNjA0MDQzNDQwLCJpc3MiOiJ1cm46b2lkOmZoaXIiLCJqdGkiOiJlYWQ5MDgyYi1kODAyLTQ1ZDctOGExYy1mNjQ5Y2NlYTdlZDciLCJuYmYiOjE2MDQwNDM0NDAsInN1YiI6ImVtU2pyRUQwRUJaUDJsVTdlU3lQRTZ3MyJ9.nJCOXYw0jEgxExls9K8khC6DU4OIF8ODvLL66UplcqgAtDKgBkFSLG4ougExEKksprftanf37KQgpnk_KKXtX3rBZgN9oRnc47r9ALJ0RUSVX1ZZgZ5_kIKs3Ntn4K8I6ew7rYkVZe4gH9tzGpl8k6sL46y8pl84JMA6PfMCgH17IZ-ooApSes__R7mDQHDBadlsq8p2kpLiFthX6hqoQoYMGUMX-aaoQAUaMPPLBPxEBO9j149QfGl1cX18Q4mryskyLu2yZs_FuPtn1urLkA9PHei4n_--hLcMj9DvmX5y7b9kC-xK0gxPBtXWL3VwvuNbr4k5EIuvtHrx8HJdug"
       this.dataService.search(this.fName,this.lName,this.dob,res1).subscribe(res=>{
           console.log(res);
           var name = res["entry"][0].resource.name[0].text.split(" ")[1];
@@ -84,32 +84,20 @@ export class HealthcareProfileComponent implements OnInit {
           var gender = res["entry"][0].resource.gender;
           var phone = res["entry"][0].resource.telecom[0].value;
           var care = res["entry"][0].resource.careProvider[0].display;
-          /*elem.insertAdjacentHTML('afterbegin',"<div class='box' style='margin-bottom:3%;padding:10px;box-shadow: 1px 1px 10px 3px lightgray;'>"+
-      "<div class='row'><div class='col-md-2' style='margin-bottom: 1%;'>"+
-      "<b>"+name+"</b></div><div class='col-md-2'><b>Driver's License</b></div><div class='col-md-2'></div>"+
-      "<div class='col-md-1'></div><div class='col-md-3'>"+care+"</div></div>"+
-      "<div class='row'><div class='col-md-2'>"+dob+"</div><div class='col-md-2'><b>Last 4 digits of SSN</b></div>"+
-      "<div class='col-md-2'></div><div class='col-md-1'></div><div class='col-md-3'></div>"+
-      "<div class='col-md-2'><button type='button' style='background-color:teal;color: white;padding-left: 10%;padding-right: 10%;margin-left: -8%;margin-top: 2%;' class='btn btn-details'(click)= 'openPatientProfile(1234)'>View Details</button>"+
-      "</div></div><div class='row'><div class='col-md-2' style='margin-bottom: 1%;'>"+gender.charAt(0).toUpperCase() + gender.slice(1)+"</div>"+
-      "<div class='col-md-2'><b>Phone Number</b></div><div class='col-md-2'>"+phone+"</div><div class='col-md-1'></div>"+
-      "<div class='col-md-3'></div></div>"+
-    "<div class='row'><div class='col-md-2'>New York City, NY</div><div class='col-md-2'><b>Email Address</b></div>"+
-      "<div class='col-md-2'></div><div class='col-md-1'></div><div class='col-md-3'></div></div></div>"*/
-      elem.insertAdjacentHTML('afterbegin',"<div class='box' style='padding:10px;box-shadow: 1px 1px 10px 3px lightgray;'>"+
+        elem.insertAdjacentHTML('afterbegin',"<div class='box' style='padding:10px;box-shadow: 1px 1px 10px 3px lightgray;background-color: white;margin-bottom: 5%;padding-top: 1%;'>"+
         "<div class='row' style='border-bottom: 2px solid #E1E4EB;'><div class='col-md-2' style='margin-bottom: 1%;'><img src='../../assets/Avatar.png'/>"+
         "<b style='margin-left:3%;padding:1%'>"+name+"</b></div><div class='col-md-5' ></div>"+
         "<div class='col-md-4' style='padding:1%'>Next Appointment Today 11:30 am</div><div class='col-md-1' style='padding:1%'>"+
         "<img src='../../assets/view.png' style='cursor:pointer' (click)= 'openPatientProfile(1234)'/></div></div>"+
-        "<div class='row row1'><div class='col-md-1'><b>DOB</b></div><div class='col-md-2'>"+dob+"</div>"+
+        "<div class='row row1' style='padding-top: 1%;'><div class='col-md-1'><b>DOB</b></div><div class='col-md-2'>"+dob+"</div>"+
         "<div class='col-md-3'><b>Driver's License</b></div><div class='col-md-3'>NHL12345678</div>"+
-        "<div class='col-md-3'>"+care+"</div></div><div class='row row1'>"+
+        "<div class='col-md-3'>"+care+"</div></div><div class='row row1' style='padding-top: 1%;'>"+
         "<div class='col-md-1'><b>Sex</b></div><div class='col-md-2'>"+gender+"</div>"+
         "<div class='col-md-3'><b>Last 4 digits of SSN</b></div><div class='col-md-3'>0010</div>"+
-        "<div class='col-md-3'>Department of Cardiology</div></div><div class='row row1'>"+
+        "<div class='col-md-3'>Department of Cardiology</div></div><div class='row row1' style='padding-top: 1%;'>"+
         "<div class='col-md-1'><b>Residence</b></div><div class='col-md-2'>New York City, NY</div>"+
         "<div class='col-md-3'><b>Phone Number</b></div><div class='col-md-3'>"+phone+"</div>"+
-        "<div class='col-md-3'>Dr. Beth Smith</div></div><div class='row row1'>"+
+        "<div class='col-md-3'>Dr. Beth Smith</div></div><div class='row row1' style='padding-top: 1%;'>"+
         "<div class='col-md-1'><b>MRN</b></div><div class='col-md-2'>YTK12345675</div>"+
         "<div class='col-md-3'><b>Email</b></div><div class='col-md-3'>theo@gmail.com</div>"+
         "<div class='col-md-3'>COPD,CHF,Diabetes(Type 2)</div></div></div>"
