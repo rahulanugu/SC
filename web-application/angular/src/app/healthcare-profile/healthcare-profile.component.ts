@@ -90,7 +90,7 @@ export class HealthcareProfileComponent implements OnInit {
         "<div class='col-md-4' style='padding:1%'>Next Appointment Today 11:30 am</div><div class='col-md-1' style='padding:1%'>"+
         "<img src='../../assets/view.png' style='cursor:pointer' (click)= 'openPatientProfile(1234)'/></div></div>"+
         "<div class='row row1' style='padding-top: 1%;'><div class='col-md-1'><b>DOB</b></div><div class='col-md-2'>"+dob+"</div>"+
-        "<div class='col-md-3'><b>Driver's License</b></div><div class='col-md-3'>NHL12345678</div>"+
+        "<div class='col-md-3'><b>Driver's License</b></div><div class='col-md-3'>NHL2323128</div>"+
         "<div class='col-md-3'>"+care+"</div></div><div class='row row1' style='padding-top: 1%;'>"+
         "<div class='col-md-1'><b>Sex</b></div><div class='col-md-2'>"+gender+"</div>"+
         "<div class='col-md-3'><b>Last 4 digits of SSN</b></div><div class='col-md-3'>0010</div>"+
@@ -98,7 +98,7 @@ export class HealthcareProfileComponent implements OnInit {
         "<div class='col-md-1'><b>Residence</b></div><div class='col-md-2'>New York City, NY</div>"+
         "<div class='col-md-3'><b>Phone Number</b></div><div class='col-md-3'>"+phone+"</div>"+
         "<div class='col-md-3'>Dr. Beth Smith</div></div><div class='row row1' style='padding-top: 1%;'>"+
-        "<div class='col-md-1'><b>MRN</b></div><div class='col-md-2'>YTK12345675</div>"+
+        "<div class='col-md-1'><b>MRN</b></div><div class='col-md-2'>YTK18273825</div>"+
         "<div class='col-md-3'><b>Email</b></div><div class='col-md-3'>theo@gmail.com</div>"+
         "<div class='col-md-3'>COPD,CHF,Diabetes(Type 2)</div></div></div>"
       );
