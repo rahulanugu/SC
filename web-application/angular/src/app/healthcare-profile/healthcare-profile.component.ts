@@ -75,7 +75,7 @@ export class HealthcareProfileComponent implements OnInit {
 
   search(){
     //console.log("test");
-    let elem = document.getElementsByClassName("boxes")[0];
+    let elem = document.getElementsByClassName("searchresults")[0];
     this.dataService.getFromCache(localStorage.getItem("code")).subscribe(res1=>{
       this.dataService.search(this.fName,this.lName,this.dob,res1).subscribe(res=>{
           console.log(res);
