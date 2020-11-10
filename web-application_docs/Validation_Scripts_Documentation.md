@@ -118,7 +118,7 @@ In our application we have used express-validator for validating the node js cod
 
     
 
-![alt_text](Validaiton_images/image9.png "image_tooltip")
+![alt_text](Validation_images/image9.png "image_tooltip")
 
 
 *   In the above request we have sent some extra parameters namely id and version that are not part of UI. So, it throws an error as shown above.
