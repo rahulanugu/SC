@@ -11,7 +11,7 @@ Athena login
   <section class="login py-5">
     <div class="container py-xl-5 py-lg-3">
       <div class="title-section mb-md-5 mb-4">
-        <h3 class="w3ls-title text-uppercase text-dark font-weight-bold" style="padding-top: 50px">AthenaHealth Login</h3> 
+        <h3 class="w3ls-title text-dark font-weight-bold" style="padding-top: 50px">AthenaHealth Login</h3> 
         <!-- <img src="../../assets/athena/athena_logo.png"/> -->
 
       </div>
@@ -19,11 +19,11 @@ Athena login
         <form ngNativeValidate [formGroup]="Form" (ngSubmit)="onSubmit()">
           <div class="form-group">
             <small id="deactivatedEmail" class="text-danger d-none"><strong>Looks like you have deactivated your account, please check your email to reactivate.</strong><br/></small>
-            <label>Email</label>
-            <input [class.is-invalid]="Form.get('emailAddress').invalid && Form.get('emailAddress').touched"
-              formControlName="emailAddress" type="email" class="form-control" id="emailAddress" required>
-            <small [class.d-none]="Form.get('emailAddress').valid || Form.get('emailAddress').untouched"
-              class="text-danger">Email is required.</small>
+            <label>Username</label>
+            <input [class.is-invalid]="Form.get('username').invalid && Form.get('username').touched"
+              formControlName="username" class="form-control" id="username" required>
+            <small [class.d-none]="Form.get('username') || Form.get('username')"
+              class="text-danger">Username is required.</small>
           </div>
           <div class="form-group">
             <label>Password</label>
