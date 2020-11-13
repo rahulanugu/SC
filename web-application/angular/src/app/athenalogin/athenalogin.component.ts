@@ -63,7 +63,7 @@ export class AthenaLoginComponent implements OnInit {
           .then(response => response.text())
           .then(result => console.log(result))
           .catch(error => console.log('error', error));
-        //this.router.navigate(['healthcare-profile'])
+          this.router.navigate(['healthcare-profile'])
       },
       err => {
         console.log(err)
