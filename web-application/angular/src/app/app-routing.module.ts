@@ -37,12 +37,14 @@ import { DeactivatedPatientComponent } from "./deactivated-patient/deactivated-p
 import { ReactivatePatientComponent } from "./reactivate-patient/reactivate-patient.component";
 import { HealthcareManageProfileComponent } from "./healthcare-manage-profile/healthcare-manage-profile.component";
 import { ReactivateHealthcareProviderComponent } from "./reactivate-healthcare-provider/reactivate-healthcare-provider.component";
+import { AthenaLoginComponent } from "./athenalogin/athenalogin.component";
 
 const routes: Routes = [
   /* pages for the app */
   { path: "home", component: HomeComponent },
   { path: "patientlogin", component: PatientComponent },
   { path: "login", component: LoginComponent },
+  { path: "login/athena", component: AthenaLoginComponent },
   { path: "request-access", component: RequestAccessComponent },
   { path: "error404", component: Error404Component },
   { path: "error500", component: Error500Component },
