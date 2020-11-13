@@ -9,6 +9,7 @@ import {MatGridListModule} from '@angular/material';
 import { ReactiveFormsModule} from '@angular/forms';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
+import { AthenaLoginComponent } from './athenalogin/athenalogin.component'
 import { HomeComponent } from './home/home.component';
 import { AppRoutingModule } from './app-routing.module';
 import { RequestAccessComponent} from './request-access/request-access.component';
@@ -76,6 +77,7 @@ import { MatConfirmDialogComponent } from './mat-confirm-dialog/mat-confirm-dial
   declarations: [
     AppComponent,
     LoginComponent,
+    AthenaLoginComponent,
     HomeComponent,
     RequestAccessComponent,
     PatientComponent,
@@ -121,7 +123,6 @@ import { MatConfirmDialogComponent } from './mat-confirm-dialog/mat-confirm-dial
     HealthcareManageProfileComponent,
     ReactivateHealthcareProviderComponent,
     MatConfirmDialogComponent,
-
 
   ],
 
