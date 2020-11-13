@@ -1,0 +1,90 @@
+.group {
+    width: 60%;
+    margin:auto;
+    background: rgb(241, 238, 233);
+    padding: 15px;
+    margin-top:12px;
+}
+
+table {
+    width: 100%;
+  }
+  .example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .example-full-width {
+    width: 100%;
+  }
+
+  #basic,#advanced{
+    background-color: white;
+    padding-bottom:3%;
+  }
+
+  .btn-turq{
+    background-color: teal;
+    color:white;
+    width:100px;
+  }
+  .button-grp{
+    margin-top: 2%;
+    margin-left: 1%;
+  }
+  .container{
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  }
+
+  #myTabContent{
+    padding-top:2%;
+  }
+
+  .box{
+    background-color: white;
+    margin-bottom: 5%;
+  }
+  .btn-details{
+    background-color: teal;
+    color:white;
+    padding-left: 10%;
+    padding-right: 10%;
+    margin-left: -8%;
+    margin-top: 2%;
+  }
+  .nav-item a{
+    color:black;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  }
+
+  .text{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+    color: #575B66;
+    margin-left:5.1%;
+    padding-top: 3%;
+  }
+
+  .first-row{
+    border-bottom: 2px solid #E1E4EB;
+    padding-bottom: 3%;
+  }
+
+  .form-row{
+    padding-left: 5%;
+  }
+
+  input{
+    width:109%;
+  }
+
+  .box .row1{
+    padding-top: 1%;
+  }
+
+  .nav-item1{
+    width: 18%;
+  }
