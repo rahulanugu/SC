@@ -72,14 +72,12 @@ import { HealthcareManageProfileComponent } from './healthcare-manage-profile/he
 import { ReactivateHealthcareProviderComponent } from './reactivate-healthcare-provider/reactivate-healthcare-provider.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatConfirmDialogComponent } from './mat-confirm-dialog/mat-confirm-dialog.component';
-import { AthenaProfileComponent } from './athena-profile/athena-profile.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     AthenaLoginComponent,
-    AthenaProfileComponent,
     HomeComponent,
     RequestAccessComponent,
     PatientComponent,
@@ -125,8 +123,6 @@ import { AthenaProfileComponent } from './athena-profile/athena-profile.componen
     HealthcareManageProfileComponent,
     ReactivateHealthcareProviderComponent,
     MatConfirmDialogComponent,
-    AthenaProfileComponent,
-
 
   ],
 

@@ -43,13 +43,26 @@ export class AthenaLoginComponent implements OnInit {
         //console.log("test");
         localStorage.setItem('token',res["idToken"])
         localStorage.setItem('fname',res["firstName"])
-        localStorage.setItem('email', this.Form.value.emailAddress)
-        window.location.href = "https://api.athenahealth.com/oauth/" + res["idToken"]
-        window.location.href = 'https://api.athenahealth.com/oauth/token' 
-        + '&grant_type=client_credentials'
-        + "&Content-type: application/x-www-form-urlencoded"
-        + '&username=key'
-        + '&password=secret'    
+        localStorage.setItem('username', this.Form.value.username)
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", "Basic NHA2ZGtrOWVteDhjYnU2aGhxamJ4cmFqOlB2aFp2bkVzZzZyQWNOdw==");
+        myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+        
+        var urlencoded = new URLSearchParams();
+        urlencoded.append("grant_type", "client_credentials");
+        
+        const requestOptions = {
+          method: 'POST',
+          headers: myHeaders,
+          body: urlencoded,
+          // redirect: 'follow',
+          observe: 'redirect' as 'redirect'
+        };
+        
+        fetch("https://api.athenahealth.com/oauthpreview/token", requestOptions)
+          .then(response => response.text())
+          .then(result => console.log(result))
+          .catch(error => console.log('error', error));
         //this.router.navigate(['healthcare-profile'])
       },
       err => {
@@ -60,16 +73,16 @@ export class AthenaLoginComponent implements OnInit {
       
           document.querySelector('#password').classList.add('is-invalid');
           document.querySelector('#invalidPasswordPrompt').classList.remove('d-none');    
-          document.querySelector('#deactivatedEmail').classList.add('d-none');
+          document.querySelector('#deactivatedusername').classList.add('d-none');
 
 
         }else if(err.status == 303){
-          //console.log("deactivated email handling")
+          //console.log("deactivated username handling")
           //send a reactivare mail
           this.healthcareEditService.makeReactivateRequest({username : this.Form.value.username}).subscribe(
             response => {
               //console.log("response is recieved")
-              document.querySelector('#deactivatedEmail').classList.remove('d-none');
+              document.querySelector('#deactivatedusername').classList.remove('d-none');
             },
             error => {
               //console.log("error is recieved")
@@ -79,10 +92,10 @@ export class AthenaLoginComponent implements OnInit {
         } else {
           //console.log("errorcode")
           document.querySelector('#invalidPasswordPrompt').classList.add('d-none');    
-          document.querySelector('#emailAddress').classList.add('is-invalid');
+          document.querySelector('#username').classList.add('is-invalid');
           document.querySelector('#password').classList.add('is-invalid');
-          document.querySelector('#invalidEmailPrompt').classList.remove('d-none');    
-          document.querySelector('#deactivatedEmail').classList.add('d-none');
+          document.querySelector('#invalidusernamePrompt').classList.remove('d-none');    
+          document.querySelector('#deactivatedusername').classList.add('d-none');
 
         }
       }
