@@ -7,7 +7,6 @@ import { RouterModule, Routes } from "@angular/router";
 /* Componets to create routes for */
 import { HomeComponent } from "./home/home.component";
 import { LoginComponent } from "./login/login.component";
-import { AllscriptsLoginComponent } from "./allscripts-login/allscripts-login.component";
 import { RequestAccessComponent } from "./request-access/request-access.component";
 import { PatientComponent } from "./patient-login/patient.component";
 import { RegPatientComponent } from "./patient-register/reg-patient.component";
@@ -44,7 +43,6 @@ const routes: Routes = [
   { path: "home", component: HomeComponent },
   { path: "patientlogin", component: PatientComponent },
   { path: "login", component: LoginComponent },
-  { path: "allscripts/login", component: AllscriptsLoginComponent }
   { path: "request-access", component: RequestAccessComponent },
   { path: "error404", component: Error404Component },
   { path: "error500", component: Error500Component },
