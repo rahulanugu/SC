@@ -141,19 +141,19 @@ def preprocess():
 
 def generate_analytics():
   X_features, procedures, medications, mappings = preprocess()
-  #model_4280, model_4019, model_41401, model_42731 = Model_config.compile_model(), Model_config.compile_model(), Model_config.compile_model(), Model_config.compile_model()
-  model_4019=Model_config.compile_model()
+  model_4280, model_4019, model_41401, model_42731 = Model_config.compile_model(), Model_config.compile_model(), Model_config.compile_model(), Model_config.compile_model()
+  #model_4019=Model_config.compile_model()
   model_4019.load_weights('./predictor/models/distron_4019.h5')
-  #model_4280.load_weights('./predictor/EHRInterface/distron_4280.h5')
-  #model_41401.load_weights('./predictor/EHRInterface/distron_41401.h5')
-  #model_42731.load_weights('./predictor/EHRInterface/distron_42731.h5')
+  model_4280.load_weights('./predictor/models/distron_4280.h5')
+  model_41401.load_weights('./predictor/models/distron_41401.h5')
+  model_42731.load_weights('./predictor/models/distron_42731.h5')
 
   predictions = {}
-  #predictions['Congestive Heart Failure'] = model_4280.predict([mappings, procedures, medications, X_features]) >= thresholds["Congestive Heart Failure"]
+  predictions['Congestive Heart Failure'] = model_4280.predict([mappings, procedures, medications, X_features]) >= thresholds["Congestive Heart Failure"]
   predictions['Hypertension'] = model_4019.predict([mappings, procedures, medications, X_features]) >= thresholds["Hypertension"]
-  print(predictions)
-  #predictions['ASHD coronary artery'] = model_41401.predict([mappings, procedures, medications, X_features]) >= thresholds["ASHD coronary artery"]
-  #predictions['Atrial Fibrilliation'] = model_42731.predict([mappings, procedures, medications, X_features]) >= thresholds["Atrial Fibrilliation"]
+  #print(predictions)
+  predictions['ASHD coronary artery'] = model_41401.predict([mappings, procedures, medications, X_features]) >= thresholds["ASHD coronary artery"]
+  predictions['Atrial Fibrilliation'] = model_42731.predict([mappings, procedures, medications, X_features]) >= thresholds["Atrial Fibrilliation"]
   #threshold needs to be learned as well. we need a trainset test set and a validation set in order to figure
   #out the threshold
   #regularization in every layer if possible(wherever possible)
