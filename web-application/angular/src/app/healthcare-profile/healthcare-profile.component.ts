@@ -65,8 +65,8 @@ export class HealthcareProfileComponent implements OnInit {
       },err=>{
         console.log(err);
       });
-    this.providerFirstName = localStorage.getItem('fname');
-    this.dataService.getPosts().subscribe(posts => {
+      this.providerFirstName = localStorage.getItem('fname');
+      this.dataService.getPosts().subscribe(posts => {
       this.allPatients = posts
       this.dataService.postsData = posts
     });
