@@ -38,6 +38,9 @@ ALLOWED_HOSTS = [
     'analytics.scriptchain-259015.appspot.com',
     'analytics.scriptchain.co',
     '127.0.0.1',  # for local testing
+    '35.233.190.71 ',#for GCP
+    '35.245.76.22',
+    '34.86.43.80',
 ]
 
 
