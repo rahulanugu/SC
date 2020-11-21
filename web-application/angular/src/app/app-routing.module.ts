@@ -38,6 +38,7 @@ import { ReactivatePatientComponent } from "./reactivate-patient/reactivate-pati
 import { HealthcareManageProfileComponent } from "./healthcare-manage-profile/healthcare-manage-profile.component";
 import { ReactivateHealthcareProviderComponent } from "./reactivate-healthcare-provider/reactivate-healthcare-provider.component";
 import { AthenaLoginComponent } from "./athenalogin/athenalogin.component";
+import { AllscriptsLoginComponent } from "./allscripts-login/allscripts-login.component";
 
 const routes: Routes = [
   /* pages for the app */
@@ -45,6 +46,7 @@ const routes: Routes = [
   { path: "patientlogin", component: PatientComponent },
   { path: "login", component: LoginComponent },
   { path: "login/athena", component: AthenaLoginComponent },
+  { path: "login/allscripts", component: AllscriptsLoginComponent },
   { path: "request-access", component: RequestAccessComponent },
   { path: "error404", component: Error404Component },
   { path: "error500", component: Error500Component },
