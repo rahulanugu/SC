@@ -54,8 +54,8 @@ export class HealthcareProfileComponent implements OnInit {
     localStorage.setItem('code',window.location.href.split("?")[1].split("=")[1]);
     const code = localStorage.getItem('code');
     const headers = {'Content-Type': 'application/x-www-form-urlencoded'};
-    const body=`grant_type=authorization_code&code=${code}&redirect_uri=https://www.scriptchain.co/healthcare-profile&client_id=788a5f45-8fcc-4ad9-bce6-e7eeefc8ac41`;
-    this.http.post("https://fhir.epic.com/interconnect-fhir-oauth/oauth2/token", body,{headers}).subscribe(
+    const body=`grant_type=authorization_code&code=${code}&redirect_uri=https://www.scriptchain.co/healthcare-profile&client_id=B5362FB7-A608-415F-ABA9-FAE232FCE90E`;
+    this.http.post("https://applescm184region.open.allscripts.com/authorization/connect/token", body,{headers}).subscribe(
       res => {
         console.log(res);
         //localStorage.setItem('access_token',res["access_token"]);
