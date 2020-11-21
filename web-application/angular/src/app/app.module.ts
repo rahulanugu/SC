@@ -72,14 +72,12 @@ import { HealthcareManageProfileComponent } from './healthcare-manage-profile/he
 import { ReactivateHealthcareProviderComponent } from './reactivate-healthcare-provider/reactivate-healthcare-provider.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatConfirmDialogComponent } from './mat-confirm-dialog/mat-confirm-dialog.component';
-import { AllscriptsLoginComponent } from './allscripts-login/allscripts-login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     AthenaLoginComponent,
-    AllscriptsLoginComponent,
     HomeComponent,
     RequestAccessComponent,
     PatientComponent,
