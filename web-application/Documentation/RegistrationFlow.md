@@ -52,7 +52,7 @@ Verify Token Request -></p>
 
     
 
-![alt_text](images/image1.png "image_tooltip")
+![alt_text](RegistrationFlow_images/image1.png "image_tooltip")
 
 
 *   The postPatient http call triggers the Post(‘/patient’) in the backend.
