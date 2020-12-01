@@ -13,8 +13,8 @@ from tensorflow.keras import backend as K
 from tensorflow.keras.models import Model
 from predictor.EHRInterface import EpicInterface as epic
 from predictor.EHRInterface import Model_config
-
-
+from django.core.files.storage import default_storage
+#STORAGE_BUCKETS = 'https://storage.googleapis.com/scriptchain-1/'
 
 # Need to have JSON, 4 saved StandardScaler objects, medications vocab, procedures vocab, mappings vocab, 4 saved model weights, Model_config.py
 
@@ -23,9 +23,10 @@ thresholds = {'Congestive Heart Failure': 0.5, 'Hypertension': 0.3, 'ASHD corona
 #///////////////////////////////////////////////////////////////
 #///////////////////////////////////////////////////////////////
 
+
 def preprocess():
 
-  with open('./predictor/EHRInterface/EpicPatientData.json') as f:
+  with default_storage.open('data/EpicPatientData.json') as f:
     data = json.load(f)#fetch this from epic
 
 #============= GENDER + AGE + 50 LAB TEST ====================== 
@@ -80,11 +81,11 @@ def preprocess():
       X_features[cpt] = l['value']
       if lionc=='718-7':
         X_features['50811']=l['value']
-  pre_data = pd.read_pickle('./predictor/models/lab_normal_vals.pkl')
+  pre_data = pd.read_pickle(default_storage.open('models/lab_normal_vals.pkl'))
   for cpt in X_features.columns.tolist():
     if math.isnan(X_features[cpt]):
       X_features[cpt]=pre_data[int(cpt)]
-  data1 = pickle.load(open('./predictor/models/data_4019.pkl', 'rb')) 
+  data1 = pickle.load(default_storage.open('models/data_4019.pkl', 'rb'))
   #dt = pd.read_csv("./predictor/EHRInterface/final_data.csv")
   scaler1 = StandardScaler()
   #print(data1.head())
@@ -104,13 +105,13 @@ def preprocess():
 #=============================================================== 
 #======================== Procedures =========================== 
 
-  proc_vocab = pd.read_pickle("./predictor/models/Procedures_vocab.pkl")
+  proc_vocab = pd.read_pickle(default_storage.open("models/Procedures_vocab.pkl"))
   procedures = keras.preprocessing.sequence.pad_sequences([[proc_vocab[entry["code"]] for entry in data['Procedures'] if entry["code"] in proc_vocab]], maxlen=8)
 
 #=============================================================== 
 #======================= Medications =========================== 
 
-  med_vocab = pd.read_pickle("./predictor/models/Drug_vocab.pkl")
+  med_vocab = pd.read_pickle(default_storage.open("models/Drug_vocab.pkl"))
   if 'Medications' not in data:
     data['Medications']=[]
   meds_used = [entry["name"] for entry in data['Medications']] # this is the list of medications used by the subject
@@ -121,7 +122,7 @@ def preprocess():
 
 #=============================================================== 
 #========================== Notes ============================== 
-  map_vocab = pd.read_pickle("./predictor/models/Mappings_vocab.pkl")
+  map_vocab = pd.read_pickle(default_storage.open("models/Mappings_vocab.pkl"))
   if 'Notes' not in data:
     data['Notes']=""
   note = data['Notes'] # this is the Doctors note for the subject
@@ -148,6 +149,11 @@ def generate_analytics():
   model_41401.load_weights('./predictor/models/distron_41401.h5')
   model_42731.load_weights('./predictor/models/distron_42731.h5')
 
+  # model_4019.load_weights(default_storage.path('models/distron_4019.h5'))
+  # model_4280.load_weights(default_storage.path('models/distron_4280.h5'))
+  # model_41401.load_weights(default_storage.path('models/distron_41401.h5'))
+  # model_42731.load_weights(default_storage.path('models/distron_42731.h5'))
+
   predictions = {}
   predictions['Congestive Heart Failure'] = model_4280.predict([mappings, procedures, medications, X_features]) >= thresholds["Congestive Heart Failure"]
   predictions['Hypertension'] = model_4019.predict([mappings, procedures, medications, X_features]) >= thresholds["Hypertension"]
@@ -157,6 +163,7 @@ def generate_analytics():
   #threshold needs to be learned as well. we need a trainset test set and a validation set in order to figure
   #out the threshold
   #regularization in every layer if possible(wherever possible)
+  print(predictions)
   return predictions
 
 #///////////////////////////////////////////////////////////////

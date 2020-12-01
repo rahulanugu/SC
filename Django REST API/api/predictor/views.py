@@ -21,6 +21,7 @@ from predictor.EHRInterface import EpicInterface as epic
 from predictor.EHRInterface import Distron as distron
 import os
 import subprocess
+from django.core.files.storage import default_storage
 
 # Logger Configuration
 logging.config.dictConfig({
@@ -161,7 +162,7 @@ class call_model(APIView):
     def preprocess(self):
         """Preprocessing code for EPIC FHIR data"""
 
-        with open('./EpicPatientData.json') as f:
+        with default_storage.open('data/EpicPatientData.json') as f:
             data = json.load(f)
 
         X_features = pd.DataFrame([data['Demography']['age']], columns=['AGE'])
