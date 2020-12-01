@@ -33,21 +33,6 @@ export class HealthcareProfileComponent implements OnInit {
     private router: Router,
     private http:HttpClient
   ) { 
-    /*this.service.getPatient().subscribe((patients) => {
-      var tmpArr = []
-      for (let i = 0; i < patients.length; i++) {
-        var tmp = {}
-        tmp['fname'] = patients[i]['fname'];
-        tmp['lname'] = patients[i]['lname'];
-        tmp['sex'] = patients[i]['sex'];
-        tmp['birthday'] = patients[i]['birthday'];
-        tmp['sno'] = i+1;
-        tmp['view'] = patients[i]['_id'];
-        tmpArr.push(tmp);
-      }
-      console.log(tmpArr);
-      this.dataSource = new MatTableDataSource(tmpArr);
-     });*/
   }
 
   ngOnInit() {
