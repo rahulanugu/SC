@@ -21,7 +21,7 @@ export class HealthcareLoginService {
    * Description: Check if the user is logged in
    * Verify the integrity of the jwt token from backend
    */
-  loggedIn(){
+  async loggedIn(){
     console.log("Checking if logged in")
     //jwt payload description
     //_id: healthcareProvider._id, fname: healthcareProvider.firstName
@@ -30,6 +30,6 @@ export class HealthcareLoginService {
       jwtToken: jwtString
     }
     //console.log(requestBody);
-    return this.http.post(this.baseURL+"/verifytokenintegrity",requestBody);
+    return await this.http.post(this.baseURL+"/verifytokenintegrity",requestBody).toPromise();
   }
 }
