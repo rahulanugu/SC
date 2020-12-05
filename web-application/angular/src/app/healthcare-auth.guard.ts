@@ -16,20 +16,22 @@ export class HealthcareAuthGuard implements CanActivate {
      * The same functionalit can also be attained with promises
      * But opted asyncronous as only one http request is being made
      */
-    canActivate(){
-    var authorized = this.healthcareService.loggedIn().subscribe(
-     async res => {
-        console.log("response recieved")
-        return true;
-      },
-     async err => {
+    async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot){
+      var authorized;
+      await this.healthcareService.loggedIn().then(
+        res => {
+            console.log("response recieved")
+            authorized =  true;
+          },
+        
+      ).catch(
+        err => {
         console.log("error recieved")
         this._router.navigate(['healthcare/login']);
-        return false;
-      }
-    );
-    if(authorized){
-      return true;
-    } else return false;
+        authorized =  false;
+      });
+      if(authorized){
+        return true;
+      } else return false;
   }
 }
