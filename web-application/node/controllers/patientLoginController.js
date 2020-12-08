@@ -92,5 +92,30 @@ router.post('/',[check('email').notEmpty().isEmail(),check('password').notEmpty(
     });
 });
 
+router.post('/verifytokenintegrity',[check("jwtToken").notEmpty(),body().custom(body => {
+   console.log("Begin verifying token integrity")
+  const keys = ['jwtToken'];
+  return Object.keys(body).every(key => keys.includes(key));
+})],async(req,res)=>{
+  const errors = validationResult(req);
+  if(!errors.isEmpty()){
+    return res.status(400).json({Message:'Bad Request'})
+  }
+
+
+    console.log("Verifying the integrity of the jwt token")
+    console.log(req.body.jwtToken);
+    try {
+        payload = jwt.verify(req.body.jwtToken, "abc")
+        return res.status(200).json({message: "User is authorized"}).end()
+      } catch (e) {
+          console.log("an error has occured")
+        if (e instanceof jwt.JsonWebTokenError) {
+          return res.status(401).json({message: "Unauthorized user"}).end()
+        }
+        return res.status(400).json({message: "Bad request"}).end()
+      }
+})
+
 
 module.exports = router;
