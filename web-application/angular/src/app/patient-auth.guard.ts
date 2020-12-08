@@ -1,6 +1,6 @@
 import { LoginPatientService } from './shared/login-patient.service';
 import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
 
 
 @Injectable({
@@ -9,16 +9,22 @@ import { CanActivate, Router } from '@angular/router';
 export class PatientAuthGuard implements CanActivate {
   constructor(private _loginpatientService:LoginPatientService,
     private _router: Router){}
-  canActivate() 
-  {
-    
-    if(this._loginpatientService.loggedIn()){
+  async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot){
+      var authorized;
+      var authorized;
+      await this._loginpatientService.loggedIn().then(
+        res => {
+            console.log("response recieved")
+            authorized =  true;
+          },
+      ).catch(
+        err => {
+        console.log("error recieved")
+        this._router.navigate(['patientlogin']);
+        authorized =  false;
+      });
+    if(authorized){
       return true;
-    }
-    else{
-      
-      this._router.navigate(['patient/login']);
-      return false;
-    }
+   } else return false;
   }
 }
