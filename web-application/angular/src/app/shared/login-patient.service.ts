@@ -21,8 +21,16 @@ export class LoginPatientService {
     return this._http.post<any>(this.url,Patient);
   }
   //check for avalibality of JWT in browser's storage
-  loggedIn(){
-    return !!localStorage.getItem('token');
+  async loggedIn(){
+    console.log("Checking if logged in")
+    //jwt payload description
+    //_id: healthcareProvider._id, fname: healthcareProvider.firstName
+    var jwtString = localStorage.getItem('token');
+    var requestBody = {
+      jwtToken: jwtString
+    }
+    //console.log(requestBody);
+    return await this._http.post(this.url+"/verifytokenintegrity",requestBody).toPromise();
   }
   //get first name of logged in user
   getFname()
