@@ -31,14 +31,18 @@ li {
   letter-spacing: 0em;
   text-align: left;
 }
+
+table,
+th,
+td {
+  border: 2px solid #e1e4eb;
+}
 .form-control {
   /* Rectangle 90 */
 
-  position: absolute;
+  position: relative;
   height: 40px;
-  left: 0%;
-  right: 0%;
-  top: 0px;
+  width: fit-content;
 
   /* White */
 
@@ -81,6 +85,17 @@ li {
   flex-grow: 0;
 }
 
+.date-selection {
+  padding-top: 2%;
+  padding-left: 5%;
+  padding-bottom: 7%;
+}
+
+.quick-selection {
+  padding-top: 2%;
+  padding-left: 5%;
+}
+
 .group {
   width: 60%;
   margin: auto;
@@ -119,6 +134,7 @@ table {
 .button-grp {
   margin-top: 2%;
   margin-left: 1%;
+  margin-bottom: 10px;
 }
 .container {
   font-family: "Tinos";
@@ -181,6 +197,7 @@ input {
 
 .box .row1 {
   padding-top: 1%;
+  padding-left: 5%;
 }
 
 .nav-item1 {
