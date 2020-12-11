@@ -1,3 +1,86 @@
+h2 {
+  font-size: 32px;
+  font-weight: 400;
+}
+
+p {
+  font-family: Lato;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 17px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+ul {
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+li {
+  display: flex;
+  font-family: Lato;
+  font-size: 24px;
+  color: #2d5059;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 29px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+.form-control {
+  /* Rectangle 90 */
+
+  position: absolute;
+  height: 40px;
+  left: 0%;
+  right: 0%;
+  top: 0px;
+
+  /* White */
+
+  background: #ffffff;
+  /* Grey 200 */
+
+  border: 2px solid #e1e4eb;
+  box-sizing: border-box;
+  /* Inner Shadow E-100 */
+
+  box-shadow: inset 0px 2px 2px rgba(29, 31, 38, 0.15);
+  border-radius: 8px;
+}
+
+.date-button {
+  /* Inline Radio Button */
+
+  /* Auto Layout */
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 7.5px 16px;
+
+  position: static;
+  width: auto;
+  height: 32px;
+  left: 0px;
+  top: 0px;
+
+  /* Teal 100 */
+
+  background: #e6eff1;
+  border-radius: 8px;
+
+  /* Inside Auto Layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
 .group {
   width: 60%;
   margin: auto;
@@ -6,6 +89,10 @@
   margin-top: 12px;
 }
 
+.place {
+  height: 100px;
+  width: 800px;
+}
 table {
   width: 100%;
 }
@@ -22,7 +109,6 @@ table {
 #basic,
 #advanced {
   background-color: white;
-  padding-bottom: 3%;
 }
 
 .btn-turq {
@@ -36,10 +122,11 @@ table {
 }
 .container {
   font-family: "Tinos";
-  color: #2d5059;
+  color: #575b66;
   font-weight: 400;
   font-style: normal;
-  background-color: #e5e5e5;
+  background-color: #faf6f2;
+  max-width: 80%;
 }
 
 #myTabContent {
@@ -59,8 +146,13 @@ table {
   margin-top: 2%;
 }
 .nav-item a {
-  color: black;
-  font-family: "Lato";
+  color: #2d5059;
+  font-family: "Lato", sans-serif;
+}
+
+.date-item a {
+  color: #2d5059;
+  font-family: "Lato", sans-serif;
 }
 
 .text {
@@ -79,6 +171,7 @@ table {
 }
 
 .form-row {
+  display: grid;
   padding-left: 5%;
 }
 
@@ -92,4 +185,9 @@ input {
 
 .nav-item1 {
   width: 18%;
+}
+
+.search {
+  width: 18.75px;
+  height: 18.75px;
 }
