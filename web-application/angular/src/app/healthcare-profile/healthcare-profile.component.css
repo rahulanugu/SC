@@ -1,90 +1,95 @@
 .group {
-    width: 60%;
-    margin:auto;
-    background: rgb(241, 238, 233);
-    padding: 15px;
-    margin-top:12px;
+  width: 60%;
+  margin: auto;
+  background: rgb(241, 238, 233);
+  padding: 15px;
+  margin-top: 12px;
 }
 
 table {
-    width: 100%;
-  }
-  .example-form {
-    min-width: 150px;
-    max-width: 500px;
-    width: 100%;
-  }
-  
-  .example-full-width {
-    width: 100%;
-  }
+  width: 100%;
+}
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
 
-  #basic,#advanced{
-    background-color: white;
-    padding-bottom:3%;
-  }
+.example-full-width {
+  width: 100%;
+}
 
-  .btn-turq{
-    background-color: teal;
-    color:white;
-    width:100px;
-  }
-  .button-grp{
-    margin-top: 2%;
-    margin-left: 1%;
-  }
-  .container{
-    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-  }
+#basic,
+#advanced {
+  background-color: white;
+  padding-bottom: 3%;
+}
 
-  #myTabContent{
-    padding-top:2%;
-  }
+.btn-turq {
+  background-color: teal;
+  color: white;
+  width: 100px;
+}
+.button-grp {
+  margin-top: 2%;
+  margin-left: 1%;
+}
+.container {
+  font-family: "Tinos";
+  color: #2d5059;
+  font-weight: 400;
+  font-style: normal;
+  background-color: #e5e5e5;
+}
 
-  .box{
-    background-color: white;
-    margin-bottom: 5%;
-  }
-  .btn-details{
-    background-color: teal;
-    color:white;
-    padding-left: 10%;
-    padding-right: 10%;
-    margin-left: -8%;
-    margin-top: 2%;
-  }
-  .nav-item a{
-    color:black;
-    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-  }
+#myTabContent {
+  padding-top: 2%;
+}
 
-  .text{
-    font-style: normal;
-    font-weight: normal;
-    font-size: 18px;
-    line-height: 22px;
-    color: #575B66;
-    margin-left:5.1%;
-    padding-top: 3%;
-  }
+.box {
+  background-color: white;
+  margin-bottom: 5%;
+}
+.btn-details {
+  background-color: teal;
+  color: white;
+  padding-left: 10%;
+  padding-right: 10%;
+  margin-left: -8%;
+  margin-top: 2%;
+}
+.nav-item a {
+  color: black;
+  font-family: "Lato";
+}
 
-  .first-row{
-    border-bottom: 2px solid #E1E4EB;
-    padding-bottom: 3%;
-  }
+.text {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  color: #575b66;
+  margin-left: 5.1%;
+  padding-top: 3%;
+}
 
-  .form-row{
-    padding-left: 5%;
-  }
+.first-row {
+  border-bottom: 2px solid #e1e4eb;
+  padding-bottom: 3%;
+}
 
-  input{
-    width:109%;
-  }
+.form-row {
+  padding-left: 5%;
+}
 
-  .box .row1{
-    padding-top: 1%;
-  }
+input {
+  width: 109%;
+}
 
-  .nav-item1{
-    width: 18%;
-  }
+.box .row1 {
+  padding-top: 1%;
+}
+
+.nav-item1 {
+  width: 18%;
+}
