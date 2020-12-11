@@ -15,283 +15,300 @@
     <button (click)= "openPatientProfile(patient._id)"> View </button>
   </div>-->
 <div class="container">
- 
   <div class="row">
-    <h2 style="margin: 2% 38% 0% 38%"><b>Hello Dr.Noori!</b></h2></div>
+    <h2 style="margin: 2% 38% 0% 38%"><b>Hello Dr. ______ !</b></h2>
+    <p style="margin-left: 1.5%"></p>
+  </div>
 
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-      <li class="nav-item">
-        <a
-          class="nav-link active"
-          id="basic-tab"
-          data-toggle="tab"
-          href="#basic"
-          role="tab"
-          aria-controls="basic"
-          aria-selected="true"
-          >Upcoming Patients</a>
-      </li>
-      <li class="nav-item">
-        <a
-          class="nav-link"
-          id="advanced-tab"
-          data-toggle="tab"
-          href="#advanced"
-          role="tab"
-          aria-controls="advanced"
-          aria-selected="false"
-        >
-          <img src="../../assets/MagnifyingGlass.png" /> Search</a
-        >
-      </li>
-    </ul>
-    <br />
-    <br />
+  <br />
+  <br />
 
-    <div class="tab-content" id="myTabContent">
-      <div
-        class="tab-pane fade show active"
-        id="basic"
-        role="tabpanel"
-        aria-labelledby="basic-tab"
-        style="box-shadow: 1px 1px 10px 3px lightgray"
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+      <a
+        class="nav-link active"
+        id="basic-tab"
+        data-toggle="tab"
+        href="#basic"
+        role="tab"
+        aria-controls="basic"
+        aria-selected="true"
       >
-        <p class="text">Patient Info</p>
-        <div class="form-row first-row" style="padding-top: 1%">
-          <div class="form-group col-md-2">
-            <label for="inputFname"><b>First Name</b></label>
-            <input
-              type="text"
-              class="form-control"
-              id="inputFname"
-              [(ngModel)]="fName"
-            />
-          </div>
-          <div class="col-md-1"></div>
-          <div class="form-group col-md-2">
-            <label for="inputLname"><b>Last Name</b></label>
-            <input
-              type="text"
-              class="form-control"
-              id="inputLname"
-              [(ngModel)]="lName"
-            />
-          </div>
-          <div class="col-md-1"></div>
-          <div class="form-group col-md-2">
-            <label for="inputstart"><b>Date of Birth</b></label>
-            <input
-              type="date"
-              placeholder="mm/dd/yyyy"
-              class="form-control"
-              id="inputdob"
-              [(ngModel)]="dob"
-            />
-          </div>
-        </div>
-        <p class="text">Appointment Range</p>
-        <div class="form-row" style="padding-top: 1%">
-          <div class="form-group col-md-2">
-            <label for="inputstart"><b>Start date</b></label>
-            <input
-              type="date"
-              placeholder="mm/dd/yyyy"
-              class="form-control"
-              id="inputstart"
-            />
-          </div>
-          <div class="col-md-1"></div>
-          <div class="form-group col-md-2">
-            <label for="inputend"><b>End date</b></label>
-            <input
-              type="date"
-              placeholder="mm/dd/yyyy"
-              class="form-control"
-              id="inputend"
-            />
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="col-md-10"></div>
-          <div class="button-grp">
-            <button type="button" (click)="search()" class="btn btn-turq">
-              Search
-            </button>
-          </div>
-        </div>
-      </div>
-      <div
-        class="tab-pane fade"
-        id="advanced"
-        role="tabpanel"
-        aria-labelledby="advanced-tab"
-        style="box-shadow: 1px 1px 10px 3px lightgray"
+        <img src="../../assets/todayspatients.png" />
+        Upcoming Patients</a
       >
-        <div class="form-row" style="padding-top: 3%">
-          <div class="col-md-1"></div>
-          <div class="form-group col-md-2">
-            <label for="inputFname"><b>First Name</b></label>
-            <input type="text" class="form-control" id="inputFnameadv" />
-          </div>
-          <div class="col-md-1"></div>
-          <div class="form-group col-md-2">
-            <label for="inputLname"><b>Last Name</b></label>
-            <input type="text" class="form-control" id="inputLnameadv" />
-          </div>
-          <div class="col-md-1"></div>
-          <div class="form-group col-md-2">
-            <label for="inputdob"><b>Date of Birth</b></label>
-            <input type="text" class="form-control" id="inputdobadv" />
-          </div>
-          <div class="col-md-1"></div>
-          <div class="form-group col-md-1">
-            <label for="inputGender"><b>Gender</b></label>
-            <select class="form-control" id="inputGenderadv">
-              <option selected></option>
-              <option value="1">M</option>
-              <option value="0">F</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="col-md-1"></div>
-          <div class="form-group col-md-1">
-            <label for="inputIdType"><b>ID Type</b></label>
-            <select class="form-control" id="inputIdType">
-              <option selected></option>
-              <option value="1">Type 1</option>
-              <option value="0">Type 2</option>
-            </select>
-          </div>
-          <div class="col-md-2"></div>
-          <div class="form-group col-md-3">
-            <label for="inputid"><b>ID Number</b></label>
-            <input type="text" class="form-control" id="inputid" />
-          </div>
-          <div class="col-md-1"></div>
-          <div class="form-group col-md-3">
-            <label for="inputssn"><b>SSN</b></label>
-            <input type="text" class="form-control" id="inputssn" />
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="col-md-1"></div>
-          <div class="form-group col-md-2">
-            <label for="inputphone"><b>Phone Number</b></label>
-            <input type="text" class="form-control" id="inputphone" />
-          </div>
-          <div class="col-md-1"></div>
-          <div class="form-group col-md-3">
-            <label for="inputemail"><b>Email Address</b></label>
-            <input type="text" class="form-control" id="inputemail" />
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="col-md-10"></div>
-          <div class="button-grp">
-            <button type="button" class="btn btn-turq">Search</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <br />
-    <ul class="nav nav-tabs" id="searchtab" role="tablist">
-      <li class="nav-item nav-item1">
-        <a
-          class="nav-link active"
-          id="todays-tab"
-          data-toggle="tab"
-          href="#todayspat"
-          role="tab"
-          aria-controls="basic"
-          aria-selected="true"
-          ><img
-            src="../../assets/todayspatients.png"
-            style="padding-right: 2%; padding-bottom: 0.5%"
-          /><b>Today's Patients</b></a
-        >
-      </li>
-      <li class="nav-item nav-item1">
-        <a
-          class="nav-link"
-          id="search-tab"
-          data-toggle="tab"
-          href="#searchoutput"
-          role="tab"
-          aria-controls="advanced"
-          aria-selected="false"
-          ><img
-            src="../../assets/searchresults.png"
-            style="padding-right: 2%; padding-bottom: 0.5%"
-          /><b>Search Results</b></a
-        >
-      </li>
-    </ul>
-    <div class="tab-content" style="padding-top: 2%">
-      <div
-        class="boxes tab-pane fade show active"
-        id="todayspat"
-        role="tabpanel"
-        aria-labelledby="todays-tab"
+    </li>
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        id="advanced-tab"
+        data-toggle="tab"
+        href="#advanced"
+        role="tab"
+        aria-controls="advanced"
+        aria-selected="false"
+        ><img class="search" src="../../assets/MagnifyingGlass.png" /> Search</a
       >
-        <div
-          class="box"
-          style="padding: 10px; box-shadow: 1px 1px 10px 3px lightgray"
-        >
-          <div class="row" style="border-bottom: 2px solid #e1e4eb">
-            <div class="col-md-2" style="margin-bottom: 1%">
-              <img src="../../assets/Avatar.png" />
-              <b style="margin-left: 3%; padding: 1%">Leslie Wang</b>
+    </li>
+  </ul>
+  <div class="tab-content" id="myTabContent">
+    <div
+      class="tab-pane fade show active"
+      id="basic"
+      role="tabpanel"
+      aria-labelledby="basic-tab"
+      style="box-shadow: 1px 1px 10px 3px lightgray"
+    >
+      <table>
+        <th>
+          <p class="text">
+            <img class="appointment" src="../../assets/appointment_range.png" />
+            Appointment Range
+          </p>
+
+          <div style="padding-top: 1%">
+            <label for="inputend">Quick Selection</label>
+
+            <div class="col-md-1">
+              <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                  <button
+                    class="date-button"
+                    aria-controls="basic"
+                    aria-selected="true"
+                  >
+                    Today
+                  </button>
+                </li>
+                <li class="nav-item">
+                  <button class="date-button">Tommorrow</button>
+                </li>
+                <li class="nav-item">
+                  <button class="date-button">Week</button>
+                </li>
+                <li class="nav-item">
+                  <button class="date-button">Custom</button>
+                </li>
+              </ul>
             </div>
-            <div class="col-md-5"></div>
-            <div class="col-md-4" style="padding: 1%">
-              Next Appointment Today 11:30 am
+          </div>
+
+          <div style="padding-top: 1%">
+            <div class="form-group col-md-2">
+              <label for="inputend"><b>Start Date</b></label>
+              <input
+                type="date"
+                placeholder="mm/dd/yyyy"
+                class="form-control"
+                id="inputstart"
+              />
             </div>
-            <div class="col-md-1" style="padding: 1%">
-              <img
-                src="../../assets/view.png"
-                style="cursor: pointer"
-                (click)="openPatientProfile(1234)"
+            <div class="col-md-1"></div>
+            <div class="form-group col-md-2">
+              <label for="inputend"><b>End Date</b></label>
+              <input
+                type="date"
+                placeholder="mm/dd/yyyy"
+                class="form-control"
+                id="inputend"
               />
             </div>
           </div>
-          <div class="row row1">
-            <div class="col-md-1"><b>DOB</b></div>
-            <div class="col-md-2">07/16/1970</div>
-            <div class="col-md-3"><b>Driver's License</b></div>
-            <div class="col-md-3">NHL12345678</div>
-            <div class="col-md-3">Massachusettes Medical Group</div>
-          </div>
-          <div class="row row1">
-            <div class="col-md-1"><b>Sex</b></div>
-            <div class="col-md-2">Female</div>
-            <div class="col-md-3"><b>Last 4 digits of SSN</b></div>
-            <div class="col-md-3">0010</div>
-            <div class="col-md-3">Department of Cardiology</div>
-          </div>
-          <div class="row row1">
-            <div class="col-md-1"><b>Residence</b></div>
-            <div class="col-md-2">New York City, NY</div>
-            <div class="col-md-3"><b>Phone Number</b></div>
-            <div class="col-md-3">(123)456-789</div>
-            <div class="col-md-3">Dr. Beth Smith</div>
-          </div>
-          <div class="row row1">
-            <div class="col-md-1"><b>MRN</b></div>
-            <div class="col-md-2">YTK12345675</div>
-            <div class="col-md-3"><b>Email</b></div>
-            <div class="col-md-3">Leslie.Wang@gmail.com</div>
-            <div class="col-md-3">COPD,CHF,Diabetes(Type 2)</div>
-          </div>
+        </th>
+        <th>
+          <p class="text">
+            <img class="risk" src="../../assets/disk_stack.png" /> Risk
+          </p>
+
+          <img class="risk" class="place" src="../../assets/risk_place.png" />
+        </th>
+      </table>
+      <!-- Old Search -->
+      <!-- <div class="form-row">
+        <div class="col-md-10"></div>
+        <div class="button-grp">
+          <button type="button" (click)="search()" class="btn btn-turq">
+            Search
+          </button>
+        </div>
+      </div> -->
+    </div>
+
+    <div
+      class="tab-pane fade"
+      id="advanced"
+      role="tabpanel"
+      aria-labelledby="advanced-tab"
+      style="box-shadow: 1px 1px 10px 3px lightgray"
+    >
+      <div class="form-row" style="padding-top: 3%">
+        <div class="col-md-1"></div>
+        <div class="form-group col-md-2">
+          <label for="inputFname"><b>First Name</b></label>
+          <input type="text" class="form-control" id="inputFnameadv" />
+        </div>
+        <div class="col-md-1"></div>
+        <div class="form-group col-md-2">
+          <label for="inputLname"><b>Last Name</b></label>
+          <input type="text" class="form-control" id="inputLnameadv" />
+        </div>
+        <div class="col-md-1"></div>
+        <div class="form-group col-md-2">
+          <label for="inputdob"><b>Date of Birth</b></label>
+          <input type="text" class="form-control" id="inputdobadv" />
+        </div>
+        <div class="col-md-1"></div>
+        <div class="form-group col-md-1">
+          <label for="inputGender"><b>Gender</b></label>
+          <select class="form-control" id="inputGenderadv">
+            <option selected></option>
+            <option value="1">M</option>
+            <option value="0">F</option>
+          </select>
         </div>
       </div>
-      <div
-        class="searchresults tab-pane fade"
-        id="searchoutput"
-        role="tabpanel"
-        aria-labelledby="search-tab"
+      <div class="form-row">
+        <div class="col-md-1"></div>
+        <div class="form-group col-md-1">
+          <label for="inputIdType"><b>ID Type</b></label>
+          <select class="form-control" id="inputIdType">
+            <option selected></option>
+            <option value="1">Type 1</option>
+            <option value="0">Type 2</option>
+          </select>
+        </div>
+        <div class="col-md-2"></div>
+        <div class="form-group col-md-3">
+          <label for="inputid"><b>ID Number</b></label>
+          <input type="text" class="form-control" id="inputid" />
+        </div>
+        <div class="col-md-1"></div>
+        <div class="form-group col-md-3">
+          <label for="inputssn"><b>SSN</b></label>
+          <input type="text" class="form-control" id="inputssn" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-md-1"></div>
+        <div class="form-group col-md-2">
+          <label for="inputphone"><b>Phone Number</b></label>
+          <input type="text" class="form-control" id="inputphone" />
+        </div>
+        <div class="col-md-1"></div>
+        <div class="form-group col-md-3">
+          <label for="inputemail"><b>Email Address</b></label>
+          <input type="text" class="form-control" id="inputemail" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-md-10"></div>
+        <div class="button-grp">
+          <button type="button" class="btn btn-turq">Search</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+
+  <!-- Old searchtab and table -->
+
+  <!-- <ul class="nav nav-tabs" id="searchtab" role="tablist">
+    <li class="nav-item nav-item1">
+      <a
+        class="nav-link active"
+        id="todays-tab"
+        data-toggle="tab"
+        href="#todayspat"
+        role="tab"
+        aria-controls="basic"
+        aria-selected="true"
+        ><img
+          src="../../assets/todayspatients.png"
+          style="padding-right: 2%; padding-bottom: 0.5%"
+        /><b>Today's Patients</b></a
       >
-        <!--<div class="box" style="padding:10px;box-shadow: 1px 1px 10px 3px lightgray;">
+    </li>
+    <li class="nav-item nav-item1">
+      <a
+        class="nav-link"
+        id="search-tab"
+        data-toggle="tab"
+        href="#searchoutput"
+        role="tab"
+        aria-controls="advanced"
+        aria-selected="false"
+        ><img
+          src="../../assets/searchresults.png"
+          style="padding-right: 2%; padding-bottom: 0.5%"
+        /><b>Search Results</b></a
+      >
+    </li>
+  </ul> -->
+  <div class="tab-content" style="padding-top: 2%">
+    <div
+      class="boxes tab-pane fade show active"
+      id="todayspat"
+      role="tabpanel"
+      aria-labelledby="todays-tab"
+    >
+      <div
+        class="box"
+        style="padding: 10px; box-shadow: 1px 1px 10px 3px lightgray"
+      >
+        <div class="row" style="border-bottom: 2px solid #e1e4eb">
+          <div class="col-md-2" style="margin-bottom: 1%">
+            <img src="../../assets/Avatar.png" />
+            <b style="margin-left: 3%; padding: 1%">Leslie Wang</b>
+          </div>
+          <div class="col-md-5"></div>
+          <div class="col-md-4" style="padding: 1%">
+            Next Appointment Today 11:30 am
+          </div>
+          <div class="col-md-1" style="padding: 1%">
+            <img
+              src="../../assets/view.png"
+              style="cursor: pointer"
+              (click)="openPatientProfile(1234)"
+            />
+          </div>
+        </div>
+        <div class="row row1">
+          <div class="col-md-1"><b>DOB</b></div>
+          <div class="col-md-2">07/16/1970</div>
+          <div class="col-md-3"><b>Driver's License</b></div>
+          <div class="col-md-3">NHL12345678</div>
+          <div class="col-md-3">Massachusettes Medical Group</div>
+        </div>
+        <div class="row row1">
+          <div class="col-md-1"><b>Sex</b></div>
+          <div class="col-md-2">Female</div>
+          <div class="col-md-3"><b>Last 4 digits of SSN</b></div>
+          <div class="col-md-3">0010</div>
+          <div class="col-md-3">Department of Cardiology</div>
+        </div>
+        <div class="row row1">
+          <div class="col-md-1"><b>Residence</b></div>
+          <div class="col-md-2">New York City, NY</div>
+          <div class="col-md-3"><b>Phone Number</b></div>
+          <div class="col-md-3">(123)456-789</div>
+          <div class="col-md-3">Dr. Beth Smith</div>
+        </div>
+        <div class="row row1">
+          <div class="col-md-1"><b>MRN</b></div>
+          <div class="col-md-2">YTK12345675</div>
+          <div class="col-md-3"><b>Email</b></div>
+          <div class="col-md-3">Leslie.Wang@gmail.com</div>
+          <div class="col-md-3">COPD,CHF,Diabetes(Type 2)</div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="searchresults tab-pane fade"
+      id="searchoutput"
+      role="tabpanel"
+      aria-labelledby="search-tab"
+    >
+      <!--<div class="box" style="padding:10px;box-shadow: 1px 1px 10px 3px lightgray;">
       <div class="row" style="border-bottom: 2px solid #E1E4EB;">
         <div class="col-md-2" style="margin-bottom: 1%;"><img src="../../assets/Avatar.png"/>
           <b style="margin-left:3%;padding:1%">Leslie Wang</b></div>
@@ -330,21 +347,18 @@
       </div>
       
     </div>-->
-      </div>
     </div>
-    <!--
+  </div>
+  <!--
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
     <ng-container matColumnDef="sno">
       <th mat-header-cell *matHeaderCellDef> S.No</th>
       <td mat-cell *matCellDef="let element"> {{element.sno}} </td>
     </ng-container>
-
     <ng-container matColumnDef="fname">
       <th mat-header-cell *matHeaderCellDef> First Name </th>
       <td mat-cell *matCellDef="let element"> {{element.fname}} </td>
     </ng-container>
-
     <ng-container matColumnDef="lname">
       <th mat-header-cell *matHeaderCellDef> Last Name </th>
       <td mat-cell *matCellDef="let element"> {{element.lname}} </td>
@@ -354,12 +368,10 @@
       <th mat-header-cell *matHeaderCellDef> Gender </th>
       <td mat-cell *matCellDef="let element"> {{element.sex}} </td>
     </ng-container>
-
     <ng-container matColumnDef="birthday">
       <th mat-header-cell *matHeaderCellDef> DOB </th>
       <td mat-cell *matCellDef="let element"> {{element.birthday}} </td>
     </ng-container>
-
     <ng-container matColumnDef="view">
       <th mat-header-cell *matHeaderCellDef> Show View </th>
       <td mat-cell *matCellDef="let element"> <button (click)= "openPatientProfile(element.view)"> View </button> </td>
@@ -369,8 +381,5 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>-->
-
-  </div>
-  <app-patient-footer></app-patient-footer>
-  
 </div>
+<app-patient-footer></app-patient-footer>
