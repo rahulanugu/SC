@@ -77,7 +77,7 @@ const routes: Routes = [
   { path: "reactivatehealthcareprovider", component: ReactivateHealthcareProviderComponent },
   { path: "searchTest", component:HomePageComponent, canActivate: [HealthcareAuthGuard]},
   { path: "healthcare-profile", component: HealthcareProfileComponent/* , canActivate: [HealthcareAuthGuard] */},
-  { path: "healthcare-profile/patient/:patientid", component: PatientHealthcareviewComponent, canActivate: [HealthcareAuthGuard]},
+  { path: "healthcare-profile/patient/:patientid", component: PatientHealthcareviewComponent, /* canActivate: [HealthcareAuthGuard] */},
   { path: "healthcare-profile/patient/:patientid/:diseaseid", component: PatientHealthcareviewnextComponent},
   { path: "healthcare-profile/editprofile", component: HealthcareManageProfileComponent}
 ];
