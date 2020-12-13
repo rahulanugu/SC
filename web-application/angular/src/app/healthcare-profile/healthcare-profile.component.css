@@ -1,6 +1,8 @@
 h2 {
+  font-family: 'Tinos', serif;
   font-size: 32px;
-  font-weight: 400;
+  font-weight: regular;
+  color: #2D5059;
 }
 
 p {
@@ -36,6 +38,11 @@ table,
 th,
 td {
   border: 2px solid #e1e4eb;
+  border-radius: 8px;
+}
+
+#basic {
+  border-radius: 8px;
 }
 .form-control {
   /* Rectangle 90 */
@@ -110,6 +117,8 @@ td {
 }
 table {
   width: 100%;
+  overflow:hidden;
+
 }
 .example-form {
   min-width: 150px;
@@ -137,7 +146,7 @@ table {
   margin-bottom: 10px;
 }
 .container {
-  font-family: "Tinos";
+  font-family: "Lato";
   color: #575b66;
   font-weight: 400;
   font-style: normal;
@@ -147,11 +156,17 @@ table {
 
 #myTabContent {
   padding-top: 2%;
+
+}
+.tab-pane {
+  border-radius: 8px;
 }
 
 .box {
   background-color: white;
   margin-bottom: 5%;
+  border-radius: 8px;
+
 }
 .btn-details {
   background-color: teal;
@@ -163,8 +178,12 @@ table {
 }
 .nav-item a {
   color: #2d5059;
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  display: inline;
 }
+
+
 
 .date-item a {
   color: #2d5059;
@@ -172,6 +191,7 @@ table {
 }
 
 .text {
+  font-family: "Lato", sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 18px;
@@ -195,6 +215,40 @@ input {
   width: 109%;
 }
 
+.controls {
+  display: flex;
+}
+
+.radio {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #575B66;
+  padding: 7.5px 16px;
+  border-radius: 8px;
+}
+
+.controls input{
+  visibility: hidden;
+}
+
+
+
+label {
+  font-family: "Lato", sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  color: #1D1F26;
+}
+
+input:checked + .radio {
+    background-color: #E6EFF1;
+}
+input:checked + label {
+    color: #2D5059;
+}
+
 .box .row1 {
   padding-top: 1%;
   padding-left: 5%;
@@ -207,4 +261,8 @@ input {
 .search {
   width: 18.75px;
   height: 18.75px;
+}
+
+img {
+  overflow:hidden;
 }
