@@ -3,6 +3,7 @@ h1 {
   font-size: 32px;
   font-weight: regular;
   color: #2D5059;
+  margin: 40px auto 24px;
 }
 
 h3 {
@@ -74,16 +75,7 @@ i {
   background-color: #2d5059;
 }
 
-.todays-patients{
-  width: 24px;
-  height: 24px;
-  display: inline-block;
-  content: '';
-  -webkit-mask: url(../../assets/calendar-todays-patients.svg) no-repeat 50% 50%;
-  mask: url(../../assets/calendar-todays-patients.svg) no-repeat 50% 50%;
-  -webkit-mask-size: cover;
-  mask-size: cover;
-}
+
 .nav-tabs {
   border: none;
   margin-bottom: 16px;
@@ -95,10 +87,14 @@ i {
 
 .nav-item a:hover {
   color: #0D1A1E;
+  -webkit-transition: .4s;
+  transition: .4s;
 }
 
 .nav-item a:hover i {
   background-color: #0D1A1E;
+  -webkit-transition: .4s;
+  transition: .4s;
 }
 
 .nav-link {
@@ -117,6 +113,8 @@ i {
   background-color: transparent;
   border-width: 0px 0px 2px 0px;
   border-color: #0D1A1E;
+  -webkit-transition: .4s;
+  transition: .4s;
 }
 
 #basic {
@@ -329,9 +327,17 @@ input[type=range]::-ms-track {
   border-radius: 8px;
 }
 
+.radio:hover{
+  background-color: #F5F6FA;
+  color: #1D1F26;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
 
 input:checked + .radio {
     background-color: #E6EFF1;
+
 }
 input:checked + label {
     color: #2D5059;
@@ -505,4 +511,49 @@ border-radius: 20px;
   -webkit-transform: translateX(16px);
   -ms-transform: translateX(16px);
   transform: translateX(16px);
+}
+
+
+/* Icons */
+.todays-patients{
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  content: '';
+  -webkit-mask: url(../../assets/icons/calendar-todays-patients.svg) no-repeat 50% 50%;
+  mask: url(../../assets/icons/calendar-todays-patients.svg) no-repeat 50% 50%;
+  -webkit-mask-size: cover;
+  mask-size: cover;
+}
+.magnifying-glass{
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  content: '';
+  -webkit-mask: url(../../assets/icons/magnifying-glass.svg) no-repeat 50% 50%;
+  mask: url(../../assets/icons/magnifying-glass.svg) no-repeat 50% 50%;
+  -webkit-mask-size: cover;
+  mask-size: cover;
+}
+
+.calendar-range {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  content: '';
+  -webkit-mask: url(../../assets/icons/calendar-range.svg) no-repeat 50% 50%;
+  mask: url(../../assets/icons/calendar-range.svg) no-repeat 50% 50%;
+  -webkit-mask-size: cover;
+  mask-size: cover;
+}
+
+.risk {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  content: '';
+  -webkit-mask: url(../../assets/icons/risk.svg) no-repeat 50% 50%;
+  mask: url(../../assets/icons/risk.svg) no-repeat 50% 50%;
+  -webkit-mask-size: cover;
+  mask-size: cover;
 }
