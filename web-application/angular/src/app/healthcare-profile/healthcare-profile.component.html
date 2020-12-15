@@ -22,16 +22,40 @@
   <br />
   <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item">
-      <a class="nav-link active" id="basic-tab" data-toggle="tab" href="#basic" role="tab" aria-controls="basic" aria-selected="true">
+      <a
+        class="nav-link active"
+        id="basic-tab"
+        data-toggle="tab"
+        href="#basic"
+        role="tab"
+        aria-controls="basic"
+        aria-selected="true"
+      >
         <i class="todays-patients"></i>
-        Upcoming Patients</a>
+        Upcoming Patients</a
+      >
     </li>
     <li class="nav-item">
-      <a class="nav-link" id="advanced-tab" data-toggle="tab" href="#advanced" role="tab" aria-controls="advanced" aria-selected="false"><img class="search" src="../../assets/MagnifyingGlass.png" /> Search</a>
+      <a
+        class="nav-link"
+        id="advanced-tab"
+        data-toggle="tab"
+        href="#advanced"
+        role="tab"
+        aria-controls="advanced"
+        aria-selected="false"
+        ><img class="search" src="../../assets/MagnifyingGlass.png" /> Search</a
+      >
     </li>
   </ul>
   <div class="tab-content" id="myTabContent">
-    <div class="tab-pane fade show active" id="basic" role="tabpanel" aria-labelledby="basic-tab" style="box-shadow: 1px 1px 10px 3px lightgray">
+    <div
+      class="tab-pane fade show active"
+      id="basic"
+      role="tabpanel"
+      aria-labelledby="basic-tab"
+      style="box-shadow: 1px 1px 10px 3px lightgray"
+    >
       <div class="row">
         <div class="col-lg-5 appointment-range">
           <h3>
@@ -42,16 +66,32 @@
           <div class="quick-selection">
             <label for="inputend">Quick Selection</label>
             <div class="controls">
-              <input type="radio" id="today" name="preset-range" value="today" checked="true">
+              <input
+                type="radio"
+                id="today"
+                name="preset-range"
+                value="today"
+                checked="true"
+              />
               <label class="radio" for="today">Today</label>
 
-              <input type="radio" id="tomorrow" name="preset-range" value="tomorrow">
+              <input
+                type="radio"
+                id="tomorrow"
+                name="preset-range"
+                value="tomorrow"
+              />
               <label class="radio" for="tomorrow">Tomorrow</label>
 
-              <input type="radio" id="week" name="preset-range" value="week">
+              <input type="radio" id="week" name="preset-range" value="week" />
               <label class="radio" for="week">Week</label>
 
-              <input type="radio" id="custom" name="preset-range" value="custom">
+              <input
+                type="radio"
+                id="custom"
+                name="preset-range"
+                value="custom"
+              />
               <label class="radio" for="custom">Custom</label>
             </div>
           </div>
@@ -59,19 +99,29 @@
           <div class="date-selection">
             <div class="form-group">
               <label for="inputend">Start Date</label>
-              <input type="date" placeholder="mm/dd/yyyy" class="form-control" id="inputstart" />
+              <input
+                type="date"
+                placeholder="mm/dd/yyyy"
+                class="form-control"
+                id="inputstart"
+              />
             </div>
             <div class="form-group">
               <label for="inputend">End Date</label>
-              <input type="date" placeholder="mm/dd/yyyy" class="form-control" id="inputend" />
+              <input
+                type="date"
+                placeholder="mm/dd/yyyy"
+                class="form-control"
+                id="inputend"
+              />
             </div>
           </div>
-
         </div>
+
+        <hr />
+
         <div class="col-lg-7 risk-filter">
-          <h3>
-            <img class="risk" src="../../assets/disk_stack.png" /> Risk
-          </h3>
+          <h3><img class="risk" src="../../assets/disk_stack.png" /> Risk</h3>
           <table>
             <tr>
               <th>Type</th>
@@ -83,16 +133,29 @@
               <td>Readmission</td>
               <td>
                 <label class="switch">
-                  <input type="checkbox"checked>
+                  <input type="checkbox" checked />
                   <span class="switch-slider"></span>
                 </label>
               </td>
-              <td><input type="range" min="1" max="100" value="50" class="slider" id="myRange"></td>
+              <td>
+                <input
+                  type="range"
+                  min="1"
+                  max="100"
+                  value="50"
+                  class="slider"
+                  id="myRange"
+                />
+              </td>
               <td>
                 <select name="conditions" id="conditions">
                   <option value="all conditions">All Conditions</option>
-                  <option value="atrial fibrillation">Atrial Fibrillation</option>
-                  <option value="coronary artery disease">Coronrary Artery Disease</option>
+                  <option value="atrial fibrillation">
+                    Atrial Fibrillation
+                  </option>
+                  <option value="coronary artery disease">
+                    Coronrary Artery Disease
+                  </option>
                   <option value="heart failure">Heart Failure</option>
                   <option value="hypertension">Hypertension</option>
                 </select>
@@ -102,16 +165,29 @@
               <td>Condition</td>
               <td>
                 <label class="switch">
-                  <input type="checkbox"checked>
+                  <input type="checkbox" checked />
                   <span class="switch-slider"></span>
                 </label>
               </td>
-              <td><input type="range" min="1" max="100" value="50" class="slider" id="myRange"></td>
+              <td>
+                <input
+                  type="range"
+                  min="1"
+                  max="100"
+                  value="50"
+                  class="slider"
+                  id="myRange"
+                />
+              </td>
               <td>
                 <select name="conditions" id="conditions">
                   <option value="all conditions">All Conditions</option>
-                  <option value="atrial fibrillation">Atrial Fibrillation</option>
-                  <option value="coronary artery disease">Coronrary Artery Disease</option>
+                  <option value="atrial fibrillation">
+                    Atrial Fibrillation
+                  </option>
+                  <option value="coronary artery disease">
+                    Coronrary Artery Disease
+                  </option>
                   <option value="heart failure">Heart Failure</option>
                   <option value="hypertension">Hypertension</option>
                 </select>
@@ -119,8 +195,6 @@
             </tr>
           </table>
         </div>
-
-
 
         <!-- Old Search -->
         <!-- <div class="form-row">
@@ -132,10 +206,15 @@
         </div>
       </div> -->
       </div>
-
     </div>
 
-    <div class="tab-pane fade" id="advanced" role="tabpanel" aria-labelledby="advanced-tab" style="box-shadow: 1px 1px 10px 3px lightgray">
+    <div
+      class="tab-pane fade"
+      id="advanced"
+      role="tabpanel"
+      aria-labelledby="advanced-tab"
+      style="box-shadow: 1px 1px 10px 3px lightgray"
+    >
       <div class="form-row" style="padding-top: 3%">
         <div class="col-md-1"></div>
         <div class="form-group col-md-2">
@@ -196,18 +275,16 @@
         </div>
       </div>
 
+      <hr />
+      <div class="button-grp">
+        <button type="button" class="btn btn-primary">Search</button>
+      </div>
+    </div>
+    <br />
 
-        <hr>
-        <div class="button-grp">
-          <button type="button" class="btn btn-primary">Search</button>
-        </div>
+    <!-- Old searchtab and table -->
 
-  </div>
-  <br />
-
-  <!-- Old searchtab and table -->
-
-  <!-- <ul class="nav nav-tabs" id="searchtab" role="tablist">
+    <!-- <ul class="nav nav-tabs" id="searchtab" role="tablist">
     <li class="nav-item nav-item1">
       <a
         class="nav-link active"
@@ -239,54 +316,71 @@
       >
     </li>
   </ul> -->
-  <div class="tab-content" style="padding-top: 2%">
-    <div class="boxes tab-pane fade show active" id="todayspat" role="tabpanel" aria-labelledby="todays-tab">
-      <div class="box" style="padding: 10px; box-shadow: 1px 1px 10px 3px lightgray">
-        <div class="row" style="border-bottom: 2px solid #e1e4eb">
-          <div class="col-md-2" style="margin-bottom: 1%">
-            <img src="../../assets/Avatar.png" />
-            <b style="margin-left: 3%; padding: 1%">Leslie Wang</b>
+    <div class="tab-content" style="padding-top: 2%">
+      <div
+        class="boxes tab-pane fade show active"
+        id="todayspat"
+        role="tabpanel"
+        aria-labelledby="todays-tab"
+      >
+        <div
+          class="box"
+          style="padding: 10px; box-shadow: 1px 1px 10px 3px lightgray"
+        >
+          <div class="row" style="border-bottom: 2px solid #e1e4eb">
+            <div class="col-md-2" style="margin-bottom: 1%">
+              <img src="../../assets/Avatar.png" />
+              <b style="margin-left: 3%; padding: 1%">Leslie Wang</b>
+            </div>
+            <div class="col-md-5"></div>
+            <div class="col-md-4" style="padding: 1%">
+              Next Appointment Today 11:30 am
+            </div>
+            <div class="col-md-1" style="padding: 1%">
+              <img
+                src="../../assets/view.png"
+                style="cursor: pointer"
+                (click)="openPatientProfile(1234)"
+              />
+            </div>
           </div>
-          <div class="col-md-5"></div>
-          <div class="col-md-4" style="padding: 1%">
-            Next Appointment Today 11:30 am
+          <div class="row row1">
+            <div class="col-md-1"><b>DOB</b></div>
+            <div class="col-md-2">07/16/1970</div>
+            <div class="col-md-3"><b>Driver's License</b></div>
+            <div class="col-md-3">NHL12345678</div>
+            <div class="col-md-3">Massachusettes Medical Group</div>
           </div>
-          <div class="col-md-1" style="padding: 1%">
-            <img src="../../assets/view.png" style="cursor: pointer" (click)="openPatientProfile(1234)" />
+          <div class="row row1">
+            <div class="col-md-1"><b>Sex</b></div>
+            <div class="col-md-2">Female</div>
+            <div class="col-md-3"><b>Last 4 digits of SSN</b></div>
+            <div class="col-md-3">0010</div>
+            <div class="col-md-3">Department of Cardiology</div>
           </div>
-        </div>
-        <div class="row row1">
-          <div class="col-md-1"><b>DOB</b></div>
-          <div class="col-md-2">07/16/1970</div>
-          <div class="col-md-3"><b>Driver's License</b></div>
-          <div class="col-md-3">NHL12345678</div>
-          <div class="col-md-3">Massachusettes Medical Group</div>
-        </div>
-        <div class="row row1">
-          <div class="col-md-1"><b>Sex</b></div>
-          <div class="col-md-2">Female</div>
-          <div class="col-md-3"><b>Last 4 digits of SSN</b></div>
-          <div class="col-md-3">0010</div>
-          <div class="col-md-3">Department of Cardiology</div>
-        </div>
-        <div class="row row1">
-          <div class="col-md-1"><b>Residence</b></div>
-          <div class="col-md-2">New York City, NY</div>
-          <div class="col-md-3"><b>Phone Number</b></div>
-          <div class="col-md-3">(123)456-789</div>
-          <div class="col-md-3">Dr. Beth Smith</div>
-        </div>
-        <div class="row row1">
-          <div class="col-md-1"><b>MRN</b></div>
-          <div class="col-md-2">YTK12345675</div>
-          <div class="col-md-3"><b>Email</b></div>
-          <div class="col-md-3">Leslie.Wang@gmail.com</div>
-          <div class="col-md-3">COPD,CHF,Diabetes(Type 2)</div>
+          <div class="row row1">
+            <div class="col-md-1"><b>Residence</b></div>
+            <div class="col-md-2">New York City, NY</div>
+            <div class="col-md-3"><b>Phone Number</b></div>
+            <div class="col-md-3">(123)456-789</div>
+            <div class="col-md-3">Dr. Beth Smith</div>
+          </div>
+          <div class="row row1">
+            <div class="col-md-1"><b>MRN</b></div>
+            <div class="col-md-2">YTK12345675</div>
+            <div class="col-md-3"><b>Email</b></div>
+            <div class="col-md-3">Leslie.Wang@gmail.com</div>
+            <div class="col-md-3">COPD,CHF,Diabetes(Type 2)</div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="searchresults tab-pane fade" id="searchoutput" role="tabpanel" aria-labelledby="search-tab">
-      <!--<div class="box" style="padding:10px;box-shadow: 1px 1px 10px 3px lightgray;">
+      <div
+        class="searchresults tab-pane fade"
+        id="searchoutput"
+        role="tabpanel"
+        aria-labelledby="search-tab"
+      >
+        <!--<div class="box" style="padding:10px;box-shadow: 1px 1px 10px 3px lightgray;">
       <div class="row" style="border-bottom: 2px solid #E1E4EB;">
         <div class="col-md-2" style="margin-bottom: 1%;"><img src="../../assets/Avatar.png"/>
           <b style="margin-left:3%;padding:1%">Leslie Wang</b></div>
@@ -325,9 +419,9 @@
       </div>
 
     </div>-->
+      </div>
     </div>
-  </div>
-  <!--
+    <!--
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <ng-container matColumnDef="sno">
       <th mat-header-cell *matHeaderCellDef> S.No</th>
@@ -359,5 +453,7 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>-->
+  </div>
 </div>
+
 <app-patient-footer></app-patient-footer>
