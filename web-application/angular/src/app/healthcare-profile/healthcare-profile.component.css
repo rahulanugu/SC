@@ -66,6 +66,59 @@ hr {
   margin: 0 auto;
 }
 
+i {
+  background-color: #575B66;
+}
+
+.nav-item a[aria-selected="true"] i {
+  background-color: #2d5059;
+}
+
+.todays-patients{
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  content: '';
+  -webkit-mask: url(../../assets/calendar-todays-patients.svg) no-repeat 50% 50%;
+  mask: url(../../assets/calendar-todays-patients.svg) no-repeat 50% 50%;
+  -webkit-mask-size: cover;
+  mask-size: cover;
+}
+.nav-tabs {
+  border: none;
+  margin-bottom: 16px;
+}
+.nav-item a[aria-selected="true"] {
+  color: #2d5059;
+}
+
+
+.nav-item a:hover {
+  color: #0D1A1E;
+}
+
+.nav-item a:hover i {
+  background-color: #0D1A1E;
+}
+
+.nav-link {
+  border-width: 0px 0px 2px 0px;
+  border-color: transparent;
+  padding: 9.5px 16px;
+  height:48px;
+}
+.nav-link.active {
+  background-color: transparent;
+  border-width: 0px 0px 2px 0px;
+  border-color: #2D5059;
+}
+
+.nav-link:hover {
+  background-color: transparent;
+  border-width: 0px 0px 2px 0px;
+  border-color: #0D1A1E;
+}
+
 #basic {
   border-radius: 8px;
 }
@@ -206,7 +259,7 @@ display: flex;
   margin-top: 2%;
 }
 .nav-item a {
-  color: #2d5059;
+  color: #575B66;
   font-family: 'Lato', sans-serif;
   font-weight: 700;
   display: inline;
@@ -289,10 +342,6 @@ input:checked + label {
   padding-left: 5%;
 }
 
-.nav-item1 {
-  width: 18%;
-}
-
 .search {
   width: 18.75px;
   height: 18.75px;
@@ -304,7 +353,7 @@ input:checked + label {
 /* Appointment Range */
 .appointment-range {
   padding: 24px;
-  border-right: 2px solid #E1E4EB;
+  /* border-right: 2px solid #E1E4EB; */
 }
 .quick-selection {
   margin-bottom: 16px;
