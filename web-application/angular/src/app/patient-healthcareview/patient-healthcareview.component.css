@@ -1,3 +1,17 @@
+h4 {
+  font-family: Lato;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 29px;
+  letter-spacing: 0em;
+}
+
+.chart {
+  height: 200px;
+  width: 300px;
+}
+
 .container {
   max-width: 14000px;
 }
@@ -10,6 +24,13 @@
   height: 48px;
   width: 48px;
 }
+
+.icon {
+  height: 24px;
+  width: 24px;
+  border-radius: 0px;
+}
+
 .btn {
   cursor: pointer;
 }
@@ -152,6 +173,36 @@ div {
   margin-top: 9%;
 }
 
+a:link {
+  color: #575b66;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:link {
+  color: #575b66;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #575b66;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #575b66;
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+a:active {
+  color: #575b66;
+  background-color: transparent;
+  text-decoration: underline;
+}
+
 .profile {
   background-color: white;
   padding: 20px;
@@ -179,6 +230,7 @@ div {
 
 .row {
   margin: 0 !important;
+  justify-content: space-between;
 }
 
 .progress-bar-success {
