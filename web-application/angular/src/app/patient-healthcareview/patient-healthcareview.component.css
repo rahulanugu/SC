@@ -1,3 +1,11 @@
+.container {
+  max-width: 14000px;
+}
+
+.box {
+  padding: 3%;
+}
+
 .avatar {
   height: 48px;
   width: 48px;
@@ -22,7 +30,7 @@
   overflow-x: scroll;
 }
 .row {
-  width: 100%;
+  max-width: 14000;
 }
 .row__inner {
   -webkit-transition: 450ms -webkit-transform;
@@ -126,6 +134,9 @@ ul li#safe::before {
   width: 20px;
   height: 30px;
   cursor: pointer;
+}
+div {
+  border-radius: 8px;
 }
 #leftdiv {
   position: absolute;
