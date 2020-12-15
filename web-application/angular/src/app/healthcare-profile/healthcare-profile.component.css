@@ -1,8 +1,8 @@
 h1 {
-  font-family: 'Tinos', serif;
+  font-family: "Tinos", serif;
   font-size: 32px;
   font-weight: regular;
-  color: #2D5059;
+  color: #2d5059;
 }
 
 h3 {
@@ -25,11 +25,12 @@ p {
   text-align: left;
 }
 
-label, th{
+label,
+th {
   font-family: "Lato", sans-serif;
   font-weight: 700;
   font-size: 14px;
-  color: #1D1F26;
+  color: #1d1f26;
   padding: 0px 0px 8px 0px;
   margin: 0;
 }
@@ -56,10 +57,8 @@ li {
 td {
   border: 2px solid;
   font-size: 14px;
-  color: #1D1F26;
+  color: #1d1f26;
 }
-
-
 
 hr {
   border-top: 2px solid;
@@ -67,18 +66,18 @@ hr {
 }
 
 i {
-  background-color: #575B66;
+  background-color: #575b66;
 }
 
 .nav-item a[aria-selected="true"] i {
   background-color: #2d5059;
 }
 
-.todays-patients{
+.todays-patients {
   width: 24px;
   height: 24px;
   display: inline-block;
-  content: '';
+  content: "";
   -webkit-mask: url(../../assets/calendar-todays-patients.svg) no-repeat 50% 50%;
   mask: url(../../assets/calendar-todays-patients.svg) no-repeat 50% 50%;
   -webkit-mask-size: cover;
@@ -92,31 +91,30 @@ i {
   color: #2d5059;
 }
 
-
 .nav-item a:hover {
-  color: #0D1A1E;
+  color: #0d1a1e;
 }
 
 .nav-item a:hover i {
-  background-color: #0D1A1E;
+  background-color: #0d1a1e;
 }
 
 .nav-link {
   border-width: 0px 0px 2px 0px;
   border-color: transparent;
   padding: 9.5px 16px;
-  height:48px;
+  height: 48px;
 }
 .nav-link.active {
   background-color: transparent;
   border-width: 0px 0px 2px 0px;
-  border-color: #2D5059;
+  border-color: #2d5059;
 }
 
 .nav-link:hover {
   background-color: transparent;
   border-width: 0px 0px 2px 0px;
-  border-color: #0D1A1E;
+  border-color: #0d1a1e;
 }
 
 #basic {
@@ -172,7 +170,7 @@ i {
 }
 
 .date-selection {
-display: flex;
+  display: flex;
 }
 
 .group {
@@ -204,7 +202,7 @@ display: flex;
 }
 
 .btn-primary {
-  background-color: #5C8A96;
+  background-color: #5c8a96;
   color: white;
   padding: 9px 40px;
   font-size: 18px;
@@ -213,19 +211,17 @@ display: flex;
 }
 
 .btn-primary:hover {
-  background-color: #2D5059;
-  box-shadow: 0px 2px 2px rgba(29,31,38,0.15);
+  background-color: #2d5059;
+  box-shadow: 0px 2px 2px rgba(29, 31, 38, 0.15);
 }
 .btn-primary:focus {
-  border: 3px solid rgba(13,26,30,1);
+  border: 3px solid rgba(13, 26, 30, 1);
 }
-.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active {
-  background-color: #2D5059;
-  box-shadow: inset 0px 2px 2px 0px rgba(29,31,38,0.15);
+.btn-primary:not(:disabled):not(.disabled).active,
+.btn-primary:not(:disabled):not(.disabled):active {
+  background-color: #2d5059;
+  box-shadow: inset 0px 2px 2px 0px rgba(29, 31, 38, 0.15);
 }
-
-
-
 
 .button-grp {
   padding: 8px 8px;
@@ -248,7 +244,6 @@ display: flex;
   background-color: white;
   margin-bottom: 5%;
   border-radius: 8px;
-
 }
 .btn-details {
   background-color: teal;
@@ -259,13 +254,11 @@ display: flex;
   margin-top: 2%;
 }
 .nav-item a {
-  color: #575B66;
-  font-family: 'Lato', sans-serif;
+  color: #575b66;
+  font-family: "Lato", sans-serif;
   font-weight: 700;
   display: inline;
 }
-
-
 
 .date-item a {
   color: #2d5059;
@@ -282,26 +275,24 @@ display: flex;
   padding-left: 5%;
 }
 
-
-
 input {
   width: 109%;
 }
-input[type=range] {
+input[type="range"] {
   -webkit-appearance: none; /* Hides the slider so that custom slider can be made */
   width: 100%; /* Specific width is required for Firefox. */
   background: transparent; /* Otherwise white in Chrome */
 }
 
-input[type=range]::-webkit-slider-thumb {
+input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
 }
 
-input[type=range]:focus {
+input[type="range"]:focus {
   outline: none; /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */
 }
 
-input[type=range]::-ms-track {
+input[type="range"]::-ms-track {
   width: 100%;
   cursor: pointer;
 
@@ -314,27 +305,25 @@ input[type=range]::-ms-track {
 .controls {
   display: flex;
 }
-.controls input{
+.controls input {
   width: 0;
   visibility: hidden;
 }
 
 .radio {
-
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: #575B66;
+  color: #575b66;
   padding: 7.5px 16px;
   border-radius: 8px;
 }
 
-
 input:checked + .radio {
-    background-color: #E6EFF1;
+  background-color: #e6eff1;
 }
 input:checked + label {
-    color: #2D5059;
+  color: #2d5059;
 }
 
 .box .row1 {
@@ -348,7 +337,7 @@ input:checked + label {
 }
 
 .row {
-  margin:0px;
+  margin: 0px;
 }
 /* Appointment Range */
 .appointment-range {
@@ -365,26 +354,26 @@ input:checked + label {
 .risk-filter td {
   height: 56px;
   border: none;
-  border-top: solid 2px #F5F6FA;
+  border-top: solid 2px #f5f6fa;
   padding-right: 48px;
 }
 
-.risk-filter input[type=range]::-webkit-slider-thumb {
+.risk-filter input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
-  border: 2px solid #E1E4EB;
+  border: 2px solid #e1e4eb;
   height: 18px;
   width: 18px;
   border-radius: 9px;
   background: #ffffff;
   cursor: pointer;
   margin-top: -7px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
-  box-shadow: 0px 2px 2px rgba(29,31,38,0.15); /* Add cool effects to your sliders! */
+  box-shadow: 0px 2px 2px rgba(29, 31, 38, 0.15); /* Add cool effects to your sliders! */
 }
 
 /* All the same stuff for Firefox */
-.risk-filter input[type=range]::-moz-range-thumb {
-  box-shadow: 0px 2px 2px rgba(29,31,38,0.15);
-  border: 2px solid #E1E4EB;
+.risk-filter input[type="range"]::-moz-range-thumb {
+  box-shadow: 0px 2px 2px rgba(29, 31, 38, 0.15);
+  border: 2px solid #e1e4eb;
   height: 18px;
   width: 18px;
   border-radius: 9px;
@@ -393,9 +382,9 @@ input:checked + label {
 }
 
 /* All the same stuff for IE */
-.risk-filter input[type=range]::-ms-thumb {
-  box-shadow: 0px 2px 2px rgba(29,31,38,0.15);
-  border: 2px solid #E1E4EB;
+.risk-filter input[type="range"]::-ms-thumb {
+  box-shadow: 0px 2px 2px rgba(29, 31, 38, 0.15);
+  border: 2px solid #e1e4eb;
   height: 18px;
   width: 18px;
   border-radius: 9px;
@@ -403,18 +392,18 @@ input:checked + label {
   cursor: pointer;
 }
 
-input[type=range]::-webkit-slider-runnable-track {
-  width: 100%;;
+input[type="range"]::-webkit-slider-runnable-track {
+  width: 100%;
   height: 4px;
   cursor: pointer;
   background: #3071a9;
 }
 
-input[type=range]:focus::-webkit-slider-runnable-track {
+input[type="range"]:focus::-webkit-slider-runnable-track {
   background: #367ebd;
 }
 
-input[type=range]::-moz-range-track {
+input[type="range"]::-moz-range-track {
   width: 100%;
   height: 8.4px;
   cursor: pointer;
@@ -424,7 +413,7 @@ input[type=range]::-moz-range-track {
   border: 0.2px solid #010101;
 }
 
-input[type=range]::-ms-track {
+input[type="range"]::-ms-track {
   width: 100%;
   height: 8.4px;
   cursor: pointer;
@@ -433,22 +422,22 @@ input[type=range]::-ms-track {
   border-width: 16px 0;
   color: transparent;
 }
-input[type=range]::-ms-fill-lower {
+input[type="range"]::-ms-fill-lower {
   background: #2a6495;
   border: 0.2px solid #010101;
   border-radius: 2.6px;
   box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
 }
-input[type=range]:focus::-ms-fill-lower {
+input[type="range"]:focus::-ms-fill-lower {
   background: #3071a9;
 }
-input[type=range]::-ms-fill-upper {
+input[type="range"]::-ms-fill-upper {
   background: #3071a9;
   border: 0.2px solid #010101;
   border-radius: 2.6px;
   box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
 }
-input[type=range]:focus::-ms-fill-upper {
+input[type="range"]:focus::-ms-fill-upper {
   background: #367ebd;
 }
 
@@ -467,17 +456,17 @@ input[type=range]:focus::-ms-fill-upper {
 }
 
 .switch-slider {
-position: absolute;
-cursor: pointer;
-top: 0;
-left: 0;
-right: 0;
-bottom: 0;
-background-color: #E6EFF1;
--webkit-transition: .4s;
-transition: .4s;
-border: 2px solid #E1E4EB;
-border-radius: 20px;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #e6eff1;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border: 2px solid #e1e4eb;
+  border-radius: 20px;
 }
 
 .switch-slider:before {
@@ -488,17 +477,17 @@ border-radius: 20px;
   bottom: 1px;
   left: 1px;
   background-color: #fff;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
   border-radius: 9px;
 }
 
 .switch input:checked + .switch-slider {
-  background-color: #5C8A96;
+  background-color: #5c8a96;
 }
 
 .switch input:focus + .switch-slider {
-  box-shadow: 0 0 1px #2196F3;
+  box-shadow: 0 0 1px #2196f3;
 }
 
 .switch input:checked + .switch-slider:before {
