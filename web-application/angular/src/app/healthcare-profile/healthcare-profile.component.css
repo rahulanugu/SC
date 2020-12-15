@@ -12,8 +12,7 @@ h3 {
   font-size: 18px;
   line-height: 22px;
   color: #575b66;
-  margin-left: 5.1%;
-  padding-top: 3%;
+  margin-bottom: 16px;
 }
 
 p {
@@ -31,6 +30,8 @@ label, th{
   font-weight: 700;
   font-size: 14px;
   color: #1D1F26;
+  padding: 0px 0px 8px 0px;
+  margin: 0;
 }
 
 ul {
@@ -52,15 +53,8 @@ li {
   text-align: left;
 }
 
-table,
-th,
 td {
-  border: 2px solid #e1e4eb;
-  border-radius: 8px;
-
-}
-
-td {
+  border: 2px solid;
   font-size: 14px;
   color: #1D1F26;
 }
@@ -72,6 +66,59 @@ hr {
   margin: 0 auto;
 }
 
+i {
+  background-color: #575B66;
+}
+
+.nav-item a[aria-selected="true"] i {
+  background-color: #2d5059;
+}
+
+.todays-patients{
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  content: '';
+  -webkit-mask: url(../../assets/calendar-todays-patients.svg) no-repeat 50% 50%;
+  mask: url(../../assets/calendar-todays-patients.svg) no-repeat 50% 50%;
+  -webkit-mask-size: cover;
+  mask-size: cover;
+}
+.nav-tabs {
+  border: none;
+  margin-bottom: 16px;
+}
+.nav-item a[aria-selected="true"] {
+  color: #2d5059;
+}
+
+
+.nav-item a:hover {
+  color: #0D1A1E;
+}
+
+.nav-item a:hover i {
+  background-color: #0D1A1E;
+}
+
+.nav-link {
+  border-width: 0px 0px 2px 0px;
+  border-color: transparent;
+  padding: 9.5px 16px;
+  height:48px;
+}
+.nav-link.active {
+  background-color: transparent;
+  border-width: 0px 0px 2px 0px;
+  border-color: #2D5059;
+}
+
+.nav-link:hover {
+  background-color: transparent;
+  border-width: 0px 0px 2px 0px;
+  border-color: #0D1A1E;
+}
+
 #basic {
   border-radius: 8px;
 }
@@ -80,7 +127,7 @@ hr {
 
   position: relative;
   height: 40px;
-  width: fit-content;
+  width: 160px;
 
   /* White */
 
@@ -93,6 +140,7 @@ hr {
 
   box-shadow: inset 0px 2px 2px rgba(29, 31, 38, 0.15);
   border-radius: 8px;
+  margin-right: 16px;
 }
 
 .date-button {
@@ -124,14 +172,7 @@ hr {
 }
 
 .date-selection {
-  padding-top: 2%;
-  padding-left: 5%;
-  padding-bottom: 7%;
-}
-
-.quick-selection {
-  padding-top: 2%;
-  padding-left: 5%;
+display: flex;
 }
 
 .group {
@@ -196,16 +237,11 @@ hr {
   font-weight: 400;
   font-style: normal;
   background-color: #faf6f2;
-  max-width: 80%;
+  max-width: 1392px;
 }
 
 .tab-pane {
   border-radius: 8px;
-}
-
-.tab-container {
-  display: inline-flex;
-    width: 100%;
 }
 
 .box {
@@ -223,7 +259,7 @@ hr {
   margin-top: 2%;
 }
 .nav-item a {
-  color: #2d5059;
+  color: #575B66;
   font-family: 'Lato', sans-serif;
   font-weight: 700;
   display: inline;
@@ -279,11 +315,12 @@ input[type=range]::-ms-track {
   display: flex;
 }
 .controls input{
+  width: 0;
   visibility: hidden;
 }
 
 .radio {
-  flex: 1 0 auto;
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -291,6 +328,7 @@ input[type=range]::-ms-track {
   padding: 7.5px 16px;
   border-radius: 8px;
 }
+
 
 input:checked + .radio {
     background-color: #E6EFF1;
@@ -304,16 +342,26 @@ input:checked + label {
   padding-left: 5%;
 }
 
-.nav-item1 {
-  width: 18%;
-}
-
 .search {
   width: 18.75px;
   height: 18.75px;
 }
 
+.row {
+  margin:0px;
+}
+/* Appointment Range */
+.appointment-range {
+  padding: 24px;
+  /* border-right: 2px solid #E1E4EB; */
+}
+.quick-selection {
+  margin-bottom: 16px;
+}
 /* Risk Filter */
+.risk-filter {
+  padding: 24px;
+}
 .risk-filter td {
   height: 56px;
   border: none;
@@ -402,4 +450,59 @@ input[type=range]::-ms-fill-upper {
 }
 input[type=range]:focus::-ms-fill-upper {
   background: #367ebd;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 24px;
+  margin-top: 14px;
+}
+
+.switch input {
+  width: 0px;
+  height: 0px;
+  display: none;
+}
+
+.switch-slider {
+position: absolute;
+cursor: pointer;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: #E6EFF1;
+-webkit-transition: .4s;
+transition: .4s;
+border: 2px solid #E1E4EB;
+border-radius: 20px;
+}
+
+.switch-slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  bottom: 1px;
+  left: 1px;
+  background-color: #fff;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 9px;
+}
+
+.switch input:checked + .switch-slider {
+  background-color: #5C8A96;
+}
+
+.switch input:focus + .switch-slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+.switch input:checked + .switch-slider:before {
+  -webkit-transform: translateX(16px);
+  -ms-transform: translateX(16px);
+  transform: translateX(16px);
 }
