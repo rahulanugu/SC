@@ -2,7 +2,12 @@ h1 {
   font-family: "Tinos", serif;
   font-size: 32px;
   font-weight: regular;
+<<<<<<< HEAD
+  color: #2D5059;
+  margin: 40px auto 24px;
+=======
   color: #2d5059;
+>>>>>>> e9725b16b95091f3c5df5fb64d05348af6d6bbed
 }
 
 h3 {
@@ -73,6 +78,9 @@ i {
   background-color: #2d5059;
 }
 
+<<<<<<< HEAD
+
+=======
 .todays-patients {
   width: 24px;
   height: 24px;
@@ -83,6 +91,7 @@ i {
   -webkit-mask-size: cover;
   mask-size: cover;
 }
+>>>>>>> e9725b16b95091f3c5df5fb64d05348af6d6bbed
 .nav-tabs {
   border: none;
   margin-bottom: 16px;
@@ -92,13 +101,23 @@ i {
 }
 
 .nav-item a:hover {
-  color: #0d1a1e;
+<<<<<<< HEAD
+  color: #0D1A1E;
+  -webkit-transition: .4s;
+  transition: .4s;
 }
 
 .nav-item a:hover i {
   background-color: #0D1A1E;
   -webkit-transition: .4s;
   transition: .4s;
+=======
+  color: #0d1a1e;
+}
+
+.nav-item a:hover i {
+  background-color: #0d1a1e;
+>>>>>>> e9725b16b95091f3c5df5fb64d05348af6d6bbed
 }
 
 .nav-link {
@@ -116,9 +135,13 @@ i {
 .nav-link:hover {
   background-color: transparent;
   border-width: 0px 0px 2px 0px;
+<<<<<<< HEAD
   border-color: #0D1A1E;
   -webkit-transition: .4s;
   transition: .4s;
+=======
+  border-color: #0d1a1e;
+>>>>>>> e9725b16b95091f3c5df5fb64d05348af6d6bbed
 }
 
 #basic {
@@ -323,10 +346,22 @@ input[type="range"]::-ms-track {
   border-radius: 8px;
 }
 
+<<<<<<< HEAD
+.radio:hover{
+  background-color: #F5F6FA;
+  color: #1D1F26;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+
 input:checked + .radio {
-  background-color: #e6eff1;
     background-color: #E6EFF1;
 
+=======
+input:checked + .radio {
+  background-color: #e6eff1;
+>>>>>>> e9725b16b95091f3c5df5fb64d05348af6d6bbed
 }
 input:checked + label {
   color: #2d5059;

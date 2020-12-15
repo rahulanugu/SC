@@ -11420,3 +11420,27 @@ confirmation dialog box
 }
 
 /* //responsive */
+app {
+  min-height: 100%;
+  width: 100%;
+  margin-bottom: -271px;
+  display: table;
+}
+
+header-main,
+router-outlet,
+footer{
+  display: table-row;
+}
+
+header-main {
+ height: 60px;
+}
+
+router-outlet {
+  position: absolute;
+}
+
+footer {
+  height: 271px;
+}

@@ -1,156 +1,364 @@
-
 <div>
-   <app-patient-navbar></app-patient-navbar> 
-   <!--<h3 style="text-align: center; float: left; padding-left: 17.5%; padding-top: 20px;">Hello Dr. {{providerFirstName}}</h3>-->
-   <!-- <button type="button" (click)="logout()" style="float: right; margin-right: 5%;"class="btn btn-primary btn-sm"><b>Logout</b></button> -->
- </div>
-<div class="container mt-4">
-   <div class="container">
-   <div class="row">
-      <p style="padding-left: 5px;">
-         <a href="/healthcare-profile" style="color:black;text-decoration: none;margin-bottom: 10px;cursor: pointer;"><b><i class="arrow left"></i>Back To Search</b></a>
-      </p>
-   </div>
-   <div class="box" style="padding:10px;box-shadow: 1px 1px 10px 3px lightgray;">
-      <div class="row" style="border-bottom: 2px solid #E1E4EB;">
-        <div class="col-md-2" style="margin-bottom: 1%;"><img src="../../assets/Avatar.png"/>
-          <b style="margin-left:3%;">Leslie Wang</b></div>
-          <div class="col-md-5" ></div>
-          <div class="col-md-4" style="padding:1%">Next Appointment&nbsp;&nbsp;&nbsp;&nbsp;mm/dd/yyyy&nbsp;&nbsp;&nbsp;&nbsp;11:30 am</div>
-      </div>
-      <div class="row row1">
-        <div class="col-md-1"><b>DOB</b></div>
-        <div class="col-md-2">07/16/1970</div>
-        <div class="col-md-3"><b>Driver's License</b></div>
-        <div class="col-md-3">NHL12345678</div>
-        <div class="col-md-3">Massachusettes Medical Group</div>
-      </div>
-      <div class="row row1">
-        <div class="col-md-1"><b>Sex</b></div>
-        <div class="col-md-2">Female</div>
-        <div class="col-md-3"><b>Last 4 digits of SSN</b></div>
-        <div class="col-md-3">0010</div>
-        <div class="col-md-3">Department of Cardiology</div>
-      </div>
-      <div class="row row1">
-        <div class="col-md-1"><b>Residence</b></div>
-        <div class="col-md-2">New York City, NY</div>
-        <div class="col-md-3"><b>Phone Number</b></div>
-        <div class="col-md-3">(123)456-789</div>
-        <div class="col-md-3">Dr. Beth Smith</div>
-      </div>
-      <div class="row row1">
-        <div class="col-md-1"><b>MRN</b></div>
-        <div class="col-md-2">YTK12345675</div>
-        <div class="col-md-3"><b>Email</b></div>
-        <div class="col-md-3">Leslie.Wang@gmail.com</div>
-        <div class="col-md-3">COPD,CHF,Diabetes(Type 2)</div>
-      </div>
-      
-    </div>
-     <div class="row">
-      <div class="col-md-5" id="readmission_symptoms">
-         <div id="readmission" style="padding:5px 5px 57px 5px;background-color: white;
-         box-shadow: 1px 1px 10px 3px lightgray;">
-            <div style="border-bottom:2px solid #B0B4BF; padding:10px 0px 10px 10px;">
-               <h4>Readmission Risk</h4>
-            </div>
-            <div style="border-bottom:2px solid #B0B4BF;padding-left:2%;margin-bottom:2%">
-               <div style="margin-top: 3%;margin-bottom: -2%;">
-               Within 30 days
-               </div>
-               <div class="progress" style="margin-top: 5%;margin-bottom: 5%;">
-                  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="24"
-                  aria-valuemin="0" aria-valuemax="100" style="width:24%"><span>24%</span>
-                  </div>
-               </div>
-            </div>
-               <ul id="indicators">
-                  <li id="safe">Low(~40%)</li>
-                  <li id="med">Moderate(40-75%)</li>
-                  <li id="serious">High(>75%)</li>
-               </ul>
-         </div>
-         <div id="chartContainer" style="height: 320px;margin-top:4%;padding:45px 10px 57px 0px;background-color: white;
-         box-shadow: 1px 1px 10px 3px lightgray;">
-            <highcharts-chart
-               [Highcharts] = "highcharts" 
-               [options] = "chartOptions" 
-               style = "width: 100%; height: 280px; display: block; padding-bottom: 20px;">
-            </highcharts-chart>
-         </div>
-         
-      </div>
-      <div class="col-md-1"></div>
-      <div class="tile__media col-md-6">
-         <div style="height: 400px;background-color: white; padding-left: 10px;padding-top: 14px;box-shadow: 1px 1px 10px 3px lightgray;">
-         <div style="border-bottom:2px solid #B0B4BF; padding:10px 0px 10px 10px;">
-            <h4>Risk Analysis</h4>
-         </div>
-         <div style="margin-top: 1%;margin-bottom: -6%;">
-         <p style="padding-top: 1%;display: inline-block;">Congestive Health Failure</p>
-         <span>
-               <button class="btn btn-danger btn-sm high" style="margin-left:28.5%">High</button>
-               <img src="../../assets/view.png" style="cursor:pointer;margin-left: 9%;" (click)= "openNextView(1234,93)"/>
-            </span></div>
-         <div class="progress" style="margin-top: 5%;"> 
-            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="93"
-            aria-valuemin="0" aria-valuemax="100" style="width:93%"><span>93%</span>
-            </div>
-            
-         </div>
-         
-         <div style="margin-top: 1%;margin-bottom: -6%;">
-            <p style="padding-top: 1%;display: inline-block;">Chronic Obstructive Pulmonary Disease</p>
-            <span>
-               <button class="btn btn-danger btn-sm high">High</button>
-               <img src="../../assets/view.png" style="cursor:pointer;margin-left: 9%;" (click)= "openNextView(1234,78)"/>
-            </span>
-         </div>
-         <div class="progress" style="margin-top: 5%;">
-            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="78"
-            aria-valuemin="0" aria-valuemax="100" style="width:78%"><span>78%</span>
-            </div>
-         </div>
-         <div style="margin-top: 1%;margin-bottom: -6%;">
-            <p style="padding-top: 1%;display: inline-block;">Bronchitis</p>
-            <img src="../../assets/view.png" style="cursor:pointer;margin-left: 74%;" (click)="openNextView(1234,72)"/>
-            </div>
-         <div class="progress" style="margin-top: 5%;">
-            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="72"
-            aria-valuemin="0" aria-valuemax="100" style="width:73%"><span>72%</span>
-            </div>
-         </div>
-         <div style="margin-top: 1%;margin-bottom: -6%;">
-            <p style="padding-top: 1%;display: inline-block;">Pneumonia</p>
-            <img src="../../assets/view.png" style="cursor:pointer;margin-left: 72%;" (click)="openNextView(1234,51)"/>
-            </div>
-         <div class="progress" style="margin-top: 5%;">
-            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="51"
-            aria-valuemin="0" aria-valuemax="100" style="width:51%"><span>51%</span>
-            </div>
-         </div>
-         <div style="margin-top: 1%;margin-bottom: -6%;">
-            <p style="padding-top: 1%;display: inline-block;">Emphysema</p>
-            <img src="../../assets/view.png" style="cursor:pointer;margin-left: 71%;" (click)="openNextView(1234,25)"/>
-            </div>
-         <div class="progress" style="margin-top: 5%;">
-            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="25"
-            aria-valuemin="0" aria-valuemax="100" style="width:25%"><span>25%</span>
-            </div>
-         </div>
-      </div>
-         <div id="symptoms" style="margin-top:4%;padding:15px 10px 57px 0px;background-color: white;
-         box-shadow: 1px 1px 10px 3px lightgray;">
-            <h4 style="text-align:center;">Symptoms & Chief Complaint</h4>
-            <ul>
-               <li>Patient appears to have hypertension</li>
-               <li>Gets tired quickly</li>
-            </ul>
-         </div>
-      </div>
-     </div>
-   </div>
-   <br>
+  <app-patient-navbar></app-patient-navbar>
+  <!--<h3 style="text-align: center; float: left; padding-left: 17.5%; padding-top: 20px;">Hello Dr. {{providerFirstName}}</h3>-->
+  <!-- <button type="button" (click)="logout()" style="float: right; margin-right: 5%;"class="btn btn-primary btn-sm"><b>Logout</b></button> -->
 </div>
-<app-patient-footer></app-patient-footer> 
+<div class="container mt-4" style="justify-content: center">
+  <div class="container">
+    <div class="row">
+      <p style="padding-left: 5px">
+        <a
+          href="/healthcare-profile"
+          style="
+            color: black;
+            text-decoration: none;
+            margin-bottom: 10px;
+            cursor: pointer;
+          "
+          ><b><i class="arrow left"></i>Back To Search</b></a
+        >
+      </p>
+    </div>
+    <div
+      class="box"
+      style="padding: 0.2%; box-shadow: 1px 1px 10px 3px lightgray"
+    >
+      <div class="row">
+        <div class="col-md-2" style="padding: 1.5%">
+          <img
+            class="avatar"
+            style="margin-right: 2%"
+            src="../../assets/leslie_wang.png"
+          />
+          <b style="margin-left: 3%; margin-right: 3%; place-items: center"
+            >Leslie Wang</b
+          >
+        </div>
+
+        <div class="col-md-3" style="padding: 2%; place-items: center">
+          <b>MRN</b
+          >&nbsp;&nbsp;&nbsp;&nbsp;YTK34567891&nbsp;&nbsp;&nbsp;&nbsp;<b>DOB</b>&nbsp;&nbsp;&nbsp;&nbsp;03/12/1990
+        </div>
+        <div class="col-md-3" style="padding: 2%; place-items: center">
+          <b>Next Appointment</b
+          >&nbsp;&nbsp;&nbsp;&nbsp;11/15/2020&nbsp;&nbsp;&nbsp;&nbsp;11:30 am
+        </div>
+        <div class="tiny-space"></div>
+        <div class="col-md-3" style="padding: 2%; align-items: right">
+          <a href="/">
+            <img class="icon" src="../../assets/smol_message_icon.svg" />
+            Message &nbsp;
+          </a>
+          <a href="/">
+            <img class="icon" src="../../assets/smol_profile_icon.svg" />
+            Portal Settings
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-5" id="readmission_symptoms">
+        <div
+          id="readmission"
+          style="
+            padding: 5px 5px 57px 5px;
+            background-color: white;
+            box-shadow: 1px 1px 10px 3px lightgray;
+          "
+        >
+          <div
+            style="
+              border-bottom: 2px solid #b0b4bf;
+              padding: 10px 0px 10px 10px;
+            "
+          >
+            <h4>
+              <img class="icon" src="../../assets/Readmission_Risk_Icon.svg" />
+              &nbsp;Readmission Risk
+            </h4>
+          </div>
+
+          <div
+            style="
+              border-bottom: 2px solid #b0b4bf;
+              padding-left: 2%;
+              margin-bottom: 2%;
+            "
+          >
+            <div style="margin-top: 3%; margin-bottom: -2%">Within 30 days</div>
+            <div class="progress" style="margin-top: 5%; margin-bottom: 5%">
+              <div
+                class="progress-bar progress-bar-success"
+                role="progressbar"
+                aria-valuenow="24"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                style="width: 24%"
+              >
+                <span>24%</span>
+              </div>
+            </div>
+          </div>
+          <ul id="indicators">
+            <li id="safe">Low(~40%)</li>
+            <li id="med">Moderate(40-75%)</li>
+            <li id="serious">High(>75%)</li>
+          </ul>
+        </div>
+
+        <div
+          id="symptoms"
+          style="
+            margin-top: 4%;
+            padding: 15px 10px 57px 0px;
+            background-color: white;
+            box-shadow: 1px 1px 10px 3px lightgray;
+          "
+        >
+          <div
+            style="
+              border-bottom: 2px solid #b0b4bf;
+              padding: 10px 0px 10px 10px;
+            "
+          >
+            <h4>
+              <img class="icon" src="../../assets/Symptoms_Icon.svg" />
+              &nbsp;Symptoms & Chief Complaint
+            </h4>
+          </div>
+          <div class="table area">
+            <table style="width: 100%; padding: 2%">
+              <tr>
+                <th>Symptom/Complaint</th>
+                <th>Date</th>
+                <th>Details</th>
+              </tr>
+              <tr>
+                <td>Tiredness</td>
+                <td>11/25/2020</td>
+                <td>View More</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <div
+          id="diagnosed"
+          style="
+            margin-top: 4%;
+            padding: 15px 10px 57px 0px;
+            background-color: white;
+            box-shadow: 1px 1px 10px 3px lightgray;
+          "
+        >
+          <div
+            style="
+              border-bottom: 2px solid #b0b4bf;
+              padding: 10px 0px 10px 10px;
+            "
+          >
+            <h4>
+              <img
+                class="icon"
+                src="../../assets/Diagnosed_Condition_Icon.svg"
+              />
+              &nbsp;Diagnosed Conditions
+            </h4>
+          </div>
+
+          <div class="table area">
+            <table style="width: 100%; padding: 2%">
+              <tr>
+                <th>Condition</th>
+                <th>Date</th>
+                <th>Details</th>
+              </tr>
+              <tr>
+                <td>Coronary Artery Disease</td>
+                <td>1/20/2015</td>
+                <td>View More</td>
+              </tr>
+              <tr>
+                <td>Diabetes (Type 2)</td>
+                <td>07/13/2011</td>
+                <td>View More</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="tile__media col-md-6">
+        <div
+          style="
+            height: 400px;
+            background-color: white;
+            padding-left: 10px;
+            box-shadow: 1px 1px 10px 3px lightgray;
+          "
+        >
+          <div
+            style="
+              border-bottom: 2px solid #b0b4bf;
+              padding: 10px 0px 10px 10px;
+            "
+          >
+            <h4>
+              <img class="icon" src="../../assets/Condition_Risk.svg" />
+              &nbsp;Condition Risk
+            </h4>
+          </div>
+          <div style="margin-top: 1%; margin-bottom: -6%">
+            <p style="padding-top: 1%; display: inline-block">
+              Congestive Health Failure
+            </p>
+            <span>
+              <button
+                class="btn btn-danger btn-sm high"
+                style="margin-left: 28.5%"
+              >
+                High
+              </button>
+              <img
+                src="../../assets/view.png"
+                style="cursor: pointer; margin-left: 9%"
+                (click)="openNextView(1234, 93)"
+              />
+            </span>
+          </div>
+          <div class="progress" style="margin-top: 5%">
+            <div
+              class="progress-bar progress-bar-danger"
+              role="progressbar"
+              aria-valuenow="93"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              style="width: 93%"
+            >
+              <span>93%</span>
+            </div>
+          </div>
+
+          <div style="margin-top: 1%; margin-bottom: -6%">
+            <p style="padding-top: 1%; display: inline-block">
+              Chronic Obstructive Pulmonary Disease
+            </p>
+            <span>
+              <button class="btn btn-danger btn-sm high">High</button>
+              <img
+                src="../../assets/view.png"
+                style="cursor: pointer; margin-left: 9%"
+                (click)="openNextView(1234, 78)"
+              />
+            </span>
+          </div>
+          <div class="progress" style="margin-top: 5%">
+            <div
+              class="progress-bar progress-bar-danger"
+              role="progressbar"
+              aria-valuenow="78"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              style="width: 78%"
+            >
+              <span>78%</span>
+            </div>
+          </div>
+          <div style="margin-top: 1%; margin-bottom: -6%">
+            <p style="padding-top: 1%; display: inline-block">Bronchitis</p>
+            <img
+              src="../../assets/view.png"
+              style="cursor: pointer; margin-left: 74%"
+              (click)="openNextView(1234, 72)"
+            />
+          </div>
+          <div class="progress" style="margin-top: 5%">
+            <div
+              class="progress-bar progress-bar-warning"
+              role="progressbar"
+              aria-valuenow="72"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              style="width: 73%"
+            >
+              <span>72%</span>
+            </div>
+          </div>
+          <div style="margin-top: 1%; margin-bottom: -6%">
+            <p style="padding-top: 1%; display: inline-block">Pneumonia</p>
+            <img
+              src="../../assets/view.png"
+              style="cursor: pointer; margin-left: 72%"
+              (click)="openNextView(1234, 51)"
+            />
+          </div>
+          <div class="progress" style="margin-top: 5%">
+            <div
+              class="progress-bar progress-bar-warning"
+              role="progressbar"
+              aria-valuenow="51"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              style="width: 51%"
+            >
+              <span>51%</span>
+            </div>
+          </div>
+          <div style="margin-top: 1%; margin-bottom: -6%">
+            <p style="padding-top: 1%; display: inline-block">Emphysema</p>
+            <img
+              src="../../assets/view.png"
+              style="cursor: pointer; margin-left: 71%"
+              (click)="openNextView(1234, 25)"
+            />
+          </div>
+          <div class="progress" style="margin-top: 5%">
+            <div
+              class="progress-bar progress-bar-success"
+              role="progressbar"
+              aria-valuenow="25"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              style="width: 25%"
+            >
+              <span>25%</span>
+            </div>
+          </div>
+        </div>
+
+        <div
+          id="chartContainer"
+          style="
+            height: 320px;
+            margin-top: 4%;
+            background-color: white;
+            box-shadow: 1px 1px 10px 3px lightgray;
+            border-bottom: 2px solid #b0b4bf;
+          "
+        >
+          <h4>
+            <img class="icon" src="../../assets/Vitals_Icon.svg" />
+            &nbsp;Vitals
+          </h4>
+          <div>
+            <img class="chart" src="../../assets/chart_placeholder.png" />
+          </div>
+          <!--  <highcharts-chart
+            [Highcharts]="highcharts"
+            [options]="chartOptions"
+            style="
+              width: 100%;
+              height: 280px;
+              display: block;
+              padding-bottom: 20px;
+            "
+          >
+          </highcharts-chart> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+</div>
+<app-patient-footer></app-patient-footer>
