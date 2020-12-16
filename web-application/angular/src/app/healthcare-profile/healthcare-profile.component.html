@@ -16,8 +16,10 @@
   </div>-->
 <div class="container">
   <div class="row">
-    <h1>Hello Dr. ______ !</h1>
+    <h1 style="margin: 2% 38% 0% 38%">Hello Dr. ______ !</h1>
   </div>
+  <br />
+  <br />
   <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item">
       <a
@@ -34,9 +36,6 @@
       >
     </li>
     <li class="nav-item">
-<<<<<<< HEAD
-      <a class="nav-link" id="advanced-tab" data-toggle="tab" href="#advanced" role="tab" aria-controls="advanced" aria-selected="false"><i class="magnifying-glass"></i> Search</a>
-=======
       <a
         class="nav-link"
         id="advanced-tab"
@@ -45,9 +44,8 @@
         role="tab"
         aria-controls="advanced"
         aria-selected="false"
-        ><img class="search" src="../../assets/MagnifyingGlass.png" /> Search</a
+        ><img class="search" src="../../assets/MagnifyingGlass.png" />Search</a
       >
->>>>>>> e9725b16b95091f3c5df5fb64d05348af6d6bbed
     </li>
   </ul>
   <div class="tab-content" id="myTabContent">
@@ -61,7 +59,7 @@
       <div class="row">
         <div class="col-lg-5 appointment-range">
           <h3>
-            <i class="calendar-range"></i>
+            <img class="appointment" src="../../assets/appointment_range.png" />
             Appointment Range
           </h3>
 
@@ -106,6 +104,7 @@
                 placeholder="mm/dd/yyyy"
                 class="form-control"
                 id="inputstart"
+                style="width: 180px"
               />
             </div>
             <div class="form-group">
@@ -115,6 +114,7 @@
                 placeholder="mm/dd/yyyy"
                 class="form-control"
                 id="inputend"
+                style="width: 180px"
               />
             </div>
           </div>
@@ -123,13 +123,7 @@
         <hr />
 
         <div class="col-lg-7 risk-filter">
-<<<<<<< HEAD
-          <h3>
-            <i class="risk"></i> Risk
-          </h3>
-=======
           <h3><img class="risk" src="../../assets/disk_stack.png" /> Risk</h3>
->>>>>>> e9725b16b95091f3c5df5fb64d05348af6d6bbed
           <table>
             <tr>
               <th>Type</th>
@@ -223,71 +217,157 @@
       aria-labelledby="advanced-tab"
       style="box-shadow: 1px 1px 10px 3px lightgray"
     >
-      <div class="form-row" style="padding-top: 3%">
-        <div class="col-md-1"></div>
-        <div class="form-group col-md-2">
-          <label for="inputFname"><b>First Name</b></label>
-          <input type="text" class="form-control" id="inputFnameadv" />
+      <div class="row">
+        <div class="col-md-8" style="padding: 30px">
+          <h3>
+            <img class="appointment" src="../../assets/smol_patient_info.svg" />
+            Patient Info
+          </h3>
+
+          <div class="row">
+            <div class="col-md-4 form-group">
+              <label for="inputend">First Name</label>
+              <input
+                type="First Name"
+                placeholder="First Name"
+                class="form-control"
+                id="inputstart"
+                style="width: 250px"
+              />
+            </div>
+            <div class="col-md-4 form-group">
+              <label for="inputend">Last Name</label>
+              <input
+                type="Last Name"
+                placeholder="Last Name"
+                class="form-control"
+                id="inputstart"
+                style="width: 250px"
+              />
+            </div>
+
+            <div class="col-md-2 form-group">
+              <label for="inputend">Date of Birth</label>
+              <input
+                type="date"
+                placeholder="mm/dd/yyyy"
+                class="form-control"
+                id="inputend"
+                style="width: 180px"
+              />
+            </div>
+          </div>
         </div>
-        <div class="col-md-1"></div>
-        <div class="form-group col-md-2">
-          <label for="inputLname"><b>Last Name</b></label>
-          <input type="text" class="form-control" id="inputLnameadv" />
-        </div>
-        <div class="col-md-1"></div>
-        <div class="form-group col-md-2">
-          <label for="inputdob"><b>Date of Birth</b></label>
-          <input type="text" class="form-control" id="inputdobadv" />
-        </div>
-        <div class="col-md-1"></div>
-        <div class="form-group col-md-1">
-          <label for="inputGender"><b>Gender</b></label>
-          <select class="form-control" id="inputGenderadv">
-            <option selected></option>
-            <option value="1">M</option>
-            <option value="0">F</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="col-md-1"></div>
-        <div class="form-group col-md-1">
-          <label for="inputIdType"><b>ID Type</b></label>
-          <select class="form-control" id="inputIdType">
-            <option selected></option>
-            <option value="1">Type 1</option>
-            <option value="0">Type 2</option>
-          </select>
-        </div>
-        <div class="col-md-2"></div>
-        <div class="form-group col-md-3">
-          <label for="inputid"><b>ID Number</b></label>
-          <input type="text" class="form-control" id="inputid" />
-        </div>
-        <div class="col-md-1"></div>
-        <div class="form-group col-md-3">
-          <label for="inputssn"><b>SSN</b></label>
-          <input type="text" class="form-control" id="inputssn" />
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="col-md-1"></div>
-        <div class="form-group col-md-2">
-          <label for="inputphone"><b>Phone Number</b></label>
-          <input type="text" class="form-control" id="inputphone" />
-        </div>
-        <div class="col-md-1"></div>
-        <div class="form-group col-md-3">
-          <label for="inputemail"><b>Email Address</b></label>
-          <input type="text" class="form-control" id="inputemail" />
+
+        <div class="col-md-4" style="padding: 30px">
+          <h3>
+            <img class="appointment" src="../../assets/appointment_range.png" />
+            Check-In Range
+          </h3>
+
+          <div class="quick-selection">
+            <label for="inputend">Quick Selection</label>
+            <div class="controls">
+              <input
+                type="radio"
+                id="today"
+                name="preset-range"
+                value="today"
+                checked="true"
+              />
+              <label class="radio" for="today">Today</label>
+
+              <input
+                type="radio"
+                id="tomorrow"
+                name="preset-range"
+                value="tomorrow"
+              />
+              <label class="radio" for="tomorrow">Tomorrow</label>
+
+              <input type="radio" id="week" name="preset-range" value="week" />
+              <label class="radio" for="week">Week</label>
+
+              <input
+                type="radio"
+                id="custom"
+                name="preset-range"
+                value="custom"
+              />
+              <label class="radio" for="custom">Custom</label>
+            </div>
+          </div>
+
+          <div class="date-selection">
+            <div class="form-group">
+              <label for="inputend">Start Date</label>
+              <input
+                type="date"
+                placeholder="mm/dd/yyyy"
+                class="form-control"
+                id="inputstart"
+                style="width: 180px"
+              />
+            </div>
+            <div class="form-group">
+              <label for="inputend">End Date</label>
+              <input
+                type="date"
+                placeholder="mm/dd/yyyy"
+                class="form-control"
+                id="inputend"
+                style="width: 180px"
+              />
+            </div>
+          </div>
         </div>
       </div>
 
       <hr />
       <div class="button-grp">
-        <button type="button" class="btn btn-primary">Search</button>
+        <div class="row">
+          <div
+            class="col-md-2"
+            style="place-items: left; align-items: left; justify-content: left"
+          >
+            <label class="switch">
+              <input type="checkbox" />
+              <span class="switch-slider"></span>
+            </label>
+            <b
+              style="
+                font-family: Lato;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 17px;
+                letter-spacing: 0em;
+                text-align: left;
+                color: #1d1f26;
+                margin-bottom: 10px;
+                margin-right: 10px;
+              "
+              >&nbsp; Advanced Search</b
+            >
+          </div>
+          <div class="col-md-10" style="text-align: right">
+            <button
+              type="button"
+              class="btn btn-primary"
+              style="
+                border-radius: 8px;
+                padding: 9px, 40px, 9px, 40px;
+                background-color: #2d5059;
+                color: white;
+              "
+            >
+              Search
+            </button>
+          </div>
+        </div>
       </div>
     </div>
+
     <br />
 
     <!-- Old searchtab and table -->
@@ -324,15 +404,6 @@
       >
     </li>
   </ul> -->
-<<<<<<< HEAD
-  <div class="tab-content">
-    <div class="boxes tab-pane fade show active" id="todayspat" role="tabpanel" aria-labelledby="todays-tab">
-      <div class="box" style="padding: 10px; box-shadow: 1px 1px 10px 3px lightgray">
-        <div class="row" style="border-bottom: 2px solid #e1e4eb">
-          <div class="col-md-2" style="margin-bottom: 1%">
-            <img src="../../assets/Avatar.png" />
-            <b style="margin-left: 3%; padding: 1%">Leslie Wang</b>
-=======
     <div class="tab-content" style="padding-top: 2%">
       <div
         class="boxes tab-pane fade show active"
@@ -360,7 +431,6 @@
                 (click)="openPatientProfile(1234)"
               />
             </div>
->>>>>>> e9725b16b95091f3c5df5fb64d05348af6d6bbed
           </div>
           <div class="row row1">
             <div class="col-md-1"><b>DOB</b></div>
@@ -473,9 +543,5 @@
   </table>-->
   </div>
 </div>
-<<<<<<< HEAD
-</div>
-=======
->>>>>>> e9725b16b95091f3c5df5fb64d05348af6d6bbed
 
 <app-patient-footer></app-patient-footer>

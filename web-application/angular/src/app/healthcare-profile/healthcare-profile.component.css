@@ -78,8 +78,6 @@ i {
   height: 24px;
   display: inline-block;
   content: "";
-  -webkit-mask: url(../../assets/calendar-todays-patients.svg) no-repeat 50% 50%;
-  mask: url(../../assets/calendar-todays-patients.svg) no-repeat 50% 50%;
   -webkit-mask-size: cover;
   mask-size: cover;
 }
@@ -96,9 +94,9 @@ i {
 }
 
 .nav-item a:hover i {
-  background-color: #0D1A1E;
-  -webkit-transition: .4s;
-  transition: .4s;
+  background-color: #0d1a1e;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 .nav-link {
@@ -116,9 +114,9 @@ i {
 .nav-link:hover {
   background-color: transparent;
   border-width: 0px 0px 2px 0px;
-  border-color: #0D1A1E;
-  -webkit-transition: .4s;
-  transition: .4s;
+  border-color: #0d1a1e;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 #basic {
@@ -229,7 +227,6 @@ i {
 
 .button-grp {
   padding: 8px 8px;
-  text-align: right;
 }
 .container {
   font-family: "Lato";
@@ -325,8 +322,7 @@ input[type="range"]::-ms-track {
 
 input:checked + .radio {
   background-color: #e6eff1;
-    background-color: #E6EFF1;
-
+  background-color: #e6eff1;
 }
 input:checked + label {
   color: #2d5059;
@@ -502,23 +498,23 @@ input[type="range"]:focus::-ms-fill-upper {
   transform: translateX(16px);
 }
 
-
 /* Icons */
-.todays-patients{
+.todays-patients {
   width: 24px;
   height: 24px;
   display: inline-block;
-  content: '';
-  -webkit-mask: url(../../assets/icons/calendar-todays-patients.svg) no-repeat 50% 50%;
+  content: "";
+  -webkit-mask: url(../../assets/icons/calendar-todays-patients.svg) no-repeat
+    50% 50%;
   mask: url(../../assets/icons/calendar-todays-patients.svg) no-repeat 50% 50%;
   -webkit-mask-size: cover;
   mask-size: cover;
 }
-.magnifying-glass{
+.magnifying-glass {
   width: 24px;
   height: 24px;
   display: inline-block;
-  content: '';
+  content: "";
   -webkit-mask: url(../../assets/icons/magnifying-glass.svg) no-repeat 50% 50%;
   mask: url(../../assets/icons/magnifying-glass.svg) no-repeat 50% 50%;
   -webkit-mask-size: cover;
@@ -529,7 +525,7 @@ input[type="range"]:focus::-ms-fill-upper {
   width: 16px;
   height: 16px;
   display: inline-block;
-  content: '';
+  content: "";
   -webkit-mask: url(../../assets/icons/calendar-range.svg) no-repeat 50% 50%;
   mask: url(../../assets/icons/calendar-range.svg) no-repeat 50% 50%;
   -webkit-mask-size: cover;
@@ -540,7 +536,7 @@ input[type="range"]:focus::-ms-fill-upper {
   width: 16px;
   height: 16px;
   display: inline-block;
-  content: '';
+  content: "";
   -webkit-mask: url(../../assets/icons/risk.svg) no-repeat 50% 50%;
   mask: url(../../assets/icons/risk.svg) no-repeat 50% 50%;
   -webkit-mask-size: cover;
