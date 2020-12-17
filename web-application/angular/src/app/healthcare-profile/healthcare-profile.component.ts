@@ -29,8 +29,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
   {png: 'albert_johnson.png', name: 'Albert Johnson', dob: '02/10/1988', mrn: 'YTK89123456',
   check_in1: '10/20/2020', check_in2:'10:30 am',readd_risk1:'10%',readd_risk2:'No Admission Info',
   cond_risk1:'Dx',cond_risk2:'75%',cond_risk3:'28%',cond_risk4:'17%'},
-  {png: 'leslie_wang.png', name: 'Leslie Isablella Wang', dob: '02/10/1988', mrn: 'YTK89123456',
-  check_in1: '07/15/2020', check_in2:'10:30 am',readd_risk1:'15%',readd_risk2:'No Admission Info',
+  {png: 'leslie_wang.png', name: 'Leslie Isablella Wang', dob: '03/12/1990', mrn: 'YTK34567891',
+  check_in1: '12/18/2020', check_in2:'10:30 am',readd_risk1:'15%',readd_risk2:'No Admission Info',
   cond_risk1:'Dx',cond_risk2:'50%',cond_risk3:'28%',cond_risk4:'17%'},
   {png: 'adela.png', name: 'Adela Basic', dob: '02/10/1988', mrn: 'YTK89123456',
   check_in1: '05/05/2020', check_in2:'10:30 am',readd_risk1:'20%',readd_risk2:'No Admission Info',
@@ -73,7 +73,7 @@ export class HealthcareProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    localStorage.setItem('code',window.location.href.split("?")[1].split("=")[1]);
+    /*localStorage.setItem('code',window.location.href.split("?")[1].split("=")[1]);
     const code = localStorage.getItem('code');
     const headers = {'Content-Type': 'application/x-www-form-urlencoded'};
     const body=`grant_type=authorization_code&code=${code}&redirect_uri=https://www.scriptchain.co/healthcare-profile&client_id=B5362FB7-A608-415F-ABA9-FAE232FCE90E`;
@@ -91,7 +91,7 @@ export class HealthcareProfileComponent implements OnInit {
       this.dataService.getPosts().subscribe(posts => {
       this.allPatients = posts
       this.dataService.postsData = posts
-    });
+    });*/
   }
 
   search(){
