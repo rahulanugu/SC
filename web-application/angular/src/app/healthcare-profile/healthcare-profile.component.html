@@ -18,7 +18,7 @@
         aria-controls="basic"
         aria-selected="true"
       >
-        <i class="todays-patients"></i>
+        <i class="todays-patients eight-right"></i>
         Upcoming Patients</a
       >
     </li>
@@ -31,7 +31,7 @@
         role="tab"
         aria-controls="advanced"
         aria-selected="false"
-        ><i class="magnifying-glass"></i>Search</a
+        ><i class="magnifying-glass eight-right"></i>Search</a
       >
     </li>
   </ul>
@@ -45,7 +45,7 @@
       <div class="row">
         <div class="col-md-5 appointment-range">
           <h3>
-            <i class="calendar-range"></i>
+            <i class="calendar-range eight-right"></i>
             Check-In Range
           </h3>
 
@@ -107,7 +107,7 @@
         <hr />
 
         <div class="col-md-7 risk-filter">
-          <h3><i class="risk"></i> Risk</h3>
+          <h3><i class="risk eight-right"></i> Risk</h3>
           <table>
             <tr>
               <th>Type</th>
@@ -123,14 +123,14 @@
                   <span class="switch-slider"></span>
                 </label>
               </td>
-              <td>
+              <td class="slider-cell">
                 <input
                   type="range"
                   min="1"
                   max="100"
                   value="50"
                   class="slider"
-                  id="myRange"
+                  id="readmission-range"
                 />
               </td>
               <td>
@@ -155,17 +155,18 @@
                   <span class="switch-slider"></span>
                 </label>
               </td>
-              <td>
+              <td class="slider-cell">
                 <input
                   type="range"
                   min="1"
                   max="100"
                   value="50"
                   class="slider"
-                  id="myRange"
+                  id="condition-range"
                 />
               </td>
               <td>
+                <div class="risk-filter-select">
                 <select name="conditions" id="conditions">
                   <option value="all conditions">All Conditions</option>
                   <option value="atrial fibrillation">
@@ -177,6 +178,7 @@
                   <option value="heart failure">Heart Failure</option>
                   <option value="hypertension">Hypertension</option>
                 </select>
+                </div>
               </td>
             </tr>
           </table>
@@ -240,7 +242,7 @@
 
           <div class="quick-selection">
             <label for="inputend">Quick Selection</label>
-            <div class="controls">
+            <form class="controls">
               <input
                 type="radio"
                 id="today"
@@ -268,7 +270,7 @@
                 value="custom"
               />
               <label class="radio" for="custom">Custom</label>
-            </div>
+            </form>
           </div>
 
           <div class="date-selection">
