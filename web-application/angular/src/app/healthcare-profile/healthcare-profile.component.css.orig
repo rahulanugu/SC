@@ -2,7 +2,12 @@ h1 {
   font-family: "Tinos", serif;
   font-size: 32px;
   font-weight: regular;
+<<<<<<< HEAD
+  color: #2D5059;
+  margin: 40px auto 24px;
+=======
   color: #2d5059;
+>>>>>>> e9725b16b95091f3c5df5fb64d05348af6d6bbed
 }
 
 h3 {
@@ -19,11 +24,10 @@ p {
   font-family: Lato;
   font-size: 14px;
   font-style: normal;
+  font-weight: 700;
   line-height: 17px;
   letter-spacing: 0em;
   text-align: left;
-  color: #1d1f26;
-
 }
 
 label,
@@ -38,36 +42,12 @@ th {
 
 ul {
   list-style-type: none;
+  display: flex;
   flex-direction: row;
   align-items: center;
-  width: fit-content;
-  padding: 0;
-  margin: 0;
 }
 
-hr {
-  border-top: 2px solid;
-  margin: 0 auto;
-}
-
-i {
-  background-color: #575b66;
-}
-.space0
-{
-   margin-left:15px;
-}
-
-.space 
-{
-   margin-left:60px;
-}
-.space2
-{
-   margin-left:10px;
-}
-
-li.nav-item {
+li {
   display: flex;
   font-family: Lato;
   font-size: 24px;
@@ -79,18 +59,39 @@ li.nav-item {
   text-align: left;
 }
 
+td {
+  border: 2px solid;
+  font-size: 14px;
+  color: #1d1f26;
+}
+
+hr {
+  border-top: 2px solid;
+  margin: 0 auto;
+}
+
+i {
+  background-color: #575b66;
+}
+
 .nav-item a[aria-selected="true"] i {
   background-color: #2d5059;
 }
 
+<<<<<<< HEAD
+
+=======
 .todays-patients {
   width: 24px;
   height: 24px;
   display: inline-block;
   content: "";
+  -webkit-mask: url(../../assets/calendar-todays-patients.svg) no-repeat 50% 50%;
+  mask: url(../../assets/calendar-todays-patients.svg) no-repeat 50% 50%;
   -webkit-mask-size: cover;
   mask-size: cover;
 }
+>>>>>>> e9725b16b95091f3c5df5fb64d05348af6d6bbed
 .nav-tabs {
   border: none;
   margin-bottom: 16px;
@@ -100,13 +101,23 @@ li.nav-item {
 }
 
 .nav-item a:hover {
+<<<<<<< HEAD
+  color: #0D1A1E;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.nav-item a:hover i {
+  background-color: #0D1A1E;
+  -webkit-transition: .4s;
+  transition: .4s;
+=======
   color: #0d1a1e;
 }
 
 .nav-item a:hover i {
   background-color: #0d1a1e;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
+>>>>>>> e9725b16b95091f3c5df5fb64d05348af6d6bbed
 }
 
 .nav-link {
@@ -124,9 +135,13 @@ li.nav-item {
 .nav-link:hover {
   background-color: transparent;
   border-width: 0px 0px 2px 0px;
+<<<<<<< HEAD
+  border-color: #0D1A1E;
+  -webkit-transition: .4s;
+  transition: .4s;
+=======
   border-color: #0d1a1e;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
+>>>>>>> e9725b16b95091f3c5df5fb64d05348af6d6bbed
 }
 
 #basic {
@@ -137,7 +152,7 @@ li.nav-item {
 
   position: relative;
   height: 40px;
-  width: 175px;
+  width: 160px;
 
   /* White */
 
@@ -184,9 +199,6 @@ li.nav-item {
 .date-selection {
   display: flex;
 }
-.date-selection input {
-  width: 175px;
-}
 
 .group {
   width: 60%;
@@ -215,9 +227,7 @@ li.nav-item {
 #advanced {
   background-color: white;
 }
-.btn {
-  white-space: nowrap;
-}
+
 .btn-primary {
   background-color: #5c8a96;
   color: white;
@@ -225,7 +235,6 @@ li.nav-item {
   font-size: 18px;
   font-weight: bold;
   border: none;
-  border-radius: 8px;
 }
 
 .btn-primary:hover {
@@ -241,34 +250,9 @@ li.nav-item {
   box-shadow: inset 0px 2px 2px 0px rgba(29, 31, 38, 0.15);
 }
 
-.btn-secondary {
-  background-color: transparent;
-  color: #5c8a96;
-  padding: 9px 40px;
-  font-size: 18px;
-  font-weight: bold;
-  border: 2px solid #5c8a96;
-  border-radius: 8px;
-}
-
-.btn-secondary:hover {
-  color: #2d5059;
-  border: 2px solid #2d5059;
-  box-shadow: 0px 2px 2px rgba(29, 31, 38, 0.15);
-}
-.btn-secondary:focus {
-  border: 3px solid rgba(13, 26, 30, 1);
-}
-.btn-secondary:not(:disabled):not(.disabled).active,
-.btn-secondary:not(:disabled):not(.disabled):active {
-  color: #2d5059;
-  background-color: #E6EFF1;
-  box-shadow: inset 0px 2px 2px 0px rgba(29, 31, 38, 0.15);
-}
-
-
 .button-grp {
   padding: 8px 8px;
+  text-align: right;
 }
 .container {
   font-family: "Lato";
@@ -279,76 +263,13 @@ li.nav-item {
   max-width: 1392px;
 }
 
-.patient-list {
-  min-height: 400px;
-}
-.patient-card {
-  padding: 8px 0 ;
-}
-
-.patient-card p {
-  overflow-wrap: break-word;
-}
-
-.photo-name, .photo-name h3 {
-  padding-left: 8px;
-  display: inline;
-  color: #1d1f26;
-}
-
-.full-profile-button {
-  padding-right: 8px;
-  text-align: right;
-  margin: auto 0 auto;
-
-}
-.flag-section {
-    display: table-cell;
-}
-/* Risk Flags */
-.flag {
-  background-color: #F5F6FA;
+.tab-pane {
   border-radius: 8px;
-  margin-right: 8px;
-  width: fit-content;
-  height: 16px;
-  padding: 0 8px;
-  color: #1D1F26;
-  display: inline-block;
 }
-
-.flag p {
-  font-size: 10px;
-  font-weight: 900;
-  display: inline;
-  vertical-align: top;
-  white-space: nowrap;
-
-}
-
-.flag-percentage {
-  margin-right: 8px;
-}
-
-.flag.red, .flag.red p {
-    background-color: #FFE7E5;
-    color: #5C0D09;
-}
-
-.flag.yellow, .flag.yellow p{
-    background-color: #FFF6E5;
-    color: #69490A;
-}
-
-.flag.green, .flag.green p {
-    background-color: #EDFFF1;
-    color: #104F1D;
-}
-
 
 .box {
   background-color: white;
-  box-shadow: 0px 4px 8px 0px rgba(29,31,38,0.15);
+  margin-bottom: 5%;
   border-radius: 8px;
 }
 .btn-details {
@@ -408,11 +329,6 @@ input[type="range"]::-ms-track {
   color: transparent;
 }
 
-.slider-cell {
-  min-width: 100px;
-  width: 100%;
-}
-
 .controls {
   display: flex;
 }
@@ -430,16 +346,30 @@ input[type="range"]::-ms-track {
   border-radius: 8px;
 }
 
-input:hover + label {
+<<<<<<< HEAD
+.radio:hover{
   background-color: #F5F6FA;
-  color: #1d1f26;
+  color: #1D1F26;
+  -webkit-transition: .4s;
+  transition: .4s;
 }
 
+
+input:checked + .radio {
+    background-color: #E6EFF1;
+
+=======
 input:checked + .radio {
   background-color: #e6eff1;
+>>>>>>> e9725b16b95091f3c5df5fb64d05348af6d6bbed
 }
 input:checked + label {
   color: #2d5059;
+}
+
+.box .row1 {
+  padding-top: 1%;
+  padding-left: 5%;
 }
 
 .search {
@@ -466,7 +396,7 @@ input:checked + label {
   height: 56px;
   border: none;
   border-top: solid 2px #f5f6fa;
-  padding-right: 24px;
+  padding-right: 48px;
 }
 
 .risk-filter input[type="range"]::-webkit-slider-thumb {
@@ -507,8 +437,7 @@ input[type="range"]::-webkit-slider-runnable-track {
   width: 100%;
   height: 4px;
   cursor: pointer;
-  background: rgb(60,153,80);
-background: linear-gradient(90deg, rgba(60,153,80,1) 0%, rgba(60,153,80,1) 40%, rgba(224,174,72,1) 40%, rgba(224,174,72,1) 75%, rgba(184,61,55,1) 75%, rgba(184,61,55,1) 100%);
+  background: #3071a9;
 }
 
 input[type="range"]:focus::-webkit-slider-runnable-track {
@@ -608,40 +537,23 @@ input[type="range"]:focus::-ms-fill-upper {
   transform: translateX(16px);
 }
 
-.risk-filter select{
-  appearance: none;
-  height: 32px;
-  background-color: transparent;
-  border: none;
-  display: inline;
-  background: url(../../assets/icons/caret-down.svg) no-repeat 182px 50%;
-  padding: 0 24px 0 16px;
-  font-weight: bold;
-  color: #575b66;
-}
-
-.risk-filter select:hover {
-  background-color: #F5F6FA;
-  color: #1d1f26;
-}
 
 /* Icons */
-.todays-patients {
+.todays-patients{
   width: 24px;
   height: 24px;
   display: inline-block;
-  content: "";
-  -webkit-mask: url(../../assets/icons/calendar-todays-patients.svg) no-repeat
-    50% 50%;
+  content: '';
+  -webkit-mask: url(../../assets/icons/calendar-todays-patients.svg) no-repeat 50% 50%;
   mask: url(../../assets/icons/calendar-todays-patients.svg) no-repeat 50% 50%;
   -webkit-mask-size: cover;
   mask-size: cover;
 }
-.magnifying-glass {
+.magnifying-glass{
   width: 24px;
   height: 24px;
   display: inline-block;
-  content: "";
+  content: '';
   -webkit-mask: url(../../assets/icons/magnifying-glass.svg) no-repeat 50% 50%;
   mask: url(../../assets/icons/magnifying-glass.svg) no-repeat 50% 50%;
   -webkit-mask-size: cover;
@@ -652,7 +564,7 @@ input[type="range"]:focus::-ms-fill-upper {
   width: 16px;
   height: 16px;
   display: inline-block;
-  content: "";
+  content: '';
   -webkit-mask: url(../../assets/icons/calendar-range.svg) no-repeat 50% 50%;
   mask: url(../../assets/icons/calendar-range.svg) no-repeat 50% 50%;
   -webkit-mask-size: cover;
@@ -663,28 +575,9 @@ input[type="range"]:focus::-ms-fill-upper {
   width: 16px;
   height: 16px;
   display: inline-block;
-  content: "";
+  content: '';
   -webkit-mask: url(../../assets/icons/risk.svg) no-repeat 50% 50%;
   mask: url(../../assets/icons/risk.svg) no-repeat 50% 50%;
   -webkit-mask-size: cover;
   mask-size: cover;
-}
-table {
-  width: 100%;
-}
-
-
-.caret-down {
-  width: 8px;
-  height: 8px;
-  display: inline-block;
-  content: "";
-  -webkit-mask: url(../../assets/icons/caret-down.svg) no-repeat 50% 50%;
-  mask: url(../../assets/icons/caret-down.svg) no-repeat 50% 50%;
-  -webkit-mask-size: cover;
-  mask-size: cover;
-}
-
-.eight-right{
-  margin-right: 8px;
 }
