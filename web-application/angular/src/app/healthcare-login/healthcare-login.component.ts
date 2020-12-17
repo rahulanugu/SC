@@ -29,7 +29,7 @@ export class HealthcareLoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-  this.router.navigate(['healthcare-profile'])
+  //this.router.navigate(['healthcare-profile'])
 }
 
   Form = this.formBuilderService .group({
