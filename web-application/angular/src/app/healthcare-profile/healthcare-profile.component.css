@@ -78,8 +78,8 @@ i {
   height: 24px;
   display: inline-block;
   content: "";
-  -webkit-mask: url(../../assets/calendar-todays-patients.svg) no-repeat 50% 50%;
-  mask: url(../../assets/calendar-todays-patients.svg) no-repeat 50% 50%;
+  /*-webkit-mask: url(../../assets/calendar-todays-patients.svg) no-repeat 50% 50%;
+  mask: url(../../assets/calendar-todays-patients.svg) no-repeat 50% 50%;*/
   -webkit-mask-size: cover;
   mask-size: cover;
 }
