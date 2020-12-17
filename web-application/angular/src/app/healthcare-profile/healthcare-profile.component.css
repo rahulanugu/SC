@@ -314,7 +314,7 @@ li.nav-item {
 
 .flag p {
   font-size: 10px;
-  font-weight: bolder;
+  font-weight: 900;
   display: inline;
   vertical-align: top;
   white-space: nowrap;
@@ -403,6 +403,11 @@ input[type="range"]::-ms-track {
   color: transparent;
 }
 
+.slider-cell {
+  min-width: 100px;
+  width: 100%;
+}
+
 .controls {
   display: flex;
 }
@@ -420,8 +425,12 @@ input[type="range"]::-ms-track {
   border-radius: 8px;
 }
 
+input:hover + label {
+  background-color: #F5F6FA;
+  color: #1d1f26;
+}
+
 input:checked + .radio {
-  background-color: #e6eff1;
   background-color: #e6eff1;
 }
 input:checked + label {
@@ -452,7 +461,7 @@ input:checked + label {
   height: 56px;
   border: none;
   border-top: solid 2px #f5f6fa;
-  padding-right: 48px;
+  padding-right: 24px;
 }
 
 .risk-filter input[type="range"]::-webkit-slider-thumb {
@@ -493,7 +502,8 @@ input[type="range"]::-webkit-slider-runnable-track {
   width: 100%;
   height: 4px;
   cursor: pointer;
-  background: #3071a9;
+  background: rgb(60,153,80);
+background: linear-gradient(90deg, rgba(60,153,80,1) 0%, rgba(60,153,80,1) 40%, rgba(224,174,72,1) 40%, rgba(224,174,72,1) 75%, rgba(184,61,55,1) 75%, rgba(184,61,55,1) 100%);
 }
 
 input[type="range"]:focus::-webkit-slider-runnable-track {
@@ -593,6 +603,23 @@ input[type="range"]:focus::-ms-fill-upper {
   transform: translateX(16px);
 }
 
+.risk-filter select{
+  appearance: none;
+  height: 32px;
+  background-color: transparent;
+  border: none;
+  display: inline;
+  background: url(../../assets/icons/caret-down.svg) no-repeat 182px 50%;
+  padding: 0 24px 0 16px;
+  font-weight: bold;
+  color: #575b66;
+}
+
+.risk-filter select:hover {
+  background-color: #F5F6FA;
+  color: #1d1f26;
+}
+
 /* Icons */
 .todays-patients {
   width: 24px;
@@ -636,4 +663,19 @@ input[type="range"]:focus::-ms-fill-upper {
   mask: url(../../assets/icons/risk.svg) no-repeat 50% 50%;
   -webkit-mask-size: cover;
   mask-size: cover;
+}
+
+.caret-down {
+  width: 8px;
+  height: 8px;
+  display: inline-block;
+  content: "";
+  -webkit-mask: url(../../assets/icons/caret-down.svg) no-repeat 50% 50%;
+  mask: url(../../assets/icons/caret-down.svg) no-repeat 50% 50%;
+  -webkit-mask-size: cover;
+  mask-size: cover;
+}
+
+.eight-right{
+  margin-right: 8px;
 }
