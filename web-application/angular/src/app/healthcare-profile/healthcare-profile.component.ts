@@ -3,11 +3,48 @@ import { Patient } from '../shared/patient.model';
 import { DataService } from '../data.service';
 import { PatientService } from '../shared/patient.service';
 import { Router } from '@angular/router';
-import { PatientBasic } from '../shared/patient.basic.model';
-import {MatTableDataSource} from '@angular/material';
-import { HttpClient,HttpHeaders} from '@angular/common/http';
-import { DIR_DOCUMENT } from '@angular/cdk/bidi';
-import { environment } from 'src/environments/environment';
+import { HttpClient} from '@angular/common/http';
+
+export interface PeriodicElement {
+  png: string;
+  name: string;
+  dob: string;
+  mrn: string;
+  check_in1: string;
+  check_in2: string;
+  readd_risk1: string;
+  readd_risk2: string;
+  cond_risk1: string;
+  cond_risk2: string;
+  cond_risk3: string;
+  cond_risk4: string;
+  /*readmission_risk: number;
+  condition_risk: string;*/
+}
+
+const ELEMENT_DATA: PeriodicElement[] = [
+  {png: 'ashley.png', name: 'Ashley Citarella', dob: '02/10/1988', mrn: 'YTK89123456',
+  check_in1: '11/25/2020', check_in2:'10:30 am',readd_risk1:'0%',readd_risk2:'No Admission Info',
+  cond_risk1:'Dx',cond_risk2:'65%',cond_risk3:'28%',cond_risk4:'17%'},
+  {png: 'albert_johnson.png', name: 'Albert Johnson', dob: '02/10/1988', mrn: 'YTK89123456',
+  check_in1: '10/20/2020', check_in2:'10:30 am',readd_risk1:'10%',readd_risk2:'No Admission Info',
+  cond_risk1:'Dx',cond_risk2:'75%',cond_risk3:'28%',cond_risk4:'17%'},
+  {png: 'leslie_wang.png', name: 'Leslie Isablella Wang', dob: '02/10/1988', mrn: 'YTK89123456',
+  check_in1: '07/15/2020', check_in2:'10:30 am',readd_risk1:'15%',readd_risk2:'No Admission Info',
+  cond_risk1:'Dx',cond_risk2:'50%',cond_risk3:'28%',cond_risk4:'17%'},
+  {png: 'adela.png', name: 'Adela Basic', dob: '02/10/1988', mrn: 'YTK89123456',
+  check_in1: '05/05/2020', check_in2:'10:30 am',readd_risk1:'20%',readd_risk2:'No Admission Info',
+  cond_risk1:'Dx',cond_risk2:'78%',cond_risk3:'28%',cond_risk4:'17%'},
+  {png: 'arjun.png', name: 'Arjun Chandrashekhar', dob: '02/10/1988', mrn: 'YTK89123456',
+  check_in1: '04/14/2020', check_in2:'10:30 am',readd_risk1:'25%',readd_risk2:'No Admission Info',
+  cond_risk1:'Dx',cond_risk2:'83%',cond_risk3:'28%',cond_risk4:'17%'},
+  {png: 'joanna.png', name: 'Joanna Krulik', dob: '02/10/1988', mrn: 'YTK89123456',
+  check_in1: '03/25/2020', check_in2:'10:30 am',readd_risk1:'30%',readd_risk2:'No Admission Info',
+  cond_risk1:'Dx',cond_risk2:'88%',cond_risk3:'28%',cond_risk4:'17%'},
+  {png: 'calderon.png', name: 'Luis Alejandro Calderon', dob: '02/10/1988', mrn: 'YTK89123456',
+  check_in1: '08/25/2020', check_in2:'10:30 am',readd_risk1:'35%',readd_risk2:'No Admission Info',
+  cond_risk1:'Dx',cond_risk2:'66%',cond_risk3:'28%',cond_risk4:'17%'},
+];
 
 @Component({
   selector: 'app-healthcare-profile',
@@ -20,8 +57,8 @@ export class HealthcareProfileComponent implements OnInit {
   allPatients: Patient[]
   filteredPatients: Patient[]
   providerFirstName: string;
-  dataSource: MatTableDataSource<Object>;
-  displayedColumns: string[] = ['sno','fname', 'lname', 'sex','birthday','view'];
+  displayedColumns: string[] = ['png','sort(a-z)', 'dob', 'mrn','check_in','readd_risk','cond_risk','btn'];
+  dataSource = ELEMENT_DATA;
   fName: string;
   lName: string;
   dob: string;
@@ -32,11 +69,11 @@ export class HealthcareProfileComponent implements OnInit {
     private service : PatientService,
     private router: Router,
     private http:HttpClient
-  ) { 
+  ) {
   }
 
   ngOnInit() {
-    localStorage.setItem('code',window.location.href.split("?")[1].split("=")[1]);
+    /*localStorage.setItem('code',window.location.href.split("?")[1].split("=")[1]);
     const code = localStorage.getItem('code');
     const headers = {'Content-Type': 'application/x-www-form-urlencoded'};
     const body=`grant_type=authorization_code&code=${code}&redirect_uri=https://www.scriptchain.co/healthcare-profile&client_id=B5362FB7-A608-415F-ABA9-FAE232FCE90E`;
@@ -54,7 +91,7 @@ export class HealthcareProfileComponent implements OnInit {
       this.dataService.getPosts().subscribe(posts => {
       this.allPatients = posts
       this.dataService.postsData = posts
-    });
+    });*/
   }
 
   search(){
@@ -87,7 +124,7 @@ export class HealthcareProfileComponent implements OnInit {
         "<div class='col-md-3'><b>Email</b></div><div class='col-md-3'>theo@gmail.com</div>"+
         "<div class='col-md-3'>COPD,CHF,Diabetes(Type 2)</div></div></div>"
       );
-    
+
       });
     });
   }
@@ -96,7 +133,7 @@ export class HealthcareProfileComponent implements OnInit {
     console.log(filterValue);
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
-    this.dataSource.filter = filterValue;
+    //this.dataSource.filter = filterValue;
   }
 
   onSelectedOption(e) {
@@ -135,27 +172,4 @@ export class HealthcareProfileComponent implements OnInit {
     this.islabevents=true;
     this.isbutton=false;
   }
-    columnDefs = [
-        {headerName: "id", field: "id" ,sortable: true, filter: true},
-        {headerName: "name", field: "name",sortable: true, filter: true},
-        {headerName: "status", field: "status"},
-        {headerName: "value", field: "value"},
-        {headerName: "code", field: "code",sortable: true, filter: true},
-        {headerName: "effectiveDateTime", field: "effectiveDateTime"}
-    ];
-    rowData = [
-        {id: "TLAsiQXC3WlPGLEoSKMe.FvJWdE9yU9rpRK9VQ4Zste0B", name: "POC PLATELET COUNT", status: "final",value:210,code:" ",effectiveDateTime:"2012-10-27T18:45:00Z"},
-        {id: "TYcTop.0vJsGrmR-BIgypXCcYN1Qpj2h5rH00.Fo-y1QB", name: "HEMOGLOBIN A1C/HEMOGLOBIN TOTAL IN BLOOD", status: "final",value:7.1,code:"4548-4",effectiveDateTime:"2006-07-07T14:50:00Z"},
-        {id: "TyTACVT8EN3y297LJpmHOTRzwSjv9b2P1BFGIE-mjMUIB", name: "HEMOGLOBIN BLOOD GAS", status: "final",value:15,code:""  ,effectiveDateTime:"2010-02-20T17:34:00Z"},
-        {id: "TSTSVo6iPXJ550gR.dzbEwPwQ.OgtmL46.qNOys3T3PEB", name: "HEMOGLOBIN BLOOD GAS", status: "final",value:13.9,code:""  ,effectiveDateTime:"2009-03-18T15:49:00Z"},
-        {id: "TYCUjrj3QX46ruuAzS4KssuUDL-z1qDLMd10e2t5uW0YB", name: "HEMOGLOBIN BLOOD GAS", status: "final",value:14.4,code:""  ,effectiveDateTime:"2007-07-25T15:49:00Z"},
-        {id: "TmkRWk0ZaNDkgPXzKZxGkwdslHYFIXs3jc9qqCzVJrWsB", name: "HEMOGLOBIN BLOOD GAS", status: "final",value:14.1,code:""  ,effectiveDateTime:"2006-07-07T14:43:00Z"},
-        {id: "TilEpnEc2JSAPBX9OZuAvb8lJpBBns1vqmnK8DZKy4AIB", name: "HEMOGLOBIN (G/DL) IN BLOOD", status: "final",value:15,code:"718-7"  ,effectiveDateTime:"2012-10-19T21:26:00Z"},
-        {id: "TDJDQ1SGKpTxooOqzhg-DwF2gYqmwRfJDubWl5ayepbUB", name: "HEMOGLOBIN (G/DL) IN BLOOD", status: "final",value:15,code:"718-7"  ,effectiveDateTime:"2009-03-12T12:45:00Z"},
-        {id: "TilEpnEc2JSAPBX9OZuAvbzu8L93AEHFOzfle-ffyNmQB", name: "HEMATOCRIT (%) IN BLOOD BY AUTOMATED COUNT", status: "final",value:45,code:"4544-3",effectiveDateTime:"2012-10-19T21:26:00Z"},
-        {id: "TyTACVT8EN3y297LJpmHOTVaNYMKb9mQfHPVHi652DWwB", name: "HEMATOCRIT (%) IN BLOOD BY AUTOMATED COUNT", status: "final",value:44.4,code:"4544-3",effectiveDateTime:"2010-02-20T17:34:00Z"},
-        {id: "TSTSVo6iPXJ550gR.dzbEwE50pI28LqjQdfsPRcMqCdQB", name: "HEMATOCRIT (%) IN BLOOD BY AUTOMATED COUNT", status: "final",value:40.9,code:"4544-3",effectiveDateTime:"2009-03-18T15:49:00Z"},
-        {id: "TDJDQ1SGKpTxooOqzhg-DwHj5SJJZCcSCVCrNfOPjo7AB", name: "HEMATOCRIT (%) IN BLOOD BY AUTOMATED COUNT", status: "final",value:42.9,code:"4544-3",effectiveDateTime:"2009-03-12T12:45:00Z"}
-    ];
-
 }
