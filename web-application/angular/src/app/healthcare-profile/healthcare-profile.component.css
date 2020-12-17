@@ -19,10 +19,11 @@ p {
   font-family: Lato;
   font-size: 14px;
   font-style: normal;
-  font-weight: 700;
   line-height: 17px;
   letter-spacing: 0em;
   text-align: left;
+  color: #1d1f26;
+
 }
 
 label,
@@ -37,22 +38,14 @@ th {
 
 ul {
   list-style-type: none;
-  display: flex;
   flex-direction: row;
   align-items: center;
+  width: fit-content;
+  padding: 0;
+  margin: 0;
 }
 
-li {
-  display: flex;
-  font-family: Lato;
-  font-size: 24px;
-  color: #2d5059;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 29px;
-  letter-spacing: 0em;
-  text-align: left;
-}
+
 
 td {
   border: 2px solid;
@@ -67,6 +60,18 @@ hr {
 
 i {
   background-color: #575b66;
+}
+
+li.nav-item {
+  display: flex;
+  font-family: Lato;
+  font-size: 24px;
+  color: #2d5059;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 29px;
+  letter-spacing: 0em;
+  text-align: left;
 }
 
 .nav-item a[aria-selected="true"] i {
@@ -174,6 +179,9 @@ i {
 .date-selection {
   display: flex;
 }
+.date-selection input {
+  width: 160px;
+}
 
 .group {
   width: 60%;
@@ -202,7 +210,9 @@ i {
 #advanced {
   background-color: white;
 }
-
+.btn {
+  white-space: nowrap;
+}
 .btn-primary {
   background-color: #5c8a96;
   color: white;
@@ -237,13 +247,76 @@ i {
   max-width: 1392px;
 }
 
-.tab-pane {
-  border-radius: 8px;
+.patient-list {
+  margin-bottom: 40px;
 }
+.patient-card {
+  padding: 8px 0 ;
+}
+
+.patient-card p {
+  overflow-wrap: break-word;
+}
+
+.photo-name, .photo-name h3 {
+  padding-left: 8px;
+  display: inline;
+  color: #1d1f26;
+}
+
+.full-profile-button {
+  padding-right: 8px;
+  text-align: right;
+  margin: auto 0 auto;
+
+}
+.flag-section {
+    display: table-cell;
+}
+/* Risk Flags */
+.flag {
+  background-color: #F5F6FA;
+  border-radius: 8px;
+  margin-right: 8px;
+  width: fit-content;
+  height: 16px;
+  padding: 0 8px;
+  color: #1D1F26;
+  display: inline-block;
+}
+
+.flag p {
+  font-size: 10px;
+  font-weight: bolder;
+  display: inline;
+  vertical-align: top;
+  white-space: nowrap;
+
+}
+
+.flag-percentage {
+  margin-right: 8px;
+}
+
+.flag.red, .flag.red p {
+    background-color: #FFE7E5;
+    color: #5C0D09;
+}
+
+.flag.yellow, .flag.yellow p{
+    background-color: #FFF6E5;
+    color: #69490A;
+}
+
+.flag.green, .flag.green p {
+    background-color: #EDFFF1;
+    color: #104F1D;
+}
+
 
 .box {
   background-color: white;
-  margin-bottom: 5%;
+  box-shadow: 0px 4px 8px 0px rgba(29,31,38,0.15);
   border-radius: 8px;
 }
 .btn-details {
@@ -326,11 +399,6 @@ input:checked + .radio {
 }
 input:checked + label {
   color: #2d5059;
-}
-
-.box .row1 {
-  padding-top: 1%;
-  padding-left: 5%;
 }
 
 .search {

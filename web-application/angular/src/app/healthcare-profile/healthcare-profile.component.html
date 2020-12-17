@@ -50,14 +50,13 @@
   </ul>
   <div class="tab-content" id="myTabContent">
     <div
-      class="tab-pane fade show active"
+      class="tab-pane fade show active box"
       id="basic"
       role="tabpanel"
       aria-labelledby="basic-tab"
-      style="box-shadow: 1px 1px 10px 3px lightgray"
     >
       <div class="row">
-        <div class="col-lg-5 appointment-range">
+        <div class="col-md-5 appointment-range">
           <h3>
             <img class="appointment" src="../../assets/appointment_range.png" />
             Appointment Range
@@ -104,7 +103,6 @@
                 placeholder="mm/dd/yyyy"
                 class="form-control"
                 id="inputstart"
-                style="width: 180px"
               />
             </div>
             <div class="form-group">
@@ -114,7 +112,6 @@
                 placeholder="mm/dd/yyyy"
                 class="form-control"
                 id="inputend"
-                style="width: 180px"
               />
             </div>
           </div>
@@ -122,7 +119,7 @@
 
         <hr />
 
-        <div class="col-lg-7 risk-filter">
+        <div class="col-md-7 risk-filter">
           <h3><img class="risk" src="../../assets/disk_stack.png" /> Risk</h3>
           <table>
             <tr>
@@ -404,61 +401,56 @@
       >
     </li>
   </ul> -->
-    <div class="tab-content" style="padding-top: 2%">
+    <div class="patient-list">
       <div
         class="boxes tab-pane fade show active"
         id="todayspat"
         role="tabpanel"
         aria-labelledby="todays-tab"
       >
-        <div
-          class="box"
-          style="padding: 10px; box-shadow: 1px 1px 10px 3px lightgray"
-        >
-          <div class="row" style="border-bottom: 2px solid #e1e4eb">
-            <div class="col-md-2" style="margin-bottom: 1%">
+        <div class="patient-card box">
+          <div class="row">
+            <div class="photo-name col-md-3 ">
               <img src="../../assets/leslie_wang.png" />
-              <b style="margin-left: 3%; padding: 1%">Leslie Wang</b>
+              <h3>Leslie Wang</h3>
             </div>
-            <div class="col-md-5"></div>
-            <div class="col-md-4" style="padding: 1%">
-              Next Appointment Today 11:30 am
+            <div class="col-md-1">
+                <p>02/10/1988</p>
             </div>
-            <div class="col-md-1" style="padding: 1%">
-              <img
-                src="../../assets/view.png"
-                style="cursor: pointer"
+            <div class="col-md-1">
+            <p>YTK89123456</p>
+            </div>
+            <div class="col-md-1">
+            <p>11/25/2020</p>
+            <p>10:30 am</p>
+            </div>
+            <div class="col-md-4">
+            <div class="flag-section">
+            <ul>
+            <li class="flag"><p class="flag-percentage">0%</p><p>No Admission Info</p></li>
+            </ul>
+            </div>
+            <div class="flag-section">
+            <ul>
+            <li class="flag red"><p class="flag-percentage">Dx</p><p>Atrial Fibrillation</p></li>
+            <li class="flag yellow"><p class="flag-percentage">75%</p><p>Heart Failure</p></li>
+            <li class="flag green"><p class="flag-percentage">28%</p><p>Hypertension</p></li>
+            <li class="flag green"><p class="flag-percentage">17%</p><p>Coronary Heart Disease</p></li>
+            </ul>
+            </div>
+            </div>
+
+            <div class="col-md-2 full-profile-button">
+              <button
+                type="button"
+                class="btn btn-primary"
                 (click)="openPatientProfile(1234)"
-              />
+  
+              >
+                Full Profile
+              </button>
+
             </div>
-          </div>
-          <div class="row row1">
-            <div class="col-md-1"><b>DOB</b></div>
-            <div class="col-md-2">07/16/1970</div>
-            <div class="col-md-3"><b>Driver's License</b></div>
-            <div class="col-md-3">NHL12345678</div>
-            <div class="col-md-3">Massachusettes Medical Group</div>
-          </div>
-          <div class="row row1">
-            <div class="col-md-1"><b>Sex</b></div>
-            <div class="col-md-2">Female</div>
-            <div class="col-md-3"><b>Last 4 digits of SSN</b></div>
-            <div class="col-md-3">0010</div>
-            <div class="col-md-3">Department of Cardiology</div>
-          </div>
-          <div class="row row1">
-            <div class="col-md-1"><b>Residence</b></div>
-            <div class="col-md-2">New York City, NY</div>
-            <div class="col-md-3"><b>Phone Number</b></div>
-            <div class="col-md-3">(123)456-789</div>
-            <div class="col-md-3">Dr. Beth Smith</div>
-          </div>
-          <div class="row row1">
-            <div class="col-md-1"><b>MRN</b></div>
-            <div class="col-md-2">YTK12345675</div>
-            <div class="col-md-3"><b>Email</b></div>
-            <div class="col-md-3">Leslie.Wang@gmail.com</div>
-            <div class="col-md-3">COPD,CHF,Diabetes(Type 2)</div>
           </div>
         </div>
       </div>
