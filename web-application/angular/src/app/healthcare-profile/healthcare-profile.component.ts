@@ -73,7 +73,7 @@ export class HealthcareProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    /*localStorage.setItem('code',window.location.href.split("?")[1].split("=")[1]);
+    localStorage.setItem('code',window.location.href.split("?")[1].split("=")[1]);
     const code = localStorage.getItem('code');
     const headers = {'Content-Type': 'application/x-www-form-urlencoded'};
     const body=`grant_type=authorization_code&code=${code}&redirect_uri=https://www.scriptchain.co/healthcare-profile&client_id=B5362FB7-A608-415F-ABA9-FAE232FCE90E`;
@@ -91,7 +91,7 @@ export class HealthcareProfileComponent implements OnInit {
       this.dataService.getPosts().subscribe(posts => {
       this.allPatients = posts
       this.dataService.postsData = posts
-    });*/
+    });
   }
 
   search(){
