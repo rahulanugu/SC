@@ -32,7 +32,7 @@ export class HealthcareProfileComponent implements OnInit {
     private service : PatientService,
     private router: Router,
     private http:HttpClient
-  ) { 
+  ) {
   }
 
   ngOnInit() {
@@ -87,7 +87,7 @@ export class HealthcareProfileComponent implements OnInit {
         "<div class='col-md-3'><b>Email</b></div><div class='col-md-3'>theo@gmail.com</div>"+
         "<div class='col-md-3'>COPD,CHF,Diabetes(Type 2)</div></div></div>"
       );
-    
+
       });
     });
   }
