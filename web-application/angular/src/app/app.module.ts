@@ -72,6 +72,8 @@ import { HealthcareManageProfileComponent } from './healthcare-manage-profile/he
 import { ReactivateHealthcareProviderComponent } from './reactivate-healthcare-provider/reactivate-healthcare-provider.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatConfirmDialogComponent } from './mat-confirm-dialog/mat-confirm-dialog.component';
+import { ScriptLoaderService } from 'angular-google-charts';
+import { GoogleChartsModule } from 'angular-google-charts';
 
 @NgModule({
   declarations: [
@@ -135,6 +137,7 @@ import { MatConfirmDialogComponent } from './mat-confirm-dialog/mat-confirm-dial
     TextMaskModule,
     RouterModule,
     ReactiveFormsModule,
+    GoogleChartsModule,
     MatTableModule,
     MatIconModule,
     MatInputModule,
@@ -154,7 +157,8 @@ import { MatConfirmDialogComponent } from './mat-confirm-dialog/mat-confirm-dial
     DbService,
     LoginPatientService,
     PatientAuthGuard,
-    DataService
+    DataService,
+    ScriptLoaderService
   ],
   bootstrap: [AppComponent],
   entryComponents: [MatConfirmDialogComponent]

@@ -9,6 +9,35 @@ import { Router } from '@angular/router';
   styleUrls: ['./patient-healthcareview.component.css']
 })
 export class PatientHealthcareviewComponent implements OnInit {
+
+   title = 'Average Temperatures of Body';
+   type = 'LineChart';
+   data = [
+      ["Jan",  98.3],
+      ["Feb",  97.5],
+      ["Mar",  98.6],
+      ["Apr",  98.9],
+      ["May",  96.5],
+      ["Jun",  97.9],
+      ["Jul",  98.7],
+      ["Aug",  98.4],
+      ["Sep",  99.7],
+      ["Oct",  99.5],
+      ["Nov",  98.4],
+      ["Dec",  96.5]
+   ];
+   columnNames = ["Month","Leslie"];
+   options = {   
+      hAxis: {
+         title: 'Month'
+      },
+      vAxis:{
+         title: 'Temperature'
+      },
+   };
+   width = 650;
+   height = 300;
+
    public bottomdiv2:boolean = false;
    public bottomdiv3:boolean = false;
    public bottomdiv4:boolean = false;
@@ -351,12 +380,6 @@ export class PatientHealthcareviewComponent implements OnInit {
       ]
     });
     chart.render();*/
-   document.getElementById('firstname').innerHTML = "<span class='text'><h4>Leslie Wang</h4></span><br>\
-   <span class='text'><b>Medical Record No.(MRN): </b>YTK12345678</span><br><span class='text'><b>Phone Number: </b>(123)456-7890</span>";
-   document.getElementById('dob').innerHTML = "<span class='text'><b>DOB: </b>07/16/1970</span><br>\
-   <span class='text'><b>Email Address: </b>Leslie.Wang@gmail.com</span>";
-   document.getElementById('sex').innerHTML = "<span class='text'><b>Sex: </b>Female</span><br>\
-   <span class='text'><b>Pronoun: </b>She/Her</span><br><span class='text'><b>Place: </b>Boston/MA</span>";
- }
+    }
 
 }
