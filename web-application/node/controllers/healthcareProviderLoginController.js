@@ -4,13 +4,13 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 var router = express.Router();
 const {BigQuery} = require('@google-cloud/bigquery');
-/*const options = {
+const options = {
   keyFilename: 'serviceAccountKeys/scriptchain-259015-689b82dcb0fe.json',
   projectId: 'scriptchain-259015'
 
 };
-const bigquery = new BigQuery(options);*/
-const bigquery = new BigQuery();
+const bigquery = new BigQuery(options);
+//const bigquery = new BigQuery();
 var aes256 = require('aes256');
 const API_KEY = "scriptChain@13$67ahi1";
 const key = "hosenkinosumabeni";
@@ -34,6 +34,7 @@ router.post('/',[check('emailAddress').notEmpty().isEmail(),check('password').no
     return res.status(401).json({Message:'Unauthorized'});
   }
     try{
+    //Log format - Who searched it, Ip address and 
     console.log("Reached the login controller for the healthcare")
     console.log(req.body);
     //const healthcareProvider = await HealthcareProvider.findOne({ email: req.body.emailAddress });
@@ -80,7 +81,7 @@ router.post('/',[check('emailAddress').notEmpty().isEmail(),check('password').no
               message: "Wrong password has been entered"
           });
 
-          const token = jwt.sign({ _id: healthcareProvider._id, fname: healthcareProvider.firstName }, 'abc', { expiresIn: 60*60*3 });
+          const token = jwt.sign({ _id: healthcareProvider._id, fname: healthcareProvider.firstName }, 'abc', { expiresIn: 60*30 });
           res.status(200).json({
               idToken: token,
               firstName: healthcareProvider.firstName
