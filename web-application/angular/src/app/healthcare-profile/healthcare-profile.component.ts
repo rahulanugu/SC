@@ -73,11 +73,13 @@ export class HealthcareProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    /*localStorage.setItem('code',window.location.href.split("?")[1].split("=")[1]);
+    localStorage.setItem('code',window.location.href.split("?")[1].split("=")[1]);
     const code = localStorage.getItem('code');
     const headers = {'Content-Type': 'application/x-www-form-urlencoded'};
-    const body=`grant_type=authorization_code&code=${code}&redirect_uri=https://www.scriptchain.co/healthcare-profile&client_id=B5362FB7-A608-415F-ABA9-FAE232FCE90E`;
-    this.http.post("https://applescm184region.open.allscripts.com/authorization/connect/token", body,{headers}).subscribe(
+    //const body=`grant_type=authorization_code&code=${code}&redirect_uri=https://www.scriptchain.co/healthcare-profile&client_id=B5362FB7-A608-415F-ABA9-FAE232FCE90E`;
+    //this.http.post("https://applescm184region.open.allscripts.com/authorization/connect/token", body,{headers}).subscribe(
+    const body=`grant_type=authorization_code&code=${code}&redirect_uri=https://www.scriptchain.co/healthcare-profile&client_id=788a5f45-8fcc-4ad9-bce6-e7eeefc8ac41`;
+    this.http.post("https://fhir.epic.com/interconnect-fhir-oauth/oauth2/token", body,{headers}).subscribe(
       res => {
         console.log(res);
         //localStorage.setItem('access_token',res["access_token"]);
@@ -91,7 +93,7 @@ export class HealthcareProfileComponent implements OnInit {
       this.dataService.getPosts().subscribe(posts => {
       this.allPatients = posts
       this.dataService.postsData = posts
-    });*/
+    });
   }
 
   search(){
@@ -101,7 +103,7 @@ export class HealthcareProfileComponent implements OnInit {
       //let res1 = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ1cm46b2lkOmZoaXIiLCJjbGllbnRfaWQiOiI3ODhhNWY0NS04ZmNjLTRhZDktYmNlNi1lN2VlZWZjOGFjNDEiLCJlcGljLmVjaSI6InVybjplcGljOlVTQ0RJLW9uLUZISVIiLCJlcGljLm1ldGFkYXRhIjoibl9ybjlGaW82VHpHSklEWnVzSTktRkRjajl5Qk03YmpnbXFtUm5ldHVRaDJESlpUZ0xPZUpub1QtczJvUDFwUmpJNHB5el84N0h4ZzFqLVRocTF5VmpPR3RGeTkwMkoxSFNaSFNrWTkzeFkxbVRnYnhqSmNNWDVaZzRGc0lOMWMiLCJlcGljLnRva2VudHlwZSI6ImFjY2VzcyIsImV4cCI6MTYwNDA0NzA0MCwiaWF0IjoxNjA0MDQzNDQwLCJpc3MiOiJ1cm46b2lkOmZoaXIiLCJqdGkiOiJlYWQ5MDgyYi1kODAyLTQ1ZDctOGExYy1mNjQ5Y2NlYTdlZDciLCJuYmYiOjE2MDQwNDM0NDAsInN1YiI6ImVtU2pyRUQwRUJaUDJsVTdlU3lQRTZ3MyJ9.nJCOXYw0jEgxExls9K8khC6DU4OIF8ODvLL66UplcqgAtDKgBkFSLG4ougExEKksprftanf37KQgpnk_KKXtX3rBZgN9oRnc47r9ALJ0RUSVX1ZZgZ5_kIKs3Ntn4K8I6ew7rYkVZe4gH9tzGpl8k6sL46y8pl84JMA6PfMCgH17IZ-ooApSes__R7mDQHDBadlsq8p2kpLiFthX6hqoQoYMGUMX-aaoQAUaMPPLBPxEBO9j149QfGl1cX18Q4mryskyLu2yZs_FuPtn1urLkA9PHei4n_--hLcMj9DvmX5y7b9kC-xK0gxPBtXWL3VwvuNbr4k5EIuvtHrx8HJdug"
       this.dataService.search(this.fName,this.lName,this.dob,res1).subscribe(res=>{
           console.log(res);
-          var name = res["entry"][0].resource.name[0].text.split(" ")[1];
+       /*   var name = res["entry"][0].resource.name[0].text.split(" ")[1];
           var dob = res["entry"][0].resource.birthDate;
           var gender = res["entry"][0].resource.gender;
           var phone = res["entry"][0].resource.telecom[0].value;
@@ -123,7 +125,7 @@ export class HealthcareProfileComponent implements OnInit {
         "<div class='col-md-1'><b>MRN</b></div><div class='col-md-2'>YTK18273825</div>"+
         "<div class='col-md-3'><b>Email</b></div><div class='col-md-3'>theo@gmail.com</div>"+
         "<div class='col-md-3'>COPD,CHF,Diabetes(Type 2)</div></div></div>"
-      );
+      );*/
 
       });
     });
