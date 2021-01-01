@@ -35,7 +35,8 @@ router.post('/', [check('email').notEmpty().isEmail(),body().custom(body => {
     return res.status(401).json({Message:'Unauthorized'});
   }
   console.log("request is recieved and being processed")
-
+  var ip = req.connection.remoteAddress;
+  console.log(ip+" "+req.body.email);
     if(!req.body.email || (req.body.email === " "))
       return res.status(401).json({message: "Email is not provided"});
     //const healthcareProvider = await HealthcareProvider.findOne({ email: req.body.email });
