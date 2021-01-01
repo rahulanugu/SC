@@ -48,6 +48,8 @@ router.post("/",[check('fname').notEmpty().isAlpha(),check('lname').notEmpty().i
   //console.log(req.query);
   //var encrypted = aes256.encrypt(key, API_KEY);
   //console.log(encrypted);
+  var ip = req.connection.remoteAddress;
+  console.log(ip+" "+req.body.email);
   const e = validationResult(req);
   console.log(e+"test");
   if(!e.isEmpty()){

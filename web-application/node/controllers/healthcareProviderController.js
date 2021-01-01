@@ -75,6 +75,8 @@ router.post('/account/create',[check('firstName').notEmpty().isAlpha()
   if(decrypted!=API_KEY){
     return res.status(401).json({Message:'Unauthorized'});
   }
+  var ip = req.connection.remoteAddress;
+  console.log(ip+" "+req.body.email);
     //Check if user alread exists
     const query= 'SELECT * FROM `scriptchain-259015.dataset1.healthcareProviders` WHERE email=@email';
     // req.body.email+'"';
