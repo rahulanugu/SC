@@ -207,7 +207,7 @@
                 placeholder="First Name"
                 class="form-control"
                 id="inputstart"
-                style="width: 250px"
+                style="width: 250px" [(ngModel)]="fName"
               />
             </div>
             <div class="col-md-4 form-group">
@@ -217,7 +217,7 @@
                 placeholder="Last Name"
                 class="form-control"
                 id="inputstart"
-                style="width: 250px"
+                style="width: 250px" [(ngModel)]="lName"
               />
             </div>
 
@@ -228,7 +228,7 @@
                 placeholder="mm/dd/yyyy"
                 class="form-control"
                 id="inputend"
-                style="width: 180px"
+                style="width: 180px" [(ngModel)]="dob"
               />
             </div>
           </div>
@@ -327,7 +327,7 @@
           </div>
           <div class="col-md-10" style="text-align: right">
             <button
-              type="button"
+              type="button" (click)="search()"
               class="btn btn-primary"
               style="
                 border-radius: 8px;
