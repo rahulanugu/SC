@@ -37,6 +37,8 @@ router.post('/',[check('email').notEmpty().isEmail(),check('password').notEmpty(
   }
     //const patient = await Patient.findOne({Email: req.body.email});
     //if the patient is not found, try finding it in the deactivated patients collection
+    var ip = req.connection.remoteAddress;
+    console.log(ip+" "+req.body.email);
 
     const query1 = 'SELECT * FROM `scriptchain-259015.dataset1.patients` WHERE Email=@email';
     const bigQueryOptions1={

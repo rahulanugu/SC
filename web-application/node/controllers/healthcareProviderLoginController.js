@@ -23,6 +23,8 @@ router.post('/',[check('emailAddress').notEmpty().isEmail(),check('password').no
   const keys = ['emailAddress','password'];
   return Object.keys(body).every(key => keys.includes(key));
 })],async (req, res) => {
+  var ip = req.connection.remoteAddress;
+  console.log(ip+" "+req.body.emailAddress);
   console.log(req.query);
   const errors = validationResult(req);
   if(!errors.isEmpty()){
