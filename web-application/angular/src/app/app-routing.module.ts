@@ -39,6 +39,8 @@ import { HealthcareManageProfileComponent } from "./healthcare-manage-profile/he
 import { ReactivateHealthcareProviderComponent } from "./reactivate-healthcare-provider/reactivate-healthcare-provider.component";
 import { AthenaLoginComponent } from "./athenalogin/athenalogin.component";
 import { HealthcareConfirmationComponent } from "./healthcare-confirmation/healthcare-confirmation.component";
+import { HealthcareVerificationComponent } from "./healthcare-verification/healthcare-verification.component";
+
 const routes: Routes = [
   /* pages for the app */
   { path: "home", component: HomeComponent },
@@ -112,6 +114,10 @@ const routes: Routes = [
   {
     path: "healthcare/confirmation",
     component: HealthcareConfirmationComponent,
+  },
+  {
+    path: "healthcare/verificationemail",
+    component: HealthcareVerificationComponent,
   },
 ];
 
