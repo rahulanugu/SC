@@ -74,6 +74,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatConfirmDialogComponent } from './mat-confirm-dialog/mat-confirm-dialog.component';
 import { ScriptLoaderService } from 'angular-google-charts';
 import { GoogleChartsModule } from 'angular-google-charts';
+import { HealthcareConfirmationComponent } from './healthcare-confirmation/healthcare-confirmation.component';
 
 @NgModule({
   declarations: [
@@ -125,6 +126,7 @@ import { GoogleChartsModule } from 'angular-google-charts';
     HealthcareManageProfileComponent,
     ReactivateHealthcareProviderComponent,
     MatConfirmDialogComponent,
+    HealthcareConfirmationComponent,
 
   ],
 
