@@ -38,6 +38,8 @@ import { ReactivatePatientComponent } from "./reactivate-patient/reactivate-pati
 import { HealthcareManageProfileComponent } from "./healthcare-manage-profile/healthcare-manage-profile.component";
 import { ReactivateHealthcareProviderComponent } from "./reactivate-healthcare-provider/reactivate-healthcare-provider.component";
 import { AthenaLoginComponent } from "./athenalogin/athenalogin.component";
+import { HealthcareConfirmationComponent } from "./healthcare-confirmation/healthcare-confirmation.component";
+import { HealthcareVerificationComponent } from "./healthcare-verification/healthcare-verification.component";
 
 const routes: Routes = [
   /* pages for the app */
@@ -52,8 +54,14 @@ const routes: Routes = [
   { path: "healthcare/login", component: HealthcareLoginComponent },
   { path: "healthcare/register", component: HealthcareRegisterComponent },
   { path: "healthcare/verify", component: HealthcareVerifyComponent },
-  { path: "healthcare/password/reset", component: HealthcareResetPasswordComponent},
-  { path: "healthcare/password/resetpage", component: HealthcareResetPasswordPageComponent},
+  {
+    path: "healthcare/password/reset",
+    component: HealthcareResetPasswordComponent,
+  },
+  {
+    path: "healthcare/password/resetpage",
+    component: HealthcareResetPasswordPageComponent,
+  },
   { path: "register", component: RegisterComponent },
   { path: "patient/registerTwo", component: PatientRegistertwoComponent },
   { path: "patient/password/reset", component: ResetPasswordComponent },
@@ -62,9 +70,13 @@ const routes: Routes = [
   {
     path: "patient-profile",
     component: PatientProfileComponent,
-    canActivate: [PatientAuthGuard]
+    canActivate: [PatientAuthGuard],
   },
-  {path: "editpatient", component: PatientManageProfileComponent, canActivate: [PatientAuthGuard]},
+  {
+    path: "editpatient",
+    component: PatientManageProfileComponent,
+    canActivate: [PatientAuthGuard],
+  },
   { path: "contact-us", component: ContactUsComponent },
   { path: "careers", component: CareersComponent },
   { path: "privacy-policy", component: PrivacyPolicyComponent },
@@ -74,17 +86,44 @@ const routes: Routes = [
   { path: "registersuccessful", component: RegisterSuccessfulPageComponent },
   { path: "deactivatedpatient", component: DeactivatedPatientComponent },
   { path: "reactivatepatient", component: ReactivatePatientComponent },
-  { path: "reactivatehealthcareprovider", component: ReactivateHealthcareProviderComponent },
-  { path: "searchTest", component:HomePageComponent, canActivate: [HealthcareAuthGuard]},
-  { path: "healthcare-profile", component: HealthcareProfileComponent/* , canActivate: [HealthcareAuthGuard] */},
-  { path: "healthcare-profile/patient/:patientid", component: PatientHealthcareviewComponent, /* canActivate: [HealthcareAuthGuard] */},
-  { path: "healthcare-profile/patient/:patientid/:diseaseid", component: PatientHealthcareviewnextComponent},
-  { path: "healthcare-profile/editprofile", component: HealthcareManageProfileComponent}
+  {
+    path: "reactivatehealthcareprovider",
+    component: ReactivateHealthcareProviderComponent,
+  },
+  {
+    path: "searchTest",
+    component: HomePageComponent,
+    canActivate: [HealthcareAuthGuard],
+  },
+  {
+    path: "healthcare-profile",
+    component: HealthcareProfileComponent /* , canActivate: [HealthcareAuthGuard] */,
+  },
+  {
+    path: "healthcare-profile/patient/:patientid",
+    component: PatientHealthcareviewComponent /* canActivate: [HealthcareAuthGuard] */,
+  },
+  {
+    path: "healthcare-profile/patient/:patientid/:diseaseid",
+    component: PatientHealthcareviewnextComponent,
+  },
+  {
+    path: "healthcare-profile/editprofile",
+    component: HealthcareManageProfileComponent,
+  },
+  {
+    path: "healthcare/confirmation",
+    component: HealthcareConfirmationComponent,
+  },
+  {
+    path: "healthcare/verificationemail",
+    component: HealthcareVerificationComponent,
+  },
 ];
 
 @NgModule({
   declarations: [],
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}
