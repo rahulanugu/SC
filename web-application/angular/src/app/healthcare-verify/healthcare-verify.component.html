@@ -7,28 +7,101 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 <!DOCTYPE html>
 <html lang="zxx">
-<body>
-  <app-common-header></app-common-header>
-  <div style="height:35px"></div>
-  <div class="py-5" id="verificationsuccessful">
-    <h1 align="center">Account verified. Please go to the login page to access your account.</h1>
-    <h2 align="center" >Click <a style="cursor: pointer; color:blue;" role="button" (click) = reRouteToLogin()>here</a> to login</h2>
-  </div>
-  <div class="py-5" id="verificationerror">
+  <body>
+    <app-common-header></app-common-header>
+    <div>
+      <h3 class="heading">You're almost done registering.</h3>
+    </div>
+    <div class="card">
+      <div class="card-container">
+        <div class="center">
+          <span
+            class="fa fa-check-circle"
+            style="color: #009688; font-size: 76px; margin-top: 20px"
+          ></span
+          ><br />
+          <label>Your email has been verified</label>
+        </div>
+
+        <h5>
+          The next step is to check your email for the message we've sent with
+          furter instructions.
+        </h5>
+        <hr />
+        <form>
+          <div class="form-element">
+            <label style="font-size: 14px">Email</label>
+
+            <input
+              [class.is-invalid]="
+                Form.get('emailAddress').invalid &&
+                Form.get('emailAddress').touched
+              "
+              formControlName="emailAddress"
+              type="email"
+              class="form-control"
+              id="emailAddress"
+              required
+            />
+          </div>
+          <div class="form-element">
+            <label style="font-size: 14px">Password</label>
+            <input
+              [class.is-invalid]="
+                Form.get('password').invalid && Form.get('password').touched
+              "
+              formControlName="password"
+              type="password"
+              class="form-control"
+              id="password"
+              required
+            />
+          </div>
+          <hr />
+          <div class="form-element">
+            <button type="submit" class="loginBtn">Login</button>
+          </div>
+          <div class="form-element">
+            <button type="button" class="helpBtn">Help</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- <div style="height: 35px"></div>
+    <div class="py-5" id="verificationsuccessful">
+      <h1 align="center">
+        Account verified. Please go to the login page to access your account.
+      </h1>
+      <h2 align="center">
+        Click
+        <a
+          style="cursor: pointer; color: blue"
+          role="button"
+          (click)="reRouteToLogin()"
+          >here</a
+        >
+        to login
+      </h2>
+    </div> -->
+    <!-- <div class="py-5" id="verificationerror">
     <h1 align="center">Error 500. Please contact support or try creating a new account</h1>
     <div class="container"><p align="center">We do our best to answer your questions quickly. Thanks in advance for your patience.</p>
     </div>
-  </div>
-  <app-footer id="footer"></app-footer>
+  </div> -->
+    <app-footer id="footer"></app-footer>
 
-      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148334798-1"></script>
-      <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-      
-        gtag('config', 'UA-148334798-1');
-      </script>
-</body>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-148334798-1"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
+      gtag("config", "UA-148334798-1");
+    </script>
+  </body>
 </html>
