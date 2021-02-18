@@ -76,6 +76,7 @@ import { ScriptLoaderService } from 'angular-google-charts';
 import { GoogleChartsModule } from 'angular-google-charts';
 import { HealthcareConfirmationComponent } from './healthcare-confirmation/healthcare-confirmation.component';
 import { HealthcareVerificationComponent } from './healthcare-verification/healthcare-verification.component';
+import { HealthcareAccountSettingsComponent } from './healthcare-account-settings/healthcare-account-settings.component';
 
 @NgModule({
   declarations: [
@@ -129,6 +130,7 @@ import { HealthcareVerificationComponent } from './healthcare-verification/healt
     MatConfirmDialogComponent,
     HealthcareConfirmationComponent,
     HealthcareVerificationComponent,
+    HealthcareAccountSettingsComponent,
 
   ],
 
