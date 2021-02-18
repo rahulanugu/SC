@@ -40,7 +40,7 @@ body {
   margin-top: 20px;
   font-family: "Lato", sans-serif;
   font-size: 14px;
-  font-weight: bold;
+  font-weight: normal;
 }
 
 .verifyBtn {
@@ -49,5 +49,14 @@ body {
   border: none;
   margin-top: 10px;
   font-size: 18px;
-  border-radius: 7px;
+  border-radius: 8px;
+}
+
+hr {
+  left: 0%;
+  right: 0%;
+  margin-top: 10px;
+
+  /* Grey 200 */
+  border: 2px solid #e1e4eb;
 }
