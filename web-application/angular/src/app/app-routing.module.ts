@@ -41,6 +41,8 @@ import { AthenaLoginComponent } from "./athenalogin/athenalogin.component";
 import { HealthcareConfirmationComponent } from "./healthcare-confirmation/healthcare-confirmation.component";
 import { HealthcareVerificationComponent } from "./healthcare-verification/healthcare-verification.component";
 import { HealthcareAccountSettingsComponent } from "./healthcare-account-settings/healthcare-account-settings.component";
+import { HealthcarePatientPortalComponent } from "./healthcare-patient-portal/healthcare-patient-portal.component";
+import { HealthcareHeaderComponent } from "./healthcare-header/healthcare-header.component";
 const routes: Routes = [
   /* pages for the app */
   { path: "home", component: HomeComponent },
@@ -122,6 +124,14 @@ const routes: Routes = [
   {
     path: "healthcare/accountsettings",
     component: HealthcareAccountSettingsComponent,
+  },
+  {
+    path: "healthcare/patientportal",
+    component: HealthcarePatientPortalComponent,
+  },
+  {
+    path: "healthcare/header",
+    component: HealthcareHeaderComponent,
   },
 ];
 
