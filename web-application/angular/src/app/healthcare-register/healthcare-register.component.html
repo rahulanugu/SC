@@ -45,6 +45,12 @@ Register Paitent Form
   <body>
     <!-- healthcare register -->
     <div>
+      <app-healthcare-header>
+        <img
+          src="./assets/avatarSignup.png"
+          style="height: 48px; width: 48px; float: right"
+        />
+      </app-healthcare-header>
       <h3 class="loginHeading">Provider Sign Up</h3>
       <div class="card">
         <div class="card-container">
@@ -56,10 +62,7 @@ Register Paitent Form
           </strong>
           <hr />
           <div class="sectionHeading">
-            <span
-              class="fa fa-user-o"
-              style="color: #575b66; margin-left: 18px"
-            ></span>
+            <img src="./assets/personalInfoIcon.png" />
             <label>Personal Information</label>
           </div>
           <form ngNativeValidate [formGroup]="Form" (ngSubmit)="submitForm()">
@@ -212,10 +215,7 @@ Register Paitent Form
             <!--Row5-->
             <hr />
             <div class="sectionHeading">
-              <span
-                class="fa fa-lock"
-                style="color: #575b66; margin-left: 18px"
-              ></span>
+              <img src="./assets/passwrdIcon.png" />
               <label>Password</label>
             </div>
 
@@ -264,11 +264,18 @@ Register Paitent Form
             <!--Row6-->
             <hr />
             <div class="sectionHeading">
-              <span
-                class="fa fa-id-badge"
-                style="color: #575b66; margin-left: 18px"
-              ></span>
+              <img src="./assets/profileImg.png" />
               <label>Profile Image</label>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <img
+                    src="./assets/avatarSignup.png"
+                    style="height: 144px; width: 144px; margin-left: 18px"
+                  />
+                </div>
+              </div>
             </div>
             <div class="row">
               <div class="col">
@@ -276,8 +283,10 @@ Register Paitent Form
                   <label>Upload a Photo</label><br />
                   <div class="element">
                     <label class="btn">
-                      <i class="fa fa-camera" style="font-size: 18px"></i>
-                      Select File
+                      <img src="./assets/cameraIcon.png" />
+                      <label style="margin-left: 8px; margin-top: 4px">
+                        Select File</label
+                      >
                       <input type="file" style="display: none" />
                     </label>
                   </div>
@@ -293,8 +302,10 @@ Register Paitent Form
                   <label>Select an Avatar</label><br />
                   <div class="element" style="font-size: 18px">
                     <label class="btn">
-                      <i class="fa fa-camera" style="font-size: 18px"></i>
-                      View Avatars
+                      <img src="./assets/viewAvatarIcon.png" />
+                      <label style="margin-left: 8px; margin-top: 4px">
+                        View Avatars</label
+                      >
                     </label>
                   </div>
                   <!--Element-->
@@ -318,6 +329,7 @@ Register Paitent Form
           </form>
         </div>
       </div>
+      <app-healthcare-footer></app-healthcare-footer>
     </div>
     <!-- <section class="login py-5">
   <div class="container py-xl-5 py-lg-3">
@@ -389,7 +401,5 @@ Register Paitent Form
     <!-- footer -->
 
     <!-- //footer -->
-
-    <app-footer></app-footer>
   </body>
 </html>

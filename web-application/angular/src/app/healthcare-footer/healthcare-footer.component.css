@@ -1,6 +1,10 @@
 .footer {
-  position: absolute;
-  bottom: 0%;
+  /* bottom: 0%;
+  margin-top: auto; */
+  position: relative;
+  bottom: 0;
+  left: 0;
+  margin-top: 0px;
 }
 
 .copyright-container label {
@@ -22,4 +26,5 @@
 
 body {
   background-color: #faf6f2;
+  height: auto;
 }
