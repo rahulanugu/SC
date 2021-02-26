@@ -79,6 +79,10 @@ import { HealthcareVerificationComponent } from "./healthcare-verification/healt
 import { HealthcareAccountSettingsComponent } from "./healthcare-account-settings/healthcare-account-settings.component";
 import { HealthcarePatientPortalComponent } from "./healthcare-patient-portal/healthcare-patient-portal.component";
 import { HealthcareHeaderComponent } from "./healthcare-header/healthcare-header.component";
+import { HealthcareReadmissionRiskInfoComponent } from "./healthcare-readmission-risk-info/healthcare-readmission-risk-info.component";
+import { HealthcareAddUserComponent } from './healthcare-add-user/healthcare-add-user.component';
+import { HealthcareWelcomeEmailComponent } from './healthcare-welcome-email/healthcare-welcome-email.component';
+import { HealthcareFooterComponent } from './healthcare-footer/healthcare-footer.component';
 
 @NgModule({
   declarations: [
@@ -135,6 +139,10 @@ import { HealthcareHeaderComponent } from "./healthcare-header/healthcare-header
     HealthcareAccountSettingsComponent,
     HealthcarePatientPortalComponent,
     HealthcareHeaderComponent,
+    HealthcareReadmissionRiskInfoComponent,
+    HealthcareAddUserComponent,
+    HealthcareWelcomeEmailComponent,
+    HealthcareFooterComponent,
   ],
 
   imports: [

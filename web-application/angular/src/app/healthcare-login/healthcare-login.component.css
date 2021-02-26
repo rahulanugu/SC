@@ -1,0 +1,83 @@
+.loginHeading {
+  font-family: "Tinos", serif;
+  color: #2d5059;
+  text-align: center;
+  font-size: 36px;
+  padding-top: 40px;
+}
+.card {
+  background: #ffffff;
+  /* Drop Shadow E200 */
+
+  box-shadow: 0px 4px 8px rgba(29, 31, 38, 0.15);
+  border-radius: 8px;
+
+  transition: 0.3s;
+
+  width: 400px;
+  height: 436px;
+  margin: 0 auto;
+  float: none;
+  margin-bottom: 231px;
+  font-family: "Lato", sans-serif;
+}
+.container {
+  font-family: "Lato", sans-serif;
+}
+
+a:link {
+  color: black;
+}
+
+.form-element {
+  font-family: "Lato", sans-serif;
+  font-size: 14px;
+  margin-top: 5px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #1d1f26;
+}
+
+.form-element input {
+  width: 368px;
+  height: 40px;
+  height: 40px;
+  left: 0%;
+  right: 0%;
+  top: 25px;
+
+  /* White */
+
+  background: #ffffff;
+  /* Grey 200 */
+
+  border: 2px solid #e1e4eb;
+  box-sizing: border-box;
+  /* Inner Shadow E-100 */
+
+  box-shadow: inset 0px 2px 2px rgba(29, 31, 38, 0.15);
+  border-radius: 8px;
+}
+
+.form-element button {
+  width: 368px;
+  height: 40px;
+  border-radius: 7px;
+  text-align: center;
+  font-size: 18px;
+  font-family: "Lato", sans-serif;
+  font-weight: bold;
+}
+
+.loginBtn {
+  color: white;
+  background-color: #5c8a96;
+  border: none;
+}
+
+.helpBtn,
+.signUpBtn {
+  color: #5c8a96;
+  border: 2px solid #5c8a96;
+  background-color: white;
+}
