@@ -12,6 +12,9 @@
   margin-left: 378px;
   padding: 0px;
 }
+.heading img {
+  margin-left: 18px;
+}
 
 .heading label {
   color: #1d1f26;
