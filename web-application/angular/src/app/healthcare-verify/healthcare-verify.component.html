@@ -7,19 +7,37 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 <!DOCTYPE html>
 <html lang="zxx">
+  <!-- Hotjar Tracking Code for https://www.scriptchain.co/ -->
+  <script>
+    (function (h, o, t, j, a, r) {
+      h.hj =
+        h.hj ||
+        function () {
+          (h.hj.q = h.hj.q || []).push(arguments);
+        };
+      h._hjSettings = { hjid: 2250267, hjsv: 6 };
+      a = o.getElementsByTagName("head")[0];
+      r = o.createElement("script");
+      r.async = 1;
+      r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+      a.appendChild(r);
+    })(window, document, "https://static.hotjar.com/c/hotjar-", ".js?sv=");
+  </script>
   <body>
-    <app-common-header></app-common-header>
+    <div class="header">
+      <app-healthcare-header></app-healthcare-header>
+    </div>
     <div>
-      <h3 class="heading">You're almost done registering.</h3>
+      <h3 class="heading">Verified</h3>
     </div>
     <div class="card">
       <div class="card-container">
         <div class="center">
-          <span
-            class="fa fa-check-circle"
-            style="color: #009688; font-size: 76px; margin-top: 20px"
-          ></span
-          ><br />
+          <img
+            src="./assets/tickIcon.png"
+            style="margin-top: 20px; width: 80px; height: 80px ;"
+          />
+          <br />
           <label>Your email has been verified</label>
         </div>
 
@@ -67,6 +85,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         </form>
       </div>
     </div>
+    <div class="footer1">
+      <app-healthcare-footer></app-healthcare-footer>
+    </div>
     <!-- <div style="height: 35px"></div>
     <div class="py-5" id="verificationsuccessful">
       <h1 align="center">
@@ -88,7 +109,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <div class="container"><p align="center">We do our best to answer your questions quickly. Thanks in advance for your patience.</p>
     </div>
   </div> -->
-    <app-footer id="footer"></app-footer>
 
     <script
       async

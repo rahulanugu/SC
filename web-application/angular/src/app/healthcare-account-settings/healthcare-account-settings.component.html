@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+
+<html lang="zxx">
+  <link
+    href="http://fonts.googleapis.com/css?family=Lato:400,700"
+    rel="stylesheet"
+    type="text/css"
+  />
+  <link
+    href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
+    rel="stylesheet"
+  />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <!-- <script>
+    $("i").click(function () {
+      $("input[type='file']").trigger("click");
+    });
+
+    $('input[type="file"]').on("change", function () {
+      var val = $(this).val();
+      $(this).siblings("span").text(val);
+    });
+  </script> -->
+  <!-- Hotjar Tracking Code for https://www.scriptchain.co/ -->
+  <script>
+    (function (h, o, t, j, a, r) {
+      h.hj =
+        h.hj ||
+        function () {
+          (h.hj.q = h.hj.q || []).push(arguments);
+        };
+      h._hjSettings = { hjid: 2250267, hjsv: 6 };
+      a = o.getElementsByTagName("head")[0];
+      r = o.createElement("script");
+      r.async = 1;
+      r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+      a.appendChild(r);
+    })(window, document, "https://static.hotjar.com/c/hotjar-", ".js?sv=");
+  </script>
+  <body>
+    <div class="card">
+      <div class="card-container">
+        <div class="heading">
+          <img src="./assets/Settings.png" height="20px" width="30px" />
+          <label>Account Settings</label>
+        </div>
+        <hr />
+        <div class="sectionHeading">
+          <span
+            class="fa fa-id-badge"
+            style="color: #575b66; margin-left: 18px; width: 16px"
+          ></span>
+          <label>Profile Image</label>
+        </div>
+        <div class="profile-container">
+          <div class="box">
+            <div class="oval">
+              <img class="profile-pic" src="" />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label>Upload a Photo</label><br />
+              <div class="element">
+                <label class="btn">
+                  <i class="fa fa-camera" style="font-size: 18px"></i>
+                  Select File
+                  <input
+                    class="file-upload"
+                    type="file"
+                    style="display: none"
+                    accept="image/*"
+                  />
+                </label>
+              </div>
+              <!--Element-->
+            </div>
+          </div>
+        </div>
+        <div class="hr-sect">or</div>
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label>Select an Avatar</label><br />
+              <div class="element" style="font-size: 18px">
+                <label class="btn">
+                  <i class="fas fa-th-large" style="font-size: 18px"></i>
+                  View Avatars
+                </label>
+              </div>
+              <!--Element-->
+            </div>
+          </div>
+        </div>
+        <div class="sectionHeading">
+          <span
+            class="fa fa-user-o"
+            style="color: #575b66; margin-left: 18px"
+          ></span>
+          <label>Personal Information</label>
+        </div>
+        <form ngNativeValidate [formGroup]="Form" (ngSubmit)="submitForm()">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>First Name</label>
+                <input
+                  [class.is-invalid]="
+                    Form.get('firstName').invalid &&
+                    Form.get('firstName').touched
+                  "
+                  formControlName="firstName"
+                  type="text"
+                  class="form-control"
+                  required
+                />
+                <!-- <small
+                    [class.d-none]="
+                      Form.get('firstName').valid || Form.get('firstName').untouched
+                    "
+                    class="text-danger"
+                    >First Name is required.</small
+                  > -->
+              </div>
+            </div>
+            <!----Column1-->
+
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Last Name</label>
+                <input
+                  [class.is-invalid]="
+                    Form.get('lastName').invalid && Form.get('lastName').touched
+                  "
+                  formControlName="lastName"
+                  type="text"
+                  class="form-control"
+                  required
+                />
+                <!-- <small [class.d-none]="Form.get('lastName').valid || Form.get('lastName').untouched" class="text-danger">Last Name is required.</small> -->
+              </div>
+            </div>
+            <!--Column2-->
+          </div>
+          <!--Row1-->
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label>Email</label>
+                <input
+                  [class.is-invalid]="
+                    Form.get('email').invalid && Form.get('email').touched
+                  "
+                  formControlName="email"
+                  type="email"
+                  class="form-control"
+                  required
+                />
+                <!-- <small
+                    [class.d-none]="
+                      Form.get('email').valid || Form.get('email').untouched
+                    "
+                    class="text-danger"
+                    >Email is required.</small
+                  > -->
+                <!-- <small *ngIf="userAlreadyExist" class="text-danger"
+                    >User already exists</small
+                  > -->
+              </div>
+            </div>
+            <!--Column1-->
+          </div>
+          <!--Row2-->
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label>Phone</label>
+                <input
+                  [class.is-invalid]="
+                    Form.get('phone').invalid && Form.get('phone').touched
+                  "
+                  formControlName="phone"
+                  type="text"
+                  [textMask]="{ mask: phonemask }"
+                  class="form-control"
+                  required
+                />
+                <!-- <small [class.d-none]="Form.get('phone').valid || Form.get('phone').untouched" class="text-danger">Phone is required.</small> -->
+              </div>
+            </div>
+            <!--Col1-->
+          </div>
+          <!--Row3-->
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Organization Name</label>
+                <input
+                  [class.is-invalid]="
+                    Form.get('companyName').invalid &&
+                    Form.get('companyName').touched
+                  "
+                  formControlName="companyName"
+                  type="text"
+                  class="form-control"
+                  required
+                />
+                <!-- <small [class.d-none]="Form.get('companyName').valid || Form.get('companyName').untouched" class="text-danger">Company Name is required.</small> -->
+              </div>
+            </div>
+            <!---Col1-->
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Position in Organization</label>
+                <input
+                  [class.is-invalid]="
+                    Form.get('roleInCompany').invalid &&
+                    Form.get('roleInCompany').touched
+                  "
+                  formControlName="roleInCompany"
+                  type="text"
+                  class="form-control"
+                  required
+                />
+                <!-- <small [class.d-none]="Form.get('roleInCompany').valid || Form.get('roleInCompany').untouched" class="text-danger">Role in company is required.</small> -->
+              </div>
+            </div>
+            <!--Col2-->
+          </div>
+          <!--Row4-->
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label>EHR</label>
+                <select
+                  class="form-control dropdown"
+                  formControlName="ehr"
+                  required
+                >
+                  <option value="Epic">Epic</option>
+                  <option value="All_Scripts">All Scripts</option>
+                  <option value="Cerner">Cerner</option>
+                  <option value="Athena_Health">Athena Health</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <!--Row5-->
+          <hr />
+          <div class="sectionHeading">
+            <span
+              class="fa fa-lock"
+              style="color: #575b66; margin-left: 18px"
+            ></span>
+            <label>Password</label>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label> Password</label>
+                <label style="font-size: 12px; color: #1d1f26"
+                  >Password requires a capital letter, number, and special
+                  symbol(such as: !,@,?...)</label
+                >
+
+                <input
+                  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!,@,#,$,%,^,&,*]).{6,20}"
+                  [class.is-invalid]="
+                    Form.get('password').invalid && Form.get('password').touched
+                  "
+                  formControlName="password"
+                  type="password"
+                  class="form-control"
+                  required
+                />
+                <!-- <small [class.d-none]="Form.get('password').valid || Form.get('password').untouched" class="text-danger">Password requires a capital letter, number and special symbol(such as: !,@,?...)</small> -->
+              </div>
+            </div>
+            <!--Col1-->
+            <div class="col-sm-6" style="margin-top: 42px">
+              <div class="form-group">
+                <label>Retype New Password</label>
+                <input
+                  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!,@,#,$,%,^,&,*]).{6,20}"
+                  [class.is-invalid]="
+                    Form.get('password').invalid && Form.get('password').touched
+                  "
+                  formControlName="password"
+                  type="password"
+                  class="form-control"
+                  required
+                />
+              </div>
+            </div>
+            <!--Col2-->
+          </div>
+          <!--Row6-->
+          <hr />
+
+          <div class="row">
+            <div class="col">
+              <div class="form-group" style="float: left">
+                <button type="button" class="helpBtn">Cancel</button>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group" style="float: right">
+                <button type="button" class="signUpBtn">Save & Exit</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
