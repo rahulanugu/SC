@@ -37,6 +37,7 @@ body {
   font-weight: bold;
   border: 2px solid #5c8a96;
   border-radius: 7px;
+  margin-bottom: 16px;
 }
 
 label {
@@ -61,4 +62,36 @@ hr {
 
   /* Grey 200 */
   border: 2px solid #e1e4eb;
+}
+html {
+  width: 100%;
+  height: 100%;
+  display: table;
+}
+
+body {
+  width: 100%;
+  display: table-cell;
+  background-color: #faf6f2;
+}
+
+html,
+body {
+  margin: 0px;
+  padding: 0px;
+}
+
+img {
+  margin-top: 13px;
+  width: 76px;
+  height: 56px;
+}
+
+.footer1 {
+  margin: 0 auto;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0px;
 }
