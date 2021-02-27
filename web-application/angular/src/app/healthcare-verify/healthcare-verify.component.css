@@ -116,3 +116,11 @@ hr {
   /* Grey 200 */
   border: 2px solid #e1e4eb;
 }
+.footer1 {
+  margin: 0 auto;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0px;
+}
