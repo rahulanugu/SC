@@ -34,39 +34,40 @@
 
   <body>
     <!-- healthcare account confirmation -->
-    <app-common-header></app-common-header>
     <div>
-      <h3 class="heading">Your account was created!</h3>
-    </div>
-    <div class="card">
-      <div class="card-container">
-        <div class="center">
-          <span
-            class="fa fa-envelope fa-lg"
-            style="color: #5c8a96; font-size: 76px; margin-top: 29px"
-          ></span
-          ><br />
-          <label style="margin-top: 16 px"
-            >We just need to verify your email address.</label
-          >
-        </div>
+      <app-healthcare-header></app-healthcare-header>
+      <div>
+        <h3 class="heading">Your account was created!</h3>
+      </div>
+      <div class="card">
+        <div class="card-container">
+          <div class="center">
+            <img src="./assets/mailIcon.png" />
+            <br />
+            <label style="margin-top: 16 px"
+              >We just need to verify your email address.</label
+            >
+          </div>
 
-        <h5 style="margin-top: 16 px">
-          The next step is to check your email for the message we've sent with
-          furter instructions.
-        </h5>
-        <hr />
-        <div class="center">
-          <button
-            type="button"
-            class="helpBtn"
-            style="width: 416px; height: 40px"
-          >
-            Help
-          </button>
+          <h5 style="margin-top: 16 px">
+            The next step is to check your email for the message we've sent with
+            furter instructions.
+          </h5>
+          <hr />
+          <div class="center">
+            <button
+              type="button"
+              class="helpBtn"
+              style="width: 416px; height: 40px"
+            >
+              Help
+            </button>
+          </div>
         </div>
       </div>
+      <div class="footer1">
+        <app-healthcare-footer></app-healthcare-footer>
+      </div>
     </div>
-    <app-footer></app-footer>
   </body>
 </html>
