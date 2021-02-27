@@ -16,37 +16,31 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   </head>
   <body>
-    <div class="inline-elements">
-      <span class="fa fa-home" style="color: #575b66; margin-left: 18px"></span>
-      <label>Home</label>
-      <span
-        class="fa fa-chevron-right"
-        style="color: #575b66; margin-left: 18px"
-      ></span>
-      <span class="fa fa-user" style="color: #575b66; margin-left: 18px"></span>
-      <label>First Middle Last</label>
-      <span
-        class="fa fa-chevron-right"
-        style="color: #575b66; margin-left: 18px"
-      ></span>
-      <span
-        class="fa fa-user-circle"
-        style="color: #2d5059; margin-left: 18px"
-      ></span>
-      <label style="color: #2d5059">Patient Portal</label>
-    </div>
-    <div class="sectionHeading">
-      <span
-        class="fa fa-user-circle"
-        style="color: #2d5059; margin-left: 18px"
-      ></span>
-      <label>Users</label>
-    </div>
-    <div class="element">
-      <label class="btn">
-        <i class="fa fa-user-plus" style="font-size: 18px"></i>
-        Give someone access to portal
-      </label>
+    <div>
+      <app-healthcare-header></app-healthcare-header>
+      <div class="inline-elements">
+        <img src="./assets/homeIcon.png" />
+        <label>Home</label>
+        <img src="./assets/arrowIcon.png" />
+        <img src="./assets/UserIcon.png" />
+        <label>First Middle Last</label>
+        <img src="./assets/arrowIcon.png" />
+        <img src="./assets/UsercircleIcon.png" />
+        <label style="color: #2d5059">Patient Portal</label>
+      </div>
+      <div class="sectionHeading">
+        <img src="./assets/Users.png" />
+        <label>Users</label>
+      </div>
+      <div class="element">
+        <label class="btn">
+          <img src="./assets/addUserIcon.png" />
+          Give someone access to portal
+        </label>
+      </div>
+      <div class="footer1">
+        <app-healthcare-footer></app-healthcare-footer>
+      </div>
     </div>
   </body>
 </html>
