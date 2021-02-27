@@ -46,7 +46,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatDialogModule} from '@angular/material/dialog';
+import {MatDialogModule} from '@angular/material';
 import {MatListModule} from '@angular/material/list';
 import {MatTableModule} from '@angular/material/table';
 import {MatSidenavModule} from '@angular/material/sidenav';
@@ -110,7 +110,6 @@ import { HealthcareVerificationComponent } from './healthcare-verification/healt
     ResetPasswordComponent,
     ResetPasswordPageComponent,
     HealthcareVerifyComponent,
-
     HomePageComponent,
     SearchBarComponent,
     SideBarComponent,
@@ -128,8 +127,7 @@ import { HealthcareVerificationComponent } from './healthcare-verification/healt
     ReactivateHealthcareProviderComponent,
     MatConfirmDialogComponent,
     HealthcareConfirmationComponent,
-    HealthcareVerificationComponent,
-
+    HealthcareVerificationComponent
   ],
 
   imports: [
@@ -155,7 +153,7 @@ import { HealthcareVerificationComponent } from './healthcare-verification/healt
     MatListModule,
     MatGridListModule,
     MatSelectModule,
-    MatTabsModule
+    MatTabsModule,
    ],
   providers: [
     DbService,
