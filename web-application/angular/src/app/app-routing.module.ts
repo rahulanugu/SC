@@ -42,6 +42,13 @@ import { HealthcareConfirmationComponent } from "./healthcare-confirmation/healt
 import { HealthcareVerificationComponent } from "./healthcare-verification/healthcare-verification.component";
 import { HealthcareDialogContent } from "./healthcare-dialog-content/healthcare-dialog-content.component";
 
+import { HealthcareAccountSettingsComponent } from "./healthcare-account-settings/healthcare-account-settings.component";
+import { HealthcarePatientPortalComponent } from "./healthcare-patient-portal/healthcare-patient-portal.component";
+import { HealthcareHeaderComponent } from "./healthcare-header/healthcare-header.component";
+import { HealthcareReadmissionRiskInfoComponent } from "./healthcare-readmission-risk-info/healthcare-readmission-risk-info.component";
+import { HealthcareAddUserComponent } from "./healthcare-add-user/healthcare-add-user.component";
+import { HealthcareWelcomeEmailComponent } from "./healthcare-welcome-email/healthcare-welcome-email.component";
+import { HealthcareFooterComponent } from "./healthcare-footer/healthcare-footer.component";
 const routes: Routes = [
   /* pages for the app */
   { path: "home", component: HomeComponent },
@@ -119,6 +126,34 @@ const routes: Routes = [
   {
     path: "healthcare/verificationemail",
     component: HealthcareVerificationComponent,
+  },
+  {
+    path: "healthcare/accountsettings",
+    component: HealthcareAccountSettingsComponent,
+  },
+  {
+    path: "healthcare/patientportal",
+    component: HealthcarePatientPortalComponent,
+  },
+  {
+    path: "healthcare/header",
+    component: HealthcareHeaderComponent,
+  },
+  {
+    path: "healthcare/readmissionriskinfo",
+    component: HealthcareReadmissionRiskInfoComponent,
+  },
+  {
+    path: "healthcare/adduserpatient",
+    component: HealthcareAddUserComponent,
+  },
+  {
+    path: "healthcare/welcomeemail",
+    component: HealthcareWelcomeEmailComponent,
+  },
+  {
+    path: "healthcare/footer",
+    component: HealthcareFooterComponent,
   },
 ];
 
