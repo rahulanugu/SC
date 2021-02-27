@@ -280,7 +280,8 @@ Register Paitent Form
                     <label class="btn">
                       <i class="fa fa-camera" style="font-size: 18px"></i>
                       View Avatars
-                      <input type="file" style="display: none" />
+                      <!--Avatar component needed-->
+                      <input style="display: none" mat-button (click)="openDialog()"/>
                     </label>
                   </div>
                   <!--Element-->
@@ -376,6 +377,6 @@ Register Paitent Form
 
     <!-- //footer -->
 
-    <app-footer></app-footer>
+    <!--<app-footer></app-footer>-->
   </body>
 </html>

@@ -40,6 +40,7 @@ import { ReactivateHealthcareProviderComponent } from "./reactivate-healthcare-p
 import { AthenaLoginComponent } from "./athenalogin/athenalogin.component";
 import { HealthcareConfirmationComponent } from "./healthcare-confirmation/healthcare-confirmation.component";
 import { HealthcareVerificationComponent } from "./healthcare-verification/healthcare-verification.component";
+import { HealthcareDialogContent } from "./healthcare-dialog-content/healthcare-dialog-content.component";
 
 const routes: Routes = [
   /* pages for the app */
@@ -122,8 +123,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [],
+  declarations: [HealthcareDialogContent],
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
+  entryComponents: [HealthcareDialogContent]
 })
 export class AppRoutingModule {}

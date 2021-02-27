@@ -3,6 +3,8 @@ import { FormBuilder, Validators } from "@angular/forms";
 import { HealthcareAccountService } from "../shared/healthcare-account.service";
 import { Router } from "@angular/router";
 import { CustomValidator } from "../shared/validators/validation";
+import { MatDialog } from '@angular/material';
+import { HealthcareDialogContent } from "../healthcare-dialog-content/healthcare-dialog-content.component"
 
 /**
  * Page: Registeration page for the healthcare providers
@@ -37,11 +39,18 @@ export class HealthcareRegisterComponent implements OnInit {
   constructor(
     private formBuilderService: FormBuilder,
     private healthCareAccountService: HealthcareAccountService,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit() {
     document.getElementById("registersuccessful").style.display = "none";
+  }
+  openDialog() {
+    const dialogRef = this.dialog.open(HealthcareDialogContent);
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 
   pattern1 = "^[0-9_-]{10,12}";
