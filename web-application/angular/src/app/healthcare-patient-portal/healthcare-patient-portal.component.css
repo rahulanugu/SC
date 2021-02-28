@@ -1,6 +1,9 @@
 body {
   background-color: #faf6f2;
 }
+.inline-elements {
+  margin-top: 43.5px;
+}
 
 .inline-elements label {
   margin-left: 10px;
@@ -62,13 +65,14 @@ body {
 .btn {
   width: 1392px;
   height: 80px;
-  margin-left: 30px;
+  margin-left: 24px;
   top: 224px;
   background: #5c8a96;
   border-radius: 8px;
   margin-top: 21.5px;
   color: #ffffff;
   margin: 0;
+  margin-left: 24px;
 }
 
 .element label {
@@ -85,4 +89,30 @@ body {
 .element {
   margin-left: 24px;
   margin-bottom: 532px;
+}
+
+.footer1 {
+  margin: 0 auto;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0px;
+}
+
+img {
+  margin-left: 20px;
+}
+
+.sectionHeading {
+  margin-bottom: 21.5px;
+}
+
+.footer1 {
+  margin: 0 auto;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0px;
 }

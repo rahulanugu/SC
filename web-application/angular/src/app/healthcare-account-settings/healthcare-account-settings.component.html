@@ -46,16 +46,16 @@
         </div>
         <hr />
         <div class="sectionHeading">
-          <span
-            class="fa fa-id-badge"
-            style="color: #575b66; margin-left: 18px; width: 16px"
-          ></span>
+          <img src="./assets/profileImg.png" />
           <label>Profile Image</label>
         </div>
-        <div class="profile-container">
-          <div class="box">
-            <div class="oval">
-              <img class="profile-pic" src="" />
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <img
+                src="./assets/avatarSignup.png"
+                style="height: 144px; width: 144px; margin-left: 18px"
+              />
             </div>
           </div>
         </div>
@@ -65,40 +65,43 @@
               <label>Upload a Photo</label><br />
               <div class="element">
                 <label class="btn">
-                  <i class="fa fa-camera" style="font-size: 18px"></i>
-                  Select File
-                  <input
-                    class="file-upload"
-                    type="file"
-                    style="display: none"
-                    accept="image/*"
-                  />
+                  <img src="./assets/cameraIcon.png" />
+                  <label style="margin-left: 8px; margin-top: 4px">
+                    Select File</label
+                  >
+                  <input type="file" style="display: none" />
                 </label>
               </div>
               <!--Element-->
             </div>
           </div>
         </div>
+        <!---Row8-->
         <div class="hr-sect">or</div>
         <div class="row">
           <div class="col">
             <div class="form-group">
               <label>Select an Avatar</label><br />
-              <div class="element" style="font-size: 18px">
+              <div
+                class="element"
+                style="font-size: 18px"
+                (click)="openDialog()"
+              >
                 <label class="btn">
-                  <i class="fas fa-th-large" style="font-size: 18px"></i>
+                  <img src="./assets/viewAvatarIcon.png" />
                   View Avatars
+                  <!--Avatar component needed-->
+                  <!--<input style="display: none" mat-button (click)="openDialog()"/>-->
                 </label>
               </div>
               <!--Element-->
             </div>
           </div>
         </div>
+        <!---Row9-->
+        <hr />
         <div class="sectionHeading">
-          <span
-            class="fa fa-user-o"
-            style="color: #575b66; margin-left: 18px"
-          ></span>
+          <img src="./assets/personalInfoIcon.png" />
           <label>Personal Information</label>
         </div>
         <form ngNativeValidate [formGroup]="Form" (ngSubmit)="submitForm()">
@@ -117,12 +120,12 @@
                   required
                 />
                 <!-- <small
-                    [class.d-none]="
-                      Form.get('firstName').valid || Form.get('firstName').untouched
-                    "
-                    class="text-danger"
-                    >First Name is required.</small
-                  > -->
+                  [class.d-none]="
+                    Form.get('firstName').valid || Form.get('firstName').untouched
+                  "
+                  class="text-danger"
+                  >First Name is required.</small
+                > -->
               </div>
             </div>
             <!----Column1-->
@@ -159,15 +162,15 @@
                   required
                 />
                 <!-- <small
-                    [class.d-none]="
-                      Form.get('email').valid || Form.get('email').untouched
-                    "
-                    class="text-danger"
-                    >Email is required.</small
-                  > -->
+                  [class.d-none]="
+                    Form.get('email').valid || Form.get('email').untouched
+                  "
+                  class="text-danger"
+                  >Email is required.</small
+                > -->
                 <!-- <small *ngIf="userAlreadyExist" class="text-danger"
-                    >User already exists</small
-                  > -->
+                  >User already exists</small
+                > -->
               </div>
             </div>
             <!--Column1-->
@@ -250,10 +253,7 @@
           <!--Row5-->
           <hr />
           <div class="sectionHeading">
-            <span
-              class="fa fa-lock"
-              style="color: #575b66; margin-left: 18px"
-            ></span>
+            <img src="./assets/passwrdIcon.png" />
             <label>Password</label>
           </div>
 
