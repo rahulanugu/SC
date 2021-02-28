@@ -1,0 +1,8 @@
+.container img{
+    width:60px;
+    padding:2px;
+}
+.container img:hover{
+    border: 2px solid black;
+    border-radius: 5px;
+}
