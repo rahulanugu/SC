@@ -5,4 +5,11 @@ import {Component} from '@angular/core';
     templateUrl: 'healthcare-dialog-content.component.html',
     styleUrls: ['healthcare-dialog-content.component.css'],
 })
-export class HealthcareDialogContent {}
+export class HealthcareDialogContent {
+
+    element: HTMLImageElement;
+    pickAvatar(el){
+        this.element = <HTMLImageElement>document.getElementById("avataricon");
+        this.element.src = el.src;
+    }
+}

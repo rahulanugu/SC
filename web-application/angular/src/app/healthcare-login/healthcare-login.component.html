@@ -4,6 +4,22 @@ healthcare login
 <!DOCTYPE html>
 <html lang="zxx">
   <head>
+    <!-- Hotjar Tracking Code for https://www.scriptchain.co/ -->
+    <script>
+      (function (h, o, t, j, a, r) {
+        h.hj =
+          h.hj ||
+          function () {
+            (h.hj.q = h.hj.q || []).push(arguments);
+          };
+        h._hjSettings = { hjid: 2250267, hjsv: 6 };
+        a = o.getElementsByTagName("head")[0];
+        r = o.createElement("script");
+        r.async = 1;
+        r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+        a.appendChild(r);
+      })(window, document, "https://static.hotjar.com/c/hotjar-", ".js?sv=");
+    </script>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Tinos&display=swap");
       @import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
@@ -12,18 +28,28 @@ healthcare login
 
   <body style="background-color: #faf6f2">
     <!-- healthcare login -->
-    <app-common-header></app-common-header>
     <div>
+      <app-healthcare-header></app-healthcare-header>
       <h3 class="loginHeading">Provider Login</h3>
       <div class="card">
         <div class="container">
           <strong>
-            <h6 style="margin-top: 20px">
+            <h6
+              style="
+                margin-top: 16px;
+                color: #1d1f26;
+                position: static;
+
+                height: 17px;
+                left: 16px;
+                top: 16px;
+              "
+            >
               Patients: Please log in through the
               <a href="#" style="text-decoration: underline">patient portal</a>
             </h6>
           </strong>
-          <form>
+          <form ngNativeValidate [formGroup]="Form" (ngSubmit)="onSubmit()">
             <div class="form-element">
               <label>Email</label>
 
@@ -38,6 +64,8 @@ healthcare login
                 id="emailAddress"
                 required
               />
+              <small [class.d-none]="Form.get('emailAddress').valid || Form.get('emailAddress').untouched"
+              class="text-danger">Email is required.</small>
             </div>
             <div class="form-element">
               <label>Password</label>
@@ -51,8 +79,12 @@ healthcare login
                 id="password"
                 required
               />
+              <small [class.d-none]="Form.get('password').valid || Form.get('password').untouched"
+              class="text-danger">Password is required</small>
             </div>
             <hr />
+            <small id="invalidEmailPrompt" class="text-danger d-none">Email does not exist</small>
+            <small id="invalidPasswordPrompt" class="text-danger d-none">Please recheck your password</small>
             <div class="form-element">
               <button type="submit" class="loginBtn">Login</button>
             </div>
@@ -68,6 +100,7 @@ healthcare login
           </form>
         </div>
       </div>
+      <app-healthcare-footer></app-healthcare-footer>
     </div>
 
     <!-- <section class="login py-5">
@@ -159,7 +192,6 @@ healthcare login
     </section> -->
     <!-- //healthcare login -->
 
-    <app-footer></app-footer>
     <!-- //footer -->
   </body>
 </html>
