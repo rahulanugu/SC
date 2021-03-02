@@ -1,7 +1,7 @@
 .card {
   transition: 0.3s;
   width: 684px;
-  height: 524px;
+  height: 600px;
   margin: 0 auto;
   float: none;
   margin-bottom: 10px;
@@ -14,9 +14,7 @@
 
   box-shadow: 0px 10px 32px rgba(29, 31, 38, 0.15);
   border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+
   padding: 0px;
   margin-top: 104px;
 }
@@ -78,7 +76,63 @@ hr {
   left: 0%;
   right: 0%;
   margin-top: 0px;
-
+  margin-bottom: 0px;
   /* Grey 200 */
   border: 2px solid #b0b4bf;
+}
+
+img {
+  margin-left: 18px;
+  margin-bottom: 5px;
+}
+
+#crossIc {
+  float: right;
+  margin-bottom: 10px;
+  width: 16px;
+  height: 16px;
+  margin-top: 8px;
+  margin-right: 8px;
+}
+
+.summary,
+.approval,
+.supportDocuments {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  font-family: "Lato", sans-serif;
+  color: #575b66;
+  margin-top: 16px;
+}
+
+button {
+  min-width: 105px;
+  height: 32px;
+  left: 0px;
+  top: 0px;
+  font-family: "Lato", sans-serif;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-weight: bold;
+  font-size: 14px;
+  border: none;
+  font-style: normal;
+  line-height: 17px;
+  background: #ffffff;
+  margin-right: 5px;
+}
+
+.closeBtn {
+  width: 118px;
+  height: 40px;
+  color: #5c8a96;
+  border: 2px solid #5c8a96;
+  background-color: white;
+  margin-left: 18px;
+  font-size: 18px;
+  font-family: "Lato", sans-serif;
+  font-weight: bold;
+  border: 2px solid #5c8a96;
+  border-radius: 8px;
 }
