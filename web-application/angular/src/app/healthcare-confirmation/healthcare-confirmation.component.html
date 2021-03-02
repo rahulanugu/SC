@@ -14,41 +14,60 @@
       @import url("https://fonts.googleapis.com/css2?family=Tinos&display=swap");
       @import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
     </style>
+    <!-- Hotjar Tracking Code for https://www.scriptchain.co/ -->
+    <script>
+      (function (h, o, t, j, a, r) {
+        h.hj =
+          h.hj ||
+          function () {
+            (h.hj.q = h.hj.q || []).push(arguments);
+          };
+        h._hjSettings = { hjid: 2250267, hjsv: 6 };
+        a = o.getElementsByTagName("head")[0];
+        r = o.createElement("script");
+        r.async = 1;
+        r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+        a.appendChild(r);
+      })(window, document, "https://static.hotjar.com/c/hotjar-", ".js?sv=");
+    </script>
   </head>
 
   <body>
     <!-- healthcare account confirmation -->
-    <app-common-header></app-common-header>
     <div>
-      <h3 class="heading">Your account was created!</h3>
-    </div>
-    <div class="card">
-      <div class="card-container">
-        <div class="center">
-          <span
-            class="fa fa-envelope fa-lg"
-            style="color: #009688; font-size: 76px; margin-top: 50px"
-          ></span
-          ><br />
-          <label>We just need to verify your email address.</label>
-        </div>
+      <app-healthcare-header></app-healthcare-header>
+      <div>
+        <h3 class="heading">Your account was created!</h3>
+      </div>
+      <div class="card">
+        <div class="card-container">
+          <div class="center">
+            <img src="./assets/mailIcon.png" />
+            <br />
+            <label style="margin-top: 16 px"
+              >We just need to verify your email address.</label
+            >
+          </div>
 
-        <h5>
-          The next step is to check your email for the message we've sent with
-          furter instructions.
-        </h5>
-        <hr />
-        <div class="center">
-          <button
-            type="button"
-            class="helpBtn"
-            style="width: 416px; height: 40px"
-          >
-            Help
-          </button>
+          <h5 style="margin-top: 16 px">
+            The next step is to check your email for the message we've sent with
+            furter instructions.
+          </h5>
+          <hr />
+          <div class="center">
+            <button
+              type="button"
+              class="helpBtn"
+              style="width: 416px; height: 40px"
+            >
+              Help
+            </button>
+          </div>
         </div>
       </div>
+      <div class="footer1">
+        <app-healthcare-footer></app-healthcare-footer>
+      </div>
     </div>
-    <app-footer></app-footer>
   </body>
 </html>
