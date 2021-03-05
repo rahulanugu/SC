@@ -52,6 +52,8 @@ import { LandingPageSubfooterComponent } from "./landing-page-subfooter/landing-
 import { HealthcareFooterComponent } from "./healthcare-footer/healthcare-footer.component";
 import { LandingPageHeaderComponent } from "./landing-page-header/landing-page-header.component";
 import { LandingPageComponent } from "./landing-page/landing-page.component";
+import { LandingWhatIsScriptchainComponent } from "./landing-what-is-scriptchain/landing-what-is-scriptchain.component";
+import { LandingPartnershipsComponent } from "./landing-partnerships/landing-partnerships.component";
 const routes: Routes = [
   /* pages for the app */
   { path: "home", component: HomeComponent },
@@ -169,6 +171,14 @@ const routes: Routes = [
   {
     path: "landing/home",
     component: LandingPageComponent,
+  },
+  {
+    path: "landing/whatisscriptchain",
+    component: LandingWhatIsScriptchainComponent,
+  },
+  {
+    path: "landing/partnerships",
+    component: LandingPartnershipsComponent,
   },
 ];
 
