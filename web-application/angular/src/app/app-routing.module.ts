@@ -48,7 +48,10 @@ import { HealthcareHeaderComponent } from "./healthcare-header/healthcare-header
 import { HealthcareReadmissionRiskInfoComponent } from "./healthcare-readmission-risk-info/healthcare-readmission-risk-info.component";
 import { HealthcareAddUserComponent } from "./healthcare-add-user/healthcare-add-user.component";
 import { HealthcareWelcomeEmailComponent } from "./healthcare-welcome-email/healthcare-welcome-email.component";
+import { LandingPageSubfooterComponent } from "./landing-page-subfooter/landing-page-subfooter.component";
 import { HealthcareFooterComponent } from "./healthcare-footer/healthcare-footer.component";
+import { LandingPageHeaderComponent } from "./landing-page-header/landing-page-header.component";
+import { LandingPageComponent } from "./landing-page/landing-page.component";
 const routes: Routes = [
   /* pages for the app */
   { path: "home", component: HomeComponent },
@@ -155,12 +158,24 @@ const routes: Routes = [
     path: "healthcare/footer",
     component: HealthcareFooterComponent,
   },
+  {
+    path: "landing/header",
+    component: LandingPageHeaderComponent,
+  },
+  {
+    path: "landing/subfooter",
+    component: LandingPageSubfooterComponent,
+  },
+  {
+    path: "landing/home",
+    component: LandingPageComponent,
+  },
 ];
 
 @NgModule({
   declarations: [HealthcareDialogContent],
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  entryComponents: [HealthcareDialogContent]
+  entryComponents: [HealthcareDialogContent],
 })
 export class AppRoutingModule {}

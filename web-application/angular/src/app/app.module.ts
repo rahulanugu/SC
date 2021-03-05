@@ -83,6 +83,9 @@ import { HealthcareReadmissionRiskInfoComponent } from "./healthcare-readmission
 import { HealthcareAddUserComponent } from './healthcare-add-user/healthcare-add-user.component';
 import { HealthcareWelcomeEmailComponent } from './healthcare-welcome-email/healthcare-welcome-email.component';
 import { HealthcareFooterComponent } from './healthcare-footer/healthcare-footer.component';
+import { LandingPageHeaderComponent } from './landing-page-header/landing-page-header.component';
+import { LandingPageSubfooterComponent } from './landing-page-subfooter/landing-page-subfooter.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
 
 
 @NgModule({
@@ -143,6 +146,9 @@ import { HealthcareFooterComponent } from './healthcare-footer/healthcare-footer
     HealthcareAddUserComponent,
     HealthcareWelcomeEmailComponent,
     HealthcareFooterComponent,
+    LandingPageHeaderComponent,
+    LandingPageSubfooterComponent,
+    LandingPageComponent,
   ],
 
   imports: [
