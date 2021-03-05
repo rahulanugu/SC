@@ -86,6 +86,8 @@ import { HealthcareFooterComponent } from './healthcare-footer/healthcare-footer
 import { LandingPageHeaderComponent } from './landing-page-header/landing-page-header.component';
 import { LandingPageSubfooterComponent } from './landing-page-subfooter/landing-page-subfooter.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import { LandingWhatIsScriptchainComponent } from './landing-what-is-scriptchain/landing-what-is-scriptchain.component';
+import { LandingPartnershipsComponent } from './landing-partnerships/landing-partnerships.component';
 
 
 @NgModule({
@@ -149,6 +151,8 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
     LandingPageHeaderComponent,
     LandingPageSubfooterComponent,
     LandingPageComponent,
+    LandingWhatIsScriptchainComponent,
+    LandingPartnershipsComponent,
   ],
 
   imports: [
