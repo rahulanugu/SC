@@ -1,0 +1,140 @@
+#loginHeading {
+  font-family: "Tinos", serif;
+  color: #2d5059;
+  text-align: center;
+  font-size: 36px;
+  padding-top: 40px;
+  margin-top: 40px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 36px;
+  line-height: 41px;
+  margin-bottom: 40px;
+}
+html {
+  width: 100%;
+  height: 100%;
+  display: table;
+}
+
+body {
+  width: 100%;
+  display: table-cell;
+  background-color: #faf6f2;
+  font-family: "Lato", sans-serif;
+}
+
+html,
+body {
+  margin: 0px;
+  padding: 0px;
+}
+
+#logo {
+  width: 448px;
+  height: 252px;
+  left: 496px;
+  top: 183px;
+  margin-left: 496px;
+  margin-bottom: 40px;
+  border-radius: 8px;
+}
+
+.content2 {
+  height: auto;
+
+  /* Teal 400 */
+  padding-bottom: 40px;
+  background: #2d5059;
+}
+
+.content2 h3 {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 29px;
+  color: #ffffff;
+  margin-left: 260px;
+  padding-top: 40px;
+}
+
+.content2 p {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  display: flex;
+  align-items: center;
+  margin-left: 260px;
+  /* White */
+  width: 920px;
+  color: #ffffff;
+}
+
+.content2 ul {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+
+  margin-left: 260px;
+  /* White */
+  margin-top: 0px;
+  color: #ffffff;
+  margin-bottom: 40px;
+}
+
+.contentwhite h3 {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 29px;
+  /* identical to box height */
+
+  display: flex;
+  align-items: center;
+  margin-top: 37px;
+  /* Grey 500 */
+  margin-left: 260px;
+  /* White */
+  width: 920px;
+  color: #1d1f26;
+}
+
+.contentwhite p {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  display: flex;
+  align-items: center;
+
+  /* Grey 500 */
+
+  color: #1d1f26;
+
+  margin-left: 260px;
+
+  width: 920px;
+}
+.contentwhite ul {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+
+  /* Grey 500 */
+
+  color: #1d1f26;
+  margin-left: 260px;
+  /* White */
+  margin-top: 0px;
+  margin-bottom: 40px;
+}
+
+table {
+  margin-left: 260px;
+  color: #ffffff;
+  font-style: normal;
+  font-weight: bold;
+  border: 1px solid #5c8a96;
+  border-collapse: collapse;
+}
