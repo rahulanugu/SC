@@ -88,6 +88,11 @@ import { LandingPageSubfooterComponent } from './landing-page-subfooter/landing-
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { LandingWhatIsScriptchainComponent } from './landing-what-is-scriptchain/landing-what-is-scriptchain.component';
 import { LandingPartnershipsComponent } from './landing-partnerships/landing-partnerships.component';
+import { LandingWhoWeAreComponent } from './landing-who-we-are/landing-who-we-are.component';
+import { LandingCapabilityStatementComponent } from './landing-capability-statement/landing-capability-statement.component';
+import { LandingCareersComponent } from './landing-careers/landing-careers.component';
+import { LandingFaq1Component } from './landing-faq1/landing-faq1.component';
+import { LandingFaq2Component } from './landing-faq2/landing-faq2.component';
 
 
 @NgModule({
@@ -153,6 +158,11 @@ import { LandingPartnershipsComponent } from './landing-partnerships/landing-par
     LandingPageComponent,
     LandingWhatIsScriptchainComponent,
     LandingPartnershipsComponent,
+    LandingWhoWeAreComponent,
+    LandingCapabilityStatementComponent,
+    LandingCareersComponent,
+    LandingFaq1Component,
+    LandingFaq2Component,
   ],
 
   imports: [
