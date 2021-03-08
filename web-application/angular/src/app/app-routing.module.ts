@@ -202,7 +202,7 @@ const routes: Routes = [
     component: LandingFaq1Component,
   },
   {
-    path: "landing/faq2",
+    path: "landing/contactus",
     component: LandingFaq2Component,
   },
 ];
