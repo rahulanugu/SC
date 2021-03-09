@@ -48,7 +48,17 @@ import { HealthcareHeaderComponent } from "./healthcare-header/healthcare-header
 import { HealthcareReadmissionRiskInfoComponent } from "./healthcare-readmission-risk-info/healthcare-readmission-risk-info.component";
 import { HealthcareAddUserComponent } from "./healthcare-add-user/healthcare-add-user.component";
 import { HealthcareWelcomeEmailComponent } from "./healthcare-welcome-email/healthcare-welcome-email.component";
+import { LandingPageSubfooterComponent } from "./landing-page-subfooter/landing-page-subfooter.component";
 import { HealthcareFooterComponent } from "./healthcare-footer/healthcare-footer.component";
+import { LandingPageHeaderComponent } from "./landing-page-header/landing-page-header.component";
+import { LandingPageComponent } from "./landing-page/landing-page.component";
+import { LandingWhatIsScriptchainComponent } from "./landing-what-is-scriptchain/landing-what-is-scriptchain.component";
+import { LandingPartnershipsComponent } from "./landing-partnerships/landing-partnerships.component";
+import { LandingWhoWeAreComponent } from "./landing-who-we-are/landing-who-we-are.component";
+import { LandingCapabilityStatementComponent } from "./landing-capability-statement/landing-capability-statement.component";
+import { LandingCareersComponent } from "./landing-careers/landing-careers.component";
+import { LandingFaq1Component } from "./landing-faq1/landing-faq1.component";
+import { LandingFaq2Component } from "./landing-faq2/landing-faq2.component";
 const routes: Routes = [
   /* pages for the app */
   { path: "home", component: HomeComponent },
@@ -155,12 +165,52 @@ const routes: Routes = [
     path: "healthcare/footer",
     component: HealthcareFooterComponent,
   },
+  {
+    path: "landing/header",
+    component: LandingPageHeaderComponent,
+  },
+  {
+    path: "landing/subfooter",
+    component: LandingPageSubfooterComponent,
+  },
+  {
+    path: "landing/home",
+    component: LandingPageComponent,
+  },
+  {
+    path: "landing/whatisscriptchain",
+    component: LandingWhatIsScriptchainComponent,
+  },
+  {
+    path: "landing/partnerships",
+    component: LandingPartnershipsComponent,
+  },
+  {
+    path: "landing/whoweare",
+    component: LandingWhoWeAreComponent,
+  },
+  {
+    path: "landing/capabilitystatement",
+    component: LandingCapabilityStatementComponent,
+  },
+  {
+    path: "landing/careers",
+    component: LandingCareersComponent,
+  },
+  {
+    path: "landing/faq1",
+    component: LandingFaq1Component,
+  },
+  {
+    path: "landing/contactus",
+    component: LandingFaq2Component,
+  },
 ];
 
 @NgModule({
   declarations: [HealthcareDialogContent],
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  entryComponents: [HealthcareDialogContent]
+  entryComponents: [HealthcareDialogContent],
 })
 export class AppRoutingModule {}

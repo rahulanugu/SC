@@ -1,0 +1,365 @@
+html {
+  width: 100%;
+  height: 100%;
+  display: table;
+}
+
+body {
+  width: 100%;
+  display: table-cell;
+  background-color: #faf6f2;
+  font-family: "Lato", sans-serif;
+}
+
+html,
+body {
+  margin: 0px;
+  padding: 0px;
+}
+.footer1 {
+  margin: 0 auto;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+
+  bottom: 0px;
+}
+
+.content-card {
+  height: 480px;
+  left: 0px;
+  top: 64px;
+  background: #f5f6fa;
+}
+
+.helpBtn {
+  width: 118px;
+  height: 40px;
+  color: #5c8a96;
+  border: 2px solid #5c8a96;
+  background-color: white;
+
+  font-size: 18px;
+  font-family: "Lato", sans-serif;
+  font-weight: bold;
+  border: 2px solid #5c8a96;
+  border-radius: 8px;
+}
+
+.signUpBtn {
+  width: 118px;
+  height: 40px;
+  color: white;
+  background-color: #5c8a96;
+  border: none;
+  font-size: 18px;
+  font-family: "Lato", sans-serif;
+  font-weight: bold;
+  margin-right: 17px;
+  border-radius: 7px;
+  margin-left: 142px;
+}
+
+content {
+  width: 1156px;
+  height: 162px;
+
+  align-items: center;
+}
+.content h1 {
+  font-family: "Tinos", serif;
+  color: #2d5059;
+  padding-top: 116px;
+  font-size: 36px;
+  padding-left: 142px;
+}
+
+.content p {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 29px;
+  font-family: "Tinos", serif;
+  color: #1d1f26;
+  padding-left: 142px;
+  padding-right: 142px;
+}
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  padding: 16px;
+  text-align: center;
+  background-color: #f1f1f1;
+}
+/* Float four columns side by side */
+.column {
+  float: left;
+  width: 25%;
+  padding: 0 10px;
+}
+
+/* Remove extra left and right margins, due to padding */
+.row {
+  margin: 0 -5px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive columns */
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+  }
+}
+
+.content2 {
+  text-align: center;
+  font-family: "Lato", sans-serif;
+  align-items: center;
+}
+.content2 h2 {
+  /* Grey 500 */
+
+  color: #1d1f26;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 29px;
+  font-family: "Lato", sans-serif;
+  margin-top: 40px;
+}
+
+.content2 p {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  /* identical to box height */
+
+  display: flex;
+  text-align: center;
+
+  /* Grey 500 */
+
+  color: #1d1f26;
+}
+
+.card1 {
+  width: 330px;
+  height: 144px;
+
+  /* White */
+
+  background: #ffffff;
+  /* Drop Shadow E200 */
+
+  box-shadow: 0px 4px 8px rgba(29, 31, 38, 0.15);
+  border-radius: 8px;
+}
+
+.col {
+  float: left;
+  width: 25%;
+  padding: 0 10px;
+}
+
+/* Remove extra left and right margins, due to padding in columns */
+.row {
+  margin: 0 -5px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.card1 img {
+  margin-top: 32px;
+  margin-left: 18px;
+}
+.card1 h3 {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  /* identical to box height */
+  padding-top: 23px;
+  /* Grey 400 */
+
+  color: #575b66;
+  font-family: "Lato", sans-serif;
+}
+
+.card1 p {
+  font-style: normal;
+  font-family: "Lato", sans-serif;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  display: flex;
+  align-items: center;
+  width: 202px;
+  /* Grey 500 */
+  margin-left: 18px;
+  color: #1d1f26;
+  padding: 10px;
+}
+
+.content3 {
+  height: 262px;
+  left: 0px;
+  top: 910px;
+
+  /* Teal 400 */
+
+  background: #2d5059;
+}
+
+.content3 h3,
+.content4 h3 {
+  /* White */
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 29px;
+  color: #ffffff;
+  padding-top: 40px;
+  text-align: center;
+}
+
+.card2 {
+  width: 684px;
+  height: 91px;
+  left: 24px;
+  top: 131px;
+
+  /* White */
+
+  background: #ffffff;
+  /* Drop Shadow E200 */
+
+  box-shadow: 0px 4px 8px rgba(29, 31, 38, 0.15);
+  border-radius: 8px;
+}
+
+.card2 label {
+  text-align: center;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+}
+.item {
+  margin-left: 10px;
+}
+.item label {
+  color: #ffffff;
+}
+
+.partnerBtn {
+  width: 223px;
+  height: 40px;
+  color: white;
+  background: #2d5059;
+  border: none;
+  font-size: 18px;
+  font-family: "Lato", sans-serif;
+  font-weight: bold;
+  margin-right: 17px;
+  border-radius: 7px;
+  margin-left: 142px;
+  /* White */
+
+  border: 2px solid #ffffff;
+  box-sizing: border-box;
+  border-radius: 8px;
+}
+
+.content4 {
+  height: 577px;
+  left: 0px;
+  top: 1538px;
+
+  /* Teal 400 */
+
+  background: #2d5059;
+}
+
+form label {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 17px;
+  /* identical to box height */
+
+  /* White */
+  margin-top: 8px;
+  margin-bottom: 8px;
+  color: #ffffff;
+}
+
+form input {
+  /* White */
+
+  background: #ffffff;
+  /* Grey 200 */
+
+  border: 2px solid #e1e4eb;
+  box-sizing: border-box;
+  /* Inner Shadow E-100 */
+
+  box-shadow: inset 0px 2px 2px rgba(29, 31, 38, 0.15);
+  border-radius: 8px;
+  height: 40px;
+  width: 272px;
+}
+
+.vertical-center {
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.quesForm {
+  width: 272px;
+  margin-left: 590px;
+}
+
+form textarea {
+  background: #ffffff;
+  /* Grey 200 */
+  height: 120px;
+  border: 2px solid #e1e4eb;
+  box-sizing: border-box;
+  /* Inner Shadow E-100 */
+  width: 272px;
+  box-shadow: inset 0px 2px 2px rgba(29, 31, 38, 0.15);
+  border-radius: 8px;
+}
+
+.sendBtn {
+  width: 195x;
+  height: 40px;
+  color: white;
+  background: #2d5059;
+  border: none;
+  font-size: 18px;
+  font-family: "Lato", sans-serif;
+  font-weight: bold;
+  margin-right: 17px;
+  border-radius: 7px;
+
+  /* White */
+  margin-top: 16px;
+  margin-bottom: 40px;
+  border: 2px solid #ffffff;
+  box-sizing: border-box;
+  border-radius: 8px;
+}

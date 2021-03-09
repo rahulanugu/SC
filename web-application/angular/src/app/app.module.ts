@@ -83,6 +83,16 @@ import { HealthcareReadmissionRiskInfoComponent } from "./healthcare-readmission
 import { HealthcareAddUserComponent } from './healthcare-add-user/healthcare-add-user.component';
 import { HealthcareWelcomeEmailComponent } from './healthcare-welcome-email/healthcare-welcome-email.component';
 import { HealthcareFooterComponent } from './healthcare-footer/healthcare-footer.component';
+import { LandingPageHeaderComponent } from './landing-page-header/landing-page-header.component';
+import { LandingPageSubfooterComponent } from './landing-page-subfooter/landing-page-subfooter.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
+import { LandingWhatIsScriptchainComponent } from './landing-what-is-scriptchain/landing-what-is-scriptchain.component';
+import { LandingPartnershipsComponent } from './landing-partnerships/landing-partnerships.component';
+import { LandingWhoWeAreComponent } from './landing-who-we-are/landing-who-we-are.component';
+import { LandingCapabilityStatementComponent } from './landing-capability-statement/landing-capability-statement.component';
+import { LandingCareersComponent } from './landing-careers/landing-careers.component';
+import { LandingFaq1Component } from './landing-faq1/landing-faq1.component';
+import { LandingFaq2Component } from './landing-faq2/landing-faq2.component';
 
 
 @NgModule({
@@ -143,6 +153,16 @@ import { HealthcareFooterComponent } from './healthcare-footer/healthcare-footer
     HealthcareAddUserComponent,
     HealthcareWelcomeEmailComponent,
     HealthcareFooterComponent,
+    LandingPageHeaderComponent,
+    LandingPageSubfooterComponent,
+    LandingPageComponent,
+    LandingWhatIsScriptchainComponent,
+    LandingPartnershipsComponent,
+    LandingWhoWeAreComponent,
+    LandingCapabilityStatementComponent,
+    LandingCareersComponent,
+    LandingFaq1Component,
+    LandingFaq2Component,
   ],
 
   imports: [

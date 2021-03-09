@@ -31,6 +31,7 @@ healthcare login
     <div>
       <app-healthcare-header></app-healthcare-header>
       <h3 class="loginHeading">Provider Login</h3>
+      <!--heading--->
       <div class="card">
         <div class="container">
           <strong>
@@ -64,8 +65,14 @@ healthcare login
                 id="emailAddress"
                 required
               />
-              <small [class.d-none]="Form.get('emailAddress').valid || Form.get('emailAddress').untouched"
-              class="text-danger">Email is required.</small>
+              <small
+                [class.d-none]="
+                  Form.get('emailAddress').valid ||
+                  Form.get('emailAddress').untouched
+                "
+                class="text-danger"
+                >Email is required.</small
+              >
             </div>
             <div class="form-element">
               <label>Password</label>
@@ -79,12 +86,21 @@ healthcare login
                 id="password"
                 required
               />
-              <small [class.d-none]="Form.get('password').valid || Form.get('password').untouched"
-              class="text-danger">Password is required</small>
+              <small
+                [class.d-none]="
+                  Form.get('password').valid || Form.get('password').untouched
+                "
+                class="text-danger"
+                >Password is required</small
+              >
             </div>
             <hr />
-            <small id="invalidEmailPrompt" class="text-danger d-none">Email does not exist</small>
-            <small id="invalidPasswordPrompt" class="text-danger d-none">Please recheck your password</small>
+            <small id="invalidEmailPrompt" class="text-danger d-none"
+              >Email does not exist</small
+            >
+            <small id="invalidPasswordPrompt" class="text-danger d-none"
+              >Please recheck your password</small
+            >
             <div class="form-element">
               <button type="submit" class="loginBtn">Login</button>
             </div>
