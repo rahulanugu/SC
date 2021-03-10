@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-healthcare-add-user',
@@ -7,7 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HealthcareAddUserComponent implements OnInit {
 
-  constructor() { }
+  constructor(private formBuilderService: FormBuilder) { }
+  Form = this.formBuilderService.group({
+    firstName: ["", Validators.required],
+    lastName: ["", Validators.required],
+    email: ["", Validators.required],
+    phone: ["", Validators.required],
+    employer: ["", Validators.required]
+  });
 
   ngOnInit() {
   }

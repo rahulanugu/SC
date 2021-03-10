@@ -104,7 +104,7 @@
           <img src="./assets/personalInfoIcon.png" />
           <label>Personal Information</label>
         </div>
-        <form ngNativeValidate [formGroup]="Form" (ngSubmit)="submitForm()">
+        <form ngNativeValidate [formGroup]="Form">
           <div class="row">
             <div class="col-sm-6">
               <div class="form-group">
@@ -186,7 +186,6 @@
                   "
                   formControlName="phone"
                   type="text"
-                  [textMask]="{ mask: phonemask }"
                   class="form-control"
                   required
                 />

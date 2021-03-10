@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HealthcareAccountService } from '../shared/healthcare-account.service';
+import { FormBuilder, Validators } from '@angular/forms';
 
 /**
  * Page: Healthcare provider account verification page
@@ -20,8 +21,13 @@ export class HealthcareVerifyComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private healthcareAccountService: HealthcareAccountService,
-    private router: Router
+    private router: Router,
+    private formBuilderService: FormBuilder
     ) { }
+  Form = this.formBuilderService.group({
+    emailAddress: ["", Validators.required],
+    password: ["", Validators.required],
+  });
 
   ngOnInit() {
     document.getElementById('verificationerror').style.display = "none";
