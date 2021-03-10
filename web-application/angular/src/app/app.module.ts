@@ -93,6 +93,7 @@ import { LandingCapabilityStatementComponent } from './landing-capability-statem
 import { LandingCareersComponent } from './landing-careers/landing-careers.component';
 import { LandingFaq1Component } from './landing-faq1/landing-faq1.component';
 import { LandingFaq2Component } from './landing-faq2/landing-faq2.component';
+import { BlogComponent } from './blog/blog.component';
 
 
 @NgModule({
@@ -163,6 +164,7 @@ import { LandingFaq2Component } from './landing-faq2/landing-faq2.component';
     LandingCareersComponent,
     LandingFaq1Component,
     LandingFaq2Component,
+    BlogComponent,
   ],
 
   imports: [

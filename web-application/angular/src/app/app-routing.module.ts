@@ -59,6 +59,7 @@ import { LandingCapabilityStatementComponent } from "./landing-capability-statem
 import { LandingCareersComponent } from "./landing-careers/landing-careers.component";
 import { LandingFaq1Component } from "./landing-faq1/landing-faq1.component";
 import { LandingFaq2Component } from "./landing-faq2/landing-faq2.component";
+import { BlogComponent } from "./blog/blog.component";
 const routes: Routes = [
   /* pages for the app */
   { path: "home", component: HomeComponent },
@@ -204,6 +205,10 @@ const routes: Routes = [
   {
     path: "landing/contactus",
     component: LandingFaq2Component,
+  },
+  {
+    path: "blog",
+    component: BlogComponent,
   },
 ];
 
