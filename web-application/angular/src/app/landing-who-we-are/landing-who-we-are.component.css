@@ -218,3 +218,19 @@ body {
 
   background: #2d5059;
 }
+
+.col {
+  align-items: center;
+}
+
+.team {
+  text-align: center;
+  display: block;
+}
+
+.team label,
+.team h6,
+.team p {
+  text-align: center;
+  display: block;
+}
