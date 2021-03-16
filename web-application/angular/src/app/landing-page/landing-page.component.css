@@ -162,6 +162,10 @@ content {
   border-radius: 8px;
 }
 
+.card1:hover {
+  box-shadow: 8px 8px 8px #2d5059;
+}
+
 .col {
   float: left;
   width: 25%;
@@ -235,7 +239,7 @@ content {
 }
 
 .card2 {
-  width: 684px;
+  width: 600px;
   height: 91px;
   left: 24px;
   top: 131px;
@@ -249,6 +253,9 @@ content {
   border-radius: 8px;
 }
 
+.card2:hover {
+  box-shadow: 5px 5px #2d5059, 10px 10px #5c8a96, 15px 15px #575b66;
+}
 .card2 label {
   text-align: center;
   font-style: normal;
