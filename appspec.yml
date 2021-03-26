@@ -9,6 +9,6 @@ permissions:
     group: ec2-user
 hooks:
   ValidateService:
-    - location: /home/ec2-user/app/start_setup.sh
+    - location: /opt/codedeploy-agent/deployment-root/f7602de4-57aa-4fa0-beb4-e412af893742/d-Y53059EQ8/deployment-archive/home/ec2-user/app/start_setup.sh
       timeout: 300
       runas: root
