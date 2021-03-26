@@ -10,5 +10,5 @@ permissions:
 hooks:
   ValidateService:
     - location: start_setup.sh
-      timeout: 300
+      timeout: 3600
       runas: root
