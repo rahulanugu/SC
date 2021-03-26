@@ -7,3 +7,8 @@ permissions:
   - object: /home/ec2-user/app
     owner: ec2-user
     group: ec2-user
+hooks:
+  ValidateService:
+    - location: /home/ec2-user/app/start_setup.sh
+      timeout: 300
+      runas: root
