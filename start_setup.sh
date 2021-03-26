@@ -9,7 +9,3 @@ npm run build -- --prod
 cd /home/ec2-user/app/web-application/node
 npm install -g --silent
 node index.js
-
-cd /home/ec2-user/app/web-application/angular
-ng serve --o
-
