@@ -1,6 +1,3 @@
-sudo su
-curl --silent --location https://rpm.nodesource.com/setup_14.x | bash -
-
 cd /home/ec2-user/app/web-application/angular
 npm install -g --silent
 npm link -g --silent @angular/cli
