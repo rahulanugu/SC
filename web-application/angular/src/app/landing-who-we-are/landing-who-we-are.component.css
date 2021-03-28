@@ -127,6 +127,7 @@ body {
 #ceoImg {
   height: 144px;
   height: 144px;
+  width: 144px;
 }
 
 .row {
@@ -217,4 +218,24 @@ body {
   /* Teal 400 */
 
   background: #2d5059;
+}
+
+.col {
+  align-items: center;
+}
+
+.team {
+  text-align: center;
+  display: block;
+}
+
+.team label,
+.team h6,
+.team p {
+  text-align: center;
+  display: block;
+}
+
+.padding-0 {
+  column-gap: 40px;
 }

@@ -69,6 +69,7 @@ hr {
 .card-container p,
 .card-container h5 {
   margin-left: 16px;
+  margin-right: 16px;
 }
 
 .card-container h5 {
@@ -84,4 +85,9 @@ hr {
   /* Grey 400 */
 
   color: #575b66;
+}
+
+.card:hover {
+  width: 720px;
+  box-shadow: 8px 8px 8px #2d5059;
 }

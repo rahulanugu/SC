@@ -3,8 +3,8 @@ import { FormBuilder, Validators } from "@angular/forms";
 import { HealthcareAccountService } from "../shared/healthcare-account.service";
 import { Router } from "@angular/router";
 import { CustomValidator } from "../shared/validators/validation";
-import { MatDialog } from '@angular/material';
-import { HealthcareDialogContent } from "../healthcare-dialog-content/healthcare-dialog-content.component"
+import { MatDialog } from "@angular/material";
+import { HealthcareDialogContent } from "../healthcare-dialog-content/healthcare-dialog-content.component";
 
 /**
  * Page: Registeration page for the healthcare providers
@@ -23,7 +23,7 @@ export class HealthcareRegisterComponent implements OnInit {
     /\d/,
     /\d/,
     ")",
-    " ",
+    "-",
     /\d/,
     /\d/,
     /\d/,
@@ -48,7 +48,7 @@ export class HealthcareRegisterComponent implements OnInit {
   }
   openDialog() {
     const dialogRef = this.dialog.open(HealthcareDialogContent);
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
     });
   }
