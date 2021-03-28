@@ -8,4 +8,4 @@ cd /home/ec2-user/app/web-application/angular
 
 cd /home/ec2-user/app/web-application/node
 #npm install -g --silent
-#node index.js
+node index.js
