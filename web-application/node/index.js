@@ -62,6 +62,8 @@ app.use(function (req, res, next) {
     'https://www.scriptchain.co',
     'https://scriptchain.co',
     'http://localhost:4200',
+    'http://localhost:8080',
+    'http://localhost:3000',
     'http://3.16.14.209:3000'
   ];
   var origin = req.headers.origin;
