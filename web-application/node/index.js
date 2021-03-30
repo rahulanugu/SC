@@ -60,7 +60,11 @@ app.use(function (req, res, next) {
   // Website you wish to allow to connect
   var whitelist = [
     'https://www.scriptchain.co',
-    'https://scriptchain.co'
+    'https://scriptchain.co',
+    'http://localhost:4200',
+    'http://localhost:8080',
+    'http://localhost:3000'
+    //'http://3.16.14.209:3000'
   ];
   var origin = req.headers.origin;
   if (whitelist.indexOf(origin) > -1) {
@@ -90,7 +94,7 @@ app.use(function (req, res, next) {
 app.use(express.static(path.join(__dirname, "./dist/my-app")));
 
 // start express server
-app.listen(8080, () => console.log("Server started at port: 8080"));
+app.listen(3000, () => console.log("Server started at port: 3000"));
 
 // add router from patient controller
 app.use("/patient", patientController);
