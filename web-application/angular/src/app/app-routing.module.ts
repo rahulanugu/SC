@@ -175,35 +175,35 @@ const routes: Routes = [
     component: LandingPageSubfooterComponent,
   },
   {
-    path: "landing/home",
+    path: "home",
     component: LandingPageComponent,
   },
   {
-    path: "landing/whatisscriptchain",
+    path: "whatisscriptchain",
     component: LandingWhatIsScriptchainComponent,
   },
   {
-    path: "landing/partnerships",
+    path: "partnerships",
     component: LandingPartnershipsComponent,
   },
   {
-    path: "landing/whoweare",
+    path: "whoweare",
     component: LandingWhoWeAreComponent,
   },
   {
-    path: "landing/capabilitystatement",
+    path: "capabilitystatement",
     component: LandingCapabilityStatementComponent,
   },
   {
-    path: "landing/careers",
+    path: "careers",
     component: LandingCareersComponent,
   },
   {
-    path: "landing/faq1",
+    path: "faq1",
     component: LandingFaq1Component,
   },
   {
-    path: "landing/contactus",
+    path: "contactus",
     component: LandingFaq2Component,
   },
   {
