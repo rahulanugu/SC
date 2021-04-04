@@ -30,6 +30,26 @@ var app = express();
 // configure express middleware to send date to nodejs project
 app.use(bodyParser.json());
 
+var mysql = require('mysql');
+
+var connection = mysql.createConnection({
+  host     : "database-1-instance-1.cgurbeaohou6.us-east-2.rds.amazonaws.com",
+  user     : "admin",
+  password : "Scriptchain20!",
+  port     : 3306
+});
+
+connection.connect(function(err) {
+  if (err) {
+    console.error('Database connection failed: ' + err.stack);
+    return;
+  }
+
+  console.log('Connected to database.');
+});
+
+connection.end();
+
 //for local deploy uncomment below code & comment out for production
 //allow cors to access port that angular app runs on
 
