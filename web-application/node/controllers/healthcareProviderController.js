@@ -33,8 +33,6 @@ oauth2Client.setCredentials({
 
 // retrieve an access token from oauthclient
 const accessToken = oauth2Client.getAccessToken();
-const {BigQuery} = require('@google-cloud/bigquery');
-const bigquery = new BigQuery();
 var aes256 = require('aes256');
 const API_KEY = "scriptChain@13$67ahi1";
 const key = "hosenkinosumabeni";
@@ -45,6 +43,14 @@ const key = "hosenkinosumabeni";
  *         500 - Error status
  *         400 - Already exists
  */
+var mysql = require('mysql');
+var connection = mysql.createConnection({
+  host: 'database-1.cgurbeaohou6.us-east-2.rds.amazonaws.com',
+  user: 'admin',
+  password: 'Scriptchain20!',
+  port: 3306,
+  database: 'scriptchain'
+});
 function generateId(count) {
   var _sym = 'abcdefghijklmnopqrstuvwxyz1234567890';
   var str = '';
@@ -78,27 +84,20 @@ router.post('/account/create',[check('firstName').notEmpty().isAlpha()
   var ip = req.connection.remoteAddress;
   console.log(ip+" "+req.body.email);
     //Check if user alread exists
-    const query= 'SELECT * FROM `scriptchain-259015.dataset1.healthcareProviders` WHERE email=@email';
+    const query= 'SELECT * FROM `healthcareProviders` WHERE email=?';
     // req.body.email+'"';
-    const bigQueryOptions = {
-      query: query,
-      params: {email:req.body.email}
-    }
-    bigquery.query(bigQueryOptions, async function(err, row) {
+    connection.query(query,[req.body.email], async function(err, row) {
       if(!err) {
           if (row.length>0){
             return res.status(400).send({
                 message: 'User already exists'
             })
           }else{
-            
             console.log("email does not exist")
-
             //Create a jwt token with details provided in body as payload
             const tokeBody = req.body;
             const token = await jwt.sign({tokeBody}, "santosh", { expiresIn: 300 });
             console.log("JWT function")
-
             //encrypt the token
             var encryptedToken = Utility.EncryptToken(token);
             console.log("Encrpt token")
@@ -109,22 +108,16 @@ router.post('/account/create',[check('firstName').notEmpty().isAlpha()
               token: idToken,
               email: req.body.email,
             };
-            var query1= "INSERT INTO `scriptchain-259015.dataset1.tokenSchema` VALUES ("
-
+            var query1= "INSERT INTO `tokenSchema` VALUES ("
+            var val = [];
             //REPLACE THIS AFTER VALUES
             for(var myKey in json) {
-              query1+="@"+myKey+",";
-              //query1+="'"+json[myKey]+"', ";
+              query1+="?,";
+              val.push(json[myKey]);
             }
             query1 = query1.slice(0,query1.length-1);
-            //REPLACE THIS AFTER VALUES
             query1 += ")";
-            console.log(query1);
-            const bigQueryOptions1 = {
-              query: query1,
-              params: json
-            }
-            bigquery.query(bigQueryOptions1, function(err, row) {
+            connection.query(query1,val, function(err, row) {
               if(!err) {
                   console.log('Inserted successfully');
               }else{
@@ -132,10 +125,7 @@ router.post('/account/create',[check('firstName').notEmpty().isAlpha()
               }
             });
             console.log("Verification mail with jwt token is sent");
-
-
             //Send the email with the verification email
-
             sendVerificationMail(req.body.email,req.body.firstName,encryptedToken, (err,data) => {
                 //Invoked the callback function od the sendverification email object
                 if(err){
@@ -186,13 +176,9 @@ router.post('/account/verify',[check("jwtToken").notEmpty(),body().custom(body =
     //Before creating a new provider, check if already exists
 
 
-    const query = 'SELECT * FROM `scriptchain-259015.dataset1.healthcareProviders` WHERE email=@email';
+    const query = 'SELECT * FROM `healthcareProviders` WHERE email=?';
     // decodedValue.tokeBody.email+'"';
-    const bigQueryOptions = {
-      query: query,
-      params: {email:decodedValue.tokeBody.email}
-    }
-    bigquery.query(bigQueryOptions, async function(err, row) {
+    connection.query(query,[decodedValue.tokeBody.email], async function(err, row) {
       if(!err) {
           if (row.length>0){
             console.log("Check email if exists")
@@ -209,25 +195,20 @@ router.post('/account/verify',[check("jwtToken").notEmpty(),body().custom(body =
           json['password'] = hashpassword;
           json['_id'] = generateId(10);
 
-          var query1= "INSERT INTO `scriptchain-259015.dataset1.healthcareProviders` (";
+          var query1= "INSERT INTO `healthcareProviders` (";
+          var val = [];
           for(var myKey in json) {
             query1+=myKey+", ";
+            val.push(json[myKey]);
           }
           query1 = query1.slice(0,query1.length-2);
           query1+= ") VALUES (";
-
           for(var myKey in json) {
-            query1+="@"+myKey+",";
-            //query1+="'"+json[myKey]+"', ";
+            query1+="?,";
           }
           query1 = query1.slice(0,query1.length-1);
           query1 += ")";
-          console.log(query1);
-          const bigQueryOptions1 = {
-            query: query1,
-            params: json
-          }
-          bigquery.query(bigQueryOptions1, function(err, row) {
+          connection.query(query1,val, function(err, row) {
             if(!err) {
                 console.log('Inserted successfully');
                 res.status(200).send({message: 'The user has been created'});
