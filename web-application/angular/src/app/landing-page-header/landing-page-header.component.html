@@ -1,66 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Hotjar Tracking Code for https://www.scriptchain.co/ -->
-    <script>
-      (function (h, o, t, j, a, r) {
-        h.hj =
-          h.hj ||
-          function () {
-            (h.hj.q = h.hj.q || []).push(arguments);
-          };
-        h._hjSettings = { hjid: 2250267, hjsv: 6 };
-        a = o.getElementsByTagName("head")[0];
-        r = o.createElement("script");
-        r.async = 1;
-        r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
-        a.appendChild(r);
-      })(window, document, "https://static.hotjar.com/c/hotjar-", ".js?sv=");
-    </script>
-  </head>
-  <body>
-    <div
-      class="header"
-      style="
-        height: 64px;
-        left: 0px;
-        top: 0px;
-
-        /* Teal 400 */
-
-        background: #2d5059;
-        /* Drop Shadow E300 */
-
-        box-shadow: 0px 6px 16px rgba(31, 33, 38, 0.15);
-      "
-    >
-      <a href="home"><img src="./assets/logo6.png" style="height: 64px" /></a>
-      <div class="profile-container" style="float: right; align-items: center">
-        <ul>
-          <li>
-            <div class="dropdown">
-              <button class="dropbtn">
-                About
-                <i class="fa fa-caret-down"></i>
-              </button>
-              <div class="dropdown-content">
-                <a href="whatisscriptchain">What is ScriptChain?</a>
-                <a href="capabilitystatement">Capability Statement</a>
-                <a href="whoweare">Our Team</a>
-                <a href="blog">Blog</a>
-              </div>
-            </div>
-          </li>
-          <li><a href="#">Partnerships</a></li>
-          <li><a href="#">Providers</a></li>
-          <li><a href="#">Patients</a></li>
-          <li><a href="#">Support</a></li>
-          <li><a href="#">Contact Us</a></li>
-          <li><button type="button" class="helpBtn">Login</button></li>
-        </ul>
+<div>
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <button
+        mat-icon-button
+        (click)="sidenav.toggle()"
+        fxShow="true"
+        fxHide.gt-sm
+      >
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span
+        ><a href="home"><img src="./assets/logo6.png" style="height: 64px" /></a
+      ></span>
+      <span class="example-spacer"></span>
+      <div fxShow="true" fxHide.lt-md="true">
+        <!-- The following menu items will be hidden on both SM and XS screen sizes -->
+        <!-- #docregion mat-menu-trigger-for -->
+        <button mat-button [matMenuTriggerFor]="menu">About</button>
+        <!-- #enddocregion mat-menu-trigger-for -->
+        <mat-menu #menu="matMenu">
+          <a href="whatisscriptchain" mat-menu-item>What is ScriptChain?</a>
+          <a href="capabilitystatement" mat-menu-item>Capability Statement</a>
+          <a href="whoweare" mat-menu-item>Our Team</a>
+          <a href="blog" mat-menu-item>Blog</a>
+        </mat-menu>
+        <a href="partnerships" mat-button> Partnerships </a>
+        <a href="healthcare/login" mat-button> Providers </a>
+        <a href="#" mat-button> Patients </a>
+        <a href="#" mat-button> Support </a>
+        <a href="contactus" mat-button> Contact Us </a>
+        <button class="helpBtn" mat-raised-button>Login</button>
       </div>
-    </div>
-  </body>
-</html>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <mat-sidenav-container fxFlexFill>
+    <mat-sidenav #sidenav>
+      <mat-nav-list>
+        <mat-accordion class="app-nav-accordion">
+          <mat-expansion-panel class="mat-elevation-z0">
+            <mat-expansion-panel-header>
+              <mat-panel-title>About</mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-nav-list>
+              <a href="whatisscriptchain" mat-list-item>What is ScriptChain?</a>
+              <a href="capabilitystatement" mat-list-item
+                >Capability Statement</a
+              >
+              <a href="blog" mat-list-item>Blog</a>
+            </mat-nav-list>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <a href="partnerships" mat-list-item> Partnerships </a>
+        <a href="healthcare/login" mat-list-item> Providers</a>
+        <a href="#" mat-list-item> Patients </a>
+        <a href="#" mat-list-item> Support </a>
+        <a href="contactus" mat-list-item> Contact Us </a>
+        <a href="#" mat-list-item> Login</a>
+        <a (click)="sidenav.toggle()" mat-list-item>
+          <mat-icon>close</mat-icon> Close
+        </a>
+      </mat-nav-list>
+    </mat-sidenav>
+  </mat-sidenav-container>
+</div>
