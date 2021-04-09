@@ -1,8 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const { check,body, validationResult } = require('express-validator');
-const {BigQuery} = require('@google-cloud/bigquery');
-const bigquery = new BigQuery();
 var aes256 = require('aes256');
 const API_KEY = "scriptChain@13$67ahi1";
 const key = "hosenkinosumabeni";
