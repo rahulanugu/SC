@@ -11,3 +11,4 @@ cd /home/ec2-user/app/web-application/node
 #npm install -g --silent
 sudo pm2 stop index.js
 sudo pm2 start index.js
+sudo systemctl restart nginx
