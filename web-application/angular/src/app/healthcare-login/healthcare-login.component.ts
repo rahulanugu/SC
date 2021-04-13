@@ -46,10 +46,9 @@ export class HealthcareLoginComponent implements OnInit {
           localStorage.setItem("token", res["idToken"]);
           localStorage.setItem("fname", res["firstName"]);
           localStorage.setItem("email", this.Form.value.emailAddress);
-          //window.location.href =
-          //  "https://fhir.epic.com/interconnect-fhir-oauth/oauth2/authorize?response_type=code&redirect_uri=https%3A%2F%2Fwww.scriptchain.co%2Fhealthcare-profile&client_id=788a5f45-8fcc-4ad9-bce6-e7eeefc8ac41";
+          window.location.href = "https://fhir.epic.com/interconnect-fhir-oauth/oauth2/authorize?response_type=code&redirect_uri=https%3A%2F%2Fwww.scriptchain.co%2Fhealthcare-profile&client_id=84af87de-1a34-4336-9139-3b59c9c032a5";
 
-          window.location.href = "https://applescm184region.open.allscripts.com/authorization/connect/authorize?response_type=code&state&client_id=b5362fb7-a608-415f-aba9-fae232fce90e&scope=launch user/*.read&redirect_uri=https://www.scriptchain.co/healthcare-profile"
+          //window.location.href = "https://applescm184region.open.allscripts.com/authorization/connect/authorize?response_type=code&state&client_id=b5362fb7-a608-415f-aba9-fae232fce90e&scope=launch user/*.read&redirect_uri=https://www.scriptchain.co/healthcare-profile"
           //james
           //Password#1
           //this.router.navigate(['healthcare-profile'])
