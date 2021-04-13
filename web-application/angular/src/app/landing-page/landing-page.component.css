@@ -9,6 +9,7 @@ body {
   display: table-cell;
   background-color: #faf6f2;
   font-family: "Lato", sans-serif;
+  overflow-x: hidden;
 }
 
 html,
@@ -62,7 +63,6 @@ body {
   font-weight: bold;
   margin-right: 17px;
   border-radius: 7px;
-  margin-left: 142px;
 }
 
 .signUpBtn:hover {
@@ -162,8 +162,7 @@ content {
 }
 
 .card1 {
-  width: 330px;
-  height: 144px;
+  min-height: 200px;
 
   /* White */
 
@@ -228,7 +227,7 @@ content {
   align-items: center;
   width: 202px;
   /* Grey 500 */
-  margin-left: 18px;
+
   color: #1d1f26;
   padding: 10px;
 }
@@ -261,7 +260,6 @@ content {
 }
 
 .card2 {
-  width: 600px;
   height: 91px;
   left: 24px;
   top: 131px;
@@ -361,8 +359,8 @@ form input {
 }
 
 .quesForm {
-  width: 272px;
-  margin-left: 590px;
+  width: 280px;
+  margin: auto;
 }
 
 form textarea {

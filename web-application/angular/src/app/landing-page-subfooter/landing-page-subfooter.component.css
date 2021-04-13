@@ -30,7 +30,7 @@ body {
 }
 
 .subfooter {
-  height: 200px;
+  min-height: 220px;
   background: #0d1a1e;
 }
 

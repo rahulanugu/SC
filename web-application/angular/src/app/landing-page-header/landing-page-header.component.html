@@ -24,10 +24,24 @@
           <a href="whoweare" mat-menu-item>Our Team</a>
           <a href="blog" mat-menu-item>Blog</a>
         </mat-menu>
-        <a href="partnerships" mat-button> Partnerships </a>
+
+        <!-- #docregion mat-menu-trigger-for -->
+        <button mat-button [matMenuTriggerFor]="menu1">Partnerships</button>
+        <!-- #enddocregion mat-menu-trigger-for -->
+        <mat-menu #menu1="matMenu">
+          <a href="Partnerships" mat-menu-item>Our Partners</a>
+          <a href="#" mat-menu-item>Become a Partner</a>
+        </mat-menu>
         <a href="healthcare/login" mat-button> Providers </a>
         <a href="#" mat-button> Patients </a>
-        <a href="#" mat-button> Support </a>
+
+        <!-- #docregion mat-menu-trigger-for -->
+        <button mat-button [matMenuTriggerFor]="menu2">Support</button>
+        <!-- #enddocregion mat-menu-trigger-for -->
+        <mat-menu #menu2="matMenu">
+          <a href="#" mat-menu-item>Request Access</a>
+          <a href="faq1" mat-menu-item>FAQs</a>
+        </mat-menu>
         <a href="contactus" mat-button> Contact Us </a>
         <button class="helpBtn" mat-raised-button>Login</button>
       </div>
