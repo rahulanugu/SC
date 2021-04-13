@@ -3,14 +3,6 @@ const { check,body,validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 var router = express.Router();
-const {BigQuery} = require('@google-cloud/bigquery');
-const options = {
-  keyFilename: 'serviceAccountKeys/scriptchain-259015-689b82dcb0fe.json',
-  projectId: 'scriptchain-259015'
-
-};
-const bigquery = new BigQuery(options);
-//const bigquery = new BigQuery();
 var aes256 = require('aes256');
 const API_KEY = "scriptChain@13$67ahi1";
 const key = "hosenkinosumabeni";
@@ -19,6 +11,14 @@ const key = "hosenkinosumabeni";
  * Input: Body containing username and password.
  * Output: Jwt token and 200 status on success or 401 on failure
  */
+var mysql = require('mysql');
+var connection = mysql.createConnection({
+  host: 'database-1.cgurbeaohou6.us-east-2.rds.amazonaws.com',
+  user: 'admin',
+  password: 'Scriptchain20!',
+  port: 3306,
+  database: 'scriptchain'
+});
 router.post('/',[check('emailAddress').notEmpty().isEmail(),check('password').notEmpty(),body().custom(body => {
   const keys = ['emailAddress','password'];
   return Object.keys(body).every(key => keys.includes(key));
@@ -40,24 +40,16 @@ router.post('/',[check('emailAddress').notEmpty().isEmail(),check('password').no
     console.log("Reached the login controller for the healthcare")
     console.log(req.body);
     //const healthcareProvider = await HealthcareProvider.findOne({ email: req.body.emailAddress });
-
-    const query = 'SELECT * FROM `scriptchain-259015.dataset1.healthcareProviders` WHERE email=@email';
+    const query = 'SELECT * FROM `healthcareproviders` WHERE email=?';
     // req.body.emailAddress+'"';
-    const bigQueryOptions = {
-      query: query,
-      params: {email:req.body.emailAddress}
-    }
-    // console.log("require bigQueryoptions");
-    bigquery.query(bigQueryOptions, async function(err, rows) {
+    connection.query(query,[req.body.emailAddress], async function(err, rows) {
       if(!err) {
+        console.log(rows.length);
         if(rows.length==0){
-          const query1 = 'SELECT * FROM `scriptchain-259015.dataset1.deactivatedHealthcareProvider` WHERE email=@email';
+          console.log("test1");
+          const query1 = 'SELECT * FROM `deactivatedHealthcareProvider` WHERE email=?';
           // req.body.emailAddress+'"';
-          const bigQueryOptions1 = {
-            query: query1,
-            params: {email:req.body.emailAddress}
-          }
-          bigquery.query(bigQueryOptions1, function(err, rows1) {
+          connection.query(query1,[req.body.emailAddress], function(err, rows1) {
             if(!err) {
               if(rows1.length==0){
                 return res.status(404).json({
@@ -75,14 +67,10 @@ router.post('/',[check('emailAddress').notEmpty().isEmail(),check('password').no
           //check for password
           console.log('test');
           const healthcareProvider = rows[0];
-
           const validpassword = await bcrypt.compare(req.body.password, healthcareProvider.password);
-
           if (!validpassword) return res.status(401).json({
-
               message: "Wrong password has been entered"
           });
-
           const token = jwt.sign({ _id: healthcareProvider._id, fname: healthcareProvider.firstName }, 'abc', { expiresIn: 60*30 });
           res.status(200).json({
               idToken: token,
@@ -94,9 +82,6 @@ router.post('/',[check('emailAddress').notEmpty().isEmail(),check('password').no
   }catch(e){
     console.log(e);
   }
-
-
-
 })
 
 /**
@@ -112,8 +97,6 @@ router.post('/verifytokenintegrity',[check("jwtToken").notEmpty(),body().custom(
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
   }
-
-
     console.log("Verifying the integrity of the jwt token")
     console.log(req.body.jwtToken);
     try {

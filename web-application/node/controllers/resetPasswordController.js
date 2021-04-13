@@ -8,8 +8,6 @@ const OAuth2 = google.auth.OAuth2;
 var jwtDecode = require('jwt-decode');
 var Utility = require('../utility');
 var router = express.Router();
-const {BigQuery} = require('@google-cloud/bigquery');
-const bigquery = new BigQuery();
 var aes256 = require('aes256');
 const API_KEY = "scriptChain@13$67ahi1";
 const key = "hosenkinosumabeni";
@@ -21,6 +19,14 @@ const key = "hosenkinosumabeni";
  * Input: User/Patient email
  * Output: 401 - Email not found (or) 200 - Email has been sent
  */
+var mysql = require('mysql');
+var connection = mysql.createConnection({
+  host: 'database-1.cgurbeaohou6.us-east-2.rds.amazonaws.com',
+  user: 'admin',
+  password: 'Scriptchain20!',
+  port: 3306,
+  database: 'scriptchain'
+});
 router.post('/', [check('email').notEmpty().isEmail(),body().custom(body => {
   const keys = ['email'];
   return Object.keys(body).every(key => keys.includes(key));
@@ -41,13 +47,9 @@ router.post('/', [check('email').notEmpty().isEmail(),body().custom(body => {
   });
   //try finding the email in the database
 
-  const query = 'SELECT * FROM `scriptchain-259015.dataset1.patients` WHERE Email=@email';
+  const query = 'SELECT * FROM `patients` WHERE Email=?';
   // '+'"'+req.body.email+'"';
-  const bigQueryOptions = {
-    query: query,
-    params: {email:req.body.email}
-  }
-    bigquery.query(bigQueryOptions, async function(err, patient) {
+  connection.query(query,[req.body.email], async function(err, patient) {
       if (!err) {
         if (patient.length==0){
            return res.status(401).json({
@@ -83,8 +85,6 @@ router.post('/check',[check("token").notEmpty(),body().custom(body => {
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
   }
-
-
   // The token we get here is encrypted, so we need to decode it
   // will recieve an encrypted jwt token
   console.log("checking the validity of tthe password in check")
@@ -145,13 +145,10 @@ router.post('/change_password',[check("token").notEmpty(),check("password").notE
       console.log(decodedValue);
       //.tokebody of decodedvalue will contain the value of json object
       //find the email and update the object
-      const query1 = 'SELECT * FROM `scriptchain-259015.dataset1.patients` WHERE Email=@Email';
+      const query1 = 'SELECT * FROM `patients` WHERE Email=?';
       // +'"'+req.body.email+'"';
-      const bigQueryOptions1 = {
-        query: query1,
-        params: {Email:decodedValue.patient[0].Email}
-      }
-      bigquery.query(bigQueryOptions1, async function(err, doc) {
+
+      req.body.email.query(query1,[decodedValue.patient[0].Email], async function(err, doc) {
         if (!err) {
           if (doc.length>0){
             console.log('Selected');
@@ -160,39 +157,27 @@ router.post('/change_password',[check("token").notEmpty(),check("password").notE
             const patient = doc[0];
             patient['password'] = hashpassword;
             console.log(hashpassword);
-            const query2 = 'DELETE FROM `scriptchain-259015.dataset1.patients` WHERE _id=@id';
+            const query2 = 'DELETE FROM `patients` WHERE _id=?';
             // +'"'+req.body.email+'"';
             console.log(patient);
-            const bigQueryOptions2 = {
-              query: query2,
-              params: {id:patient['_id']}
-            }
-            bigquery.query(bigQueryOptions2, function(err, row1) {
+            connection.query(query2,[patient['_id']], function(err, row1) {
               if(!err){
                 console.log('Deleted');
 
-                var query3= "INSERT INTO `scriptchain-259015.dataset1.patients` (";
+                var query3= "INSERT INTO `patients` (";
+                var val =[];
                 for(var myKey in patient) {
                   query3+=myKey+", ";
+                  val.push(patient[myKey]);
                 }
                 query3 = query3.slice(0,query3.length-2);
                 query3+= ") VALUES (";
                 for(var myKey in patient) {
-                  if(patient[myKey]==false || patient[myKey]==true)
-                      query3+="@"+myKey+",";
-
-                  else
-                    query3+="@"+myKey+",";
-
+                    query3+="?,";
                 }
                 query3 = query3.slice(0,query3.length-1);
                 query3 += ")";
-                console.log(query3)
-                const bigQueryOptions3 = {
-                  query: query3,
-                  params: patient
-                }
-                bigquery.query(bigQueryOptions3, function(err, row) {
+                connection.query(query3,val, function(err, row) {
                   if(!err) {
                       console.log('Inserted successfully');
                       res.status(200).send({message:"Record has been updated"});

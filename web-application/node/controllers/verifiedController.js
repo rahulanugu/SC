@@ -4,11 +4,9 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 var Utility = require('../utility');
 var jwtDecode = require('jwt-decode');
-const {BigQuery} = require('@google-cloud/bigquery');
 var aes256 = require('aes256');
 const API_KEY = "scriptChain@13$67ahi1";
 const key = "hosenkinosumabeni";
-const bigquery = new BigQuery();
 function generateId(count) {
     var _sym = 'abcdefghijklmnopqrstuvwxyz1234567890';
     var str = '';
@@ -48,12 +46,8 @@ router.post('/',[check("jwtToken").notEmpty(),body().custom(body => {
     //decoding the token
     var decodedValue = jwtDecode(decryptedToken);
 
-    const query = 'SELECT * FROM `scriptchain-259015.dataset1.verifieduser` WHERE email=@email';
-    const bigQueryOptions={
-        query:query,
-        params:{email:decodedValue.tokeBody.email}
-    }
-    bigquery.query(bigQueryOptions, async function(err, checkCurrentSubscriber) {
+    const query = 'SELECT * FROM `verifieduser` WHERE email=?';
+    connection.query(query,[decodedValue.tokeBody.email], async function(err, checkCurrentSubscriber) {
       if (!err) {
         if (checkCurrentSubscriber.length>0){
             return res.json('Subscriber already Exists')
@@ -80,10 +74,11 @@ router.post('/',[check("jwtToken").notEmpty(),body().custom(body => {
               email: patient['Email'],
           };
           verifieduser['_id'] = generateId(10);
-
-          var query3= "INSERT INTO `scriptchain-259015.dataset1.verifieduser` ("
+          var val = [];
+          var query3= "INSERT INTO `verifieduser` ("
           for(var myKey in verifieduser) {
             query3+=myKey+", ";
+            val.push(verifieduser[myKey]);
           }
           query3 = query3.slice(0,query3.length-2);
           query3 += ") VALUES (";
@@ -92,13 +87,7 @@ router.post('/',[check("jwtToken").notEmpty(),body().custom(body => {
           }
           query3 = query3.slice(0,query3.length-1);
           query3 += ")";
-          console.log(query3);
-          const bigQueryOptions3 = {
-            query: query3,
-            params: verifieduser
-          }
-          console.log(verifieduser);
-          bigquery.query(bigQueryOptions3, function(err, row) {
+          connection.query(query3,val, function(err, row) {
             if(!err) {
                 console.log('Inserted successfully');
             }else{
@@ -107,29 +96,20 @@ router.post('/',[check("jwtToken").notEmpty(),body().custom(body => {
             }
           });
 
-          var query4= "INSERT INTO `scriptchain-259015.dataset1.patients` (";
+          var query4= "INSERT INTO `patients` (";
+          var val = [];
           for(var myKey in patient) {
               query4+=myKey+", ";
+              val.push(patient[myKey]);
           }
           query4 = query4.slice(0,query4.length-2);
           query4+= ") VALUES (";
           for(var myKey in patient) {
-              if(patient[myKey]==false || patient[myKey]==true)
-                    query4+="@"+myKey+",";
-
-              else
-                    query4+="@"+myKey+",";
-
+            query4+="@"+myKey+",";
           }
           query4 = query4.slice(0,query4.length-1);
           query4 += ")";
-          console.log(query4);
-          const bigQueryOptions4 = {
-            query: query4,
-            params: patient
-          }
-          console.log(patient);
-          bigquery.query(bigQueryOptions4, function(err, row) {
+          connection.query(query4,val, function(err, row) {
             if(!err) {
               res.send(JSON.stringify(patient['_id']));
                 console.log('Inserted successfully');

@@ -3,14 +3,14 @@ const { check,body,validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 var router = express.Router();
-const {BigQuery} = require('@google-cloud/bigquery');
+//const {BigQuery} = require('@google-cloud/bigquery');
 /*const options = {
   keyFilename: 'serviceAccountKeys/scriptchain-259015-689b82dcb0fe.json',
   projectId: 'scriptchain-259015'
 
 };
 const bigquery = new BigQuery(options);*/
-const bigquery = new BigQuery();
+//const bigquery = new BigQuery();
 var aes256 = require('aes256');
 const API_KEY = "scriptChain@13$67ahi1";
 const key = "hosenkinosumabeni";
@@ -21,6 +21,14 @@ const key = "hosenkinosumabeni";
  * Output: 401 - Invalid password or email
  *         200 - Jwt Token and first name
  */
+var mysql = require('mysql');
+var connection = mysql.createConnection({
+  host: 'database-1.cgurbeaohou6.us-east-2.rds.amazonaws.com',
+  user: 'admin',
+  password: 'Scriptchain20!',
+  port: 3306,
+  database: 'scriptchain'
+});
 router.post('/',[check('email').notEmpty().isEmail(),check('password').notEmpty(),body().custom(body => {
   const keys = ['email','password'];
   return Object.keys(body).every(key => keys.includes(key));
@@ -40,22 +48,12 @@ router.post('/',[check('email').notEmpty().isEmail(),check('password').notEmpty(
     var ip = req.connection.remoteAddress;
     console.log(ip+" "+req.body.email);
 
-    const query1 = 'SELECT * FROM `scriptchain-259015.dataset1.patients` WHERE Email=@email';
-    const bigQueryOptions1={
-      query:query1,
-      params: {email:req.body.email}
-    }
-
-
-    bigquery.query(bigQueryOptions1, async function(err, patient) {
+    const query1 = 'SELECT * FROM `patients` WHERE Email=?';
+    connection.query(query1,[req.body.email], async function(err, patient) {
       if (!err) {
         if (patient.length==0){
-          const query2 = 'SELECT * FROM `scriptchain-259015.dataset1.deactivatedPatients` WHERE Email=@email';
-          const bigQueryOptions2={
-            query:query2,
-            params: {email:req.body.email}
-          }
-          bigquery.query(bigQueryOptions2, function(err1, deactivatedPatient) {
+          const query2 = 'SELECT * FROM `deactivatedPatients` WHERE Email=?';
+          connection.query(query2,[req.body.email], function(err1, deactivatedPatient) {
             if (!err1) {
               if (!deactivatedPatient){
                 return res.status(404).json({

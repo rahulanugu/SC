@@ -6,8 +6,6 @@ const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
 const log = console.log;
 const bcrypt = require('bcryptjs');
-const {BigQuery} = require('@google-cloud/bigquery');
-const bigquery = new BigQuery();
 var aes256 = require('aes256');
 const API_KEY = "scriptChain@13$67ahi1";
 const key = "hosenkinosumabeni";
@@ -18,6 +16,15 @@ const key = "hosenkinosumabeni";
  *         200 - Successfylly saved the request
  *         500 - An error occured trying to save the request
  */
+var mysql = require('mysql');
+var connection = mysql.createConnection({
+  host: 'database-1.cgurbeaohou6.us-east-2.rds.amazonaws.com',
+  user: 'admin',
+  password: 'Scriptchain20!',
+  port: 3306,
+  database: 'scriptchain'
+});
+
 router.put("/fname", [check('email').isEmail(),
 check('fname').isAlpha().notEmpty(),body().custom(body => {
   const keys = ['email','fname'];
@@ -34,25 +41,17 @@ check('fname').isAlpha().notEmpty(),body().custom(body => {
   }
   //const retrievedPatient = await Patient.findOne({ Email: req.body.email })
 
-  const query = 'SELECT * FROM `scriptchain-259015.dataset1.patients` WHERE Email=@email';
+  const query = 'SELECT * FROM `patients` WHERE Email=?';
     // req.body.email+'"';
-    const bigQueryOptions = {
-      query: query,
-      params: {email:req.body.email}
-    }
-    bigquery.query(bigQueryOptions, function(err, row) {
+    connection.query(query,[req.body.email], function(err, row) {
       if(!err) {
         if (row.length>0){
           //console.log(row);
           const retrievedPatient = row[0];
           retrievedPatient.fname = req.body.fname;
-          const query1 = 'DELETE FROM `scriptchain-259015.dataset1.patients` WHERE Email=@email';
+          const query1 = 'DELETE FROM `patients` WHERE Email=?';
           // req.body.email+'"';
-          const bigQueryOptions1 = {
-            query: query1,
-            params: {email:req.body.email}
-          }
-          bigquery.query(bigQueryOptions1, function(err, row1) {
+          connection.query(query1,[req.body.email], function(err, row1) {
               if(err){
                   res.status(500).json({"message": "account could not be deactivated due to an error"});
                   next();
@@ -60,27 +59,20 @@ check('fname').isAlpha().notEmpty(),body().custom(body => {
                 //console.log('deleted');
 
                 var patient = retrievedPatient;
-                var query3= "INSERT INTO `scriptchain-259015.dataset1.patients` (";
+                var query3= "INSERT INTO `patients` (";
+                var val = [];
                 for(var myKey in patient) {
                   query3+=myKey+", ";
+                  val.push(patient[myKey]);
                 }
                 query3 = query3.slice(0,query3.length-2);
                 query3+= ") VALUES (";
                 for(var myKey in patient) {
-                  if(patient[myKey]==false || patient[myKey]==true)
-                    query3+="@"+myKey+",";
-
-                  else
-                    query3+="@"+myKey+",";
-
+                    query3+="?,";
                 }
                 query3 = query3.slice(0,query3.length-1);
                 query3 += ")";
-                  const bigQueryOptions = {
-                      query: query3,
-                      params: patient
-                  }
-                  bigquery.query(bigQueryOptions, function(err, row) {
+                connection.query(query3,val, function(err, row) {
                     if(!err) {
                       res.status(200).json({ "message": "Succesfully updatted the patient record in the database" });
                     }else{
@@ -116,54 +108,37 @@ router.put("/lname",[check('email').isEmail(),check('lname').isAlpha().notEmpty(
   if(decrypted!=API_KEY){
     return res.status(401).json({Message:'Unauthorized'});
   }
-
-
-  const query = 'SELECT * FROM `scriptchain-259015.dataset1.patients` WHERE Email=@email';
+  const query = 'SELECT * FROM `patients` WHERE Email=?';
     // req.body.email+'"';
-    const bigQueryOptions = {
-      query: query,
-      params: {email:req.body.email}
-    }
-    bigquery.query(bigQueryOptions, function(err, row) {
+    connection.query(query,[req.body.email], function(err, row) {
       if(!err) {
         if (row.length>0){
           //console.log(row);
           const retrievedPatient = row[0];
           retrievedPatient.lname = req.body.lname;
-          const query1 = 'DELETE FROM `scriptchain-259015.dataset1.patients` WHERE Email=@email';
+          const query1 = 'DELETE FROM `patients` WHERE Email=?';
           // req.body.email+'"';
-          const bigQueryOptions1 = {
-            query: query1,
-            params: {email:req.body.email}
-          }
-          bigquery.query(bigQueryOptions1, function(err, row1) {
+          connection.query(query1,[req.body.email], function(err, row1) {
               if(err){
                   res.status(500).json({"message": "account could not be deactivated due to an error"});
                   next();
               }else{
                 //console.log('deleted');
                 var patient = retrievedPatient;
-                var query3= "INSERT INTO `scriptchain-259015.dataset1.patients` (";
+                var query3= "INSERT INTO `patients` (";
+                var val = [];
                 for(var myKey in patient) {
                   query3+=myKey+", ";
+                  val.push(patient[myKey]);
                 }
                 query3 = query3.slice(0,query3.length-2);
                 query3+= ") VALUES (";
                 for(var myKey in patient) {
-                  if(patient[myKey]==false || patient[myKey]==true)
-                        query3+="@"+myKey+",";
-
-                  else
-                      query3+="@"+myKey+",";
-
+                  query3+="?,";
                 }
                 query3 = query3.slice(0,query3.length-1);
                 query3 += ")";
-                  const bigQueryOptions = {
-                      query: query3,
-                      params: patient
-                  }
-                  bigquery.query(bigQueryOptions, function(err, row) {
+                  connection.query(query3,val, function(err, row) {
                     if(!err) {
                       res.status(200).json({ "message": "Succesfully updatted the patient record in the database" });
                     }else{
@@ -200,48 +175,35 @@ router.put("/phone", [check('email').isEmail(),check('phone').isMobilePhone().no
   if(decrypted!=API_KEY){
     return res.status(401).json({Message:'Unauthorized'});
   }
-  const query = 'SELECT * FROM `scriptchain-259015.dataset1.patients` WHERE Email=@email';
+  const query = 'SELECT * FROM `patients` WHERE Email=?';
     // req.body.email+'"';
-    const bigQueryOptions = {
-      query: query,
-      params: {email:req.body.email}
-    }
-    bigquery.query(bigQueryOptions, function(err, row) {
+    connection.query(query,[req.body.email], function(err, row) {
       if(!err) {
         if (row.length>0){
           const retrievedPatient = row[0];
           retrievedPatient.phone = req.body.phone;
-          const query1= 'DELETE FROM `scriptchain-259015.dataset1.patients` WHERE Email=@email';
+          const query1= 'DELETE FROM `patients` WHERE Email=?';
           // req.body.email+'"';
-          const bigQueryOptions1 = {
-            query: query1,
-            params: {email:req.body.email}
-          }
-          bigquery.query(bigQueryOptions1, function(err, row1) {
+          connection.query(query1,[req.body.email], function(err, row1) {
               if(err){
                   res.status(500).json({"message": "account could not be deactivated due to an error"});
                   next();
               }else{
                 var patient = retrievedPatient;
-                var query3= "INSERT INTO `scriptchain-259015.dataset1.patients` (";
+                var query3= "INSERT INTO `patients` (";
                 for(var myKey in patient) {
                   query3+=myKey+", ";
                 }
                 query3 = query3.slice(0,query3.length-2);
                 query3+= ") VALUES (";
+                var val =[];
                 for(var myKey in patient) {
-                  if(patient[myKey]==false || patient[myKey]==true)
-                      query3+="@"+myKey+",";
-                  else
-                      query3+="@"+myKey+",";
+                  query3+="?,";
+                  val.push(patient[myKey]);
                 }
                 query3 = query3.slice(0,query3.length-1);
                 query3 += ")";
-                  const bigQueryOptions = {
-                      query: query3,
-                      params: patient
-                  }
-                  bigquery.query(bigQueryOptions, function(err, row) {
+                connection.query(query3,val, function(err, row) {
                     if(!err) {
                       res.status(200).json({ "message": "Succesfully updatted the patient record in the database" });
                     }else{
@@ -283,13 +245,9 @@ router.put("/password" , [check('email').isEmail()
   console.log("Trying to edit the password of the user")
   console.log(req.body.email);
   console.log(req.body)
-  const query = 'SELECT * FROM `scriptchain-259015.dataset1.patients` WHERE Email=@email';
+  const query = 'SELECT * FROM `patients` WHERE Email=?';
     // req.body.email+'"';
-    const bigQueryOptions = {
-      query: query,
-      params: {email:req.body.email}
-    }
-    bigquery.query(bigQueryOptions, async function(err, row) {
+    connection.query(query,[req.body.email], async function(err, row) {
       if(!err) {
         if (row.length>0){
           //console.log(row);
@@ -306,13 +264,9 @@ router.put("/password" , [check('email').isEmail()
             const salt = await bcrypt.genSaltSync(10);
             const hashpassword = await bcrypt.hash(req.body.newPassword, salt);
             retrievedPatient.password = hashpassword;
-            const query1 = 'DELETE FROM `scriptchain-259015.dataset1.patients` WHERE Email=@email';
+            const query1 = 'DELETE FROM `patients` WHERE Email=?';
             // req.body.email+'"';
-            const bigQueryOptions1 = {
-              query: query1,
-              params: {email:req.body.email}
-            }
-            bigquery.query(bigQueryOptions1, function(err, row1) {
+            connection.query(query1,[req.body.email], function(err, row1) {
                 if(err){
                     res.status(500).json({"message": "account could not be deactivated due to an error"});
                     next();
@@ -320,24 +274,19 @@ router.put("/password" , [check('email').isEmail()
                   //console.log('deleted');
                   var patient = retrievedPatient;
                 var query3= "INSERT INTO `scriptchain-259015.dataset1.patients` (";
+                var val = [];
                 for(var myKey in patient) {
                   query3+=myKey+", ";
+                  val.push(patient[myKey]);
                 }
                 query3 = query3.slice(0,query3.length-2);
                 query3+= ") VALUES (";
                 for(var myKey in patient) {
-                  if(patient[myKey]==false || patient[myKey]==true)
-                      query3+="@"+myKey+",";
-                  else
-                      query3+="@"+myKey+",";
+                  query3+="?,";
                 }
                 query3 = query3.slice(0,query3.length-1);
                 query3 += ")";
-                  const bigQueryOptions = {
-                      query: query3,
-                      params: patient
-                  }
-                  bigquery.query(bigQueryOptions, function(err, row) {
+                connection.query(query3,val, function(err, row) {
                     if(!err) {
                       res.status(200).json({ "message": "Succesfully updatted the patient record in the database" });
                     }else{

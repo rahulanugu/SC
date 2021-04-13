@@ -15,11 +15,18 @@ oauth2Client.setCredentials({
   refresh_token:
     "ya29.GluBB_c8WGD6HI2wTAiAKnPeLap6FdqDdQYhplWyAPjw_ZBSNUNEMOfmsrVSDoHTAZWc8cjKHXXEEY_oMVJUq4YaoSD1LLseWzPNt2hcY2lCdhXAeuCxvDPbl6QP"
 });
-
+var mysql = require('mysql');
+var connection = mysql.createConnection({
+  host: 'database-1.cgurbeaohou6.us-east-2.rds.amazonaws.com',
+  user: 'admin',
+  password: 'Scriptchain20!',
+  port: 3306,
+  database: 'scriptchain'
+});
 const accessToken = oauth2Client.getAccessToken();
-const {BigQuery} = require('@google-cloud/bigquery');
+//const {BigQuery} = require('@google-cloud/bigquery');
 const { compareSync } = require("bcryptjs");
-const bigquery = new BigQuery();
+//const bigquery = new BigQuery();
 var aes256 = require('aes256');
 const API_KEY = "scriptChain@13$67ahi1";
 const key = "hosenkinosumabeni";
@@ -60,13 +67,9 @@ router.post("/",[check('fname').notEmpty().isAlpha(),check('lname').notEmpty().i
   if(decrypted!=API_KEY){
     return res.status(401).json({Message:'Unauthorized'});
   }
-  const query = 'SELECT * FROM `scriptchain-259015.dataset1.newUsers` WHERE email=@email';
+  const query = 'SELECT * FROM `newUsers` WHERE email=?';
   // req.body.email+'"';
-  const bigQueryOptions = {
-    query: query,
-    params: {email:req.body.email}
-  }
-  bigquery.query(bigQueryOptions, function(err, rows) {
+  connection.query(query,[req.body.email], function(err, rows) {
     if(!err) {
       if(rows.length>0){
         console.log('test1');
@@ -76,28 +79,21 @@ router.post("/",[check('fname').notEmpty().isAlpha(),check('lname').notEmpty().i
       }else{
         req.body['_id'] = generateId(10);
 
-        var query4= "INSERT INTO `scriptchain-259015.dataset1.newUsers` (";
+        var query4= "INSERT INTO `newUsers` (";
         for(var myKey in req.body) {
             query4+=myKey+", ";
         }
         query4 = query4.slice(0,query4.length-2);
           query4+= ") VALUES (";
+          var val = [];
           for(var myKey in req.body) {
-              if(req.body[myKey]==false || req.body[myKey]==true)
-                  query4+="@"+myKey+",";
-      
-              else
-                  query4+="@"+myKey+","
-      
+            query4+="?,"
+            val.push(req.body[myKey]);
           }
           query4 = query4.slice(0,query4.length-1);
           query4 += ")";
           console.log(query4);
-          const bigQueryOptions4 = {
-            query: query4,
-            params:req.body
-          }
-          bigquery.query(bigQueryOptions4, function(err, row) {
+          connection.query(query4,val, function(err, row) {
             if(!err) {
               res.status(200).json({
                 message: "Your message has been saved"

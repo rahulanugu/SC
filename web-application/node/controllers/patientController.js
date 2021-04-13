@@ -13,14 +13,12 @@ const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
 const randtoken = require('rand-token');
 var Utility = require('../utility');
-const {BigQuery} = require('@google-cloud/bigquery');
-const bigquery = new BigQuery();
 const oauth2Client = new OAuth2(
     "Y16828344230-21i76oqle90ehsrsrpptnb8ek2vqfjfp.apps.googleusercontent.com",
     "ZYdS8bspVNCyBrSnxkMxzF2d",
     "https://developers.google.com/oauthplayground"
 );
-
+var mysql = require('mysql');
 oauth2Client.setCredentials({
     refresh_token:
       "ya29.GluBB_c8WGD6HI2wTAiAKnPeLap6FdqDdQYhplWyAPjw_ZBSNUNEMOfmsrVSDoHTAZWc8cjKHXXEEY_oMVJUq4YaoSD1LLseWzPNt2hcY2lCdhXAeuCxvDPbl6QP"
@@ -48,7 +46,22 @@ function generateId(count) {
   }
   return str;
 }
+    // Authentication to enter this?
+    // How to secure this?
+    // Need some sort of hack check. How do we check it?
+    // Possible type of hacks for an API.
+    //validation for id is a side task
+    //express validation is a side task
+    //usage of headers, how UI handles it?
+    //helmet npm package usage?
 
+var connection = mysql.createConnection({
+  host: 'database-1.cgurbeaohou6.us-east-2.rds.amazonaws.com',
+  user: 'admin',
+  password: 'Scriptchain20!',
+  port: 3306,
+  database: 'scriptchain'
+});
 router.get('/',async (req, res) => {
     //ADD THIS
     var decrypted = aes256.decrypt(key, req.query.API_KEY);
@@ -58,13 +71,9 @@ router.get('/',async (req, res) => {
     }
     //ADD THIS
     console.log('you have entered');
-    // Authentication to enter this?
-    // How to secure this?
-    // Need some sort of hack check. How do we check it?
-    // Possible type of hacks for an API.
 
-    const query = 'SELECT * FROM `scriptchain-259015.dataset1.patients` WHERE 1=1';
-    bigquery.query(query, function(err, doc) {
+    const query = 'SELECT * FROM `patients` WHERE 1=1';
+    connection.query(query, function(err, doc) {
       if (!err) {
         if(doc){
           res.status(200).json(doc);
@@ -98,16 +107,8 @@ router.get('/:id',[check('id').notEmpty()],(req, res) => {
   if(decrypted!=API_KEY){
     return res.status(401).json({Message:'Unauthorized'});
   }
-  //validation for id is a side task
-  //express validation is a side task
-  //usage of headers, how UI handles it?
-  //helmet npm package usage?
-  const query = 'SELECT * FROM `scriptchain-259015.dataset1.patients` WHERE _id = @id';
-  const bigQueryOptions = {
-    query: query,
-    params: {id:req.params.id}
-  }
-  bigquery.query(bigQueryOptions, function(err, doc) {
+  const query = 'SELECT * FROM `patients` WHERE _id = ?';
+  connection.query(query,[req.params.id], function(err, doc) {
     if (!err) {
       if(doc.length==1){
         res.status(200).json(doc[0]);
@@ -127,7 +128,7 @@ router.get('/:id',[check('id').notEmpty()],(req, res) => {
  * Output: message whether the subscriber exists or not
  */
 router.post('/:verify',async(req,res)=>{
-  console.log(req.query);
+  //console.log(req.query);
   if(req.params.verify!="verify"){
     res.status(400).json({message: "Bad Request"});
   }
@@ -136,12 +137,8 @@ router.post('/:verify',async(req,res)=>{
    if(decrypted!=API_KEY){
      return res.status(401).json({Message:'Unauthorized'});
    }
-  const query = 'SELECT * FROM `scriptchain-259015.dataset1.verifieduser` WHERE email = @email';
-  const bigQueryOptions = {
-    query: query,
-    params: {email:req.body.user}
-  }
-  bigquery.query(bigQueryOptions, function(err, checkCurrentSubscriber) {
+  const query = 'SELECT * FROM `verifieduser` WHERE email = ?';
+  connection.query(query,[req.body.user], function(err, checkCurrentSubscriber) {
     if (!err) {
       if (checkCurrentSubscriber.length>0){
         return res.json('Subscriber already exists')
@@ -154,6 +151,9 @@ router.post('/:verify',async(req,res)=>{
   });
 });
 
+    // check if email already exist
+    //const checkCurrentSubscriber = await VerifiedUser.findOne({email: req.body.email})
+    //console.log(req);
 /**
  * This metthod will check if the user/patient already exists in the system and sends a verification email if not
  * Input: Body, will contain the JWT token that contains user/patient as defined in the respective schemas
@@ -232,27 +232,16 @@ body().custom(body => {
     return res.status(401).json({Message:'Unauthorized'});
   }
     const tokeBody = req.body;
-    // check if email already exist
-    //const checkCurrentSubscriber = await VerifiedUser.findOne({email: req.body.email})
-    //console.log(req);
-    const query1= 'SELECT * FROM `scriptchain-259015.dataset1.verifieduser` WHERE email = @email';
-    const bigQueryOptions1 = {
-      query: query1,
-      params: {email:tokeBody.email}
-    }
-    bigquery.query(bigQueryOptions1, async function(err, checkCurrentSubscriber) {
+    const query1= 'SELECT * FROM `verifieduser` WHERE email = ?';
+    connection.query(query1,[tokeBody.email], async function(err, checkCurrentSubscriber) {
       if (!err) {
         if (checkCurrentSubscriber.length>0){
           res.json('Subscriber already exists')
         }else{
           //res.json("Does not exist")
           console.log('first pass');
-          const query2 = 'SELECT * FROM `scriptchain-259015.dataset1.patients` WHERE Email=@email';
-          const bigQueryOptions2 = {
-            query: query2,
-            params: {email:tokeBody.email}
-          }
-          bigquery.query(bigQueryOptions2, async function(err, checkEmailExist) {
+          const query2 = 'SELECT * FROM `patients` WHERE Email=?';
+          connection.query(query2,[tokeBody.email], async function(err, checkEmailExist) {
             if (!err) {
               if (checkEmailExist.length>0){
                 return res.status(400).send('Email already exists');
@@ -271,24 +260,18 @@ body().custom(body => {
                   'token': idToken,
                   'email': req.body.email
                 };
-
-                var query3= "INSERT INTO `scriptchain-259015.dataset1.tokenSchema` VALUES ("
+                var query3= "INSERT INTO `tokenSchema` VALUES (";
+                var val = [];
+                console.log(tokenSchema);
                 for(var myKey in tokenSchema) {
-                  query3+="@"+myKey+",";
-
+                  query3+="?,";
+                  val.push(tokenSchema[myKey]);
                 }
                 query3 = query3.slice(0,query3.length-1);
                 query3 += ")";
-                console.log(query3);
-                const bigQueryOptions3 = {
-                  query: query3,
-                  params: tokenSchema
-                }
-                bigquery.query(bigQueryOptions3, function(err, row) {
+                connection.query(query3,val, function(err, row) {
                   if(!err) {
                       console.log('Inserted successfully');
-                      // Check the job's status for errors
-                      //encrypt the token before sending it
                       var encryptedToken = Utility.EncryptToken(token);
                       console.log('third pass and mail sent');
                       sendVerificationMail(req.body.email,req.body.fname,encryptedToken);

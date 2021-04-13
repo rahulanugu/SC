@@ -1,12 +1,11 @@
 const express = require("express");
 const { check,body, validationResult } = require('express-validator');
 const router = express.Router();
-const {BigQuery} = require('@google-cloud/bigquery');
 //comment options in prod mode
-const bigquery = new BigQuery();
 var aes256 = require('aes256');
 const API_KEY = "scriptChain@13$67ahi1";
 const key = "hosenkinosumabeni";
+var mysql = require('mysql');
 /**
  * Method to save the customer query to the database
  * Input: Details of ContactUser as specified in schema
@@ -24,6 +23,13 @@ function generateId(count) {
   }
   return str;
 }
+var connection = mysql.createConnection({
+  host: 'database-1.cgurbeaohou6.us-east-2.rds.amazonaws.com',
+  user: 'admin',
+  password: 'Scriptchain20!',
+  port: 3306,
+  database: 'scriptchain'
+});
 
 router.post("/",[check('FirstName').notEmpty().isAlpha(),check('LastName').notEmpty().isAlpha(),check('Email').isEmail(),check('Message').notEmpty(),body().custom(body => {
   const keys = ['FirstName','LastName','Email','Message'];
@@ -40,20 +46,16 @@ router.post("/",[check('FirstName').notEmpty().isAlpha(),check('LastName').notEm
   }
   //console.log("hello");
   req.body['_id'] = generateId(10);
-
-  var query= "INSERT INTO `scriptchain-259015.dataset1.contactUsers` VALUES ("
+  var query= "INSERT INTO `contactUsers` VALUES ("
+  var val = [];
   for(var myKey in req.body) {
-    query+="@"+myKey+",";
-
+    query+="?,";
+    val.push(req.body[myKey]);
   }
-  query = query.slice(0,query.length-1);
+  query = query.slice(0,-1);
   query += ")";
   console.log(query);
-  const bigQueryOptions = {
-    query: query,
-    params: req.body
-  }
-  bigquery.query(bigQueryOptions, function(err, row) {
+  connection.query(query,val, function(err, row) {
     if(!err) {
         console.log("In contactUsController[root, POST]: Inserted successfully");;
         res.status(200).json({
