@@ -84,7 +84,7 @@ router.post('/account/create',[check('firstName').notEmpty().isAlpha()
   var ip = req.connection.remoteAddress;
   console.log(ip+" "+req.body.email);
     //Check if user alread exists
-    const query= 'SELECT * FROM `healthcareProviders` WHERE email=?';
+    const query= 'SELECT * FROM `healthcareproviders` WHERE email=?';
     // req.body.email+'"';
     connection.query(query,[req.body.email], async function(err, row) {
       if(!err) {
@@ -176,7 +176,7 @@ router.post('/account/verify',[check("jwtToken").notEmpty(),body().custom(body =
     //Before creating a new provider, check if already exists
 
 
-    const query = 'SELECT * FROM `healthcareProviders` WHERE email=?';
+    const query = 'SELECT * FROM `healthcareproviders` WHERE email=?';
     // decodedValue.tokeBody.email+'"';
     connection.query(query,[decodedValue.tokeBody.email], async function(err, row) {
       if(!err) {
@@ -190,12 +190,12 @@ router.post('/account/verify',[check("jwtToken").notEmpty(),body().custom(body =
           //encrypt the password
           const salt = await bcrypt.genSaltSync(10);
           const hashpassword = await bcrypt.hash(decodedValue.tokeBody.password, salt);
-
+          
           json = decodedValue.tokeBody;
           json['password'] = hashpassword;
           json['_id'] = generateId(10);
 
-          var query1= "INSERT INTO `healthcareProviders` (";
+          var query1= "INSERT INTO `healthcareproviders` (";
           var val = [];
           for(var myKey in json) {
             query1+=myKey+", ";

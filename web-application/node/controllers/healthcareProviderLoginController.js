@@ -3,13 +3,6 @@ const { check,body,validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 var router = express.Router();
-const {BigQuery} = require('@google-cloud/bigquery');
-const options = {
-  keyFilename: 'serviceAccountKeys/scriptchain-259015-689b82dcb0fe.json',
-  projectId: 'scriptchain-259015'
-
-};
-//const bigquery = new BigQuery();
 var aes256 = require('aes256');
 const API_KEY = "scriptChain@13$67ahi1";
 const key = "hosenkinosumabeni";
@@ -47,15 +40,16 @@ router.post('/',[check('emailAddress').notEmpty().isEmail(),check('password').no
     console.log("Reached the login controller for the healthcare")
     console.log(req.body);
     //const healthcareProvider = await HealthcareProvider.findOne({ email: req.body.emailAddress });
-    const query = 'SELECT * FROM `healthcareProviders` WHERE email=?';
+    const query = 'SELECT * FROM `healthcareproviders` WHERE email=?';
     // req.body.emailAddress+'"';
-    // console.log("require bigQueryoptions");
     connection.query(query,[req.body.emailAddress], async function(err, rows) {
       if(!err) {
+        console.log(rows.length);
         if(rows.length==0){
+          console.log("test1");
           const query1 = 'SELECT * FROM `deactivatedHealthcareProvider` WHERE email=?';
           // req.body.emailAddress+'"';
-          bigquery.query(query1,[req.body.emailAddress], function(err, rows1) {
+          connection.query(query1,[req.body.emailAddress], function(err, rows1) {
             if(!err) {
               if(rows1.length==0){
                 return res.status(404).json({
