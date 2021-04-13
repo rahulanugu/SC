@@ -47,8 +47,7 @@ body {
   background: #2d5059;
 }
 
-.ceoIntro,
-.advisorDiv {
+.ceoIntro {
   margin-left: 646px;
   margin-top: 40px;
 }
@@ -238,4 +237,41 @@ body {
 
 .padding-0 {
   column-gap: 40px;
+}
+
+.advisorDiv .team label,
+.advisorDiv .team p,
+.advisorDiv .team h6 {
+  color: #1d1f26;
+}
+
+.advisorDiv .team label {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  /* identical to box height */
+
+  margin-top: 16px;
+}
+
+.advisorDiv .team p {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  margin-bottom: 0px;
+  margin-top: 8px;
+}
+
+.advisorDiv .team h6 {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  /* identical to box height */
+
+  /* White */
+  margin-bottom: 10px;
+  margin-top: 8px;
 }

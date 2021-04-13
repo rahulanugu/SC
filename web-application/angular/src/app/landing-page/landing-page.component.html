@@ -31,11 +31,9 @@
       })(window, document, "https://static.hotjar.com/c/hotjar-", ".js?sv=");
     </script>
   </head>
-  <body>
-    <div>
-      <app-landing-page-header></app-landing-page-header>
-    </div>
 
+  <body>
+    <app-landing-page-header></app-landing-page-header>
     <div
       class="content-card"
       style="
@@ -47,19 +45,21 @@
         background-size: cover;
       "
     >
-      <div class="content" style="margin-left: 142px">
+      <div class="content">
         <h1 class="heading" style="color: #ffffff">Welcome to ScriptChain</h1>
         <p style="color: #ffffff">
           AI-based platform that helps assist physicians in identifying
           high-risk patients of readmission and cardiovascular disease with
           actionable insights.
         </p>
-        <button type="button" class="signUpBtn">Sign Up</button>
+        <button type="button" class="signUpBtn" style="margin-left: 142px">
+          Sign Up
+        </button>
         <button type="button" class="helpBtn">Learn More</button>
       </div>
     </div>
     <div class="content2">
-      <h2>At a Glance</h2>
+      <h2 style="margin-bottom: 30px">At a Glance</h2>
 
       <div class="row">
         <div class="col">
@@ -100,7 +100,7 @@
             <img src="./assets/dataAccuracyImg.png" style="float: left" />
             <h3>Data Accuracy</h3>
             <p>
-              Being able tp track and trace all your inputs into the system with
+              Being able to track and trace all your inputs into the system with
               log information easily available.
             </p>
           </div>
@@ -134,17 +134,17 @@
     <div class="content2">
       <h2>Partnerships</h2>
 
-      <p
+      <span
         style="
           text-align: center;
-          margin-left: 344px;
+
           margin-top: 8px;
           font-size: 19px;
         "
       >
         Scriptchain partners with the most innovative leaders in the market to
         help achieve better healthcare for all.
-      </p>
+      </span>
       <div class="row">
         <div class="col">
           <div class="card1"></div>

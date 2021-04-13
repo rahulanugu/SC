@@ -95,6 +95,13 @@ import { LandingFaq1Component } from "./landing-faq1/landing-faq1.component";
 import { LandingFaq2Component } from "./landing-faq2/landing-faq2.component";
 import { BlogComponent } from "./blog/blog.component";
 import { NgxMaskModule, IConfig } from "ngx-mask";
+import { MatToolbarModule } from "@angular/material/toolbar";
+
+import { FlexLayoutModule } from "@angular/flex-layout";
+
+import { MatMenuModule } from "@angular/material/menu";
+import { MatButtonModule } from "@angular/material";
+import { MatExpansionModule } from "@angular/material/expansion";
 
 @NgModule({
   declarations: [
@@ -192,6 +199,11 @@ import { NgxMaskModule, IConfig } from "ngx-mask";
     MatSelectModule,
     MatTabsModule,
     NgxMaskModule.forRoot(),
+    MatButtonModule,
+    MatToolbarModule,
+    FlexLayoutModule,
+    MatMenuModule,
+    MatExpansionModule,
   ],
   providers: [
     DbService,

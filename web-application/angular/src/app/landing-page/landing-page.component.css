@@ -9,6 +9,7 @@ body {
   display: table-cell;
   background-color: #faf6f2;
   font-family: "Lato", sans-serif;
+  overflow-x: hidden;
 }
 
 html,
@@ -34,15 +35,21 @@ body {
 .helpBtn {
   width: 118px;
   height: 40px;
-  color: #5c8a96;
-  border: 2px solid #5c8a96;
-  background-color: white;
+  color: white;
+  background-color: #5c8a96;
+  border: none;
 
   font-size: 18px;
   font-family: "Lato", sans-serif;
   font-weight: bold;
   border: 2px solid #5c8a96;
   border-radius: 8px;
+}
+
+.helpBtn:hover {
+  color: #5c8a96;
+  border: 2px solid #5c8a96;
+  background-color: white;
 }
 
 .signUpBtn {
@@ -56,9 +63,13 @@ body {
   font-weight: bold;
   margin-right: 17px;
   border-radius: 7px;
-  margin-left: 142px;
 }
 
+.signUpBtn:hover {
+  color: #5c8a96;
+  border: 2px solid #5c8a96;
+  background-color: white;
+}
 content {
   width: 1156px;
   height: 162px;
@@ -89,6 +100,7 @@ content {
   text-align: center;
   background-color: #f1f1f1;
 }
+
 /* Float four columns side by side */
 .column {
   float: left;
@@ -150,8 +162,7 @@ content {
 }
 
 .card1 {
-  width: 330px;
-  height: 144px;
+  min-height: 200px;
 
   /* White */
 
@@ -164,6 +175,7 @@ content {
 
 .card1:hover {
   box-shadow: 8px 8px 8px #2d5059;
+  height: 170px;
 }
 
 .col {
@@ -200,6 +212,10 @@ content {
   color: #575b66;
   font-family: "Lato", sans-serif;
 }
+.card1:hover h3 {
+  font-weight: bold;
+  font-size: 22px;
+}
 
 .card1 p {
   font-style: normal;
@@ -211,9 +227,14 @@ content {
   align-items: center;
   width: 202px;
   /* Grey 500 */
-  margin-left: 18px;
+
   color: #1d1f26;
   padding: 10px;
+}
+
+.card1:hover p {
+  font-size: 19px;
+  margin-right: 10px;
 }
 
 .content3 {
@@ -239,7 +260,6 @@ content {
 }
 
 .card2 {
-  width: 600px;
   height: 91px;
   left: 24px;
   top: 131px;
@@ -253,9 +273,6 @@ content {
   border-radius: 8px;
 }
 
-.card2:hover {
-  box-shadow: 5px 5px #2d5059, 10px 10px #5c8a96, 15px 15px #575b66;
-}
 .card2 label {
   text-align: center;
   font-style: normal;
@@ -278,14 +295,22 @@ content {
   font-size: 18px;
   font-family: "Lato", sans-serif;
   font-weight: bold;
-  margin-right: 17px;
-  border-radius: 7px;
-  margin-left: 142px;
+  display: block;
+  margin: auto;
   /* White */
 
   border: 2px solid #ffffff;
   box-sizing: border-box;
   border-radius: 8px;
+}
+
+.partnerBtn:hover {
+  color: #5c8a96;
+  background: white;
+
+  /* White */
+
+  border: 2px solid #5c8a96;
 }
 
 .content4 {
@@ -334,8 +359,8 @@ form input {
 }
 
 .quesForm {
-  width: 272px;
-  margin-left: 590px;
+  width: 280px;
+  margin: auto;
 }
 
 form textarea {
@@ -368,4 +393,27 @@ form textarea {
   border: 2px solid #ffffff;
   box-sizing: border-box;
   border-radius: 8px;
+}
+.sendBtn:hover {
+  width: 195x;
+  height: 40px;
+
+  background: #2d5059;
+  border: none;
+  font-size: 18px;
+  font-family: "Lato", sans-serif;
+  font-weight: bold;
+  margin-right: 17px;
+  border-radius: 8px;
+
+  /* White */
+  margin-top: 16px;
+  margin-bottom: 40px;
+  border: 2px solid #ffffff;
+  box-sizing: border-box;
+  border-radius: 8px;
+
+  color: #5c8a96;
+  border: 2px solid #5c8a96;
+  background-color: white;
 }

@@ -1,29 +1,4 @@
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-}
-
-li {
-  float: left;
-  color: white;
-
-  font-style: normal;
-  font-weight: bold;
-  font-size: 18px;
-  line-height: 22px;
-  font-family: "Lato", sans-serif;
-}
-
-li a {
-  display: block;
-  padding-right: 24px;
-  color: white;
-  margin-top: 21px;
-}
-
-li button {
+.helpBtn {
   width: 124px;
   height: 40px;
 
@@ -42,18 +17,19 @@ li button {
   margin-bottom: 21px;
 }
 
-/* .helpBtn {
-  width: 124px;
-  height: 40px;
-  color: #5c8a96;
-  border: 2px solid #5c8a96;
-  background-color: white;
-  margin-bottom: 21px;
-  font-size: 18px;
-  font-family: "Lato", sans-serif;
-  font-weight: bold;
-  border: 2px solid #5c8a96;
-  border-radius: 8px;
-  float: right;
-  padding: 0%;
-} */
+.mat-drawer-container {
+  position: inherit !important;
+}
+
+.example-icon {
+  padding: 0 14px;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+.mat-toolbar {
+  background: #2d5059;
+
+  color: #fff;
+}
