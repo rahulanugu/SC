@@ -46,7 +46,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
           furter instructions.
         </h5>
         <hr />
-        <form>
+        <form ngNativeValidate [formGroup]="Form" (ngSubmit)="onSubmit()">
           <div class="form-element">
             <label style="font-size: 14px">Email</label>
 
