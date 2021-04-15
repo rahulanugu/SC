@@ -61,8 +61,10 @@
     <div class="content2">
       <h2 style="margin-bottom: 30px">At a Glance</h2>
 
-      <div class="row">
-        <div class="col">
+      <!--<div class="row">-->
+      <mat-grid-list [cols]="breakpoint" rowHeight="220px" (window:resize)="onResize($event)">
+        <!--<div class="col">-->
+        <mat-grid-tile>
           <div class="card1">
             <img src="./assets/brain.png" style="float: left" />
             <h3>Artificial Intelligence</h3>
@@ -71,9 +73,11 @@
               outcomes using patient medical data.
             </p>
           </div>
-        </div>
+        </mat-grid-tile>
+        <!--</div>-->
         <!--Col1-->
-        <div class="col">
+        <!--<div class="col">-->
+          <mat-grid-tile>
           <div class="card1">
             <img src="./assets/stethoscope.png" style="float: left" />
             <h3>Preventive Healthcare</h3>
@@ -82,9 +86,11 @@
               and lower the risk of hear disease.
             </p>
           </div>
-        </div>
+        </mat-grid-tile>
+        <!--</div>-->
         <!--Col1-->
-        <div class="col">
+        <!--<div class="col">-->
+        <mat-grid-tile>
           <div class="card1">
             <img src="./assets/lock.png" style="float: left" />
             <h3>Data Security</h3>
@@ -93,9 +99,11 @@
               that we make data security a top priority.
             </p>
           </div>
-        </div>
+        </mat-grid-tile>
+        <!--</div>-->
         <!--Col1-->
-        <div class="col">
+        <!--<div class="col">-->
+        <mat-grid-tile>
           <div class="card1">
             <img src="./assets/dataAccuracyImg.png" style="float: left" />
             <h3>Data Accuracy</h3>
@@ -104,9 +112,11 @@
               log information easily available.
             </p>
           </div>
-        </div>
+        </mat-grid-tile>
+        <!--</div>-->
         <!--Col1-->
-      </div>
+      <!--</div>-->
+      </mat-grid-list>
       <!---Row-->
       <div style="align-items: center; margin-top: 33px; margin-bottom: 33px">
         <button type="button" class="signUpBtn">Sign Up</button>

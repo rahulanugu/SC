@@ -163,7 +163,7 @@ content {
 
 .card1 {
   min-height: 200px;
-
+  width: 95%;
   /* White */
 
   background: #ffffff;
@@ -173,10 +173,10 @@ content {
   border-radius: 8px;
 }
 
-.card1:hover {
+/*.card1:hover {
   box-shadow: 8px 8px 8px #2d5059;
   height: 170px;
-}
+}*/
 
 .col {
   float: left;
@@ -212,10 +212,10 @@ content {
   color: #575b66;
   font-family: "Lato", sans-serif;
 }
-.card1:hover h3 {
+/*.card1:hover h3 {
   font-weight: bold;
   font-size: 22px;
-}
+}*/
 
 .card1 p {
   font-style: normal;
@@ -232,10 +232,10 @@ content {
   padding: 10px;
 }
 
-.card1:hover p {
+/*.card1:hover p {
   font-size: 19px;
   margin-right: 10px;
-}
+}*/
 
 .content3 {
   height: 262px;
