@@ -1,13 +1,10 @@
-.footer {
+.footer-copyright {
   /* bottom: 0%;
     margin-top: auto; */
-  position: relative;
-  bottom: 0;
-  left: 0;
-  margin-top: auto;
+  background: #2d5059;
 }
 
-.copyright-container label {
+/* .copyright-container label {
   color: white;
   font-size: 14px;
   font-family: "Lato", sans-serif;
@@ -19,27 +16,21 @@
   line-height: 17px;
   /* identical to box height */
 
-  display: flex;
+/* display: flex;
   align-items: center;
   text-align: right;
-}
-
-body {
-  background-color: #faf6f2;
-  height: auto;
-}
-
-.subfooter {
+} */
+.container {
+  width: 100%;
   min-height: 220px;
   background: #0d1a1e;
+  font-family: "Lato", sans-serif;
 }
 
 button {
   width: 124px;
   height: 40px;
 
-  margin-right: 16px;
-  /* Teal 400 */
   color: #ffffff;
   background: #0d1a1e;
   /* White */
@@ -54,54 +45,44 @@ button {
 }
 .right-part {
   float: right;
-  color: #ffffff;
-  margin-right: 24px;
-  font-family: "Lato", sans-serif;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 18px;
-  line-height: 22px;
-  width: 30%;
 }
-th {
+h6 {
   font-style: normal;
   font-weight: bold;
   font-size: 18px;
   line-height: 22px;
   color: #ffffff;
   font-family: "Lato", sans-serif;
-  padding: 17px;
 }
 
-td {
+a {
   font-style: normal;
   font-weight: bold;
   font-size: 14px;
   line-height: 17px;
   text-decoration-line: underline;
-  padding-left: 17px;
+
   font-family: "Lato", sans-serif;
   /* White */
   margin-top: 8px;
-  padding-bottom: 8px;
-  color: #ffffff;
-}
-.left-part {
-  float: left;
-  width: 63%;
-}
 
-table {
-  margin-top: 30px;
+  color: #ffffff;
 }
 
 #support {
-  margin-top: 0px;
-  float: right;
   font-family: "Lato", sans-serif;
-  margin-right: 24px;
+
   font-style: normal;
   font-weight: bold;
   font-size: 18px;
   line-height: 22px;
+}
+
+label {
+  color: #ffffff;
+
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  font-family: "Lato", sans-serif;
 }

@@ -27,7 +27,7 @@ body {
 }
 
 .content-card {
-  height: 480px;
+  min-height: 480px;
   left: 0px;
   top: 64px;
 }
@@ -72,7 +72,7 @@ body {
 }
 content {
   width: 1156px;
-  height: 162px;
+  min-height: 1500px;
 
   align-items: center;
 }
@@ -127,6 +127,35 @@ content {
     display: block;
     margin-bottom: 20px;
   }
+  .content3 {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .heading {
+    padding-left: 20px !important;
+  }
+
+  .content p {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+  .signUpBtn {
+    margin-left: 20px !important;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .content3 {
+    font-size: 10px;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .content3 {
+    font-size: 8px;
+  }
 }
 
 .content2 {
@@ -163,7 +192,7 @@ content {
 
 .card1 {
   min-height: 200px;
-
+  width: 95%;
   /* White */
 
   background: #ffffff;
@@ -173,10 +202,10 @@ content {
   border-radius: 8px;
 }
 
-.card1:hover {
+/*.card1:hover {
   box-shadow: 8px 8px 8px #2d5059;
   height: 170px;
-}
+}*/
 
 .col {
   float: left;
@@ -212,10 +241,10 @@ content {
   color: #575b66;
   font-family: "Lato", sans-serif;
 }
-.card1:hover h3 {
+/*.card1:hover h3 {
   font-weight: bold;
   font-size: 22px;
-}
+}*/
 
 .card1 p {
   font-style: normal;
@@ -232,10 +261,10 @@ content {
   padding: 10px;
 }
 
-.card1:hover p {
+/*.card1:hover p {
   font-size: 19px;
   margin-right: 10px;
-}
+}*/
 
 .content3 {
   height: 262px;
@@ -314,7 +343,7 @@ content {
 }
 
 .content4 {
-  height: 577px;
+  min-height: 300px;
   left: 0px;
   top: 1538px;
 

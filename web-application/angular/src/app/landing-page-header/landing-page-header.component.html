@@ -10,7 +10,7 @@
         <mat-icon>menu</mat-icon>
       </button>
       <span
-        ><a href="home"><img src="./assets/logo6.png" style="height: 64px" /></a
+        ><a href="home"><img src="./assets/logo6.png" style="height: 56px" /></a
       ></span>
       <span class="example-spacer"></span>
       <div fxShow="true" fxHide.lt-md="true">
@@ -30,11 +30,10 @@
         <!-- #enddocregion mat-menu-trigger-for -->
         <mat-menu #menu1="matMenu">
           <a href="Partnerships" mat-menu-item>Our Partners</a>
-          <a href="#" mat-menu-item>Become a Partner</a>
+          <a href="javascript:void(0)" mat-menu-item>Become a Partner</a>
         </mat-menu>
         <a href="healthcare/login" mat-button> Providers </a>
-        <a href="#" mat-button> Patients </a>
-
+        <a href="javascript:void(0)" mat-button> Patients </a>
 
         <!-- #docregion mat-menu-trigger-for -->
         <button mat-button [matMenuTriggerFor]="menu2">Support</button>
