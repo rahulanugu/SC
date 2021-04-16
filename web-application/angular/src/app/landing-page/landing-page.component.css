@@ -131,7 +131,9 @@ content {
     font-size: 12px;
   }
 }
-
+.buttons{
+  display: inline;
+}
 @media screen and (max-width: 500px) {
   .heading {
     padding-left: 20px !important;
