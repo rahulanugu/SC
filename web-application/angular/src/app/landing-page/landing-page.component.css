@@ -144,6 +144,10 @@ content {
   .signUpBtn {
     margin-left: 20px !important;
   }
+  .helpBtn, .signUpBtn {
+    font-size: 14px !important;
+    width:90px !important;
+  }
 }
 
 @media screen and (max-width: 430px) {
