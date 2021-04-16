@@ -27,7 +27,7 @@ body {
 }
 
 .content-card {
-  height: 480px;
+  min-height: 480px;
   left: 0px;
   top: 64px;
 }
@@ -72,7 +72,7 @@ body {
 }
 content {
   width: 1156px;
-  height: 162px;
+  min-height: 1500px;
 
   align-items: center;
 }
@@ -314,7 +314,7 @@ content {
 }
 
 .content4 {
-  height: 577px;
+  min-height: 300px;
   left: 0px;
   top: 1538px;
 

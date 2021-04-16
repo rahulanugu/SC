@@ -35,7 +35,7 @@
   <body>
     <app-landing-page-header></app-landing-page-header>
     <div
-      class="content-card"
+      class="content-card pb-5"
       style="
         background-image: url(./assets/7T9364v.gif);
         background-repeat: no-repeat;
@@ -62,7 +62,11 @@
       <h2 style="margin-bottom: 30px">At a Glance</h2>
 
       <!--<div class="row">-->
-      <mat-grid-list [cols]="breakpoint" rowHeight="220px" (window:resize)="onResize($event)">
+      <mat-grid-list
+        [cols]="breakpoint"
+        rowHeight="220px"
+        (window:resize)="onResize($event)"
+      >
         <!--<div class="col">-->
         <mat-grid-tile>
           <div class="card1">
@@ -77,7 +81,7 @@
         <!--</div>-->
         <!--Col1-->
         <!--<div class="col">-->
-          <mat-grid-tile>
+        <mat-grid-tile>
           <div class="card1">
             <img src="./assets/stethoscope.png" style="float: left" />
             <h3>Preventive Healthcare</h3>
@@ -115,7 +119,7 @@
         </mat-grid-tile>
         <!--</div>-->
         <!--Col1-->
-      <!--</div>-->
+        <!--</div>-->
       </mat-grid-list>
       <!---Row-->
       <div style="align-items: center; margin-top: 33px; margin-bottom: 33px">
@@ -155,24 +159,37 @@
         Scriptchain partners with the most innovative leaders in the market to
         help achieve better healthcare for all.
       </span>
-      <div class="row">
-        <div class="col">
+      <mat-grid-list
+        [cols]="breakpoint"
+        rowHeight="220px"
+        (window:resize)="onResize($event)"
+      >
+        <!--<div class="col">-->
+        <mat-grid-tile>
           <div class="card1"></div>
-        </div>
+        </mat-grid-tile>
+        <!--</div>-->
         <!--Col1-->
-        <div class="col">
+        <!--<div class="col">-->
+        <mat-grid-tile>
           <div class="card1"></div>
-        </div>
+        </mat-grid-tile>
+        <!--</div>-->
         <!--Col1-->
-        <div class="col">
+        <!--<div class="col">-->
+        <mat-grid-tile>
           <div class="card1"></div>
-        </div>
+        </mat-grid-tile>
+        <!--</div>-->
         <!--Col1-->
-        <div class="col">
+        <!--<div class="col">-->
+        <mat-grid-tile>
           <div class="card1"></div>
-        </div>
+        </mat-grid-tile>
+        <!--</div>-->
         <!--Col1-->
-      </div>
+        <!--</div>-->
+      </mat-grid-list>
       <!---Row-->
       <div style="align-items: center; margin-top: 33px; margin-bottom: 33px">
         <button type="button" class="partnerBtn">Become a Partner</button>
