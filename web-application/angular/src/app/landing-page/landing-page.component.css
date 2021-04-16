@@ -127,6 +127,35 @@ content {
     display: block;
     margin-bottom: 20px;
   }
+  .content3 {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .heading {
+    padding-left: 20px !important;
+  }
+
+  .content p {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+  .signUpBtn {
+    margin-left: 20px !important;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .content3 {
+    font-size: 10px;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .content3 {
+    font-size: 8px;
+  }
 }
 
 .content2 {
