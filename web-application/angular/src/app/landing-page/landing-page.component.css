@@ -147,6 +147,7 @@ content {
   .helpBtn, .signUpBtn {
     font-size: 14px !important;
     width:90px !important;
+    font-weight: normal !important;
   }
 }
 
