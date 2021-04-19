@@ -134,17 +134,108 @@
         <div class="col">
           <div class="item">
             <label>What physicians are saying</label>
-            <div class="card2"></div>
+
+            <mat-carousel
+              timings="250ms ease-in"
+              [autoplay]="true"
+              interval="2000"
+              color="primary"
+              maxWidth=""
+              proportion="20"
+              slides="2"
+              [loop]="true"
+              [hideArrows]="true"
+              [hideIndicators]="true"
+              [useKeyboard]="true"
+              [useMouseWheel]="false"
+              orientation="ltr"
+            >
+              <mat-carousel-slide overlayColor="none">
+                <div class="card2">
+                  <blockquote class>
+                    "AI is something that makes sense out of chaos. It connects
+                    the dots."
+                  </blockquote>
+                  <figcaption>
+                    &mdash;<cite
+                      >Dr. Beahrs retired Cardiologist at HealthEast Saint
+                      Josephs Hospital</cite
+                    >
+                  </figcaption>
+                </div>
+              </mat-carousel-slide>
+              <mat-carousel-slide overlayColor="none">
+                <div class="card2">
+                  <blockquote>
+                    "If we had a tool to help point out high risk patient so we
+                    can intervene and prevent illnesses, that would be very
+                    beneficial for everyone involved."
+                  </blockquote>
+                  <figcaption>
+                    &mdash;<cite
+                      >Dr. Mody Professor of Medicine, David Geffen School of
+                      Medicine at UCLA.</cite
+                    >
+                  </figcaption>
+                </div>
+              </mat-carousel-slide>
+            </mat-carousel>
           </div>
         </div>
         <div class="col">
           <div class="item">
             <label>What healthcare workers are saying</label>
-            <div class="card2"></div>
+
+            <mat-carousel
+              timings="250ms ease-in"
+              [autoplay]="true"
+              interval="2000"
+              color=""
+              maxWidth=""
+              proportion="20"
+              slides="2"
+              [loop]="true"
+              [hideArrows]="true"
+              [hideIndicators]="true"
+              [useKeyboard]="true"
+              [useMouseWheel]="false"
+              orientation="rtl"
+              maintainAspectRatio="false"
+            >
+              <mat-carousel-slide overlayColor="none">
+                <div class="card2">
+                  <blockquote>
+                    "Medicine in the US is pretty reactive and not preventative
+                    which is a problem."
+                  </blockquote>
+                  <figcaption>
+                    &mdash;<cite>
+                      Nicole Lincoln Head of Nursing Innovation.</cite
+                    >
+                  </figcaption>
+                </div>
+              </mat-carousel-slide>
+              <mat-carousel-slide overlayColor="none">
+                <div class="card2">
+                  <blockquote>
+                    "If we had a tool to help point out high risk patient so we
+                    can intervene and prevent illnesses, that would be very
+                    beneficial for everyone involved."
+                  </blockquote>
+                  <figcaption>
+                    &mdash;<cite
+                      >Dr. Mody Professor of Medicine, David Geffen School of
+                      Medicine at UCLA.</cite
+                    >
+                  </figcaption>
+                </div>
+              </mat-carousel-slide>
+            </mat-carousel>
           </div>
         </div>
       </div>
     </div>
+
     <div class="content2">
       <h2>Partnerships</h2>
 

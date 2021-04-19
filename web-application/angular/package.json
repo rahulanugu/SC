@@ -25,6 +25,7 @@
     "@angular/router": "~8.2.14",
     "@fortawesome/fontawesome-svg-core": "^1.2.34",
     "@fortawesome/free-brands-svg-icons": "^5.15.2",
+    "@ngmodule/material-carousel": "^0.6.0",
     "@types/jquery": "^3.3.34",
     "angular-google-charts": "^1.1.6",
     "angular2-text-mask": "^9.0.0",

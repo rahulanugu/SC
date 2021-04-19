@@ -289,7 +289,7 @@ content {
 }
 
 .card2 {
-  height: 91px;
+  height: 110px;
   left: 24px;
   top: 131px;
 
@@ -445,4 +445,24 @@ form textarea {
   color: #5c8a96;
   border: 2px solid #5c8a96;
   background-color: white;
+}
+
+blockquote {
+  padding-bottom: 0px;
+  padding: 10px;
+  font-family: "Lato", sans-serif;
+  margin-bottom: 0px;
+}
+
+figcaption {
+  padding-top: 0px;
+  padding: 10px;
+  padding-bottom: 0px;
+  float: right;
+}
+
+cite {
+  padding-top: 0px;
+  padding-left: 10px;
+  font-family: "Lato", sans-serif;
 }

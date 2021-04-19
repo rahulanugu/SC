@@ -59,6 +59,7 @@ import { LandingCareersComponent } from "./landing-careers/landing-careers.compo
 import { LandingFaq1Component } from "./landing-faq1/landing-faq1.component";
 import { LandingFaq2Component } from "./landing-faq2/landing-faq2.component";
 import { BlogComponent } from "./blog/blog.component";
+import { BecomeapartnerComponent } from "./becomeapartner/becomeapartner.component";
 const routes: Routes = [
   /* pages for the app */
   { path: "patientlogin", component: PatientComponent },
@@ -207,6 +208,10 @@ const routes: Routes = [
   {
     path: "blog",
     component: BlogComponent,
+  },
+  {
+    path: "becomeapartner",
+    component: BecomeapartnerComponent,
   },
 ];
 

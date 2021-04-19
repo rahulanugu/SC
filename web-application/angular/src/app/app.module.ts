@@ -96,13 +96,14 @@ import { LandingFaq2Component } from "./landing-faq2/landing-faq2.component";
 import { BlogComponent } from "./blog/blog.component";
 import { NgxMaskModule, IConfig } from "ngx-mask";
 import { MatToolbarModule } from "@angular/material/toolbar";
-
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { FlexLayoutModule } from "@angular/flex-layout";
-
+import { MatCarouselModule } from "@ngmodule/material-carousel";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatButtonModule } from "@angular/material";
 import { MatExpansionModule } from "@angular/material/expansion";
-
+import { BecomeapartnerComponent } from "./becomeapartner/becomeapartner.component";
+import { MatCardModule } from "@angular/material/card";
 @NgModule({
   declarations: [
     AppComponent,
@@ -172,6 +173,7 @@ import { MatExpansionModule } from "@angular/material/expansion";
     LandingFaq1Component,
     LandingFaq2Component,
     BlogComponent,
+    BecomeapartnerComponent,
   ],
 
   imports: [
@@ -204,6 +206,8 @@ import { MatExpansionModule } from "@angular/material/expansion";
     FlexLayoutModule,
     MatMenuModule,
     MatExpansionModule,
+    MatCarouselModule.forRoot(),
+    MatCardModule,
   ],
   providers: [
     DbService,
