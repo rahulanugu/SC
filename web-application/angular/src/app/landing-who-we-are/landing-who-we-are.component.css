@@ -64,7 +64,7 @@ body {
   line-height: 29px;
   /* identical to box height */
 
-  display: flex;
+  display: block;
   align-items: center;
 
   /* Grey 500 */
@@ -99,7 +99,7 @@ body {
   line-height: 22px;
   /* identical to box height */
 
-  display: flex;
+  display: block;
   align-items: center;
 
   /* Grey 500 */
@@ -116,7 +116,7 @@ body {
   line-height: 17px;
   /* identical to box height */
   margin-top: 8px;
-  display: flex;
+  display: block;
   align-items: center;
   margin-bottom: 30px;
   /* Grey 500 */
@@ -290,4 +290,8 @@ body {
   /* White */
   margin-bottom: 10px;
   margin-top: 8px;
+}
+
+.row1 {
+  display: inline-flex !important;
 }
