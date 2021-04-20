@@ -131,7 +131,7 @@ content {
     font-size: 12px;
   }
 }
-.buttons{
+.buttons {
   display: inline;
 }
 @media screen and (max-width: 500px) {
@@ -146,9 +146,10 @@ content {
   .signUpBtn {
     margin-left: 20px !important;
   }
-  .helpBtn, .signUpBtn {
+  .helpBtn,
+  .signUpBtn {
     font-size: 14px !important;
-    width:120px !important;
+    width: 120px !important;
     font-weight: normal !important;
   }
 }
@@ -174,12 +175,12 @@ content {
     font-size: 8px;
   }
   .content3 blockquote {
-    font-size: 10px !important;
+    font-size: 1.2em !important;
     padding: 10px;
     margin: 0px;
   }
   .content3 cite {
-    font-size: 10px !important;
+    font-size: 0.9em !important;
     padding: 0px;
     margin: 0px;
   }
@@ -340,6 +341,7 @@ content {
 }
 .item label {
   color: #ffffff;
+  font-size: 0.9em;
 }
 
 .partnerBtn {
@@ -476,22 +478,21 @@ form textarea {
 
 blockquote {
   padding-bottom: 0px;
-  padding: 20px;
+  padding: 1em;
+
   font-family: "Lato", sans-serif;
   margin-bottom: 0px;
-  font-size: 20px;
+  font-size: 1em;
 }
 
 figcaption {
-  padding-top: 0px;
-  padding: 10px;
-  padding-bottom: 0px;
+  padding: 0.5em;
   float: right;
 }
 
 cite {
   padding-top: 0px;
-  padding-left: 10px;
+
   font-family: "Lato", sans-serif;
-  font-size: 18px;
+  font-size: 0.9em;
 }
