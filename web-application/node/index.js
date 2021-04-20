@@ -25,6 +25,7 @@ var deactivateController = require("./controllers/deactivateController");
 var reactivateController = require("./controllers/reactivateController");
 var editPatientController = require("./controllers/editPatientController")
 var cacheController = require("./controllers/cacheController")
+var partnersController = require("./controllers/partnersController")
 var app = express();
 
 // configure express middleware to send date to nodejs project
@@ -131,6 +132,7 @@ app.use("/backend/deactivate", deactivateController )
 app.use("/backend/reactivate", reactivateController )
 app.use("/backend/editpatient" , editPatientController)
 app.use("/cache_service" , cacheController)
+app.use("/partners" , partnersController)
 
 //Uncomment out the below code in production mode and local mode.
 app.get("*", (req, res) => {

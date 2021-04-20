@@ -38,20 +38,24 @@ body {
 }
 
 .teamDiv {
-  height: 1340px;
+  height: 100%;
   left: 0px;
   top: 910px;
 
   /* Teal 400 */
-
+  padding: 1em;
   background: #2d5059;
 }
 
 .ceoIntro {
-  margin-left: 646px;
   margin-top: 40px;
+  margin-left: 1.3em;
 }
 
+.ceoAlign {
+  text-align: center;
+  display: block;
+}
 .ceoIntro h3,
 .advisorDiv h3 {
   font-style: normal;
@@ -60,8 +64,20 @@ body {
   line-height: 29px;
   /* identical to box height */
 
-  display: flex;
+  display: block;
   align-items: center;
+
+  /* Grey 500 */
+
+  color: #1d1f26;
+}
+
+.advisorDiv h4 {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 29px;
+  /* identical to box height */
 
   /* Grey 500 */
 
@@ -83,7 +99,7 @@ body {
   line-height: 22px;
   /* identical to box height */
 
-  display: flex;
+  display: block;
   align-items: center;
 
   /* Grey 500 */
@@ -100,7 +116,7 @@ body {
   line-height: 17px;
   /* identical to box height */
   margin-top: 8px;
-  display: flex;
+  display: block;
   align-items: center;
   margin-bottom: 30px;
   /* Grey 500 */
@@ -274,4 +290,8 @@ body {
   /* White */
   margin-bottom: 10px;
   margin-top: 8px;
+}
+
+.row1 {
+  display: inline-flex !important;
 }
