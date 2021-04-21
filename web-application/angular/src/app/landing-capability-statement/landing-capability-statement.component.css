@@ -28,6 +28,7 @@ html,
 body {
   margin: 0px;
   padding: 0px;
+  overflow-x: hidden;
 }
 
 #logo {
@@ -35,7 +36,9 @@ body {
   height: 252px;
   left: 496px;
   top: 183px;
-  margin-left: 496px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
   margin-bottom: 40px;
   border-radius: 8px;
 }
@@ -51,32 +54,33 @@ body {
 .content2 h3 {
   font-style: normal;
   font-weight: bold;
-  font-size: 24px;
+  font-size: 1.4em;
   line-height: 29px;
   color: #ffffff;
-  margin-left: 260px;
+  margin-left: 15%;
+  margin-right: 15%;
   padding-top: 40px;
 }
 
 .content2 p {
   font-style: normal;
   font-weight: normal;
-  font-size: 14px;
-  line-height: 17px;
+  font-size: 1em;
+  margin-right: 15%;
   display: flex;
   align-items: center;
-  margin-left: 260px;
+  margin-left: 15%;
   /* White */
-  width: 920px;
+
   color: #ffffff;
 }
 
 .content2 ul {
   font-style: normal;
   font-weight: normal;
-  font-size: 14px;
-
-  margin-left: 260px;
+  font-size: 1em;
+  margin-right: 15%;
+  margin-left: 15%;
   /* White */
   margin-top: 0px;
   color: #ffffff;
@@ -86,52 +90,51 @@ body {
 .contentwhite h3 {
   font-style: normal;
   font-weight: bold;
-  font-size: 24px;
+  font-size: 1.4em;
   line-height: 29px;
   /* identical to box height */
-
+  margin-right: 15%;
   display: flex;
   align-items: center;
   margin-top: 37px;
   /* Grey 500 */
-  margin-left: 260px;
+  margin-left: 15%;
   /* White */
-  width: 920px;
+
   color: #1d1f26;
 }
 
 .contentwhite p {
   font-style: normal;
   font-weight: normal;
-  font-size: 14px;
+  font-size: 1em;
   line-height: 17px;
   display: flex;
   align-items: center;
-
+  margin-right: 15%;
   /* Grey 500 */
 
   color: #1d1f26;
 
-  margin-left: 260px;
-
-  width: 920px;
+  margin-left: 15%;
 }
 .contentwhite ul {
   font-style: normal;
   font-weight: normal;
-  font-size: 14px;
+  font-size: 1em;
 
   /* Grey 500 */
-
+  margin-right: 15%;
   color: #1d1f26;
-  margin-left: 260px;
+  margin-left: 15%;
   /* White */
   margin-top: 0px;
   margin-bottom: 40px;
 }
 
 table {
-  margin-left: 260px;
+  margin-right: 15%;
+  margin-left: 15%;
   color: #ffffff;
   font-style: normal;
   font-weight: bold;
