@@ -198,7 +198,7 @@ const routes: Routes = [
     component: LandingCareersComponent,
   },
   {
-    path: "faq1",
+    path: "faq",
     component: LandingFaq1Component,
   },
   {
