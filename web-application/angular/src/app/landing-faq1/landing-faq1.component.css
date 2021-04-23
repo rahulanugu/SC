@@ -22,14 +22,17 @@ html,
 body {
   margin: 0px;
   padding: 0px;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
   border-radius: 5px;
-  width: 684px;
+  width: 50%;
   height: auto;
   margin: 0 auto;
+
   float: none;
   margin-bottom: 10px;
   font-family: "Lato", sans-serif;
@@ -47,12 +50,12 @@ body {
   margin-top: 17px;
   font-style: normal;
   font-weight: bold;
-  font-size: 24px;
+  font-size: 1.3em;
   line-height: 29px;
   /* identical to box height */
-  margin-left: 16px;
+  margin-left: 5%;
   /* Grey 500 */
-
+  margin-right: 5%;
   color: #1d1f26;
 }
 
@@ -68,14 +71,15 @@ hr {
 
 .card-container p,
 .card-container h5 {
-  margin-left: 16px;
-  margin-right: 16px;
+  margin-left: 5%;
+
+  margin-right: 5%;
 }
 
 .card-container h5 {
   font-style: normal;
   font-weight: normal;
-  font-size: 18px;
+  font-size: 1.2em;
   line-height: 22px;
   /* identical to box height */
   margin-top: 17px;
@@ -87,7 +91,15 @@ hr {
   color: #575b66;
 }
 
-.card:hover {
-  width: 720px;
-  box-shadow: 8px 8px 8px #2d5059;
+@media screen and (max-width: 800px) {
+  .card {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 1300px) and (min-width: 900px) {
+  .card {
+    width: 60%;
+    align-content: center;
+  }
 }
