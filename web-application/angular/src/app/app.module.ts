@@ -104,6 +104,7 @@ import { MatButtonModule } from "@angular/material";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { BecomeapartnerComponent } from "./becomeapartner/becomeapartner.component";
 import { MatCardModule } from "@angular/material/card";
+import { ThankyoupartnerComponent } from './thankyoupartner/thankyoupartner.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -174,6 +175,7 @@ import { MatCardModule } from "@angular/material/card";
     LandingFaq2Component,
     BlogComponent,
     BecomeapartnerComponent,
+    ThankyoupartnerComponent,
   ],
 
   imports: [
