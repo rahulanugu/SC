@@ -7,23 +7,27 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 <!DOCTYPE html>
 <html lang="zxx">
-<body>
-  <app-common-header></app-common-header>
-  
-  <!-- Careers starts here-->
+  <body>
+    <app-common-header></app-common-header>
 
-  <app-job-categories></app-job-categories>
+    <!-- Careers starts here-->
 
-      <app-footer id="footer"></app-footer>
+    <app-job-categories></app-job-categories>
 
-      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148334798-1"></script>
-      <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-      
-        gtag('config', 'UA-148334798-1');
-      </script>
-</body>
+    <app-footer id="footer"></app-footer>
 
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-148334798-1"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "UA-148334798-1");
+    </script>
+  </body>
 </html>
