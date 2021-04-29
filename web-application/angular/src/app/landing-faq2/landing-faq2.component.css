@@ -22,6 +22,7 @@ html,
 body {
   margin: 0px;
   padding: 0px;
+  overflow-x: hidden;
 }
 
 .content1 p {
@@ -73,7 +74,7 @@ form input {
 
 .quesForm {
   width: 272px;
-  margin-left: 590px;
+  margin: auto;
 }
 
 form textarea {
@@ -102,8 +103,20 @@ form textarea {
 
   /* White */
   margin-top: 16px;
-  margin-bottom: 493px;
+  margin-bottom: 200px;
   border: 2px solid #ffffff;
   box-sizing: border-box;
   border-radius: 8px;
 }
+
+/* @media screen and (max-width: 1300px) and (min-width: 900px) {
+  .quesForm {
+    margin-left: 40%;
+  }
+}
+
+@media screen and (max-width: 600px) and (min-width: 200px) {
+  .quesForm {
+    margin-left: 1.5em;
+  }
+} */
