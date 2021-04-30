@@ -28,10 +28,10 @@ body {
   transition: 0.3s;
   border-radius: 5px;
   width: 592px;
-  height: 1142px;
+  height: auto;
   margin: 0 auto;
   float: none;
-  margin-bottom: 10px;
+  margin-bottom: 40px;
   font-family: "Lato", sans-serif;
   background-color: white;
 
@@ -203,4 +203,10 @@ hr {
 
 .btn img {
   margin-bottom: 4px;
+}
+
+@media screen and (max-width: 550px) {
+  .card {
+    width: 100% !important;
+  }
 }
