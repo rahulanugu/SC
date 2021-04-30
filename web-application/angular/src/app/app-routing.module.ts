@@ -60,6 +60,7 @@ import { LandingFaq1Component } from "./landing-faq1/landing-faq1.component";
 import { LandingFaq2Component } from "./landing-faq2/landing-faq2.component";
 import { BlogComponent } from "./blog/blog.component";
 import { BecomeapartnerComponent } from "./becomeapartner/becomeapartner.component";
+import { ThankyoupartnerComponent } from "./thankyoupartner/thankyoupartner.component";
 const routes: Routes = [
   /* pages for the app */
   { path: "patientlogin", component: PatientComponent },
@@ -212,6 +213,10 @@ const routes: Routes = [
   {
     path: "becomeapartner",
     component: BecomeapartnerComponent,
+  },
+  {
+    path: "thankyoupartner",
+    component: ThankyoupartnerComponent,
   },
 ];
 
