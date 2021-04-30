@@ -28,3 +28,9 @@ body {
   background-color: #faf6f2;
   height: auto;
 }
+
+@media screen and (max-width: 550px) {
+  .footer {
+    position: relative !important;
+  }
+}
