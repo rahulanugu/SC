@@ -1,7 +1,7 @@
 .footer {
   /* bottom: 0%;
   margin-top: auto; */
-  position: relative;
+  position: absolute;
   bottom: 0;
   left: 0;
   margin-top: auto;
