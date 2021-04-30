@@ -40,7 +40,6 @@ import { AthenaLoginComponent } from "./athenalogin/athenalogin.component";
 import { HealthcareConfirmationComponent } from "./healthcare-confirmation/healthcare-confirmation.component";
 import { HealthcareVerificationComponent } from "./healthcare-verification/healthcare-verification.component";
 import { HealthcareDialogContent } from "./healthcare-dialog-content/healthcare-dialog-content.component";
-
 import { HealthcareAccountSettingsComponent } from "./healthcare-account-settings/healthcare-account-settings.component";
 import { HealthcarePatientPortalComponent } from "./healthcare-patient-portal/healthcare-patient-portal.component";
 import { HealthcareHeaderComponent } from "./healthcare-header/healthcare-header.component";

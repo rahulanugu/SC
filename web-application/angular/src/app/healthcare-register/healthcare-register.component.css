@@ -28,7 +28,7 @@ body {
   transition: 0.3s;
   border-radius: 5px;
   width: 592px;
-  height: auto;
+  height: 1200px !important;
   margin: 0 auto;
   float: none;
   margin-bottom: 40px;

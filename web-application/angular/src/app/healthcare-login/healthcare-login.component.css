@@ -100,6 +100,9 @@ a:link {
   background-color: white;
 }
 
+.footer{
+  bottom:-10px!important;
+}
 @media screen and (max-width: 550px) {
   .card,
   .form-element input,
