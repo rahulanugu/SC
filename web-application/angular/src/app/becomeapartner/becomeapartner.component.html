@@ -1,13 +1,21 @@
+<app-landing-page-header></app-landing-page-header>
 <div>
-  <app-landing-page-header></app-landing-page-header>
   <div style="background-color: #faf6f2">
     <h3 id="loginHeading">Become a Partner</h3>
 
     <div class="quesForm">
-      <form>
+      <form ngNativeValidate [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <label>First Name*</label>
         <br />
-        <input type="text" required />
+        <input
+          type="text"
+          required
+          [class.is-invalid]="
+            Form.get('firstName').invalid && Form.get('firstName').touched
+          "
+          formControlName="firstName"
+          class="form-control"
+        />
         <br />
         <label>Last Name*</label>
         <br />
@@ -15,7 +23,7 @@
         <br />
         <label>Email*</label>
         <br />
-        <input type="text" required /> <br />
+        <input type="email" ngModel email="true" required /> <br />
         <label>Phone Number*</label>
         <br />
         <input
@@ -25,9 +33,9 @@
           required
         />
         <br />
-        <label>Job Title*</label>
+        <label>Job Title</label>
         <br />
-        <input type="text" required />
+        <input type="text" />
         <br />
         <label>Company Name*</label>
         <br />
