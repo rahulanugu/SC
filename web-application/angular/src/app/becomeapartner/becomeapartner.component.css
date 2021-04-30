@@ -96,6 +96,8 @@ form select {
 }
 
 .quesForm {
+  margin: auto;
+  margin-top: 40px;
   padding-left: 40%;
   padding-right: 35%;
 }

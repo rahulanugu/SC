@@ -5,28 +5,33 @@
 
     <div class="quesForm">
       <form>
-        <label>First Name</label>
+        <label>First Name*</label>
         <br />
-        <input type="text" />
+        <input type="text" required />
         <br />
-        <label>Last Name</label>
+        <label>Last Name*</label>
         <br />
-        <input type="text" />
+        <input type="text" required />
         <br />
-        <label>Email</label>
+        <label>Email*</label>
         <br />
-        <input type="text" /> <br />
-        <label>Phone Number</label>
+        <input type="text" required /> <br />
+        <label>Phone Number*</label>
         <br />
-        <input type="text" placeholder="(000)-000-0000" mask="(000)-000-0000" />
+        <input
+          type="text"
+          placeholder="(000)-000-0000"
+          mask="(000)-000-0000"
+          required
+        />
         <br />
-        <label>Job Title</label>
+        <label>Job Title*</label>
         <br />
-        <input type="text" />
+        <input type="text" required />
         <br />
-        <label>Company Name</label>
+        <label>Company Name*</label>
         <br />
-        <input type="text" />
+        <input type="text" required />
         <br />
         <label>Company Vertical</label>
         <br />
@@ -67,9 +72,9 @@
             <input type="text" placeholder="Country" />
           </div>
         </div>
-        <label>Message</label>
+        <label>Message*</label>
         <br />
-        <textarea></textarea><br />
+        <textarea required></textarea><br />
 
         <button
           type="button"

@@ -26,7 +26,6 @@ export class LandingPageSubfooterComponent implements OnInit {
       var el: HTMLElement = document.getElementById("contactId");
       el.classList.add("col-sm-12");
       el.classList.remove("col-sm-5");
-      console.log("Srikar");
     }
 
     if (event.target.innerWidth >= 1000) {
