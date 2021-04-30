@@ -199,7 +199,7 @@ const routes: Routes = [
     component: LandingCareersComponent,
   },
   {
-    path: "faq1",
+    path: "faq",
     component: LandingFaq1Component,
   },
   {
@@ -222,7 +222,11 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [HealthcareDialogContent],
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes, {
+      scrollPositionRestoration: "top",
+    }),
+  ],
   exports: [RouterModule],
   entryComponents: [HealthcareDialogContent],
 })
