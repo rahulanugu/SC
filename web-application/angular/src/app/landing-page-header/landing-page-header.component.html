@@ -32,8 +32,8 @@
           <a hhref="javascript:void(0)" mat-menu-item>Our Partners</a>
           <a href="javascript:void(0)" mat-menu-item>Become a Partner</a>
         </mat-menu>
-        <a href="healthcare/login" mat-button> Providers </a>
-        <a href="javascript:void(0)" mat-button> Patients </a>
+        <a href="healthcare/login" class='menu' mat-button> Providers </a>
+        <a href="javascript:void(0)" class='menu' mat-button> Patients </a>
 
         <!-- #docregion mat-menu-trigger-for -->
         <button mat-button [matMenuTriggerFor]="menu2">Support</button>
@@ -42,7 +42,7 @@
           <a href="javascript:void(0)" mat-menu-item>Request Access</a>
           <a href="faq" mat-menu-item>FAQs</a>
         </mat-menu>
-        <a href="contactus" mat-button> Contact Us </a>
+        <a href="contactus" class='menu' mat-button> Contact Us </a>
         <button class="helpBtn" mat-raised-button onclick = "window.location.href='healthcare/login'">Login</button>
       </div>
     </mat-toolbar-row>
