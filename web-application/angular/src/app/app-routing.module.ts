@@ -61,6 +61,7 @@ import { LandingFaq2Component } from "./landing-faq2/landing-faq2.component";
 import { BlogComponent } from "./blog/blog.component";
 import { BecomeapartnerComponent } from "./becomeapartner/becomeapartner.component";
 import { ThankyoupartnerComponent } from "./thankyoupartner/thankyoupartner.component";
+import { PatientSignupComponent } from "./patient-signup/patient-signup.component";
 const routes: Routes = [
   /* pages for the app */
   { path: "patientlogin", component: PatientComponent },
@@ -217,6 +218,10 @@ const routes: Routes = [
   {
     path: "thankyoupartner",
     component: ThankyoupartnerComponent,
+  },
+  {
+    path: "patient/signup",
+    component: PatientSignupComponent,
   },
 ];
 
