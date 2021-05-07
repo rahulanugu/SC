@@ -107,6 +107,13 @@ import { MatCardModule } from "@angular/material/card";
 import { ThankyoupartnerComponent } from './thankyoupartner/thankyoupartner.component';
 import { PatientSignupComponent } from './patient-signup/patient-signup.component';
 import { PatientLoginProfileComponent } from './patient-login-profile/patient-login-profile.component';
+import { PatientCaregiverComponent } from './patient-caregiver/patient-caregiver.component';
+import { DoctorProfileComponent } from './doctor-profile/doctor-profile.component';
+import { RiskAnalysisComponent } from './risk-analysis/risk-analysis.component';
+import { RiskAnalysisInfoComponent } from './risk-analysis-info/risk-analysis-info.component';
+import { PrescriptionsComponent } from './prescriptions/prescriptions.component';
+import { MedicationComponent } from './medication/medication.component';
+import { ConditionsComponent } from './conditions/conditions.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -180,6 +187,13 @@ import { PatientLoginProfileComponent } from './patient-login-profile/patient-lo
     ThankyoupartnerComponent,
     PatientSignupComponent,
     PatientLoginProfileComponent,
+    PatientCaregiverComponent,
+    DoctorProfileComponent,
+    RiskAnalysisComponent,
+    RiskAnalysisInfoComponent,
+    PrescriptionsComponent,
+    MedicationComponent,
+    ConditionsComponent,
   ],
 
   imports: [

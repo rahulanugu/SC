@@ -63,6 +63,12 @@ import { BecomeapartnerComponent } from "./becomeapartner/becomeapartner.compone
 import { ThankyoupartnerComponent } from "./thankyoupartner/thankyoupartner.component";
 import { PatientSignupComponent } from "./patient-signup/patient-signup.component";
 import { PatientLoginProfileComponent } from "./patient-login-profile/patient-login-profile.component";
+import { PatientCaregiverComponent } from "./patient-caregiver/patient-caregiver.component";
+import { DoctorProfileComponent } from "./doctor-profile/doctor-profile.component";
+import { RiskAnalysisComponent } from "./risk-analysis/risk-analysis.component";
+import { RiskAnalysisInfoComponent } from "./risk-analysis-info/risk-analysis-info.component";
+import { PrescriptionsComponent } from "./prescriptions/prescriptions.component";
+import { MedicationComponent } from "./medication/medication.component";
 const routes: Routes = [
   /* pages for the app */
   { path: "patientlogin", component: PatientComponent },
@@ -227,6 +233,30 @@ const routes: Routes = [
   {
     path: "patient/profile",
     component: PatientLoginProfileComponent,
+  },
+  {
+    path: "patient/caregiverprofile",
+    component: PatientCaregiverComponent,
+  },
+  {
+    path: "patient/doctorinfo",
+    component: DoctorProfileComponent,
+  },
+  {
+    path: "patient/riskanalysis",
+    component: RiskAnalysisComponent,
+  },
+  {
+    path: "patient/riskanalysisinfo",
+    component: RiskAnalysisInfoComponent,
+  },
+  {
+    path: "patient/prescriptions",
+    component: PrescriptionsComponent,
+  },
+  {
+    path: "patient/medication",
+    component: MedicationComponent,
   },
 ];
 
