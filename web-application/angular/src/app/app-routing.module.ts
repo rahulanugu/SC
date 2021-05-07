@@ -62,6 +62,7 @@ import { BlogComponent } from "./blog/blog.component";
 import { BecomeapartnerComponent } from "./becomeapartner/becomeapartner.component";
 import { ThankyoupartnerComponent } from "./thankyoupartner/thankyoupartner.component";
 import { PatientSignupComponent } from "./patient-signup/patient-signup.component";
+import { PatientLoginProfileComponent } from "./patient-login-profile/patient-login-profile.component";
 const routes: Routes = [
   /* pages for the app */
   { path: "patientlogin", component: PatientComponent },
@@ -222,6 +223,10 @@ const routes: Routes = [
   {
     path: "patient/signup",
     component: PatientSignupComponent,
+  },
+  {
+    path: "patient/profile",
+    component: PatientLoginProfileComponent,
   },
 ];
 

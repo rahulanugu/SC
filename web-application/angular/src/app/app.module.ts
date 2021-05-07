@@ -106,6 +106,7 @@ import { BecomeapartnerComponent } from "./becomeapartner/becomeapartner.compone
 import { MatCardModule } from "@angular/material/card";
 import { ThankyoupartnerComponent } from './thankyoupartner/thankyoupartner.component';
 import { PatientSignupComponent } from './patient-signup/patient-signup.component';
+import { PatientLoginProfileComponent } from './patient-login-profile/patient-login-profile.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -178,6 +179,7 @@ import { PatientSignupComponent } from './patient-signup/patient-signup.componen
     BecomeapartnerComponent,
     ThankyoupartnerComponent,
     PatientSignupComponent,
+    PatientLoginProfileComponent,
   ],
 
   imports: [
