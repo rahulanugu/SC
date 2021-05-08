@@ -188,7 +188,7 @@ const routes: Routes = [
     component: HealthcareAddUserComponent,
   },
   {
-    path: "healthcare/welcomeemail",
+    path: "welcomeemail",
     component: HealthcareWelcomeEmailComponent,
   },
   {
