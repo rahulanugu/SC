@@ -69,8 +69,29 @@ import { RiskAnalysisComponent } from "./risk-analysis/risk-analysis.component";
 import { RiskAnalysisInfoComponent } from "./risk-analysis-info/risk-analysis-info.component";
 import { PrescriptionsComponent } from "./prescriptions/prescriptions.component";
 import { MedicationComponent } from "./medication/medication.component";
+import { ConditionsComponent } from "./conditions/conditions.component";
+import { LabResultComponent } from "./lab-result/lab-result.component";
+import { LabResultInfoComponent } from "./lab-result-info/lab-result-info.component";
+import { ProcedureComponent } from "./procedure/procedure.component";
+import { ProcedureInfoComponent } from "./procedure-info/procedure-info.component";
 const routes: Routes = [
   /* pages for the app */
+  {
+    path: "patient/labresult",
+    component: LabResultComponent,
+  },
+  {
+    path: "patient/labresultinfo",
+    component: LabResultInfoComponent,
+  },
+  {
+    path: "patient/procedure",
+    component: ProcedureComponent,
+  },
+  {
+    path: "patient/procedureinfo",
+    component: ProcedureInfoComponent,
+  },
   { path: "patientlogin", component: PatientComponent },
   { path: "login", component: LoginComponent },
   { path: "login/athena", component: AthenaLoginComponent },
@@ -257,6 +278,10 @@ const routes: Routes = [
   {
     path: "patient/medication",
     component: MedicationComponent,
+  },
+  {
+    path: "patient/conditions",
+    component: ConditionsComponent,
   },
 ];
 

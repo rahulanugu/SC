@@ -7,19 +7,7 @@ import { CustomValidator } from "../shared/validators/validation";
   styleUrls: ["./becomeapartner.component.css"],
 })
 export class BecomeapartnerComponent implements OnInit {
-  registerForm: FormGroup;
-  submitted: false;
+  constructor() {}
 
-  constructor(private formBuilder: FormBuilder) {}
-
-  ngOnInit() {
-    this.registerForm = this.formBuilder.group({
-      firstName: ["", Validators.required],
-      lastName: ["", Validators.required],
-      email: ["", [Validators.required, Validators.email]],
-      phone: ["", [Validators.required, CustomValidator.phoneValidator]],
-      companyName: ["", Validators.required],
-      message: ["", Validators.required],
-    });
-  }
+  ngOnInit() {}
 }

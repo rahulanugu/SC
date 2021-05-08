@@ -114,6 +114,10 @@ import { RiskAnalysisInfoComponent } from './risk-analysis-info/risk-analysis-in
 import { PrescriptionsComponent } from './prescriptions/prescriptions.component';
 import { MedicationComponent } from './medication/medication.component';
 import { ConditionsComponent } from './conditions/conditions.component';
+import { LabResultComponent } from './lab-result/lab-result.component';
+import { LabResultInfoComponent } from './lab-result-info/lab-result-info.component';
+import { ProcedureComponent } from './procedure/procedure.component';
+import { ProcedureInfoComponent } from './procedure-info/procedure-info.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -194,6 +198,10 @@ import { ConditionsComponent } from './conditions/conditions.component';
     PrescriptionsComponent,
     MedicationComponent,
     ConditionsComponent,
+    LabResultComponent,
+    LabResultInfoComponent,
+    ProcedureComponent,
+    ProcedureInfoComponent,
   ],
 
   imports: [
