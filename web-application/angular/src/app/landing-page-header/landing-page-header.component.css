@@ -33,3 +33,8 @@
 
   color: #fff;
 }
+
+.menu:hover{
+  text-decoration: none!important;
+  color:white!important;
+}

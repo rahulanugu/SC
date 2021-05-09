@@ -4,10 +4,18 @@
     <h3 id="loginHeading">Become a Partner</h3>
 
     <div class="quesForm">
-      <form>
+      <form ngNativeValidate [formGroup]="registerForm" ><!--(ngSubmit)="onSubmit()"-->
         <label>First Name*</label>
         <br />
-        <input type="text" required />
+        <input
+          type="text"
+          required
+          [class.is-invalid]="
+          registerForm.get('firstName').invalid && registerForm.get('firstName').touched
+          "
+          formControlName="firstName"
+          class="form-control"
+        />
         <br />
         <label>Last Name*</label>
         <br />

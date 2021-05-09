@@ -22,6 +22,7 @@ html,
 body {
   margin: 0px;
   padding: 0px;
+  overflow-x: hidden;
 }
 .card {
   background: #ffffff;
@@ -36,7 +37,6 @@ body {
   height: 436px;
   margin: 0 auto;
   float: none;
-  margin-bottom: 231px;
   font-family: "Lato", sans-serif;
 }
 .container {
@@ -100,6 +100,9 @@ a:link {
   background-color: white;
 }
 
+.footer{
+  bottom:-10px!important;
+}
 @media screen and (max-width: 550px) {
   .card,
   .form-element input,

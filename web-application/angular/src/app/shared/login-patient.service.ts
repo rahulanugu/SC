@@ -42,6 +42,6 @@ export class LoginPatientService {
     localStorage.removeItem('token');
     localStorage.removeItem('fname');
     localStorage.removeItem('email');
-    this._router.navigate(['patientlogin']);
+    this._router.navigate(['healthcare/login']);
   }
 }
