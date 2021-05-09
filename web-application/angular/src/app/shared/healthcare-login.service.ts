@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
 })
 export class HealthcareLoginService {
 
-  readonly baseURL = environment.serverUrl + "/backend/healthcare-login";
+  readonly baseURL = environment.serverUrl + "backend/healthcare-login";
 
   constructor(
     private http: HttpClient

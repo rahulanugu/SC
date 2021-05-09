@@ -58,7 +58,7 @@
           </button>
         </div>
         <div id="patient">
-          <form>
+          <form ngNativeValidate [formGroup]="Form">
             <div class="row">
               <div class="col-sm-6">
                 <div class="form-group">
@@ -152,7 +152,7 @@
             <button>Home Health Aide</button>
             <button>Certified Nursing Assistant</button>
           </div>
-          <form>
+          <form ngNativeValidate [formGroup]="Form1">
             <div class="row">
               <div class="col-sm-6">
                 <div class="form-group">

@@ -115,35 +115,39 @@ const routes: Routes = [
   },
   {
     path: "healthcare-profile",
-    component: HealthcareProfileComponent /* , canActivate: [HealthcareAuthGuard] */,
+    component: HealthcareProfileComponent, canActivate: [HealthcareAuthGuard],
   },
   {
     path: "healthcare-profile/patient/:patientid",
-    component: PatientHealthcareviewComponent /* canActivate: [HealthcareAuthGuard] */,
+    component: PatientHealthcareviewComponent, canActivate: [HealthcareAuthGuard],
   },
   {
     path: "healthcare-profile/patient/:patientid/:diseaseid",
-    component: PatientHealthcareviewnextComponent,
+    component: PatientHealthcareviewnextComponent, canActivate: [HealthcareAuthGuard],
   },
-  {
+  /*{
     path: "healthcare-profile/editprofile",
-    component: HealthcareManageProfileComponent,
-  },
+    component: HealthcareManageProfileComponent, canActivate: [HealthcareAuthGuard],
+    //opening deactivate
+  },*/
   {
     path: "healthcare/confirmation",
-    component: HealthcareConfirmationComponent,
+    component: HealthcareConfirmationComponent, canActivate: [HealthcareAuthGuard],
+    //needs backend
   },
   {
     path: "healthcare/verificationemail",
-    component: HealthcareVerificationComponent,
+    component: HealthcareVerificationComponent, canActivate: [HealthcareAuthGuard],
+    //needs backend
   },
   {
-    path: "healthcare/accountsettings",
-    component: HealthcareAccountSettingsComponent,
+    path: "healthcare-profile/accountsettings",
+    component: HealthcareAccountSettingsComponent, canActivate: [HealthcareAuthGuard],
   },
   {
     path: "healthcare/patientportal",
     component: HealthcarePatientPortalComponent,
+    //no interactions
   },
   {
     path: "healthcare/header",

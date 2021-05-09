@@ -12,6 +12,7 @@ const path = require("path");
 // local import
 const { mongoose } = require("./db");
 var patientController = require("./controllers/patientController");
+var caregiverController = require("./controllers/caregiverController");
 var newUserController = require("./controllers/newUsersController");
 var patientloginController = require("./controllers/patientLoginController");
 var verifiedController = require("./controllers/verifiedController");
@@ -26,6 +27,7 @@ var reactivateController = require("./controllers/reactivateController");
 var editPatientController = require("./controllers/editPatientController")
 var cacheController = require("./controllers/cacheController")
 var partnersController = require("./controllers/partnersController")
+var patientsNewController = require("./controllers/patientNewController")
 var app = express();
 
 // configure express middleware to send date to nodejs project
@@ -119,6 +121,8 @@ app.listen(3000, () => console.log("Server started at port: 3000"));
 
 // add router from patient controller
 app.use("/patient", patientController);
+app.use("/caregiver", caregiverController);
+app.use("/patientnew", patientsNewController);
 app.use("/patient-login", patientloginController);
 app.use("/request_access", newUserController);
 app.use("/verified", verifiedController);

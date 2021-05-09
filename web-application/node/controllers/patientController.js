@@ -107,6 +107,7 @@ router.get('/:id',[check('id').notEmpty()],(req, res) => {
   if(decrypted!=API_KEY){
     return res.status(401).json({Message:'Unauthorized'});
   }
+
   const query = 'SELECT * FROM `patients` WHERE _id = ?';
   connection.query(query,[req.params.id], function(err, doc) {
     if (!err) {
@@ -248,6 +249,7 @@ body().custom(body => {
               }else{// create JSON Web Token
                 // *******make sure to change secret word to something secure and put it in env variable*****
                 console.log('second pass');
+                const tokeBody = req.body;
                 const token = await jwt.sign({tokeBody}, "santosh", { expiresIn: 180 });
 
                 // using jwt and token

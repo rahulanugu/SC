@@ -1,15 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-
+import { PatientService } from '../shared/patient.service';
 @Component({
   selector: 'app-healthcare-add-user',
   templateUrl: './healthcare-add-user.component.html',
   styleUrls: ['./healthcare-add-user.component.css']
 })
 export class HealthcareAddUserComponent implements OnInit {
+  constructor(
+    private formBuilderService: FormBuilder,
+    private patientService: PatientService,
+  ){}
+  patient: boolean;
+  caregiver: boolean;
+  ngOnInit() {
+    this.patient = true
+    this.caregiver = false
+  }
 
-  constructor(private formBuilderService: FormBuilder) { }
   Form = this.formBuilderService.group({
+    firstName: ["", Validators.required],
+    lastName: ["", Validators.required],
+    email: ["", Validators.required],
+    phone: ["", Validators.required]
+  });
+  Form1 = this.formBuilderService.group({
     firstName: ["", Validators.required],
     lastName: ["", Validators.required],
     email: ["", Validators.required],
@@ -17,10 +32,9 @@ export class HealthcareAddUserComponent implements OnInit {
     employer: ["", Validators.required]
   });
 
-  ngOnInit() {
-  }
-
   showPatient(){
+    this.patient = true
+    this.caregiver = false
     var elem2 = document.getElementById('patient');
     elem2.style.display = "block";
     var elem1 = document.getElementById('caregiver');
@@ -32,6 +46,8 @@ export class HealthcareAddUserComponent implements OnInit {
   }
 
   showCaregiver(){
+    this.caregiver = true
+    this.patient = false
     var elem2 = document.getElementById('patient');
     elem2.style.display = "none";
     var elem1 = document.getElementById('caregiver');
@@ -59,5 +75,25 @@ export class HealthcareAddUserComponent implements OnInit {
     ele2.style.display = "block";
     var ele1 = document.getElementById('card3');
     ele1.style.display = "none";
+    if(this.patient){
+      console.log(this.Form.value.firstName);
+      this.patientService.postPatientNew(this.Form.value)
+      .subscribe(
+        (res) => {
+          console.log(res);
+        },(err)=>{
+          console.log(err);
+        })
+      }
+      else if(this.caregiver){
+        console.log(this.Form1.value.employer);
+        this.patientService.postCaregiver(this.Form1.value)
+        .subscribe(
+          (res) => {
+            console.log(res);
+          },(err)=>{
+            console.log(err);
+          })
+        }
+      }
   }
-}
