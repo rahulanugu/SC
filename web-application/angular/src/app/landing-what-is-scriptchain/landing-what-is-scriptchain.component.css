@@ -27,7 +27,7 @@ body {
 
 .card {
   width: 447px;
-  height: 164px;
+  height: auto;
   margin: auto;
   /* White */
 

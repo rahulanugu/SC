@@ -1,0 +1,166 @@
+<header>
+  <app-healthcare-header></app-healthcare-header>
+</header>
+
+<div style="background-color: #faf6f2">
+  <h3 class="loginHeading">Sign Up</h3>
+  <!------Card 1 starts -->
+  <div id="card1" class="card">
+    <div class="progressBar">
+      <img class="points" src="./assets/sttrt.jpg" />
+      <img class="line" src="./assets/Progress.jpg" />
+      <img class="points" src="./assets/info.png" />
+      <img class="line" src="./assets/Track.png" />
+      <img class="points" src="./assets/Legal1.png" />
+      <img class="line" src="./assets/Track.png" />
+
+      <img class="points" src="./assets/avatarcircle1.png" />
+      <img class="line" src="./assets/Track.png" />
+      <img class="points" src="./assets/Finish1.png" />
+    </div>
+    <hr />
+    <div>
+      <form class="signupForm">
+        <div class="form-group">
+          <label>Email or Phone</label>
+          <p>
+            Use those we’ve contacted you through or those on your printout.
+          </p>
+          <input type="text" />
+        </div>
+        <div class="form-group">
+          <label>Create a Password</label>
+          <p>
+            Requires a capital letter, number, and special symbol (such as
+            !-_@?.)
+          </p>
+          <input type="text" />
+        </div>
+        <div class="form-group">
+          <label>Retype Password</label>
+          <br />
+          <input type="text" />
+        </div>
+        <hr />
+        <button type="button" class="nextBtn" (click)="widgets()">
+          Continue
+        </button>
+        <button type="button" class="helpBtn">Help</button>
+      </form>
+    </div>
+  </div>
+
+  <!------Card 2 starts -->
+  <div id="card2" class="card" style="display: none">
+    <div class="progressBar">
+      <img class="points" src="./assets/sttrt.jpg" />
+      <img class="line" src="./assets/Progress.jpg" />
+      <img class="points" src="./assets/info2.png" />
+      <img class="line" src="./assets/Progress.jpg" />
+      <img class="points" src="./assets/Legal2.png" />
+      <img class="line" src="./assets/Track.png" />
+
+      <img class="points" src="./assets/avatarcircle1.png" />
+      <img class="line" src="./assets/Track.png" />
+      <img class="points" src="./assets/Finish1.png" />
+    </div>
+    <hr />
+
+    <form>
+      <label id="form2Label"
+        >Do you agree to sharing of your medical records?</label
+      >
+      <p id="form2p">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo consequat.
+      </p>
+      <hr />
+      <button type="button" class="nextBtn" (click)="agree()">I Agree</button>
+      <button type="button" class="helpBtn">Help</button>
+    </form>
+  </div>
+
+  <!---Card 3 starts here-->
+  <div id="card3" class="card" style="display: none">
+    <div class="progressBar">
+      <img class="points" src="./assets/sttrt.jpg" />
+      <img class="line" src="./assets/Progress.jpg" />
+      <img class="points" src="./assets/info2.png" />
+      <img class="line" src="./assets/Progress.jpg" />
+      <img class="points" src="./assets/Legal3.png" />
+      <img class="line" src="./assets/Progress.jpg" />
+
+      <img class="points" src="./assets/av3.png" />
+      <img class="line" src="./assets/Track.png" />
+      <img class="points" src="./assets/Finish1.png" />
+    </div>
+    <hr />
+    <img id="avatar" src="./assets/avatarSignup.png" />
+
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <label>Upload a Photo</label><br />
+          <div class="element">
+            <label class="btn">
+              <img src="./assets/cameraIcon.png" />
+              <label style="margin-left: 8px"> Select File</label>
+              <input type="file" style="display: none" />
+            </label>
+          </div>
+          <!--Element-->
+        </div>
+      </div>
+    </div>
+    <!---Row8-->
+    <div class="hr-sect">or</div>
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <label>Select an Avatar</label><br />
+          <div class="element" style="font-size: 18px" (click)="openDialog()">
+            <label class="btn">
+              <img src="./assets/viewAvatarIcon.png" />
+              View Avatars
+              <!--Avatar component needed-->
+              <!--<input style="display: none" mat-button (click)="openDialog()"/>-->
+            </label>
+          </div>
+          <!--Element-->
+        </div>
+      </div>
+    </div>
+    <hr />
+    <button type="button" class="nextBtn" (click)="finish()">Finish</button>
+    <button type="button" class="helpBtn">Help</button>
+  </div>
+
+  <!---Card 4 starts here-->
+  <div id="card4" class="card" style="display: none">
+    <div class="progressBar">
+      <img class="points" src="./assets/sttrt.jpg" />
+      <img class="line" src="./assets/Progress.jpg" />
+      <img class="points" src="./assets/info2.png" />
+      <img class="line" src="./assets/Progress.jpg" />
+      <img class="points" src="./assets/Legal3.png" />
+      <img class="line" src="./assets/Progress.jpg" />
+
+      <img class="points" src="./assets/av4.png" />
+      <img class="line" src="./assets/Progress.jpg" />
+      <img class="points" src="./assets/finish3.png" />
+    </div>
+    <hr />
+    <img id="tickIc" src="./assets/tickIcon.png" />
+    <label id="form2Label">Your account was successfully created!</label>
+    <p id="form2p">
+      We have also sent you a confirmation email for your keeping.
+    </p>
+    <hr />
+    <button type="button" class="nextBtn">Continue to the Portal</button>
+  </div>
+  <footer>
+    <app-healthcare-footer></app-healthcare-footer>
+  </footer>
+</div>

@@ -39,52 +39,162 @@
     <div>
       <h1 id="heading">Blog</h1>
       <div class="container">
-        <div class="gallery">
-          <figure class="gallery__item gallery__item--1">
-            <img
-              src="./assets/img1.jpg"
-              alt="Gallery image 1"
-              class="gallery__img"
-            />
-          </figure>
-          <figure class="gallery__item gallery__item--2">
-            <img
-              src="./assets/img2.jpg"
-              alt="Gallery image 2"
-              class="gallery__img"
-            />
-          </figure>
-          <figure class="gallery__item gallery__item--3">
-            <img
-              src="./assets/img3.jpeg"
-              alt="Gallery image 3"
-              class="gallery__img"
-            />
-          </figure>
-          <figure class="gallery__item gallery__item--4">
-            <img
-              src="./assets/img4.jpg"
-              alt="Gallery image 4"
-              class="gallery__img"
-            />
-          </figure>
-          <figure class="gallery__item gallery__item--5">
-            <img
-              src="./assets/img5.jpg"
-              alt="Gallery image 5"
-              class="gallery__img"
-            />
-          </figure>
-          <figure class="gallery__item gallery__item--6">
-            <img
-              src="./assets/img6.jpg"
-              alt="Gallery image 6"
-              class="gallery__img"
-            />
-          </figure>
+        <div class="row">
+          <div class="col">
+            <div
+              onmouseover="displayhovercard1(this)"
+              id="img1"
+              class="module1"
+              style="
+                background-image: url(./assets/img6.jpg);
+                background-repeat: no-repeat;
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                background-size: cover;
+              "
+            >
+              <blockquote>
+                “The complexity and rise of data in healthcare means that
+                artificial intelligence will increasingly be applied within the
+                field...there are already a number of research studies
+                suggesting that AI can perform as well as or better than humans
+                at key healthcare tasks, such as diagnosing diseases…”
+              </blockquote>
+              <figcaption>
+                &mdash;<cite>
+                  Davenport, Thomas, and Ravi Kalakota. “The Potential for
+                  Artificial Intelligence in Healthcare.” Future HealthCare
+                  Journal</cite
+                >
+              </figcaption>
+            </div>
+
+            <div class="col">
+              <div
+                id="img2"
+                class="module2"
+                style="
+                  background-image: url(./assets/img7.jpg);
+                  background-repeat: no-repeat;
+
+                  background-size: cover;
+                "
+              >
+                <blockquote>
+                  “Artificial intelligence aims to mimic human functions. It is
+                  bringing a paradigm shift to healthcare, powered by increasing
+                  availability of healthcare data and rapid progress of analysis
+                  techniques...AI can use sophisticated algorithms to ‘learn’
+                  features from a large volume of healthcare data, and then use
+                  the obtained insights to assist clinical practice.”
+                </blockquote>
+                <figcaption>
+                  &mdash;<cite>
+                    Jiang, Fei, et al. “Artificial Intelligence in Healthcare:
+                    Past, Present and Future.” BMJ Specialist Journal</cite
+                  >
+                </figcaption>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div
+              id="img3"
+              class="module3"
+              style="
+                background-image: url(./assets/img8.jpg);
+                background-repeat: no-repeat;
+
+                background-size: cover;
+              "
+            >
+              <blockquote>
+                “We live in an era with unprecedented availability of clinical
+                and biological data that include electronic health records...one
+                of the strengths of DL approaches is the ability to tackle the
+                challenges of scalability and high dimensionality...trainees and
+                cardiologists interested in AI have the benefit of growing
+                intersectoral support for the health data science revolution…”
+              </blockquote>
+              <figcaption>
+                &mdash;<cite>
+                  Marvao, Antonio de, et al. “Artificial Intelligence and the
+                  Cardiologist: What You Need to Know for 2020.” MRC London
+                  Institute of Medical Sciences</cite
+                >
+              </figcaption>
+            </div>
+            <div class="col">
+              <div
+                id="img4"
+                class="module4"
+                style="
+                  background-image: url(./assets/img5.jpg);
+                  background-repeat: no-repeat;
+                  -webkit-background-size: cover;
+                  -moz-background-size: cover;
+                  -o-background-size: cover;
+                  background-size: cover;
+                "
+              >
+                <blockquote>
+                  “In 2016, healthcare AI projects attracted more investment
+                  “..numerous applications of AI are well positioned to improve
+                  patient care and potentially save lives...those applications
+                  include pattern recognition...we’re able to train machines to
+                  exhibit humanlike intelligence and apply that in a clinical
+                  setting. We haven’t achieved human intelligence, but we’re
+                  getting close to it.
+                </blockquote>
+                <figcaption>
+                  &mdash;<cite>
+                    Castelo, Micah. “The Future of Artificial Intelligence in
+                    Healthcare.” Technology Solutions That Drive
+                    Healthcare</cite
+                  >
+                </figcaption>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="centered">
+      <!----Hover Card 1 starts here-->
+      <div id="hovercard1" class="card1" style="display: none">
+        <div
+          style="
+            background-image: url(./assets/img6.jpg);
+            background-repeat: no-repeat;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+          "
+        >
+          <blockquote>
+            “In 2016, healthcare AI projects attracted more investment than AI
+            projects within any other sector of the global economy...through
+            machine learning, AI provides techniques that uncover complex
+            associations which cannot be easily reduced to an equation.
+            Furthermore, these systems are able to learn from each incremental
+            case and can be exposed, within minutes, to more cases than a
+            clinician could see in many lifetimes...a single AI system is able
+            to support a large population and therefore it is ideally suited to
+            situations where human expertise is a scarce resource.”
+          </blockquote>
+          <figcaption>
+            &mdash;<cite>
+              Buch, Varun H, et al. “Artificial Intelligence in Medicine:
+              Current Trends and Future Possibilities.” The British Journal Of
+              General Practice</cite
+            >
+          </figcaption>
+        </div>
+      </div>
+
+      <!-- <div class="centered">
         <section class="cards">
           <article class="card">
             <img
@@ -95,8 +205,8 @@
             <h6><strong>Blog Source</strong> // March 6, 2021</h6>
             <p>Headline for the blog</p>
           </article>
-          <!-- /card-one -->
-
+         /card-one -->
+      <!-- 
           <article class="card">
             <img
               src="./assets/healh.png"
@@ -105,10 +215,10 @@
             />
             <h6><strong>Blog Source</strong> // March 6, 2021</h6>
             <p>Headline for the blog</p>
-          </article>
-          <!-- /card-two -->
+          </article> -->
+      <!-- /card-two -->
 
-          <article class="card">
+      <!-- <article class="card">
             <img
               src="./assets/healh.png"
               alt="Image not available"
@@ -117,9 +227,9 @@
             <h6><strong>Blog Source</strong> // March 6, 2021</h6>
             <p>Headline for the blog</p>
           </article>
-          <!-- /card-three -->
+          /card-three 
         </section>
-      </div>
+      </div> -->
     </div>
 
     <footer>
