@@ -106,6 +106,19 @@ import { MatExpansionModule } from "@angular/material/expansion";
 import { BecomeapartnerComponent } from "./becomeapartner/becomeapartner.component";
 import { MatCardModule } from "@angular/material/card";
 import { ThankyoupartnerComponent } from './thankyoupartner/thankyoupartner.component';
+import { PatientSignupComponent } from './patient-signup/patient-signup.component';
+import { PatientLoginProfileComponent } from './patient-login-profile/patient-login-profile.component';
+import { PatientCaregiverComponent } from './patient-caregiver/patient-caregiver.component';
+import { DoctorProfileComponent } from './doctor-profile/doctor-profile.component';
+import { RiskAnalysisComponent } from './risk-analysis/risk-analysis.component';
+import { RiskAnalysisInfoComponent } from './risk-analysis-info/risk-analysis-info.component';
+import { PrescriptionsComponent } from './prescriptions/prescriptions.component';
+import { MedicationComponent } from './medication/medication.component';
+import { ConditionsComponent } from './conditions/conditions.component';
+import { LabResultComponent } from './lab-result/lab-result.component';
+import { LabResultInfoComponent } from './lab-result-info/lab-result-info.component';
+import { ProcedureComponent } from './procedure/procedure.component';
+import { ProcedureInfoComponent } from './procedure-info/procedure-info.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -177,6 +190,19 @@ import { ThankyoupartnerComponent } from './thankyoupartner/thankyoupartner.comp
     BlogComponent,
     BecomeapartnerComponent,
     ThankyoupartnerComponent,
+    PatientSignupComponent,
+    PatientLoginProfileComponent,
+    PatientCaregiverComponent,
+    DoctorProfileComponent,
+    RiskAnalysisComponent,
+    RiskAnalysisInfoComponent,
+    PrescriptionsComponent,
+    MedicationComponent,
+    ConditionsComponent,
+    LabResultComponent,
+    LabResultInfoComponent,
+    ProcedureComponent,
+    ProcedureInfoComponent,
     HealthcareFooterLoginComponent
   ],
 

@@ -60,8 +60,37 @@ import { LandingFaq2Component } from "./landing-faq2/landing-faq2.component";
 import { BlogComponent } from "./blog/blog.component";
 import { BecomeapartnerComponent } from "./becomeapartner/becomeapartner.component";
 import { ThankyoupartnerComponent } from "./thankyoupartner/thankyoupartner.component";
+import { PatientSignupComponent } from "./patient-signup/patient-signup.component";
+import { PatientLoginProfileComponent } from "./patient-login-profile/patient-login-profile.component";
+import { PatientCaregiverComponent } from "./patient-caregiver/patient-caregiver.component";
+import { DoctorProfileComponent } from "./doctor-profile/doctor-profile.component";
+import { RiskAnalysisComponent } from "./risk-analysis/risk-analysis.component";
+import { RiskAnalysisInfoComponent } from "./risk-analysis-info/risk-analysis-info.component";
+import { PrescriptionsComponent } from "./prescriptions/prescriptions.component";
+import { MedicationComponent } from "./medication/medication.component";
+import { ConditionsComponent } from "./conditions/conditions.component";
+import { LabResultComponent } from "./lab-result/lab-result.component";
+import { LabResultInfoComponent } from "./lab-result-info/lab-result-info.component";
+import { ProcedureComponent } from "./procedure/procedure.component";
+import { ProcedureInfoComponent } from "./procedure-info/procedure-info.component";
 const routes: Routes = [
   /* pages for the app */
+  {
+    path: "patient/labresult",
+    component: LabResultComponent,
+  },
+  {
+    path: "patient/labresultinfo",
+    component: LabResultInfoComponent,
+  },
+  {
+    path: "patient/procedure",
+    component: ProcedureComponent,
+  },
+  {
+    path: "patient/procedureinfo",
+    component: ProcedureInfoComponent,
+  },
   { path: "patientlogin", component: PatientComponent },
   { path: "login", component: LoginComponent },
   { path: "login/athena", component: AthenaLoginComponent },
@@ -158,7 +187,7 @@ const routes: Routes = [
     component: HealthcareAddUserComponent,
   },
   {
-    path: "healthcare/welcomeemail",
+    path: "welcomeemail",
     component: HealthcareWelcomeEmailComponent,
   },
   {
@@ -216,6 +245,42 @@ const routes: Routes = [
   {
     path: "thankyoupartner",
     component: ThankyoupartnerComponent,
+  },
+  {
+    path: "patient/signup",
+    component: PatientSignupComponent,
+  },
+  {
+    path: "patient/profile",
+    component: PatientLoginProfileComponent,
+  },
+  {
+    path: "patient/caregiverprofile",
+    component: PatientCaregiverComponent,
+  },
+  {
+    path: "patient/doctorinfo",
+    component: DoctorProfileComponent,
+  },
+  {
+    path: "patient/riskanalysis",
+    component: RiskAnalysisComponent,
+  },
+  {
+    path: "patient/riskanalysisinfo",
+    component: RiskAnalysisInfoComponent,
+  },
+  {
+    path: "patient/prescriptions",
+    component: PrescriptionsComponent,
+  },
+  {
+    path: "patient/medication",
+    component: MedicationComponent,
+  },
+  {
+    path: "patient/conditions",
+    component: ConditionsComponent,
   },
 ];
 
