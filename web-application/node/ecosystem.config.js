@@ -5,6 +5,6 @@ module.exports = {
     out_file: 'out.log',
     error_file: 'error.log',
     log_file: 'combined.outerr.log',
-    time: false
+    time: true
   }]
 };
