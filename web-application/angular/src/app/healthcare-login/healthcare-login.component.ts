@@ -52,6 +52,7 @@ export class HealthcareLoginComponent implements OnInit {
           //window.location.href = "https://applescm184region.open.allscripts.com/authorization/connect/authorize?response_type=code&state&client_id=b5362fb7-a608-415f-aba9-fae232fce90e&scope=launch user/*.read&redirect_uri=https://www.scriptchain.co/healthcare-profile"
           //james
           //Password#1
+          
           this.router.navigate(['healthcare-profile'])
         },
         (err) => {
