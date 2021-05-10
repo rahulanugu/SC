@@ -251,39 +251,39 @@ const routes: Routes = [
     component: ThankyoupartnerComponent,
   },
   {
-    path: "patient/signup",
+    path: "patients/signup",
     component: PatientSignupComponent,
   },
   {
-    path: "patient/profile",
+    path: "patients/profile",
     component: PatientLoginProfileComponent,
   },
   {
-    path: "patient/caregiverprofile",
+    path: "patients/caregiverprofile",
     component: PatientCaregiverComponent,
   },
   {
-    path: "patient/doctorinfo",
+    path: "patients/doctorinfo",
     component: DoctorProfileComponent,
   },
   {
-    path: "patient/riskanalysis",
+    path: "patients/riskanalysis",
     component: RiskAnalysisComponent,
   },
   {
-    path: "patient/riskanalysisinfo",
+    path: "patients/riskanalysisinfo",
     component: RiskAnalysisInfoComponent,
   },
   {
-    path: "patient/prescriptions",
+    path: "patients/prescriptions",
     component: PrescriptionsComponent,
   },
   {
-    path: "patient/medication",
+    path: "patients/medication",
     component: MedicationComponent,
   },
   {
-    path: "patient/conditions",
+    path: "patients/conditions",
     component: ConditionsComponent,
   },
 ];
