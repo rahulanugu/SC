@@ -34,29 +34,29 @@ router.post('/',[check('emailAddress').notEmpty().isEmail(),check('password').no
     }
   })*/
   var ip = req.connection.remoteAddress;
-  console.log(ip+" "+req.body.emailAddress);
-  console.log(req.query);
+  console.log("INFO: "+ip+" "+req.body.emailAddress);
+  //console.log(req.query);
   const errors = validationResult(req);
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
   }
   var decrypted = aes256.decrypt(key, req.query.API_KEY);
-  console.log(decrypted);
+  //console.log(decrypted);
   if(decrypted!=API_KEY){
     return res.status(401).json({Message:'Unauthorized'});
   }
     try{
     //Log format - Who searched it, Ip address and 
-    console.log("Reached the login controller for the healthcare")
-    console.log(req.body);
+   // console.log("Reached the login controller for the healthcare")
+    //console.log(req.body);
     //const healthcareProvider = await HealthcareProvider.findOne({ email: req.body.emailAddress });
     const query = 'SELECT * FROM `healthcareproviders` WHERE email=?';
     // req.body.emailAddress+'"';
     connection.query(query,[req.body.emailAddress], async function(err, rows) {
       if(!err) {
-        console.log(rows.length);
+        //console.log(rows.length);
         if(rows.length==0){
-          console.log("test1");
+          //console.log("test1");
           const query1 = 'SELECT * FROM `deactivatedHealthcareProvider` WHERE email=?';
           // req.body.emailAddress+'"';
           connection.query(query1,[req.body.emailAddress], function(err, rows1) {
@@ -75,7 +75,7 @@ router.post('/',[check('emailAddress').notEmpty().isEmail(),check('password').no
           });
         }else{
           //check for password
-          console.log('test');
+          //console.log('test');
           const healthcareProvider = rows[0];
           const validpassword = await bcrypt.compare(req.body.password, healthcareProvider.password);
           if (!validpassword) return res.status(401).json({
@@ -107,8 +107,8 @@ router.post('/verifytokenintegrity',[check("jwtToken").notEmpty(),body().custom(
   if(!errors.isEmpty()){
     return res.status(400).json({Message:'Bad Request'})
   }
-    console.log("Verifying the integrity of the jwt token")
-    console.log(req.body.jwtToken);
+    //console.log("Verifying the integrity of the jwt token")
+    //console.log(req.body.jwtToken);
     try {
         payload = jwt.verify(req.body.jwtToken, "abc")
         return res.status(200).json({message: "User is authorized"}).end()
