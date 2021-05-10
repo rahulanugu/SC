@@ -2,8 +2,9 @@ module.exports = {
   apps : [{
     name: "app",
     script: 'index.js',
-    output: './out.log',
-    error: './error.log',
-    log: './combined.outerr.log',
+    out_file: 'out.log',
+    error_file: 'error.log',
+    log_file: 'combined.outerr.log',
+    time: false
   }]
 };

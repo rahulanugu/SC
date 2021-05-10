@@ -25,7 +25,7 @@ router.post('/',[check('emailAddress').notEmpty().isEmail(),check('password').no
   return Object.keys(body).every(key => keys.includes(key));
 })],async (req, res) => {
   //logger.info("Entered");
-  console.log("INFO: Entered");
+  console.log("[INFO] Entered");
   /*const content = 'Entered'
   fs.writeFile('/Users/srikarpothumahanti/Desktop/scriptchain_new/scriptchain/web-application/node/test.log', content, err => {
     if (err) {
@@ -34,7 +34,7 @@ router.post('/',[check('emailAddress').notEmpty().isEmail(),check('password').no
     }
   })*/
   var ip = req.connection.remoteAddress;
-  console.log("INFO: "+ip+" "+req.body.emailAddress);
+  console.log("[INFO] "+ip+" "+req.body.emailAddress);
   //console.log(req.query);
   const errors = validationResult(req);
   if(!errors.isEmpty()){
