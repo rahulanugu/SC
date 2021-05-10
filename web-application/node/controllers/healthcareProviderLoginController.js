@@ -6,6 +6,7 @@ var router = express.Router();
 var aes256 = require('aes256');
 const API_KEY = "scriptChain@13$67ahi1";
 const key = "hosenkinosumabeni";
+const fs = require('fs')
 /**
  * Authenticate the healthcare user login attempt
  * Input: Body containing username and password.
@@ -23,6 +24,15 @@ router.post('/',[check('emailAddress').notEmpty().isEmail(),check('password').no
   const keys = ['emailAddress','password'];
   return Object.keys(body).every(key => keys.includes(key));
 })],async (req, res) => {
+  //logger.info("Entered");
+  //console.log("test");
+  const content = 'Entered'
+  fs.writeFile('/Users/srikarpothumahanti/Desktop/scriptchain_new/scriptchain/web-application/node/test.log', content, err => {
+    if (err) {
+      console.error(err)
+      return
+    }
+  })
   var ip = req.connection.remoteAddress;
   console.log(ip+" "+req.body.emailAddress);
   console.log(req.query);
