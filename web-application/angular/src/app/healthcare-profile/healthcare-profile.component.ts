@@ -100,7 +100,7 @@ export class HealthcareProfileComponent implements OnInit {
     //console.log(ELEMENT_DATA);
     //this.dataSource = new MatTableDataSource(ELEMENT_DATA);
     var dob_tmp = this.dob.split('/');
-    var new_dob = dob_tmp[2]+"-"+dob_tmp[0]+"-"+dob_tmp[0];
+    var new_dob = dob_tmp[2]+"-"+dob_tmp[0]+"-"+dob_tmp[1];
     //let elem = document.getElementsByClassName("searchresults")[0];
     this.dataService.getFromCache(localStorage.getItem("code")).subscribe(res1=>{
             console.log(res1);
@@ -111,7 +111,9 @@ export class HealthcareProfileComponent implements OnInit {
           //var gender = res["entry"][0].resource.gender;
           //var phone = res["entry"][0].resource.telecom[0].value;
           //var care = res["entry"][0].resource.careProvider[0].display;
-          ELEMENT_DATA.unshift({png: 'albert_johnson.png', name: name, dob: dob, mrn: 'YTK89123456',
+          var dob_tmp = dob.split('-');
+          var new_dob = dob_tmp[0]+"/"+dob_tmp[0]+"/"+dob_tmp[1];
+          ELEMENT_DATA.unshift({png: 'albert_johnson.png', name: name, dob: new_dob, mrn: 'YTK89123456',
           check_in1: '11/25/2020', check_in2:'10:30 am',readd_risk1:'0%',readd_risk2:'No Admission Info',
           cond_risk1:'Dx',cond_risk2:'65%',cond_risk3:'28%',cond_risk4:'17%'})
           this.dataSource = new MatTableDataSource(ELEMENT_DATA);
