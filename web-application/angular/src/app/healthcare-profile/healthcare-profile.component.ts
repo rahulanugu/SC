@@ -56,7 +56,7 @@ export class HealthcareProfileComponent implements OnInit {
   filteredPatients: Patient[]
   providerFirstName: string;
   displayedColumns: string[] = ['png','sort(a-z)', 'dob', 'mrn','check_in','readd_risk','cond_risk','btn'];
-  dataSource = ELEMENT_DATA;
+  dataSource: MatTableDataSource<PeriodicElement>;
   fName: string;
   lName: string;
   dob: string;
@@ -68,6 +68,7 @@ export class HealthcareProfileComponent implements OnInit {
     private router: Router,
     private http:HttpClient
   ) {
+    this.dataSource = new MatTableDataSource(ELEMENT_DATA);
   }
 
   ngOnInit() {
@@ -96,10 +97,15 @@ export class HealthcareProfileComponent implements OnInit {
 
   search(){
     //console.log("test");
+    /*ELEMENT_DATA.unshift({png: 'ashley.png', name: "test", dob: "test", mrn: 'YTK89123456',
+         check_in1: '11/25/2020', check_in2:'10:30 am',readd_risk1:'0%',readd_risk2:'No Admission Info',
+          cond_risk1:'Dx',cond_risk2:'65%',cond_risk3:'28%',cond_risk4:'17%'})*/
+    //console.log(ELEMENT_DATA);
+    //this.dataSource = new MatTableDataSource(ELEMENT_DATA);
+
     let elem = document.getElementsByClassName("searchresults")[0];
     this.dataService.getFromCache(localStorage.getItem("code")).subscribe(res1=>{
-      //let res1 = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ1cm46b2lkOmZoaXIiLCJjbGllbnRfaWQiOiI3ODhhNWY0NS04ZmNjLTRhZDktYmNlNi1lN2VlZWZjOGFjNDEiLCJlcGljLmVjaSI6InVybjplcGljOlVTQ0RJLW9uLUZISVIiLCJlcGljLm1ldGFkYXRhIjoibl9ybjlGaW82VHpHSklEWnVzSTktRkRjajl5Qk03YmpnbXFtUm5ldHVRaDJESlpUZ0xPZUpub1QtczJvUDFwUmpJNHB5el84N0h4ZzFqLVRocTF5VmpPR3RGeTkwMkoxSFNaSFNrWTkzeFkxbVRnYnhqSmNNWDVaZzRGc0lOMWMiLCJlcGljLnRva2VudHlwZSI6ImFjY2VzcyIsImV4cCI6MTYwNDA0NzA0MCwiaWF0IjoxNjA0MDQzNDQwLCJpc3MiOiJ1cm46b2lkOmZoaXIiLCJqdGkiOiJlYWQ5MDgyYi1kODAyLTQ1ZDctOGExYy1mNjQ5Y2NlYTdlZDciLCJuYmYiOjE2MDQwNDM0NDAsInN1YiI6ImVtU2pyRUQwRUJaUDJsVTdlU3lQRTZ3MyJ9.nJCOXYw0jEgxExls9K8khC6DU4OIF8ODvLL66UplcqgAtDKgBkFSLG4ougExEKksprftanf37KQgpnk_KKXtX3rBZgN9oRnc47r9ALJ0RUSVX1ZZgZ5_kIKs3Ntn4K8I6ew7rYkVZe4gH9tzGpl8k6sL46y8pl84JMA6PfMCgH17IZ-ooApSes__R7mDQHDBadlsq8p2kpLiFthX6hqoQoYMGUMX-aaoQAUaMPPLBPxEBO9j149QfGl1cX18Q4mryskyLu2yZs_FuPtn1urLkA9PHei4n_--hLcMj9DvmX5y7b9kC-xK0gxPBtXWL3VwvuNbr4k5EIuvtHrx8HJdug"
-      console.log(res1);
+            console.log(res1);
       this.dataService.search(this.fName,this.lName,this.dob,res1).subscribe(res=>{
           console.log(res);
           var name = res["entry"][0].resource.name[0].text.split(" ")[1];
@@ -110,7 +116,7 @@ export class HealthcareProfileComponent implements OnInit {
           ELEMENT_DATA.unshift({png: 'ashley.png', name: name, dob: dob, mrn: 'YTK89123456',
           check_in1: '11/25/2020', check_in2:'10:30 am',readd_risk1:'0%',readd_risk2:'No Admission Info',
           cond_risk1:'Dx',cond_risk2:'65%',cond_risk3:'28%',cond_risk4:'17%'})
-        this.dataSource = ELEMENT_DATA;
+          this.dataSource = new MatTableDataSource(ELEMENT_DATA);
       });
     });
   }
