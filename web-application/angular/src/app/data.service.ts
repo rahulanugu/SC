@@ -16,7 +16,7 @@ export class DataService {
 
   cacheService : string = environment.serverUrl+"/cache_service";
   public postsData: any[]
-  postUrl : string = environment.serverUrl+"patient"; 
+  postUrl : string = environment.serverUrl+"/patient"; 
 
 
 
