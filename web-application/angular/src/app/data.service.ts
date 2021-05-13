@@ -33,7 +33,7 @@ export class DataService {
     return this.http.get(this.cacheService+"/getFromCache?code="+code);
   }
 
-  search(lastname,firstname,dob,res){
+  search(firstname,lastname,dob,res){
       const headers = {"Authorization":"Bearer "+res};
       return this.http.get("https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/DSTU2/Patient?family="+lastname+"&given="+firstname+"&birthdate="+dob,{headers});
   }
