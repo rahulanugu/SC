@@ -104,7 +104,7 @@ export class HealthcareProfileComponent implements OnInit {
       console.log(res1);
       this.dataService.search(this.fName,this.lName,this.dob,res1).subscribe(res=>{
           console.log(res);
-       /*   var name = res["entry"][0].resource.name[0].text.split(" ")[1];
+          var name = res["entry"][0].resource.name[0].text.split(" ")[1];
           var dob = res["entry"][0].resource.birthDate;
           var gender = res["entry"][0].resource.gender;
           var phone = res["entry"][0].resource.telecom[0].value;
@@ -126,7 +126,7 @@ export class HealthcareProfileComponent implements OnInit {
         "<div class='col-md-1'><b>MRN</b></div><div class='col-md-2'>YTK18273825</div>"+
         "<div class='col-md-3'><b>Email</b></div><div class='col-md-3'>theo@gmail.com</div>"+
         "<div class='col-md-3'>COPD,CHF,Diabetes(Type 2)</div></div></div>"
-      );*/
+      );
 
       });
     });
