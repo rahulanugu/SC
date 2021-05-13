@@ -4,6 +4,7 @@ import { DataService } from '../data.service';
 import { PatientService } from '../shared/patient.service';
 import { Router } from '@angular/router';
 import { HttpClient} from '@angular/common/http';
+import {MatTableDataSource} from '@angular/material';
 
 export interface PeriodicElement {
   png: string;
@@ -23,9 +24,6 @@ export interface PeriodicElement {
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  {png: 'ashley.png', name: 'Ashley Citarella', dob: '02/10/1988', mrn: 'YTK89123456',
-  check_in1: '11/25/2020', check_in2:'10:30 am',readd_risk1:'0%',readd_risk2:'No Admission Info',
-  cond_risk1:'Dx',cond_risk2:'65%',cond_risk3:'28%',cond_risk4:'17%'},
   {png: 'albert_johnson.png', name: 'Albert Johnson', dob: '02/10/1988', mrn: 'YTK89123456',
   check_in1: '10/20/2020', check_in2:'10:30 am',readd_risk1:'10%',readd_risk2:'No Admission Info',
   cond_risk1:'Dx',cond_risk2:'75%',cond_risk3:'28%',cond_risk4:'17%'},
@@ -109,25 +107,10 @@ export class HealthcareProfileComponent implements OnInit {
           var gender = res["entry"][0].resource.gender;
           var phone = res["entry"][0].resource.telecom[0].value;
           var care = res["entry"][0].resource.careProvider[0].display;
-        elem.insertAdjacentHTML('afterbegin',"<div class='box' style='padding:10px;box-shadow: 1px 1px 10px 3px lightgray;background-color: white;margin-bottom: 5%;padding-top: 1%;'>"+
-        "<div class='row' style='border-bottom: 2px solid #E1E4EB;'><div class='col-md-2' style='margin-bottom: 1%;'><img src='../../assets/Avatar.png'/>"+
-        "<b style='margin-left:3%;padding:1%'>"+name+"</b></div><div class='col-md-5' ></div>"+
-        "<div class='col-md-4' style='padding:1%'>Next Appointment Today 11:30 am</div><div class='col-md-1' style='padding:1%'>"+
-        "<img src='../../assets/view.png' style='cursor:pointer' (click)= 'openPatientProfile(1234)'/></div></div>"+
-        "<div class='row row1' style='padding-top: 1%;'><div class='col-md-1'><b>DOB</b></div><div class='col-md-2'>"+dob+"</div>"+
-        "<div class='col-md-3'><b>Driver's License</b></div><div class='col-md-3'>NHL2323128</div>"+
-        "<div class='col-md-3'>"+care+"</div></div><div class='row row1' style='padding-top: 1%;'>"+
-        "<div class='col-md-1'><b>Sex</b></div><div class='col-md-2'>"+gender+"</div>"+
-        "<div class='col-md-3'><b>Last 4 digits of SSN</b></div><div class='col-md-3'>0010</div>"+
-        "<div class='col-md-3'>Department of Cardiology</div></div><div class='row row1' style='padding-top: 1%;'>"+
-        "<div class='col-md-1'><b>Residence</b></div><div class='col-md-2'>New York City, NY</div>"+
-        "<div class='col-md-3'><b>Phone Number</b></div><div class='col-md-3'>"+phone+"</div>"+
-        "<div class='col-md-3'>Dr. Beth Smith</div></div><div class='row row1' style='padding-top: 1%;'>"+
-        "<div class='col-md-1'><b>MRN</b></div><div class='col-md-2'>YTK18273825</div>"+
-        "<div class='col-md-3'><b>Email</b></div><div class='col-md-3'>theo@gmail.com</div>"+
-        "<div class='col-md-3'>COPD,CHF,Diabetes(Type 2)</div></div></div>"
-      );
-
+          ELEMENT_DATA.unshift({png: 'ashley.png', name: name, dob: dob, mrn: 'YTK89123456',
+          check_in1: '11/25/2020', check_in2:'10:30 am',readd_risk1:'0%',readd_risk2:'No Admission Info',
+          cond_risk1:'Dx',cond_risk2:'65%',cond_risk3:'28%',cond_risk4:'17%'})
+        this.dataSource = ELEMENT_DATA;
       });
     });
   }
