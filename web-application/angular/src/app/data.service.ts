@@ -14,7 +14,7 @@ export class DataService {
   //The array that contains all the options selected from drop down from search bar
   searchOption=[]
 
-  cacheService : string = environment.serverUrl+"cache_service";
+  cacheService : string = environment.serverUrl+"/cache_service";
   public postsData: any[]
   postUrl : string = environment.serverUrl+"patient"; 
 
