@@ -99,11 +99,12 @@ export class HealthcareProfileComponent implements OnInit {
           cond_risk1:'Dx',cond_risk2:'65%',cond_risk3:'28%',cond_risk4:'17%'})*/
     //console.log(ELEMENT_DATA);
     //this.dataSource = new MatTableDataSource(ELEMENT_DATA);
-
-    let elem = document.getElementsByClassName("searchresults")[0];
+    var dob_tmp = this.dob.split('/');
+    var new_dob = dob_tmp[2]+"-"+dob_tmp[0]+"-"+dob_tmp[0];
+    //let elem = document.getElementsByClassName("searchresults")[0];
     this.dataService.getFromCache(localStorage.getItem("code")).subscribe(res1=>{
             console.log(res1);
-      this.dataService.search(this.fName,this.lName,this.dob,res1).subscribe(res=>{
+      this.dataService.search(this.fName,this.lName,new_dob,res1).subscribe(res=>{
           console.log(res);
           var name = res["entry"][0].resource.name[0].text.split(" ")[1];
           var dob = res["entry"][0].resource.birthDate;
