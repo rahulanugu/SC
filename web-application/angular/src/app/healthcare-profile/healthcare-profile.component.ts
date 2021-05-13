@@ -24,9 +24,6 @@ export interface PeriodicElement {
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  {png: 'albert_johnson.png', name: 'Albert Johnson', dob: '02/10/1988', mrn: 'YTK89123456',
-  check_in1: '10/20/2020', check_in2:'10:30 am',readd_risk1:'10%',readd_risk2:'No Admission Info',
-  cond_risk1:'Dx',cond_risk2:'75%',cond_risk3:'28%',cond_risk4:'17%'},
   {png: 'leslie_wang.png', name: 'Leslie Isablella Wang', dob: '03/12/1990', mrn: 'YTK34567891',
   check_in1: '12/18/2020', check_in2:'10:30 am',readd_risk1:'15%',readd_risk2:'No Admission Info',
   cond_risk1:'Dx',cond_risk2:'50%',cond_risk3:'28%',cond_risk4:'17%'},
@@ -110,10 +107,10 @@ export class HealthcareProfileComponent implements OnInit {
           console.log(res);
           var name = res["entry"][0].resource.name[0].text.split(" ")[1];
           var dob = res["entry"][0].resource.birthDate;
-          var gender = res["entry"][0].resource.gender;
-          var phone = res["entry"][0].resource.telecom[0].value;
-          var care = res["entry"][0].resource.careProvider[0].display;
-          ELEMENT_DATA.unshift({png: 'ashley.png', name: name, dob: dob, mrn: 'YTK89123456',
+          //var gender = res["entry"][0].resource.gender;
+          //var phone = res["entry"][0].resource.telecom[0].value;
+          //var care = res["entry"][0].resource.careProvider[0].display;
+          ELEMENT_DATA.unshift({png: 'albert_johnson.png', name: name, dob: dob, mrn: 'YTK89123456',
           check_in1: '11/25/2020', check_in2:'10:30 am',readd_risk1:'0%',readd_risk2:'No Admission Info',
           cond_risk1:'Dx',cond_risk2:'65%',cond_risk3:'28%',cond_risk4:'17%'})
           this.dataSource = new MatTableDataSource(ELEMENT_DATA);
