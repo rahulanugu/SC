@@ -73,14 +73,17 @@ import { LabResultComponent } from "./lab-result/lab-result.component";
 import { LabResultInfoComponent } from "./lab-result-info/lab-result-info.component";
 import { ProcedureComponent } from "./procedure/procedure.component";
 import { ProcedureInfoComponent } from "./procedure-info/procedure-info.component";
+import { CaregiverProfileComponent } from "./caregiver-profile/caregiver-profile.component";
+import { MedicationDetailsComponent } from "./medication-details/medication-details.component";
+import { ProcedureDetailsComponent } from "./procedure-details/procedure-details.component";
 const routes: Routes = [
   /* pages for the app */
   {
-    path: "patient/labresult",
+    path: "patients/labresult",
     component: LabResultComponent,
   },
   {
-    path: "patient/labresultinfo",
+    path: "patients/labresultinfo",
     component: LabResultInfoComponent,
   },
   {
@@ -171,7 +174,7 @@ const routes: Routes = [
   },
   {
     path: "healthcare-profile/accountsettings",
-    component: HealthcareAccountSettingsComponent, canActivate: [HealthcareAuthGuard],
+    component: HealthcareAccountSettingsComponent,
   },
   {
     path: "healthcare/patientportal",
@@ -263,6 +266,10 @@ const routes: Routes = [
     component: PatientCaregiverComponent,
   },
   {
+    path: "patients/caregiverid",
+    component: CaregiverProfileComponent,
+  },
+  {
     path: "patients/doctorinfo",
     component: DoctorProfileComponent,
   },
@@ -279,12 +286,24 @@ const routes: Routes = [
     component: PrescriptionsComponent,
   },
   {
+    path: "patients/medicationdetails",
+    component: MedicationDetailsComponent,
+  },
+  {
     path: "patients/medication",
     component: MedicationComponent,
   },
   {
     path: "patients/conditions",
     component: ConditionsComponent,
+  },
+  {
+    path: "patients/procedures",
+    component: ProcedureComponent,
+  },
+  {
+    path: "patients/proceduresdetails",
+    component: ProcedureDetailsComponent,
   },
 ];
 

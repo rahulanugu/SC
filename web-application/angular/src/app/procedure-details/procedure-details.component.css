@@ -29,6 +29,44 @@
   margin-top: 20px;
 }
 
+.colr{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px 0px 0px 16px;
+  position: static;
+  height: 56px;
+  left: 0px;
+  top: 0px;
+  border-radius: 8px;
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  margin: 0px 0px;
+}
+
+.green{
+  color: #104F1D;
+  border: 1px solid #104F1D;
+  background: #EDFFF1;
+}
+
+#medicdetails{
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+  -webkit-box-align: start;
+  align-items: flex-start;
+  width: 84%;
+  left: 3%;
+  background: #FFFFFF;
+  box-shadow: 0px 4px 8px rgb(29 31 38 / 15%);
+  border-radius: 8px;
+  padding-top: 5%;
+  margin: 2.5% auto;
+  font-family: Lato;
+}
 
 .buttoncontent{
   display: -webkit-box;
@@ -55,38 +93,22 @@
   flex-grow: 0;
   margin-left: 2%;
   color: #5C8A96;
+  margin-bottom: 2%;
+  font-weight: bold;
 }
 
-.divs{
-  width: 100%;
-}
-
-.text{
-  height: 22px;
-  margin-left: 2%;
-  margin-top: 3%;
-  font-family: Lato;
+.bolded{
   font-style: normal;
+  font-weight: bold;
   font-size: 18px;
   line-height: 22px;
   color: #1D1F26;
 }
 
-.docInfo{
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0px;
-  width: 91%;
-  height: 206px;
-  left: 4.5%;
-  background: #FFFFFF;
-  box-shadow: 0px 4px 8px rgba(29, 31, 38, 0.15);
-  border-radius: 8px;
-  font-family: Lato;
-  margin: 2% auto;
+p{
+  margin-left: 3%;
+  margin-top: 2%;
 }
-
 #uppertext{
   display: flex;
   flex-direction: row;
@@ -105,14 +127,5 @@
   display: flex;
   align-items: center;
   color: #1D1F26;
-  margin: 4%;
-}
-
-.bolded{
-  font-weight: bold;
-}
-
-p{
-  margin-left: 4%;
-  margin-top:2%;
+  margin: 0 0 2% 3%;
 }

@@ -119,6 +119,9 @@ import { LabResultComponent } from './lab-result/lab-result.component';
 import { LabResultInfoComponent } from './lab-result-info/lab-result-info.component';
 import { ProcedureComponent } from './procedure/procedure.component';
 import { ProcedureInfoComponent } from './procedure-info/procedure-info.component';
+import { CaregiverProfileComponent } from './caregiver-profile/caregiver-profile.component';
+import { MedicationDetailsComponent } from './medication-details/medication-details.component';
+import { ProcedureDetailsComponent } from "./procedure-details/procedure-details.component";
 @NgModule({
   declarations: [
     AppComponent,
@@ -203,7 +206,10 @@ import { ProcedureInfoComponent } from './procedure-info/procedure-info.componen
     LabResultInfoComponent,
     ProcedureComponent,
     ProcedureInfoComponent,
-    HealthcareFooterLoginComponent
+    HealthcareFooterLoginComponent,
+    CaregiverProfileComponent,
+    MedicationDetailsComponent,
+    ProcedureDetailsComponent
   ],
 
   imports: [

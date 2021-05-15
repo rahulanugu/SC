@@ -1,0 +1,202 @@
+.loginHeading {
+  font-family: "Tinos", serif;
+  color: #2d5059;
+  text-align: center;
+  font-size: 36px;
+  padding-top: 40px;
+  margin-bottom: 20px;
+}
+
+.card {
+  box-shadow: 0px 4px 8px rgba(29, 31, 38, 0.15);
+  transition: 0.3s;
+  border-radius: 5px;
+  width: 98%;
+  height: auto;
+  margin: 0 auto;
+  float: none;
+  padding-bottom: 40px;
+  font-family: "Lato", sans-serif;
+  margin-bottom: 50%;
+}
+
+hr {
+  left: 0%;
+  right: 0%;
+  margin-top: 0px;
+
+  /* Grey 200 */
+  border: 2px solid #e1e4eb;
+}
+.points {
+  padding: 0.5%;
+}
+
+.line {
+  width: 12%;
+  margin-bottom: 18px;
+}
+.nextBtn {
+  width: 90%;
+  height: 40px;
+  color: white;
+  background-color: #5c8a96;
+  border: none;
+  font-size: 18px;
+  font-family: "Lato", sans-serif;
+  font-weight: bold;
+  margin: auto;
+  margin-left: 5%;
+  border-radius: 7px;
+}
+
+.form-group label {
+  font-family: "Lato", sans-serif;
+  margin-left: 18px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.form-group input {
+  font-family: "Lato", sans-serif;
+  margin-left: 18px;
+  font-size: 18px;
+  color: black;
+  width: 80%;
+  height: 30px;
+  background: #ffffff;
+  /* Grey 200 */
+
+  border: 2px solid #e1e4eb;
+  box-sizing: border-box;
+  /* Inner Shadow E-100 */
+
+  box-shadow: inset 0px 2px 2px rgba(29, 31, 38, 0.15);
+  border-radius: 8px;
+}
+
+.form-group p {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  color: #1d1f26;
+  position: static;
+
+  height: 44px;
+  left: 0px;
+  top: 26px;
+  margin-left: 18px;
+}
+
+.progressBar {
+  margin-top: 10px;
+}
+
+.helpBtn,
+.signUpBtn {
+  color: #5c8a96;
+  border: 2px solid #5c8a96;
+  background-color: white;
+  width: 90%;
+  height: 40px;
+
+  font-size: 18px;
+  font-family: "Lato", sans-serif;
+  font-weight: bold;
+  margin-top: 30px;
+  margin-left: 5%;
+  border-radius: 7px;
+}
+
+#form2Label {
+  font-size: 18px;
+  font-weight: bold;
+  color: #1d1f26;
+  margin-left: 18px;
+}
+
+#form2p {
+  font-size: 18px;
+  font-weight: normal;
+  color: #1d1f26;
+  margin-left: 18px;
+}
+
+#avatar,
+#tickIc {
+  height: 130px;
+
+  width: 30%;
+  margin: auto;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.hr-sect {
+  display: flex;
+  flex-basis: 100%;
+  align-items: center;
+  color: #1d1f26;
+  margin: 8px 0px;
+}
+.hr-sect::before,
+.hr-sect::after {
+  content: "";
+  flex-grow: 1;
+  background: #f5f6fa;
+  height: 1px;
+  font-size: 0px;
+  line-height: 0px;
+  margin: 0px 8px;
+  border: 2px solid #f5f6fa;
+  transform: matrix(1, 0, 0, -1, 0, 0);
+}
+
+.btn {
+  width: 195px;
+  height: 42px;
+  color: #5c8a96;
+  border: 2px solid #5c8a96;
+  background-color: white;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 18px;
+  font-family: "Lato", sans-serif;
+  font-weight: bold;
+}
+.btn img {
+  margin-bottom: 4px;
+}
+
+.element {
+  display: inline-flex;
+  align-items: center;
+  font-size: 18px;
+  font-family: "Lato", sans-serif;
+}
+
+.footer {
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+
+.inline-elements label {
+  margin-left: 10px;
+  font-family: "Lato", sans-serif;
+  color: #575b66;
+  font-style: normal;
+  font-size: 14px;
+  margin-top: calc(50% - 17px / 2);
+  line-height: 17px;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  margin: 0px 4px;
+}
+
+.grid-elements img {
+  width: 100%;
+}
+
+

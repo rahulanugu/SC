@@ -27,3 +27,60 @@
   margin-left: 0.7%;
   margin-bottom: 80%;
 }
+
+ul#indicators {
+  list-style: none;
+}
+ul#indicators li {
+  float: left;
+  display: block;
+  margin-right: 10%;
+  font-size: 14px;
+}
+
+.progress-bar-success {
+  background: #429855;
+}
+
+.progress-bar-danger {
+  background: #c13932;
+}
+
+.progress-bar-warning {
+  background: #deae33;
+}
+
+.progress {
+  width: 80%;
+  height: 24px;
+  border-radius: 8px;
+}
+
+#text{
+  font-family: Lato;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 22px;
+  color: #1D1F26;
+}
+
+.btn-success{
+  background-color: #2e733d;
+}
+
+.btn{
+  border-radius: 8px;
+}
+
+.btn-warning{
+  background-color:#deaf33;
+}
+
+#readrisk{
+  font-family: Lato;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 29px;
+}
