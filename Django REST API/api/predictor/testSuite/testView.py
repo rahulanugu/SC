@@ -12,12 +12,3 @@ class ViewTest(TestCase):
         data=requests.get(self.d_source_url, json={'id':patient_id}, auth=("ScriptChain","ScriptChain@123A1")).json()
         response=requests.get(self.view_url,json=data)
         self.assertEqual(response.status_code, 200)
-    
-        
-
-
-        
-
-
-
-
