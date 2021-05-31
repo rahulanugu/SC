@@ -167,8 +167,9 @@
   .row1{
     padding-left:-2%;
   }
-  .row{
-    margin:0!important;
+
+  .progress{
+    height: 2rem!important;
   }
 
   .progress-bar-success{
@@ -186,13 +187,72 @@
   .high{
     margin-left: 8%;
     border-radius: 15px;
-    padding-right: 2%;
-    padding-left: 2%;
+    padding-right: 1%;
+    padding-left: 1%;
+  }
+  .high1{
+    margin-left: 8%;
+    border-radius: 15px;
+    padding-right: 1%;
+    padding-left: 1%;
+    color:white;
   }
 
   .grey{
-    background: #E1E4EB;
+    background: #FFE7E6;
     border-radius: 15px;
     padding:10px;
     border:0px;
+  }
+
+  .grey1{
+    background: #EDF2FF;
+    border-radius: 15px;
+    padding:10px;
+    border:0px;
+  }
+
+  .grey2{
+    background: #EDFFF1;
+    border-radius: 15px;
+    padding:10px;
+    border:0px;
+  }
+
+  .container-full{
+    margin: 0 auto;
+  }
+
+  .bold{
+    font-family: Lato;
+    font-style: normal;
+    font-weight: bold;
+  }
+
+  .bold_p{
+    margin-bottom: 0rem!important;
+  }
+
+  tr th, tr td {
+    border-top: 0px !important;
+    border-bottom: 0px !important;
+  }
+
+  tbody tr:nth-child(odd){
+    background: #F5F6FA;
+    color: black;
+  }
+
+  .np{
+    font-family: Lato;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+  }
+
+  .high3{
+    padding-right: 7px;
+    padding-left: 7px;
+    border-radius: 10px;
+    margin-left: 2%;
   }

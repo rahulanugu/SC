@@ -147,15 +147,15 @@ const routes: Routes = [
   },
   {
     path: "healthcare-profile",
-    component: HealthcareProfileComponent, canActivate: [HealthcareAuthGuard],
+    component: HealthcareProfileComponent/*, canActivate: [HealthcareAuthGuard]*/,
   },
   {
     path: "healthcare-profile/patient/:patientid",
-    component: PatientHealthcareviewComponent, canActivate: [HealthcareAuthGuard],
+    component: PatientHealthcareviewComponent/*, canActivate: [HealthcareAuthGuard]*/,
   },
   {
     path: "healthcare-profile/patient/:patientid/:diseaseid",
-    component: PatientHealthcareviewnextComponent, canActivate: [HealthcareAuthGuard],
+    component: PatientHealthcareviewnextComponent/*, canActivate: [HealthcareAuthGuard]*/,
   },
   /*{
     path: "healthcare-profile/editprofile",
