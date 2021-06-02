@@ -1,0 +1,258 @@
+.btn{
+    cursor: pointer;
+}
+.contain {
+    width: 100%;
+  }
+  .arrow {
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+  }
+  .left {
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+  }
+  .scrol{
+    overflow-x: scroll;
+  }
+  .row {
+    width: 100%;
+  }
+  .row__inner {
+    -webkit-transition: 450ms -webkit-transform;
+    transition: 450ms -webkit-transform;
+    transition: 450ms transform;
+    transition: 450ms transform, 450ms -webkit-transform;
+    font-size: 0;
+    white-space: nowrap;
+    margin: 40.3125px 0;
+    padding-bottom: 10px;
+  }
+  .tile {
+    position: relative;
+    display: inline-block;
+    width: 360px;
+    height: 200px;
+    margin-right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    -webkit-transition: 450ms all;
+    transition: 450ms all;
+    -webkit-transform-origin: center left;
+            transform-origin: center left;
+      transform: scale(0.8);
+  }
+  .tile__img {
+    width: 360px;
+    height: 200px;
+    -o-object-fit: fill;
+       object-fit: fill;
+  }
+
+  .tile:hover{
+    opacity: 1;
+  }
+.info{
+    padding-left: 5%;
+    padding-right: 5%;
+    margin-top: 5%;
+}
+  ul#capsules {
+    -webkit-columns: 3;
+       -moz-columns: 3;
+            columns: 3;
+    padding-left: 0;
+  }
+  ul#capsules li {
+    list-style-position: inside;
+    -webkit-column-break-inside: avoid;
+              page-break-inside: avoid;
+                   break-inside: avoid;
+  }
+  ul#indicators {
+    list-style: none;
+    margin-bottom: 1%;
+  
+  }
+  ul#indicators li{
+      float: left;
+      display: block;
+      margin-right: 10%;
+      font-size:14px; 
+      
+  }
+  ul li:before {
+    font-size: 170%;
+  }
+  #within{
+      margin-left: 3em;
+  }
+    ul li#serious::before {
+      content: "\2022";
+      color: #C13932;
+      font-weight: bold;
+      display: inline-block; 
+      width: 1em;
+      margin-left: -1em;
+    }
+    ul li#med::before {
+      content: "\2022";
+      color: #DEAE33;
+      font-weight: bold;
+      display: inline-block; 
+      width: 1em;
+      margin-left: -1em;
+    }
+    ul li#safe::before {
+      content: "\2022";
+      color: #429855;
+      font-weight: bold;
+      display: inline-block; 
+      width: 1em;
+      margin-left: -1em;
+    }
+  #right{
+    position: absolute;
+    right:20px;
+  }
+  #left{
+    position: absolute;
+    right:80px;
+  }
+  .img{
+    width:20px;
+    height: 30px;
+    cursor: pointer;
+  }
+  #leftdiv{
+    position: absolute;
+    z-index: 2;
+    margin-top: 9%;
+    left:9%;
+  }
+  #rightdiv{
+    position: absolute;
+    z-index: 2;
+    right:12%;
+    margin-top: 9%;
+  }
+
+  .profile{
+    background-color: white;
+    padding: 20px;
+    box-shadow: 4px 5px 6px -6px grey;
+  }
+
+  #readmission_symptoms{
+    padding-left: 0px!important;
+    padding-right: 0px!important;
+  }
+
+  .info{
+    width: 1080px;
+    margin-left: 16px;
+  }
+
+  .box{
+    background-color: white;
+    margin-bottom: 5%;
+  }
+
+  .box .row1{
+    padding-top: 1%;
+  }
+
+  .row1{
+    padding-left:-2%;
+  }
+
+  .progress{
+    height: 2rem!important;
+  }
+
+  .progress-bar-success{
+    background: #429855;
+  }
+
+  .progress-bar-danger{
+    background: #C13932;
+  }
+
+  .progress-bar-warning{
+    background: #DEAE33;
+  }
+
+  .high{
+    margin-left: 8%;
+    border-radius: 15px;
+    padding-right: 1%;
+    padding-left: 1%;
+  }
+  .high1{
+    margin-left: 8%;
+    border-radius: 15px;
+    padding-right: 1%;
+    padding-left: 1%;
+    color:white;
+  }
+
+  .grey{
+    background: #FFE7E6;
+    border-radius: 15px;
+    padding:10px;
+    border:0px;
+  }
+
+  .grey1{
+    background: #EDF2FF;
+    border-radius: 15px;
+    padding:10px;
+    border:0px;
+  }
+
+  .grey2{
+    background: #EDFFF1;
+    border-radius: 15px;
+    padding:10px;
+    border:0px;
+  }
+
+  .container-full{
+    margin: 0 auto;
+  }
+
+  .bold{
+    font-family: Lato;
+    font-style: normal;
+    font-weight: bold;
+  }
+
+  .bold_p{
+    margin-bottom: 0rem!important;
+  }
+
+  tr th, tr td {
+    border-top: 0px !important;
+    border-bottom: 0px !important;
+  }
+
+  tbody tr:nth-child(odd){
+    background: #F5F6FA;
+    color: black;
+  }
+
+  .np{
+    font-family: Lato;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+  }
+
+  .high3{
+    padding-right: 7px;
+    padding-left: 7px;
+    border-radius: 10px;
+    margin-left: 2%;
+  }

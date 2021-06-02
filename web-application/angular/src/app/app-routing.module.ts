@@ -27,6 +27,7 @@ import { HealthcareProfileComponent } from "./healthcare-profile/healthcare-prof
 import { HealthcareAuthGuard } from "./healthcare-auth.guard";
 import { PatientHealthcareviewComponent } from "./patient-healthcareview/patient-healthcareview.component";
 import { PatientHealthcareviewnextComponent } from "./patient-healthcareviewnext/patient-healthcareviewnext.component";
+import { PatientHealthcareviewnextComponent1 } from "./patient-healthcareviewnext1/patient-healthcareviewnext1.component";
 import { Error404Component } from "./error404/error404.component";
 import { Error500Component } from "./error500/error500.component";
 import { HealthcareResetPasswordComponent } from "./healthcare-reset-password/healthcare-reset-password.component";
@@ -156,6 +157,10 @@ const routes: Routes = [
   {
     path: "healthcare-profile/patient/:patientid/:diseaseid",
     component: PatientHealthcareviewnextComponent/*, canActivate: [HealthcareAuthGuard]*/,
+  },
+  {
+    path: "healthcare-profile/readmission",
+    component: PatientHealthcareviewnextComponent1/*, canActivate: [HealthcareAuthGuard]*/,
   },
   /*{
     path: "healthcare-profile/editprofile",
