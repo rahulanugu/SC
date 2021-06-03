@@ -33,7 +33,7 @@ jobs:
 
   testUI:
 
-    needs: build
+    # needs: build
 
     runs-on: ubuntu-latest
     
