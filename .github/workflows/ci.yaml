@@ -39,9 +39,9 @@ jobs:
     
     steps:
     - uses: actions/checkout@v2
-      with: 
-        ref: master
-        path: web-application/angular
+      # with: 
+      #   ref: master
+      #   path: web-application/angular
 
     # - name: Go to the frontend directory
     #   run: cd web-application/angular
@@ -50,6 +50,7 @@ jobs:
     #   run: npm link @angular/cli
 
     - name: test UI
+      working-directory: ./web-application/angular
       run: npm run test
 
   # testBackend:
