@@ -27,9 +27,9 @@ jobs:
       working-directory: ./web-application/angular
       run: npm install
 
-    # - name: link npm with angular cli
-    #   working-directory: ./web-application/angular
-    #   run: npm link @angular/cli
+    - name: link npm with angular cli
+      working-directory: ./web-application/angular
+      run: npm link @angular/cli
 
     - name: build in production mode
       working-directory: ./web-application/angular
