@@ -17,7 +17,7 @@ jobs:
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
       with:
-        node-version: 14.7.0
+        node-version: 15.0.0
       
     - name: Go to the frontend directory
       run: cd web-application/angular
