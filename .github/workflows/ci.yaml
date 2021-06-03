@@ -49,6 +49,10 @@ jobs:
     # - name: link npm with angular cli
     #   run: npm link @angular/cli
 
+    - name: Install packages
+      working-directory: ./web-application/angular
+      run: npm install
+
     - name: test UI
       working-directory: ./web-application/angular
       run: npm run test
