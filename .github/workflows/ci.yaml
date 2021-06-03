@@ -19,6 +19,9 @@ jobs:
       with:
         node-version: 14.7.0
       
+    - name: Go to the frontend directory
+      run: cd ../../web-application/angular
+      
     - name: install all packages
       run: npm install
 
