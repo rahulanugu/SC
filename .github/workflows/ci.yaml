@@ -23,10 +23,10 @@ jobs:
         node-version: ${{ matrix.node-version }}
       
     - name: install all packages
-    - run: npm install
+      run: npm install
 
     - name: build in production mode
-    - run: ng build --prod
+      run: ng build --prod
 
   # testUI:
 
