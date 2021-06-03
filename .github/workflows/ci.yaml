@@ -45,9 +45,9 @@ jobs:
 
     # - name: Go to the frontend directory
     #   run: cd web-application/angular
-    
-    - name: link npm with angular cli
-      run: npm link @angular/cli
+
+    # - name: link npm with angular cli
+    #   run: npm link @angular/cli
 
     - name: test UI
       run: npm run test
