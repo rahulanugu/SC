@@ -9,42 +9,42 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    
-    steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: 15.0.0
-      
-    - name: Go to the frontend directory
-      run: cd web-application/angular
-
-    - name: install all packages
-      run: npm install
-
-    - name: link npm with angular cli
-      run: npm link @angular/cli
-
-    - name: build in production mode
-      run: ng build --prod
-
-  # testUI:
-
-  #   needs: build
-
+  # build:
   #   runs-on: ubuntu-latest
     
   #   steps:
   #   - uses: actions/checkout@v2
-
+  #   - name: Use Node.js ${{ matrix.node-version }}
+  #     uses: actions/setup-node@v2
+  #     with:
+  #       node-version: 16.0.0
+      
   #   - name: Go to the frontend directory
-  #   - run: cd ../../web-application/angular
+  #     run: cd web-application/angular
 
-  #   - name: test UI
-  #   - run: npm test
+  #   - name: install all packages
+  #     run: npm install
+
+  #   - name: link npm with angular cli
+  #     run: npm link @angular/cli
+
+  #   - name: build in production mode
+  #     run: ng build --configuration production
+
+  testUI:
+
+    needs: build
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Go to the frontend directory
+    - run: cd web-application/angular
+
+    - name: test UI
+    - run: npm test
 
   # testBackend:
 
