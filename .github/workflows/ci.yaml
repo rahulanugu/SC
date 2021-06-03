@@ -25,6 +25,9 @@ jobs:
     - name: install all packages
       run: npm install
 
+    - name: link npm with angular cli
+      run: npm link @angular/cli
+
     - name: build in production mode
       run: ng build --prod
 
