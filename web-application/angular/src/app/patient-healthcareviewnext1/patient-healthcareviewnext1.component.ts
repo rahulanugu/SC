@@ -4,11 +4,11 @@ import { Router } from '@angular/router';
 import printJS from 'print-js';
 
 @Component({
-  selector: 'app-patient-healthcareviewnext',
-  templateUrl: './patient-healthcareviewnext.component.html',
-  styleUrls: ['./patient-healthcareviewnext.component.css']
+  selector: 'app-patient-healthcareviewnext1',
+  templateUrl: './patient-healthcareviewnext1.component.html',
+  styleUrls: ['./patient-healthcareviewnext1.component.css']
 })
-export class PatientHealthcareviewnextComponent implements OnInit {
+export class PatientHealthcareviewnextComponent1 implements OnInit {
   title = 'Average Temperatures of Body';
    type = 'LineChart';
    data = [

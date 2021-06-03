@@ -60,6 +60,7 @@ import { HealthcareProfileComponent } from "./healthcare-profile/healthcare-prof
 import { MatRadioModule } from "@angular/material/radio";
 import { PatientHealthcareviewComponent } from "./patient-healthcareview/patient-healthcareview.component";
 import { PatientHealthcareviewnextComponent } from "./patient-healthcareviewnext/patient-healthcareviewnext.component";
+import { PatientHealthcareviewnextComponent1 } from "./patient-healthcareviewnext1/patient-healthcareviewnext1.component";
 import { HighchartsChartModule } from "highcharts-angular";
 import { Error404Component } from "./error404/error404.component";
 import { Error500Component } from "./error500/error500.component";
@@ -161,6 +162,7 @@ import { ProcedureDetailsComponent } from "./procedure-details/procedure-details
     HealthcareProfileComponent,
     PatientHealthcareviewComponent,
     PatientHealthcareviewnextComponent,
+    PatientHealthcareviewnextComponent1,
     Error404Component,
     Error500Component,
     HealthcareResetPasswordComponent,

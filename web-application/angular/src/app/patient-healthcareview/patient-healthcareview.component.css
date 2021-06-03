@@ -246,12 +246,28 @@ a:active {
 }
 
 .progress {
-  width: 80%;
+  width: 90%;
+}
+
+.progress{
+  height: 2rem!important;
 }
 
 .high {
   margin-left: 13%;
   border-radius: 15px;
-  padding-right: 4%;
-  padding-left: 4%;
+}
+
+.btn1{
+  border-radius:8px;
+}
+
+tr th, tr td {
+  border-top: 0px !important;
+  border-bottom: 0px !important;
+}
+
+tbody tr:nth-child(odd){
+  background: #F5F6FA;
+  color: black;
 }

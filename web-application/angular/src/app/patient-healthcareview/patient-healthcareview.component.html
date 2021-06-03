@@ -57,7 +57,7 @@
     </div>
 
     <div class="row">
-      <div class="col-md-5" id="readmission_symptoms">
+      <div class="col-md-6" id="readmission_symptoms">
         <div
           id="readmission"
           style="
@@ -72,6 +72,8 @@
               padding: 10px 0px 10px 10px;
             "
           >
+          <img src="../../assets/i_Con.png" style="position: absolute; right: 5%;"/>
+          <img src="../../assets/grid.png" style="position: absolute; right: 2%;"/>
             <h4>
               <img class="icon" src="../../assets/Readmission_Risk_Icon.svg" />
               &nbsp;Readmission Risk
@@ -85,7 +87,23 @@
               margin-bottom: 2%;
             "
           >
-            <div style="margin-top: 3%; margin-bottom: -2%">Within 30 days</div>
+            <div style="margin-top: 3%; margin-bottom: -2%;font-family: Lato;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 17px;">Readmission Risk for Cardiovascular Disease<span>
+            <button
+            class="btn btn-success btn-sm btn1"
+            style="margin-left: 32.5%"
+          >
+            Low
+          </button>
+          <img
+                  src="../../assets/view.png"
+                  style="cursor: pointer; margin-left: 5%"
+                  (click)="openNextView(1234, 93)"
+                />
+              </span>
+        </div>
             <div class="progress" style="margin-top: 5%; margin-bottom: 5%">
               <div
                 class="progress-bar progress-bar-success"
@@ -96,7 +114,7 @@
                 style="width: 24%"
               >
                 <span>24%</span>
-              </div>
+            </div>
             </div>
           </div>
           <ul id="indicators">
@@ -107,41 +125,69 @@
         </div>
 
         <div
-          id="symptoms"
-          style="
-            margin-top: 4%;
-            padding: 15px 10px 57px 0px;
-            background-color: white;
-            box-shadow: 1px 1px 10px 3px lightgray;
-          "
-        >
-          <div
-            style="
-              border-bottom: 2px solid #b0b4bf;
-              padding: 10px 0px 10px 10px;
-            "
-          >
-            <h4>
-              <img class="icon" src="../../assets/Symptoms_Icon.svg" />
-              &nbsp;Symptoms & Chief Complaint
-            </h4>
-          </div>
-          <div class="table area">
-            <table style="width: 100%; padding: 2%">
-              <tr>
-                <th>Symptom/Complaint</th>
-                <th>Date</th>
-                <th>Details</th>
-              </tr>
-              <tr>
-                <td>Tiredness</td>
-                <td>11/25/2020</td>
-                <td>View More</td>
-              </tr>
-            </table>
-          </div>
+             id="diagnosed"
+             style="
+               margin-top: 3%;
+               padding: 15px 10px 0px 0px;
+               background-color: white;
+               box-shadow: 1px 1px 10px 3px lightgray;
+             "
+           >
+           <img src="../../assets/grid.png" style="position: absolute; right: 3%;"/>
+             <div
+               style="
+                 border-bottom: 2px solid #b0b4bf;
+                 padding: 10px 0px 10px 10px;
+               "
+             >
+               <h4>
+                 <img
+                   class="icon"
+                   src="../../assets/Diagnosed_Condition_Icon.svg"
+                 />
+                 &nbsp;Diagnosed Conditions
+               </h4>
+             </div>
+   
+             <div class="table area">
+               <table style="width: 100%; padding: 2%">
+                  <thead>
+                     <tr>
+                        <th>Condition</th>
+                        <th>Date</th>
+                        <th>Details</th>
+                        <th></th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td>Condition 1</td>
+                        <td>mm/dd/yyyy</td>
+                        <td>Sample txt</td>
+                        <td style="text-decoration: underline;">View More<img src="../../assets/link.png" style="padding-left: 1%;"></td>
+                     </tr>
+                     <tr>
+                        <td>Condition 2</td>
+                        <td>mm/dd/yyyy</td>
+                        <td>Sample txt</td>
+                        <td style="text-decoration: underline;">View More<img src="../../assets/link.png" style="padding-left: 1%;"></td>
+                     </tr>
+                     <tr>
+                        <td>Condition 3</td>
+                        <td>mm/dd/yyyy</td>
+                        <td>Sample txt</td>
+                        <td style="text-decoration: underline;">View More<img src="../../assets/link.png" style="padding-left: 1%;"></td>
+                     </tr>
+                     <tr>
+                        <td>Condition 4</td>
+                        <td>mm/dd/yyyy</td>
+                        <td>Sample txt</td>
+                        <td style="text-decoration: underline;">View More<img src="../../assets/link.png" style="padding-left: 1%;"></td>
+                     </tr>
+                  </tbody>
+               </table>
+             </div>
         </div>
-
         <div
           id="diagnosed"
           style="
@@ -151,6 +197,7 @@
             box-shadow: 1px 1px 10px 3px lightgray;
           "
         >
+        <img src="../../assets/grid.png" style="position: absolute; right: 3%;"/>
           <div
             style="
               border-bottom: 2px solid #b0b4bf;
@@ -191,7 +238,7 @@
       <div class="tile__media col-md-6">
         <div
           style="
-            height: 400px;
+            height: 480px;
             background-color: white;
             padding-left: 10px;
             box-shadow: 1px 1px 10px 3px lightgray;
@@ -206,7 +253,9 @@
             <h4>
               <img class="icon" src="../../assets/Condition_Risk.svg" />
               &nbsp;Condition Risk
+              <img src="../../assets/grid.png" style="position: absolute; right: 3%;"/>
             </h4>
+            
           </div>
           <div style="margin-top: 1%; margin-bottom: -6%">
             <p style="padding-top: 1%; display: inline-block">
@@ -215,13 +264,13 @@
             <span>
               <button
                 class="btn btn-danger btn-sm high"
-                style="margin-left: 28.5%"
+                style="margin-left: 54.5%"
               >
                 High
               </button>
               <img
                 src="../../assets/view.png"
-                style="cursor: pointer; margin-left: 15%"
+                style="cursor: pointer; margin-left: 5%"
                 (click)="openNextView(1234, 93)"
               />
             </span>
@@ -244,10 +293,10 @@
               Chronic Obstructive Pulmonary Disease
             </p>
             <span>
-              <button class="btn btn-danger btn-sm high">High</button>
+              <button class="btn btn-danger btn-sm high" style="margin-left: 39.5%">High</button>
               <img
                 src="../../assets/view.png"
-                style="cursor: pointer; margin-left: 15%"
+                style="cursor: pointer; margin-left: 5%"
                 (click)="openNextView(1234, 78)"
               />
             </span>
@@ -268,7 +317,7 @@
             <p style="padding-top: 1%; display: inline-block">Bronchitis</p>
             <img
               src="../../assets/view.png"
-              style="cursor: pointer; margin-left: 74%"
+              style="cursor: pointer; margin-left: 84%"
               (click)="openNextView(1234, 72)"
             />
           </div>
@@ -288,7 +337,7 @@
             <p style="padding-top: 1%; display: inline-block">Pneumonia</p>
             <img
               src="../../assets/view.png"
-              style="cursor: pointer; margin-left: 72%"
+              style="cursor: pointer; margin-left: 82.5%"
               (click)="openNextView(1234, 51)"
             />
           </div>
@@ -308,7 +357,7 @@
             <p style="padding-top: 1%; display: inline-block">Emphysema</p>
             <img
               src="../../assets/view.png"
-              style="cursor: pointer; margin-left: 71%"
+              style="cursor: pointer; margin-left: 81%"
               (click)="openNextView(1234, 25)"
             />
           </div>
@@ -336,6 +385,8 @@
             border-bottom: 2px solid #b0b4bf;
           "
         >
+
+        <img src="../../assets/grid.png" style="position: absolute; right: 3%;"/>
           <h4>
             <img class="icon" src="../../assets/Vitals_Icon.svg" />
             &nbsp;Vitals
