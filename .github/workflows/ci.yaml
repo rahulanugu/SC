@@ -34,6 +34,7 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    steps:
     - name: Go to the frontend directory
     - run: cd ../../web-application/angular
 
@@ -44,11 +45,14 @@ jobs:
 
     needs: build
 
+    runs-on: ubuntu-latest
+
+    step:
     - name: Go to the backend directory
     - run: cd ../../web-application/node
 
     - name: install all backend packages
     - run: npm install
-    
+
     - name: Test backend
     - run: npm test
