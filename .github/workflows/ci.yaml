@@ -9,31 +9,35 @@ on:
     branches: [ master ]
 
 jobs:
-  # build:
-  #   runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-latest
     
-  #   steps:
-  #   - uses: actions/checkout@v2
-  #   - name: Use Node.js ${{ matrix.node-version }}
-  #     uses: actions/setup-node@v2
-  #     with:
-  #       node-version: 16.0.0
-      
-  #   - name: Go to the frontend directory
-  #     run: cd web-application/angular
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js v16.0.0
+      uses: actions/setup-node@v2
+      with:
+        node-version: 16.0.0
 
-  #   - name: install all packages
-  #     run: npm install
+    - name: install latest npm version
+      working-directory: ./web-application/angular
+      run: npm install npm@latest
 
-  #   - name: link npm with angular cli
-  #     run: npm link @angular/cli
+    - name: install all packages
+      working-directory: ./web-application/angular
+      run: npm install
 
-  #   - name: build in production mode
-  #     run: ng build --configuration production
+    # - name: link npm with angular cli
+    #   working-directory: ./web-application/angular
+    #   run: npm link @angular/cli
+
+    - name: build in production mode
+      working-directory: ./web-application/angular
+      run: ng build --configuration production
 
   testUI:
 
-    # needs: build
+    needs: build
 
     runs-on: ubuntu-latest
     
@@ -49,6 +53,10 @@ jobs:
     # - name: link npm with angular cli
     #   run: npm link @angular/cli
 
+    - name: install latest npm version
+      working-directory: ./web-application/angular
+      run: npm install npm@latest
+
     - name: Install packages
       working-directory: ./web-application/angular
       run: npm install
@@ -57,27 +65,27 @@ jobs:
       working-directory: ./web-application/angular
       run: npm run test
 
-  # testBackend:
+  testBackend:
 
-  #   needs: build
+    needs: build
 
-  #   runs-on: ubuntu-latest
-
-  #   strategy:
-  #     matrix: [10.x, 12.x, 14.x, 15.x]
+    runs-on: ubuntu-latest
     
-  #   steps:
-  #   - uses: actions/checkout@v2
-  #   - name: Use Node.js ${{ matrix.node-version }}
-  #     uses: actions/setup-node@v2
-  #     with:
-  #       node-version: ${{ matrix.node-version }}
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js v16.0.0
+      uses: actions/setup-node@v2
+      with:
+        node-version: 16.0.0
 
-  #   - name: Go to the backend directory
-  #   - run: cd ../../web-application/node
+    - name: install latest npm version
+      working-directory: ./web-application/node
+      run: npm install npm@latest
 
-  #   - name: install all backend packages
-  #   - run: npm install
+    - name: install all backend packages
+      working-directory: ./web-application/node
+      run: npm install
 
-  #   - name: Test backend
-  #   - run: npm test
+    - name: Test backend
+      working-directory: ./web-application/node
+      run: npm test
