@@ -48,11 +48,11 @@ jobs:
       run: npm run build
     
     - name: store build result in the dist directory
-      working-directory: ./web-application/angular
+      # working-directory: ./web-application/angular
       uses: actions/upload-artifact@v2
       with:
         name: buildOutput
-        path: ../node/dist
+        path: web-application/node/dist
 
   # testUI:
 
