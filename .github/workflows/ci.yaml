@@ -47,35 +47,26 @@ jobs:
       working-directory: ./web-application/angular
       run: npm run build
 
-  testUI:
+  # testUI:
 
-    needs: build
+  #   needs: build
 
-    runs-on: ubuntu-latest
+  #   runs-on: ubuntu-latest
     
-    steps:
-    - uses: actions/checkout@v2
-      # with: 
-      #   ref: master
-      #   path: web-application/angular
+  #   steps:
+  #   - uses: actions/checkout@v2
 
-    # - name: Go to the frontend directory
-    #   run: cd web-application/angular
+  #   - name: install latest npm version
+  #     working-directory: ./web-application/angular
+  #     run: npm install -g npm@latest
 
-    # - name: link npm with angular cli
-    #   run: npm link @angular/cli
+  #   - name: Install packages
+  #     working-directory: ./web-application/angular
+  #     run: npm install -g
 
-    - name: install latest npm version
-      working-directory: ./web-application/angular
-      run: npm install npm@latest
-
-    - name: Install packages
-      working-directory: ./web-application/angular
-      run: npm install
-
-    - name: test UI
-      working-directory: ./web-application/angular
-      run: npm run test
+  #   - name: test UI
+  #     working-directory: ./web-application/angular
+  #     run: npm run test
 
   testBackend:
 
