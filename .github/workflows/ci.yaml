@@ -9,43 +9,43 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  # build:
+  #   runs-on: ubuntu-latest
     
-    steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js v16.0.0
-      uses: actions/setup-node@v2
-      with:
-        node-version: 16.0.0
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - name: Use Node.js v16.0.0
+  #     uses: actions/setup-node@v2
+  #     with:
+  #       node-version: 16.0.0
 
-    - name: clear npm cache
-      working-directory: ./web-application/angular
-      run: npm cache clean -f
+  #   - name: clear npm cache
+  #     working-directory: ./web-application/angular
+  #     run: npm cache clean -f
 
-    - name: install latest npm version
-      working-directory: ./web-application/angular
-      run: npm install npm@latest
+  #   - name: install latest npm version
+  #     working-directory: ./web-application/angular
+  #     run: npm install npm@latest
 
-    - name: install all packages
-      working-directory: ./web-application/angular
-      run: npm install
+  #   - name: install all packages
+  #     working-directory: ./web-application/angular
+  #     run: npm install
 
-    - name: install semver
-      working-directory: ./web-application/angular
-      run: npm install semver
+  #   - name: install semver
+  #     working-directory: ./web-application/angular
+  #     run: npm install semver
 
-    - name: link npm with angular cli
-      working-directory: ./web-application/angular
-      run: npm link @angular/cli
+  #   - name: link npm with angular cli
+  #     working-directory: ./web-application/angular
+  #     run: npm link @angular/cli
 
-    - name: build in production mode
-      working-directory: ./web-application/angular
-      run: ng build --configuration production
+  #   - name: build in production mode
+  #     working-directory: ./web-application/angular
+  #     run: ng build --configuration production
 
   testUI:
 
-    needs: build
+    # needs: build
 
     runs-on: ubuntu-latest
     
@@ -75,7 +75,7 @@ jobs:
 
   testBackend:
 
-    needs: build
+    # needs: build
 
     runs-on: ubuntu-latest
     
