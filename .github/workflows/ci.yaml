@@ -25,15 +25,19 @@ jobs:
 
     - name: install latest npm version
       working-directory: ./web-application/angular
-      run: npm install npm@latest
+      run: npm install -g npm@latest
 
     - name: install all packages
       working-directory: ./web-application/angular
-      run: npm install
+      run: npm install -g
 
     - name: install ansi-colors
       working-directory: ./web-application/angular
       run: npm install -g ansi-colors
+
+    - name: install angular cli
+      working-directory: ./web-application/angular
+      run: npm install -g @angular/cli@8.3.29
 
     - name: link npm with angular cli
       working-directory: ./web-application/angular
