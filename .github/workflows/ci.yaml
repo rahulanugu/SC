@@ -19,6 +19,10 @@ jobs:
       with:
         node-version: 16.0.0
 
+    - name: clear npm cache
+      working-directory: ./web-application/angular
+      run: npm cache clean -f
+
     - name: install latest npm version
       working-directory: ./web-application/angular
       run: npm install npm@latest
@@ -26,6 +30,10 @@ jobs:
     - name: install all packages
       working-directory: ./web-application/angular
       run: npm install
+
+    - name: install all packages
+      working-directory: ./web-application/angular
+      run: npm install semver
 
     - name: link npm with angular cli
       working-directory: ./web-application/angular
