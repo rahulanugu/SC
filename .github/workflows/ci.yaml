@@ -31,9 +31,9 @@ jobs:
       working-directory: ./web-application/angular
       run: npm install
 
-    - name: install semver
+    - name: install ansi-colors
       working-directory: ./web-application/angular
-      run: npm install semver
+      run: npm install ansi-colors
 
     - name: link npm with angular cli
       working-directory: ./web-application/angular
