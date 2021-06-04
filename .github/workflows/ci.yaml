@@ -46,6 +46,13 @@ jobs:
     - name: build in production mode
       working-directory: ./web-application/angular
       run: npm run build
+    
+    - name: store build result in the dist directory
+      working-directory: ./web-application/angular
+      uses: actions/upload-artifact@v2
+      with:
+        name: buildOutput
+        path: ../node/dist
 
   # testUI:
 
@@ -90,3 +97,15 @@ jobs:
     - name: Test backend
       working-directory: ./web-application/node
       run: npm test
+
+  # triggerApp:
+
+  #   needs: [build, testBackend]
+
+  #   runs-on: ubuntu-latest
+
+  #   steps:
+  #   - uses: actions/checkout@v2
+
+  #   - name: Trigger app
+  #     run: 
