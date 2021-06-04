@@ -41,7 +41,7 @@ jobs:
 
     - name: build in production mode
       working-directory: ./web-application/angular
-      run: ng build --configuration production
+      run: npm run build
 
   testUI:
 
