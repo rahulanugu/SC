@@ -52,8 +52,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: buildOutput
-        working-directory: ./web-application/node
-        path: dist
+        path: ./web-application/node/dist
 
   # testUI:
 
