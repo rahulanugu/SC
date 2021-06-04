@@ -33,7 +33,7 @@ jobs:
 
     - name: install ansi-colors
       working-directory: ./web-application/angular
-      run: npm install ansi-colors
+      run: npm install -g ansi-colors
 
     - name: link npm with angular cli
       working-directory: ./web-application/angular
