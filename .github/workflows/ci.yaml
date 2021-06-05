@@ -90,14 +90,13 @@ jobs:
         aws-region: 'us-east-2'
 
     - name: create CodeDeploy Deployment
-      working-directory: ./web-application/node
       id: deploy
       run: |
         aws deploy create-deployment \
         --application-name ScriptChain \
         --deployment-group-name CodeDeployGitHubDemo-DepGrp \
         --deployment-config-name CodeDeployDefault.AllAtOnce \
-        --github-location repository=./dist,commitId=${{ github.sha }} 
+        --github-location repository=./web-application/node/dist,commitId=${{ github.sha }} 
 
         
   # testUI:
