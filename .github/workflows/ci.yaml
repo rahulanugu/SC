@@ -97,13 +97,13 @@ jobs:
         --region us-east-2 \
         ./web-application/node/dist s3://scriptchain-deploy-bucket
 
-    - name: Deploy github repo through CodeDeploy Deployment
-      run: |
-        aws deploy create-deployment \
-        --application-name ScriptChain \
-        --deployment-group-name CodeDeployGitHubDemo-DepGrp \
-        --deployment-config-name CodeDeployDefault.AllAtOnce \
-        --github-location repository=${{ github.repository }},commitId=${{ github.sha }}  \
+    # - name: Deploy github repo through CodeDeploy Deployment
+    #   run: |
+    #     aws deploy create-deployment \
+    #     --application-name ScriptChain \
+    #     --deployment-group-name CodeDeployGitHubDemo-DepGrp \
+    #     --deployment-config-name CodeDeployDefault.AllAtOnce \
+    #     --github-location repository=${{ github.repository }},commitId=${{ github.sha }}
       
     - name: Deploy s3 bucket
       id: deploy
