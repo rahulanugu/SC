@@ -58,7 +58,8 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: buildOutput
-        path: ./web-application/node/dist
+        working-directory: ./web-application/node
+        path: dist
     
     - name: download archive
       uses: actions/download-artifact@v2
@@ -92,11 +93,12 @@ jobs:
         aws-region: us-east-2
 
     - name: copy artifact to S3
+      working-directory: ./web-application/node
       run: |
         aws s3 cp \
         --recursive \
         --region us-east-2 \
-        ./web-application/node/dist s3://scriptchain-deploy-bucket
+        dist s3://scriptchain-deploy-bucket
 
     - name: Deploy github repo through CodeDeploy Deployment
       run: |
