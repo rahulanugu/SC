@@ -64,6 +64,7 @@ jobs:
       uses: actions/download-artifact@v2
       with:
         name: buildOutput
+        working-directory: ./web-application/node
         path: ./web-application/node/dist
 
     - name: install all backend packages
