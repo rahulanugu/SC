@@ -65,7 +65,7 @@ jobs:
       with:
         name: buildOutput
         working-directory: ./web-application/node
-        path: ./web-application/node/dist
+        path: dist
 
     - name: install all backend packages
       working-directory: ./web-application/node
