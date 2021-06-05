@@ -58,19 +58,17 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: buildOutput
-        working-directory: ./web-application/node
-        path: dist
+        path: ./web-application/node/dist
     
     - name: download archive
       uses: actions/download-artifact@v2
       with:
         name: buildOutput
-        working-directory: ./web-application/node
-        path: dist
+        path: ./web-application/node/dist
 
     - name: install all backend packages
       working-directory: ./web-application/node
-      run: npm install
+      run: npm install -g
 
     - name: Test backend
       working-directory: ./web-application/node
