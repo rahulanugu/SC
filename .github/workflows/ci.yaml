@@ -44,7 +44,6 @@ jobs:
       run: npm link @angular/cli
 
     - name: configure AWS credentials
-      working-directory: ./web-application/angular
       uses: aws-actions/configure-aws-credentials@v1
       with:
         aws-access-key-id: AKIA5VJT4NZ5L67V7OB2
