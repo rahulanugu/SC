@@ -98,7 +98,6 @@ jobs:
         ./web-application/node/dist s3://scriptchain-deploy-bucket
 
     - name: Deploy github repo through CodeDeploy Deployment
-      id: deploy
       run: |
         aws deploy create-deployment \
         --application-name ScriptChain \
