@@ -96,7 +96,7 @@ jobs:
         --application-name ScriptChain \
         --deployment-group-name CodeDeployGitHubDemo-DepGrp \
         --deployment-config-name CodeDeployDefault.AllAtOnce \
-        --github-location repository=${{ github.repository }},commitId=${{ github.sha }} 
+        --github-location repository=${{ github.workspace }}/web-application/node/dist ,commitId=${{ github.sha }} 
 
         
   # testUI:
