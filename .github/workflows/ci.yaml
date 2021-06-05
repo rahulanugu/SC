@@ -9,7 +9,7 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  continuous-integration:
     runs-on: ubuntu-latest
     
     steps:
@@ -43,6 +43,14 @@ jobs:
       working-directory: ./web-application/angular
       run: npm link @angular/cli
 
+    - name: configure AWS credentials
+      working-directory: ./web-application/angular
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: AKIA5VJT4NZ5L67V7OB2
+        aws-secret-access-key: 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
+        aws-region: us-east-2
+
     - name: build in production mode
       working-directory: ./web-application/angular
       run: npm run build
@@ -53,7 +61,41 @@ jobs:
       with:
         name: buildOutput
         path: ./web-application/node/dist
+    
+    - name: install all backend packages
+      working-directory: ./web-application/node
+      run: npm install
 
+    - name: Test backend
+      working-directory: ./web-application/node
+      run: npm test
+    
+  continuous-deployment:
+
+    needs: continuous-integration
+
+    runs-on: ubuntu-latest
+
+    if: github.ref == 'refs/heads/master'
+    steps:
+
+    - name: configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: AKIA5VJT4NZ5L67V7OB2
+        aws-secret-access-key: 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
+        aws-region: us-east-2
+
+    - name: create CodeDeploy Deployment
+      id: deploy
+      run: |
+        aws deploy create-deployment \
+        --application-name ScriptChain \
+        --deployment-group-name CodeDeployGitHubDemo-DepGrp \
+        --deployment-config-name CodeDeployDefault.AllAtOnce \
+        --github-location repository=${{ github.repository }},commitId=${{ github.sha }} 
+
+        
   # testUI:
 
   #   needs: build
@@ -75,28 +117,28 @@ jobs:
   #     working-directory: ./web-application/angular
   #     run: npm run test
 
-  testBackend:
+  # testBackend:
 
-    runs-on: ubuntu-latest
+  #   runs-on: ubuntu-latest
     
-    steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js v16.0.0
-      uses: actions/setup-node@v2
-      with:
-        node-version: 16.0.0
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - name: Use Node.js v16.0.0
+  #     uses: actions/setup-node@v2
+  #     with:
+  #       node-version: 16.0.0
 
-    - name: install latest npm version
-      working-directory: ./web-application/node
-      run: npm install npm@latest
+  #   - name: install latest npm version
+  #     working-directory: ./web-application/node
+  #     run: npm install npm@latest
 
-    - name: install all backend packages
-      working-directory: ./web-application/node
-      run: npm install
+  #   - name: install all backend packages
+  #     working-directory: ./web-application/node
+  #     run: npm install
 
-    - name: Test backend
-      working-directory: ./web-application/node
-      run: npm test
+  #   - name: Test backend
+  #     working-directory: ./web-application/node
+  #     run: npm test
 
   # triggerApp:
 
