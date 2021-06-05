@@ -48,14 +48,13 @@ jobs:
       with:
         aws-access-key-id: 'AKIA5VJT4NZ5L67V7OB2'
         aws-secret-access-key: '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'
-        aws-region: us-east-2
+        aws-region: 'us-east-2'
 
     - name: build in production mode
       working-directory: ./web-application/angular
       run: npm run build
     
     - name: store build result in the dist directory
-      # working-directory: ./web-application/angular
       uses: actions/upload-artifact@v2
       with:
         name: buildOutput
@@ -83,7 +82,7 @@ jobs:
       with:
         aws-access-key-id: 'AKIA5VJT4NZ5L67V7OB2'
         aws-secret-access-key: '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'
-        aws-region: us-east-2
+        aws-region: 'us-east-2'
 
     - name: create CodeDeploy Deployment
       id: deploy
