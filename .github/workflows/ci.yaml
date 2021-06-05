@@ -91,12 +91,11 @@ jobs:
         aws-region: us-east-2
 
     - name: copy artifact to S3
-      working-directory: ./web-application/node
       run: |
         aws s3 cp \
         --recursive \
         --region us-east-2 \
-        dist s3://scriptchain-deploy-bucket
+        ./web-application/node/dist s3://scriptchain-deploy-bucket
 
     - name: Deploy github repo through CodeDeploy Deployment
       run: |
