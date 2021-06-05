@@ -63,8 +63,8 @@ jobs:
     - name: download archive
       uses: actions/download-artifact@v2
       with:
-        name: files-uploaded-to-dist
-        
+        name: buildOutput
+
     - name: install all backend packages
       working-directory: ./web-application/node
       run: npm install
