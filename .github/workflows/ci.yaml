@@ -68,7 +68,7 @@ jobs:
 
     - name: install all backend packages
       working-directory: ./web-application/node
-      run: npm install -g
+      run: npm install
 
     - name: Test backend
       working-directory: ./web-application/node
