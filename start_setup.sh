@@ -12,5 +12,5 @@ cd /home/ec2-user/app/web-application/node
 sudo pm2 stop index.js
 sudo pm2 start ecosystem.config.js
 sudo systemctl restart nginx
-cd /home/ec2-user/app/Django\ REST\ API/api
-pm2 start manage.py --interpreter python3 -- runserver 0.0.0.0:8000
+# cd /home/ec2-user/app/Django\ REST\ API/api
+# pm2 start manage.py --interpreter python3 -- runserver 0.0.0.0:8000
