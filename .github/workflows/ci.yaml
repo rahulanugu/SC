@@ -15,8 +15,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: install zip plugin
-      uses:  montudor/action-zip@v1
+    # - name: install zip plugin
+    #   uses:  montudor/action-zip@v1
 
     - name: Use Node.js v16.0.0
       uses: actions/setup-node@v2
@@ -90,14 +90,22 @@ jobs:
 
     
     - name: zip artifact
-      working-directory: ./web-application/node/dist
-      run: zip -qq -r dist.zip dist
+      uses: papeloto/action-zip@v1
+      with: 
+        files: ./web-application/node/dist/
+        dest: dist.zip
+
+    - name: upload archive
+      uses: actions/upload-artifact@v2
+      with:
+        name: dist.zip
+        path: ${{ github.workspace}}/dist.zip
 
     - name: download archive
       uses: actions/download-artifact@v2
       with:
         name: dist.zip
-        path: ./web-application/node/dist
+        path: ${{ github.workspace}}/dist.zip
 
     - name: copy artifact to S3
       working-directory: ./web-application/node/dist
