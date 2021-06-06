@@ -101,11 +101,11 @@ jobs:
         name: dist.zip
         path: ${{ github.workspace}}/dist.zip
 
-    - name: download archive
-      uses: actions/download-artifact@v2
-      with:
-        name: dist.zip
-        path: ${{ github.workspace}}/dist.zip
+    # - name: download archive
+    #   uses: actions/download-artifact@v2
+    #   with:
+    #     name: dist.zip
+    #     path: ${{ github.workspace}}/dist.zip
 
     - name: copy artifact to S3
       working-directory: ./web-application/node/dist
