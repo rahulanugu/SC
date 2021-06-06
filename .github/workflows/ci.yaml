@@ -95,7 +95,7 @@ jobs:
         aws s3 cp \
         --recursive \
         --region us-east-2 \
-        ./buildOutput s3://scriptchain-deploy-bucket
+        ./buildOutput.zip s3://scriptchain-deploy-bucket
 
     # - name: Deploy github repo through CodeDeploy Deployment
     #   run: |
