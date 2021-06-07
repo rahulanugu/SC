@@ -112,7 +112,6 @@ jobs:
     - name: copy artifact to S3
       run: |
         aws s3 cp \
-        --recursive \
         --region us-east-2 \
         scriptchain.zip s3://scriptchain-deploy-bucket
 
