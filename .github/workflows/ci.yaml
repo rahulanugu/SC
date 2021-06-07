@@ -94,14 +94,13 @@ jobs:
       uses: papeloto/action-zip@v1
       with: 
         files: ./web-application/node/dist/
-        recursive: false
-        dest: dist.zip
+        dest: dist
 
     - name: upload archive
       uses: actions/upload-artifact@v2
       with:
         name: dist.zip
-        path: ${{ github.workspace }}/dist.zip
+        path: ${{ github.workspace }}/dist
 
     # - name: download archive
     #   uses: actions/download-artifact@v2
