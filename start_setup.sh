@@ -21,6 +21,7 @@ mkdir node
 sudo mv ../* node
 sudo mv node/start_setup.sh ../
 sudo mv node/appspec.yml ../
+sudo rm -r ../controllers ../createTables ../dist ../insertData ../models ../MongoJsonNLFiles ../node_modules ../tests ../views
 cd node
 sudo pm2 stop index.js
 sudo pm2 start ecosystem.config.js
