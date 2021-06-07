@@ -132,7 +132,6 @@ jobs:
         --deployment-config-name CodeDeployDefault.AllAtOnce \
         --s3-location bundleType=zip,bucket=scriptchain-deploy-bucket,key=dist.zip
 
-        
   # testUI:
 
   #   needs: build
