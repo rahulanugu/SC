@@ -126,8 +126,8 @@ jobs:
 
     - uses: geekyeggo/delete-artifact@v1
       with:
-      name: |
-        dist
-        scriptchain.zip
+        name: |
+          dist
+          scriptchain.zip
 
     # ------------ delete the artifacts from the workflow run ---------------
