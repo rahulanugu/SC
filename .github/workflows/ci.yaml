@@ -13,10 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v2
 
-    # - name: install zip plugin
-    #   uses:  montudor/action-zip@v1
+    # install all dependencies
+
+    - uses: actions/checkout@v2
 
     - name: Use Node.js v16.0.0
       uses: actions/setup-node@v2
@@ -43,6 +43,10 @@ jobs:
       working-directory: ./web-application/angular
       run: npm install -g @angular/cli@8.3.29
 
+    # --------- install all dependencies -----------------
+
+    # configurations
+
     - name: link npm with angular cli
       working-directory: ./web-application/angular
       run: npm link @angular/cli
@@ -54,6 +58,10 @@ jobs:
         aws-secret-access-key: 'f0sFYvsDEddkX1ygIJygayGGht6nN/qioX+un0fx'
         aws-region: 'us-east-2'
 
+    # ----------- configurations ---------------------
+
+    # build and store output
+
     - name: build in production mode
       working-directory: ./web-application/angular
       run: npm run build
@@ -64,6 +72,10 @@ jobs:
         name: dist
         path: ./web-application/node/dist
 
+    # ------------- build and store output ---------------
+
+    # backend testing
+
     - name: install all backend packages
       working-directory: ./web-application/node
       run: npm install
@@ -71,25 +83,11 @@ jobs:
     - name: Test backend
       working-directory: ./web-application/node
       run: npm test
-    
-    
-  # continuous-deployment:
 
-    # needs: continuous-integration
+    # ----------- backend testing ------------------------
 
-    # runs-on: ubuntu-latest
-
-    # if: github.ref == 'refs/heads/master'
-    # steps:
-
-    # - name: configure AWS credentials
-    #   uses: aws-actions/configure-aws-credentials@v1
-    #   with:
-    #     aws-access-key-id: 'AKIA5VJT4NZ5L67V7OB2'
-    #     aws-secret-access-key: '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'
-    #     aws-region: us-east-2
-
-    
+    # pre-process and upload build output to AWS S3
+  
     - name: zip artifact
       uses: papeloto/action-zip@v1
       with: 
@@ -102,28 +100,17 @@ jobs:
       with:
         name: scriptchain.zip
         path: ./scriptchain.zip
-        # path: ${{ github.workspace }}/scriptchain.zip
-
-    # - name: download archive
-    #   uses: actions/download-artifact@v2
-    #   with:
-    #     name: dist.zip
-    #     path: ${{ github.workspace}}/dist.zip
 
     - name: copy artifact to S3
       run: |
         aws s3 cp \
         --region us-east-2 \
         scriptchain.zip s3://scriptchain-deploy-bucket
-
-    # - name: Deploy github repo through CodeDeploy Deployment
-    #   run: |
-    #     aws deploy create-deployment \
-    #     --application-name ScriptChain \
-    #     --deployment-group-name CodeDeployGitHubDemo-DepGrp \
-    #     --deployment-config-name CodeDeployDefault.AllAtOnce \
-    #     --github-location repository=${{ github.repository }},commitId=${{ github.sha }}
       
+    # ------------ pre-process and upload build output to AWS S3 ---------------------
+
+    # deploy AWS S3 bucket contents
+
     - name: Deploy s3 bucket
       id: deploy
       run: |
@@ -133,58 +120,14 @@ jobs:
         --deployment-config-name CodeDeployDefault.AllAtOnce \
         --s3-location bundleType=zip,bucket=scriptchain-deploy-bucket,key=scriptchain.zip
 
-  # testUI:
+    # --------------- deploy AWS S3 bucket contents ---------------------
 
-  #   needs: build
+    # delete the artifacts from the workflow run
 
-  #   runs-on: ubuntu-latest
-    
-  #   steps:
-  #   - uses: actions/checkout@v2
+    - uses: geekyeggo/delete-artifact@v1
+      with:
+      name: |
+        dist
+        scriptchain.zip
 
-  #   - name: install latest npm version
-  #     working-directory: ./web-application/angular
-  #     run: npm install -g npm@latest
-
-  #   - name: Install packages
-  #     working-directory: ./web-application/angular
-  #     run: npm install -g
-
-  #   - name: test UI
-  #     working-directory: ./web-application/angular
-  #     run: npm run test
-
-  # testBackend:
-
-  #   runs-on: ubuntu-latest
-    
-  #   steps:
-  #   - uses: actions/checkout@v2
-  #   - name: Use Node.js v16.0.0
-  #     uses: actions/setup-node@v2
-  #     with:
-  #       node-version: 16.0.0
-
-  #   - name: install latest npm version
-  #     working-directory: ./web-application/node
-  #     run: npm install npm@latest
-
-  #   - name: install all backend packages
-  #     working-directory: ./web-application/node
-  #     run: npm install
-
-  #   - name: Test backend
-  #     working-directory: ./web-application/node
-  #     run: npm test
-
-  # triggerApp:
-
-  #   needs: [build, testBackend]
-
-  #   runs-on: ubuntu-latest
-
-  #   steps:
-  #   - uses: actions/checkout@v2
-
-  #   - name: Trigger app
-  #     run: 
+    # ------------ delete the artifacts from the workflow run ---------------
