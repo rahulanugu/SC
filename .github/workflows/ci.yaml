@@ -61,8 +61,8 @@ jobs:
     - name: store build result in the dist directory
       uses: actions/upload-artifact@v2
       with:
-        name: web-app
-        path: ./web-application
+        name: dist
+        path: ./web-application/node/dist
 
     - name: install all backend packages
       working-directory: ./web-application/node
@@ -93,14 +93,15 @@ jobs:
     - name: zip artifact
       uses: papeloto/action-zip@v1
       with: 
-        files: ./web-application
-        dest: web-app.zip
+        files: ./
+        dest: scriptchain.zip
 
     - name: upload archive
       uses: actions/upload-artifact@v2
       with:
-        name: web-app.zip
-        path: ${{ github.workspace }}/web-app.zip
+        name: scriptchain.zip
+        path: ./scriptchain.zip
+        # path: ${{ github.workspace }}/scriptchain.zip
 
     # - name: download archive
     #   uses: actions/download-artifact@v2
@@ -113,7 +114,7 @@ jobs:
         aws s3 cp \
         --recursive \
         --region us-east-2 \
-        web-app.zip s3://scriptchain-deploy-bucket
+        scriptchain.zip s3://scriptchain-deploy-bucket
 
     # - name: Deploy github repo through CodeDeploy Deployment
     #   run: |
@@ -130,7 +131,7 @@ jobs:
         --application-name ScriptChain \
         --deployment-group-name CodeDeployGitHubDemo-DepGrp \
         --deployment-config-name CodeDeployDefault.AllAtOnce \
-        --s3-location bundleType=zip,bucket=scriptchain-deploy-bucket,key=web-app.zip
+        --s3-location bundleType=zip,bucket=scriptchain-deploy-bucket,key=scriptchain.zip
 
   # testUI:
 
