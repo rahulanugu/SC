@@ -99,7 +99,7 @@ jobs:
     - name: upload archive
       uses: actions/upload-artifact@v2
       with:
-        name: dist.zip
+        name: dist
         path: ${{ github.workspace }}/dist
 
     # - name: download archive
