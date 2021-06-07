@@ -61,8 +61,8 @@ jobs:
     - name: store build result in the dist directory
       uses: actions/upload-artifact@v2
       with:
-        name: buildOutput
-        path: ./web-application/node/dist
+        name: dist
+        path: ./web-application/node
 
     - name: install all backend packages
       working-directory: ./web-application/node
