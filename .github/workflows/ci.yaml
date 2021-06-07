@@ -93,7 +93,7 @@ jobs:
     - name: zip artifact
       uses: papeloto/action-zip@v1
       with: 
-        files: ./web-application/ ./Django-REST-API/ ./appspec.yml ./start_setup.sh
+        files: ./web-application/node/ ./Django-REST-API/ ./appspec.yml ./start_setup.sh
         dest: scriptchain.zip
 
     - name: upload archive
