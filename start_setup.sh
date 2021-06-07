@@ -18,9 +18,9 @@ cd /home/ec2-user/app
 mkdir web-application
 cd web-application
 mkdir node
-mv -r ../ node
-mv node/start_setup.sh ../
-mv node/appspec.yml ../
+sudo mv ../* node
+sudo mv node/start_setup.sh ../
+sudo mv node/appspec.yml ../
 cd node
 sudo pm2 stop index.js
 sudo pm2 start ecosystem.config.js
