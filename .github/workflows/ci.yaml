@@ -90,17 +90,18 @@ jobs:
     #     aws-region: us-east-2
 
     
-    # - name: zip artifact
-    #   uses: papeloto/action-zip@v1
-    #   with: 
-    #     files: ./web-application/node/dist/
-    #     dest: dist.zip
+    - name: zip artifact
+      uses: papeloto/action-zip@v1
+      with: 
+        files: ./web-application/node/dist/
+        recursive: false
+        dest: dist.zip
 
-    # - name: upload archive
-    #   uses: actions/upload-artifact@v2
-    #   with:
-    #     name: dist.zip
-    #     path: ${{ github.workspace }}/dist.zip
+    - name: upload archive
+      uses: actions/upload-artifact@v2
+      with:
+        name: dist.zip
+        path: ${{ github.workspace }}/dist.zip
 
     # - name: download archive
     #   uses: actions/download-artifact@v2
@@ -108,12 +109,12 @@ jobs:
     #     name: dist.zip
     #     path: ${{ github.workspace}}/dist.zip
 
-    # - name: copy artifact to S3
-    #   run: |
-    #     aws s3 cp \
-    #     --recursive \
-    #     --region us-east-2 \
-    #     ./dist.zip s3://scriptchain-deploy-bucket
+    - name: copy artifact to S3
+      run: |
+        aws s3 cp \
+        --recursive \
+        --region us-east-2 \
+        ./dist.zip s3://scriptchain-deploy-bucket
 
     # - name: Deploy github repo through CodeDeploy Deployment
     #   run: |
