@@ -38,6 +38,31 @@ export class DataService {
       return this.http.get("https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/DSTU2/Patient?family="+lastname+"&given="+firstname+"&birthdate="+dob,{headers});
   }
 
+  getAppointments(id,res){
+    const headers = {"Authorization":"Bearer "+res};
+    return this.http.get("https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/STU3/Appointment/"+id,{headers});
+  }
+
+  getObservations(id,res){
+    const headers = {"Authorization":"Bearer "+res};
+    return this.http.get("https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/STU3/Observation/"+id,{headers});
+  }
+  
+  getDiagnostics(id,res){
+    const headers = {"Authorization":"Bearer "+res};
+    return this.http.get("https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/STU3/DiagnosticReport/"+id,{headers});
+  }
+
+  getConditions(id,res){
+    const headers = {"Authorization":"Bearer "+res};
+    return this.http.get("https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/STU3/Condition/"+id,{headers});
+  }
+
+  getProcedures(id,res){
+    const headers = {"Authorization":"Bearer "+res};
+    return this.http.get("https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/STU3/Procedure/"+id,{headers});
+  }
+
   getPosts(): Observable<Patient[]>{
     return this.http.get<Patient[]>(this.postUrl+environment.param);  
   }
