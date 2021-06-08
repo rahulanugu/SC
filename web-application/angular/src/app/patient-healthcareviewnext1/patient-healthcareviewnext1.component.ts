@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as Highcharts from 'highcharts';
 import { Router } from '@angular/router';
-import printJS from 'print-js';
 
 @Component({
   selector: 'app-patient-healthcareviewnext1',
