@@ -347,7 +347,10 @@ export class PatientHealthcareviewnextComponent implements OnInit {
       //console.log("patientId being rtried to access is "+patientId)
       this.router.navigate(["healthcare-profile/patient/"+patientId+"/"+diseaseId]);
     }
-  constructor(private router: Router) {}
+  constructor(
+   private dataService: DataService,
+   private router: Router
+   ) {}
 
   ngOnInit() {
    /*var chart = new CanvasJS.Chart("chartContainer",{
@@ -378,6 +381,11 @@ export class PatientHealthcareviewnextComponent implements OnInit {
       ]
     });
     chart.render();*/
+    /*this.dataService.getFromCache(localStorage.getItem("code")).subscribe(res1=>{console.log(res1);
+      this.dataService.getAppointments(id,res1).subscribe(res=>{
+         console.log(res);
+      });
+    });*/
     }
     printPage() {
       window.print();
