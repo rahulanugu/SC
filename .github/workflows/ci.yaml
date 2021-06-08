@@ -48,7 +48,7 @@ jobs:
     # configurations
 
     - name: link npm with angular cli
-      working-directory: ./web-application/angular
+      working-directory: ./web-application/angular 
       run: npm link @angular/cli
 
     - name: configure AWS credentials
