@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import "rxjs/add/operator/map";
-import "rxjs/add/operator/toPromise";
 import { environment } from 'src/environments/environment';
 import { jobOpening } from '../careers/careers.component';
 import { jobCategory } from '../job-categories/job-categories.component';

@@ -1,8 +1,6 @@
 import { RequestAccessUser } from "./requestaccess.model";
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import "rxjs/add/operator/map";
-import "rxjs/add/operator/toPromise";
 import { environment } from "src/environments/environment";
 /**
  * http calls for the requestaccess component
