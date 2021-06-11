@@ -105,7 +105,7 @@ app.use(function (req, res, next) {
   // to the API (e.g. in case you use sessions)
   res.setHeader('Access-Control-Allow-Credentials', true);
   
-  if (req.host != 'localhost' && req.get('X-Forwarded-Proto') == 'http') {
+  if (req.hostname != 'localhost' && req.get('X-Forwarded-Proto') == 'http') {
     res.redirect(`https://${req.host}${req.url}`);
     return;
   }
@@ -143,3 +143,5 @@ app.use("/partners" , partnersController)
 app.get("*", (req, res) => {
   return res.sendFile(path.join(__dirname, "./dist/my-app/index.html"));
 });
+
+module.exports = app;

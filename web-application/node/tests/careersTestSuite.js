@@ -1,5 +1,8 @@
 const chai = require("chai");
 const chaiHttp = require("chai-http");
+const request = require('supertest');
+const app = require('../index');
+const { assert } = require('chai');
 // const mongoose = require('mongoose');
 const expect = chai.expect;
 // const should = chai.expect;
@@ -25,6 +28,43 @@ describe('/POST Create a job', () => {
       });
   });
 
+  describe('get all job openings', () => {
+    it('should return all job openings without an error', () => {
+      request(app).get('careers/jobposting').end((err, res) => {
+        assert.isNull(err);
+        assert.isTrue(res.status != 404);
+        assert.isTrue(res.status == 200);
+      });
+    });
+  });
+
+  // describe('get all job openings', () => {
+  //   it('should return all job openings without an error', () => {
+  //     let jobPost = {
+  //       'title': 'Project Intern',
+  //       'description': 'Theyre in charge of determining what features the development team should build, working with UI and UX to figure out how to streamline the interface and overall user experience, and ensuring the product makes it to market.',
+  //       'salary': 'unpaid',
+  //       'location': 'remote',
+  //       'email': 'anithanarnavaram7@gmail.com',
+  //       'category': 'Design'
+  //     }
+  //     request(app).post('/jobposting').end((err, res) => {
+  //       assert.isNull(err);
+  //       assert.isTrue(res.status != 404);
+  //       assert.isTrue(res.status == 200);
+  //     });
+  //   });
+  // });
+
+  describe('get all job categories', () => {
+    it('should return all job categories without an error', () => {
+      request(app).get('careers/jobcategory').end((err, res) => {
+        assert.isNull(err);
+        assert(res.statusCode == 200);
+      });
+    });
+  });
+  
   // Test suite for  the job openings
 // describe('test case for the job openings', () => {
 //   it('Should have been jobopening page', (done) => {

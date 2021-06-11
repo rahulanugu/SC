@@ -1,5 +1,8 @@
+const { assert } = require("chai");
 const chai = require("chai");
 const chaiHttp = require("chai-http");
+const request = require('supertest');
+const app = require('../index');
 const expect = chai.expect;
 const should = chai.expect;
 chai.use(chaiHttp);
@@ -16,3 +19,59 @@ describe('/To save a new request access user', () => {
       });
     });
 
+  describe('/To get patient data', () => {
+    it('should give no error while retrieving patient data', () => {
+      request(app)
+          .get('/patient')
+          .end((err, res) => {
+            assert.isNull(err);
+          });
+    });
+  });
+
+  describe('/To get patient data with ID', () => {
+    it('should give no error while retrieving patient data', () => {
+      request(app)
+          .get('/patient/100')
+          .end((err, res) => {
+            assert.isNull(err);
+          });
+    });
+
+    // it('should give an error when an invalid ID is passed', () => {
+    //   request(app)
+    //       .get('/patient/amdmdmdm')
+    //       .end((err, res) => {
+    //         assert.isNotNull(err);
+    //       });
+    // });
+  });
+
+  describe('/Check if subscriber exists in db', () => {
+    it('should not allow bad requests', () => {
+      let queryPost = {
+        user: 'abc@gmail.com'
+      }
+
+      request(app)
+          .post('/patient/this_is_verify')
+          .send(queryPost)
+          .end((err, res) => {
+            assert(res.statusCode == 400);
+          });
+    });
+
+    it('should allow valid requests', () => {
+      let queryPost = {
+        user: 'abc@gmail.com'
+      }
+
+      request(app)
+          .post('/patient/verify')
+          .send(queryPost)
+          .end((err, res) => {
+            assert.isNull(err);
+            assert(res.statusCode == 200);
+          });
+    });
+  });
