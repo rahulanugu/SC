@@ -98,7 +98,7 @@ describe('/To save a new request access user', () => {
 
       for (var i = 0; i < fields.length; i++) {
         request(app)
-            .post('/request_access')
+            .post('/request_access/')
             .send(fields[i])
             .end((err, res) => {
               assert(res.statusCode == 400);

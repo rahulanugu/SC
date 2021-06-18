@@ -44,6 +44,8 @@ router.post("/jobposting",[check("title").notEmpty(),check('description').notEmp
 })],async(req, res) => {
     const err = validationResult(req);
     if(!err.isEmpty()){
+      console.log(err);
+      console.log('link is ', req.body.link);
       return res.status(400).json({Message:'Bad Request'})
     }
     var decrypted = aes256.decrypt(key, req.query.API_KEY);

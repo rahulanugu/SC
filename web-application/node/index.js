@@ -10,7 +10,6 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const path = require("path");
 // local import
-const { mongoose } = require("./db");
 var patientController = require("./controllers/patientController");
 var caregiverController = require("./controllers/caregiverController");
 var newUserController = require("./controllers/newUsersController");
@@ -117,8 +116,6 @@ app.use(function (req, res, next) {
 //Uncomment out the below code in production mode and local mode.
 app.use(express.static(path.join(__dirname, "./dist/my-app")));
 
-// start express server
-app.listen(3000, () => console.log("Server started at port: 3000"));
 
 // add router from patient controller
 app.use("/patient", patientController);
@@ -143,5 +140,11 @@ app.use("/partners" , partnersController)
 app.get("*", (req, res) => {
   return res.sendFile(path.join(__dirname, "./dist/my-app/index.html"));
 });
+
+// start express server
+if (require.main === module) {
+  const { mongoose } = require("./db");
+  app.listen(3000, () => console.log("Server started at port: 3000"));
+}
 
 module.exports = app;
