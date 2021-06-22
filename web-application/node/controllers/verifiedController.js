@@ -4,9 +4,10 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 var Utility = require('../utility');
 var jwtDecode = require('jwt-decode');
+const connection = require('../db_connection');
 var aes256 = require('aes256');
-const API_KEY = "scriptChain@13$67ahi1";
-const key = "hosenkinosumabeni";
+const API_KEY = process.env.API_KEY;
+const key = process.env.KEY;
 function generateId(count) {
     var _sym = 'abcdefghijklmnopqrstuvwxyz1234567890';
     var str = '';

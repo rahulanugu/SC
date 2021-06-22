@@ -12,8 +12,9 @@ var router = express.Router();
 const bigquery = new BigQuery(options);*/
 //const bigquery = new BigQuery();
 var aes256 = require('aes256');
-const API_KEY = "scriptChain@13$67ahi1";
-const key = "hosenkinosumabeni";
+const API_KEY = process.env.API_KEY;
+const key = process.env.KEY;
+const connection = require('../db_connection');
 //http request for patient login http://localhost:3000/patient-login/
 /**
  * This method validates the user/patient to log in to the portal.
@@ -21,14 +22,7 @@ const key = "hosenkinosumabeni";
  * Output: 401 - Invalid password or email
  *         200 - Jwt Token and first name
  */
-var mysql = require('mysql');
-var connection = mysql.createConnection({
-  host: 'database-1.cgurbeaohou6.us-east-2.rds.amazonaws.com',
-  user: 'admin',
-  password: 'Scriptchain20!',
-  port: 3306,
-  database: 'scriptchain'
-});
+
 router.post('/',[check('email').notEmpty().isEmail(),check('password').notEmpty(),body().custom(body => {
   const keys = ['email','password'];
   return Object.keys(body).every(key => keys.includes(key));

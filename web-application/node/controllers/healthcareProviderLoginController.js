@@ -4,22 +4,17 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 var router = express.Router();
 var aes256 = require('aes256');
-const API_KEY = "scriptChain@13$67ahi1";
-const key = "hosenkinosumabeni";
+const API_KEY = process.env.API_KEY;
+const key = process.env.KEY;
+const connection = require('../db_connection');
+
 //const fs = require('fs')
 /**
  * Authenticate the healthcare user login attempt
  * Input: Body containing username and password.
  * Output: Jwt token and 200 status on success or 401 on failure
  */
-var mysql = require('mysql');
-var connection = mysql.createConnection({
-  host: 'database-1.cgurbeaohou6.us-east-2.rds.amazonaws.com',
-  user: 'admin',
-  password: 'Scriptchain20!',
-  port: 3306,
-  database: 'scriptchain'
-});
+
 router.post('/',[check('emailAddress').notEmpty().isEmail(),check('password').notEmpty(),body().custom(body => {
   const keys = ['emailAddress','password'];
   return Object.keys(body).every(key => keys.includes(key));

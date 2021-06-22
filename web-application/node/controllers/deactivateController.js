@@ -3,8 +3,10 @@ const router = express.Router();
 const { check,body,validationResult } = require('express-validator');
 const fs = require('fs');
 var aes256 = require('aes256');
-const API_KEY = "scriptChain@13$67ahi1";
-const key = "hosenkinosumabeni";
+const API_KEY = process.env.API_KEY;
+const key = process.env.KEY;
+const connection = require('../db_connection');
+
 //The controller handles the requests for deactivating user accounts
 
 /**
@@ -20,14 +22,6 @@ const key = "hosenkinosumabeni";
 /*
 
 */
-var mysql = require('mysql');
-var connection = mysql.createConnection({
-    host: 'database-1.cgurbeaohou6.us-east-2.rds.amazonaws.com',
-    user: 'admin',
-    password: 'Scriptchain20!',
-    port: 3306,
-    database: 'scriptchain'
-});
 
 router.post("/patient",[check('email').notEmpty().isEmail(),body().custom(body => {
     const keys = ['email'];

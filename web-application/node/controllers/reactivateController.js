@@ -2,6 +2,7 @@ const express = require("express");
 const { check,body, validationResult } = require('express-validator');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
+const connection = require('../db_connection');
 const nodemailer = require("nodemailer");
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
@@ -9,8 +10,8 @@ var jwtDecode = require('jwt-decode');
 const {BigQuery} = require('@google-cloud/bigquery');
 const bigquery = new BigQuery();
 var aes256 = require('aes256');
-const API_KEY = "scriptChain@13$67ahi1";
-const key = "hosenkinosumabeni";
+const API_KEY = process.env.API_KEY;
+const key = process.env.KEY;
 //The controller handles the requests for reactivating user accounts
 
 /**
@@ -30,14 +31,7 @@ function generateId(count) {
   }
   return str;
 }
-var mysql = require('mysql');
-var connection = mysql.createConnection({
-  host: 'database-1.cgurbeaohou6.us-east-2.rds.amazonaws.com',
-  user: 'admin',
-  password: 'Scriptchain20!',
-  port: 3306,
-  database: 'scriptchain'
-});
+
 router.post("/patient/request",[check('email').notEmpty().isEmail(),body().custom(body => {
   const keys = ['email'];
   return Object.keys(body).every(key => keys.includes(key));

@@ -17,6 +17,7 @@ const randtoken = require('rand-token');
 var Utility = require('../utility')
 var jwtDecode = require('jwt-decode');
 
+const connection = require('../db_connection');
 
 //Creating a new oauthclientt for mailing
 const oauth2Client = new OAuth2(
@@ -34,8 +35,8 @@ oauth2Client.setCredentials({
 // retrieve an access token from oauthclient
 const accessToken = oauth2Client.getAccessToken();
 var aes256 = require('aes256');
-const API_KEY = "scriptChain@13$67ahi1";
-const key = "hosenkinosumabeni";
+const API_KEY = process.env.API_KEY;
+const key = process.env.KEY;
 /**
  * Request the creation of a new healthcareprovider user
  * Input: Body, contains the details that are specified in healthcare provider data model
@@ -43,14 +44,7 @@ const key = "hosenkinosumabeni";
  *         500 - Error status
  *         400 - Already exists
  */
-var mysql = require('mysql');
-var connection = mysql.createConnection({
-  host: 'database-1.cgurbeaohou6.us-east-2.rds.amazonaws.com',
-  user: 'admin',
-  password: 'Scriptchain20!',
-  port: 3306,
-  database: 'scriptchain'
-});
+
 function generateId(count) {
   var _sym = 'abcdefghijklmnopqrstuvwxyz1234567890';
   var str = '';

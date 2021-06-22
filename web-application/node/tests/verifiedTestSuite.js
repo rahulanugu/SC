@@ -1,7 +1,7 @@
 const chai = require("chai");
 const chaiHttp = require("chai-http");
-const expect = chai.expect;
-const should = chai.expect;
+const app = require('../index');
+const request = require('supertest');
 chai.use(chaiHttp);
 
 describe('/verfies the jwttoken', () => {
@@ -9,10 +9,16 @@ describe('/verfies the jwttoken', () => {
     let queryPost = {
       "jwtToken":"rXHqKySTNjtZrXcb"
       }
-      chai.request('http://localhost:8080')
+      request(app)
           .post('/verified')
+          .query({
+            API_KEY: "TiKY7Md2dHpcZo1ih4KbkinTHh7CNTSjseg2ZB3ZiaEC2x1bFA==",
+          })
           .send(queryPost)
           .end((err, res) => {
+            assert.isNull(err);
+            assert.isTrue(res.statusCode != 404);
+            assert.isTrue(res.statusCode == 200);
           });
       });
     });

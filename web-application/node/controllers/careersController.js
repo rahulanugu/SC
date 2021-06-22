@@ -2,22 +2,11 @@ const express = require("express");
 const router = express.Router();
 const { check,body, validationResult } = require('express-validator');
 var aes256 = require('aes256');
-const API_KEY = "scriptChain@13$67ahi1";
-const key = "hosenkinosumabeni";
-var mysql = require('mysql');
+const API_KEY = process.env.API_KEY;
+const key = process.env.KEY;
 const { compareSync } = require("bcryptjs");
 
-/**
- * The contoller is used to serve the needs of the careers portal of the
- * web application.
- */
-var connection = mysql.createConnection({
-  host: 'database-1.cgurbeaohou6.us-east-2.rds.amazonaws.com',
-  user: 'admin',
-  password: 'Scriptchain20!',
-  port: 3306,
-  database: 'scriptchain'
-});
+const connection = require('../db_connection');
 
 /**
  * The method will create a job to the database

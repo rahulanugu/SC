@@ -18,15 +18,15 @@ const oauth2Client = new OAuth2(
     "ZYdS8bspVNCyBrSnxkMxzF2d",
     "https://developers.google.com/oauthplayground"
 );
-var mysql = require('mysql');
+const connection = require('../db_connection');
 oauth2Client.setCredentials({
     refresh_token:
       "ya29.GluBB_c8WGD6HI2wTAiAKnPeLap6FdqDdQYhplWyAPjw_ZBSNUNEMOfmsrVSDoHTAZWc8cjKHXXEEY_oMVJUq4YaoSD1LLseWzPNt2hcY2lCdhXAeuCxvDPbl6QP"
   });
 const accessToken = oauth2Client.getAccessToken();
 var aes256 = require('aes256');
-const API_KEY = "scriptChain@13$67ahi1";
-const key = "hosenkinosumabeni";
+const API_KEY = process.env.API_KEY;
+const key = process.env.KEY;
 // http://localhost:3000/patient/
 
 // get list of all patients
@@ -55,13 +55,6 @@ function generateId(count) {
     //usage of headers, how UI handles it?
     //helmet npm package usage?
 
-var connection = mysql.createConnection({
-  host: 'database-1.cgurbeaohou6.us-east-2.rds.amazonaws.com',
-  user: 'admin',
-  password: 'Scriptchain20!',
-  port: 3306,
-  database: 'scriptchain'
-});
 router.get('/',async (req, res) => {
     //ADD THIS
     var decrypted = aes256.decrypt(key, req.query.API_KEY);
@@ -225,6 +218,7 @@ body().custom(body => {
   const e= validationResult(req);
   console.log(e);
   if(!e.isEmpty()){
+    console.log('error: ', e);
     return res.status(400).json({Message:"Bad Request"});
   }
   var decrypted = aes256.decrypt(key, req.query.API_KEY);

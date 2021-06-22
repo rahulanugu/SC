@@ -3,9 +3,9 @@ const { check,body, validationResult } = require('express-validator');
 const router = express.Router();
 //comment options in prod mode
 var aes256 = require('aes256');
-const API_KEY = "scriptChain@13$67ahi1";
-const key = "hosenkinosumabeni";
-var mysql = require('mysql');
+const API_KEY = process.env.API_KEY;
+const key = process.env.KEY;
+const connection = require('../db_connection');
 /**
  * Method to save the customer query to the database
  * Input: Details of ContactUser as specified in schema
@@ -23,13 +23,6 @@ function generateId(count) {
   }
   return str;
 }
-var connection = mysql.createConnection({
-  host: 'database-1.cgurbeaohou6.us-east-2.rds.amazonaws.com',
-  user: 'admin',
-  password: 'Scriptchain20!',
-  port: 3306,
-  database: 'scriptchain'
-});
 
 router.post("/",[check('FirstName').notEmpty().isAlpha(),check('LastName').notEmpty().isAlpha(),check('Email').isEmail(),check('Message').notEmpty(),body().custom(body => {
   const keys = ['FirstName','LastName','Email','Message'];

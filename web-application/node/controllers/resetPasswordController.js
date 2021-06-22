@@ -6,11 +6,12 @@ const nodemailer = require("nodemailer");
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
 var jwtDecode = require('jwt-decode');
+const connection = require('../db_connection');
 var Utility = require('../utility');
 var router = express.Router();
 var aes256 = require('aes256');
-const API_KEY = "scriptChain@13$67ahi1";
-const key = "hosenkinosumabeni";
+const API_KEY = process.env.API_KEY;
+const key = process.env.KEY;
 //The controller is used for generating a JWT token to initiate a password reset request
 
 /**
@@ -19,14 +20,7 @@ const key = "hosenkinosumabeni";
  * Input: User/Patient email
  * Output: 401 - Email not found (or) 200 - Email has been sent
  */
-var mysql = require('mysql');
-var connection = mysql.createConnection({
-  host: 'database-1.cgurbeaohou6.us-east-2.rds.amazonaws.com',
-  user: 'admin',
-  password: 'Scriptchain20!',
-  port: 3306,
-  database: 'scriptchain'
-});
+
 router.post('/', [check('email').notEmpty().isEmail(),body().custom(body => {
   const keys = ['email'];
   return Object.keys(body).every(key => keys.includes(key));
@@ -93,6 +87,7 @@ router.post('/check',[check("token").notEmpty(),body().custom(body => {
 
   jwt.verify(Utility.DecryptToken(encryptedToken), 'santosh', (err, verifiedJwt) => {
     if (err) {
+      // console.log(err.message)
       res.status(500).send(err.message)
     } else {
       res.status(200).json({

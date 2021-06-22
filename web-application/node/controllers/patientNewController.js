@@ -13,20 +13,21 @@ const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
 const randtoken = require('rand-token');
 var Utility = require('../utility');
+const connection = require('../db_connection');
 const oauth2Client = new OAuth2(
     "Y16828344230-21i76oqle90ehsrsrpptnb8ek2vqfjfp.apps.googleusercontent.com",
     "ZYdS8bspVNCyBrSnxkMxzF2d",
     "https://developers.google.com/oauthplayground"
 );
-var mysql = require('mysql');
 oauth2Client.setCredentials({
     refresh_token:
       "ya29.GluBB_c8WGD6HI2wTAiAKnPeLap6FdqDdQYhplWyAPjw_ZBSNUNEMOfmsrVSDoHTAZWc8cjKHXXEEY_oMVJUq4YaoSD1LLseWzPNt2hcY2lCdhXAeuCxvDPbl6QP"
   });
 const accessToken = oauth2Client.getAccessToken();
 var aes256 = require('aes256');
-const API_KEY = "scriptChain@13$67ahi1";
-const key = "hosenkinosumabeni";
+const API_KEY = process.env.API_KEY;
+const key = process.env.KEY;
+
 
 // get list of all patients
 /**
@@ -45,14 +46,6 @@ function generateId(count) {
   }
   return str;
 }
-
-var connection = mysql.createConnection({
-  host: 'database-1.cgurbeaohou6.us-east-2.rds.amazonaws.com',
-  user: 'admin',
-  password: 'Scriptchain20!',
-  port: 3306,
-  database: 'scriptchain'
-});
 
 router.post("/",[check('firstName').notEmpty(),check('lastName').notEmpty(),
 check('email').notEmpty().isEmail(),check('phone').notEmpty(),body().custom(body => {
