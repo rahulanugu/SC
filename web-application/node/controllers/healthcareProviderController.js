@@ -3,21 +3,21 @@
  * Uses express to create a RESTful API
  * Defines endpoints that allows application to perform CRUD operations
  */
-const nodemailer = require('nodemailer');
-const log = console.log;
-const express = require('express');
-const { check, body, validationResult } = require('express-validator');
-const router = express.Router();
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const { TokenSchema} = require('../models/tokeSchema');
-const { google } = require("googleapis");
-const OAuth2 = google.auth.OAuth2;
-const randtoken = require('rand-token');
-var Utility = require('../utility')
-var jwtDecode = require('jwt-decode');
-
-const connection = require('../db_connection');
+ const nodemailer = require('nodemailer');
+ const log = console.log;
+ const express = require('express');
+ const { check, body, validationResult } = require('express-validator');
+ const router = express.Router();
+ const bcrypt = require('bcryptjs');
+ const jwt = require('jsonwebtoken');
+ const { TokenSchema} = require('../models/tokeSchema');
+ const { google } = require("googleapis");
+ const OAuth2 = google.auth.OAuth2;
+ const randtoken = require('rand-token');
+ var Utility = require('../utility')
+ var jwtDecode = require('jwt-decode');
+ 
+ const connection = require('../db_connection');
 
 //Creating a new oauthclientt for mailing
 const oauth2Client = new OAuth2(
@@ -48,13 +48,19 @@ const key = process.env.KEY;
 function generateId(count) {
   var _sym = 'abcdefghijklmnopqrstuvwxyz1234567890';
   var str = '';
-
+  
   for(var i = 0; i < count; i++) {
-      str += _sym[parseInt(Math.random() * (_sym.length))];
+    str += _sym[parseInt(Math.random() * (_sym.length))];
   }
   return str;
 }
-
+/**
+ * Request the creation of a new healthcareprovider user
+ * Input: Body, contains the details that are specified in healthcare provider data model
+ * Output: 200 - Success status, and the email is sent
+ *         500 - Error status
+ *         400 - Already exists
+ */
 router.post('/account/create',[check('firstName').notEmpty().isAlpha()
 ,check('lastName').notEmpty().isAlpha()
 ,check('companyName').notEmpty(),check('roleInCompany').notEmpty()
@@ -62,8 +68,9 @@ router.post('/account/create',[check('firstName').notEmpty().isAlpha()
 ,check('password').exists().notEmpty()
 ,check('phone').notEmpty()
 ,check('ehr').notEmpty()
+,check('photo').notEmpty()
 ,body().custom(body => {
-  const keys = ['firstName','lastName','companyName','roleInCompany','email','ehr','password','phone'];
+  const keys = ['firstName','lastName','companyName','roleInCompany','email','ehr','password','phone','photo'];
   return Object.keys(body).every(key => keys.includes(key));
 })], async (req, res) => {
   const e = validationResult(req);

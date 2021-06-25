@@ -29,14 +29,7 @@ const API_KEY = process.env.API_KEY;
 const key = process.env.KEY;
 
 
-// get list of all patients
-/**
- * Retrieve all the patients from the db
- * Input: N/A
- * Output: All the patientts in the database or error
- *         200 - Succesfully retrieved all the patients in the database
- *         404 - No patients in the database
- */
+
 function generateId(count) {
   var _sym = 'abcdefghijklmnopqrstuvwxyz1234567890';
   var str = '';
@@ -47,21 +40,33 @@ function generateId(count) {
   return str;
 }
 
-router.post("/",[check('firstName').notEmpty(),check('lastName').notEmpty(),
-check('email').notEmpty().isEmail(),check('phone').notEmpty(),body().custom(body => {
-  const keys = ['firstName','lastName','email','phone'];
-  return Object.keys(body).every(key => keys.includes(key));
-})], async(req, res) => {
-  var decrypted = aes256.decrypt(key, req.query.API_KEY);
-  if(decrypted!=API_KEY){
-    return res.status(401).json({Message:'Unauthorized'});
-  }
-  console.log('test');
-  var ip = req.connection.remoteAddress;
-  console.log(ip+" "+req.body.email);
+/**
+ * Adds a new patientConfig to 
+ * Input: N/A
+ * Output: All the patientts in the database or error
+ *         200 - Succesfully retrieved all the patients in the database
+ *         404 - No patients in the database
+ */
+router.post("/", [
+  check('firstName').notEmpty(),
+  check('lastName').notEmpty(),
+  check('email').notEmpty().isEmail(),
+  check('phone').notEmpty(),
+  body().custom(body => {
+    const keys = ['firstName','lastName','email','phone'];
+    return Object.keys(body).every(key => keys.includes(key));
+  })], 
+  async (req, res) => {
+    var decrypted = aes256.decrypt(key, req.query.API_KEY);
+    if (decrypted != API_KEY) {
+      return res.status(401).json({Message:'Unauthorized'});
+    }
+    
+    var ip = req.connection.remoteAddress;
+    console.log('test');
+    console.log(ip, req.body.email);
     //Check if user alread exists
     const query= 'SELECT * FROM `patientsnew` WHERE email=?';
-    // req.body.email+'"';
     connection.query(query,[req.body.email], async function(err, row) {
       if(!err) {
           if (row.length>0){
@@ -107,7 +112,8 @@ check('email').notEmpty().isEmail(),check('phone').notEmpty(),body().custom(body
           //res.status(500).send({message: "An error has occured trying to send the mail"});
         }
     });
-})
+  }
+);
 
 const sendVerificationMail = (email,fname,encryptedToken)=>{
 
