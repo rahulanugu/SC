@@ -152,7 +152,7 @@ def fetch_condition_search(url, patientID, token, category=None, encounter=None)
     res = requests.get(url=url, params=payload, headers=headers, timeout=DEFAULT_TIMEOUT)
     return res
 
-# EX
+# EXAMPLES
 
 def fetch_document(url, patientID, token, type_):
     payload = {'patient': patientID, 'type': type_}
@@ -182,11 +182,91 @@ def fetch_observation(url, patientID, token, category):
  * Use: Handle data fetching by mapping input to proper endpoint
  * Input: key indicating resource type, object containing requests data
  * Output: List of available patient data as requests.py responses
+ *   Available keys: (* TO DO)
+        AdverseEvent.Read
+        AdverseEvent.Search
+        AllergyIntolerance.Read
+        AllergyIntolerance.Search
+        Appointment.Read
+        Binary.Read
+        BodyStructure.Read
+        BodyStructure.Search
+        CarePlan.Read
+        CarePlan.Search
+        CareTeam.Read
+        CareTeam.Search
+        Communication.Read
+        Communication.Search
+        Condition.Read
+        Condition.Search
+      * Consent.Read
+      * Consent.Search
+      * Coverage.Read
+      * Coverage.Search
+      * Device.Read
+      * Device.Search
+      * DiagnosticReport.Read
+      * DiagnosticReport.Search
+      * DocumentReference.Read
+      * DocumentReference.Search
+      * Encounter.Read
+      * Encounter.Search
+      * Endpoint.Read
+      * ExplanationOfBenifit.Read
+      * ExplanationOfBenifit.Search
+      * FamilyMemberHistory.Search
+      * Goal.Read
+      * Goal.Search
+      * Immunization.Read
+      * Immunization.Search
+      * List.Read
+      * List.Search
+      * Location.Read
+      * Location.Search
+      * Medication.Read
+      * Medication.Search
+      * MedicationRequest.Read
+      * MedicationRequest.Search
+      * MedicationOrder.Read
+      * MedicationOrder.Search
+      * Observation.Read
+      * Observation.Search
+      * Organization.Read
+      * Organization.Search
+      * Patient.Read
+      * Patient.Search
+      * Practitioner.Read
+      * Practitioner.Search
+      * PractitionerRole.Read
+      * PractitionerRole.Search
+      * Procedure.Read
+      * Procedure.Search
+      * ProcedureRole.Read
+      * ProcedureRole.Search
+      * Questionnaire.Read
+      * Questionnaire.Search
+      * QuestionnaireResponse.Read
+      * QuestionnaireResponse.Search
+      * RelatedPerson.Read
+      * RequestGroup.Read
+      * RequestGroup.Search
+      * ResearchStudy.Read
+      * ResearchStudy.Search
+      * Schedule.Read
+      * ServiceRequest.Read
+      * ServiceRequest.Search
+      * Slot.Read
+      * Specimen.Read
+      * Specimen.Search
+      * Substance.Read
+      * Substance.Search
+      * Task.Read
+      * Task.Search
 '''
 def fetch_handler(key, data):
     res = get_error_code('Resource key not found')
-    if key is 'event':
-        res = fetch_lab_events(data.url, data.id, data.token, data.category)
+    if key is 'observation':
+        res = fetch_observation(data.url, data.id, data.token, data.category)
     elif key is 'procedure':
         res = fetch_procedure(data.url, data.id, data.token)
     elif key is 'document':
@@ -195,21 +275,22 @@ def fetch_handler(key, data):
 
 '''
  * Use: Fetch multiple patient data using multithreading
- * Input: (key, object) pairs reflecting (resource type, request data)
+ * Input: Array of (key, object) pairs reflecting (resource type, request data)
  * Output: List of available patient data as requests.py responses
 '''
-# 'event' , {url, id, token, category}
+# array of ('event' , {url, id, token, category}) tuples
 def fetch_all_patient_data(pairs):
     threads = []
     results = []
 
     with ThreadPoolExecutor(max_workers=20) as executor:
-        for key, params in pairs.__dict__.items():
+        for (key, params) in pairs:
           threads.append(executor.submit(fetch_handler, key, params))
 
         for task in as_completed(threads):
           try:
               results.append(task.result())
+              print(task.result())
           except requests.ConnectTimeout:
               print('Resource timed out')
 
@@ -218,14 +299,25 @@ def fetch_all_patient_data(pairs):
 
 # --- Tests ---
 
-document_url = 'https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/STU3/DocumentReference'
-print(fetch_document(document_url, 'enh2Q1c0oNRtWzXArnG4tKw3', token, '11506-3'))
+pairs = [ 
+  ['Binary.Read', {
+    'url': 'https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/STU3/DocumentReference', 
+    'resourceID': 'enh2Q1c0oNRtWzXArnG4tKw3',
+    'token': token,
+    'type': '11506-3' }],
+  ['procedure', {
+    'url': 'https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/STU3/DocumentReference', 
+    'resourceID': 'enh2Q1c0oNRtWzXArnG4tKw3',
+    'token': token }],
+  ['observation', {
+    'url': 'https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4/Observation',
+    'resourceID': 'e63wRTbPfr1p8UW81d8Seiw3',
+    'token': token,
+    'category': 'laboratory'
+  }]
+]
 
-procedure_url = 'https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4/Procedure'
-print(fetch_procedure(procedure_url, 'e63wRTbPfr1p8UW81d8Seiw3', token))
-
-observation_url = 'https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4/Observation'
-print(fetch_lab_events(observation_url, 'e63wRTbPfr1p8UW81d8Seiw3', token, 'laboratory'))
+data = fetch_all_patient_data(pairs)
 
 
 
@@ -233,6 +325,7 @@ print(fetch_lab_events(observation_url, 'e63wRTbPfr1p8UW81d8Seiw3', token, 'labo
 
 
 # ---  Prev dev (deprecated) ---
+
 
 
 
