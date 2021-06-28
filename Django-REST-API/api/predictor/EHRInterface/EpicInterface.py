@@ -5,12 +5,8 @@ import os
 import subprocess
 from predictor.EHRInterface import mmlrestclient as mml
 
-
-token = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ1cm46b2lkOmZoaXIiLCJjbGllbnRfaWQiOiJkOWYwN2JlNi0yOGNkLTQ2OWEtYjJjMS1jNjU5NWNjODE5MDEiLCJlcGljLmVjaSI6InVybjplcGljOlVTQ0RJLW9uLUZISVIiLCJlcGljLm1ldGFkYXRhIjoibE91eEk5bXlvZVhXWVFIdEhmNk1nYjRuUmQ3Nm54clg5bkhBZ1ZsLWxQMEJoXzFQXzhLeUVOd0RVM1FpNUdkNm94clhJdmdsVC04dG0yNEUxQS1HZ2htQ3M3ZENNRzhnNnRaSjJVdTlrTHBZVkx3S19EdmlET2wyaVExQ0VlcWEiLCJlcGljLnRva2VudHlwZSI6ImFjY2VzcyIsImV4cCI6MTU5NzA4MjI0OCwiaWF0IjoxNTk3MDc4NjQ4LCJpc3MiOiJ1cm46b2lkOmZoaXIiLCJqdGkiOiJjNWE3YjBlMi1hODA0LTRkYTAtYTcxOC01Zjg3NTM3YWZkODAiLCJuYmYiOjE1OTcwNzg2NDgsInN1YiI6ImV4Zm82RTRFWGpXc25oQTFPR1ZFbGd3MyJ9.TvYRTcXpd3J_VbKpgAClRHKkAw7GCGUMEA9pKC6B4cpj5PBlOmmnJxxgAr4-m7qKQ8UFH4osLGxyCdmCkMN6VIo2qtfcXeHSW8UcC3F5vpsDDU86XuE9aifKTJ-Hk-Nr1OoT7btW8jjV5wfqh0yaR6w47a7Z7JOFd9ndj3AHfQDGE7wgoPeoCaQxtjRBIIO3uO-DMhB9RZv8R092pBfWb1zpMZZeLS9vqbHEhDygXhvis7yqcuHGW4n34Y_hdj_nSLkA04SDXbqpXOLDFT0lbKSmMjBXjH8a3uvIi1N0a0cY4O8U7X3kOnTkq8vdPhRjZAn0CPDFh5Okim4LNcJ8CQ'  # Needs to come from FE
-def get_headers(token):
-  headers = {'Authorization': f'Bearer {token}', 'Accept': 'application/json'}
-  return headers
-
+# Token needs to come from FE
+token = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ1cm46b2lkOmZoaXIiLCJjbGllbnRfaWQiOiJkOWYwN2JlNi0yOGNkLTQ2OWEtYjJjMS1jNjU5NWNjODE5MDEiLCJlcGljLmVjaSI6InVybjplcGljOlVTQ0RJLW9uLUZISVIiLCJlcGljLm1ldGFkYXRhIjoibE91eEk5bXlvZVhXWVFIdEhmNk1nYjRuUmQ3Nm54clg5bkhBZ1ZsLWxQMEJoXzFQXzhLeUVOd0RVM1FpNUdkNm94clhJdmdsVC04dG0yNEUxQS1HZ2htQ3M3ZENNRzhnNnRaSjJVdTlrTHBZVkx3S19EdmlET2wyaVExQ0VlcWEiLCJlcGljLnRva2VudHlwZSI6ImFjY2VzcyIsImV4cCI6MTU5NzA4MjI0OCwiaWF0IjoxNTk3MDc4NjQ4LCJpc3MiOiJ1cm46b2lkOmZoaXIiLCJqdGkiOiJjNWE3YjBlMi1hODA0LTRkYTAtYTcxOC01Zjg3NTM3YWZkODAiLCJuYmYiOjE1OTcwNzg2NDgsInN1YiI6ImV4Zm82RTRFWGpXc25oQTFPR1ZFbGd3MyJ9.TvYRTcXpd3J_VbKpgAClRHKkAw7GCGUMEA9pKC6B4cpj5PBlOmmnJxxgAr4-m7qKQ8UFH4osLGxyCdmCkMN6VIo2qtfcXeHSW8UcC3F5vpsDDU86XuE9aifKTJ-Hk-Nr1OoT7btW8jjV5wfqh0yaR6w47a7Z7JOFd9ndj3AHfQDGE7wgoPeoCaQxtjRBIIO3uO-DMhB9RZv8R092pBfWb1zpMZZeLS9vqbHEhDygXhvis7yqcuHGW4n34Y_hdj_nSLkA04SDXbqpXOLDFT0lbKSmMjBXjH8a3uvIi1N0a0cY4O8U7X3kOnTkq8vdPhRjZAn0CPDFh5Okim4LNcJ8CQ'
 DEFAULT_TIMEOUT = 5
 
 # --- EHR Integrations ---
@@ -26,6 +22,10 @@ DEFAULT_TIMEOUT = 5
 '''
 
 # Helpers
+
+def get_headers(token):
+  headers = {'Authorization': f'Bearer {token}', 'Accept': 'application/json'}
+  return headers
 
 def fetch_FHIR_resource(url, resourceID, token):
     full_url = url + resourceID
@@ -264,14 +264,45 @@ def fetch_observation(url, patientID, token, category):
       * Task.Search
 '''
 def fetch_handler(key, data):
-    res = get_error_code('Resource key not found')
-    if key is 'observation':
-        res = fetch_observation(data.url, data.id, data.token, data.category)
+    if key is 'AdverseEvent.Read':
+        return fetch_adverse_event(data.url, data.resourceID, data.token)
+    elif key is 'AdverseEvent.Search':
+        return fetch_adverse_event_search(data.url, data.patientID, data.token, data.study)
+    elif key is 'AllergyIntolerance.Read':
+        return fetch_allergy_intolerance(data.url, data.resourceID, data.token)
+    elif key is 'AllergyIntolerance.Search':
+        return fetch_allergy_intolerance_search(data.url, data.patientID, data.token)
+    elif key is 'Appointment.Read':
+        return fetch_appointment(data.url, data.resourceID, data.token)
+    elif key is 'Binary.Read':
+        return fetch_binary_document(data.url, data.resourceID, data.token)
+    elif key is 'BodyStructure.Read':
+        return fetch_body_structure(data.url, data.resourceID, data.token)
+    elif key is 'BodyStructure.Search':
+        return fetch_body_structure_search(data.url, data.patientID, data.token)
+    elif key is 'CarePlan.Read':
+        return fetch_care_plan(data.url, data.resourceID, data.token)
+    elif key is 'CarePlan.Search':
+        return fetch_care_plan_search(data.url, data.patientID, data.token)
+    elif key is 'CareTeam.Read':
+        return fetch_care_team(data.url, data.resourceID, data.token)
+    elif key is 'CareTeam.Search':
+        return fetch_care_team_search(data.url, data.patientID, data.token)
+    elif key is 'Communication.Read':
+        return fetch_communication(data.url, data.resourceID, data.token)
+    elif key is 'Communication.Search':
+        return fetch_communication_search(data.url, data.part_of, data.subject, data.subject)
+    elif key is 'Condition.Read':
+        return fetch_condition(data.url, data.resourceID, data.token)
+    elif key is 'Condition.Search':
+        return fetch_condition_search(data.url, data.patientID, data.token, data.category, data.encounter)
+    elif key is 'observation':
+        return fetch_observation(data.url, data.id, data.token, data.category)
     elif key is 'procedure':
-        res = fetch_procedure(data.url, data.id, data.token)
+        return fetch_procedure(data.url, data.id, data.token)
     elif key is 'document':
-        res = fetch_document(data.url, data.id, data.token, data.type)
-    return res
+        return fetch_document(data.url, data.id, data.token, data.type)
+    return get_error_code('Resource key not found')
 
 '''
  * Use: Fetch multiple patient data using multithreading
@@ -292,6 +323,7 @@ def fetch_all_patient_data(pairs):
               results.append(task.result())
               print(task.result())
           except requests.ConnectTimeout:
+              results.append(get_error_code('Resource timed out'))
               print('Resource timed out')
 
     return results
@@ -299,22 +331,34 @@ def fetch_all_patient_data(pairs):
 
 # --- Tests ---
 
-pairs = [ 
-  ['Binary.Read', {
+pairs = [
+  ['AdverseEvent.Read', {
+    'url': 'https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4/AdverseEvent/', 
+    'resourceID': 'eBrj0mrZZ9-WmgLrAXW.ZQmF3xBGWbDn1vkbtSszAQnY3',
+    'token': token }
+    ],
+  ['AllergyIntolerance.Read', {
+    'url': 'https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4/AllergyIntolerance/', 
+    'resourceID': 'eeJxm9Vi8-QmUQuWDhBMklw3',
+    'token': token }
+    ],
+  ['document', {
     'url': 'https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/STU3/DocumentReference', 
     'resourceID': 'enh2Q1c0oNRtWzXArnG4tKw3',
     'token': token,
-    'type': '11506-3' }],
+    'type': '11506-3' }
+    ],
   ['procedure', {
     'url': 'https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/STU3/DocumentReference', 
     'resourceID': 'enh2Q1c0oNRtWzXArnG4tKw3',
-    'token': token }],
+    'token': token }
+    ],
   ['observation', {
     'url': 'https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4/Observation',
     'resourceID': 'e63wRTbPfr1p8UW81d8Seiw3',
     'token': token,
-    'category': 'laboratory'
-  }]
+    'category': 'laboratory' }
+    ]
 ]
 
 data = fetch_all_patient_data(pairs)
