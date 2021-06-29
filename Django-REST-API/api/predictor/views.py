@@ -3,6 +3,7 @@ from django.shortcuts import render
 from .apps import PredictorConfig
 from django.http import JsonResponse
 from django.http import HttpResponse
+from django.utils.decorators import classonlymethod
 from rest_framework.response import Response
 from rest_framework.parsers import BaseParser
 from rest_framework.views import APIView
@@ -12,6 +13,7 @@ import numpy as np
 import xgboost as xgb
 import pickle
 import json
+import asyncio
 from sklearn.preprocessing import LabelEncoder
 from rest_framework.settings import api_settings
 import logging
@@ -232,3 +234,20 @@ class call_model(APIView):
             f"{key}": predictions[key].tolist() for key in predictions}
 
         return predictions
+
+'''
+ --- JDW --- 
+'''
+
+class EpicView(APIView):
+    # Async view declare
+    @classonlymethod
+    def as_view(cls, **initkwargs):
+        view = super().as_view(**initkwargs)
+        view._is_coroutine = asyncio.coroutines._is_coroutine
+        return view
+
+    # Call data fetching function from 
+    async def getPatientData(self, request):
+        data = await epic.fetch_all_patient_data(request.payload)
+        return data

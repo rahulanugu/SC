@@ -27,6 +27,7 @@ describe('/the creation of a new healthcareprovider user', () => {
       "email":"anithanarnavaram7@gmail.com","password":"$2a$10$AJRFiZGSv/DuphwOTjcnue3Y0Ztq4Kph4lOL335pbhucB1auxcQby",
       "phone":"(352) 745-4724",
       "password": "234",
+      "photo": "../images/IMG_00000",
       "ehr": "ehr"
       }
       request(app)

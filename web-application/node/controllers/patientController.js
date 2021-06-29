@@ -119,6 +119,7 @@ router.get('/:id',
  */
 router.post('/:verify', 
   async (req,res) => {
+    console.log("/:verify", res);
     //console.log(req.query);
     if(req.params.verify!="verify"){
       res.status(400).json({message: "Bad Request"});

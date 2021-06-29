@@ -1,3 +1,8 @@
+'''
+John Whiteside - branch jdw
+'''
+
+
 import requests
 from pprint import pprint
 import json
@@ -6,7 +11,7 @@ import subprocess
 from predictor.EHRInterface import mmlrestclient as mml
 
 # Token needs to come from FE
-token = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ1cm46b2lkOmZoaXIiLCJjbGllbnRfaWQiOiJkOWYwN2JlNi0yOGNkLTQ2OWEtYjJjMS1jNjU5NWNjODE5MDEiLCJlcGljLmVjaSI6InVybjplcGljOlVTQ0RJLW9uLUZISVIiLCJlcGljLm1ldGFkYXRhIjoibE91eEk5bXlvZVhXWVFIdEhmNk1nYjRuUmQ3Nm54clg5bkhBZ1ZsLWxQMEJoXzFQXzhLeUVOd0RVM1FpNUdkNm94clhJdmdsVC04dG0yNEUxQS1HZ2htQ3M3ZENNRzhnNnRaSjJVdTlrTHBZVkx3S19EdmlET2wyaVExQ0VlcWEiLCJlcGljLnRva2VudHlwZSI6ImFjY2VzcyIsImV4cCI6MTU5NzA4MjI0OCwiaWF0IjoxNTk3MDc4NjQ4LCJpc3MiOiJ1cm46b2lkOmZoaXIiLCJqdGkiOiJjNWE3YjBlMi1hODA0LTRkYTAtYTcxOC01Zjg3NTM3YWZkODAiLCJuYmYiOjE1OTcwNzg2NDgsInN1YiI6ImV4Zm82RTRFWGpXc25oQTFPR1ZFbGd3MyJ9.TvYRTcXpd3J_VbKpgAClRHKkAw7GCGUMEA9pKC6B4cpj5PBlOmmnJxxgAr4-m7qKQ8UFH4osLGxyCdmCkMN6VIo2qtfcXeHSW8UcC3F5vpsDDU86XuE9aifKTJ-Hk-Nr1OoT7btW8jjV5wfqh0yaR6w47a7Z7JOFd9ndj3AHfQDGE7wgoPeoCaQxtjRBIIO3uO-DMhB9RZv8R092pBfWb1zpMZZeLS9vqbHEhDygXhvis7yqcuHGW4n34Y_hdj_nSLkA04SDXbqpXOLDFT0lbKSmMjBXjH8a3uvIi1N0a0cY4O8U7X3kOnTkq8vdPhRjZAn0CPDFh5Okim4LNcJ8CQ'
+TOKEN = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ1cm46b2lkOmZoaXIiLCJjbGllbnRfaWQiOiJkOWYwN2JlNi0yOGNkLTQ2OWEtYjJjMS1jNjU5NWNjODE5MDEiLCJlcGljLmVjaSI6InVybjplcGljOlVTQ0RJLW9uLUZISVIiLCJlcGljLm1ldGFkYXRhIjoibE91eEk5bXlvZVhXWVFIdEhmNk1nYjRuUmQ3Nm54clg5bkhBZ1ZsLWxQMEJoXzFQXzhLeUVOd0RVM1FpNUdkNm94clhJdmdsVC04dG0yNEUxQS1HZ2htQ3M3ZENNRzhnNnRaSjJVdTlrTHBZVkx3S19EdmlET2wyaVExQ0VlcWEiLCJlcGljLnRva2VudHlwZSI6ImFjY2VzcyIsImV4cCI6MTU5NzA4MjI0OCwiaWF0IjoxNTk3MDc4NjQ4LCJpc3MiOiJ1cm46b2lkOmZoaXIiLCJqdGkiOiJjNWE3YjBlMi1hODA0LTRkYTAtYTcxOC01Zjg3NTM3YWZkODAiLCJuYmYiOjE1OTcwNzg2NDgsInN1YiI6ImV4Zm82RTRFWGpXc25oQTFPR1ZFbGd3MyJ9.TvYRTcXpd3J_VbKpgAClRHKkAw7GCGUMEA9pKC6B4cpj5PBlOmmnJxxgAr4-m7qKQ8UFH4osLGxyCdmCkMN6VIo2qtfcXeHSW8UcC3F5vpsDDU86XuE9aifKTJ-Hk-Nr1OoT7btW8jjV5wfqh0yaR6w47a7Z7JOFd9ndj3AHfQDGE7wgoPeoCaQxtjRBIIO3uO-DMhB9RZv8R092pBfWb1zpMZZeLS9vqbHEhDygXhvis7yqcuHGW4n34Y_hdj_nSLkA04SDXbqpXOLDFT0lbKSmMjBXjH8a3uvIi1N0a0cY4O8U7X3kOnTkq8vdPhRjZAn0CPDFh5Okim4LNcJ8CQ'
 DEFAULT_TIMEOUT = 5
 
 # --- EHR Integrations ---
@@ -15,6 +20,7 @@ DEFAULT_TIMEOUT = 5
  * url:         URL endpoint  - resource endpoint
  * patientID:   URL param     - patient id
  * resourceID:  URL param     - FHIR resource id
+ * subject:     URL param     - subject of event/document
  * type_:       URL param     - Resource type (type is reserved keyword)
  * token:       Header        - JWT auth token
  *
@@ -24,8 +30,10 @@ DEFAULT_TIMEOUT = 5
 # Helpers
 
 def get_headers(token):
-  headers = {'Authorization': f'Bearer {token}', 'Accept': 'application/json'}
-  return headers
+  return {'Authorization': f'Bearer {token}', 'Accept': 'application/json'}
+
+def get_error_code(message):
+    return {'status_code': 404, 'message': message}
 
 def fetch_FHIR_resource(url, resourceID, token):
     full_url = url + resourceID
@@ -41,9 +49,6 @@ def fetch_patient_resource(url, patientID, token):
     res = requests.get(url=url, params=payload, headers=headers, timeout=DEFAULT_TIMEOUT)
     return res
 
-def get_error_code(message):
-    return {'status_code': 404, 'message': message}
-
 # Integrations
 
 # https://fhir.epic.com/Sandbox?api=981
@@ -51,8 +56,8 @@ def fetch_adverse_event(url, resourceID, token):
     return fetch_FHIR_resource(url, resourceID, token)
 
 #  https://fhir.epic.com/Sandbox?api=982
-def fetch_adverse_event_search(url, patientID, token, study):
-    payload = {'subject': patientID, 'study': study}
+def fetch_adverse_event_search(url, subject, token, study):
+    payload = {'subject': subject, 'study': study}
     headers = get_headers(token)
     
     res = requests.get(url=url, params=payload, headers=headers, timeout=DEFAULT_TIMEOUT)
@@ -296,12 +301,6 @@ def fetch_handler(key, data):
         return fetch_condition(data.url, data.resourceID, data.token)
     elif key is 'Condition.Search':
         return fetch_condition_search(data.url, data.patientID, data.token, data.category, data.encounter)
-    elif key is 'observation':
-        return fetch_observation(data.url, data.id, data.token, data.category)
-    elif key is 'procedure':
-        return fetch_procedure(data.url, data.id, data.token)
-    elif key is 'document':
-        return fetch_document(data.url, data.id, data.token, data.type)
     return get_error_code('Resource key not found')
 
 '''
@@ -333,96 +332,95 @@ def fetch_all_patient_data(pairs):
 
 pairs = [
   ['AdverseEvent.Read', {
-    'url': 'https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4/AdverseEvent/', 
-    'resourceID': 'eBrj0mrZZ9-WmgLrAXW.ZQmF3xBGWbDn1vkbtSszAQnY3',
-    'token': token }
+      'url': 'https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4/AdverseEvent/', 
+      'resourceID': 'eBrj0mrZZ9-WmgLrAXW.ZQmF3xBGWbDn1vkbtSszAQnY3',
+      'token': TOKEN }
     ],
-  ['AllergyIntolerance.Read', {
-    'url': 'https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4/AllergyIntolerance/', 
-    'resourceID': 'eeJxm9Vi8-QmUQuWDhBMklw3',
-    'token': token }
+  ['AdverseEvent.Search', { 
+      'url': 'https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4/AdverseEvent/', 
+      'subject': 'eea8Msv-9WjX-ffbBcv-4rw3',
+      'token': TOKEN,
+      'study': 'eAO.XWJpIicOp3xl5CLneUQ3' }
     ],
-  ['document', {
-    'url': 'https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/STU3/DocumentReference', 
-    'resourceID': 'enh2Q1c0oNRtWzXArnG4tKw3',
-    'token': token,
-    'type': '11506-3' }
+  ['AllergyIntolerance.Read', { 
+      'url': 'https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4/AllergyIntolerance/', 
+      'resourceID': 'eeJxm9Vi8-QmUQuWDhBMklw3',
+      'token': TOKEN }
     ],
-  ['procedure', {
-    'url': 'https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/STU3/DocumentReference', 
-    'resourceID': 'enh2Q1c0oNRtWzXArnG4tKw3',
-    'token': token }
+  ['AllergyIntolerance.Search', { 
+      'url': 'https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4/AllergyIntolerance/', 
+      'patientID': 'e06xbT0QqabCKCMIqZo98DA3',
+      'token': TOKEN }
     ],
-  ['observation', {
-    'url': 'https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4/Observation',
-    'resourceID': 'e63wRTbPfr1p8UW81d8Seiw3',
-    'token': token,
-    'category': 'laboratory' }
-    ]
+  ['Appointment.Read', { 
+      'url': 'https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4/Appointment/', 
+      'resourceID': 'e3snc6SrCHi1PVOB5rkVvVqvlJgecR4RzazTZuc2UMqA3',
+      'token': TOKEN }
+  ],
+  ['Binary.Read', { 
+      'url': 'https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4/Binary/', 
+      'resourceID': 'eibaYRQF6yVTF.5R2n92hhMhIzS.lJx9doPV5HgjIawc3',
+      'token': TOKEN }
+  ],
+  ['BodyStructure.Read', { 
+      'url': 'https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4/BodyStructure/', 
+      'resourceID': 'eU1gdcwFZyKjNGyBZhKh989YxW3fhmjvviCKYH.RTCBw3',
+      'token': TOKEN }
+  ],
+  ['BodyStructure.Search', { 
+      'url': 'https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4/BodyStructure/', 
+      'patientID': 'erOOucv8EeF9xNKxjL..kSQ3',
+      'token': TOKEN }
+  ],
+  ['CarePlan.Read', { 
+      'url': 'https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4/CarePlan/', 
+      'resourceID': 'ezv8muakDf.OWIZFA0VeHykcwagO7gUw-Qo7tjhIjW7qyR.Sb9PDuVIqsXy8702ujMTksxNKECrRrtU361qN4fg3',
+      'token': TOKEN }
+  ],
+  ['CarePlan.Search', { 
+      'url': 'https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4/CarePlan/', 
+      'patientID': 'e-NoAZ0ctgfeTYD.aaecWQQ3',
+      'token': TOKEN }
+  ],
+  ['CareTeam.Read', { 
+      'url': 'https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4/CareTeam/', 
+      'resourceID': 'eKDCE-jKkMA4JxZ3pJbu.ww3',
+      'token': TOKEN }
+  ],
+  ['CareTeam.Search', { 
+      'url': 'https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4/CareTeam/', 
+      'patientID': 'ee7NTBargpnWU-MaI95A5fA3',
+      'token': TOKEN }
+  ],
+  ['Communication.Read', { 
+      'url': 'https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4/Communication/', 
+      'resourceID': 'eQtjP5dExSGL8QY3jIixZo0TrO52tQfNEGkoWTOJdWCU3',
+      'token': TOKEN }
+  ],
+  ['Communication.Search', { 
+      'url': 'https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4/Communication/', 
+      'part_of': 'e-NoAZ0ctgfeTYD.aaecWQQ3',
+      'token': TOKEN }
+  ],
+  ['Condition.Read', { 
+      'url': 'https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4/Condition/', 
+      'resourceID': 'eG0hRQR7MUQBcS.AfHqMYXQ3',
+      'token': TOKEN }
+  ],
+  ['Condition.Search', { 
+      'url': 'https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4/Condition/', 
+      'patientID': 'ezHbeFCm6Ih8kgxuHUAdvJQ3',
+      'category': 'problem-list-item',
+      'token': TOKEN }
+  ]
 ]
 
 data = fetch_all_patient_data(pairs)
 
 
-
-
-
-
 # ---  Prev dev (deprecated) ---
 
-
-
-
-
-
-def fetch_document_w(url, id, token, type):
-
-    payload = {'patient': id, 'type': type}
-    headers = {'Authorization': f'Bearer {token}',
-               'Accept': 'application/json'}
-    response = requests.get(url=url, params=payload, headers=headers)
-
-    with open('notes.json', 'w') as outfile:
-        outfile.write(json.dumps(response.json()))
-
-    return (response.status_code)
-
-
-document_url = 'https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/STU3/DocumentReference'
-print(fetch_document_w(document_url, 'enh2Q1c0oNRtWzXArnG4tKw3', token, '11506-3'))
-
-
-def fetch_procedure_w(url, id, token):
-    payload = {'patient': id}
-    headers = {'Authorization': f'Bearer {token}',
-               'Accept': 'application/json'}
-
-    response = requests.get(url=url, params=payload, headers=headers)
-    with open('procedures.json', 'w') as outfile:
-        outfile.write(json.dumps(response.json()))
-
-    return (response.status_code)
-
-procedure_url = 'https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4/Procedure'
-print(fetch_procedure_w(procedure_url, 'e63wRTbPfr1p8UW81d8Seiw3', token))
-
-def fetch_lab_events_w(url, id, token, category):
-    payload = {'patient': id, 'category': category}
-    headers = {'Authorization': f'Bearer {token}',
-               'Accept': 'application/json'}
-
-    response = requests.get(url=url, params=payload, headers=headers)
-    with open('lab_events.json', 'w') as outfile:
-        outfile.write(json.dumps(response.json()))
-
-    return (response.status_code)
-
-
-lab_events_url = 'https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4/Observation'
-
-print(fetch_lab_events_w(lab_events_url,
-                       'e63wRTbPfr1p8UW81d8Seiw3', token, 'laboratory'))
-
+'''
 # Parse medications from file into application interpretable format
 def parseMedications(text):
     f = open('./predictor/test/test.txt', 'w')
@@ -448,3 +446,4 @@ def parseNotes(text):
     for note in doc_notes:
         matching = [e for e in content_arr if note in e]
     return matching
+  '''

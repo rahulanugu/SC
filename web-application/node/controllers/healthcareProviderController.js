@@ -61,15 +61,16 @@ function generateId(count) {
  *         500 - Error status
  *         400 - Already exists
  */
-router.post('/account/create',[check('firstName').notEmpty().isAlpha()
-,check('lastName').notEmpty().isAlpha()
-,check('companyName').notEmpty(),check('roleInCompany').notEmpty()
-,check('email').notEmpty().isEmail()
-,check('password').exists().notEmpty()
-,check('phone').notEmpty()
-,check('ehr').notEmpty()
-,check('photo').notEmpty()
-,body().custom(body => {
+router.post('/account/create',[
+  check('firstName').notEmpty().isAlpha()
+  ,check('lastName').notEmpty().isAlpha()
+  ,check('companyName').notEmpty(),check('roleInCompany').notEmpty()
+  ,check('email').notEmpty().isEmail()
+  ,check('password').exists().notEmpty()
+  ,check('phone').notEmpty()
+  ,check('ehr').notEmpty()
+  ,check('photo').notEmpty()
+  ,body().custom(body => {
   const keys = ['firstName','lastName','companyName','roleInCompany','email','ehr','password','phone','photo'];
   return Object.keys(body).every(key => keys.includes(key));
 })], async (req, res) => {
