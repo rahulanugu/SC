@@ -6,12 +6,12 @@ Database Setup
 
 3. Enter in these details when prompted:
 
-  a. host: database-1.cgurbeaohou6.us-east-2.rds.amazonaws.com
+      a. host: database-1.cgurbeaohou6.us-east-2.rds.amazonaws.com
 
-  b. port: 3306
+      b. port: 3306
 
-  c. database: scriptchain
+      c. database: scriptchain
 
-  d. username: admin
+      d. username: admin
 
-  e. password: Scriptchain20!
+      e. password: Scriptchain20!
