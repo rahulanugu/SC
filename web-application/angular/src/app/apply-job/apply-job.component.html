@@ -8,33 +8,48 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE html>
 <html lang="zxx">
 <body>
-  <app-common-header></app-common-header>
-  <section class="login py-5">
-    <div class="container py-xl-5 py-lg-3" *ngIf="job">
-      <div><br></div>
+  <app-landing-page-header></app-landing-page-header>
+  <div>
+    <img src="./assets/blog-header-bkgrd.jpg" alt="" width="1700" height="263">
+  </div>
+  <div class="bkgrd">
+    <section class="content">
       <div>
-      <h1>{{job.title}}</h1></div>
-      <hr>
-      <p style="font-size: 120%;"><strong>Description:</strong> {{job.description}} </p>
-      <p style="font-size: 120%;"><strong>Location: </strong> {{job.location}}</p>
-      <!--<p style="font-size: 120%;"><strong>: </strong> </p>-->
-      <a class="btn btn-success" href={{job.link}}>Apply Here
+        <h2 class="heading">Company Description</h2>
+        <p class="description">
+          At ScriptChain, we are looking to make a disruptive impact in today's healthcare back end processes.<br>
+          By using Artificial Intelligence, we will be able to streamline a lot of these processes and save the<br>
+          industry time and money. We love people to innovate and learn more about the AI space. This is<br>
+          also a great way to gain more experience in the space and make a positive impact in a growing market.<br>
+        </p>
+      </div>
+    </section>
+    <section class="content">
+      <div>
+        <h2 class="heading">Responsibilities</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas impedit consectetur deserunt a vero adipisci, <br>
+          voluptate illum eaque odio vitae similique. Unde aperiam, incidunt labore tempora possimus earum assumenda aspernatur.</p>
+      </div>
+    </section>
+    <section class="content">
+      <div>
+        <h2 class="heading">Requirements</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas impedit consectetur deserunt a vero adipisci, <br>
+          voluptate illum eaque odio vitae similique. Unde aperiam, incidunt labore tempora possimus earum assumenda aspernatur.</p>
+      </div>
+    </section>
+    <!--<iframe style="margin-left: 20%;" src="https://docs.google.com/forms/d/e/1FAIpQLSeH8s5Y5KLkuqqJC3ZgJtJE_KEnDderWDsjlvUiTpBZ_JX27g/viewform?embedded=true" width="60%" height="300px" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>-->
+    <app-landing-page-subfooter></app-landing-page-subfooter>
+    
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148334798-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
         
-      </a>
-      <hr>
-    </div>
-  </section>
-  <!--<iframe style="margin-left: 20%;" src="https://docs.google.com/forms/d/e/1FAIpQLSeH8s5Y5KLkuqqJC3ZgJtJE_KEnDderWDsjlvUiTpBZ_JX27g/viewform?embedded=true" width="60%" height="300px" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>-->
-  <app-footer id="footer"></app-footer>
-
-      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148334798-1"></script>
-      <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-      
-        gtag('config', 'UA-148334798-1');
-      </script>
+          gtag('config', 'UA-148334798-1');
+        </script>
+  </div>
 </body>
 
 </html>

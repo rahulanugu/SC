@@ -77,6 +77,7 @@ import { ProcedureInfoComponent } from "./procedure-info/procedure-info.componen
 import { CaregiverProfileComponent } from "./caregiver-profile/caregiver-profile.component";
 import { MedicationDetailsComponent } from "./medication-details/medication-details.component";
 import { ProcedureDetailsComponent } from "./procedure-details/procedure-details.component";
+import { JobOpeningsComponent } from "./job-openings/job-openings.component";
 const routes: Routes = [
   /* pages for the app */
   {
@@ -132,6 +133,7 @@ const routes: Routes = [
   { path: "careers", component: CareersComponent },
   { path: "privacy-policy", component: PrivacyPolicyComponent },
   { path: "apply-job/:jobid", component: ApplyJobComponent },
+  { path: "job-openings", component: JobOpeningsComponent},
   { path: "terms-conditions", component: TermsConditionsComponent },
   { path: "", redirectTo: "/home", pathMatch: "full" },
   { path: "registersuccessful", component: RegisterSuccessfulPageComponent },

@@ -33,12 +33,12 @@ router.post('/',[check("jwtToken").notEmpty(),body().custom(body => {
   }
     console.log("Creating an actual user after verification in the database");
 
-    //the body consists of an encrypted jwt token
-    //console.log("req bdy is "+req.body.jwtToken)
+//     //the body consists of an encrypted jwt token
+//     //console.log("req bdy is "+req.body.jwtToken)
 
-    //the incoming strings are improperly formatted with '+' being replaced with spaces
+//     //the incoming strings are improperly formatted with '+' being replaced with spaces
 
-    //correcting the format by replacing spaces with '+'
+//     //correcting the format by replacing spaces with '+'
     var encryptedToken = req.body.jwtToken.replace(/ /g, '+');
 
     //decrypting the token

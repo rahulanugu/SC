@@ -2,11 +2,12 @@ const express = require("express");
 const router = express.Router();
 const { check,body, validationResult } = require('express-validator');
 var aes256 = require('aes256');
-const API_KEY = process.env.API_KEY;
-const key = process.env.KEY;
+const API_KEY = "scriptChain@13$67ahi1";
+const key = "hosenkinosumabeni";
 const { compareSync } = require("bcryptjs");
 
 const connection = require('../db_connection');
+
 
 /**
  * The method will create a job to the database

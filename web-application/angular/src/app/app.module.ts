@@ -3,6 +3,7 @@ import { LoginPatientService } from "./shared/login-patient.service";
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { HttpClientModule } from "@angular/common/http";
+import { CommonModule } from "@angular/common";
 import { RouterModule, ActivatedRoute } from "@angular/router";
 import { FormsModule } from "@angular/forms";
 import { MatGridListModule } from "@angular/material";
@@ -215,13 +216,14 @@ import { ProcedureDetailsComponent } from "./procedure-details/procedure-details
   ],
 
   imports: [
+    AppRoutingModule,
+    RouterModule,
+    CommonModule,
     BrowserAnimationsModule,
     BrowserModule,
-    AppRoutingModule,
     HttpClientModule,
     FormsModule,
     TextMaskModule,
-    RouterModule,
     ReactiveFormsModule,
     GoogleChartsModule,
     MatTableModule,

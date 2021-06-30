@@ -1,3 +1,28 @@
-.py-5{
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap');
+
+.py-5 {
     padding-top: 7rem !important;
+}
+
+.bkgrd {
+    background-color: teal 400;
+}
+
+.content {
+    margin-left: 500px;
+    margin-top: 50px;
+    text-align: justify;
+}
+
+.heading {
+    font-size: 18;
+    font-family: 'Lato', sans-serif;
+    font-style: bold;
+}
+
+.description {
+    font-size: 18;
+    font-family: 'Lato', sans-serif;
+    font-style: normal;
 }
