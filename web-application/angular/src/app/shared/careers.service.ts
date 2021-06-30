@@ -11,7 +11,7 @@ import { jobCategory } from '../job-categories/job-categories.component';
   providedIn: 'root'
 })
 export class CareersService {
-    readonly baseURL = environment.serverUrl+"careers";
+    readonly baseURL = environment.serverUrl+"/careers";
   
     constructor(private http: HttpClient) {}
   

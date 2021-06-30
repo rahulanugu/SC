@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { jobOpening } from '../careers/careers.component';
 import { ActivatedRoute } from '@angular/router';
 import { CareersService } from '../shared/careers.service';
+import { CommonModule } from '@angular/common';
 
 /**
  * Page: specific job page
