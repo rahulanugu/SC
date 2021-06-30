@@ -23,8 +23,6 @@ export class PatientAuthGuard implements CanActivate {
         this._router.navigate(['patientlogin']);
         authorized =  false;
       });
-    if(authorized){
-      return true;
-   } else return false;
+    return authorized;
   }
 }
