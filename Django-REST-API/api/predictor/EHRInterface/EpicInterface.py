@@ -4,11 +4,19 @@ John Whiteside - branch jdw
 
 
 import requests
+from futures3.thread import ThreadPoolExecutor
+from futures3 import as_completed
+import jwt
+from cryptography import x509
+import time
 from pprint import pprint
 import json
 import os
 import subprocess
-from predictor.EHRInterface import mmlrestclient as mml
+import uuid
+from cryptography.hazmat.primitives.serialization import load_pem_private_key
+from cryptography import x509
+# from predictor.EHRInterface import mmlrestclient as mml
 
 # Token needs to come from FE
 TOKEN = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJ1cm46b2lkOmZoaXIiLCJjbGllbnRfaWQiOiJkOWYwN2JlNi0yOGNkLTQ2OWEtYjJjMS1jNjU5NWNjODE5MDEiLCJlcGljLmVjaSI6InVybjplcGljOlVTQ0RJLW9uLUZISVIiLCJlcGljLm1ldGFkYXRhIjoibE91eEk5bXlvZVhXWVFIdEhmNk1nYjRuUmQ3Nm54clg5bkhBZ1ZsLWxQMEJoXzFQXzhLeUVOd0RVM1FpNUdkNm94clhJdmdsVC04dG0yNEUxQS1HZ2htQ3M3ZENNRzhnNnRaSjJVdTlrTHBZVkx3S19EdmlET2wyaVExQ0VlcWEiLCJlcGljLnRva2VudHlwZSI6ImFjY2VzcyIsImV4cCI6MTU5NzA4MjI0OCwiaWF0IjoxNTk3MDc4NjQ4LCJpc3MiOiJ1cm46b2lkOmZoaXIiLCJqdGkiOiJjNWE3YjBlMi1hODA0LTRkYTAtYTcxOC01Zjg3NTM3YWZkODAiLCJuYmYiOjE1OTcwNzg2NDgsInN1YiI6ImV4Zm82RTRFWGpXc25oQTFPR1ZFbGd3MyJ9.TvYRTcXpd3J_VbKpgAClRHKkAw7GCGUMEA9pKC6B4cpj5PBlOmmnJxxgAr4-m7qKQ8UFH4osLGxyCdmCkMN6VIo2qtfcXeHSW8UcC3F5vpsDDU86XuE9aifKTJ-Hk-Nr1OoT7btW8jjV5wfqh0yaR6w47a7Z7JOFd9ndj3AHfQDGE7wgoPeoCaQxtjRBIIO3uO-DMhB9RZv8R092pBfWb1zpMZZeLS9vqbHEhDygXhvis7yqcuHGW4n34Y_hdj_nSLkA04SDXbqpXOLDFT0lbKSmMjBXjH8a3uvIi1N0a0cY4O8U7X3kOnTkq8vdPhRjZAn0CPDFh5Okim4LNcJ8CQ'
@@ -53,7 +61,8 @@ def fetch_patient_resource(url, patientID, token):
 
 # https://fhir.epic.com/Sandbox?api=981
 def fetch_adverse_event(url, resourceID, token):
-    return fetch_FHIR_resource(url, resourceID, token)
+    print(f"Fetching adverse event{url}{resourceID}{token}")
+    #return fetch_FHIR_resource(url, resourceID, token)
 
 #  https://fhir.epic.com/Sandbox?api=982
 def fetch_adverse_event_search(url, subject, token, study):
@@ -99,7 +108,7 @@ def fetch_care_plan_search(url, patientID, token, category=None, activity_date=N
     payload = {'patient': patientID, 'category': category, 'activity-date': activity_date}
 
     if encounter is not None:
-        payload = {'patient': patientID, 'category': category, 'encounter', encounter}
+        payload = {'patient': patientID, 'category': category, 'encounter': encounter}
     if activity_date is None:
         payload = {'patient': patientID, 'category': category}
     if category is None:
@@ -123,7 +132,7 @@ def fetch_communication(url, resourceID, token):
     return fetch_FHIR_resource(url, resourceID, token)
 
 # https://fhir.epic.com/Sandbox?api=10089
-def fetch_communication_search(url, part_of=None, subject=None, token):
+def fetch_communication_search(url, token, part_of=None, subject=None):
     if part_of is None and subject is None:
         return get_error_code('At least one query parameter is required.')
 
@@ -154,29 +163,6 @@ def fetch_condition_search(url, patientID, token, category=None, encounter=None)
     if encounter is not None:
         payload['encounter'] = part_of
     
-    res = requests.get(url=url, params=payload, headers=headers, timeout=DEFAULT_TIMEOUT)
-    return res
-
-# EXAMPLES
-
-def fetch_document(url, patientID, token, type_):
-    payload = {'patient': patientID, 'type': type_}
-    headers = get_headers(token)
-    
-    res = requests.get(url=url, params=payload, headers=headers, timeout=DEFAULT_TIMEOUT)
-    return res
-
-def fetch_procedure(url, patientID, token):
-    payload = {'patient': patientID}
-    headers = get_headers(token)
-
-    res = requests.get(url=url, params=payload, headers=headers, timeout=DEFAULT_TIMEOUT)
-    return res
-
-def fetch_observation(url, patientID, token, category):
-    payload = {'patient': patientID, 'category': category}
-    headers = get_headers(token)
-
     res = requests.get(url=url, params=payload, headers=headers, timeout=DEFAULT_TIMEOUT)
     return res
 
@@ -268,39 +254,47 @@ def fetch_observation(url, patientID, token, category):
       * Task.Read
       * Task.Search
 '''
+
+key_func_mapping = {
+    'AdverseEvent.Read':
+        lambda data: fetch_adverse_event(data['url'], data['resourceID'], data['token']),
+    'AdverseEvent.Search':
+        lambda data: fetch_adverse_event_search(data['url'], data['patientID'], data['token'], data['study']),
+    'AllergyIntolerance.Read':
+        lambda data: fetch_allergy_intolerance(data['url'], data['resourceID'], data['token']),
+    'AllergyIntolerance.Search':
+        lambda data: fetch_allergy_intolerance_search(data['url'], data['patientID'], data['token']),
+    'Appointment.Read':
+        lambda data: fetch_appointment(data['url'], data['resourceID'], data['token']),
+    'Binary.Read':
+        lambda data: fetch_binary_document(data['url'], data['resourceID'], data['token']),
+    'BodyStructure.Read':
+        lambda data: fetch_body_structure(data['url'], data['resourceID'], data['token']),
+    'BodyStructure.Search':
+        lambda data: fetch_body_structure_search(data['url'], data['patientID'], data['token']),
+    'CarePlan.Read':
+        lambda data: fetch_care_plan(data['url'], data['resourceID'], data['token']),
+    'CarePlan.Search':
+        lambda data: fetch_care_plan_search(data['url'], data['patientID'], data['token'], data.get('category', None), data.get('activity_date', None), data.get('encounter', None)),
+    'CareTeam.Read':
+        lambda data: fetch_care_team(data['url'], data['resourceID'], data['token']),
+    'CareTeam.Search':
+        lambda data: fetch_care_team_search(data['url'], data['patientID'], data['token']),
+    'Communication.Read':
+        lambda data: fetch_communication(data['url'], data['resourceID'], data['token']),
+    'Communication.Search':
+        lambda data: fetch_communication_search(data['url'], data['token'], data.get('part_of', None), data.get('subject', None)),
+    'Condition.Read':
+        lambda data: fetch_condition(data['url'], data['resourceID'], data['token']),
+    'Condition.Search':
+        lambda data: fetch_condition_search(data['url'], data['patientID'], data['token'], data.get('category', None), data.get('encounter', None))
+}
+
 def fetch_handler(key, data):
-    if key is 'AdverseEvent.Read':
-        return fetch_adverse_event(data.url, data.resourceID, data.token)
-    elif key is 'AdverseEvent.Search':
-        return fetch_adverse_event_search(data.url, data.patientID, data.token, data.study)
-    elif key is 'AllergyIntolerance.Read':
-        return fetch_allergy_intolerance(data.url, data.resourceID, data.token)
-    elif key is 'AllergyIntolerance.Search':
-        return fetch_allergy_intolerance_search(data.url, data.patientID, data.token)
-    elif key is 'Appointment.Read':
-        return fetch_appointment(data.url, data.resourceID, data.token)
-    elif key is 'Binary.Read':
-        return fetch_binary_document(data.url, data.resourceID, data.token)
-    elif key is 'BodyStructure.Read':
-        return fetch_body_structure(data.url, data.resourceID, data.token)
-    elif key is 'BodyStructure.Search':
-        return fetch_body_structure_search(data.url, data.patientID, data.token)
-    elif key is 'CarePlan.Read':
-        return fetch_care_plan(data.url, data.resourceID, data.token)
-    elif key is 'CarePlan.Search':
-        return fetch_care_plan_search(data.url, data.patientID, data.token)
-    elif key is 'CareTeam.Read':
-        return fetch_care_team(data.url, data.resourceID, data.token)
-    elif key is 'CareTeam.Search':
-        return fetch_care_team_search(data.url, data.patientID, data.token)
-    elif key is 'Communication.Read':
-        return fetch_communication(data.url, data.resourceID, data.token)
-    elif key is 'Communication.Search':
-        return fetch_communication_search(data.url, data.part_of, data.subject, data.subject)
-    elif key is 'Condition.Read':
-        return fetch_condition(data.url, data.resourceID, data.token)
-    elif key is 'Condition.Search':
-        return fetch_condition_search(data.url, data.patientID, data.token, data.category, data.encounter)
+    func = key_func_mapping.get(key, None)
+
+    if func is not None:
+        return func(data)
     return get_error_code('Resource key not found')
 
 '''
@@ -415,9 +409,38 @@ pairs = [
   ]
 ]
 
-data = fetch_all_patient_data(pairs)
+def basic_auth_test():
+    url = 'https://fhir.epic.com/interconnect-fhir-oauth/oauth2/authorize'
+    payload = {
+      'response_type': 'code',
+      'redirect_uri': 'http://localhost:8080',
+      'client_id': '33e2328e-a640-41b3-85b6-369e2106adca',
+      'state': 'first-test'
+    }
+
+    res = requests.post(url=url,  params=payload, timeout=DEFAULT_TIMEOUT)
+    return res
+
+def fetch_access_token(jwtToken):
+    url = 'https://fhir.epic.com/interconnect-fhir-oauth/oauth2/token'
+    payload = {
+        'grant_type': 'client_credentials',
+        'client_assertion_type': 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
+        'client_assertion': jwtToken
+    }
+    headers = {
+        'Content-Type': 'application/x-www-form-urlencoded'
+    }
+
+    res = requests.post(url=url, params=payload, headers=headers, timeout=DEFAULT_TIMEOUT)
+    return res
 
 
+
+print(mapping['AdverseEvent.Read']({
+      'url': 'https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4/AdverseEvent/',
+      'resourceID': 'eBrj0mrZZ9-WmgLrAXW.ZQmF3xBGWbDn1vkbtSszAQnY3',
+      'token': TOKEN}))
 # ---  Prev dev (deprecated) ---
 
 '''
