@@ -124,6 +124,7 @@ import { ProcedureInfoComponent } from './procedure-info/procedure-info.componen
 import { CaregiverProfileComponent } from './caregiver-profile/caregiver-profile.component';
 import { MedicationDetailsComponent } from './medication-details/medication-details.component';
 import { ProcedureDetailsComponent } from "./procedure-details/procedure-details.component";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -216,11 +217,11 @@ import { ProcedureDetailsComponent } from "./procedure-details/procedure-details
   ],
 
   imports: [
+    BrowserModule,
     AppRoutingModule,
     RouterModule,
     CommonModule,
     BrowserAnimationsModule,
-    BrowserModule,
     HttpClientModule,
     FormsModule,
     TextMaskModule,
