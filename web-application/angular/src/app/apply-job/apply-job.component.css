@@ -1,12 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tinos&display=swap');
 
 .py-5 {
     padding-top: 7rem !important;
 }
 
 .bkgrd {
-    background-color: teal 400;
+    background-color: beige 100;
+}
+
+.headerBkgrd {
+    background-image: './assets/blog-header-bkgrd.jpg';
+    width: 1440;
+    height: 265;
 }
 
 .content {
@@ -18,11 +25,36 @@
 .heading {
     font-size: 18;
     font-family: 'Lato', sans-serif;
-    font-style: bold;
+    font-weight: bold;
+    color: gray 500;
+}
+
+.jobTitle {
+    font-size: 36;
+    font-family: 'Tinos', serif;
+    font-weight: bold;
+    color: teal 100;
 }
 
 .description {
     font-size: 18;
     font-family: 'Lato', sans-serif;
     font-style: normal;
+    color: gray 500;
+}
+
+.applyBtn {
+    width: 275px;
+    height: 60px;
+    color: white;
+    background-color:teal;
+    border: teal 300;
+    font-size: 18px;
+    font-family: "Lato", sans-serif;
+    font-weight: bold;
+    border-radius: 8px;
+  }
+
+.wrap {
+    word-wrap: break-word;
 }
