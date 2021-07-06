@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<!--
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,226 +13,30 @@
     />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-    <!-- Hotjar Tracking Code for https://www.scriptchain.co/home -->
-    <script>
-      (function (h, o, t, j, a, r) {
-        h.hj =
-          h.hj ||
-          function () {
-            (h.hj.q = h.hj.q || []).push(arguments);
-          };
-        h._hjSettings = { hjid: 2374837, hjsv: 6 };
-        a = o.getElementsByTagName("head")[0];
-        r = o.createElement("script");
-        r.async = 1;
-        r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
-        a.appendChild(r);
-      })(window, document, "https://static.hotjar.com/c/hotjar-", ".js?sv=");
-    </script>
+
   </head>
-  <body>
-    <div>
-      <app-landing-page-header></app-landing-page-header>
-    </div>
+-->
 
-    <div>
-      <h1 id="heading">Blog</h1>
-      <div class="container">
-        <div class="row">
-          <div class="col">
-            <div
-              onmouseover="displayhovercard1(this)"
-              id="img1"
-              class="module1"
-              style="
-                background-image: url(./assets/img6.jpg);
-                background-repeat: no-repeat;
-                -webkit-background-size: cover;
-                -moz-background-size: cover;
-                -o-background-size: cover;
-                background-size: cover;
-              "
-            >
-              <blockquote>
-                “The complexity and rise of data in healthcare means that
-                artificial intelligence will increasingly be applied within the
-                field...there are already a number of research studies
-                suggesting that AI can perform as well as or better than humans
-                at key healthcare tasks, such as diagnosing diseases…”
-              </blockquote>
-              <figcaption>
-                &mdash;<cite>
-                  Davenport, Thomas, and Ravi Kalakota. “The Potential for
-                  Artificial Intelligence in Healthcare.” Future HealthCare
-                  Journal</cite
-                >
-              </figcaption>
-            </div>
+    
+<div>
+  <app-landing-page-header></app-landing-page-header>
+</div>
 
-            <div class="col">
-              <div
-                id="img2"
-                class="module2"
-                style="
-                  background-image: url(./assets/img7.jpg);
-                  background-repeat: no-repeat;
+<div>
+  <!-- <h1 [ngStyle]="{'color':'red'}" -->
+  <h1 id="heading">ScriptChain Blog</h1>
+  <label for="Category">Explore By Category:</label>
 
-                  background-size: cover;
-                "
-              >
-                <blockquote>
-                  “Artificial intelligence aims to mimic human functions. It is
-                  bringing a paradigm shift to healthcare, powered by increasing
-                  availability of healthcare data and rapid progress of analysis
-                  techniques...AI can use sophisticated algorithms to ‘learn’
-                  features from a large volume of healthcare data, and then use
-                  the obtained insights to assist clinical practice.”
-                </blockquote>
-                <figcaption>
-                  &mdash;<cite>
-                    Jiang, Fei, et al. “Artificial Intelligence in Healthcare:
-                    Past, Present and Future.” BMJ Specialist Journal</cite
-                  >
-                </figcaption>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <div
-              id="img3"
-              class="module3"
-              style="
-                background-image: url(./assets/img8.jpg);
-                background-repeat: no-repeat;
+  <select name="Category" id="Category">
+    <option value="Category1">Category</option>
+    <option value="Category2">Category</option>
+    <option value="Category3">Category</option>
+  </select>
 
-                background-size: cover;
-              "
-            >
-              <blockquote>
-                “We live in an era with unprecedented availability of clinical
-                and biological data that include electronic health records...one
-                of the strengths of DL approaches is the ability to tackle the
-                challenges of scalability and high dimensionality...trainees and
-                cardiologists interested in AI have the benefit of growing
-                intersectoral support for the health data science revolution…”
-              </blockquote>
-              <figcaption>
-                &mdash;<cite>
-                  Marvao, Antonio de, et al. “Artificial Intelligence and the
-                  Cardiologist: What You Need to Know for 2020.” MRC London
-                  Institute of Medical Sciences</cite
-                >
-              </figcaption>
-            </div>
-            <div class="col">
-              <div
-                id="img4"
-                class="module4"
-                style="
-                  background-image: url(./assets/img5.jpg);
-                  background-repeat: no-repeat;
-                  -webkit-background-size: cover;
-                  -moz-background-size: cover;
-                  -o-background-size: cover;
-                  background-size: cover;
-                "
-              >
-                <blockquote>
-                  “In 2016, healthcare AI projects attracted more investment
-                  “..numerous applications of AI are well positioned to improve
-                  patient care and potentially save lives...those applications
-                  include pattern recognition...we’re able to train machines to
-                  exhibit humanlike intelligence and apply that in a clinical
-                  setting. We haven’t achieved human intelligence, but we’re
-                  getting close to it.
-                </blockquote>
-                <figcaption>
-                  &mdash;<cite>
-                    Castelo, Micah. “The Future of Artificial Intelligence in
-                    Healthcare.” Technology Solutions That Drive
-                    Healthcare</cite
-                  >
-                </figcaption>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!----Hover Card 1 starts here-->
-      <div id="hovercard1" class="card1" style="display: none">
-        <div
-          style="
-            background-image: url(./assets/img6.jpg);
-            background-repeat: no-repeat;
-            -webkit-background-size: cover;
-            -moz-background-size: cover;
-            -o-background-size: cover;
-            background-size: cover;
-          "
-        >
-          <blockquote>
-            “In 2016, healthcare AI projects attracted more investment than AI
-            projects within any other sector of the global economy...through
-            machine learning, AI provides techniques that uncover complex
-            associations which cannot be easily reduced to an equation.
-            Furthermore, these systems are able to learn from each incremental
-            case and can be exposed, within minutes, to more cases than a
-            clinician could see in many lifetimes...a single AI system is able
-            to support a large population and therefore it is ideally suited to
-            situations where human expertise is a scarce resource.”
-          </blockquote>
-          <figcaption>
-            &mdash;<cite>
-              Buch, Varun H, et al. “Artificial Intelligence in Medicine:
-              Current Trends and Future Possibilities.” The British Journal Of
-              General Practice</cite
-            >
-          </figcaption>
-        </div>
-      </div>
+<app-blog-card> </app-blog-card>
+</div>
 
-      <!-- <div class="centered">
-        <section class="cards">
-          <article class="card">
-            <img
-              src="./assets/health.png"
-              alt="Image not available"
-              onerror="this.src='./assets/blogImg.jpg'"
-            />
-            <h6><strong>Blog Source</strong> // March 6, 2021</h6>
-            <p>Headline for the blog</p>
-          </article>
-         /card-one -->
-      <!-- 
-          <article class="card">
-            <img
-              src="./assets/healh.png"
-              alt="Image not available"
-              onerror="this.src='./assets/blogImg.jpg'"
-            />
-            <h6><strong>Blog Source</strong> // March 6, 2021</h6>
-            <p>Headline for the blog</p>
-          </article> -->
-      <!-- /card-two -->
+<footer>
+  <app-landing-page-subfooter></app-landing-page-subfooter>
+</footer>
 
-      <!-- <article class="card">
-            <img
-              src="./assets/healh.png"
-              alt="Image not available"
-              onerror="this.src='./assets/blogImg.jpg'"
-            />
-            <h6><strong>Blog Source</strong> // March 6, 2021</h6>
-            <p>Headline for the blog</p>
-          </article>
-          /card-three 
-        </section>
-      </div> -->
-    </div>
-
-    <footer>
-      <app-landing-page-subfooter></app-landing-page-subfooter>
-    </footer>
-  </body>
-</html>
