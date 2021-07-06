@@ -4,6 +4,12 @@ import { ContactUsComponent } from "./contact-us/contact-us.component";
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatCardModule} from '@angular/material/card';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 /* Componets to create routes for */
 import { LoginComponent } from "./login/login.component";
 import { RequestAccessComponent } from "./request-access/request-access.component";
