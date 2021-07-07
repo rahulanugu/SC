@@ -124,7 +124,7 @@ import { ProcedureInfoComponent } from './procedure-info/procedure-info.componen
 import { CaregiverProfileComponent } from './caregiver-profile/caregiver-profile.component';
 import { MedicationDetailsComponent } from './medication-details/medication-details.component';
 import { ProcedureDetailsComponent } from "./procedure-details/procedure-details.component";
-import { BlogCardComponent } from './blog-card/blog-card.component';
+import { BlogCardComponent } from './blog/blog-card/blog-card.component';
 
 
 @NgModule({
