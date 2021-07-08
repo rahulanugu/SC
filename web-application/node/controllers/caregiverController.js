@@ -8,24 +8,14 @@ const log = console.log;
 const express = require('express');
 const { check,body,validationResult } = require('express-validator');
 const router = express.Router();
+var aes256 = require('aes256');
 const jwt = require('jsonwebtoken');
-const { google } = require("googleapis");
-const OAuth2 = google.auth.OAuth2;
 const randtoken = require('rand-token');
+
 var Utility = require('../utility');
-const oauth2Client = new OAuth2(
-    "Y16828344230-21i76oqle90ehsrsrpptnb8ek2vqfjfp.apps.googleusercontent.com",
-    "ZYdS8bspVNCyBrSnxkMxzF2d",
-    "https://developers.google.com/oauthplayground"
-);
+const mailer_oauth = require('../mailer_oauth');
 const connection = require('../db_connection');
 
-oauth2Client.setCredentials({
-    refresh_token:
-      "ya29.GluBB_c8WGD6HI2wTAiAKnPeLap6FdqDdQYhplWyAPjw_ZBSNUNEMOfmsrVSDoHTAZWc8cjKHXXEEY_oMVJUq4YaoSD1LLseWzPNt2hcY2lCdhXAeuCxvDPbl6QP"
-  });
-const accessToken = oauth2Client.getAccessToken();
-var aes256 = require('aes256');
 const API_KEY = process.env.API_KEY;
 const key = process.env.KEY;
 
@@ -105,6 +95,11 @@ check('email').notEmpty().isEmail(),check('phone').notEmpty(),body().custom(body
         }
     });
 })
+
+/* Mailer */
+
+const oauth2Client = mailer_oauth.getClient();
+const accessToken = oauth2Client.getAccessToken();
 
 
 module.exports = router;

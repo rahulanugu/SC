@@ -27,22 +27,3 @@ describe('/Authenticate the healthcare user login attempt', () => {
       });
     });
 
-  describe('/Checking if the user is authorized by verifying jwt token integrity', () => {
-      // it('verifies the JWT token', () => {
-      //   let queryPost = {
-      //     "jwtToken":"xeKw6fIjwH7nJPph"
-      //     }
-      //     request(app)
-      //         .post('/backend/healthcare-login/verifytokenintegrity')
-      //         .query({
-      //           API_KEY: "TiKY7Md2dHpcZo1ih4KbkinTHh7CNTSjseg2ZB3ZiaEC2x1bFA==",
-      //         })
-      //         .send(queryPost)
-      //         .end((err, res) => {
-      //           console.log(res.statusCode);
-      //           assert.isNull(err);
-      //           assert.isTrue(res.statusCode != 404);
-      //           assert.isTrue(res.statusCode == 200);
-      //         });
-      //     });
-        });

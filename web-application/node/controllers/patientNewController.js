@@ -3,31 +3,18 @@
  * Uses express to create a RESTful API
  * Defines endpoints that allows application to perform CRUD operations
  */
-const nodemailer = require('nodemailer');
-const log = console.log;
 const express = require('express');
-const { check,body,validationResult } = require('express-validator');
 const router = express.Router();
-const jwt = require('jsonwebtoken');
-const { google } = require("googleapis");
-const OAuth2 = google.auth.OAuth2;
-const randtoken = require('rand-token');
+const { check,body,validationResult } = require('express-validator');
+const nodemailer = require('nodemailer');
+var aes256 = require('aes256');
+
+const mailer_oauth = require('../mailer_oauth');
 var Utility = require('../utility');
 const connection = require('../db_connection');
-const oauth2Client = new OAuth2(
-    "Y16828344230-21i76oqle90ehsrsrpptnb8ek2vqfjfp.apps.googleusercontent.com",
-    "ZYdS8bspVNCyBrSnxkMxzF2d",
-    "https://developers.google.com/oauthplayground"
-);
-oauth2Client.setCredentials({
-    refresh_token:
-      "ya29.GluBB_c8WGD6HI2wTAiAKnPeLap6FdqDdQYhplWyAPjw_ZBSNUNEMOfmsrVSDoHTAZWc8cjKHXXEEY_oMVJUq4YaoSD1LLseWzPNt2hcY2lCdhXAeuCxvDPbl6QP"
-  });
-const accessToken = oauth2Client.getAccessToken();
-var aes256 = require('aes256');
+
 const API_KEY = process.env.API_KEY;
 const key = process.env.KEY;
-
 
 
 function generateId(count) {
@@ -67,53 +54,53 @@ router.post("/", [
     console.log(ip, req.body.email);
     //Check if user alread exists
     const query= 'SELECT * FROM `patientsnew` WHERE email=?';
-    connection.query(query,[req.body.email], async function(err, row) {
-      if(!err) {
-          if (row.length>0){
-            return res.status(400).send({
-                message: 'User already exists'
-            })
-          }else{
-            console.log("email does not exist");
-            const tokeBody = req.body;
-            const token = await jwt.sign({tokeBody}, "santosh", { expiresIn: 180 });
-            var idToken = randtoken.generate(16);
-            var json = {
-              '_id': generateId(10),
-              fname: req.body.firstName,
-              lname: req.body.lastName,
-              email: req.body.email,
-              phone: req.body.phone,
-            };
-            var query1= "INSERT INTO `patientsnew` VALUES ("
-            var val = [];
-            //REPLACE THIS AFTER VALUES
-            for(var myKey in json) {
-              query1+="?,";
-              val.push(json[myKey]);
-            }
-            query1 = query1.slice(0,query1.length-1);
-            query1 += ")";
-            connection.query(query1,val, function(err, row) {
-              if(!err) {
-                  console.log('Inserted successfully');
-                  var encryptedToken = Utility.EncryptToken(token);
-                  sendVerificationMail(req.body.email,req.body.fname,encryptedToken);
-                  res.status(200).json({
-                    "message":"Success"
-                  });
-              }else{
-                console.log(err);
-              }
-            })
-          }
-        }else{
+    connection.query(query,[req.body.email], async (err, row) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      if (row.length>0) {
+        return res.status(400).send({
+            message: 'User already exists'
+        });
+      }
+      console.log("email does not exist");
+      var json = {
+        '_id': generateId(10),
+        fname: req.body.firstName,
+        lname: req.body.lastName,
+        email: req.body.email,
+        phone: req.body.phone,
+      };
+      var query1 = "INSERT INTO `patientsnew` VALUES ("
+      var val = [];
+      //REPLACE THIS AFTER VALUES
+      for (var myKey in json) {
+        query1 += "?,";
+        val.push(json[myKey]);
+      }
+      query1 = query1.slice(0,query1.length-1);
+      query1 += ")";
+      connection.query(query1,val, (err, row) => {
+        if (err) {
           console.log(err);
-          //res.status(500).send({message: "An error has occured trying to send the mail"});
+          return;
         }
+        console.log('Inserted successfully');
+        const tokeBody = req.body;
+        var encryptedToken = Utility.EncryptToken({tokeBody}, 180);
+        sendVerificationMail(req.body.email,req.body.fname,encryptedToken);
+        return res.status(200).json({
+          "message":"Success"
+        });
+      })
     });
   }
 );
+
+//Creating a new oauthclientt for mailing
+const oauth2Client = mailer_oauth.getClient();
+const accessToken = oauth2Client.getAccessToken();
 
 const sendVerificationMail = (email,fname,encryptedToken)=>{
 

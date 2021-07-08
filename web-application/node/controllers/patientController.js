@@ -3,28 +3,16 @@
 * Uses express to create a RESTful API
 * Defines endpoints that allows application to perform CRUD operations
 */
-const nodemailer = require('nodemailer');
-const log = console.log;
 const express = require('express');
-const { check,body,validationResult } = require('express-validator');
 const router = express.Router();
-const jwt = require('jsonwebtoken');
-const { google } = require("googleapis");
-const OAuth2 = google.auth.OAuth2;
-const randtoken = require('rand-token');
-var Utility = require('../utility');
-const oauth2Client = new OAuth2(
-   "Y16828344230-21i76oqle90ehsrsrpptnb8ek2vqfjfp.apps.googleusercontent.com",
-   "ZYdS8bspVNCyBrSnxkMxzF2d",
-   "https://developers.google.com/oauthplayground"
-);
+const { check,body,validationResult } = require('express-validator');
+const aes256 = require('aes256');
+const nodemailer = require('nodemailer');
+
+const mailer_oauth = require('../mailer_oauth');
+const Utility = require('../utility');
 const connection = require('../db_connection');
-oauth2Client.setCredentials({
-   refresh_token:
-     "ya29.GluBB_c8WGD6HI2wTAiAKnPeLap6FdqDdQYhplWyAPjw_ZBSNUNEMOfmsrVSDoHTAZWc8cjKHXXEEY_oMVJUq4YaoSD1LLseWzPNt2hcY2lCdhXAeuCxvDPbl6QP"
- });
-const accessToken = oauth2Client.getAccessToken();
-var aes256 = require('aes256');
+
 const API_KEY = process.env.API_KEY;
 const key = process.env.KEY;
 // http://localhost:3000/patient/
@@ -239,6 +227,9 @@ function genUpdateQuery(obj) {
 }
 
 /*   NodeMailer   */
+
+const oauth2Client = mailer_oauth.getClient();
+const accessToken = oauth2Client.getAccessToken();
 
 const sendVerificationMail = (email,fname,encryptedToken) => {
 

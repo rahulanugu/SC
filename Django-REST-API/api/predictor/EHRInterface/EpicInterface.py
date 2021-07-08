@@ -8,6 +8,7 @@ from futures3.thread import ThreadPoolExecutor
 from futures3 import as_completed
 import jwt
 import datetime
+from urllib.parse import quote_plus, urlencode
 from cryptography import x509
 import time
 from pprint import pprint
@@ -37,46 +38,6 @@ DEFAULT_TIMEOUT = 5
  * Output: request.py response object
 '''
 
-# <- Authorization ->
-
-# Fetch OAuth 2.0 Backend bearer token for system-level authorization
-# https://fhir.epic.com/Documentation?docId=oauth2&section=BackendOAuth2Guide
-def fetch_access_token(jwtToken):
-    url = 'https://fhir.epic.com/interconnect-fhir-oauth/oauth2/token'
-    payload = {
-        'grant_type': 'client_credentials',
-        'client_assertion_type': 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
-        'client_assertion': jwtToken
-    }
-    headers = {
-        'Content-Type': 'application/x-www-form-urlencoded'
-    }
-
-    res = requests.post(url=url, data=payload, headers=headers, timeout=DEFAULT_TIMEOUT)
-    return res
-
-# Generate JWT to present to server for authorization
-# https://fhir.epic.com/Documentation?docId=oauth2&section=Backend-Oauth2_Getting-Access-Token
-def generateEpicJWT():
-    curr_time = int(datetime.datetime.utcnow().timestamp())
-    private_key = b"-----BEGIN RSA PRIVATE KEY-----\n...\n-----END RSA PRIVATE KEY-----"
-    headers = {
-        'alg': 'RS384',
-        'typ': 'JWT'
-    }
-    payload = {
-        'iss': 'CLIENT_ID',
-        'sub': 'CLIENT_ID',
-        'aud': 'https://fhir.epic.com/interconnect-fhir-oauth/oauth2/token',
-        'jti': str(uuid.uuid1()),
-        'exp': curr_time + 300,
-        'nbf': curr_time,
-        'iat': curr_time
-    }
-    token = jwt.encode(payload=payload, headers=headers, key=private_key, algorithm='RS384')
-    return token
-  
-
 # <- Request helpers ->
 
 def get_headers(token):
@@ -98,6 +59,60 @@ def fetch_patient_resource(url, patientID, token):
 
     res = requests.get(url=url, params=payload, headers=headers, timeout=DEFAULT_TIMEOUT)
     return res
+
+def dict_to_query(dictn, sep='=', line=''):
+    line = '\n' if line == 'new' else '&'
+    res = ''
+
+    if dictn is not None:
+        for item in dictn.items():
+            res += f'{item[0]}{sep}{item[1]}{line}'
+        res = res[:-1] + '\n'
+    return res
+
+def http_req_to_str(req_type, url, headers=None, params=None, body=None):
+    return f'{req_type} {url} HTTP/1.1\n{dict_to_query(headers, ": ", line="new")}\n{dict_to_query(params)}{dict_to_query(body)}'
+
+
+# <- Authorization ->
+
+# Fetch OAuth 2.0 Backend bearer token for system-level authorization
+# https://fhir.epic.com/Documentation?docId=oauth2&section=BackendOAuth2Guide
+def fetch_access_token(jwtToken):
+    url = 'https://fhir.epic.com/interconnect-fhir-oauth/oauth2/token'
+    headers = {
+        'Content-Type': 'application/x-www-form-urlencoded'
+    }
+    payload = {
+        'grant_type': 'client_credentials',
+        'client_assertion_type': quote_plus('urn:ietf:params:oauth:client-assertion-type:jwt-bearer'),
+        'client_assertion': quote_plus(str(jwtToken))
+    }
+
+    res = requests.post(url=url, headers=headers, data=payload, timeout=DEFAULT_TIMEOUT)
+    print(http_req_to_str('POST', url, headers, params=payload))
+    return res
+
+# Generate JWT to present to server for authorization
+# https://fhir.epic.com/Documentation?docId=oauth2&section=Backend-Oauth2_Getting-Access-Token
+def generateEpicJWT():
+    curr_time = int(datetime.datetime.utcnow().timestamp())
+    private_key = b"-----BEGIN RSA PRIVATE KEY-----\nMIIEpAIBAAKCAQEA1L+mINwLdhQ6fEnvGk72dvzQlSLgbyI3M9rcjnJDWoqWJXU2\nd8203oK5eXPl4mT3XpBinFVNAO0HVG73Ics9ZpD7EfEOB+3xGcK+rWGleMsQgiIe\n2Fjq5vG/oIpLOFs+r+WV05pZto8uJh2VpY0ldHDMq24jec+BtZOZsy3zkXAYd+Aq\na23Z44iX5nyJL4kx+tCsTe9xpRUmOT60t8nM5wqUONsX/0bpYm3U2TefXPCUWSTR\n2EvBxSg3zLLRazWQwWTTl0ONxX2IgwbwWI7bjOAsilZZRLuoc3A0cYnMC6OJ8INw\nAndnvBBtFEsdcgmbnxkNyBq+NBHxEHowyopZNwIDAQABAoIBAQCYFTxr5wEmcsVw\nTeXn16SmYIm24syvhTUTE5RxG8t8MO+ubUD3mYx/N9HguXIPSf/vkKV9fhji3Y5M\n1FpDxSbqaB+irsBJ+NVOhgGKre/9DqSJcly8aavaVdyXpeSpr8h7M1LMhl01fNsP\nkjyEsQaiW3Rj5ALmM+lUZOQNy35/auUZAMLgWAtaVXUS5pPI/M746jGUXkCR2ETu\nmaNZ4pqD153rormW8XBzS+GA1o0NBeYClzoXYiA6Qvp+f8+9hK4U/8hOu8MEwVuX\nv/UCbNrEhFiRMcU8v+qfQnbbPWBmtObdv+onBse+vwJk4dlMS4TUvClVZh7REs78\nt6DHCKlhAoGBAPmZZUSEhKfUhQz6RQGa2NsLHvHT62dgcHgaCjZ4Zy3sMuUzoR2j\nKW6TW4Wj2xHUr5or+F3qu1oRpBxg7yauaQWe07oEjoUwxRhYeuTqVcCPc6T5hm6i\n7I1DtEdHnZne43iAZvIxemMfxgXwAdI1zKhN1l6+TyDK5IQ36PDWwfuRAoGBANo0\nVNsWYsCB0NH5USBcgab8O+tj+pp+eTkp0bbP1Jr/1hKu/srOJpvIRD5tzXrie08l\nB8tOKA3jBw509YzAssD+WYf2GoN6JSvwA+a9oGGABCNMDsVQJhHMN3QFOmjOm8l9\nlQfJUnzE3Wjwqyjf5ZR+MENTvfxPNRX8rZGkElRHAoGAVa4rjh6zbu1MEw1iXM+r\n+11Q7RCjMWRwlznRIaupN6FqQzW66/KTiWq6MyDxVaid8x1+77ZhQ+TkYf2AetXK\nJWzFH4jq55u7PMU6wpQShbx4pTwmwpnY/BEutH1IA4b4rOfe7uq/KYHBt04RQfjH\n3UqC+Rj5Dre3RA/xPaNrCZECgYBG5QvQ5vQM0eCz6Ao4tnWVeIxLTX+FpKPkM7ck\na2ALQCYgieTUpagbozSxB+HkFCO2MjTXFDylTmbjhpKlOZKaa8lRCF/S6eOb4+6Q\nkHnEU+CES1jdOM41qCE4O96fYMly7K94CSwYx6mcR92EeUJRPbKWnWWzzVRVIXSP\nRjyCTwKBgQDD7R/1DQZIDQWvLaDxSWJaxhLIpi/+AAvebkcxGqkxjV4g5lch4QeQ\nfwFB4tFepGk3m+l/f2pEyEQHJHsmrUUeSMyTim6GMpyp4t/07AnHfjFppvGBx1tv\n9pbmntJsgk0ndP+AUX2orxQjz4q+axHT7KfFspbRsgA8CcSDhMR8Vg==\n-----END RSA PRIVATE KEY-----"
+    headers = {
+        'alg': 'RS384',
+        'typ': 'JWT'
+    }
+    payload = {
+        'iss': '1939e120-0c02-4973-8091-cf6206731daf',
+        'sub': '1939e120-0c02-4973-8091-cf6206731daf',
+        'aud': 'https://fhir.epic.com/interconnect-fhir-oauth/oauth2/token',
+        'jti': str(uuid.uuid1()),
+        'exp': curr_time + 300,
+        'nbf': curr_time,
+        'iat': curr_time
+    }
+    token = jwt.encode(payload=payload, headers=headers, key=private_key, algorithm='RS384')
+    return token
 
 
 # <- Integrations ->
@@ -405,7 +420,6 @@ def basic_auth_test():
 jwtToken = generateEpicJWT()
 tokenRes = fetch_access_token(jwtToken)
 
-print(jwtToken)
 print(tokenRes)
 print(tokenRes.json())
 

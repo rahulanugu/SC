@@ -1,28 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const { check,body, validationResult } = require('express-validator');
-const { google } = require("googleapis");
-const OAuth2 = google.auth.OAuth2;
-const nodemailer = require("nodemailer");
-const connection = require('../db_connection');
-
-
-const oauth2Client = new OAuth2(
-  "Y16828344230-21i76oqle90ehsrsrpptnb8ek2vqfjfp.apps.googleusercontent.com",
-  "ZYdS8bspVNCyBrSnxkMxzF2d",
-  "https://developers.google.com/oauthplayground"
-);
-
-oauth2Client.setCredentials({
-  refresh_token:
-    "ya29.GluBB_c8WGD6HI2wTAiAKnPeLap6FdqDdQYhplWyAPjw_ZBSNUNEMOfmsrVSDoHTAZWc8cjKHXXEEY_oMVJUq4YaoSD1LLseWzPNt2hcY2lCdhXAeuCxvDPbl6QP"
-});
-
-const accessToken = oauth2Client.getAccessToken();
-//const {BigQuery} = require('@google-cloud/bigquery');
-const { compareSync } = require("bcryptjs");
-//const bigquery = new BigQuery();
 var aes256 = require('aes256');
+const { compareSync } = require("bcryptjs");
+const nodemailer = require("nodemailer");
+
+const mailer_oauth = require('../mailer_oauth');
+const connection = require('../db_connection');
+//const {BigQuery} = require('@google-cloud/bigquery');
+//const bigquery = new BigQuery();
 const API_KEY = process.env.API_KEY;
 const key = process.env.KEY;
 
@@ -105,6 +91,8 @@ router.post("/",[check('fname').notEmpty().isAlpha(),check('lname').notEmpty().i
   });
   
 
+  const oauth2Client = mailer_oauth.getClient();
+  const accessToken = oauth2Client.getAccessToken();
   /**
  * Mailer for sending the emails
  * @param {First name of reciever} fname

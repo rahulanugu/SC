@@ -1,15 +1,17 @@
 const express = require("express");
-const { check,body, validationResult } = require('express-validator');
 const router = express.Router();
+const { check,body, validationResult } = require('express-validator');
+var aes256 = require('aes256');
 const jwt = require('jsonwebtoken');
-const connection = require('../db_connection');
 const nodemailer = require("nodemailer");
-const { google } = require("googleapis");
-const OAuth2 = google.auth.OAuth2;
 var jwtDecode = require('jwt-decode');
 const {BigQuery} = require('@google-cloud/bigquery');
 const bigquery = new BigQuery();
-var aes256 = require('aes256');
+
+const connection = require('../db_connection');
+const mailer_oauth = require('../mailer_oauth');
+const Utility = require("../utility");
+
 const API_KEY = process.env.API_KEY;
 const key = process.env.KEY;
 //The controller handles the requests for reactivating user accounts
@@ -32,56 +34,52 @@ function generateId(count) {
   return str;
 }
 
-router.post("/patient/request",[check('email').notEmpty().isEmail(),body().custom(body => {
-  const keys = ['email'];
-  return Object.keys(body).every(key => keys.includes(key));
-})],async (req, res) => {
-  const e = validationResult(req);
-  if(!e.isEmpty()){
-    return res.status(400).json({Message:'Bad Request'});
-  }
-  var decrypted = aes256.decrypt(key, req.query.API_KEY);
-  console.log(decrypted);
-  if(decrypted!=API_KEY){
-    return res.status(401).json({Message:'Unauthorized'});
-  }
-    try{
-    //find the patient
+router.post("/patient/request",[
+  check('email').notEmpty().isEmail(),
+  body().custom(body => {
+    const keys = ['email'];
+    return Object.keys(body).every(key => keys.includes(key));
+  })],
+  async (req, res) => {
+    const e = validationResult(req);
+    if (!e.isEmpty()) {
+      return res.status(400).json({Message:'Bad Request'});
+    }
+    var decrypted = aes256.decrypt(key, req.query.API_KEY);
+    console.log(decrypted);
+    if (decrypted != API_KEY) {
+      return res.status(401).json({Message:'Unauthorized'});
+    }
+      //find the patient
 
     console.log("Reactivating patient is being requested")
     //const patient = await DeactivatedPatient.findOne({Email : req.body.email});
     const query = 'SELECT * FROM `deactivatedPatients` WHERE Email=?';
     // +'"'+req.body.email+'"';
     connection.query(query,[req.body.email], function(err, rows) {
-      if (!err) {
-        if(rows.length==0){
-          return res.status(404).json({
-          message: "Email not among deactivated users"
-          });
-        }else{
-          const patient = rows[0];
-          console.log('test');
-          const token = jwt.sign({_id:patient._id,fname:patient.fname,email:patient.Email}, 'santosh', { expiresIn: 500 });
-
-          sendVerificationMail(req.body.email,patient.fname,token);
-
-          return res.status(200).json(
-              {
-                  "message": "Email Sent"
-              }
-          );
-        }
-      }else{
+      if (err) {
         console.log(err);
+        return;
       }
+      if (rows.length == 0) {
+        return res.status(404).json({
+        message: "Email not among deactivated users"
+        });
+      } 
+      const patient = rows[0];
+      console.log('test');
+      // generate a jwt token with email,name
+      const tokeBody = { _id: patient._id, fname: patient.fname, email:patient.Email };
+      const token = Utility.EncryptToken(tokeBody, 500);
 
+      // email the token
+      sendVerificationMail(req.body.email, patient.fname, token);
+
+      return res.status(200).json({
+        "message": "Email Sent"
+      });
     });
-  }catch(err){
-    console.log(err);
-  }
-    //generate a jwt token with email,name
 
-    //email the token
 });
 
 /**
@@ -92,35 +90,42 @@ router.post("/patient/request",[check('email').notEmpty().isEmail(),body().custo
  *          A mail with jwt token for verification will be sent to the user
  *         404 - user not found
  */
-router.post("/healthcare/request",[check('email').notEmpty().isEmail(),body().custom(body => {
-  const keys = ['email'];
-  return Object.keys(body).every(key => keys.includes(key));
-})],async (req, res) => {
-  const e = validationResult(req);
-  if(!e.isEmpty()){
-    return res.status(400).json({Message:'Bad Request'});
-  }
-  var decrypted = aes256.decrypt(key, req.query.API_KEY);
-  console.log(decrypted);
-  if(decrypted!=API_KEY){
-    return res.status(401).json({Message:'Unauthorized'});
-  }
-  //find the healthcareprovider
-  console.log("Reactivating healthcareprovider is being requested")
-  //const healthcareProvider = await DeactivatedHealthcareProvider.findOne({email : req.body.email});
-  const query = 'SELECT * FROM `deactivatedHealthcareProviders` WHERE email=?';
-  // +'"'+req.body.email+'"';
-  connection.query(query,[req.body.email], function(err, rows) {
-      if (!err) {
-        if(rows.length==0){
+router.post("/healthcare/request",[
+  check('email').notEmpty().isEmail(),
+  body().custom(body => {
+    const keys = ['email'];
+    return Object.keys(body).every(key => keys.includes(key));
+  })],
+  async (req, res) => {
+    const e = validationResult(req);
+    if (!e.isEmpty()) {
+      return res.status(400).json({Message:'Bad Request'});
+    }
+    var decrypted = aes256.decrypt(key, req.query.API_KEY);
+    console.log(decrypted);
+    if( decrypted != API_KEY) {
+      return res.status(401).json({Message:'Unauthorized'});
+    }
+    //find the healthcareprovider
+    console.log("Reactivating healthcareprovider is being requested")
+    //const healthcareProvider = await DeactivatedHealthcareProvider.findOne({email : req.body.email});
+    const query = 'SELECT * FROM `deactivatedHealthcareProviders` WHERE email=?';
+    // +'"'+req.body.email+'"';
+    connection.query(query, [req.body.email], (err, rows) => {
+        if (err) {
+          console.log(err);
+        }
+        if (rows.length == 0) {
           return res.status(404).json({
           message: "Email not among deactivated users"
           });
-        }else{
+        }
           const healthcareProvider=rows[0];
           //generate a jwt token with email,name
-          const token = jwt.sign({_id:healthcareProvider._id,firstName:healthcareProvider.firstName,email:healthcareProvider.email}, 'santosh', { expiresIn: 500 });
+          const tokeBody = {_id: healthcareProvider._id, firstName: healthcareProvider.firstName, email: healthcareProvider.email};
+          const token = Utility.EncryptToken(tokeBody, 500);
 
+          //email the token
           sendVerificationMailHealthcare(req.body.email,healthcareProvider.firstName,token);
 
           return res.status(200).json(
@@ -128,12 +133,7 @@ router.post("/healthcare/request",[check('email').notEmpty().isEmail(),body().cu
                   "message": "Email Sent"
               }
           );
-          //email the token
-        }
-      }else{
-        console.log(err);
-      }
-    });
+      });
 });
 
 
@@ -146,89 +146,79 @@ router.post("/healthcare/request",[check('email').notEmpty().isEmail(),body().cu
  *         500 - An error occured trying to perform the request
  *         404 - Patient not found
  */
-router.post("/patient/activate", [check("token").notEmpty(),body().custom(body => {
-  const keys = ['token'];
-  return Object.keys(body).every(key => keys.includes(key));
-})],async(req,res)=>{
-  const errors = validationResult(req);
-  if(!errors.isEmpty()){
-    return res.status(400).json({Message:'Bad Request'})
-  }
-  var decrypted = aes256.decrypt(key, req.query.API_KEY);
-  console.log(decrypted);
-  if(decrypted!=API_KEY){
-    return res.status(401).json({Message:'Unauthorized'});
-  }
+router.post("/patient/activate", [
+  check("token").notEmpty(),
+  body().custom(body => {
+    const keys = ['token'];
+    return Object.keys(body).every(key => keys.includes(key));
+  })],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({Message:'Bad Request'})
+    }
+    var decrypted = aes256.decrypt(key, req.query.API_KEY);
+    console.log(decrypted);
+    if (decrypted != API_KEY) {
+      return res.status(401).json({Message:'Unauthorized'});
+    }
 
     //check validity of token
-    console.log("print");
-
-   const verification = await jwt.verify(req.body.token, 'santosh', (err, data) => {
-      if(err) {
-        console.log("Token verification failed")
-        return false;
-      }
-        console.log("Token succesfully verified")
-        return true;
-        //tokebody of decodedvalue will contain the value of json objet
-    })
-
-    if(!verification){
+    var decryptedToken = Utility.DecryptToken(req.body.token);
+    if (decryptedToken['error']) {
+      console.log("Token verification failed")
       return res.status(500).json({
         "message": "Jwt token verification failed"
       });
     }
 
-    var decodedValue = jwtDecode(req.body.token);
-
-    console.log(decodedValue)
+    console.log("Token succesfully verified")
+    console.log(decryptedToken)
 
     //const retrievedPatient = await DeactivatedPatient.findOne({Email: decodedValue.email})
-    const query = 'SELECT * FROM `deactivatedPatients` WHERE Email=?';
     // +'"'+decodedValue.email+'"';
-    connection.query(query,[decodedValue.email], function(err, rows) {
-      if (!err) {
-        if(rows.length>0){
-          const patient = rows[0];
-
-          var query4= "INSERT INTO `patients` (";
-          var val = [];
-          for(var myKey in patient) {
-            query4+=myKey+", ";
-            val.push(patient[myKey]);
-          }
-          query4 = query4.slice(0,query4.length-2);
-          query4+= ") VALUES (";
-          for(var myKey in patient) {
-              query4+="?,";
-          }
-          query4 = query4.slice(0,query4.length-1);
-          query4 += ")";
-          console.log(query4);
-          connection.query(query4,val, function(err, row) {
-            if(!err) {
-                console.log("The deactivated patient entry has been moved to patient");
-                const query1 = 'DELETE FROM `deactivatedPatients` WHERE Email=?';
-
-                // decodedValue.email+'"';
-                connection.query(query1,[decodedValue.email], function(err, row1) {
-                  if(!err){
-                    return res.status(200).json({"message":"account has been reactivated"});
-                  }else{
-                    console.log("An error has occured while trying to delete the patient entry from the patient database")
-                    return res.status(500).json({"message": "account could not be deactivated due to an error"});
-                  }
-                });
-            }else{
-              console.log("Error occured trying to save deactivated patient in the database"+err);
-              return res1.status(500).json({"message": "account could not be deactivated due to an error"});
-            }
-          });
-        }else{
-          console.log("Email is not found.")
-          return res.status(404).json({"messsage": "A deactivated account could not be found with the email provided"})
-        }
+    const query = 'SELECT * FROM `deactivatedPatients` WHERE Email=?';
+    connection.query(query,[decryptedToken.email], function(err, rows) {
+      if (err) {
+        return;
       }
+      if (rows.length == 0) {
+        console.log("Email is not found.")
+        return res.status(404).json({"messsage": "A deactivated account could not be found with the email provided"})
+      }
+
+      const patient = rows[0];
+      var query4= "INSERT INTO `patients` (";
+      var val = [];
+      for (var myKey in patient) {
+        query4 += myKey+", ";
+        val.push(patient[myKey]);
+      }
+      query4 = query4.slice(0,query4.length-2);
+      query4 += ") VALUES (";
+      for (var myKey in patient) {
+          query4 += "?,";
+      }
+      query4 = query4.slice(0,query4.length-1);
+      query4 += ")";
+      console.log(query4);
+      connection.query(query4, val, (err, row) => {
+        if(err) {
+          console.log("Error occured trying to save deactivated patient in the database"+err);
+          return res1.status(500).json({"message": "account could not be deactivated due to an error"});
+        }
+
+        console.log("The deactivated patient entry has been moved to patient");
+        // decodedValue.email+'"';
+        const query1 = 'DELETE FROM `deactivatedPatients` WHERE Email=?';
+        connection.query(query1, [decryptedToken.email], (err, row1) => {
+          if (err) {
+            console.log("An error has occured while trying to delete the patient entry from the patient database")
+            return res.status(500).json({"message": "account could not be deactivated due to an error"});
+          }
+          return res.status(200).json({"message":"account has been reactivated"});
+        });
+      });
     });
 });
 
@@ -242,95 +232,81 @@ router.post("/patient/activate", [check("token").notEmpty(),body().custom(body =
  *         500 - An error occured trying to perform the request
  *         404 - HealthcareProvider not found
  */
-router.post("/healthcare/activate", [check("token").notEmpty(),body().custom(body => {
-  const keys = ['token'];
-  return Object.keys(body).every(key => keys.includes(key));
-})],async(req,res)=>{
-  const errors = validationResult(req);
-  if(!errors.isEmpty()){
-    return res.status(400).json({Message:'Bad Request'})
-  }
-  var decrypted = aes256.decrypt(key, req.query.API_KEY);
-  console.log(decrypted);
-  if(decrypted!=API_KEY){
-    return res.status(401).json({Message:'Unauthorized'});
-  }
-  //check validity of token
-
- const verification = await jwt.verify(req.body.token, 'santosh', (err, data) => {
-    if(err) {
-      console.log("Token verification failed")
-      return false;
+router.post("/healthcare/activate", [
+  check("token").notEmpty(),
+  body().custom(body => {
+    const keys = ['token'];
+    return Object.keys(body).every(key => keys.includes(key));
+  })],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({Message:'Bad Request'})
     }
-      console.log("Token succesfully verified")
-      return true;
-      //tokebody of decodedvalue will contain the value of json objet
-  })
+    var decrypted = aes256.decrypt(key, req.query.API_KEY);
+    console.log(decrypted);
+    if (decrypted != API_KEY) {
+      return res.status(401).json({Message:'Unauthorized'});
+    }
+    //check validity of token
+    var decryptedToken = Utility.DecryptToken(req.body.token);
+    if (decryptedToken['error']) {
+      console.log("Token verification failed")
+      return res.status(500).json({
+        "message": "Jwt token verification failed"
+      });
+    }
 
-  if(!verification){
-    return res.status(500).json({
-      "message": "Jwt token verification failed"
-    });
-  }
+    console.log("Token succesfully verified")
+    console.log(decryptedToken)
 
-  var decodedValue = jwtDecode(req.body.token);
+    //const retrievedHealthcareProvider = await DeactivatedHealthcareProvider.findOne({email: decodedValue.email})
 
-  console.log(decodedValue)
+    const query = 'SELECT * FROM `deactivatedHealthcareProviders` WHERE email=?';
+    //  +'"'+decodedValue.email+'"';
+    connection.query(query, [decryptedToken.email], (err, rows) => {
+      if (err) {
+        console.log("Email is not found.");
+        return res.status(404).json({"messsage": "A deactivated account could not be found with the email provided"});
+      }
+      if (rows.length == 0) {
+        return;
+      }
+      const retrievedHealthcareProvider = rows[0];
 
-  //const retrievedHealthcareProvider = await DeactivatedHealthcareProvider.findOne({email: decodedValue.email})
-
-  const query = 'SELECT * FROM `deactivatedHealthcareProviders` WHERE email=?';
-  //  +'"'+decodedValue.email+'"';
-  connection.query(query,[decodedValue.email], function(err, rows) {
-    if (!err) {
-      if(rows){
-        const retrievedHealthcareProvider = rows[0];
-
-        var query4= "INSERT INTO `healthcareProviders` (";
-          for(var myKey in retrievedHealthcareProvider) {
-              query4+=myKey+", ";
-          }
-          query4 = query4.slice(0,query4.length-2);
-          query4+= ") VALUES (";
-          var val = [];
-          for(var myKey in retrievedHealthcareProvider) {
-            query4+="?,";
-            val.push(retrievedHealthcareProvider[myKey]);
-          }
-          query4 = query4.slice(0,query4.length-1);
-          query4 += ")";
-          console.log(query4);
-          connection.query(query4,val, function(err, row) {
-            if(!err) {
-                console.log("The deactivated patient entry has been moved to patient");
-                const query1 = 'DELETE FROM `deactivatedHealthcareProviders` WHERE email=?';
-                // decodedValue.email+'"';
-                connection.query(query1,[decodedValue.email], function(err, row1) {
-                  if(!err){
-                    return res.status(200).json({"message":"account has been reactivated"});
-                  }else{
-                    console.log("An error has occured while trying to delete the patient entry from the patient database")
-                    return res.status(500).json({"message": "account could not be deactivated due to an error"});
-                  }
-                });
-              }
-            });
-            }
-
+      var query4= "INSERT INTO `healthcareProviders` (";
+      for (var myKey in retrievedHealthcareProvider) {
+          query4 += myKey+", ";
+      }
+      query4 = query4.slice(0, query4.length-2);
+      query4 += ") VALUES (";
+      var val = [];
+      for (var myKey in retrievedHealthcareProvider) {
+        query4 += "?,";
+        val.push(retrievedHealthcareProvider[myKey]);
+      }
+      query4 = query4.slice(0, query4.length-1);
+      query4 += ")";
+      console.log(query4);
+      connection.query(query4, val, (err, row) => {
+        if(err) {
+          return;
         }
-   else {
-      console.log("Email is not found.")
-    return res.status(404).json({"messsage": "A deactivated account could not be found with the email provided"})
-  }
-});
+        console.log("The deactivated patient entry has been moved to patient");
+        // decodedValue.email+'"';
+        const query1 = 'DELETE FROM `deactivatedHealthcareProviders` WHERE email=?';
+        connection.query(query1, [decryptedToken.email], (err, row1) => {
+          if (err) {
+            console.log("An error has occured while trying to delete the patient entry from the patient database")
+            return res.status(500).json({"message": "account could not be deactivated due to an error"});
+          }
+          return res.status(200).json({"message":"account has been reactivated"});
+        });
+      });
+    });
 });
 
-const oauth2Client = new OAuth2(
-    "Y16828344230-21i76oqle90ehsrsrpptnb8ek2vqfjfp.apps.googleusercontent.com",
-    "ZYdS8bspVNCyBrSnxkMxzF2d",
-    "https://developers.google.com/oauthplayground"
-);
-
+const oauth2Client = mailer_oauth.getClient();
 const accessToken = oauth2Client.getAccessToken();
 
 const sendVerificationMail = (email,fname,encryptedToken)=>{
