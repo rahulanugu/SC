@@ -84,6 +84,7 @@ import { CaregiverProfileComponent } from "./caregiver-profile/caregiver-profile
 import { MedicationDetailsComponent } from "./medication-details/medication-details.component";
 import { ProcedureDetailsComponent } from "./procedure-details/procedure-details.component";
 import { JobOpeningsComponent } from "./job-openings/job-openings.component";
+import { BlogPostComponent } from "./blog-post/blog-post.component";
 const routes: Routes = [
   /* pages for the app */
   {
@@ -257,6 +258,10 @@ const routes: Routes = [
   {
     path: "blog",
     component: BlogComponent,
+  },
+  {
+    path: "blog-post",
+    component: BlogPostComponent
   },
   {
     path: "becomeapartner",

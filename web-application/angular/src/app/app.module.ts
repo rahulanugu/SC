@@ -125,6 +125,7 @@ import { CaregiverProfileComponent } from './caregiver-profile/caregiver-profile
 import { MedicationDetailsComponent } from './medication-details/medication-details.component';
 import { ProcedureDetailsComponent } from "./procedure-details/procedure-details.component";
 import { BlogCardComponent } from './blog/blog-card/blog-card.component';
+import { BlogPostComponent } from './blog-post/blog-post.component';
 
 
 @NgModule({
@@ -217,6 +218,7 @@ import { BlogCardComponent } from './blog/blog-card/blog-card.component';
     MedicationDetailsComponent,
     ProcedureDetailsComponent,
     BlogCardComponent,
+    BlogPostComponent,
   ],
 
   imports: [

@@ -137,7 +137,7 @@
   dependencies:
     "tslib" "^1.9.0"
 
-"@angular/cdk@^8.2.3":
+"@angular/cdk@^8.0.0-rc.0", "@angular/cdk@^8.2.3":
   "integrity" "sha512-ZwO5Sn720RA2YvBqud0JAHkZXjmjxM0yNzCO8RVtRE9i8Gl26Wk0j0nQeJkVm4zwv2QO8MwbKUKGTMt8evsokA=="
   "resolved" "https://registry.npmjs.org/@angular/cdk/-/cdk-8.2.3.tgz"
   "version" "8.2.3"
@@ -172,7 +172,7 @@
     "universal-analytics" "^0.4.20"
     "uuid" "^3.3.2"
 
-"@angular/common@~8.2.14":
+"@angular/common@>=8.0.0-rc.5", "@angular/common@~8.2.14":
   "integrity" "sha512-Qmt+aX2quUW54kaNT7QH7WGXnFxr/cC2C6sf5SW5SdkZfDQSiz8IaItvieZfXVQUbBOQKFRJ7TlSkt0jI/yjvw=="
   "resolved" "https://registry.npmjs.org/@angular/common/-/common-8.2.14.tgz"
   "version" "8.2.14"
@@ -202,17 +202,17 @@
   dependencies:
     "tslib" "^1.9.0"
 
-"@angular/core@^8.0.0-rc.5", "@angular/core@~8.2.10":
+"@angular/core@^8.0.0-rc.5", "@angular/core@>=8.0.0-rc.5", "@angular/core@~8.2.10":
   "integrity" "sha512-zeePkigi+hPh3rN7yoNENG/YUBUsIvUXdxx+AZq+QPaFeKEA2FBSrKn36ojHFrdJUjKzl0lPMEiGC2b6a6bo6g=="
   "resolved" "https://registry.npmjs.org/@angular/core/-/core-8.2.14.tgz"
   "version" "8.2.14"
   dependencies:
     "tslib" "^1.9.0"
 
-"@angular/flex-layout@^7.0.0-beta.23":
-  "integrity" "sha512-ll6sK0nLGxqI/f5+z4jbd+pve1QITzgehv2AuGvfSDgIjPMeqUDB5YZqQmIGM/dQRk/vIio5KCW5LQPJWzMMYQ=="
-  "resolved" "https://registry.npmjs.org/@angular/flex-layout/-/flex-layout-7.0.0-beta.24.tgz"
-  "version" "7.0.0-beta.24"
+"@angular/flex-layout@^8.0.0-beta.27":
+  "integrity" "sha512-qmpvQPesU4ZQ56IscwgmVRpK2UnyV+gwvXUql7TMv0QV215hLcHczjGsrKkLfW2By5E7XEyDat9br72uVXcPMw=="
+  "resolved" "https://registry.npmjs.org/@angular/flex-layout/-/flex-layout-8.0.0-beta.27.tgz"
+  "version" "8.0.0-beta.27"
   dependencies:
     "tslib" "^1.7.1"
 
@@ -249,7 +249,7 @@
   dependencies:
     "tslib" "^1.9.0"
 
-"@angular/platform-browser@~8.2.14":
+"@angular/platform-browser@>=8.0.0-rc.5", "@angular/platform-browser@~8.2.14":
   "integrity" "sha512-MtJptptyKzsE37JZ2VB/tI4cvMrdAH+cT9pMBYZd66YSZfKjIj5s+AZo7z8ncoskQSB1o3HMfDjSK7QXGx1mLQ=="
   "resolved" "https://registry.npmjs.org/@angular/platform-browser/-/platform-browser-8.2.14.tgz"
   "version" "8.2.14"
@@ -6849,7 +6849,7 @@
   "resolved" "https://registry.npmjs.org/rxjs-compat/-/rxjs-compat-6.5.4.tgz"
   "version" "6.5.4"
 
-"rxjs@^6.4.0", "rxjs@^6.5.4":
+"rxjs@^6.0.0", "rxjs@^6.4.0", "rxjs@^6.5.4":
   "integrity" "sha512-hTdwr+7yYNIT5n4AMYp85KA6yw2Va0FLa3Rguvbpa4W3I5xynaBZo41cM3XM+4Q6fRMj3sBYIR1VAmZMXYJvRQ=="
   "resolved" "https://registry.npmjs.org/rxjs/-/rxjs-6.6.7.tgz"
   "version" "6.6.7"
