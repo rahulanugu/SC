@@ -13,7 +13,7 @@ const randtoken = require('rand-token');
 const mailer_oauth = require('../mailer_oauth');
 
 const Utility = require('../utility');
-const connection = require('../db_connection');
+const db_utils = require('../db_utils');
 
 const API_KEY = process.env.API_KEY;
 const key = process.env.KEY;
@@ -50,69 +50,50 @@ router.post('/account/create',[
   })], 
   async (req, res) => {
     const e = validationResult(req);
-    if(!e.isEmpty()){
+    if (!e.isEmpty()) {
       return res.status(400).json({Message:'Bad Request'});
     }
     var decrypted = aes256.decrypt(key, req.query.API_KEY);
     console.log(decrypted);
-    if(decrypted != API_KEY){
+    if (decrypted != API_KEY) {
       return res.status(401).json({Message:'Unauthorized'});
     }
     var ip = req.connection.remoteAddress;
     console.log(ip, req.body.email);
-      //Check if user alread exists
-      const query = 'SELECT * FROM `healthcareproviders` WHERE email=?';
-      // req.body.email+'"';
-      connection.query(query, [req.body.email], async function(err, row) {
-        if (err) {
-          console.log(err);
-          return res.status(500).send({message: "An error has occured trying to send the mail"});
-        }
-        if (row.length > 0){
-          return res.status(400).send({
-            message: 'User already exists'
-          })
-        }
-        console.log("Email does not exist")
-        //Create a jwt token with details provided in body as payload
-        const tokeBody = req.body;
-        //encrypt the token
-        console.log("Encrypt JWT token")
-        var encryptedToken = Utility.EncryptToken({tokeBody});
-        //save the token for reference purposes - optional
-        var idToken = randtoken.generate(16);
-        var json = {
-          '_id': generateId(10),
-          token: idToken,
-          email: req.body.email,
-        };
-        var query1= "INSERT INTO `tokenSchema` VALUES ("
-        var val = [];
-        //REPLACE THIS AFTER VALUES
-        for (var myKey in json) {
-          query1 += "?,";
-          val.push(json[myKey]);
-        }
-        query1 = query1.slice(0,query1.length-1);
-        query1 += ")";
-        connection.query(query1, val, function(err, row) {
-          if (err) {
-            console.log(err);
-          } else {
-            console.log('Inserted successfully');
-          }
+    //Check if user alread exists
+    db_utils.checkForUserInDB('healthcareproviders', req.body.email).then(userExists => {
+      if (userExists) {
+        return res.status(400).send({
+          message: 'User already exists'
         });
-        console.log("Verification mail with jwt token is sent");
-        //Send the email with the verification email
-        sendVerificationMail(req.body.email, req.body.firstName, encryptedToken, (err,data) => {
-          //Invoked the callback function od the sendverification email object
-          if (err) {
-            return res.status(500).send({message: "An error has occured trying to send the mail"});
-          }
-          res.status(200).send({message: "Verification mail with jwt token is sent"});
-        });
+      }
+      console.log("Email does not exist")
+      //Create a jwt token with details provided in body as payload
+      console.log("Encrypt JWT token")
+      const tokeBody = req.body;
+      var encryptedToken = Utility.EncryptToken(tokeBody);
+      //save the token for reference purposes - optional
+      var data = {
+        '_id': generateId(10),
+        token: randtoken.generate(16),
+        email: req.body.email,
+      };
+  
+      db_utils.insertDataIntoDB('tokenSchema', data).then(resp => {
+        if (resp.statusCode === 200) {
+          //Send the email with the verification email
+          sendVerificationMail(req.body.email, req.body.firstName, encryptedToken, (err,data) => {
+            //Invoked the callback function od the sendverification email object
+            if (err) {
+              return res.status(500).send({message: "An error has occured trying to send the mail"});
+            }
+            console.log("Verification mail with jwt token is sent");
+            return res.status(200).send({message: "Verification mail with jwt token is sent"});
+          });
+        }
       });
-})
+    });
+});
 
 /**
  * Create a new healthcare provider in the db
@@ -149,15 +130,8 @@ router.post('/account/verify', [
       return res.status(401).send({message: 'JWT Error'});
     }
 
-    const query = 'SELECT * FROM `healthcareproviders` WHERE email=?';
-    // decodedValue.tokeBody.email+'"';
-    connection.query(query, [decodedValue.tokeBody.email], async (err, row) => {
-      if (err) return res.status(400).send({
-        message: 'Database error'
-      });
-      //Before creating a new provider, check if already exists
-      if (row.length > 0) {
-        console.log("Check email if exists")
+    db_utils.checkForUserInDB('healthcareproviders', req.body.email).then(userExists => {
+      if (userExists) {
         return res.status(400).send({
           message: 'User already exists'
         });
@@ -165,32 +139,16 @@ router.post('/account/verify', [
       //Create a new user in the database
       //encrypt the password
       const salt = await bcrypt.genSaltSync(10);
-      const hashpassword = await bcrypt.hash(decodedValue.tokeBody.password, salt);
+      const hashpassword = await bcrypt.hash(decryptedToken.password, salt);
       
-      json = decodedValue.tokeBody;
-      json['password'] = hashpassword;
-      json['_id'] = generateId(10);
+      const user = decryptedToken;
+      user['password'] = hashpassword;
+      user['_id'] = generateId(10);
 
-      var query1= "INSERT INTO `healthcareproviders` (";
-      var val = [];
-      for(var myKey in json) {
-        query1 += myKey + ", ";
-        val.push(json[myKey]);
-      }
-      query1 = query1.slice(0, query1.length-2);
-      query1 += ") VALUES (";
-      for (var myKey in json) {
-        query1 += "?,";
-      }
-      query1 = query1.slice(0, query1.length-1);
-      query1 += ")";
-      connection.query(query1, val, (err, row) => {
-        if (err) {
-          console.log(err);
-          return res.status(500).send({message: 'An error has occured trying to create a new healthcareprovider user'})
-        }
-        console.log('Inserted successfully');
-        res.status(200).send({message: 'The user has been created'});
+      db_utils.insertDataIntoDB('tokenSchema', data).then(resp => {
+        let body = resp.body;
+        body['message'] = resp.message;
+        return res.status(resp.statusCode).json(body);
       });
     });
 });

@@ -5,7 +5,7 @@ const router = express.Router();
 var aes256 = require('aes256');
 const API_KEY = process.env.API_KEY;
 const key = process.env.KEY;
-const connection = require('../db_connection');
+const db_utils = require('../db_utils');
 /**
  * Method to save the customer query to the database
  * Input: Details of ContactUser as specified in schema
@@ -48,7 +48,7 @@ router.post("/",[check('FirstName').notEmpty().isAlpha(),check('LastName').notEm
   query = query.slice(0,-1);
   query += ")";
   console.log(query);
-  connection.query(query,val, function(err, row) {
+  db_utils.connection.query(query,val, function(err, row) {
     if(!err) {
         console.log("In contactUsController[root, POST]: Inserted successfully");;
         res.status(200).json({

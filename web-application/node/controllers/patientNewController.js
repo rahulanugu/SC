@@ -2,6 +2,7 @@
  * patientController.js
  * Uses express to create a RESTful API
  * Defines endpoints that allows application to perform CRUD operations
+ * Route: /patientnew
  */
 const express = require('express');
 const router = express.Router();
@@ -11,7 +12,7 @@ var aes256 = require('aes256');
 
 const mailer_oauth = require('../mailer_oauth');
 var Utility = require('../utility');
-const connection = require('../db_connection');
+const db_utils = require('../db_utils');
 
 const API_KEY = process.env.API_KEY;
 const key = process.env.KEY;
@@ -28,75 +29,74 @@ function generateId(count) {
 }
 
 /**
- * Adds a new patientConfig to 
- * Input: N/A
- * Output: All the patientts in the database or error
- *         200 - Succesfully retrieved all the patients in the database
+ * User object ex:
+    _id: "12jg201bcm021em"
+    fname: "Mike",
+    lname: "Witzkowski",
+    email: "miketyke699@gmail.com",
+    password: "$2a$10$k2kDfbaiqJFLVV9FQrbs5euEC1ybn8xfDe1.ecjUKZK0YTALIP7wq",
+    photo: "./images/IMG_006637.png"
+    agreementSigned: true;
+    verified: false;
+ */
+
+/**
+ * /patientnew/
+ * Adds a new patient user to db
+ * Input: patient user object
+ * Output: Message indicating whether the account creation was a success or not
+ *         200 - Succesfully created patient account
+ *         401 - Patient user already exists
+ *         401 - Unauthorized client/user
  *         404 - No patients in the database
  */
-router.post("/", [
-  check('firstName').notEmpty(),
-  check('lastName').notEmpty(),
+ router.post('/', [
+  check('fname').notEmpty(),
+  check('lname').notEmpty(),
   check('email').notEmpty().isEmail(),
-  check('phone').notEmpty(),
+  check('password').notEmpty(),
+  check('photo').notEmpty(),
+  check('agreement-signed').notEmpty(),
+  check('user-verified').notEmpty(),
   body().custom(body => {
-    const keys = ['firstName','lastName','email','phone'];
+    const keys = ['fname', 'lname', 'email','password', 'photo', 'agreement_signed', 'user_verified'];
     return Object.keys(body).every(key => keys.includes(key));
-  })], 
-  async (req, res) => {
+  })],
+  async (req,res) => {
+    console.log(req.query);
     var decrypted = aes256.decrypt(key, req.query.API_KEY);
+
     if (decrypted != API_KEY) {
       return res.status(401).json({Message:'Unauthorized'});
     }
-    
-    var ip = req.connection.remoteAddress;
-    console.log('test');
-    console.log(ip, req.body.email);
-    //Check if user alread exists
-    const query= 'SELECT * FROM `patientsnew` WHERE email=?';
-    connection.query(query,[req.body.email], async (err, row) => {
-      if (err) {
-        console.log(err);
-        return;
-      }
-      if (row.length>0) {
+    //Check if user already exists
+    db_utils.checkForUserInDB('patientsnew', req.body.email).then(userExists => {
+      if (userExists) {
         return res.status(400).send({
-            message: 'User already exists'
+          message: 'User already exists'
         });
       }
-      console.log("email does not exist");
-      var json = {
-        '_id': generateId(10),
-        fname: req.body.firstName,
-        lname: req.body.lastName,
-        email: req.body.email,
-        phone: req.body.phone,
+      // insert new user object into db
+      const user = {
+        '_id': req.body._id,
+        'fname': req.body.fname,
+        'lname': req.body.lname,
+        'email': req.body.email,
+        'password': req.body.password,
+        'photo': req.body.photo,
+        'agreement-signed': req.body.agreement_signed,
+        'user-verified':req.body.user_verified
       };
-      var query1 = "INSERT INTO `patientsnew` VALUES ("
-      var val = [];
-      //REPLACE THIS AFTER VALUES
-      for (var myKey in json) {
-        query1 += "?,";
-        val.push(json[myKey]);
-      }
-      query1 = query1.slice(0,query1.length-1);
-      query1 += ")";
-      connection.query(query1,val, (err, row) => {
-        if (err) {
-          console.log(err);
-          return;
-        }
-        console.log('Inserted successfully');
-        const tokeBody = req.body;
-        var encryptedToken = Utility.EncryptToken({tokeBody}, 180);
-        sendVerificationMail(req.body.email,req.body.fname,encryptedToken);
-        return res.status(200).json({
-          "message":"Success"
-        });
-      })
-    });
+      
+      db_utils.insertDataIntoDB('patientsnew', user).then(resp => {
+        let body = resp.body;
+        body['message'] = resp.message;
+        return res.status(resp.statusCode).json(body);
+      });
+    });    
   }
 );
+
 
 //Creating a new oauthclientt for mailing
 const oauth2Client = mailer_oauth.getClient();

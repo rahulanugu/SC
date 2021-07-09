@@ -6,7 +6,7 @@ var aes256 = require('aes256');
 const { compareSync } = require("bcryptjs");
 
 const mailer_oauth = require('../mailer_oauth');
-const connection = require('../db_connection');
+const db_utils = require('../db_utils');
 
 //const {BigQuery} = require('@google-cloud/bigquery');
 //const bigquery = new BigQuery();
@@ -55,7 +55,7 @@ check('postalcode').notEmpty(),check('country').notEmpty(),check('message').notE
   }
   const query = 'SELECT * FROM `partners` WHERE email=?';
   // req.body.email+'"';
-  connection.query(query,[req.body.email], function(err, rows) {
+  db_utils.connection.query(query,[req.body.email], function(err, rows) {
     if(!err) {
       if(rows.length>0){
         console.log('test1');
@@ -79,7 +79,7 @@ check('postalcode').notEmpty(),check('country').notEmpty(),check('message').notE
           query4 = query4.slice(0,query4.length-1);
           query4 += ")";
           console.log(query4);
-          connection.query(query4,val, function(err, row) {
+          db_utils.connection.query(query4,val, function(err, row) {
             if(!err) {
               res.status(200).json({
                 message: "Your message has been saved"

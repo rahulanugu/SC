@@ -8,13 +8,23 @@ var jwtDecode = require('jwt-decode');
 const {BigQuery} = require('@google-cloud/bigquery');
 const bigquery = new BigQuery();
 
-const connection = require('../db_connection');
+const db_utils = require('../db_utils');
 const mailer_oauth = require('../mailer_oauth');
 const Utility = require("../utility");
 
 const API_KEY = process.env.API_KEY;
 const key = process.env.KEY;
 //The controller handles the requests for reactivating user accounts
+
+function generateId(count) {
+  var _sym = 'abcdefghijklmnopqrstuvwxyz1234567890';
+  var str = '';
+  
+  for(var i = 0; i < count; i++) {
+    str += _sym[parseInt(Math.random() * (_sym.length))];
+  }
+  return str;
+}
 
 /**
  * Method to request reactivation of a patient account
@@ -24,16 +34,6 @@ const key = process.env.KEY;
  *          A mail with jwt token for verification will be sent to the user
  *         404 - user not found
  */
-function generateId(count) {
-  var _sym = 'abcdefghijklmnopqrstuvwxyz1234567890';
-  var str = '';
-
-  for(var i = 0; i < count; i++) {
-      str += _sym[parseInt(Math.random() * (_sym.length))];
-  }
-  return str;
-}
-
 router.post("/patient/request",[
   check('email').notEmpty().isEmail(),
   body().custom(body => {
@@ -52,11 +52,11 @@ router.post("/patient/request",[
     }
       //find the patient
 
-    console.log("Reactivating patient is being requested")
+    console.log("Reactivating patient is being requested");
     //const patient = await DeactivatedPatient.findOne({Email : req.body.email});
     const query = 'SELECT * FROM `deactivatedPatients` WHERE Email=?';
     // +'"'+req.body.email+'"';
-    connection.query(query,[req.body.email], function(err, rows) {
+    db_utils.connection.query(query, [req.body.email], (err, rows) => {
       if (err) {
         console.log(err);
         return;
@@ -90,7 +90,7 @@ router.post("/patient/request",[
  *          A mail with jwt token for verification will be sent to the user
  *         404 - user not found
  */
-router.post("/healthcare/request",[
+router.post("/healthcare/request", [
   check('email').notEmpty().isEmail(),
   body().custom(body => {
     const keys = ['email'];
@@ -111,7 +111,7 @@ router.post("/healthcare/request",[
     //const healthcareProvider = await DeactivatedHealthcareProvider.findOne({email : req.body.email});
     const query = 'SELECT * FROM `deactivatedHealthcareProviders` WHERE email=?';
     // +'"'+req.body.email+'"';
-    connection.query(query, [req.body.email], (err, rows) => {
+    db_utils.connection.query(query, [req.body.email], (err, rows) => {
         if (err) {
           console.log(err);
         }
@@ -178,7 +178,7 @@ router.post("/patient/activate", [
     //const retrievedPatient = await DeactivatedPatient.findOne({Email: decodedValue.email})
     // +'"'+decodedValue.email+'"';
     const query = 'SELECT * FROM `deactivatedPatients` WHERE Email=?';
-    connection.query(query,[decryptedToken.email], function(err, rows) {
+    db_utils.connection.query(query,[decryptedToken.email], function(err, rows) {
       if (err) {
         return;
       }
@@ -202,7 +202,7 @@ router.post("/patient/activate", [
       query4 = query4.slice(0,query4.length-1);
       query4 += ")";
       console.log(query4);
-      connection.query(query4, val, (err, row) => {
+      db_utils.connection.query(query4, val, (err, row) => {
         if(err) {
           console.log("Error occured trying to save deactivated patient in the database"+err);
           return res1.status(500).json({"message": "account could not be deactivated due to an error"});
@@ -211,7 +211,7 @@ router.post("/patient/activate", [
         console.log("The deactivated patient entry has been moved to patient");
         // decodedValue.email+'"';
         const query1 = 'DELETE FROM `deactivatedPatients` WHERE Email=?';
-        connection.query(query1, [decryptedToken.email], (err, row1) => {
+        db_utils.connection.query(query1, [decryptedToken.email], (err, row1) => {
           if (err) {
             console.log("An error has occured while trying to delete the patient entry from the patient database")
             return res.status(500).json({"message": "account could not be deactivated due to an error"});
@@ -264,7 +264,7 @@ router.post("/healthcare/activate", [
 
     const query = 'SELECT * FROM `deactivatedHealthcareProviders` WHERE email=?';
     //  +'"'+decodedValue.email+'"';
-    connection.query(query, [decryptedToken.email], (err, rows) => {
+    db_utils.connection.query(query, [decryptedToken.email], (err, rows) => {
       if (err) {
         console.log("Email is not found.");
         return res.status(404).json({"messsage": "A deactivated account could not be found with the email provided"});
@@ -288,14 +288,14 @@ router.post("/healthcare/activate", [
       query4 = query4.slice(0, query4.length-1);
       query4 += ")";
       console.log(query4);
-      connection.query(query4, val, (err, row) => {
+      db_utils.connection.query(query4, val, (err, row) => {
         if(err) {
           return;
         }
         console.log("The deactivated patient entry has been moved to patient");
         // decodedValue.email+'"';
         const query1 = 'DELETE FROM `deactivatedHealthcareProviders` WHERE email=?';
-        connection.query(query1, [decryptedToken.email], (err, row1) => {
+        db_utils.connection.query(query1, [decryptedToken.email], (err, row1) => {
           if (err) {
             console.log("An error has occured while trying to delete the patient entry from the patient database")
             return res.status(500).json({"message": "account could not be deactivated due to an error"});

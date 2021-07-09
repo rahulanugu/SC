@@ -6,7 +6,7 @@ var router = express.Router();
 var aes256 = require('aes256');
 const API_KEY = process.env.API_KEY;
 const key = process.env.KEY;
-const connection = require('../db_connection');
+const db_utils = require('../db_utils');
 const Utility = require('../utility');
 
 //const fs = require('fs')
@@ -49,7 +49,7 @@ router.post('/',[
     //const healthcareProvider = await HealthcareProvider.findOne({ email: req.body.emailAddress });
     const query = 'SELECT * FROM `healthcareproviders` WHERE email=?';
     // req.body.emailAddress+'"';
-    connection.query(query, [req.body.emailAddress], async function(err, rows) {
+    db_utils.connection.query(query, [req.body.emailAddress], async function(err, rows) {
       if (err) {
         return;
       }
@@ -58,7 +58,7 @@ router.post('/',[
         //console.log("test1");
         const query1 = 'SELECT * FROM `deactivatedHealthcareProvider` WHERE email=?';
         // req.body.emailAddress+'"';
-        connection.query(query1, [req.body.emailAddress], (err, rows1) => {
+        db_utils.connection.query(query1, [req.body.emailAddress], (err, rows1) => {
           if (err) {
             return;
           }

@@ -7,7 +7,7 @@ const nodemailer = require("nodemailer");
 const mailer_oauth = require('../mailer_oauth');
 
 var Utility = require('../utility');
-const connection = require('../db_connection');
+const db_utils = require('../db_utils');
 
 const API_KEY = process.env.API_KEY;
 const key = process.env.KEY;
@@ -40,31 +40,29 @@ router.post('/', [
     console.log("request is recieved and being processed")
     var ip = req.connection.remoteAddress;
     console.log(ip+" "+req.body.email);
-      if(!req.body.email || (req.body.email === " "))
-        return res.status(401).json({message: "Email is not provided"});
-      //const healthcareProvider = await HealthcareProvider.findOne({ email: req.body.email });
+    //const healthcareProvider = await HealthcareProvider.findOne({ email: req.body.email });
 
-      const query = 'SELECT * FROM `healthcareProviders` WHERE email=?';
-      // req.body.emailAddress+'"';
-      connection.query(query, [req.body.email], async (err, rows) => {
-        if (err) {
-          console.log(err);
-          return;
-        }
-        if (rows.length == 0) {
-          return res.status(401).json({
-            message:"Invalid Email"
-          });
-        }
-        const healthcareProvider = rows[0];
-        const encryptedToken = Utility.EncryptToken({healthcareProvider}, 120);
-        //mail the token
-        sendVerificationMail(req.body.email, healthcareProvider.firstName, encryptedToken);
-
-        return res.status(200).json({
-            message: "Email has been sent to reset password"
+    const query = 'SELECT * FROM `healthcareProviders` WHERE email=?';
+    // req.body.emailAddress+'"';
+    db_utils.connection.query(query, [req.body.email], async (err, rows) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      if (rows.length == 0) {
+        return res.status(401).json({
+          message:"Invalid Email"
         });
+      }
+      const healthcareProvider = rows[0];
+      const encryptedToken = Utility.EncryptToken({healthcareProvider}, 120);
+      //mail the token
+      sendVerificationMail(req.body.email, healthcareProvider.firstName, encryptedToken);
+
+      return res.status(200).json({
+          message: "Email has been sent to reset password"
       });
+    });
 
       //create a new JWT token and send it to the email of the user
 
@@ -155,7 +153,7 @@ router.post('/change_password',[
       //find the email and update the object
     const query = 'SELECT * FROM `healthcareProviders` WHERE email=?';
     // decodedValue.healthcareProvider.email+'"';
-    connection.query(query,[decryptedToken.healthcareProvider.email], async function(err, rows) {
+    db_utils.connection.query(query, [decryptedToken.healthcareProvider.email], (err, rows) => {
       if(err) {
         return;
       }
@@ -167,7 +165,7 @@ router.post('/change_password',[
       const hashpassword = await bcrypt.hash(req.body.password, salt);
       console.log(hashpassword);
       const query1 = 'DELETE FROM `healthcareProviders` WHERE _id=?';
-      connection.query(query1, [doc._id], async (err, row1) => {
+      db_utils.connection.query(query1, [doc._id], async (err, row1) => {
         doc['password'] = hashpassword;
 
         var query1= "INSERT INTO `healthcareProviders` VALUES ("
@@ -179,7 +177,7 @@ router.post('/change_password',[
         query1 = query1.slice(0,query1.length-1);
         query1 += ")";
         console.log(query1);
-        connection.query(query1,val, function(err, row2) {
+        db_utils.connection.query(query1,val, function(err, row2) {
           if(err) {
             console.log("Here")
             return res.status(200).send({message:"Record has been updated"});

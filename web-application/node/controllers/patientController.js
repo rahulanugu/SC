@@ -2,6 +2,7 @@
 * patientController.js
 * Uses express to create a RESTful API
 * Defines endpoints that allows application to perform CRUD operations
+* Route: /patient
 */
 const express = require('express');
 const router = express.Router();
@@ -11,14 +12,14 @@ const nodemailer = require('nodemailer');
 
 const mailer_oauth = require('../mailer_oauth');
 const Utility = require('../utility');
-const connection = require('../db_connection');
+const db_utils = require('../db_utils');
 
 const API_KEY = process.env.API_KEY;
 const key = process.env.KEY;
 // http://localhost:3000/patient/
 
 
-// ---- Previos dev notes ----
+// --- Previous dev notes ---
 // Authentication to enter this?
 // How to secure this?
 // Need some sort of hack check. How do we check it?
@@ -30,6 +31,7 @@ const key = process.env.KEY;
 
 // get list of all patients
 /**
+ * /patient/
  * Retrieve all the patients from the db
  * Input: N/A
  * Output: All the patientts in the database or error
@@ -47,7 +49,7 @@ router.get('/',
     console.log('you have entered');
 
     const query = 'SELECT * FROM `patients`';
-    connection.query(query, (err, doc) => {
+    db_utils.connection.query(query, (err, doc) => {
       if (!err) {
         if (doc) {
           res.status(200).json(doc);
@@ -65,14 +67,16 @@ router.get('/',
 
 // get patient using id
 /**
+ * /patient/:id
  * Get the details of a patient finding by Id
  * Input: Id of the patient to search
  * Output: Details of the patient as specified in the patient schema
  *         200 - patient details are found
  *         404 - An error occured/ No patients found
  */
-router.get('/:id', 
-  [ check('id').notEmpty() ], 
+router.get('/:id', [
+  check('id').notEmpty()
+  ], 
   async (req, res) => {
     const errors = validationResult(req);
     if(!errors.isEmpty()){
@@ -85,7 +89,7 @@ router.get('/:id',
     }
 
     const query = 'SELECT * FROM `patients` WHERE _id = ?';
-    connection.query(query,[req.params.id], (err, doc) => {
+    db_utils.connection.query(query,[req.params.id], (err, doc) => {
       if (!err) {
         if (doc.length==1) {
           res.status(200).json(doc[0]);
@@ -101,84 +105,44 @@ router.get('/:id',
 );
 
 /**
+ * /patient/:verify
  * Check if the subscriber already exists in the database
  * Input: user object
  * Output: message whether the subscriber exists or not
  */
-router.post('/:verify', 
+router.post('/:verify', [
+  check('verify').notEmpty()
+  ],
   async (req,res) => {
     console.log("/:verify", res);
     //console.log(req.query);
-    if(req.params.verify!="verify"){
+    if (req.params.verify != "verify") {
       res.status(400).json({message: "Bad Request"});
     }
     var decrypted = aes256.decrypt(key, req.query.API_KEY);
     console.log(decrypted);
-    if(decrypted!=API_KEY){
+    if (decrypted != API_KEY) {
       return res.status(401).json({Message:'Unauthorized'});
     }
-    const query = 'SELECT * FROM `verifieduser` WHERE email = ?';
-    connection.query(query,[req.body.user], (err, checkCurrentSubscriber) => {
-      if (!err) {
-        if (checkCurrentSubscriber.length>0){
-          return res.json('Subscriber already exists')
-        }else{
-            return res.json('Does not exist')
-        }
-      }else{
-        res.status(500).json({message: "DB Error"});
-      }
-    });
-  }
-);
 
-/* -  TO DO -
-  POST API with new Configuration interface model
-  PATCH API for updating configuration
-*/
+    db_utils.checkForUserInDB('verifiedUser', req.body.email).then(userExists => {
+      if (userExists) {
+        return res.status(403).json('Subscriber already exists');
+      }
+      return res.status(200).json('Does not exist');
+    });
+});
 
 /**
  * User object ex:
+    fname: "Mike",
+    lname: "Witzkowski",
     email: "miketyke699@gmail.com",
     password: "$2a$10$k2kDfbaiqJFLVV9FQrbs5euEC1ybn8xfDe1.ecjUKZK0YTALIP7wq",
     photo: "./images/IMG_006637.png"
     agreementSigned: true;
     verified: false;
  */
-
-/**
- * Create a new user
- * Input: user object
- * Output: message indicating whether the account creation was a success or not
- */
-router.post('/', 
-  async (req,res) => {
-    console.log(req.query);
-    var decrypted = aes256.decrypt(key, req.query.API_KEY);
-
-    if (decrypted != API_KEY) {
-      return res.status(401).json({Message:'Unauthorized'});
-    }
-
-    // insert new user object into db
-    const query = 'INSERT INTO users SET ?';
-    const user = req.body.user;
-
-    connection.query(query, user, (err, res) => {
-      if (err) {
-        res.status(500).json({message: "DB Error"});
-      } 
-      else {
-        console.log(res);
-        if (res.insertID !== null) {
-          res.status(200).json({message: 'Subscriber successfully created.'});
-        } else {
-          res.status(400).json({message: 'Subscriber already exists.'});
-        }
-      }
-    });
-  }
-);
 
 /**
  * Updates existing user
@@ -194,37 +158,23 @@ router.patch('/',
       return res.status(401).json({Message:'Unauthorized'});
     }
 
-    // insert new user object into db
-    const user = req.body.user;
-    const query = genUpdateQuery(user);
-
-    connection.query(query, user, (err, res) => {
-      if (err) {
-        res.status(500).json({message: "DB Error"});
-      } 
-      else {
-        console.log(res);
-        if (res.insertID !== null) {
-          res.status(200).json({message: 'Subscriber successfully created.'});
-        } else {
-          res.status(400).json({message: 'Subscriber already exists.'});
-        }
-      }
+    // Update user object in db
+    const user = {
+      '_id': req.body._id,
+      'fname': req.body?.fname,
+      'lname': req.body?.lname,
+      'email': req.body?.email,
+      'password': req.body?.password,
+      'photo': req.body?.photo,
+      'agreement-signed': req.body?.agreement_signed,
+      'user-verified':req.body?.user_verified
+    };
+    // Update user fields in db
+    db_utils.updateUserInDB('patients', user).then(resp => {
+      return res.status(resp.statusCode).json({message: resp.message});
     });
   }
 );
-
-// generate query to update user fields
-function genUpdateQuery(obj) {
-  const id = obj.id;
-  const query = `UPDATE 'patients' SET `;
-  for (const prop in obj) {
-    if (prop == 'id') continue;
-    query += `'${prop}'=${obj[prop]} `;
-  }
-  query += `WHERE 'id'=${id}`;
-  return query;
-}
 
 /*   NodeMailer   */
 

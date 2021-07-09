@@ -6,7 +6,7 @@ const API_KEY = process.env.API_KEY;
 const key = process.env.KEY;
 const { compareSync } = require("bcryptjs");
 
-const connection = require('../db_connection');
+const db_utils = require('../db_utils');
 
 /**
  * The method will create a job to the database
@@ -58,7 +58,7 @@ router.post("/jobposting",[check("title").notEmpty(),check('description').notEmp
     }
     query = query.slice(0,query.length-1);
     query += ")";
-    connection.query(query,val,function(err, row) {
+    db_utils.connection.query(query,val,function(err, row) {
       if(!err) {
           console.log("In careersController[jobposting, POST]: Inserted successfully");
           res.status(200).json({
@@ -91,7 +91,7 @@ router.get('/jobposting', (req, res) => {
     return res.status(401).json({Message:'Unauthorized'});
   }
   const query= 'SELECT * FROM `jobOpenings` WHERE 1=1';
-  connection.query(query, function(err, row) {
+  db_utils.connection.query(query, function(err, row) {
     if(!err) {
         if (row.length>0){
           console.log("In careersController[jobposting]: Rows returned");
@@ -131,7 +131,7 @@ router.get('/jobposting/:jobcategory', (req, res) => {
     return res.status(401).json({Message:'Unauthorized'});
   }
   const query = 'SELECT * FROM `jobOpenings` WHERE category=?';
-  connection.query(query,[req.params.jobcategory], function(err, rows) {
+  db_utils.connection.query(query,[req.params.jobcategory], function(err, rows) {
     if(!err) {
       if(rows.length>0)
         res.status(200).json(rows);
@@ -185,7 +185,7 @@ router.post("/jobcategory",[check("title").notEmpty(),check('description').notEm
   }
   query = query.slice(0,query.length-1);
   query += ")";
-  connection.query(query,val, function(err, row) {
+  db_utils.connection.query(query,val, function(err, row) {
     if(!err) {
         console.log("In careersController[jobcategory, POST]: Inserted successfully");
         res.status(200).json({
@@ -218,7 +218,7 @@ router.get('/jobcategory', (req, res) => {
     return res.status(401).json({Message:'Unauthorized'});
   }
   const query = 'SELECT * FROM `jobCategories` WHERE 1=1';
-  connection.query(query, function(err, rows) {
+  db_utils.connection.query(query, function(err, rows) {
     if(!err) {
       res.status(200).json(rows);
     }else{
@@ -251,7 +251,7 @@ router.get('/jobposting/job/:jobid',(req, res) => {
   const query = 'SELECT * FROM `jobOpenings` WHERE _id=?';
   // req.params.jobid+'"';
   console.log(req.params);
-     connection.query(query,[req.params.jobid], function(err, rows) {
+     db_utils.connection.query(query,[req.params.jobid], function(err, rows) {
       if(!err) {
         if(rows.length>0)
           res.status(200).json(rows[0]);

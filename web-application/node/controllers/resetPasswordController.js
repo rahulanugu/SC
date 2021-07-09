@@ -6,7 +6,7 @@ var aes256 = require('aes256');
 const nodemailer = require("nodemailer");
 
 const mailer_oauth = require('../mailer_oauth');
-const connection = require('../db_connection');
+const db_utils = require('../db_utils');
 var Utility = require('../utility');
 
 const API_KEY = process.env.API_KEY;
@@ -37,27 +37,22 @@ router.post('/', [
       return res.status(401).json({Message:'Unauthorized'});
     }
 
-    if (!req.body.email || (req.body.email === " ")) {
-      return req.status(401).json({
-        message: "Email is not provided"
-      });
-  }
     //try finding the email in the database
     const query = 'SELECT * FROM `patients` WHERE Email=?';
     // '+'"'+req.body.email+'"';
-    connection.query(query,[req.body.email], async function(err, patient) {
+    db_utils.connection.query(query, [req.body.email], (err, rows) => {
       if (err) {
         return;
       }
-      if (patient.length==0){
+      if (rows.length == 0) {
         return res.status(401).json({
           message: "Invalid Email"
         });
       }
-      const encryptedToken = Utility.EncryptToken({ patient }, 120);
+      const patient = rows[0];
+      const encryptedToken = Utility.EncryptToken(patient, 120);
       //mail the token
-      sendVerificationMail(req.body.email, patient[0].fname, encryptedToken);
-
+      sendVerificationMail(req.body.email, patient.fname, encryptedToken);
       return res.status(200).json({
         message: "Email has been sent to reset password"
       });
@@ -79,7 +74,7 @@ router.post('/check',[
   async (req, res) => {
     console.log(req.body);
     const errors = validationResult(req);
-    if(!errors.isEmpty()){
+    if (!errors.isEmpty()) {
       return res.status(400).json({Message:'Bad Request'})
     }
     // The token we get here is encrypted, so we need to decode it
@@ -89,11 +84,11 @@ router.post('/check',[
     //console.log(encryptedToken)
 
     const decryptedToken = Utility.DecryptToken(encryptedToken);
+
     if (decryptedToken['error']) {
       // console.log(err.message)
       return res.status(500).send(err.message)
     }
-
     return res.status(200).json({
       message: "JWT is verified"
     });
@@ -110,16 +105,17 @@ router.post('/change_password',[
   async (req, res) => {
   //console.log(req);
     const errors = validationResult(req);
-    if(!errors.isEmpty()){
+    if (!errors.isEmpty()) {
       return res.status(400).json({Message:'Bad Request'})
     }
+
     var decrypted = aes256.decrypt(key, req.query.API_KEY);
     console.log(decrypted);
-    if(decrypted!=API_KEY){
+    if (decrypted!=API_KEY) {
       return res.status(401).json({Message:'Unauthorized'});
     }
+
     console.log("Reached change password")
-    const str = req.body;
 
     // The token we get here is encrypted, so we need to decode it
     // will recieve an encrypted jwt token
@@ -127,62 +123,69 @@ router.post('/change_password',[
     //console.log(encryptedToken)
 
     const decryptedToken = Utility.DecryptToken(encryptedToken);
+
     if (decryptedToken['error']) {
       console.log("Couldn't verify the token")
       console.log(err)
       return res.status(500).send(err.message)
     }
-
     // JWT is verified
     console.log(decryptedToken);
     //.tokebody of decodedvalue will contain the value of json object
     //find the email and update the object
     // +'"'+req.body.email+'"';
+    const patient = null;
+    
     const query1 = 'SELECT * FROM `patients` WHERE Email=?';
-    req.body.email.query(query1,[decryptedToken.patient[0].Email], async (err, doc) => {
+    db_utils.connection.query(query1, [decryptedToken.email], (err, rows) => {
       if (err) {
+        return res.status(500).send({ message: "DB error" });;
+      }
+      if (rows.length == 0) {
+        return res.status(404).send({ message: "Email not found" });
+      }
+      patient = rows[0];
+    });
+
+    if (patient === null) {
+      return;
+    }
+
+    console.log('Selected');
+    const salt = bcrypt.genSaltSync(10);
+    const hashpassword = await bcrypt.hash(req.body.password, salt);
+    patient['password'] = hashpassword;
+    console.log(hashpassword);
+    console.log(patient);
+
+    // +'"'+req.body.email+'"';
+    const query2 = 'DELETE FROM `patients` WHERE _id=?';
+    db_utils.connection.query(query2, [patient['_id']], (err, rows) => {
+      if (err) {
+        console.log(err);
         return;
       }
-      if (doc.length == 0) {
-        return res.status(404).send({ message: "email not found" });
+      console.log('Deleted');
+      var query3 = "INSERT INTO `patients` (";
+      var val = [];
+      for (var myKey in patient) {
+        query3 += myKey+", ";
+        val.push(patient[myKey]);
       }
-      console.log('Selected');
-      const salt = bcrypt.genSaltSync(10);
-      const hashpassword = await bcrypt.hash(req.body.password, salt);
-      const patient = doc[0];
-      patient['password'] = hashpassword;
-      console.log(hashpassword);
-
-      // +'"'+req.body.email+'"';
-      console.log(patient);
-      const query2 = 'DELETE FROM `patients` WHERE _id=?';
-      connection.query(query2,[patient['_id']], function(err, row1) {
+      query3 = query3.slice(0,query3.length-2);
+      query3 += ") VALUES (";
+      for (var myKey in patient) {
+          query3 += "?,";
+      }
+      query3 = query3.slice(0, query3.length-1);
+      query3 += ")";
+      db_utils.connection.query(query3,val, (err, row) => {
         if (err) {
           console.log(err);
-          return;
+          return res.status(500).send({message:"Could not update the record"});
         }
-        console.log('Deleted');
-        var query3 = "INSERT INTO `patients` (";
-        var val = [];
-        for (var myKey in patient) {
-          query3 += myKey+", ";
-          val.push(patient[myKey]);
-        }
-        query3 = query3.slice(0,query3.length-2);
-        query3 += ") VALUES (";
-        for (var myKey in patient) {
-            query3 += "?,";
-        }
-        query3 = query3.slice(0, query3.length-1);
-        query3 += ")";
-        connection.query(query3,val, (err, row) => {
-          if (err) {
-            console.log(err);
-            return res.status(500).send({message:"Could not update the record"});
-          }
-          console.log('Inserted successfully');
-          return res.status(200).send({message:"Record has been updated"});
-        });
+        console.log('Inserted successfully');
+        return res.status(200).send({message:"Record has been updated"});
       });
     });
 });

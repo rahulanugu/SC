@@ -6,7 +6,7 @@ var aes256 = require('aes256');
 const jwt = require('jsonwebtoken');
 
 const Utility = require('../utility');
-const connection = require('../db_connection');
+const db_utils = require('../db_utils');
 //const {BigQuery} = require('@google-cloud/bigquery');
 /*const options = {
   keyFilename: 'serviceAccountKeys/scriptchain-259015-689b82dcb0fe.json',
@@ -44,51 +44,41 @@ router.post('/',[
     if (decrypted != API_KEY) {
       return res.status(401).json({Message:'Unauthorized'});
     }
-    //const patient = await Patient.findOne({Email: req.body.email});
-    //if the patient is not found, try finding it in the deactivated patients collection
-    var ip = req.connection.remoteAddress;
-    console.log(ip+" "+req.body.email);
 
-    const query1 = 'SELECT * FROM `patients` WHERE Email=?';
-    connection.query(query1,[req.body.email], async function(err, patient) {
-      if (err) {
-        console.log(err);
-        return;
-      }
-      if (patient.length == 0) {
-        const query2 = 'SELECT * FROM `deactivatedPatients` WHERE Email=?';
-        connection.query(query2,[req.body.email], function(err1, deactivatedPatient) {
-          if (err1) {
-            return;
-          }
-          if (deactivatedPatient) {
-            return res.status(303).json({
+    db_utils.getUserFromDB('patients', req.body.email).then(resp => {
+      if (resp.statusCode != 200) {
+        db_utils.checkForUserInDB('deactivatedPatients', req.body.email).then(userWasActive => {
+          if (userWasActive) {
+            res.status(303).json({
               message: "The email being handled has been deactivated"
             });
+          } else {
+            res.status(404).json({
+              message:"Invalid username or password"
+            });
           }
-          return res.status(404).json({
-            message:"Invalid Email or password"
-          });
         });
         return;
       }
-      const validpassword = await bcrypt.compare(req.body.password, patient[0].password);
+      const patient = resp.body;
+
+      const validpassword = await bcrypt.compare(req.body.password, patient.password);
       if (!validpassword) {
-        return res.status(401).json({
+        return res.status(404).json({
           message:"Invalid username or password"
         });
       }
-
+      
       console.log('logged in');
       //form json tokens
-      const tokeBody = {_id:patient[0]._id,fname:patient[0].fname};
+      const tokeBody = {_id: patient._id, fname: patient.fname};
       const token = Utility.EncryptToken(tokeBody);
 
       return res.status(200).json({
-          idToken: token,
-          fname:patient[0].fname,
-          email:patient[0].Email
-        });
+        idToken: token,
+        fname: patient.fname,
+        email: patient.email
+      });
     });
 });
 
@@ -100,20 +90,20 @@ router.post('/verifytokenintegrity',[
     return Object.keys(body).every(key => keys.includes(key));
   })], 
   async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({Message:'Bad Request'})
-  }
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({Message:'Bad Request'})
+    }
 
-  console.log("Verifying the integrity of the jwt token")
-  console.log(req.body.jwtToken);
+    console.log("Verifying the integrity of the jwt token")
+    console.log(req.body.jwtToken);
 
-  payload = Utility.DecryptToken(req.body.jwtToken);
-  if (payload['error']) {
-    console.log("an error has occured")
-    return res.status(401).json({message: "Unauthorized user"}).end();
-  }
-  return res.status(200).json({message: "User is authorized"}).end();
+    payload = Utility.DecryptToken(req.body.jwtToken);
+    if (payload['error']) {
+      console.log("an error has occured")
+      return res.status(401).json({message: "Unauthorized user"}).end();
+    }
+    return res.status(200).json({message: "User is authorized"}).end();
 })
 
 

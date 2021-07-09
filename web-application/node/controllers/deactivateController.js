@@ -5,7 +5,7 @@ const fs = require('fs');
 var aes256 = require('aes256');
 const API_KEY = process.env.API_KEY;
 const key = process.env.KEY;
-const connection = require('../db_connection');
+const db_utils = require('../db_utils');
 
 //The controller handles the requests for deactivating user accounts
 
@@ -39,13 +39,13 @@ router.post("/patient",[check('email').notEmpty().isEmail(),body().custom(body =
     console.log("reached deacivate patient controller");
     const query = 'SELECT * FROM `patients` WHERE Email=?';
     // req.body.Email+'"';
-    connection.query(query,[req.body.email], function(err, row) {
+    db_utils.connection.query(query,[req.body.email], function(err, row) {
         if(!err) {
             if (row.length>0){
                 const query1 = 'DELETE FROM `patients` WHERE Email=?';
                 // req.body.Email+'"';
                 const retrievedPatient = row[0];
-                connection.query(query1,[req.body.email], function(err, row1) {
+                db_utils.connection.query(query1,[req.body.email], function(err, row1) {
                     if(err){
                         res.status(500).json({"message": "account could not be deactivated due to an error"});
                         next();
@@ -69,7 +69,7 @@ router.post("/patient",[check('email').notEmpty().isEmail(),body().custom(body =
                         query4 = query4.slice(0,query4.length-1);
                         query4 += ")";
                         //console.log(query4);
-                        connection.query(query4,val, function(err, row) {
+                        db_utils.connection.query(query4,val, function(err, row) {
                             if(!err) {
                                 console.log("In deactivateController[patient, POST]: Inserted successfully");;
                                 res.status(200).json({
@@ -122,13 +122,13 @@ router.post("/healthcare",[check('email').notEmpty().isEmail(),body().custom(bod
     console.log("reached deactivate controller");
     const query = 'SELECT * FROM `healthcareProviders` WHERE email=?';
     // req.body.Email+'"';
-    connection.query(query,[req.body.email], function(err, row) {
+    db_utils.connection.query(query,[req.body.email], function(err, row) {
         if(!err) {
             if (row.length>0){
                 const query1 = 'DELETE FROM `healthcareProviders` WHERE email=?';
                 // req.body.Email+'"';
                 const retrievedHealthcareProvider = row[0];
-                connection.query(query1,[req.body.email], function(err, row1) {
+                db_utils.connection.query(query1,[req.body.email], function(err, row1) {
                     if(err){
                         res.status(500).json({"message": "account could not be deactivated due to an error"});
                         next();
@@ -143,7 +143,7 @@ router.post("/healthcare",[check('email').notEmpty().isEmail(),body().custom(bod
                         query = query.slice(0,query.length-1);
                         query += ")";
                         console.log(query);
-                        connection.query(query,val, function(err, row) {
+                        db_utils.connection.query(query,val, function(err, row) {
                             if(!err) {
                                 console.log("In deactivateController[healthcare, POST]: Inserted successfully");;
                                 res.status(200).json({
