@@ -4,6 +4,12 @@ import { ContactUsComponent } from "./contact-us/contact-us.component";
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatCardModule} from '@angular/material/card';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 /* Componets to create routes for */
 import { LoginComponent } from "./login/login.component";
 import { RequestAccessComponent } from "./request-access/request-access.component";
@@ -77,6 +83,7 @@ import { ProcedureInfoComponent } from "./procedure-info/procedure-info.componen
 import { CaregiverProfileComponent } from "./caregiver-profile/caregiver-profile.component";
 import { MedicationDetailsComponent } from "./medication-details/medication-details.component";
 import { ProcedureDetailsComponent } from "./procedure-details/procedure-details.component";
+import { JobOpeningsComponent } from "./job-openings/job-openings.component";
 const routes: Routes = [
   /* pages for the app */
   {
@@ -132,6 +139,7 @@ const routes: Routes = [
   { path: "careers", component: CareersComponent },
   { path: "privacy-policy", component: PrivacyPolicyComponent },
   { path: "apply-job/:jobid", component: ApplyJobComponent },
+  { path: "job-openings", component: JobOpeningsComponent},
   { path: "terms-conditions", component: TermsConditionsComponent },
   { path: "", redirectTo: "/home", pathMatch: "full" },
   { path: "registersuccessful", component: RegisterSuccessfulPageComponent },
