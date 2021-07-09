@@ -22,36 +22,39 @@ function jsonResponse(code, message, body={}) {
   return {'statusCode': code, 'message': message, 'body': body}
 }
 
-/* DB helpers */ 
+/**
+ * DB helpers 
+ * Each helper returns a JavaScript Promise. The promise is consumed asynchronously.
+ * The result of a successful SQL query is located in the body property of the Promise response
+ */ 
 
 async function getAllRowsFromTable(table) {
   const query = 'SELECT * FROM ??';
   let response;
   connection.query(query, [table], (err, rows) => {
     if (err) {
-      response = jsonResponse(500, "DB Error");
+      response = jsonResponse(500, 'DB Error');
       console.log(err);
       return;
     }
-    response = jsonResponse(200, "Users successfully retrieved", rows);
+    response = jsonResponse(200, 'Users successfully retrieved', rows);
   });
   return response;
 }
 
 async function getRowFromTableWhere(table, where = {email: ''}) {
-  let query = 'SELECT * FROM ?? WHERE ';
+  let query = 'SELECT * FROM ?? WHERE ??=?';
   const data = [table];
-  for (let key in obj) {
-    query += '??=?,';
+  for (const key in where) {
     data.push(key);
-    data.push(obj[key]);
+    data.push(where[key]);
+    break;
   }
-  query = query.slice(0, query.length - 1) + ')';
 
   let response;
   connection.query(query, data, (err, rows) => {
     if (err) {
-      response = jsonResponse(500, "DB Error");
+      response = jsonResponse(500, 'DB Error');
       console.log(err);
       return;
     }
@@ -59,7 +62,7 @@ async function getRowFromTableWhere(table, where = {email: ''}) {
       response = jsonResponse(404, 'No rows exist mathcing this criteria.');
       return;
     }
-    response = jsonResponse(200, "DB row successfully retrieved", rows[0]);
+    response = jsonResponse(200, 'DB row successfully retrieved', rows[0]);
   });
   return response;
 }
@@ -83,7 +86,7 @@ async function checkForUserInDB(table, userEmail) {
 async function insertUserIntoDB(table, obj) {
   let query = 'INSERT INTO ?? (';
   let values = ' VALUES ('
-  const data1 = [table];
+  const data1 = [];
   const data2 = [];
   for (let key in obj) {
     query += '??,';
@@ -94,10 +97,10 @@ async function insertUserIntoDB(table, obj) {
   
   let response;
   query = query.slice(0, query.length - 1) + ')' + values.slice(0, values.length - 1) + ')';
-  const data = [...data1, ...data2];
+  const data = [table, ...data1, ...data2];
   connection.query(query, data, (err, res) => {
     if (err) {
-      response = jsonResponse(500, "DB Error");
+      response = jsonResponse(500, 'DB Error');
       return;
     } 
     console.log(res);
@@ -112,28 +115,28 @@ async function insertUserIntoDB(table, obj) {
 
 async function updateUserInfoInDB(table, user) {
   const data = [table];
-  let query = "UPDATE ?? SET";
+  let query = 'UPDATE ?? SET ';
   for (const key in user) {
     if (key == '_id' || user[key] === null) continue;
     data.push(key);
     data.push(user[key]);
-    query += '??=?';
+    query += '??=?, ';
   }
-  query += ' WHERE _id=?';
+  query += 'WHERE _id=?';
   data.push(user._id);
   
   let response;
   connection.query(query, data, (err, res) => {
     if (err) {
-      response = jsonResponse(500, "DB Error");
+      response = jsonResponse(500, 'DB Error');
       return;
     } 
     console.log(res);
     if (res.insertID === null) {
-      response = jsonResponse(400, "User already exists.");
+      response = jsonResponse(400, 'Bad DB request.');
       return;
     }
-    response = jsonResponse(200, "User info successfully updated.");
+    response = jsonResponse(200, 'User info successfully updated.', user);
   });
   return response;
 }
@@ -143,10 +146,10 @@ async function deleteUserFromDB(table, userEmail) {
   let response;
   connection.query(query, [table, userEmail], (err, rows) => {
     if (err) {
-      console.log("An error has occured while trying to delete the patient entry from the patient database");
-      response = jsonResponse(500, "DB error: unable to delete user");
+      console.log('An error has occured while trying to delete the patient entry from the patient database');
+      response = jsonResponse(500, 'DB error: unable to delete user');
     }
-    response = jsonResponse(200, "User deleted successfully", rows[0]);
+    response = jsonResponse(200, 'User deleted successfully', rows[0]);
   });
   return response;
 }
