@@ -46,7 +46,7 @@ function generateId(count) {
  * Input: patient user object
  * Output: Message indicating whether the account creation was a success or not
  *         200 - Succesfully created patient account
- *         401 - Patient user already exists
+ *         400 - Patient user already exists
  *         401 - Unauthorized client/user
  *         404 - No patients in the database
  */
@@ -85,7 +85,7 @@ function generateId(count) {
         'password': req.body.password,
         'photo': req.body.photo,
         'agreement-signed': req.body.agreement_signed,
-        'user-verified':req.body.user_verified
+        'user-verified': req.body.user_verified
       };
       
       db_utils.insertDataIntoDB('patientsnew', user).then(resp => {

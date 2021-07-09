@@ -17,13 +17,15 @@ const Utility = require('../utility');
  */
 
 router.post('/',[
-  check('emailAddress').notEmpty().isEmail(),check('password').notEmpty(),body().custom(body => {
-    const keys = ['emailAddress','password'];
+  check('emailAddress').notEmpty().isEmail(),
+  check('password').notEmpty(),
+  body().custom(body => {
+    const keys = ['emailAddress', 'password'];
     return Object.keys(body).every(key => keys.includes(key));
   })],
   async (req, res) => {
-    //logger.info("Entered");
     console.log("[INFO] Entered");
+    //logger.info("Entered");
     /*const content = 'Entered'
     fs.writeFile('/Users/srikarpothumahanti/Desktop/scriptchain_new/scriptchain/web-application/node/test.log', content, err => {
       if (err) {
@@ -31,58 +33,44 @@ router.post('/',[
         return
       }
     })*/
-    var ip = req.connection.remoteAddress;
-    console.log("[INFO] "+ip+" "+req.body.emailAddress);
-    //console.log(req.query);
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({Message:'Bad Request'})
-    }
-    var decrypted = aes256.decrypt(key, req.query.API_KEY);
-    //console.log(decrypted);
-    if (decrypted != API_KEY) {
-      return res.status(401).json({Message:'Unauthorized'});
-    }
     //Log format - Who searched it, Ip address and 
     // console.log("Reached the login controller for the healthcare")
     //console.log(req.body);
     //const healthcareProvider = await HealthcareProvider.findOne({ email: req.body.emailAddress });
-    const query = 'SELECT * FROM `healthcareproviders` WHERE email=?';
-    // req.body.emailAddress+'"';
-    db_utils.connection.query(query, [req.body.emailAddress], async function(err, rows) {
-      if (err) {
-        return;
-      }
-      //console.log(rows.length);
-      if (rows.length == 0) {
-        //console.log("test1");
-        const query1 = 'SELECT * FROM `deactivatedHealthcareProvider` WHERE email=?';
-        // req.body.emailAddress+'"';
-        db_utils.connection.query(query1, [req.body.emailAddress], (err, rows1) => {
-          if (err) {
-            return;
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({message: 'Bad Request'})
+    }
+    var decrypted = aes256.decrypt(key, req.query.API_KEY);
+    //console.log(decrypted);
+    if (decrypted != API_KEY) {
+      return res.status(401).json({message: 'Unauthorized'});
+    }
+
+    // Get provider from DB
+    db_utils.getRowByEmail('healthcareProviders', req.body.emailAddress).then(resp => {
+      if (resp.statusCode != 200) {
+        if (resp.statusCode === 500) {
+          return res.status(500).json({message: resp.message});
+        }
+        // User not found, check if provider account has been deactivated
+        db_utils.checkForUserInDB('deactivatedHealthcareProvider', req.body.emailAddress).then(userExists => {
+          if (userExists) {
+            return res.status(303).json({message: "The email being handled has been deactivated"});
           }
-          if (rows1.length == 0) {
-            return res.status(404).json({
-              message:"Invalid Email or password"
-            });
-          }
-          //Execution at this point means that the email being handled is deactivated patient
-          return res.status(303).json({
-            message: "The email being handled has been deactivated"
-          });
+          // No DB matches for credentials
+          return res.status(404).json({message: "Invalid Email or password"});
         });
         return;
       }
-      //check for password
-      //console.log('test');
-      const healthcareProvider = rows[0];
+      // Provider found
+      const healthcareProvider = resp.body;
+
       const validpassword = await bcrypt.compare(req.body.password, healthcareProvider.password);
       if (!validpassword) {
-        return res.status(401).json({
-          message: "Wrong password has been entered"
-        });
+        return res.status(401).json({message: "Wrong password has been entered"});
       }
+      // Create JWT
       const tokeBody = { _id: healthcareProvider._id, fname: healthcareProvider.firstName };
       const token = Utility.EncryptToken(tokeBody, 1800);
       return res.status(200).json({
@@ -105,8 +93,8 @@ router.post('/verifytokenintegrity',[
   })],
   async (req,res) => {
     const errors = validationResult(req);
-    if(!errors.isEmpty()){
-      return res.status(400).json({Message:'Bad Request'})
+    if (!errors.isEmpty()) {
+      return res.status(400).json({message:'Bad Request'})
     }
     //console.log("Verifying the integrity of the jwt token")
     //console.log(req.body.jwtToken);

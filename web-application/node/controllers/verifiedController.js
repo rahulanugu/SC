@@ -51,30 +51,33 @@ router.post('/',[
     //decrypting the token
     const decryptedToken = Utility.DecryptToken(encryptedToken);
 
-    const query = 'SELECT * FROM `verifieduser` WHERE email=?';
-    db_utils.connection.query(query, [decryptedToken.email], async (err, checkCurrentSubscriber) => {
-      if (err) {
-        return res.status(500).json({message:"DB Error"});
+    db_utils.checkForUserInDB('verifieduser', decryptedToken.email).then(userExists => {
+      if (userExists) {
+        return res.status(400).json({message: 'Subscriber already Exists'});
       }
-      if (checkCurrentSubscriber.length>0){
-        return res.json('Subscriber already Exists')
-      }
+
+      var patient = decryptedToken;
         
       const verifieduser = {
         _id: generateId(10),
-        fname: decodedValue.tokeBody.fname,
-        lname: decodedValue.tokeBody.lname,
-        email: patient['Email'],
+        fname: patient['fname'],
+        lname: patient['lname'],
+        email: patient['email'],
       };
 
-      insertVerifiedUserIntoDB(verifieduser);
+      db_utils.insertUserIntoDB('verifieduser', verifieduser).then(resp => {
+        let body = resp.body;
+        body['message'] = resp.message;
+        return res.status(resp.statusCode).json(body);
+      });
 
+      // Old code, not sure why they wanted a new patient created here
+      /*
       //encrypt the password
       const salt = await bcrypt.genSaltSync(10);
-      const hashpassword = await bcrypt.hash(decodedValue.tokeBody.password, salt);
+      const hashpassword = await bcrypt.hash(patient['password'], salt);
 
       //add new patient
-      var patient = decryptedToken;
       patient['password'] = hashpassword;
       patient['_id'] = generateId(10);
       patient['Email'] =  patient['email'];
@@ -107,31 +110,8 @@ router.post('/',[
           console.log(err);
         }
       });
+      */
     });
 });
-
-/* Utils */
-
-function insertVerifiedUserIntoDB(verifiedUser) {
-  const data = [];
-  let query = "INSERT INTO `verifieduser` (";
-  let values = "VALUES (";
-
-  for (var myKey in verifieduser) {
-    query += `${myKey},`;
-    values += '?,';
-    data.push(verifieduser[myKey]);
-  }
-
-  query = `${query.slice(0, query.length - 1)}) ${values.slice(0, values.length - 1)})`;
-  db_utils.connection.query(query, data, (err, row) => {
-    if (err) {
-      console.log("error");
-      console.log(err);
-    } else {
-      console.log('Inserted successfully');
-    }
-  });
-}
 
 module.exports = router;

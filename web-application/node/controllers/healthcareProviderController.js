@@ -45,7 +45,7 @@ router.post('/account/create',[
   check('ehr').notEmpty(),
   check('photo').notEmpty(),
   body().custom(body => {
-    const keys = ['firstName','lastName','companyName','roleInCompany','email','ehr','password','phone','photo'];
+    const keys = ['firstName', 'lastName', 'companyName', 'roleInCompany', 'email', 'ehr', 'password', 'phone', 'photo'];
     return Object.keys(body).every(key => keys.includes(key));
   })], 
   async (req, res) => {
@@ -60,37 +60,38 @@ router.post('/account/create',[
     }
     var ip = req.connection.remoteAddress;
     console.log(ip, req.body.email);
-    //Check if user alread exists
+    //Check if user already exists
     db_utils.checkForUserInDB('healthcareproviders', req.body.email).then(userExists => {
       if (userExists) {
         return res.status(400).send({
           message: 'User already exists'
         });
       }
+      // User does not exist
       console.log("Email does not exist")
-      //Create a jwt token with details provided in body as payload
-      console.log("Encrypt JWT token")
+      // Create a jwt token with details provided in body as payload
       const tokeBody = req.body;
       var encryptedToken = Utility.EncryptToken(tokeBody);
-      //save the token for reference purposes - optional
+      // Save the token for reference purposes - optional
       var data = {
         '_id': generateId(10),
-        token: randtoken.generate(16),
-        email: req.body.email,
+        'token': randtoken.generate(16),
+        'email': req.body.email,
       };
   
       db_utils.insertDataIntoDB('tokenSchema', data).then(resp => {
-        if (resp.statusCode === 200) {
-          //Send the email with the verification email
-          sendVerificationMail(req.body.email, req.body.firstName, encryptedToken, (err,data) => {
-            //Invoked the callback function od the sendverification email object
-            if (err) {
-              return res.status(500).send({message: "An error has occured trying to send the mail"});
-            }
-            console.log("Verification mail with jwt token is sent");
-            return res.status(200).send({message: "Verification mail with jwt token is sent"});
-          });
+        if (resp.statusCode != 200) {
+          return res.status(resp.statusCode).json({message: resp.message});
         }
+        //Send the email with the verification email
+        sendVerificationMail(req.body.email, req.body.firstName, encryptedToken, (err,data) => {
+          //Invoked the callback function od the sendverification email object
+          if (err) {
+            return res.status(500).send({message: "An error has occured trying to send the mail"});
+          }
+          console.log("Verification mail with jwt token is sent");
+          return res.status(200).send({message: "Verification mail with jwt token is sent"});
+        });
       });
     });
 });
@@ -137,15 +138,15 @@ router.post('/account/verify', [
         });
       }
       //Create a new user in the database
+      const user = decryptedToken;
       //encrypt the password
       const salt = await bcrypt.genSaltSync(10);
-      const hashpassword = await bcrypt.hash(decryptedToken.password, salt);
+      const hashpassword = await bcrypt.hash(user.password, salt);
       
-      const user = decryptedToken;
       user['password'] = hashpassword;
       user['_id'] = generateId(10);
 
-      db_utils.insertDataIntoDB('tokenSchema', data).then(resp => {
+      db_utils.insertDataIntoDB('tokenSchema', user).then(resp => {
         let body = resp.body;
         body['message'] = resp.message;
         return res.status(resp.statusCode).json(body);

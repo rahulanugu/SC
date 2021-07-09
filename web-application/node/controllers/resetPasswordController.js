@@ -19,7 +19,6 @@ const key = process.env.KEY;
  * Input: User/Patient email
  * Output: 401 - Email not found (or) 200 - Email has been sent
  */
-
 router.post('/', [
   check('email').notEmpty().isEmail(),
   body().custom(body => {
@@ -37,19 +36,11 @@ router.post('/', [
       return res.status(401).json({Message:'Unauthorized'});
     }
 
-    //try finding the email in the database
-    const query = 'SELECT * FROM `patients` WHERE Email=?';
-    // '+'"'+req.body.email+'"';
-    db_utils.connection.query(query, [req.body.email], (err, rows) => {
-      if (err) {
-        return;
+    db_utils.getRowByEmail('patients', req.body.email).then(resp => {
+      if (resp.statusCode != 200) {
+        return res.status(resp.statusCode).json({message: resp.message});
       }
-      if (rows.length == 0) {
-        return res.status(401).json({
-          message: "Invalid Email"
-        });
-      }
-      const patient = rows[0];
+      const patient = resp.body;
       const encryptedToken = Utility.EncryptToken(patient, 120);
       //mail the token
       sendVerificationMail(req.body.email, patient.fname, encryptedToken);
@@ -59,11 +50,12 @@ router.post('/', [
     });
 });
 
-/*
-,
-*/
 /**
  * Verify the jwt token and return the if valid or not
+ * Input: JWT 
+ * Output: 200 - JWT verified
+ *         400 - Bad request
+ *         401 - Authorization failed
  */
 router.post('/check',[
   check("token").notEmpty(),
@@ -87,14 +79,21 @@ router.post('/check',[
 
     if (decryptedToken['error']) {
       // console.log(err.message)
-      return res.status(500).send(err.message)
+      return res.status(401).json({message: decryptedToken.message});
     }
     return res.status(200).json({
       message: "JWT is verified"
     });
 });
-/*
-*/
+
+/**
+ * Change user password in db, verifying JWT first
+ * Input: JWT, new password
+ * Output: 200 - Password successfully updated
+ *         400 - Bad request
+ *         401 - Authorization failed
+ *         500 - DB error
+ */
 router.post('/change_password',[
   check("token").notEmpty(),
   check("password").notEmpty(),
@@ -111,81 +110,39 @@ router.post('/change_password',[
 
     var decrypted = aes256.decrypt(key, req.query.API_KEY);
     console.log(decrypted);
-    if (decrypted!=API_KEY) {
+    if (decrypted != API_KEY) {
       return res.status(401).json({Message:'Unauthorized'});
     }
 
     console.log("Reached change password")
-
     // The token we get here is encrypted, so we need to decode it
-    // will recieve an encrypted jwt token
     const encryptedToken = req.body.token.replace(/ /g, '+');
-    //console.log(encryptedToken)
-
     const decryptedToken = Utility.DecryptToken(encryptedToken);
 
     if (decryptedToken['error']) {
-      console.log("Couldn't verify the token")
-      console.log(err)
-      return res.status(500).send(err.message)
+      console.log("Unable to verify the token");
+      return res.status(500).json({message: decryptedToken.message});
     }
     // JWT is verified
     console.log(decryptedToken);
-    //.tokebody of decodedvalue will contain the value of json object
+    // decryptedToken will contain the user json object
     //find the email and update the object
     // +'"'+req.body.email+'"';
-    const patient = null;
-    
-    const query1 = 'SELECT * FROM `patients` WHERE Email=?';
-    db_utils.connection.query(query1, [decryptedToken.email], (err, rows) => {
-      if (err) {
-        return res.status(500).send({ message: "DB error" });;
+    db_utils.getRowByEmail('patients', decryptedToken.email).then(resp => {
+      if (resp.statusCode != 200) {
+        return res.status(resp.statusCode).json({message: resp.message});
       }
-      if (rows.length == 0) {
-        return res.status(404).send({ message: "Email not found" });
-      }
-      patient = rows[0];
-    });
-
-    if (patient === null) {
-      return;
-    }
-
-    console.log('Selected');
-    const salt = bcrypt.genSaltSync(10);
-    const hashpassword = await bcrypt.hash(req.body.password, salt);
-    patient['password'] = hashpassword;
-    console.log(hashpassword);
-    console.log(patient);
-
-    // +'"'+req.body.email+'"';
-    const query2 = 'DELETE FROM `patients` WHERE _id=?';
-    db_utils.connection.query(query2, [patient['_id']], (err, rows) => {
-      if (err) {
-        console.log(err);
-        return;
-      }
-      console.log('Deleted');
-      var query3 = "INSERT INTO `patients` (";
-      var val = [];
-      for (var myKey in patient) {
-        query3 += myKey+", ";
-        val.push(patient[myKey]);
-      }
-      query3 = query3.slice(0,query3.length-2);
-      query3 += ") VALUES (";
-      for (var myKey in patient) {
-          query3 += "?,";
-      }
-      query3 = query3.slice(0, query3.length-1);
-      query3 += ")";
-      db_utils.connection.query(query3,val, (err, row) => {
-        if (err) {
-          console.log(err);
-          return res.status(500).send({message:"Could not update the record"});
-        }
-        console.log('Inserted successfully');
-        return res.status(200).send({message:"Record has been updated"});
+      console.log('Selected');
+      const patient = resp.body;
+      
+      const salt = bcrypt.genSaltSync(10);
+      const hashpassword = await bcrypt.hash(req.body.password, salt);
+      patient['password'] = hashpassword;
+      console.log(hashpassword);
+      console.log(patient);
+      
+      db_utils.updateUserInfoInDB('patients', patient).then(resp => {
+        return res.status(resp.statusCode).json({message: resp.message});
       });
     });
 });

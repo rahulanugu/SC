@@ -40,27 +40,21 @@ const key = process.env.KEY;
  */
 router.get('/', 
   async (req, res) => {
+    if (Object.keys(req.body).length > 0) {
+      return res.status(400).json({Message:'Bad Request'})
+    }
     var decrypted = aes256.decrypt(key, req.query.API_KEY);
 
     if (decrypted != API_KEY) {
       return res.status(401).json({Message:'Unauthorized'});
     }
-    //ADD THIS
     console.log('you have entered');
 
-    const query = 'SELECT * FROM `patients`';
-    db_utils.connection.query(query, (err, doc) => {
-      if (!err) {
-        if (doc) {
-          res.status(200).json(doc);
-        } else {
-          res.status(404).send({message: "No patients found"})
-        }
+    db_utils.getAllRowsFromTable('patients').then(resp => {
+      if (resp.statusCode != 200) {
+        return res.status(resp.statusCode).json({message: resp.message});
       }
-      else {
-        res.status(500).json({message: "DB Error"});
-        console.log('Error in retrieving patients: ' + JSON.stringify(err, undefined, 2));
-      }
+      return res.status(resp.statusCode).json(resp.body);
     });
 });
 
@@ -79,30 +73,22 @@ router.get('/:id', [
   ], 
   async (req, res) => {
     const errors = validationResult(req);
-    if(!errors.isEmpty()){
+    if( !errors.isEmpty()) {
       return res.status(400).json({Message:'Bad Request'})
     }
+
     var decrypted = aes256.decrypt(key, req.query.API_KEY);
     console.log(decrypted);
-    if(decrypted!=API_KEY){
+    if (decrypted != API_KEY) {
       return res.status(401).json({Message:'Unauthorized'});
     }
 
-    const query = 'SELECT * FROM `patients` WHERE _id = ?';
-    db_utils.connection.query(query,[req.params.id], (err, doc) => {
-      if (!err) {
-        if (doc.length==1) {
-          res.status(200).json(doc[0]);
-        } else {
-          res.status(404).send({message: "No patient with the provided id found"});
-        }
-      } else {
-        res.status(500).json({message: "DB Error"});
-        console.log('Error in retrieving patients: ' + JSON.stringify(err, undefined, 2));
-      }
+    db_utils.getRowByID('patients', req.params.id).then(resp => {
+      let body = resp.body;
+      body['message'] = resp.message;
+      return res.status(resp.statusCode).json(body);
     });
-  }
-);
+});
 
 /**
  * /patient/:verify

@@ -24,42 +24,33 @@ function generateId(count) {
   return str;
 }
 
-router.post("/",[check('FirstName').notEmpty().isAlpha(),check('LastName').notEmpty().isAlpha(),check('Email').isEmail(),check('Message').notEmpty(),body().custom(body => {
-  const keys = ['FirstName','LastName','Email','Message'];
-  return Object.keys(body).every(key => keys.includes(key));
-})],async(req, res) => {
-  const err = validationResult(req);
-  if(!err.isEmpty()){
-    return res.status(400).json({Message:'Bad Request'})
-  }
-  var decrypted = aes256.decrypt(key, req.query.API_KEY);
-  console.log(decrypted);
-  if(decrypted!=API_KEY){
-    return res.status(401).json({Message:'Unauthorized'});
-  }
-  //console.log("hello");
-  req.body['_id'] = generateId(10);
-  var query= "INSERT INTO `contactUsers` VALUES ("
-  var val = [];
-  for(var myKey in req.body) {
-    query+="?,";
-    val.push(req.body[myKey]);
-  }
-  query = query.slice(0,-1);
-  query += ")";
-  console.log(query);
-  db_utils.connection.query(query,val, function(err, row) {
-    if(!err) {
-        console.log("In contactUsController[root, POST]: Inserted successfully");;
-        res.status(200).json({
-          message: "Your message has been saved"
-        });
-    }else{
-      console.log(err);
-      res.status(500).json({
-        message: "An error has occured trying to process your request"
-      })
+router.post("/", [
+  check('FirstName').notEmpty().isAlpha(),
+  check('LastName').notEmpty().isAlpha(),
+  check('Email').isEmail(),
+  check('Message').notEmpty(),
+  body().custom(body => {
+    const keys = ['FirstName','LastName','Email','Message'];
+    return Object.keys(body).every(key => keys.includes(key));
+  })],
+  async (req, res) => {
+    const err = validationResult(req);
+    if( !err.isEmpty()) {
+      return res.status(400).json({Message:'Bad Request'})
     }
-  });
+
+    var decrypted = aes256.decrypt(key, req.query.API_KEY);
+    console.log(decrypted);
+    if (decrypted != API_KEY) {
+      return res.status(401).json({Message:'Unauthorized'});
+    }
+    const user = req.body;
+    user['_id'] = generateId(10);
+    // Add user object into contactUsers table
+    db_utils.insertUserIntoDB('contactUsers', user).then(resp => {
+      let body = resp.body;
+      body['message'] = resp.message;
+      return res.status(resp.statusCode).json(body);
+    });
 });
 module.exports = router;

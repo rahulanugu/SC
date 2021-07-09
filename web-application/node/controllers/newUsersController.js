@@ -24,6 +24,7 @@ function generateId(count) {
 }
 
 /**
+ * POST :host/request_access/
  * Method to save a new rew request access user
  * Input: Body, Contains the details specified in te NewRequesttAccessUser schema
  * Output: The status of the save operation
@@ -44,7 +45,7 @@ router.post("/", [
     const e = validationResult(req);
     console.log("test", e);
     if (!e.isEmpty()) {
-      return res.status(400).json({Message:'Bad Request'})
+      return res.status(400).json({Message:'Bad Request'});
     }
     //console.log(req.query);
     //var encrypted = aes256.encrypt(key, API_KEY);
@@ -63,10 +64,10 @@ router.post("/", [
         });
       }
   
-      const patient = req.body;
-      patient['_id'] = generateId(10);
+      const user = req.body;
+      user['_id'] = generateId(10);
   
-      db_utils.insertDataIntoDB('tokenSchema', data).then(resp => {
+      db_utils.insertDataIntoDB('tokenSchema', user).then(resp => {
         if (resp.statusCode === 200) {
           mailer(req.body.fname, req.body.email);
         }

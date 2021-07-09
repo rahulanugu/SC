@@ -30,43 +30,30 @@ router.post('/', [
   async(req, res) => {
     const err = validationResult(req);
     if (!err.isEmpty()) {
-      return res.status(400).json({Message:'Bad Request'})
+      return res.status(400).json({message: 'Bad Request'})
     }
     var decrypted = aes256.decrypt(key, req.query.API_KEY);
     console.log(decrypted);
-    if(decrypted!=API_KEY){
-      return res.status(401).json({Message:'Unauthorized'});
+    if (decrypted != API_KEY) {
+      return res.status(401).json({message: 'Unauthorized'});
     }
-    console.log("request is recieved and being processed")
-    var ip = req.connection.remoteAddress;
-    console.log(ip+" "+req.body.email);
+    console.log("request is recieved and being processed");
     //const healthcareProvider = await HealthcareProvider.findOne({ email: req.body.email });
 
-    const query = 'SELECT * FROM `healthcareProviders` WHERE email=?';
-    // req.body.emailAddress+'"';
-    db_utils.connection.query(query, [req.body.email], async (err, rows) => {
-      if (err) {
-        console.log(err);
-        return;
+    db_utils.getRowByEmail('healthcareProviders', req.body.email).then(resp => {
+      if (resp.statusCode != 200) {
+        return res.status(resp.statusCode).json({message: resp.message});
       }
-      if (rows.length == 0) {
-        return res.status(401).json({
-          message:"Invalid Email"
-        });
-      }
-      const healthcareProvider = rows[0];
+      const healthcareProvider = resp.body;
       const encryptedToken = Utility.EncryptToken({healthcareProvider}, 120);
+
       //mail the token
       sendVerificationMail(req.body.email, healthcareProvider.firstName, encryptedToken);
 
-      return res.status(200).json({
-          message: "Email has been sent to reset password"
-      });
+      return res.status(200).json({message: "Email has been sent to reset password"});
     });
 
       //create a new JWT token and send it to the email of the user
-
-
 
       // //check for password
       // const validpassword = await bcrypt.compare(req.body.password, patient.password);
@@ -94,24 +81,33 @@ router.post('/check', [
   async(req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({Message:'Bad Request'})
+      return res.status(400).json({message: 'Bad Request'})
     }
     // The token we get here is encrypted, so we need to decode it
     // will recieve an encrypted jwt token
     console.log("checking the validity of tthe password in check")
-    var encryptedToken = req.body.token.replace(/ /g, '+');
-    console.log(encryptedToken)
+    const encryptedToken = req.body.token.replace(/ /g, '+');
+    const decryptedToken = Utility.DecryptToken(encryptedToken);
 
-    decryptedToken = Utility.DecryptToken(encryptedToken);
+    console.log(encryptedToken);
+    console.log(decryptedToken);
+
     if (decryptedToken['error']) {
       return res.status(500).send(err.message);
     }
-
     return res.status(200).json({
       message: "JWT is verified"
     });
 });
 
+/**
+ * Change user password in db, verifying JWT first
+ * Input: JWT, new password
+ * Output: 200 - Password successfully updated
+ *         400 - Bad request
+ *         401 - Authorization failed
+ *         500 - DB error
+ */
 router.post('/change_password',[
   check("token").notEmpty(),
   check("password").notEmpty(),
@@ -122,68 +118,42 @@ router.post('/change_password',[
   async (req, res) => {
     const e = validationResult(req);
     if (!e.isEmpty()) {
-      return res.status(400).json({Message:'Bad Request'});
+      return res.status(400).json({message: 'Bad Request'});
     }
     var decrypted = aes256.decrypt(key, req.query.API_KEY);
     console.log(decrypted);
     if (decrypted != API_KEY) {
-      return res.status(401).json({Message:'Unauthorized'});
+      return res.status(401).json({message: 'Unauthorized'});
     }
     console.log("Reached change password for healthcare provider")
 
     // The token we get here is encrypted, so we need to decode it
     // will recieve an encrypted jwt token
-    var correctedToken = req.body.token.replace(/ /g, '+');
-    const decryptedToken = Utility.DecryptToken(correctedToken);
+    const encryptedToken = req.body.token.replace(/ /g, '+');
+    const decryptedToken = Utility.DecryptToken(encryptedToken);
 
     //console.log("corrected token \n"+correctedToken)
     //verify jwt token
     if (decryptedToken['error']) {
-      console.log("Couldn't verify the token")
-      console.log(err)
-      return res.status(500).send(err.message)
+      console.log("Unable to verify the token");
+      return res.status(401).json({message: decryptedToken.message});
     }
-    //jwt is verified, decode it for email
-
-    //jwt is encrypted when reached here, need to decrypt it before using
-    //decode jwtt payload it for email
-
-    console.log('test'+decryptedToken.healthcareProvider);
-    //.tokebody of decodedvalue will contain the value of json object
-      //find the email and update the object
-    const query = 'SELECT * FROM `healthcareProviders` WHERE email=?';
-    // decodedValue.healthcareProvider.email+'"';
-    db_utils.connection.query(query, [decryptedToken.healthcareProvider.email], (err, rows) => {
-      if(err) {
-        return;
+    // decryptedToken will contain the provider json object
+    
+    // Find provider by email
+    db_utils.getRowByEmail('healthcareProviders', decryptedToken.email).then(resp => {
+      if (resp.statusCode != 200) {
+        return res.status(resp.statusCode).json({message: resp.message});
       }
-      if (rows.length == 0) {
-        return res.status(404).send({message:"email not found"});
-      }
-      const doc = rows[0];
+      const provider = resp.body;
       const salt = bcrypt.genSaltSync(10);
       const hashpassword = await bcrypt.hash(req.body.password, salt);
       console.log(hashpassword);
-      const query1 = 'DELETE FROM `healthcareProviders` WHERE _id=?';
-      db_utils.connection.query(query1, [doc._id], async (err, row1) => {
-        doc['password'] = hashpassword;
-
-        var query1= "INSERT INTO `healthcareProviders` VALUES ("
-        var val = [];
-        for(var myKey in doc) {
-          query1+="@"+myKey+",";
-          val.push(doc[myKey]);
-        }
-        query1 = query1.slice(0,query1.length-1);
-        query1 += ")";
-        console.log(query1);
-        db_utils.connection.query(query1,val, function(err, row2) {
-          if(err) {
-            console.log("Here")
-            return res.status(200).send({message:"Record has been updated"});
-          }
-          return res.status(500).send({message:"Could not update the record"});
-        });
+      // Update provider info
+      db_utils.updateUserInfoInDB('healthcareProviders', provider).then(respo => {
+        let body = respo.body;
+        body['message'] = respo.message;
+        return res.status(respo.statusCode).json(body);
       });
     });
 });
