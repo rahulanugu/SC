@@ -2,8 +2,6 @@ const express = require('express');
 var router = express.Router();
 const { check, body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
-var aes256 = require('aes256');
-const jwt = require('jsonwebtoken');
 
 const Utility = require('../utility');
 const db_utils = require('../db_utils');
@@ -15,8 +13,7 @@ const db_utils = require('../db_utils');
 };
 const bigquery = new BigQuery(options);*/
 //const bigquery = new BigQuery();
-const API_KEY = process.env.API_KEY;
-const key = process.env.KEY;
+
 //http request for patient login http://localhost:3000/patient-login/
 /**
  * This method validates the user/patient to log in to the portal.
@@ -37,50 +34,44 @@ router.post('/',[
   })],
   async (req, res) => {
     console.log(req.query);
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({Message:'Bad Request'})
+    const valErr = validationResult(req);
+    if (!valErr.isEmpty()) {
+      return res.status(400).json({message:'Bad Request'})
     }
 
-    var decrypted = aes256.decrypt(key, req.query.API_KEY);
-    console.log(decrypted);
-    if (decrypted != API_KEY) {
-      return res.status(401).json({Message:'Unauthorized'});
+    const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
+    if (!keyIsValid) {
+      return res.status(401).json({message: 'Authorization failed'});
     }
 
-    db_utils.getRowByEmail('patients', req.body.email).then(resp => {
-      if (resp.statusCode != 200) {
-        db_utils.checkForUserInDB('deactivatedPatients', req.body.email).then(userWasActive => {
-          if (userWasActive) {
-            return res.status(303).json({
-              message: "The email being handled has been deactivated"
-            });
-          }
-          return res.status(404).json({
-            message:"Invalid username or password"
-          });
-        });
-        return;
+    // Get patient from db
+    const resp = await db_utils.getRowByEmail('patients', req.body.email);
+    if (resp.statusCode != 200) {
+      // Check for patient in deactivatedPatients table in db
+      const userWasActive = await db_utils.checkForUserInDB('deactivatedPatients', req.body.email);
+      if (userWasActive) {
+        return res.status(303).json({message: "The email being handled has been deactivated"});
       }
-      const patient = resp.body;
+      return res.status(404).json({message:"Invalid username or password"});
+    }
+    const patient = resp.body;
 
-      const validpassword = await bcrypt.compare(req.body.password, patient.password);
-      if (!validpassword) {
-        return res.status(404).json({
-          message:"Invalid username or password"
-        });
-      }
-      
-      console.log('logged in');
-      //form json tokens
-      const tokeBody = {_id: patient._id, fname: patient.fname};
-      const token = Utility.EncryptToken(tokeBody);
-
-      return res.status(200).json({
-        idToken: token,
-        fname: patient.fname,
-        email: patient.email
+    const validpassword = await bcrypt.compare(req.body.password, patient.password);
+    if (!validpassword) {
+      return res.status(404).json({
+        message:"Invalid username or password"
       });
+    }
+    console.log('logged in');
+    
+    // Get JWT using id, name, email
+    const tokeBody = {_id: patient._id, fname: patient.fname, email: patient.email};
+    const token = Utility.EncryptToken(tokeBody);
+
+    return res.status(200).json({
+      idToken: token,
+      fname: patient.fname,
+      email: patient.email
     });
 });
 
@@ -100,18 +91,20 @@ router.post('/verifytokenintegrity',[
     return Object.keys(body).every(key => keys.includes(key));
   })], 
   async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
+    const valErr = validationResult(req);
+    if (!valErr.isEmpty()) {
       return res.status(400).json({Message:'Bad Request'})
     }
     console.log("Verifying the integrity of the jwt token")
-    console.log(req.body.jwtToken, payload);
     
-    payload = Utility.DecryptToken(req.body.jwtToken);
-    
-    if (payload['error']) {
-      console.log("an error has occured")
-      return res.status(401).json({message: "Unauthorized user"});
+    const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
+    if (!keyIsValid) {
+      return res.status(401).json({message: 'Authorization failed'});
+    }
+
+    const decryptedToken = Utility.DecryptToken(req.body.token);
+    if (decryptedToken['error']) {
+      return res.status(401).json({message: decryptedToken['error_message']});
     }
     return res.status(200).json({message: "User is authorized"});
 })

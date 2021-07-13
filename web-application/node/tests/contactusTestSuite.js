@@ -29,18 +29,18 @@ describe("/POST a query", () => {
       Email: faker.internet.email(),
       Message: "Hello"
     };
-    var res = await request(app)
+    request(app)
       .post("/contact_us/")
       .query({
         API_KEY: "TiKY7Md2dHpcZo1ih4KbkinTHh7CNTSjseg2ZB3ZiaEC2x1bFA==",
       })
-      .send(queryPost);  
-      
-      // assert.isNull(err);
-      console.log("statuscode is ", res.statusCode);
-      assert.isTrue(res.statusCode != 404);
-      assert.isTrue(res.statusCode == 200);
-
+      .send(queryPost)
+      .end((err, res) => {
+        assert.isNull(err);
+        console.log("statuscode is ", res.statusCode);
+        assert.isTrue(res.statusCode != 404);
+        assert.isTrue(res.statusCode == 200);
+      });
   });
 });
 

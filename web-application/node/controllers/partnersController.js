@@ -2,17 +2,12 @@ const express = require("express");
 const router = express.Router();
 const { check,body, validationResult } = require('express-validator');
 const nodemailer = require("nodemailer");
-var aes256 = require('aes256');
-const { compareSync } = require("bcryptjs");
 
 const mailer_oauth = require('../mailer_oauth');
 const db_utils = require('../db_utils');
 
 //const {BigQuery} = require('@google-cloud/bigquery');
 //const bigquery = new BigQuery();
-const API_KEY = process.env.API_KEY;
-const key = process.env.KEY;
-
 
 /**
  * Method to save a new rew request access user
@@ -50,44 +45,36 @@ router.post("/", [
     return Object.keys(body).every(key => keys.includes(key));
   })],
   async (req, res) => {
-    //console.log(req.query);
-    //var encrypted = aes256.encrypt(key, API_KEY);
-    //console.log(encrypted);
-    //var ip = req.connection.remoteAddress;
-    //console.log(ip+" "+req.body.email);
-    const e = validationResult(req);
-    console.log(e+"test");
-    if (!e.isEmpty()) {
+    const valErr = validationResult(req);
+    if (!valErr.isEmpty()) {
       return res.status(400).json({Message:'Bad Request'})
     }
 
-    var decrypted = aes256.decrypt(key, req.query.API_KEY);
-    console.log(decrypted);
-    if (decrypted != API_KEY) {
-      return res.status(401).json({Message:'Unauthorized'});
+    const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
+    if (!keyIsValid) {
+      return res.status(401).json({message: 'Authorization failed'});
     }
-    
+
+    // Check for partner in db   
     const partner = req.body;
-
-    db_utils.checkForUserInDB('partners', partner.email).then(userExists => {
-      if (userExists) {
-        return res.status(200).json({
-          message: "Email is already registered"
-        });
-      }
-      partner['_id'] = generateId(10);
-
-      db_utils.insertUserIntoDB('partners', partner).then(resp => {
-        if (resp.statusCode != 200) {
-          console.log("error in saving requested access user");
-          return res.status(resp.statusCode).json({message: resp.message});
-        }
-        mailer(partner.fname, partner.email);
-        mailer1(partner.fname, partner.email);
-        return res.status(200).json({
-          message: "Your message has been saved"
-        });
+    const userExists = await db_utils.checkForUserInDB('partners', partner.email);
+    if (userExists) {
+      return res.status(200).json({
+        message: "Email is already registered"
       });
+    }
+    // Partner not found, add partner to db
+    partner['_id'] = generateId(10);
+    const resp = await db_utils.insertUserIntoDB('partners', partner);
+    if (resp.statusCode != 200) {
+      console.log("error in saving requested access user");
+      return res.status(resp.statusCode).json({message: resp.message});
+    }
+    // Send emails
+    mailer(partner.fname, partner.email);
+    mailer1(partner.fname, partner.email);
+    return res.status(200).json({
+      message: "Your message has been saved"
     });
 });
   

@@ -2,7 +2,6 @@ const express = require('express');
 var router = express.Router();
 const { check,body,validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
-var aes256 = require('aes256');
 const nodemailer = require("nodemailer");
 const mailer_oauth = require('../mailer_oauth');
 
@@ -10,8 +9,6 @@ var Utility = require('../utility');
 const db_utils = require('../db_utils');
 
 const API_KEY = process.env.API_KEY;
-const key = process.env.KEY;
-
 
 //The controller is used for generating a JWT token to initiate a password reset request for healthcareProvider portal
 /**
@@ -28,30 +25,28 @@ router.post('/', [
     return Object.keys(body).every(key => keys.includes(key));
   })],
   async(req, res) => {
-    const err = validationResult(req);
-    if (!err.isEmpty()) {
+    const valErr = validationResult(req);
+    if (!valErr.isEmpty()) {
       return res.status(400).json({message: 'Bad Request'})
     }
-    var decrypted = aes256.decrypt(key, req.query.API_KEY);
-    console.log(decrypted);
-    if (decrypted != API_KEY) {
+    const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
+    if (!keyIsValid) {
       return res.status(401).json({message: 'Unauthorized'});
     }
     console.log("request is recieved and being processed");
-    //const healthcareProvider = await HealthcareProvider.findOne({ email: req.body.email });
+    
+    // Get healthcare provider from db
+    const resp = await db_utils.getRowByEmail('healthcareProviders', req.body.email);
+    if (resp.statusCode != 200) {
+      return res.status(resp.statusCode).json({message: resp.message});
+    }
+    const healthcareProvider = resp.body;
+    const encryptedToken = Utility.EncryptToken({healthcareProvider}, 120);
 
-    db_utils.getRowByEmail('healthcareProviders', req.body.email).then(resp => {
-      if (resp.statusCode != 200) {
-        return res.status(resp.statusCode).json({message: resp.message});
-      }
-      const healthcareProvider = resp.body;
-      const encryptedToken = Utility.EncryptToken({healthcareProvider}, 120);
+    //mail the token
+    sendVerificationMail(req.body.email, healthcareProvider.firstName, encryptedToken);
 
-      //mail the token
-      sendVerificationMail(req.body.email, healthcareProvider.firstName, encryptedToken);
-
-      return res.status(200).json({message: "Email has been sent to reset password"});
-    });
+    return res.status(200).json({message: "Email has been sent to reset password"});
 
       //create a new JWT token and send it to the email of the user
 
@@ -66,7 +61,6 @@ router.post('/', [
 
       // create JSON Web Token
       // *******make sure to change secret word to something secure and put it in env variable*****
-
 });
 
 /**
@@ -79,21 +73,19 @@ router.post('/check', [
     return Object.keys(body).every(key => keys.includes(key));
   })],
   async(req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
+    const valErr = validationResult(req);
+    if (!valErr.isEmpty()) {
       return res.status(400).json({message: 'Bad Request'})
     }
-    // The token we get here is encrypted, so we need to decode it
-    // will recieve an encrypted jwt token
-    console.log("checking the validity of tthe password in check")
-    const encryptedToken = req.body.token.replace(/ /g, '+');
-    const decryptedToken = Utility.DecryptToken(encryptedToken);
 
-    console.log(encryptedToken);
-    console.log(decryptedToken);
+    const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
+    if (!keyIsValid) {
+      return res.status(401).json({message: 'Authorization failed'});
+    }
 
+    const decryptedToken = Utility.DecryptToken(req.body.token);
     if (decryptedToken['error']) {
-      return res.status(500).send(err.message);
+      return res.status(401).json({message: decryptedToken['error_message']});
     }
     return res.status(200).json({
       message: "JWT is verified"
@@ -116,46 +108,38 @@ router.post('/change_password',[
     return Object.keys(body).every(key => keys.includes(key));
   })], 
   async (req, res) => {
-    const e = validationResult(req);
-    if (!e.isEmpty()) {
+    const valErr = validationResult(req);
+    if (!valErr.isEmpty()) {
       return res.status(400).json({message: 'Bad Request'});
     }
-    var decrypted = aes256.decrypt(key, req.query.API_KEY);
-    console.log(decrypted);
-    if (decrypted != API_KEY) {
-      return res.status(401).json({message: 'Unauthorized'});
+    const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
+    if (!keyIsValid) {
+      return res.status(401).json({message: 'Authorization failed'});
+    }
+
+    const decryptedToken = Utility.DecryptToken(req.body.token);
+    if (decryptedToken['error']) {
+      return res.status(401).json({message: decryptedToken['error_message']});
     }
     console.log("Reached change password for healthcare provider")
 
-    // The token we get here is encrypted, so we need to decode it
-    // will recieve an encrypted jwt token
-    const encryptedToken = req.body.token.replace(/ /g, '+');
-    const decryptedToken = Utility.DecryptToken(encryptedToken);
-
-    //console.log("corrected token \n"+correctedToken)
-    //verify jwt token
-    if (decryptedToken['error']) {
-      console.log("Unable to verify the token");
-      return res.status(401).json({message: decryptedToken.message});
-    }
+    // JWT is verified
     // decryptedToken will contain the provider json object
     
-    // Find provider by email
-    db_utils.getRowByEmail('healthcareProviders', decryptedToken.email).then(resp => {
-      if (resp.statusCode != 200) {
-        return res.status(resp.statusCode).json({message: resp.message});
-      }
-      const provider = resp.body;
-      const salt = bcrypt.genSaltSync(10);
-      const hashpassword = await bcrypt.hash(req.body.password, salt);
-      console.log(hashpassword);
-      // Update provider info
-      db_utils.updateUserInfoInDB('healthcareProviders', provider).then(respo => {
-        let body = respo.body;
-        body['message'] = respo.message;
-        return res.status(respo.statusCode).json(body);
-      });
-    });
+    // Get healthcare provider from db
+    const resp = await db_utils.getRowByEmail('healthcareProviders', decryptedToken.email);
+    if (resp.statusCode != 200) {
+      return res.status(resp.statusCode).json({message: resp.message});
+    }
+    const provider = resp.body;
+    const salt = bcrypt.genSaltSync(10);
+    const hashpassword = await bcrypt.hash(req.body.password, salt);
+    console.log(hashpassword);
+    // Update provider info in db
+    const respo = await db_utils.updateUserInfoInDB('healthcareProviders', provider);
+    let body = respo.body;
+    body['message'] = respo.message;
+    return res.status(respo.statusCode).json(body);
 });
 
 const oauth2Client = mailer_oauth.getClient();

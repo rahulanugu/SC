@@ -22,28 +22,32 @@ function jsonResponse(code, message, body={}) {
   return {'statusCode': code, 'message': message, 'body': body}
 }
 
+// Synchronous SQL query wrapper; extracts the result of an SQL query from its callback function into a JS Promise
+function queryDB(query, data) {
+  return new Promise((resolve, reject) => {
+    connection.query(query, data, (err, data) => {
+      if (err) return reject(jsonResponse(500, 'DB Error'));
+      resolve(jsonResponse(200, 'Success', data));
+    });
+  });
+}
+
 /**
  * DB helpers 
- * Each helper returns a JavaScript Promise. The promise is consumed asynchronously.
- * The result of a successful SQL query is located in the body property of the Promise response
+ * Each helper returns a JavaScript Promise. The promise can be consumed asynchronously from the controllers.
+ * Response (jsonResponse) objects passed up to controller to be used in API response; { statusCode, message, body }
+ * The data from a successful SQL query (statusCode = 200) is located in the response body
  */ 
 
 async function getAllRowsFromTable(table) {
   const query = 'SELECT * FROM ??';
-  let response;
-  connection.query(query, [table], (err, rows) => {
-    if (err) {
-      response = jsonResponse(500, 'DB Error');
-      console.log(err);
-      return;
-    }
-    response = jsonResponse(200, 'Users successfully retrieved', rows);
-  });
+  const data = [table];
+  const response = await queryDB(query, data);
   return response;
 }
 
 async function getRowFromTableWhere(table, where = {email: ''}) {
-  let query = 'SELECT * FROM ?? WHERE ??=?';
+  const query = 'SELECT * FROM ?? WHERE ??=?';
   const data = [table];
   for (const key in where) {
     data.push(key);
@@ -51,19 +55,7 @@ async function getRowFromTableWhere(table, where = {email: ''}) {
     break;
   }
 
-  let response;
-  connection.query(query, data, (err, rows) => {
-    if (err) {
-      response = jsonResponse(500, 'DB Error');
-      console.log(err);
-      return;
-    }
-    if (rows.length == 0) {
-      response = jsonResponse(404, 'No rows exist mathcing this criteria.');
-      return;
-    }
-    response = jsonResponse(200, 'DB row successfully retrieved', rows[0]);
-  });
+  const response = await queryDB(query, data);
   return response;
 }
 
@@ -76,40 +68,33 @@ async function getRowByID(table, _id) {
 }
 
 async function checkForUserInDB(table, userEmail) {
-  let found = true;
-  getRowByEmail(table, userEmail).then(resp => {
-    if (resp.statusCode === 200) found = false;
-  });
-  return found;
+  const response = await getRowByEmail(table, userEmail);
+  return response.statusCode === 200;
 }
 
-async function insertUserIntoDB(table, obj) {
+async function deleteUserFromDB(table, userEmail) {
+  const query = 'DELETE FROM ?? WHERE email=?';
+  const data = [table, userEmail];
+  const response = await queryDB(query, data);
+  return response;
+}
+
+async function insertUserIntoDB(table, user) {
   let query = 'INSERT INTO ?? (';
   let values = ' VALUES ('
   const data1 = [];
   const data2 = [];
-  for (let key in obj) {
+  for (const key in user) {
     query += '??,';
     values += '?,';
     data1.push(key);
-    data2.push(obj[key]);
+    data2.push(user[key]);
   }
+  if (data1.length == 0) return jsonResponse(400, 'User object must not be empty.');
   
-  let response;
   query = query.slice(0, query.length - 1) + ')' + values.slice(0, values.length - 1) + ')';
   const data = [table, ...data1, ...data2];
-  connection.query(query, data, (err, res) => {
-    if (err) {
-      response = jsonResponse(500, 'DB Error');
-      return;
-    } 
-    console.log(res);
-    if (res.insertID === null) {
-      response = jsonResponse(400, 'User already exists.');
-      return;
-    }
-    response = jsonResponse(200, 'User successfully created.', res);
-  });
+  const response = await queryDB(query, data);
   return response;
 }
 
@@ -122,35 +107,12 @@ async function updateUserInfoInDB(table, user) {
     data.push(user[key]);
     query += '??=?, ';
   }
-  query += 'WHERE _id=?';
+  if (data.length <= 1) return jsonResponse(400, 'User object must not be empty.');
+
+  query = query.slice(0, query.length - 2) + ' WHERE _id=?';
   data.push(user._id);
   
-  let response;
-  connection.query(query, data, (err, res) => {
-    if (err) {
-      response = jsonResponse(500, 'DB Error');
-      return;
-    } 
-    console.log(res);
-    if (res.insertID === null) {
-      response = jsonResponse(400, 'Bad DB request.');
-      return;
-    }
-    response = jsonResponse(200, 'User info successfully updated.', user);
-  });
-  return response;
-}
-
-async function deleteUserFromDB(table, userEmail) {
-  const query = 'DELETE FROM ?? WHERE email=?';
-  let response;
-  connection.query(query, [table, userEmail], (err, rows) => {
-    if (err) {
-      console.log('An error has occured while trying to delete the patient entry from the patient database');
-      response = jsonResponse(500, 'DB error: unable to delete user');
-    }
-    response = jsonResponse(200, 'User deleted successfully', rows[0]);
-  });
+  const response = await queryDB(query, data);
   return response;
 }
 
@@ -161,6 +123,6 @@ module.exports.getRowFromTableWhere = getRowFromTableWhere;
 module.exports.getRowByEmail = getRowByEmail;
 module.exports.getRowByID = getRowByID;
 module.exports.checkForUserInDB = checkForUserInDB;
+module.exports.deleteUserFromDB = deleteUserFromDB;
 module.exports.insertUserIntoDB = insertUserIntoDB;
 module.exports.updateUserInfoInDB = updateUserInfoInDB;
-module.exports.deleteUserFromDB = deleteUserFromDB;

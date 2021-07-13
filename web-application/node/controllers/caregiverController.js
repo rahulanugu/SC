@@ -8,16 +8,10 @@ const log = console.log;
 const express = require('express');
 const { check,body,validationResult } = require('express-validator');
 const router = express.Router();
-var aes256 = require('aes256');
-const jwt = require('jsonwebtoken');
-const randtoken = require('rand-token');
 
 var Utility = require('../utility');
 const mailer_oauth = require('../mailer_oauth');
 const db_utils = require('../db_utils');
-
-const API_KEY = process.env.API_KEY;
-const key = process.env.KEY;
 
 // get list of all patients
 /**
@@ -48,35 +42,37 @@ router.post("/",[
   })], 
   async (req, res) => {
     console.log('test');
-    
-    var decrypted = aes256.decrypt(key, req.query.API_KEY);
-    if (decrypted != API_KEY) {
-      return res.status(401).json({Message:'Unauthorized'});
+    const valErr = validationResult(req);
+    if (!valErr.isEmpty()) {
+      return res.status(400).json({message: 'Bad request'});
     }
-
-    db_utils.checkForUserInDB('caregivers', req.body.email).then(userExists =>{
-      if (userExists) {
-        return res.status(400).send({
-          message: 'User already exists'
-        });
-      }
-      console.log("Email does not exist");
-      
-      const data = {
-        '_id': generateId(10),
-        fname: req.body.firstName,
-        lname: req.body.lastName,
-        email: req.body.email,
-        phone: req.body.phone,
-        employer: req.body.employer
-      };
-  
-      db_utils.insertDataIntoDB('caregivers', data).then(resp => {
-        let body = resp.body;
-        body['message'] = resp.message;
-        return res.status(resp.statusCode).json(body);
+    
+    const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
+    if (!keyIsValid) {
+      return res.status(401).json({message: 'Authorization failed'});
+    }
+    // Check for caregiver in db
+    const userExists = await db_utils.checkForUserInDB('caregivers', req.body.email);
+    if (userExists) {
+      return res.status(400).send({
+        message: 'User already exists'
       });
-    });
+    }
+    console.log("Email does not exist");
+    
+    const data = {
+      '_id': generateId(10),
+      fname: req.body.firstName,
+      lname: req.body.lastName,
+      email: req.body.email,
+      phone: req.body.phone,
+      employer: req.body.employer
+    };
+    // Add caregiver to db
+    const resp = await db_utils.insertDataIntoDB('caregivers', data);
+    let body = resp.body;
+    body['message'] = resp.message;
+    return res.status(resp.statusCode).json(body);
 })
 
 /* Mailer */

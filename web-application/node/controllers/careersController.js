@@ -1,13 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const { check,body, validationResult } = require('express-validator');
-var aes256 = require('aes256');
-const { compareSync } = require("bcryptjs");
 
 const db_utils = require('../db_utils');
-
-const API_KEY = process.env.API_KEY;
-const key = process.env.KEY;
 
 function generateId(count) {
   var _sym = 'abcdefghijklmnopqrstuvwxyz1234567890';
@@ -39,27 +34,25 @@ router.post("/jobposting", [
     return Object.keys(body).every(key => keys.includes(key));
   })],
   async (req, res) => {
-    const err = validationResult(req);
-    if (!err.isEmpty()) {
+    const valErr = validationResult(req);
+    if (!valErr.isEmpty()) {
       console.log(err);
       console.log('link is ', req.body.link);
       return res.status(400).json({Message:'Bad Request'})
     }
-    var decrypted = aes256.decrypt(key, req.query.API_KEY);
-    console.log(decrypted);
-    if (decrypted != API_KEY) {
-      return res.status(401).json({Message:'Unauthorized'});
+    const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
+    if (!keyIsValid) {
+      return res.status(401).json({message: 'Authorization failed'});
     }
+    console.log("posting a job to the database");
 
     const jobOpening = req.body;
-    console.log("posting a job to the database");
     jobOpening['_id'] = generateId(10);
-
-    db_utils.insertUserIntoDB('jobOpenings', jobOpening).then(resp => {
-      let body = resp.body;
-      body['message'] = resp.message;
-      return res.status(resp.statusCode).json(body);
-    });
+    // Add job opening to db
+    const resp = await db_utils.insertUserIntoDB('jobOpenings', jobOpening);
+    let body = resp.body;
+    body['message'] = resp.message;
+    return res.status(resp.statusCode).json(body);
 });
 
 /**
@@ -74,18 +67,16 @@ router.get('/jobposting', async (req, res) => {
   if (Object.keys(req.body).length > 0) {
     return res.status(400).json({Message:'Bad Request'})
   }
-  var decrypted = aes256.decrypt(key, req.query.API_KEY);
-  //console.log(decrypted);
-  if (decrypted != API_KEY) {
-    return res.status(401).json({Message:'Unauthorized'});
+  const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
+  if (!keyIsValid) {
+    return res.status(401).json({message: 'Authorization failed'});
   }
-
-  db_utils.getAllRowsFromTable('jobOpenings').then(resp => {
-    if (resp.statusCode != 200) {
-      return res.status(resp.statusCode).json({message: resp.message});
-    }
-    return res.status(resp.statusCode).json(resp.body);
-  });
+  // Get all job openings from db
+  const resp = await db_utils.getAllRowsFromTable('jobOpenings');
+  if (resp.statusCode != 200) {
+    return res.status(resp.statusCode).json({message: resp.message});
+  }
+  return res.status(resp.statusCode).json(resp.body);
 });
 
 /**
@@ -103,22 +94,20 @@ router.get('/jobposting', async (req, res) => {
 }).withMessage('Some extra parameters are sent')]
 */
 router.get('/jobposting/:jobcategory', async (req, res) => {
-  const errors = validationResult(req);
-  if(!errors.isEmpty()){
+  const valErr = validationResult(req);
+  if (!valErr.isEmpty()) {
     return res.status(400).json({Message:'Bad Request'})
   }
 
-  var decrypted = aes256.decrypt(key, req.query.API_KEY);
-  console.log(decrypted);
-  if(decrypted!=API_KEY){
-    return res.status(401).json({Message:'Unauthorized'});
+  const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
+  if (!keyIsValid) {
+    return res.status(401).json({message: 'Authorization failed'});
   }
-
-  db_utils.getRowFromTableWhere('jobOpenings', {'category': req.params.jobcategory}).then(resp => {
-    let body = resp.body;
-    body['message'] = resp.message;
-    return res.status(resp.statusCode).json(body);
-  });
+  // Get job openings for jobcategory from db
+  const resp = await db_utils.getRowFromTableWhere('jobOpenings', {'category': req.params.jobcategory});
+  let body = resp.body;
+  body['message'] = resp.message;
+  return res.status(resp.statusCode).json(body);
 });
 
 
@@ -138,28 +127,25 @@ router.post("/jobcategory", [
     return Object.keys(body).every(key => keys.includes(key));
   })],
   async (req, res) => {
-    const err = validationResult(req);
-    if (!err.isEmpty()) {
+    const valErr = validationResult(req);
+    if (!valErr.isEmpty()) {
       return res.status(400).json({Message:'Bad Request'})
     }
 
-    var decrypted = aes256.decrypt(key, req.query.API_KEY);
-    console.log(decrypted);
-    if (decrypted != API_KEY) {
-      return res.status(401).json({Message:'Unauthorized'});
+    const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
+    if (!keyIsValid) {
+      return res.status(401).json({message: 'Authorization failed'});
     }
-
-    const jobOpening = req.body;
-
+    
     console.log("posting a jobcategory to the database");
-    jobOpening['_id'] = generateId(10);
-    console.log(jobOpening);
-
-    db_utils.insertUserIntoDB('jobCategories', jobOpening).then(resp => {
-      let body = resp.body;
-      body['message'] = resp.message;
-      return res.status(resp.statusCode).json(body);
-    });
+    const jobCategory = req.body;
+    jobCategory['_id'] = generateId(10);
+    console.log(jobCategory);
+    // Add job category to db
+    const resp = await db_utils.insertUserIntoDB('jobCategories', jobCategory);
+    let body = resp.body;
+    body['message'] = resp.message;
+    return res.status(resp.statusCode).json(body);
 });
 
 /**
@@ -171,20 +157,17 @@ router.post("/jobcategory", [
  *         404 - If there are no jobCategory available in the db.
  */
 router.get('/jobcategory', async (req, res) => {
-  if(Object.keys(req.body).length>0){
+  if (Object.keys(req.body).length > 0) {
     return res.status(400).json({Message:'Bad Request'})
   }
 
-  var decrypted = aes256.decrypt(key, req.query.API_KEY);
-  console.log(decrypted);
-  if( decrypted != API_KEY) {
-    return res.status(401).json({Message:'Unauthorized'});
+  const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
+  if (!keyIsValid) {
+    return res.status(401).json({message: 'Authorization failed'});
   }
-
-  db_utils.getAllRowsFromTable('jobCategories').then(resp => {
-    let body = resp.body;
-    return res.status(resp.statusCode).json(body);
-  });
+  // Get all job categories from db
+  const resp = await db_utils.getAllRowsFromTable('jobCategories');
+  return res.status(resp.statusCode).json(resp.body);
 });
 
 
@@ -199,21 +182,19 @@ router.get('/jobcategory', async (req, res) => {
  */
 router.get('/jobposting/job/:jobid', async (req, res) => {
   console.log(req.params);
-  if(Object.keys(req.body).length>0){
+  if (Object.keys(req.body).length > 0) {
     return res.status(400).json({Message:'Bad Request'})
   }
 
-  var decrypted = aes256.decrypt(key, req.query.API_KEY);
-  console.log(decrypted);
-  if(decrypted!=API_KEY){
-    return res.status(401).json({Message:'Unauthorized'});
+  const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
+  if (!keyIsValid) {
+    return res.status(401).json({message: 'Authorization failed'});
   }
-
-  db_utils.getRowByID('jobOpenings', req.params.jobid).then(resp => {
-    let body = resp.body;
-    body['message'] = resp.message;
-    return res.status(resp.statusCode).json(body);
-  });
+  // Get job opening from db
+  const resp = await db_utils.getRowByID('jobOpenings', req.params.jobid);
+  let body = resp.body;
+  body['message'] = resp.message;
+  return res.status(resp.statusCode).json(body);
 });
 
 module.exports = router;

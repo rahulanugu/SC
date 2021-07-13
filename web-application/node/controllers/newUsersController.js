@@ -1,17 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const { check,body, validationResult } = require('express-validator');
-var aes256 = require('aes256');
-const { compareSync } = require("bcryptjs");
 const nodemailer = require("nodemailer");
 
 const mailer_oauth = require('../mailer_oauth');
 const db_utils = require('../db_utils');
 //const {BigQuery} = require('@google-cloud/bigquery');
 //const bigquery = new BigQuery();
-const API_KEY = process.env.API_KEY;
-const key = process.env.KEY;
-
 
 function generateId(count) {
   var _sym = 'abcdefghijklmnopqrstuvwxyz1234567890';
@@ -42,40 +37,34 @@ router.post("/", [
     return Object.keys(body).every(key => keys.includes(key));
   })],
   async (req, res) => {
-    const e = validationResult(req);
-    console.log("test", e);
-    if (!e.isEmpty()) {
+    const valErr = validationResult(req);
+    if (!valErr.isEmpty()) {
       return res.status(400).json({Message:'Bad Request'});
     }
-    //console.log(req.query);
-    //var encrypted = aes256.encrypt(key, API_KEY);
-    //console.log(encrypted);
-    var decrypted = aes256.decrypt(key, req.query.API_KEY);
-    console.log(decrypted);
-    if (decrypted != API_KEY) {
-      return res.status(401).json({Message:'Unauthorized'});
+    
+    const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
+    if (!keyIsValid) {
+      return res.status(401).json({message: 'Authorization failed'});
     }
 
-    db_utils.checkForUserInDB('newUsers', req.body.email).then(userExists => {
-
-      if (userExists) {
-        return res.status(400).json({
-          message: "Email is already registered to an existing user"
-        });
-      }
-  
-      const user = req.body;
-      user['_id'] = generateId(10);
-  
-      db_utils.insertDataIntoDB('tokenSchema', user).then(resp => {
-        if (resp.statusCode === 200) {
-          mailer(req.body.fname, req.body.email);
-        }
-        let body = resp.body;
-        body['message'] = resp.message;
-        return res.status(resp.statusCode).json(body);
+    // Check for user in newUsers table in db
+    const userExists = await db_utils.checkForUserInDB('newUsers', req.body.email);
+    if (userExists) {
+      return res.status(400).json({
+        message: "Email is already registered to an existing user"
       });
-    });
+    }
+
+    const user = req.body;
+    user['_id'] = generateId(10);
+    // Add user to db
+    const resp = await db_utils.insertDataIntoDB('newUsers', user);
+    if (resp.statusCode === 200) {
+      mailer(req.body.fname, req.body.email);
+    }
+    let body = resp.body;
+    body['message'] = resp.message;
+    return res.status(resp.statusCode).json(body);
 });
   
 

@@ -11,7 +11,7 @@ chai.use(chaiHttp);
 const APIKey = "?API_KEY=TiKY7Md2dHpcZo1ih4KbkinTHh7CNTSjseg2ZB3ZiaEC2x1bFA==";
 const execSync = require('child_process').execSync;
 var net = require('net');
-
+/*
 var portInUse = function(port, callback) {
   var server = net.createServer(function(socket) {
   socket.write('Echo server\r\n');
@@ -28,7 +28,7 @@ var portInUse = function(port, callback) {
 
   server.listen(port, '127.0.0.1');
 };
-
+*/
 // The test case will create a job
 describe("/POST Create a job", () => {
   it("Create job testing", async () => {
@@ -57,32 +57,35 @@ describe("/POST Create a job", () => {
     //   });
 
     // execSync('kill $(lsof -t -i:3000)', { encoding: 'utf-8' });
-    var res = await request(app)
+    request(app)
       .post('/careers/jobposting')
       .query({
         API_KEY: "TiKY7Md2dHpcZo1ih4KbkinTHh7CNTSjseg2ZB3ZiaEC2x1bFA==",
       })
-      .send(jobPost);
-    console.log("status code is ", res.statusCode);
-    assert.isTrue(res.status != 404);
-    assert.isTrue(res.status == 200);
+      .send(jobPost)
+      .end((err, res) => {
+        assert.isNull(err);
+        console.log("status code is ", res.statusCode);
+        assert.isTrue(res.status != 404);
+        assert.isTrue(res.status == 200);
+      });
+    
   });
 });
 
 describe("get all job openings", () => {
   it("should return all job openings without an error", async () => {
-    try {
-      portInUse(3000, value => console.log("val is ", value));
-      var res = await request(app)
-        .get("/careers/jobposting")
-        .query({
-          API_KEY: "TiKY7Md2dHpcZo1ih4KbkinTHh7CNTSjseg2ZB3ZiaEC2x1bFA==",
-        })
-      assert.isTrue(res.status != 404);
-      assert.isTrue(res.status == 200);
-    } catch (error) {
-      console.log(error);
-    }
+    // portInUse(3000, value => console.log("val is ", value));
+    request(app)
+      .get("/careers/jobposting")
+      .query({
+        API_KEY: "TiKY7Md2dHpcZo1ih4KbkinTHh7CNTSjseg2ZB3ZiaEC2x1bFA==",
+      })
+      .end((err, res) => {
+        assert.isNull(err);
+        assert.isTrue(res.status != 404);
+        assert.isTrue(res.status == 200);
+      });
   });
 });
 

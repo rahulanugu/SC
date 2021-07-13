@@ -1,15 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const { check,body, validationResult } = require('express-validator');
-const bcrypt = require('bcryptjs');
-var aes256 = require('aes256');
 const nodemailer = require("nodemailer");
 
 const mailer_oauth = require('../mailer_oauth');
 const db_utils = require('../db_utils');
 
 const API_KEY = process.env.API_KEY;
-const key = process.env.KEY;
+
 
 const oauth2Client = mailer_oauth.getClient();
 const accessToken = oauth2Client.getAccessToken();

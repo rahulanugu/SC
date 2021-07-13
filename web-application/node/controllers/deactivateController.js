@@ -1,13 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const { check,body,validationResult } = require('express-validator');
-const fs = require('fs');
-var aes256 = require('aes256');
 
 const db_utils = require('../db_utils');
-
-const API_KEY = process.env.API_KEY;
-const key = process.env.KEY;
 
 //The controller handles the requests for deactivating user accounts
 
@@ -27,37 +22,33 @@ router.post("/patient", [
     return Object.keys(body).every(key => keys.includes(key));
   })], 
   async (req, res) => {
-    const e = validationResult(req);
-    if (!e.isEmpty()) {
+    const valErr = validationResult(req);
+    if (!valErr.isEmpty()) {
       return res.status(400).json({Message:'Bad Request'});
     }
 
-    var decrypted = aes256.decrypt(key, req.query.API_KEY);
-    console.log(decrypted);
-    if (decrypted!=API_KEY) {
-      return res.status(401).json({Message:'Unauthorized'});
+    const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
+    if (!keyIsValid) {
+      return res.status(401).json({message: 'Authorization failed'});
     }
-
     console.log("reached deacivate patient controller");
+    
     // Get patient from DB
-    db_utils.getRowByEmail('patients', req.body.email).then(resp => {
-      if (resp.statusCode != 200) {
-        return res.status(resp.statusCode).json({message: resp.message});
-      }
-      const retrievedPatient = resp.body;
-      // Patient found, copy patient over to `deactivatedPatients` table
-      db_utils.insertUserIntoDB('deactivatedPatients', retrievedPatient).then(respo => {
-        if (respo.statusCode != 200) {
-          return res.status(respo.statusCode).json({message: respo.message});
-        }
-        // Insert successful, delete patient from `patients` table
-        db_utils.deleteUserFromDB('patients', req.body.email).then(respon => {
-          let body = respon.body;
-          body['message'] = respon.message;
-          return res.status(respon.statusCode).json(body);
-        });
-      });
-    });
+    const resp = await db_utils.getRowByEmail('patients', req.body.email);
+    if (resp.statusCode != 200) {
+      return res.status(resp.statusCode).json({message: resp.message});
+    }
+    // Patient found, copy patient over to `deactivatedPatients` table
+    const retrievedPatient = resp.body;
+    const respo = await db_utils.insertUserIntoDB('deactivatedPatients', retrievedPatient);
+    if (respo.statusCode != 200) {
+      return res.status(respo.statusCode).json({message: respo.message});
+    }
+    // Insert successful, delete patient from `patients` table
+    const respon = await db_utils.deleteUserFromDB('patients', req.body.email);
+    let body = respon.body;
+    body['message'] = respon.message;
+    return res.status(respon.statusCode).json(body);
   });
   
 /**
@@ -76,41 +67,33 @@ router.post("/healthcare", [
     return Object.keys(body).every(key => keys.includes(key));
   })],
   async (req, res) => {
-    const e = validationResult(req);
-    if (!e.isEmpty()) {
+    const valErr = validationResult(req);
+    if (!valErr.isEmpty()) {
       return res.status(400).json({Message:'Bad Request'});
     }
     
-    var decrypted = aes256.decrypt(key, req.query.API_KEY);
-    console.log(decrypted);
-    if (decrypted != API_KEY) {
-      return res.status(401).json({Message:'Unauthorized'});
+    const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
+    if (!keyIsValid) {
+      return res.status(401).json({message: 'Authorization failed'});
     }
-    
     console.log("reached deactivate controller");
     
     // Get provider from DB
-    db_utils.getRowByEmail('healthcareProviders', req.body.email).then(resp => {
-      if (resp.statusCode != 200) {
-        return res.status(resp.statusCode).json({message: resp.message});
-      }
-      const retrievedHealthcareProvider = resp.body;
-      // Provider found, copy provider over to `deactivatedHealthcareProviders` table
-      db_utils.insertUserIntoDB('deactivatedHealthcareProviders', retrievedHealthcareProvider).then(respo => {
-        if (respo.statusCode != 200) {
-          return res.status(respo.statusCode).json({message: respo.message});
-        }
-        // Insert successful, delete provider from `healthcareProviders` table
-        db_utils.deleteUserFromDB('healthcareProviders', req.body.email).then(respon =>{
-          if (respon.statusCode != 200) {
-            return res.status(respon.statusCode).json({message: respon.message});
-          }
-          let body = respon.body;
-          body['message'] = respon.message;
-          return res.status(respon.statusCode).json(body);
-        });
-      });
-    });
+    const resp = await db_utils.getRowByEmail('healthcareProviders', req.body.email);
+    if (resp.statusCode != 200) {
+      return res.status(resp.statusCode).json({message: resp.message});
+    }
+    // Provider found, copy provider over to `deactivatedHealthcareProviders` table
+    const retrievedHealthcareProvider = resp.body;
+    const respo = await db_utils.insertUserIntoDB('deactivatedHealthcareProviders', retrievedHealthcareProvider);
+    if (respo.statusCode != 200) {
+      return res.status(respo.statusCode).json({message: respo.message});
+    }
+    // Insert successful, delete provider from `healthcareProviders` table
+    const respon = await db_utils.deleteUserFromDB('healthcareProviders', req.body.email);
+    let body = respon.body;
+    body['message'] = respon.message;
+    return res.status(respon.statusCode).json(body);
 });
 
 module.exports = router;

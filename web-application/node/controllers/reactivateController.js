@@ -1,20 +1,16 @@
 const express = require("express");
 const router = express.Router();
+const { response } = require("express");
 const { check,body, validationResult } = require('express-validator');
-var aes256 = require('aes256');
-const jwt = require('jsonwebtoken');
 const nodemailer = require("nodemailer");
-var jwtDecode = require('jwt-decode');
 const {BigQuery} = require('@google-cloud/bigquery');
 const bigquery = new BigQuery();
 
 const db_utils = require('../db_utils');
 const mailer_oauth = require('../mailer_oauth');
 const Utility = require("../utility");
-const { response } = require("express");
 
 const API_KEY = process.env.API_KEY;
-const key = process.env.KEY;
 //The controller handles the requests for reactivating user accounts
 
 function generateId(count) {
@@ -43,38 +39,35 @@ router.post("/patient/request",[
     return Object.keys(body).every(key => keys.includes(key));
   })],
   async (req, res) => {
-    const e = validationResult(req);
-    if (!e.isEmpty()) {
+    const valErr = validationResult(req);
+    if (!valErr.isEmpty()) {
       return res.status(400).json({Message:'Bad Request'});
     }
-    var decrypted = aes256.decrypt(key, req.query.API_KEY);
-    console.log(decrypted);
-    if (decrypted != API_KEY) {
-      return res.status(401).json({Message:'Unauthorized'});
+
+    const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
+    if (!keyIsValid) {
+      return res.status(401).json({message: 'Authorization failed'});
     }
-      //find the patient
-
     console.log("Reactivating patient is being requested");
-    //const patient = await DeactivatedPatient.findOne({Email : req.body.email});
-    db_utils.getRowByEmail('deactivatedPatients', req.body.email).then(resp => {
-      if (resp.statusCode != 200) {
-        return res.status(resp.statusCode).json({message: resp.message});
-      }
-      const patient = resp.body;
-      console.log('test');
-      // generate a jwt token with email,name
-      const tokeBody = { _id: patient._id, fname: patient.fname, email: patient.Email };
-      const token = Utility.EncryptToken(tokeBody, 500);
-
-      // email the token
-      sendVerificationMail(req.body.email, patient.fname, token);
-
-      return res.status(200).json({
-        "message": "Email Sent"
-      });
+    
+    // Find the patient in deactivatedPatients table
+    const resp = await db_utils.getRowByEmail('deactivatedPatients', req.body.email);
+    if (resp.statusCode != 200) {
+      return res.status(resp.statusCode).json({message: resp.message});
+    }
+    const patient = resp.body;
+    // Get JWT using id, name, email
+    const tokeBody = { _id: patient._id, fname: patient.fname, email: patient.Email };
+    const token = Utility.EncryptToken(tokeBody, 500);
+    
+    // Email the token
+    sendVerificationMail(req.body.email, patient.fname, token);
+    
+    return res.status(200).json({
+      "message": "Email Sent"
     });
 });
-
+  
 /**
  * Method to request reactivation of a Healthcareprovider account
  * Input: Body containg email of the user
@@ -91,31 +84,31 @@ router.post("/healthcare/request", [
     return Object.keys(body).every(key => keys.includes(key));
   })],
   async (req, res) => {
-    const e = validationResult(req);
-    if (!e.isEmpty()) {
+    const valErr = validationResult(req);
+    if (!valErr.isEmpty()) {
       return res.status(400).json({message:'Bad Request'});
     }
-    var decrypted = aes256.decrypt(key, req.query.API_KEY);
-    console.log(decrypted);
-    if (decrypted != API_KEY) {
-      return res.status(401).json({message:'Unauthorized'});
+
+    const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
+    if (!keyIsValid) {
+      return res.status(401).json({message: 'Authorization failed'});
     }
-    //find the healthcareprovider
     console.log("Reactivating healthcareprovider is being requested");
-    db_utils.getRowByEmail('deactivatedHealthcareProviders', req.body.email).then(resp => {
-      if (resp.statusCode != 200) {
-        return res.status(resp.statusCode).json({message: resp.message});
-      }
-      const healthcareProvider = resp.body;
-      //generate a jwt token with email,name
-      const tokeBody = {_id: healthcareProvider._id, firstName: healthcareProvider.firstName, email: healthcareProvider.email};
-      const token = Utility.EncryptToken(tokeBody, 500);
+    
+    // Find the healthcareprovider in deactivatedHealthcareProviders table in db
+    const resp = await db_utils.getRowByEmail('deactivatedHealthcareProviders', req.body.email);
+    if (resp.statusCode != 200) {
+      return res.status(resp.statusCode).json({message: resp.message});
+    }
+    // Get JWT using id, name, email
+    const healthcareProvider = resp.body;
+    const tokeBody = {_id: healthcareProvider._id, firstName: healthcareProvider.firstName, email: healthcareProvider.email};
+    const token = Utility.EncryptToken(tokeBody, 500);
 
-      //email the token
-      sendVerificationMailHealthcare(req.body.email,healthcareProvider.firstName,token);
+    // Email the token
+    sendVerificationMailHealthcare(req.body.email,healthcareProvider.firstName,token);
 
-      return res.status(200).json({message: "Email Sent"});
-    });
+    return res.status(200).json({message: "Email Sent"});
 });
 
 
@@ -137,48 +130,37 @@ router.post("/patient/activate", [
     return Object.keys(body).every(key => keys.includes(key));
   })],
   async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
+    const valErr = validationResult(req);
+    if (!valErr.isEmpty()) {
       return res.status(400).json({Message:'Bad Request'})
     }
-    var decrypted = aes256.decrypt(key, req.query.API_KEY);
-    console.log(decrypted);
-    if (decrypted != API_KEY) {
-      return res.status(401).json({Message:'Unauthorized'});
+
+    const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
+    if (!keyIsValid) {
+      return res.status(401).json({message: 'Authorization failed'});
     }
 
-    //check validity of token
     const decryptedToken = Utility.DecryptToken(req.body.token);
     if (decryptedToken['error']) {
-      console.log("Token verification failed")
-      return res.status(401).json({
-        "message": "Jwt token verification failed"
-      });
+      return res.status(401).json({message: decryptedToken['error_message']});
     }
-
     console.log("Token succesfully verified");
     console.log(decryptedToken);
 
-    //const retrievedPatient = await DeactivatedPatient.findOne({Email: decodedValue.email})
-    // +'"'+decodedValue.email+'"';
-
     // Check if patient exists in deactivatedPatients table
-    db_utils.getRowByEmail('deactivatedPatients', decryptedToken.email).then(resp => {
-      if (resp.statusCode != 200) {
-        return res.status(resp.statusCode).json({message: resp.message});
-      }
-      const patient = resp.body;
-      // Insert into active patients table
-      db_utils.insertUserIntoDB('patients', patient).then(respo => {
-        if (respo.statusCode != 200) {
-          return res.status(respo.statusCode).json({message: respo.message});
-        }
-        // Delete user from deactivatedPatients table
-        db_utils.deleteUserFromDB('deactivatedPatients', decryptedToken.email).then(respon => {
-          return res.status(respon.statusCode).json({message: respon.message});
-        });
-      });
-    });
+    const resp = await db_utils.getRowByEmail('deactivatedPatients', decryptedToken.email);
+    if (resp.statusCode != 200) {
+      return res.status(resp.statusCode).json({message: resp.message});
+    }
+    // Insert into active patients table
+    const patient = resp.body;
+    const respo = await db_utils.insertUserIntoDB('patients', patient);
+    if (respo.statusCode != 200) {
+      return res.status(respo.statusCode).json({message: respo.message});
+    }
+    // Delete user from deactivatedPatients table
+    const respon = await db_utils.deleteUserFromDB('deactivatedPatients', decryptedToken.email);
+    return res.status(respon.statusCode).json({message: respon.message});
   });
   
   
@@ -200,46 +182,37 @@ router.post("/healthcare/activate", [
     return Object.keys(body).every(key => keys.includes(key));
   })],
   async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
+    const valErr = validationResult(req);
+    if (!valErr.isEmpty()) {
       return res.status(400).json({Message:'Bad Request'})
     }
-    var decrypted = aes256.decrypt(key, req.query.API_KEY);
-    console.log(decrypted);
-    if (decrypted != API_KEY) {
-      return res.status(401).json({Message:'Unauthorized'});
+
+    const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
+    if (!keyIsValid) {
+      return res.status(401).json({message: 'Authorization failed'});
     }
-    //check validity of token
+
     const decryptedToken = Utility.DecryptToken(req.body.token);
-    
     if (decryptedToken['error']) {
-      console.log("Token verification failed")
-      return res.status(401).json({
-        "message": "Jwt token verification failed"
-      });
+      return res.status(401).json({message: decryptedToken['error_message']});
     }
-    
     console.log("Token succesfully verified")
     console.log(decryptedToken)
-    
-    //const retrievedHealthcareProvider = await DeactivatedHealthcareProvider.findOne({email: decodedValue.email})
+
     // Insert into active patients table
-    db_utils.getRowByEmail('deactivatedHealthcareProviders', decryptedToken.email).then(resp => {
-      if (resp.statusCode != 200) {
-        return res.status(resp.statusCode).json({message: resp.message});
-      }
-      const retrievedHealthcareProvider = resp.body;
-      // Check if patient exists in deactivatedPatients table
-      db_utils.insertUserIntoDB('healthcareProviders', retrievedHealthcareProvider).then(respo => {
-        if (respo.statusCode != 200) {
-          return res.status(respo.statusCode).json({message: respo.message});
-        }
-        // Delete user from deactivatedPatients table
-        db_utils.deleteUserFromDB('deactivatedHealthcareProviders', decryptedToken.email).then(respon => {
-          return res.status(respon.statusCode).json({message: respon.message});
-        });
-      });
-    });
+    const resp = await db_utils.getRowByEmail('deactivatedHealthcareProviders', decryptedToken.email);
+    if (resp.statusCode != 200) {
+      return res.status(resp.statusCode).json({message: resp.message});
+    }
+    // Check if patient exists in deactivatedPatients table
+    const retrievedHealthcareProvider = resp.body;
+    const respo = await db_utils.insertUserIntoDB('healthcareProviders', retrievedHealthcareProvider);
+    if (respo.statusCode != 200) {
+      return res.status(respo.statusCode).json({message: respo.message});
+    }
+    // Delete user from deactivatedPatients table
+    const respon = await db_utils.deleteUserFromDB('deactivatedHealthcareProviders', decryptedToken.email);
+    return res.status(respon.statusCode).json({message: respon.message});
 });
 
 const oauth2Client = mailer_oauth.getClient();

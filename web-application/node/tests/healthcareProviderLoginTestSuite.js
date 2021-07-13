@@ -4,6 +4,7 @@ const chaiHttp = require("chai-http");
 const request = require('supertest')
 
 const app = require('../index');
+const Utility = require("../utility");
 
 chai.use(chaiHttp);
 
@@ -33,20 +34,27 @@ describe('/Authenticate the healthcare user login attempt', () => {
         // let queryPost = {
         //   "jwtToken":"xeKw6fIjwH7nJPph"
         //   }
-          let queryPost = {
-            "jwtToken":"NXziw97D12Aglf0D"
-            }
-          request(app)
-              .post('/backend/healthcare-login/verifytokenintegrity')
-              .query({
-                API_KEY: "TiKY7Md2dHpcZo1ih4KbkinTHh7CNTSjseg2ZB3ZiaEC2x1bFA==",
-              })
-              .send(queryPost)
-              .end((err, res) => {
-                console.log(res.statusCode);
-                assert.isNull(err);
-                assert.isTrue(res.statusCode != 404);
-                assert.isTrue(res.statusCode == 200);
-              });
+        
+        const testData = {
+          'emailAddress':'shahvidit39@gmail.com',
+          'password':"$2a$10$AJRFiZGSv/DuphwOTjcnue3Y0Ztq4Kph4lOL335pbhucB1auxcQby"
+        }
+        const testToken = Utility.EncryptToken(testData);
+        let queryPost = {
+          "jwtToken": testToken
+        }
+        
+        request(app)
+          .post('/backend/healthcare-login/verifytokenintegrity')
+          .query({
+            API_KEY: "TiKY7Md2dHpcZo1ih4KbkinTHh7CNTSjseg2ZB3ZiaEC2x1bFA==",
+          })
+          .send(queryPost)
+          .end((err, res) => {
+            console.log(res.statusCode);
+            assert.isNull(err);
+            assert.isTrue(res.statusCode != 404);
+            assert.isTrue(res.statusCode == 200);
           });
         });
+      });

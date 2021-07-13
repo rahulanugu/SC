@@ -2,7 +2,6 @@ const express = require('express');
 var router = express.Router();
 const { check,body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
-var aes256 = require('aes256');
 const nodemailer = require("nodemailer");
 
 const mailer_oauth = require('../mailer_oauth');
@@ -10,7 +9,6 @@ const db_utils = require('../db_utils');
 var Utility = require('../utility');
 
 const API_KEY = process.env.API_KEY;
-const key = process.env.KEY;
 //The controller is used for generating a JWT token to initiate a password reset request
 
 /**
@@ -26,27 +24,25 @@ router.post('/', [
     return Object.keys(body).every(key => keys.includes(key));
   })],
   async (req, res) => {
-    const e = validationResult(req);
-    if (!e.isEmpty()) {
+    const valErr = validationResult(req);
+    if (!valErr.isEmpty()) {
       return res.status(400).json({Message:'Bad Request'});
     }
-    var decrypted = aes256.decrypt(key, req.query.API_KEY);
-    console.log(decrypted);
-    if (decrypted != API_KEY) {
-      return res.status(401).json({Message:'Unauthorized'});
+    const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
+    if (!keyIsValid) {
+      return res.status(401).json({message: 'Authorization failed'});
     }
-
-    db_utils.getRowByEmail('patients', req.body.email).then(resp => {
-      if (resp.statusCode != 200) {
-        return res.status(resp.statusCode).json({message: resp.message});
-      }
-      const patient = resp.body;
-      const encryptedToken = Utility.EncryptToken(patient, 120);
-      //mail the token
-      sendVerificationMail(req.body.email, patient.fname, encryptedToken);
-      return res.status(200).json({
-        message: "Email has been sent to reset password"
-      });
+    // Get patient from db
+    const resp = await db_utils.getRowByEmail('patients', req.body.email);
+    if (resp.statusCode != 200) {
+      return res.status(resp.statusCode).json({message: resp.message});
+    }
+    const patient = resp.body;
+    const encryptedToken = Utility.EncryptToken(patient, 120);
+    // Email the token
+    sendVerificationMail(req.body.email, patient.fname, encryptedToken);
+    return res.status(200).json({
+      message: "Email has been sent to reset password"
     });
 });
 
@@ -64,22 +60,19 @@ router.post('/check',[
     return Object.keys(body).every(key => keys.includes(key));
   })],
   async (req, res) => {
-    console.log(req.body);
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
+    const valErr = validationResult(req);
+    if (!valErr.isEmpty()) {
       return res.status(400).json({Message:'Bad Request'})
     }
-    // The token we get here is encrypted, so we need to decode it
-    // will recieve an encrypted jwt token
-    console.log("checking the validity of tthe password in check")
-    const encryptedToken = req.body.token.replace(/ /g, '+');
-    //console.log(encryptedToken)
 
-    const decryptedToken = Utility.DecryptToken(encryptedToken);
+    const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
+    if (!keyIsValid) {
+      return res.status(401).json({message: 'Authorization failed'});
+    }
 
+    const decryptedToken = Utility.DecryptToken(req.body.token);
     if (decryptedToken['error']) {
-      // console.log(err.message)
-      return res.status(401).json({message: decryptedToken.message});
+      return res.status(401).json({message: decryptedToken['error_message']});
     }
     return res.status(200).json({
       message: "JWT is verified"
@@ -102,49 +95,40 @@ router.post('/change_password',[
     return Object.keys(body).every(key => keys.includes(key));
   })],
   async (req, res) => {
-  //console.log(req);
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
+    const valErr = validationResult(req);
+    if (!valErr.isEmpty()) {
       return res.status(400).json({Message:'Bad Request'})
     }
 
-    var decrypted = aes256.decrypt(key, req.query.API_KEY);
-    console.log(decrypted);
-    if (decrypted != API_KEY) {
-      return res.status(401).json({Message:'Unauthorized'});
+    const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
+    if (!keyIsValid) {
+      return res.status(401).json({message: 'Authorization failed'});
     }
 
-    console.log("Reached change password")
-    // The token we get here is encrypted, so we need to decode it
-    const encryptedToken = req.body.token.replace(/ /g, '+');
-    const decryptedToken = Utility.DecryptToken(encryptedToken);
-
+    const decryptedToken = Utility.DecryptToken(req.body.token);
     if (decryptedToken['error']) {
-      console.log("Unable to verify the token");
-      return res.status(500).json({message: decryptedToken.message});
+      return res.status(401).json({message: decryptedToken['error_message']});
     }
-    // JWT is verified
+    console.log("Reached change password")
     console.log(decryptedToken);
+    
+    // JWT is verified
     // decryptedToken will contain the user json object
-    //find the email and update the object
-    // +'"'+req.body.email+'"';
-    db_utils.getRowByEmail('patients', decryptedToken.email).then(resp => {
-      if (resp.statusCode != 200) {
-        return res.status(resp.statusCode).json({message: resp.message});
-      }
-      console.log('Selected');
-      const patient = resp.body;
-      
-      const salt = bcrypt.genSaltSync(10);
-      const hashpassword = await bcrypt.hash(req.body.password, salt);
-      patient['password'] = hashpassword;
-      console.log(hashpassword);
-      console.log(patient);
-      
-      db_utils.updateUserInfoInDB('patients', patient).then(resp => {
-        return res.status(resp.statusCode).json({message: resp.message});
-      });
-    });
+    
+    // Get patient from db
+    const resp = await db_utils.getRowByEmail('patients', decryptedToken.email);
+    if (resp.statusCode != 200) {
+      return res.status(resp.statusCode).json({message: resp.message});
+    }
+    console.log('Selected');
+    const patient = resp.body;
+    
+    const salt = bcrypt.genSaltSync(10);
+    const hashpassword = await bcrypt.hash(req.body.password, salt);
+    patient['password'] = hashpassword;
+    // Update patient info in db
+    const respo = await db_utils.updateUserInfoInDB('patients', patient);
+    return res.status(respo.statusCode).json({message: respo.message});
 });
 
 const oauth2Client = mailer_oauth.getClient();

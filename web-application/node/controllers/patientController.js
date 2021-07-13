@@ -7,7 +7,6 @@
 const express = require('express');
 const router = express.Router();
 const { check,body,validationResult } = require('express-validator');
-const aes256 = require('aes256');
 const nodemailer = require('nodemailer');
 
 const mailer_oauth = require('../mailer_oauth');
@@ -15,7 +14,6 @@ const Utility = require('../utility');
 const db_utils = require('../db_utils');
 
 const API_KEY = process.env.API_KEY;
-const key = process.env.KEY;
 // http://localhost:3000/patient/
 
 
@@ -43,19 +41,18 @@ router.get('/',
     if (Object.keys(req.body).length > 0) {
       return res.status(400).json({Message:'Bad Request'})
     }
-    var decrypted = aes256.decrypt(key, req.query.API_KEY);
-
-    if (decrypted != API_KEY) {
-      return res.status(401).json({Message:'Unauthorized'});
+    const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
+    if (!keyIsValid) {
+      return res.status(401).json({message: 'Authorization failed'});
     }
     console.log('you have entered');
-
-    db_utils.getAllRowsFromTable('patients').then(resp => {
-      if (resp.statusCode != 200) {
-        return res.status(resp.statusCode).json({message: resp.message});
-      }
-      return res.status(resp.statusCode).json(resp.body);
-    });
+    
+    // Get all patients from db
+    const resp = await db_utils.getAllRowsFromTable('patients');
+    if (resp.statusCode != 200) {
+      return res.status(resp.statusCode).json({message: resp.message});
+    }
+    return res.status(resp.statusCode).json(resp.body);
 });
 
 
@@ -69,25 +66,24 @@ router.get('/',
  *         404 - An error occured/ No patients found
  */
 router.get('/:id', [
-  check('id').notEmpty()
+  check('_id').notEmpty()
   ], 
   async (req, res) => {
-    const errors = validationResult(req);
-    if( !errors.isEmpty()) {
+    const valErr = validationResult(req);
+    if (!valErr.isEmpty()) {
       return res.status(400).json({Message:'Bad Request'})
     }
 
-    var decrypted = aes256.decrypt(key, req.query.API_KEY);
-    console.log(decrypted);
-    if (decrypted != API_KEY) {
-      return res.status(401).json({Message:'Unauthorized'});
+    const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
+    if (!keyIsValid) {
+      return res.status(401).json({message: 'Authorization failed'});
     }
 
-    db_utils.getRowByID('patients', req.params.id).then(resp => {
-      let body = resp.body;
-      body['message'] = resp.message;
-      return res.status(resp.statusCode).json(body);
-    });
+    // Get patient from db
+    const resp = await db_utils.getRowByID('patients', req.params._id);
+    let body = resp.body;
+    body['message'] = resp.message;
+    return res.status(resp.statusCode).json(body);
 });
 
 /**
@@ -99,24 +95,21 @@ router.get('/:id', [
 router.post('/:verify', [
   check('verify').notEmpty()
   ],
-  async (req,res) => {
-    console.log("/:verify", res);
-    //console.log(req.query);
+  async (req, res) => {
     if (req.params.verify != "verify") {
       res.status(400).json({message: "Bad Request"});
     }
-    var decrypted = aes256.decrypt(key, req.query.API_KEY);
-    console.log(decrypted);
-    if (decrypted != API_KEY) {
-      return res.status(401).json({Message:'Unauthorized'});
+    const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
+    if (!keyIsValid) {
+      return res.status(401).json({message: 'Authorization failed'});
     }
 
-    db_utils.checkForUserInDB('verifiedUser', req.body.email).then(userExists => {
-      if (userExists) {
-        return res.status(403).json('Subscriber already exists');
-      }
-      return res.status(200).json('Does not exist');
-    });
+    // Check for user in verifiedUser table in db
+    const userExists = await db_utils.checkForUserInDB('verifiedUser', req.body.email);
+    if (userExists) {
+      return res.status(403).json('Subscriber already exists');
+    }
+    return res.status(200).json('Does not exist');
 });
 
 /**
@@ -137,15 +130,12 @@ router.post('/:verify', [
  */
 router.patch('/', 
   async (req,res) => {
-    console.log(req.query);
-    var decrypted = aes256.decrypt(key, req.query.API_KEY);
-
-    if (decrypted != API_KEY) {
-      return res.status(401).json({Message:'Unauthorized'});
+    const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
+    if (!keyIsValid) {
+      return res.status(401).json({message: 'Authorization failed'});
     }
 
-    // Update user object in db
-    const user = {
+    const userChanges = {
       '_id': req.body._id,
       'fname': req.body?.fname,
       'lname': req.body?.lname,
@@ -155,12 +145,12 @@ router.patch('/',
       'agreement-signed': req.body?.agreement_signed,
       'user-verified':req.body?.user_verified
     };
-    // Update user fields in db
-    db_utils.updateUserInDB('patients', user).then(resp => {
-      return res.status(resp.statusCode).json({message: resp.message});
-    });
-  }
-);
+    // Update patient info in db
+    const resp = await db_utils.updateUserInDB('patients', userChanges);
+    let body = resp.body;
+    body['message'] = resp.message;
+    return res.status(resp.statusCode).json(body);
+});
 
 /*   NodeMailer   */
 

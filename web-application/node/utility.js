@@ -1,14 +1,19 @@
 var CryptoJS = require("crypto-js");
 const jwt = require('jsonwebtoken');
+const aes256 = require('aes256');
+
+const API_KEY = process.env.API_KEY;
+const key = process.env.KEY;
+
 var Utility = {
 
-  EncryptToken: function(payload, expiresIn = 300){
-    const token = await jwt.sign(payload, "santosh", { expiresIn: expiresIn });
+  EncryptToken: (payload, expiresIn = 300) => {
+    const token = jwt.sign(payload, "santosh", { expiresIn: expiresIn });
     const encrypted = CryptoJS.AES.encrypt(token, 'secret key 123').toString();
     return encrypted;
   },
 
-  DecryptToken: function(encrypted){
+  DecryptToken: (encrypted) => {
     const bytes  = CryptoJS.AES.decrypt(encrypted, 'secret key 123');
     const decrypted = bytes.toString(CryptoJS.enc.Utf8);
     payload = {};
@@ -18,9 +23,12 @@ var Utility = {
         return;
       }
       payload = decodedValue;
-      payload['error'] = false;
     });
     return payload;
+  },
+
+  APIkeyIsValid: (key_) => {
+    return API_KEY === aes256.decrypt(key, key_);
   }
 }
 

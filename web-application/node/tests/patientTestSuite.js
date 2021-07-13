@@ -6,7 +6,7 @@ const expect = chai.expect;
 chai.use(chaiHttp);
 
 const app = require("../index");
-
+/*
 describe("/To save a new request access user", () => {
   it("creates new user", () => {
     let queryPost = {
@@ -75,6 +75,33 @@ describe("/To save a new request access user", () => {
       });
   });
 });
+*/
+
+describe("/To create a new patient", () => {
+  it("creates new patient user", () => {
+    let queryPost = {
+      'fname': "John",
+      'lname': "Sirigiri",
+      'email': "miketyke69950@gmail.com",
+      'password': 'password123',
+      'photo': './assets/IMG_0005',
+      'agreement-signed': true,
+      'user-verified': false
+    };
+    request(app)
+      .post("/patientnew")
+      .query({
+        API_KEY: "TiKY7Md2dHpcZo1ih4KbkinTHh7CNTSjseg2ZB3ZiaEC2x1bFA==",
+      })
+      .send(queryPost)
+      .end((err, res) => {
+        console.log('res: ', res);
+        assert.isNull(err);
+        assert.isTrue(res.statusCode != 404);
+        assert.isTrue(res.statusCode == 200);
+      });
+  });
+});
 
 describe("/To get patient data", () => {
   it("should give no error while retrieving patient data", () => {
@@ -126,23 +153,23 @@ describe("/Check if subscriber exists in db", () => {
         assert.isTrue(res.statusCode != 404);
         assert.isTrue(res.statusCode == 400);
       });
-    });
+  });
     
-    it("should allow valid requests", () => {
-      let queryPost = {
-        user: "abc@gmail.com",
-      };
-      
-      request(app)
-      .post("/patient/verify")
-      .query({
-        API_KEY: "TiKY7Md2dHpcZo1ih4KbkinTHh7CNTSjseg2ZB3ZiaEC2x1bFA==",
-      })
-      .send(queryPost)
-      .end((err, res) => {
-        assert.isNull(err);
-        assert.isTrue(res.statusCode != 404);
-        assert.isTrue(res.statusCode == 200);
-      });
+  it("should allow valid requests", () => {
+    let queryPost = {
+      user: "abc@gmail.com",
+    };
+    
+    request(app)
+    .post("/patient/verify")
+    .query({
+      API_KEY: "TiKY7Md2dHpcZo1ih4KbkinTHh7CNTSjseg2ZB3ZiaEC2x1bFA==",
+    })
+    .send(queryPost)
+    .end((err, res) => {
+      assert.isNull(err);
+      assert.isTrue(res.statusCode != 404);
+      assert.isTrue(res.statusCode == 200);
+    });
   });
 });

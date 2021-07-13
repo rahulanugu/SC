@@ -8,7 +8,6 @@ const router = express.Router();
 const { check, body, validationResult } = require('express-validator');
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcryptjs');
-const aes256 = require('aes256');
 const randtoken = require('rand-token');
 const mailer_oauth = require('../mailer_oauth');
 
@@ -16,7 +15,7 @@ const Utility = require('../utility');
 const db_utils = require('../db_utils');
 
 const API_KEY = process.env.API_KEY;
-const key = process.env.KEY;
+
 
 function generateId(count) {
   var _sym = 'abcdefghijklmnopqrstuvwxyz1234567890';
@@ -49,50 +48,48 @@ router.post('/account/create',[
     return Object.keys(body).every(key => keys.includes(key));
   })], 
   async (req, res) => {
-    const e = validationResult(req);
-    if (!e.isEmpty()) {
+    const valErr = validationResult(req);
+    if (!valErr.isEmpty()) {
       return res.status(400).json({Message:'Bad Request'});
     }
-    var decrypted = aes256.decrypt(key, req.query.API_KEY);
-    console.log(decrypted);
-    if (decrypted != API_KEY) {
-      return res.status(401).json({Message:'Unauthorized'});
+
+    const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
+    if (!keyIsValid) {
+      return res.status(401).json({message: 'Authorization failed'});
     }
+    
     var ip = req.connection.remoteAddress;
     console.log(ip, req.body.email);
     //Check if user already exists
-    db_utils.checkForUserInDB('healthcareproviders', req.body.email).then(userExists => {
-      if (userExists) {
-        return res.status(400).send({
-          message: 'User already exists'
-        });
-      }
-      // User does not exist
-      console.log("Email does not exist")
-      // Create a jwt token with details provided in body as payload
-      const tokeBody = req.body;
-      var encryptedToken = Utility.EncryptToken(tokeBody);
-      // Save the token for reference purposes - optional
-      var data = {
-        '_id': generateId(10),
-        'token': randtoken.generate(16),
-        'email': req.body.email,
-      };
-  
-      db_utils.insertDataIntoDB('tokenSchema', data).then(resp => {
-        if (resp.statusCode != 200) {
-          return res.status(resp.statusCode).json({message: resp.message});
-        }
-        //Send the email with the verification email
-        sendVerificationMail(req.body.email, req.body.firstName, encryptedToken, (err,data) => {
-          //Invoked the callback function od the sendverification email object
-          if (err) {
-            return res.status(500).send({message: "An error has occured trying to send the mail"});
-          }
-          console.log("Verification mail with jwt token is sent");
-          return res.status(200).send({message: "Verification mail with jwt token is sent"});
-        });
+    const userExists = await db_utils.checkForUserInDB('healthcareproviders', req.body.email);
+    if (userExists) {
+      return res.status(400).send({
+        message: 'User already exists'
       });
+    }
+    console.log("Email does not exist")
+    // User does not exist
+    // Create JWT using details provided in body as payload
+    const tokeBody = req.body;
+    var encryptedToken = Utility.EncryptToken(tokeBody);
+    var data = {
+      '_id': generateId(10),
+      'token': randtoken.generate(16),
+      'email': req.body.email,
+    };
+    // Save the token for reference purposes - optional
+    const resp = await db_utils.insertDataIntoDB('tokenSchema', data);
+    if (resp.statusCode != 200) {
+      return res.status(resp.statusCode).json({message: resp.message});
+    }
+    // Send the email with the verification email
+    sendVerificationMail(req.body.email, req.body.firstName, encryptedToken, (err,data) => {
+      // Invoked the callback function of the sendverification email object
+      if (err) {
+        return res.status(500).send({message: "An error has occured trying to send the mail"});
+      }
+      console.log("Verification mail with jwt token is sent");
+      return res.status(200).send({message: "Verification mail with jwt token is sent"});
     });
 });
 
@@ -110,48 +107,41 @@ router.post('/account/verify', [
     return Object.keys(body).every(key => keys.includes(key));
   })], 
   async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
+    const valErr = validationResult(req);
+    if (!valErr.isEmpty()) {
       return res.status(400).json({Message:'Bad Request'})
     }
-    var decrypted = aes256.decrypt(key, req.query.API_KEY);
-    console.log(decrypted);
-    if (decrypted != API_KEY) {
-      return res.status(401).json({Message:'Unauthorized'});
+    
+    const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
+    if (!keyIsValid) {
+      return res.status(401).json({message: 'Authorization failed'});
     }
 
-    // will recieve an encrypted jwt token
-    var encryptedToken = req.body.jwtToken.replace(/ /g, '+');
-
-    // decrypting the token
-    const decryptedToken = Utility.DecryptToken(encryptedToken);
-
-    // handle utility.js decryption error
+    const decryptedToken = Utility.DecryptToken(req.body.token);
     if (decryptedToken['error']) {
-      return res.status(401).send({message: 'JWT Error'});
+      return res.status(401).json({message: decryptedToken['error_message']});
     }
-
-    db_utils.checkForUserInDB('healthcareproviders', req.body.email).then(userExists => {
-      if (userExists) {
-        return res.status(400).send({
-          message: 'User already exists'
-        });
-      }
-      //Create a new user in the database
-      const user = decryptedToken;
-      //encrypt the password
-      const salt = await bcrypt.genSaltSync(10);
-      const hashpassword = await bcrypt.hash(user.password, salt);
-      
-      user['password'] = hashpassword;
-      user['_id'] = generateId(10);
-
-      db_utils.insertDataIntoDB('tokenSchema', user).then(resp => {
-        let body = resp.body;
-        body['message'] = resp.message;
-        return res.status(resp.statusCode).json(body);
+    // Check for healthcare provider in db
+    const userExists = await db_utils.checkForUserInDB('healthcareproviders', req.body.email);
+    if (userExists) {
+      return res.status(400).send({
+        message: 'User already exists'
       });
-    });
+    }
+    const user = decryptedToken;
+    // Encrypt the password
+    const salt = await bcrypt.genSaltSync(10);
+    const hashpassword = await bcrypt.hash(user.password, salt);
+    
+    user['password'] = hashpassword;
+    user['_id'] = generateId(10);
+    
+    // Add user token object to tokenSchema table in db
+    const resp = await db_utils.insertDataIntoDB('tokenSchema', user);
+    let body = resp.body;
+    body['message'] = resp.message;
+    return res.status(resp.statusCode).json(body);
+
 });
 
 
