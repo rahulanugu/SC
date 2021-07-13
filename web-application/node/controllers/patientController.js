@@ -81,6 +81,9 @@ router.get('/:id', [
 
     // Get patient from db
     const resp = await db_utils.getRowByID('patients', req.params._id);
+    if (resp.statusCode != 200 || resp.body.length === 0) {
+      return res.status(resp.statusCode).json({message: resp.message});
+    }
     let body = resp.body;
     body['message'] = resp.message;
     return res.status(resp.statusCode).json(body);
@@ -97,7 +100,7 @@ router.post('/:verify', [
   ],
   async (req, res) => {
     if (req.params.verify != "verify") {
-      res.status(400).json({message: "Bad Request"});
+      return res.status(400).json({message: "Bad Request"});
     }
     const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
     if (!keyIsValid) {
@@ -107,9 +110,9 @@ router.post('/:verify', [
     // Check for user in verifiedUser table in db
     const userExists = await db_utils.checkForUserInDB('verifiedUser', req.body.email);
     if (userExists) {
-      return res.status(403).json('Subscriber already exists');
+      return res.status(403).json({message:'Subscriber already exists'});
     }
-    return res.status(200).json('Does not exist');
+    return res.status(200).json({message:'Does not exist'});
 });
 
 /**

@@ -132,8 +132,7 @@ router.post('/change_password',[
       return res.status(resp.statusCode).json({message: resp.message});
     }
     const provider = resp.body;
-    const salt = bcrypt.genSaltSync(10);
-    const hashpassword = await bcrypt.hash(req.body.password, salt);
+    const hashpassword = await Utility.encryptPassword(password);
     console.log(hashpassword);
     // Update provider info in db
     const respo = await db_utils.updateUserInfoInDB('healthcareProviders', provider);

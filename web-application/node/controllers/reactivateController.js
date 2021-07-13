@@ -61,7 +61,7 @@ router.post("/patient/request",[
     const token = Utility.EncryptToken(tokeBody, 500);
     
     // Email the token
-    sendVerificationMail(req.body.email, patient.fname, token);
+    // sendVerificationMail(req.body.email, patient.fname, token);
     
     return res.status(200).json({
       "message": "Email Sent"
@@ -106,7 +106,7 @@ router.post("/healthcare/request", [
     const token = Utility.EncryptToken(tokeBody, 500);
 
     // Email the token
-    sendVerificationMailHealthcare(req.body.email,healthcareProvider.firstName,token);
+    // sendVerificationMailHealthcare(req.body.email,healthcareProvider.firstName,token);
 
     return res.status(200).json({message: "Email Sent"});
 });
@@ -450,7 +450,7 @@ const sendVerificationMailHealthcare = (email,fname,encryptedToken)=>{
           console.log(err);
       }
       transporter.close();
-      return log('Email sent!!!');
+      return console.log('Email sent!!!');
   });
 }
 

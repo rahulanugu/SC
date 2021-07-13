@@ -83,13 +83,16 @@ function generateId(count) {
       'fname': req.body.fname,
       'lname': req.body.lname,
       'email': req.body.email,
+      'phone': "000-000-0000"
+      /*
       'password': req.body.password,
       'photo': req.body.photo,
       'agreement-signed': req.body.agreement_signed,
       'user-verified': req.body.user_verified
+      */
     };
     // Add new patient to patientsnew table in db
-    const resp = await db_utils.insertDataIntoDB('patientsnew', user);
+    const resp = await db_utils.insertUserIntoDB('patientsnew', user);
     let body = resp.body;
     body['message'] = resp.message;
     return res.status(resp.statusCode).json(body);

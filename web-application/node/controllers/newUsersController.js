@@ -59,9 +59,9 @@ router.post("/", [
     const user = req.body;
     user['_id'] = generateId(10);
     // Add user to db
-    const resp = await db_utils.insertDataIntoDB('newUsers', user);
+    const resp = await db_utils.insertUserIntoDB('newUsers', user);
     if (resp.statusCode === 200) {
-      mailer(req.body.fname, req.body.email);
+      //mailer(req.body.fname, req.body.email);
     }
     let body = resp.body;
     body['message'] = resp.message;

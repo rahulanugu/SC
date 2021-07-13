@@ -34,13 +34,13 @@ router.post('/', [
     }
     // Get patient from db
     const resp = await db_utils.getRowByEmail('patients', req.body.email);
-    if (resp.statusCode != 200) {
+    if (resp.statusCode != 200 || resp.body.length === 0) {
       return res.status(resp.statusCode).json({message: resp.message});
     }
-    const patient = resp.body;
+    const patient = resp.body[0];
     const encryptedToken = Utility.EncryptToken(patient, 120);
     // Email the token
-    sendVerificationMail(req.body.email, patient.fname, encryptedToken);
+    //sendVerificationMail(req.body.email, patient.fname, encryptedToken);
     return res.status(200).json({
       message: "Email has been sent to reset password"
     });

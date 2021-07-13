@@ -95,7 +95,7 @@ describe("/To create a new patient", () => {
       })
       .send(queryPost)
       .end((err, res) => {
-        console.log('res: ', res);
+        console.log('res: ', res.body);
         assert.isNull(err);
         assert.isTrue(res.statusCode != 404);
         assert.isTrue(res.statusCode == 200);

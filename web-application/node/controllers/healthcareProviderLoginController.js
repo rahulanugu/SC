@@ -61,9 +61,9 @@ router.post('/',[
     // Provider found
     const healthcareProvider = resp.body[0];
 
-    const validpassword = await bcrypt.compare(req.body.password, healthcareProvider.password);
-    if (!validpassword) {
-      return res.status(401).json({message: "Wrong password has been entered"});
+    const passwordValidate = await Utility.passwordIsValid(req.body.password, healthcareProvider.password);
+    if (passwordValidate.statusCode != 200) {
+      return res.status(passwordValidate.statusCode).json({message: passwordValidate.message});
     }
     // Create JWT
     const tokeBody = { _id: healthcareProvider._id, fname: healthcareProvider.firstName };

@@ -19,7 +19,7 @@ chai.use(chaiHttp);
  */
 
 const hashpassword = "$2a$10$CbaAL1HGsCTi9X.6.labkuWqeqOo6bmtKSjWyUni2n1QCbJhbr6Dy";
-
+/*
 describe('/the creation of a new healthcareprovider user', () => {
   it('create a healthcare user', () => {
     let createPost = {
@@ -72,3 +72,4 @@ describe('/Create a new healthcare provider in the db', () => {
           });
       });
     });
+*/

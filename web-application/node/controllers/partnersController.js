@@ -71,8 +71,8 @@ router.post("/", [
       return res.status(resp.statusCode).json({message: resp.message});
     }
     // Send emails
-    mailer(partner.fname, partner.email);
-    mailer1(partner.fname, partner.email);
+    //mailer(partner.fname, partner.email);
+    //mailer1(partner.fname, partner.email);
     return res.status(200).json({
       message: "Your message has been saved"
     });

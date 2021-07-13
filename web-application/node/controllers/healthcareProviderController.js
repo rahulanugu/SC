@@ -39,7 +39,7 @@ router.post('/account/create',[
   check('companyName').notEmpty(),
   check('roleInCompany').notEmpty(),
   check('email').notEmpty().isEmail(),
-  check('password').exists().notEmpty(),
+  check('password').notEmpty(),
   check('phone').notEmpty(),
   check('photo').notEmpty(),
   check('ehr').notEmpty(),
@@ -50,7 +50,7 @@ router.post('/account/create',[
   async (req, res) => {
     const valErr = validationResult(req);
     if (!valErr.isEmpty()) {
-      return res.status(400).json({Message:'Bad Request'});
+      return res.status(400).json({message:'Bad Request'});
     }
 
     const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
@@ -63,9 +63,7 @@ router.post('/account/create',[
     //Check if user already exists
     const userExists = await db_utils.checkForUserInDB('healthcareproviders', req.body.email);
     if (userExists) {
-      return res.status(400).send({
-        message: 'User already exists'
-      });
+      return res.status(400).json({message: 'User already exists'});
     }
     console.log("Email does not exist")
     // User does not exist
@@ -132,11 +130,13 @@ router.post('/account/verify', [
       });
     }
     const user = decryptedToken;
+    console.log(user);
     // Encrypt the password
-    const salt = await bcrypt.genSaltSync(10);
-    const hashpassword = await bcrypt.hash(user.password, salt);
-    
-    user['password'] = hashpassword;
+    const passwordRes = await Utility.encryptPassword(user.password);
+    if (passwordRes.statusCode != 200) {
+      return res.status(passwordRes.statusCode).json({message: passwordRes.message});
+    }
+    user['password'] = passwordRes.body;
     user['_id'] = generateId(10);
     delete user['iat'];
     delete user['exp'];
