@@ -44,7 +44,7 @@ router.post('/', [
     const encryptedToken = Utility.EncryptToken({healthcareProvider}, 120);
 
     //mail the token
-    sendVerificationMail(req.body.email, healthcareProvider.firstName, encryptedToken);
+    // sendVerificationMail(req.body.email, healthcareProvider.firstName, encryptedToken);
 
     return res.status(200).json({message: "Email has been sent to reset password"});
 

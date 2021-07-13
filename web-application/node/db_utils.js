@@ -26,7 +26,7 @@ function jsonResponse(code, message, body={}) {
 function queryDB(query, data) {
   return new Promise((resolve, reject) => {
     connection.query(query, data, (err, data) => {
-      if (err) return reject(jsonResponse(500, 'DB Error'));
+      if (err) return resolve(jsonResponse(500, 'DB Error'));
       resolve(jsonResponse(200, 'Success', data));
     });
   });
@@ -69,7 +69,10 @@ async function getRowByID(table, _id) {
 
 async function checkForUserInDB(table, userEmail) {
   const response = await getRowByEmail(table, userEmail);
-  return response.statusCode === 200;
+  if (response.length === 200) {
+    return response.body.length != 0;
+  }
+  return false;
 }
 
 async function deleteUserFromDB(table, userEmail) {

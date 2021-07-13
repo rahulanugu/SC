@@ -147,6 +147,9 @@ describe("/Check if subscriber exists in db", () => {
 
     request(app)
       .post("/patient/this_is_verify")
+      .query({
+        API_KEY: "TiKY7Md2dHpcZo1ih4KbkinTHh7CNTSjseg2ZB3ZiaEC2x1bFA==",
+      })
       .send(queryPost)
       .end((err, res) => {
         assert.isNull(err);

@@ -32,7 +32,7 @@ router.post('/',[
       return res.status(401).json({message: 'Authorization failed'});
     }
 
-    const decryptedToken = Utility.DecryptToken(req.body.token);
+    const decryptedToken = Utility.DecryptToken(req.body.jwtToken);
     if (decryptedToken['error']) {
       return res.status(401).json({message: decryptedToken['error_message']});
     }

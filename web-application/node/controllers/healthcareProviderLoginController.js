@@ -14,10 +14,10 @@ const Utility = require('../utility');
  */
 
 router.post('/',[
-  check('emailAddress').notEmpty().isEmail(),
+  check('email').notEmpty().isEmail(),
   check('password').notEmpty(),
   body().custom(body => {
-    const keys = ['emailAddress', 'password'];
+    const keys = ['email', 'password'];
     return Object.keys(body).every(key => keys.includes(key));
   })],
   async (req, res) => {
@@ -41,7 +41,7 @@ router.post('/',[
     }
 
     // Get provider from DB
-    const resp = await db_utils.getRowByEmail('healthcareProviders', req.body.emailAddress);
+    const resp = await db_utils.getRowByEmail('healthcareproviders', req.body.email);
     if (resp.statusCode != 200) {
       if (resp.statusCode === 500) { // DB error
         return res.status(500).json({message: resp.message});
@@ -54,8 +54,12 @@ router.post('/',[
       // No DB matches for credentials
       return res.status(404).json({message: "Invalid Email or password"});
     }
+    console.log("HEALTHCARE PROVIDER", resp);
+    if (resp.body.length === 0) {
+      return res.status(404).json({message: "Invalid Email or password"});
+    }
     // Provider found
-    const healthcareProvider = resp.body;
+    const healthcareProvider = resp.body[0];
 
     const validpassword = await bcrypt.compare(req.body.password, healthcareProvider.password);
     if (!validpassword) {
@@ -96,7 +100,7 @@ router.post('/verifytokenintegrity',[
     if (decryptedToken['error']) {
       return res.status(401).json({message: decryptedToken['error_message']});
     }
-    return res.status(200).json({message: "User is authorized"}).end()
+    return res.status(200).json({message: "User is authorized"})
 })
 
 module.exports = router;

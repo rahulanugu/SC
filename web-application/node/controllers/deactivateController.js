@@ -3,6 +3,7 @@ const router = express.Router();
 const { check,body,validationResult } = require('express-validator');
 
 const db_utils = require('../db_utils');
+const Utility = require('../utility');
 
 //The controller handles the requests for deactivating user accounts
 

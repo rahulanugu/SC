@@ -124,9 +124,9 @@ router.post("/healthcare/request", [
  *         500 - An error occured trying to perform the request
  */
 router.post("/patient/activate", [
-  check("token").notEmpty(),
+  check("jwtToken").notEmpty(),
   body().custom(body => {
-    const keys = ['token'];
+    const keys = ['jwtToken'];
     return Object.keys(body).every(key => keys.includes(key));
   })],
   async (req, res) => {
@@ -140,7 +140,7 @@ router.post("/patient/activate", [
       return res.status(401).json({message: 'Authorization failed'});
     }
 
-    const decryptedToken = Utility.DecryptToken(req.body.token);
+    const decryptedToken = Utility.DecryptToken(req.body.jwtToken);
     if (decryptedToken['error']) {
       return res.status(401).json({message: decryptedToken['error_message']});
     }
@@ -176,9 +176,9 @@ router.post("/patient/activate", [
  *         500 - An error occured trying to perform the request
  */
 router.post("/healthcare/activate", [
-  check("token").notEmpty(),
+  check("jwtToken").notEmpty(),
   body().custom(body => {
-    const keys = ['token'];
+    const keys = ['jwtToken'];
     return Object.keys(body).every(key => keys.includes(key));
   })],
   async (req, res) => {
@@ -192,7 +192,7 @@ router.post("/healthcare/activate", [
       return res.status(401).json({message: 'Authorization failed'});
     }
 
-    const decryptedToken = Utility.DecryptToken(req.body.token);
+    const decryptedToken = Utility.DecryptToken(req.body.jwtToken);
     if (decryptedToken['error']) {
       return res.status(401).json({message: decryptedToken['error_message']});
     }

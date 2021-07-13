@@ -41,8 +41,8 @@ router.post('/account/create',[
   check('email').notEmpty().isEmail(),
   check('password').exists().notEmpty(),
   check('phone').notEmpty(),
-  check('ehr').notEmpty(),
   check('photo').notEmpty(),
+  check('ehr').notEmpty(),
   body().custom(body => {
     const keys = ['firstName', 'lastName', 'companyName', 'roleInCompany', 'email', 'ehr', 'password', 'phone', 'photo'];
     return Object.keys(body).every(key => keys.includes(key));
@@ -78,7 +78,9 @@ router.post('/account/create',[
       'email': req.body.email,
     };
     // Save the token for reference purposes - optional
-    const resp = await db_utils.insertDataIntoDB('tokenSchema', data);
+    const resp = await db_utils.insertUserIntoDB('tokenSchema', data);
+    return res.status(resp.statusCode).json({message: resp.message});
+    /*
     if (resp.statusCode != 200) {
       return res.status(resp.statusCode).json({message: resp.message});
     }
@@ -91,6 +93,7 @@ router.post('/account/create',[
       console.log("Verification mail with jwt token is sent");
       return res.status(200).send({message: "Verification mail with jwt token is sent"});
     });
+    */
 });
 
 /**
@@ -117,7 +120,7 @@ router.post('/account/verify', [
       return res.status(401).json({message: 'Authorization failed'});
     }
 
-    const decryptedToken = Utility.DecryptToken(req.body.token);
+    const decryptedToken = Utility.DecryptToken(req.body.jwtToken);
     if (decryptedToken['error']) {
       return res.status(401).json({message: decryptedToken['error_message']});
     }
@@ -135,9 +138,12 @@ router.post('/account/verify', [
     
     user['password'] = hashpassword;
     user['_id'] = generateId(10);
-    
-    // Add user token object to tokenSchema table in db
-    const resp = await db_utils.insertDataIntoDB('tokenSchema', user);
+    delete user['iat'];
+    delete user['exp'];
+    console.log("USER", user);
+    // Add user user object to healthcareproviders table in db
+    const resp = await db_utils.insertUserIntoDB('healthcareproviders', user);
+    console.log("RESP", resp);
     let body = resp.body;
     body['message'] = resp.message;
     return res.status(resp.statusCode).json(body);

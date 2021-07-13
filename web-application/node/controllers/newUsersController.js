@@ -5,6 +5,7 @@ const nodemailer = require("nodemailer");
 
 const mailer_oauth = require('../mailer_oauth');
 const db_utils = require('../db_utils');
+const Utility = require('../utility');
 //const {BigQuery} = require('@google-cloud/bigquery');
 //const bigquery = new BigQuery();
 

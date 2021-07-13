@@ -9,9 +9,9 @@ const express = require('express');
 const { check,body,validationResult } = require('express-validator');
 const router = express.Router();
 
-var Utility = require('../utility');
 const mailer_oauth = require('../mailer_oauth');
 const db_utils = require('../db_utils');
+var Utility = require('../utility');
 
 // get list of all patients
 /**

@@ -4,6 +4,7 @@ const chaiHttp = require("chai-http");
 const request = require('supertest');
 
 const app = require('../index');
+const Utility = require('../utility');
 chai.use(chaiHttp);
 
 /*
@@ -49,8 +50,13 @@ describe('/request reactivation of a patient account', () => {
         });
   describe('/move a patient object from DeactivatedPatient', () => {
     it('insert patient object', () => {
+      const testData = {
+        'emailAddress':'shahvidit39@gmail.com',
+        'password':"$2a$10$AJRFiZGSv/DuphwOTjcnue3Y0Ztq4Kph4lOL335pbhucB1auxcQby"
+      }
+      const testToken = Utility.EncryptToken(testData);
       let queryPost = {
-        "token":"xeKw6fIjwH7nJPph"
+        "jwtToken": testToken
       }
       request(app)
       .post('/backend/reactivate/patient/activate')
@@ -65,8 +71,13 @@ describe('/request reactivation of a patient account', () => {
     });
 describe('/move a healthcare provider object from DeactivatedHealthcareProvider database to HealthcareProvider database', () => {
       it('Insert healthcare object', () => {
+        const testData = {
+          'emailAddress':'shahvidit39@gmail.com',
+          'password':"$2a$10$AJRFiZGSv/DuphwOTjcnue3Y0Ztq4Kph4lOL335pbhucB1auxcQby"
+        }
+        const testToken = Utility.EncryptToken(testData);
         let queryPost = {
-          "token":"xeKw6fIjwH7nJPph"
+          "jwtToken": testToken
         }
         request(app)
         .post('/backend/reactivate/healthcare/activate')

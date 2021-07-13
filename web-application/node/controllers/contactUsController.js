@@ -3,6 +3,8 @@ const router = express.Router();
 const { check,body, validationResult } = require('express-validator');
 
 const db_utils = require('../db_utils');
+const Utility = require('../utility');
+
 /**
  * Method to save the customer query to the database
  * Input: Details of ContactUser as specified in schema
@@ -22,12 +24,12 @@ function generateId(count) {
 }
 
 router.post("/", [
-  check('FirstName').notEmpty().isAlpha(),
-  check('LastName').notEmpty().isAlpha(),
-  check('Email').isEmail(),
-  check('Message').notEmpty(),
+  check('fname').notEmpty().isAlpha(),
+  check('lname').notEmpty().isAlpha(),
+  check('email').isEmail(),
+  check('message').notEmpty(),
   body().custom(body => {
-    const keys = ['FirstName','LastName','Email','Message'];
+    const keys = ['fname','lname','email','message'];
     return Object.keys(body).every(key => keys.includes(key));
   })],
   async (req, res) => {
@@ -44,7 +46,8 @@ router.post("/", [
     const user = req.body;
     user['_id'] = generateId(10);
     // Add user object into contactUsers table
-    const resp = db_utils.insertUserIntoDB('contactUsers', user);
+    const resp = await db_utils.insertUserIntoDB('contactUsers', user);
+    console.log("TESTER", resp.statusCode, resp.message);
     let body = resp.body;
     body['message'] = resp.message;
     return res.status(resp.statusCode).json(body);

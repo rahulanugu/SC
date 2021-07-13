@@ -1,13 +1,19 @@
 const chai = require("chai");
 const chaiHttp = require("chai-http");
 const app = require('../index');
+const Utility = require('../utility');
 const request = require('supertest');
 chai.use(chaiHttp);
 
 describe('/verfies the jwttoken', () => {
   it('check the tokens', () => {
-    let queryPost = {
-      "jwtToken":"rXHqKySTNjtZrXcb"
+      const testData = {
+        'emailAddress':'shahvidit39@gmail.com',
+        'password':"$2a$10$AJRFiZGSv/DuphwOTjcnue3Y0Ztq4Kph4lOL335pbhucB1auxcQby"
+      }
+      const testToken = Utility.EncryptToken(testData);
+      let queryPost = {
+        "jwtToken": testToken
       }
       request(app)
           .post('/verified')

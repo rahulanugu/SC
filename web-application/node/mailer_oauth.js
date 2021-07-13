@@ -18,7 +18,8 @@ const OAuth2 = google.auth.OAuth2;
       "ya29.GluBB_c8WGD6HI2wTAiAKnPeLap6FdqDdQYhplWyAPjw_ZBSNUNEMOfmsrVSDoHTAZWc8cjKHXXEEY_oMVJUq4YaoSD1LLseWzPNt2hcY2lCdhXAeuCxvDPbl6QP"
   });
   
-  return client;
+  return {getAccessToken: () => {return 'abc'}}
+  // return client;
 }
 
 module.exports.getClient = getClient;
