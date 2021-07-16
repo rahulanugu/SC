@@ -63,7 +63,6 @@ import { LandingWhoWeAreComponent } from "./landing-who-we-are/landing-who-we-ar
 import { LandingCapabilityStatementComponent } from "./landing-capability-statement/landing-capability-statement.component";
 import { LandingCareersComponent } from "./landing-careers/landing-careers.component";
 import { LandingFaq1Component } from "./landing-faq1/landing-faq1.component";
-import { LandingFaq2Component } from "./landing-faq2/landing-faq2.component";
 import { BlogComponent } from "./blog/blog.component";
 import { BecomeapartnerComponent } from "./becomeapartner/becomeapartner.component";
 import { ThankyoupartnerComponent } from "./thankyoupartner/thankyoupartner.component";
@@ -84,6 +83,7 @@ import { CaregiverProfileComponent } from "./caregiver-profile/caregiver-profile
 import { MedicationDetailsComponent } from "./medication-details/medication-details.component";
 import { ProcedureDetailsComponent } from "./procedure-details/procedure-details.component";
 import { JobOpeningsComponent } from "./job-openings/job-openings.component";
+import { BlogPostComponent } from "./blog-post/blog-post.component";
 const routes: Routes = [
   /* pages for the app */
   {
@@ -251,12 +251,12 @@ const routes: Routes = [
     component: LandingFaq1Component,
   },
   {
-    path: "contactus",
-    component: LandingFaq2Component,
-  },
-  {
     path: "blog",
     component: BlogComponent,
+  },
+  {
+    path: "blog-post",
+    component: BlogPostComponent
   },
   {
     path: "becomeapartner",

@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Tinos&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+
+.raHeader {
+    font-family: 'Tinos', serif;
+    font-size: 36px;
+    color: #2d5059;
+}
+
+.raDesc {
+    font-family: 'Lato', sans-serif;
+    font-size: 14;
+    color: #9E9E9E;
+}
+
+.raBox {
+    background-color: #B2D8D8;
+    align-self: center;
+    border-radius: 3px;
+    margin: auto;
+}
+
+.submitBtn {
+    background-color: #4DB6AC;
+}
+
+@media only screen and (min-width: 1680.5px) {
+    .raHeader {
+        font-family: 'Tinos', serif;
+        font-size: 70px;
+        color: #2d5059;
+        margin-top: 100px;
+    }
+    
+    .raDesc {
+        font-family: 'Lato', sans-serif;
+        font-size: 30px;
+        color: #9E9E9E;
+    }
+}
