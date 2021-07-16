@@ -1,11 +1,10 @@
 const express = require("express");
-const { check,body, validationResult } = require('express-validator');
 const router = express.Router();
-//comment options in prod mode
-var aes256 = require('aes256');
-const API_KEY = process.env.API_KEY;
-const key = process.env.KEY;
-const connection = require('../db_connection');
+const { check,body, validationResult } = require('express-validator');
+
+const db_utils = require('../db_utils');
+const Utility = require('../utility');
+
 /**
  * Method to save the customer query to the database
  * Input: Details of ContactUser as specified in schema
@@ -24,42 +23,34 @@ function generateId(count) {
   return str;
 }
 
-router.post("/",[check('FirstName').notEmpty().isAlpha(),check('LastName').notEmpty().isAlpha(),check('Email').isEmail(),check('Message').notEmpty(),body().custom(body => {
-  const keys = ['FirstName','LastName','Email','Message'];
-  return Object.keys(body).every(key => keys.includes(key));
-})],async(req, res) => {
-  const err = validationResult(req);
-  if(!err.isEmpty()){
-    return res.status(400).json({Message:'Bad Request'})
-  }
-  var decrypted = aes256.decrypt(key, req.query.API_KEY);
-  console.log(decrypted);
-  if(decrypted!=API_KEY){
-    return res.status(401).json({Message:'Unauthorized'});
-  }
-  //console.log("hello");
-  req.body['_id'] = generateId(10);
-  var query= "INSERT INTO `contactUsers` VALUES ("
-  var val = [];
-  for(var myKey in req.body) {
-    query+="?,";
-    val.push(req.body[myKey]);
-  }
-  query = query.slice(0,-1);
-  query += ")";
-  console.log(query);
-  connection.query(query,val, function(err, row) {
-    if(!err) {
-        console.log("In contactUsController[root, POST]: Inserted successfully");;
-        res.status(200).json({
-          message: "Your message has been saved"
-        });
-    }else{
-      console.log(err);
-      res.status(500).json({
-        message: "An error has occured trying to process your request"
-      })
+router.post("/", [
+  check('fname').notEmpty().isAlpha(),
+  check('lname').notEmpty().isAlpha(),
+  check('email').isEmail(),
+  check('message').notEmpty(),
+  body().custom(body => {
+    const keys = ['fname','lname','email','message'];
+    return Object.keys(body).every(key => keys.includes(key));
+  })],
+  async (req, res) => {
+    const valErr = validationResult(req);
+    if( !valErr.isEmpty()) {
+      return res.status(400).json({Message:'Bad Request'})
     }
-  });
+
+    const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
+    if (!keyIsValid) {
+      return res.status(401).json({message: 'Authorization failed'});
+    }
+    
+    const user = req.body;
+    user['_id'] = generateId(10);
+    // Add user object into contactUsers table
+    const resp = await db_utils.insertUserIntoDB('contactUsers', user);
+    console.log("TESTER", resp.statusCode, resp.message);
+    let body = resp.body;
+    body['message'] = resp.message;
+    return res.status(resp.statusCode).json(body);
 });
+
 module.exports = router;

@@ -1,18 +1,14 @@
 const express = require('express');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const { check,body,validationResult } = require('express-validator');
-const nodemailer = require("nodemailer");
-const { google } = require("googleapis");
-const OAuth2 = google.auth.OAuth2;
-var jwtDecode = require('jwt-decode');
-var Utility = require('../utility');
 var router = express.Router();
-var aes256 = require('aes256');
-const API_KEY = process.env.API_KEY;
-const key = process.env.KEY;
-const connection = require('../db_connection');
+const { check,body,validationResult } = require('express-validator');
+const bcrypt = require('bcryptjs');
+const nodemailer = require("nodemailer");
+const mailer_oauth = require('../mailer_oauth');
 
+var Utility = require('../utility');
+const db_utils = require('../db_utils');
+
+const API_KEY = process.env.API_KEY;
 
 //The controller is used for generating a JWT token to initiate a password reset request for healthcareProvider portal
 /**
@@ -22,190 +18,130 @@ const connection = require('../db_connection');
  * Output: 401 - Email not found (or) 200 - Email has been sent
  */
 
-router.post('/', [check('email').notEmpty().isEmail(),body().custom(body => {
-  const keys = ["email"];
-  return Object.keys(body).every(key => keys.includes(key));
-})],async(req, res) => {
-  const err = validationResult(req);
-  if(!err.isEmpty()){
-    return res.status(400).json({Message:'Bad Request'})
-  }
-  var decrypted = aes256.decrypt(key, req.query.API_KEY);
-  console.log(decrypted);
-  if(decrypted!=API_KEY){
-    return res.status(401).json({Message:'Unauthorized'});
-  }
-  console.log("request is recieved and being processed")
-  var ip = req.connection.remoteAddress;
-  console.log(ip+" "+req.body.email);
-    if(!req.body.email || (req.body.email === " "))
-      return res.status(401).json({message: "Email is not provided"});
-    //const healthcareProvider = await HealthcareProvider.findOne({ email: req.body.email });
+router.post('/', [
+  check('email').notEmpty().isEmail(),
+  body().custom(body => {
+    const keys = ["email"];
+    return Object.keys(body).every(key => keys.includes(key));
+  })],
+  async(req, res) => {
+    const valErr = validationResult(req);
+    if (!valErr.isEmpty()) {
+      return res.status(400).json({message: 'Bad Request'})
+    }
+    const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
+    if (!keyIsValid) {
+      return res.status(401).json({message: 'Unauthorized'});
+    }
+    console.log("request is recieved and being processed");
+    
+    // Get healthcare provider from db
+    const resp = await db_utils.getRowByEmail('healthcareProviders', req.body.email);
+    if (resp.statusCode != 200) {
+      return res.status(resp.statusCode).json({message: resp.message});
+    }
+    const healthcareProvider = resp.body;
+    const encryptedToken = Utility.EncryptToken({healthcareProvider}, 120);
 
-    const query = 'SELECT * FROM `healthcareProviders` WHERE email=?';
-    // req.body.emailAddress+'"';
-    connection.query(query,[req.body.email], async function(err, rows) {
-      if(!err) {
-        if(rows.length==0){
-          return res.status(401).json({
-            message:"Invalid Email"
-          });
-        }
-        else{
-          const healthcareProvider = rows[0];
-          const token = await jwt.sign({healthcareProvider}, "santosh", { expiresIn: 120 });
-          const encryptedToken = Utility.EncryptToken(token);
-          //mail the token
-          sendVerificationMail(req.body.email,healthcareProvider.firstName,encryptedToken);
+    //mail the token
+    // sendVerificationMail(req.body.email, healthcareProvider.firstName, encryptedToken);
 
-          res.status(200).json({
-              message: "Email has been sent to reset password"
-          });
-        }
-      }else{
-        console.log(err);
-      }
-    });
+    return res.status(200).json({message: "Email has been sent to reset password"});
+
+      //create a new JWT token and send it to the email of the user
+
+      // //check for password
+      // const validpassword = await bcrypt.compare(req.body.password, patient.password);
+
+      // if(!validpassword) return res.status(401).json({
+
+      //   message:"Invalid username or password"
+      // });
 
 
-    //create a new JWT token and send it to the email of the user
-
-
-
-    // //check for password
-    // const validpassword = await bcrypt.compare(req.body.password, patient.password);
-
-    // if(!validpassword) return res.status(401).json({
-
-    //   message:"Invalid username or password"
-    // });
-
-
-    // create JSON Web Token
-    // *******make sure to change secret word to something secure and put it in env variable*****
-
+      // create JSON Web Token
+      // *******make sure to change secret word to something secure and put it in env variable*****
 });
 
 /**
  * Verify the jwt token and return the if valid or not
  */
-router.post('/check', [check("token").notEmpty(),body().custom(body => {
-  const keys = ['token'];
-  return Object.keys(body).every(key => keys.includes(key));
-})],async(req,res)=>{
-  const errors = validationResult(req);
-  if(!errors.isEmpty()){
-    return res.status(400).json({Message:'Bad Request'})
-  }
-
-
-  // The token we get here is encrypted, so we need to decode it
-  // will recieve an encrypted jwt token
-  console.log("checking the validity of tthe password in check")
-  var encryptedToken = req.body.token.replace(/ /g, '+');
-  console.log(encryptedToken)
-
-  jwt.verify(Utility.DecryptToken(encryptedToken), 'santosh', (err, verifiedJwt) => {
-    if(err){
-      res.status(500).send(err.message)
-    }else{
-      res.status(200).json({
-        message: "jwt is verified"
-      })
+router.post('/check', [
+  check("token").notEmpty(),
+  body().custom(body => { 
+    const keys = ['token'];
+    return Object.keys(body).every(key => keys.includes(key));
+  })],
+  async(req, res) => {
+    const valErr = validationResult(req);
+    if (!valErr.isEmpty()) {
+      return res.status(400).json({message: 'Bad Request'})
     }
-  })
 
+    const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
+    if (!keyIsValid) {
+      return res.status(401).json({message: 'Authorization failed'});
+    }
 
+    const decryptedToken = Utility.DecryptToken(req.body.token);
+    if (decryptedToken['error']) {
+      return res.status(401).json({message: decryptedToken['error_message']});
+    }
+    return res.status(200).json({
+      message: "JWT is verified"
+    });
 });
 
-router.post('/change_password',[check("token").notEmpty(),check("password").notEmpty(),body().custom(body => {
-  const keys = ['token','password'];
-  return Object.keys(body).every(key => keys.includes(key));
-})], async(req,res) => {
-  const e = validationResult(req);
-  if(!e.isEmpty()){
-    return res.status(400).json({Message:'Bad Request'});
-  }
-  var decrypted = aes256.decrypt(key, req.query.API_KEY);
-  console.log(decrypted);
-   if(decrypted!=API_KEY){
-     return res.status(401).json({Message:'Unauthorized'});
-   }
-  console.log("Reached change password for healthcare provider")
-  const str = req.body;
-
-  // The token we get here is encrypted, so we need to decode it
-  // will recieve an encrypted jwt token
-   var correctedToken = req.body.token.replace(/ /g, '+');
-   const decryptedToken = Utility.DecryptToken(correctedToken);
-
-   //console.log("corrected token \n"+correctedToken)
-  //verify jwt token
-  jwt.verify(decryptedToken, 'santosh', (err, verifiedJwt) => {
-    if(err){
-      console.log("Couldn't verify the token")
-      console.log(err)
-      res.status(500).send(err.message)
-    }else{
-      //jwt is verified, decode it for email
-
-      //jwt is encrypted when reached here, need to decrypt it before using
-      //decode jwtt payload it for email
-      console.log("test"+ decryptedToken);
-      var decodedValue = jwtDecode(decryptedToken);
-      console.log(decodedValue);
-
-      console.log("Decrypted ttoken being modified");
-      console.log('test'+decodedValue.healthcareProvider);
-      //.tokebody of decodedvalue will contain the value of json object
-        //find the email and update the object
-      const query = 'SELECT * FROM `healthcareProviders` WHERE email=?';
-          // decodedValue.healthcareProvider.email+'"';
-          connection.query(query,[decodedValue.healthcareProvider.email], async function(err, rows) {
-            if(!err) {
-              if(!rows){
-                res.status(404).send({message:"email not found"});
-              }else{
-                const doc = rows[0];
-                const salt = bcrypt.genSaltSync(10);
-                const hashpassword = await bcrypt.hash(req.body.password, salt);
-                console.log(hashpassword);
-                const query1 = 'DELETE FROM `healthcareProviders` WHERE _id=?';
-                // doc._id+'"';
-                connection.query(query1,[doc._id], function(err, row1) {
-                  doc['password'] = hashpassword;
-
-                  var query1= "INSERT INTO `healthcareProviders` VALUES ("
-                  var val = [];
-                  for(var myKey in doc) {
-                    query1+="@"+myKey+",";
-                    val.push(doc[myKey]);
-                  }
-                  query1 = query1.slice(0,query1.length-1);
-                  query1 += ")";
-                  console.log(query1);
-                  connection.query(query1,val, function(err, row) {
-                    if(!err) {
-                      console.log("Here")
-                      res.status(200).send({message:"Record has been updated"});
-                    }else{
-                      res.status(500).send({message:"Could not update the record"});
-                     }
-                  });
-                });
-              }
-            }
-          });
+/**
+ * Change user password in db, verifying JWT first
+ * Input: JWT, new password
+ * Output: 200 - Password successfully updated
+ *         400 - Bad request
+ *         401 - Authorization failed
+ *         500 - DB error
+ */
+router.post('/change_password',[
+  check("token").notEmpty(),
+  check("password").notEmpty(),
+  body().custom(body => {
+    const keys = ['token','password'];
+    return Object.keys(body).every(key => keys.includes(key));
+  })], 
+  async (req, res) => {
+    const valErr = validationResult(req);
+    if (!valErr.isEmpty()) {
+      return res.status(400).json({message: 'Bad Request'});
     }
-  })
+    const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
+    if (!keyIsValid) {
+      return res.status(401).json({message: 'Authorization failed'});
+    }
+
+    const decryptedToken = Utility.DecryptToken(req.body.token);
+    if (decryptedToken['error']) {
+      return res.status(401).json({message: decryptedToken['error_message']});
+    }
+    console.log("Reached change password for healthcare provider")
+
+    // JWT is verified
+    // decryptedToken will contain the provider json object
+    
+    // Get healthcare provider from db
+    const resp = await db_utils.getRowByEmail('healthcareProviders', decryptedToken.email);
+    if (resp.statusCode != 200) {
+      return res.status(resp.statusCode).json({message: resp.message});
+    }
+    const provider = resp.body;
+    const hashpassword = await Utility.encryptPassword(password);
+    console.log(hashpassword);
+    // Update provider info in db
+    const respo = await db_utils.updateUserInfoInDB('healthcareProviders', provider);
+    let body = respo.body;
+    body['message'] = respo.message;
+    return res.status(respo.statusCode).json(body);
 });
 
-const oauth2Client = new OAuth2(
-    "Y16828344230-21i76oqle90ehsrsrpptnb8ek2vqfjfp.apps.googleusercontent.com",
-    "ZYdS8bspVNCyBrSnxkMxzF2d",
-    "https://developers.google.com/oauthplayground"
-);
-
+const oauth2Client = mailer_oauth.getClient();
 const accessToken = oauth2Client.getAccessToken();
 
 const sendVerificationMail = (email,fname,encryptedToken)=>{
@@ -217,9 +153,9 @@ const sendVerificationMail = (email,fname,encryptedToken)=>{
             type: "OAuth2",
             user: "moh@scriptchain.co",
             clientId: "903951478096-uctvse753g68mcaqi4js4sjsop0er655.apps.googleusercontent.com",
-            clientSecret: "hV7VOphz0TaymfhnqdHl2YV7"
-            //refreshToken: "1//04OyV2qLPD5iYCgYIARAAGAQSNwF-L9IrfYyKF4kF_HhkGaFjxxnxdgxU6tDbQ1l-BLlOIPtXtCDOSj9IkwiWekXwLCNWn9ruUiE",
-            //accessToken: accessToken
+            clientSecret: "hV7VOphz0TaymfhnqdHl2YV7",
+            refreshToken: "1//04OyV2qLPD5iYCgYIARAAGAQSNwF-L9IrfYyKF4kF_HhkGaFjxxnxdgxU6tDbQ1l-BLlOIPtXtCDOSj9IkwiWekXwLCNWn9ruUiE",
+            accessToken: accessToken
        }
     });
 

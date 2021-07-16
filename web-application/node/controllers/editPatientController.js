@@ -1,22 +1,15 @@
-const nodemailer = require("nodemailer");
 const express = require("express");
-const { check,body, validationResult } = require('express-validator');
 const router = express.Router();
-const { google } = require("googleapis");
-const OAuth2 = google.auth.OAuth2;
-const log = console.log;
-const bcrypt = require('bcryptjs');
-var aes256 = require('aes256');
+const { check,body, validationResult } = require('express-validator');
+const nodemailer = require("nodemailer");
+
+const mailer_oauth = require('../mailer_oauth');
+const db_utils = require('../db_utils');
+
 const API_KEY = process.env.API_KEY;
-const key = process.env.KEY;
-const connection = require('../db_connection');
 
-const oauth2Client = new OAuth2(
-  "Y16828344230-21i76oqle90ehsrsrpptnb8ek2vqfjfp.apps.googleusercontent.com",
-  "ZYdS8bspVNCyBrSnxkMxzF2d",
-  "https://developers.google.com/oauthplayground"
-);
 
+const oauth2Client = mailer_oauth.getClient();
 const accessToken = oauth2Client.getAccessToken();
 
 const sendVerificationMail = (email, fname) => {
@@ -126,7 +119,7 @@ const sendVerificationMail = (email, fname) => {
       console.log(err);
     }
     transporter.close();
-    return log('Email sent!!!');
+    return console.log('Email sent!!!');
   });
 }
 module.exports = router;

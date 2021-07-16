@@ -19,7 +19,7 @@ var contactUsController = require("./controllers/contactUsController");
 var careersController = require("./controllers/careersController");
 var resetPasswordController = require("./controllers/resetPasswordController");
 var healthcareProviderController = require("./controllers/healthcareProviderController");
-var healthcareProvideLoginController = require("./controllers/healthcareProviderLoginController");
+var healthcareProviderLoginController = require("./controllers/healthcareProviderLoginController");
 var healthcareProviderResetPasswordController = require("./controllers/healthcareProviderResetPasswordController");
 var deactivateController = require("./controllers/deactivateController");
 var reactivateController = require("./controllers/reactivateController");
@@ -129,7 +129,7 @@ app.use("/contact_us", contactUsController);
 app.use("/careers", careersController);
 app.use("/reset_password", resetPasswordController);
 app.use("/backend/healthcare",healthcareProviderController);
-app.use("/backend/healthcare-login",healthcareProvideLoginController);
+app.use("/backend/healthcare-login",healthcareProviderLoginController);
 app.use("/backend/healthcare/reset_password", healthcareProviderResetPasswordController);
 app.use("/backend/deactivate", deactivateController )
 app.use("/backend/reactivate", reactivateController )

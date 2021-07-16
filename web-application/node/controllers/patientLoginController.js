@@ -1,8 +1,10 @@
 const express = require('express');
-const { check,body,validationResult } = require('express-validator');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 var router = express.Router();
+const { check, body, validationResult } = require('express-validator');
+const bcrypt = require('bcryptjs');
+
+const Utility = require('../utility');
+const db_utils = require('../db_utils');
 //const {BigQuery} = require('@google-cloud/bigquery');
 /*const options = {
   keyFilename: 'serviceAccountKeys/scriptchain-259015-689b82dcb0fe.json',
@@ -11,104 +13,100 @@ var router = express.Router();
 };
 const bigquery = new BigQuery(options);*/
 //const bigquery = new BigQuery();
-var aes256 = require('aes256');
-const API_KEY = process.env.API_KEY;
-const key = process.env.KEY;
-const connection = require('../db_connection');
+
 //http request for patient login http://localhost:3000/patient-login/
 /**
  * This method validates the user/patient to log in to the portal.
  * Input: Body, will contain email and the password of the user
- * Output: 401 - Invalid password or email
- *         200 - Jwt Token and first name
+ * Output: 200 - Jwt Token and first name
+ *         303 - Account deactivated
+ *         400 - Bad request
+ *         401 - Authorization failed; invalid password, email, API key, or JWT
+ *         500 - DB error
  */
 
-router.post('/',[check('email').notEmpty().isEmail(),check('password').notEmpty(),body().custom(body => {
-  const keys = ['email','password'];
-  return Object.keys(body).every(key => keys.includes(key));
-})],async (req, res) => {
-  console.log(req.query);
-  const errors = validationResult(req);
-  if(!errors.isEmpty()){
-    return res.status(400).json({Message:'Bad Request'})
-  }
-  var decrypted = aes256.decrypt(key, req.query.API_KEY);
-  console.log(decrypted);
-  if(decrypted!=API_KEY){
-    return res.status(401).json({Message:'Unauthorized'});
-  }
-    //const patient = await Patient.findOne({Email: req.body.email});
-    //if the patient is not found, try finding it in the deactivated patients collection
-    var ip = req.connection.remoteAddress;
-    console.log(ip+" "+req.body.email);
+router.post('/',[
+  check('email').notEmpty().isEmail(),
+  check('password').notEmpty(),
+  body().custom(body => {
+    const keys = ['email','password'];
+    return Object.keys(body).every(key => keys.includes(key));
+  })],
+  async (req, res) => {
+    console.log(req.query);
+    const valErr = validationResult(req);
+    if (!valErr.isEmpty()) {
+      return res.status(400).json({message:'Bad Request'})
+    }
 
-    const query1 = 'SELECT * FROM `patients` WHERE Email=?';
-    connection.query(query1,[req.body.email], async function(err, patient) {
-      if (!err) {
-        if (patient.length==0){
-          const query2 = 'SELECT * FROM `deactivatedPatients` WHERE Email=?';
-          connection.query(query2,[req.body.email], function(err1, deactivatedPatient) {
-            if (!err1) {
-              if (!deactivatedPatient){
-                return res.status(404).json({
-                  message:"Invalid Email or password"
-                });
-              }else{
-                return res.status(303).json({
-                  message: "The email being handled has been deactivated"
-                });
-              }
-            }
-          });
-        }else{
-          const validpassword = await bcrypt.compare(req.body.password, patient[0].password);
+    const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
+    if (!keyIsValid) {
+      return res.status(401).json({message: 'Authorization failed'});
+    }
 
-          if(!validpassword) return res.status(401).json({
-
-            message:"Invalid username or password"
-          });
-
-          console.log('logged in');
-
-          //form json tokens
-          const token = jwt.sign({_id:patient[0]._id,fname:patient[0].fname}, 'abc');
-
-
-          res.status(200).json({
-              idToken: token,
-              fname:patient[0].fname,
-              email:patient[0].Email
-            });
-        }
-      }else{
-        console.log(err);
+    // Get patient from db
+    const resp = await db_utils.getRowByEmail('patients', req.body.email);
+    if (resp.statusCode != 200) {
+      // Check for patient in deactivatedPatients table in db
+      const userWasActive = await db_utils.checkForUserInDB('deactivatedPatients', req.body.email);
+      if (userWasActive) {
+        return res.status(303).json({message: "The email being handled has been deactivated"});
       }
+      return res.status(404).json({message:"Invalid username or password"});
+    }
+    const patient = resp.body;
+
+    const validpassword = await bcrypt.compare(req.body.password, patient.password);
+    if (!validpassword) {
+      return res.status(404).json({
+        message:"Invalid username or password"
+      });
+    }
+    console.log('logged in');
+    
+    // Get JWT using id, name, email
+    const tokeBody = {_id: patient._id, fname: patient.fname, email: patient.email};
+    const token = Utility.EncryptToken(tokeBody);
+
+    return res.status(200).json({
+      idToken: token,
+      fname: patient.fname,
+      email: patient.email
     });
 });
 
-router.post('/verifytokenintegrity',[check("jwtToken").notEmpty(),body().custom(body => {
-   console.log("Begin verifying token integrity")
-  const keys = ['jwtToken'];
-  return Object.keys(body).every(key => keys.includes(key));
-})],async(req,res)=>{
-  const errors = validationResult(req);
-  if(!errors.isEmpty()){
-    return res.status(400).json({Message:'Bad Request'})
-  }
-
-
+/**
+ * Verify JWT
+ * Input: Body - JWT token
+ * Output: 200 - Verification successful
+ *         400 - Bad request
+ *         401 - Authorization failed; invalid password, email, API key, or JWT
+ *         500 - DB error
+ */
+router.post('/verifytokenintegrity',[
+  check("jwtToken").notEmpty(),
+  body().custom(body => {
+    console.log("Begin verifying token integrity")
+    const keys = ['jwtToken'];
+    return Object.keys(body).every(key => keys.includes(key));
+  })], 
+  async (req, res) => {
+    const valErr = validationResult(req);
+    if (!valErr.isEmpty()) {
+      return res.status(400).json({Message:'Bad Request'})
+    }
     console.log("Verifying the integrity of the jwt token")
-    console.log(req.body.jwtToken);
-    try {
-        payload = jwt.verify(req.body.jwtToken, "abc")
-        return res.status(200).json({message: "User is authorized"}).end()
-      } catch (e) {
-          console.log("an error has occured")
-        if (e instanceof jwt.JsonWebTokenError) {
-          return res.status(401).json({message: "Unauthorized user"}).end()
-        }
-        return res.status(400).json({message: "Bad request"}).end()
-      }
+    
+    const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
+    if (!keyIsValid) {
+      return res.status(401).json({message: 'Authorization failed'});
+    }
+
+    const decryptedToken = Utility.DecryptToken(req.body.token);
+    if (decryptedToken['error']) {
+      return res.status(401).json({message: decryptedToken['error_message']});
+    }
+    return res.status(200).json({message: "User is authorized"});
 })
 
 
