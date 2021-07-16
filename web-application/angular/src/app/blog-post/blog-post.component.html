@@ -1,3 +1,4 @@
+<!-- Author: Vidit S Shah -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,89 +8,101 @@
     <title>Document</title>
 </head>
 <body>
-    <div fxLayout='column'>
-        <div>
-            <app-landing-page-header></app-landing-page-header>
-        </div>
+  <app-landing-page-header></app-landing-page-header>
+    <div fxLayout="column">
         <div fxFlexFill>
             <div
               class="py-5 text-center"
               style="
                 background-image: url(./assets/blog-header-bkgrd.jpg);
-                color: white;
                 height: 263px;
               "
             >
-              <h1 class="jobTitle my-5">
-                Blog Title
-              </h1>
+              <p class="postTitle my-5">
+                Blog Post Article Title
+              </p>
             </div>
         </div>
-        <div class="container text-justify mt-5" fxLayout.gt-xs="column" fxLayout.gt-lg="row" fxLayoutAlign.gt-xs="space-between center" fxLayoutAlign.gt-lg="start center">
-            <h4 class="blogInfo">> written by Moh Noori</h4>
-            <h4 class="blogInfo">> posted on mm/dd/yyyy</h4>
-        </div>
-        <div class='row text-justify container mb-5' fxLayoutAlign="start center">
-            <p class="text-wrap ml-5 mt-5 mr-5">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Totam dignissimos corporis facere ab, voluptate quia! Cumque, hic explicabo ipsam ipsa vel perspiciatis recusandae sed quod magni quidem.
-                Impedit, tempore alias. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Totam dignissimos corporis facere ab, voluptate quia! Cumque, hic explicabo ipsam ipsa vel perspiciatis recusandae sed quod magni quidem.
-                Impedit, tempore alias. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Totam dignissimos corporis facere ab, voluptate quia! Cumque, hic explicabo ipsam ipsa vel perspiciatis recusandae sed quod magni quidem.
-                Impedit, tempore alias. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Totam dignissimos corporis facere ab, voluptate quia! Cumque, hic explicabo ipsam ipsa vel perspiciatis recusandae sed quod magni quidem.
-                Impedit, tempore alias. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Totam dignissimos corporis facere ab, voluptate quia! Cumque, hic explicabo ipsam ipsa vel perspiciatis recusandae sed quod magni quidem.
-                Impedit, tempore alias. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Totam dignissimos corporis facere ab, voluptate quia! Cumque, hic explicabo ipsam ipsa vel perspiciatis recusandae sed quod magni quidem.
-                Impedit, tempore alias. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Totam dignissimos corporis facere ab, voluptate quia! Cumque, hic explicabo ipsam ipsa vel perspiciatis recusandae sed quod magni quidem.
-                Impedit, tempore alias. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Totam dignissimos corporis facere ab, voluptate quia! Cumque, hic explicabo ipsam ipsa vel perspiciatis recusandae sed quod magni quidem.
-                Impedit, tempore alias.Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Totam dignissimos corporis facere ab, voluptate quia! Cumque, hic explicabo ipsam ipsa vel perspiciatis recusandae sed quod magni quidem.
-                Impedit, tempore alias. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Totam dignissimos corporis facere ab, voluptate quia! Cumque, hic explicabo ipsam ipsa vel perspiciatis recusandae sed quod magni quidem.
-                Impedit, tempore alias. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Totam dignissimos corporis facere ab, voluptate quia! Cumque, hic explicabo ipsam ipsa vel perspiciatis recusandae sed quod magni quidem.
-                Impedit, tempore alias. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Totam dignissimos corporis facere ab, voluptate quia! Cumque, hic explicabo ipsam ipsa vel perspiciatis recusandae sed quod magni quidem.
-                Impedit, tempore alias.Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Totam dignissimos corporis facere ab, voluptate quia! Cumque, hic explicabo ipsam ipsa vel perspiciatis recusandae sed quod magni quidem.
-                Impedit, tempore alias. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Totam dignissimos corporis facere ab, voluptate quia! Cumque, hic explicabo ipsam ipsa vel perspiciatis recusandae sed quod magni quidem.
-                Impedit, tempore alias. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Totam dignissimos corporis facere ab, voluptate quia! Cumque, hic explicabo ipsam ipsa vel perspiciatis recusandae sed quod magni quidem.
-                Impedit, tempore alias. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Totam dignissimos corporis facere ab, voluptate quia! Cumque, hic explicabo ipsam ipsa vel perspiciatis recusandae sed quod magni quidem.
-                Impedit, tempore alias.Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Totam dignissimos corporis facere ab, voluptate quia! Cumque, hic explicabo ipsam ipsa vel perspiciatis recusandae sed quod magni quidem.
-                Impedit, tempore alias. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Totam dignissimos corporis facere ab, voluptate quia! Cumque, hic explicabo ipsam ipsa vel perspiciatis recusandae sed quod magni quidem.
-                Impedit, tempore alias. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Totam dignissimos corporis facere ab, voluptate quia! Cumque, hic explicabo ipsam ipsa vel perspiciatis recusandae sed quod magni quidem.
-                Impedit, tempore alias. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Totam dignissimos corporis facere ab, voluptate quia! Cumque, hic explicabo ipsam ipsa vel perspiciatis recusandae sed quod magni quidem.
-                Impedit, tempore alias.
-            </p>
-        </div>
+        <div class="justify-content-center" fxLayout="column" fxLayoutAlign="center">
 
-        <div class="container">
-            <a href="#">
-              <img src="./assets/icons/linkedin.svg" alt="" class="img-rounded img-fluid" width="40px" height="40px">&nbsp;
-            </a>
-            <a href="#">
-              <img src="./assets/icons/twitter.svg" alt="" class="img-rounded img-fluid" width="40px" height="40px">&nbsp;
-            </a>
-            <a href="#">
-              <img src="./assets/icons/facebook.svg" alt="" class="img-rounded img-fluid" width="40px" height="40px">&nbsp;
-            </a>
-            <a href="#">
-              <img src="./assets/icons/pinterest.svg" alt="" class="img-rounded img-fluid" width="40px" height="40px">
-            </a>
+            <div class="container text-justify mt-5" fxLayout.xs="column" fxLayout.sm="column" fxLayout.md="row" fxLayout.lg="row" fxLayout.xl="row" fxLayoutGap="20px" fxLayoutGap.xs="0px">
+                <h4 class="blogInfo">> written by Moh Noori</h4>
+                <h4 class="blogInfo">> posted on mm/dd/yyyy</h4>
+            </div>
+            <div class='text-justify container mb-5' fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.lg="33%" fxFlex.xl="33%" fxLayoutAlign="center">
+                <p class="text-wrap mt-5">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Totam dignissimos corporis facere ab, voluptate quia! Cumque, hic explicabo ipsam ipsa vel perspiciatis recusandae sed quod magni quidem.
+                    Impedit, tempore alias. Lorem ipsum dolor sit amekt consectetur adipisicing elit.
+                    Totam dignissimos corporis facere ab, voluptate quia! Cumque, hic explicabo ipsam ipsa vel perspiciatis recusandae sed quod magni quidem.
+                    Impedit, tempore alias. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Totam dignissimos corporis facere ab, voluptate quia! Cumque, hic explicabo ipsam ipsa vel perspiciatis recusandae sed quod magni quidem.
+                    Impedit, tempore alias. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Totam dignissimos corporis facere ab, voluptate quia! Cumque, hic explicabo ipsam ipsa vel perspiciatis recusandae sed quod magni quidem.
+                    Impedit, tempore alias. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Totam dignissimos corporis facere ab, voluptate quia! Cumque, hic explicabo ipsam ipsa vel perspiciatis recusandae sed quod magni quidem.
+                    Impedit, tempore alias. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Totam dignissimos corporis facere ab, voluptate quia! Cumque, hic explicabo ipsam ipsa vel perspiciatis recusandae sed quod magni quidem.
+                    Impedit, tempore alias. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Totam dignissimos corporis facere ab, voluptate quia! Cumque, hic explicabo ipsam ipsa vel perspiciatis recusandae sed quod magni quidem.
+                    Impedit, tempore alias. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Totam dignissimos corporis facere ab, voluptate quia! Cumque, hic explicabo ipsam ipsa vel perspiciatis recusandae sed quod magni quidem.
+                    Impedit, tempore alias.Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Totam dignissimos corporis facere ab, voluptate quia! Cumque, hic explicabo ipsam ipsa vel perspiciatis recusandae sed quod magni quidem.
+                    Impedit, tempore alias. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Totam dignissimos corporis facere ab, voluptate quia! Cumque, hic explicabo ipsam ipsa vel perspiciatis recusandae sed quod magni quidem.
+                    Impedit, tempore alias. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Totam dignissimos corporis facere ab, voluptate quia! Cumque, hic explicabo ipsam ipsa vel perspiciatis recusandae sed quod magni quidem.
+                    Impedit, tempore alias. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Totam dignissimos corporis facere ab, voluptate quia! Cumque, hic explicabo ipsam ipsa vel perspiciatis recusandae sed quod magni quidem.
+                    Impedit, tempore alias.Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Totam dignissimos corporis facere ab, voluptate quia! Cumque, hic explicabo ipsam ipsa vel perspiciatis recusandae sed quod magni quidem.
+                    Impedit, tempore alias. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Totam dignissimos corporis facere ab, voluptate quia! Cumque, hic explicabo ipsam ipsa vel perspiciatis recusandae sed quod magni quidem.
+                    Impedit, tempore alias. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Totam dignissimos corporis facere ab, voluptate quia! Cumque, hic explicabo ipsam ipsa vel perspiciatis recusandae sed quod magni quidem.
+                    Impedit, tempore alias. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Totam dignissimos corporis facere ab, voluptate quia! Cumque, hic explicabo ipsam ipsa vel perspiciatis recusandae sed quod magni quidem.
+                    Impedit, tempore alias.Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Totam dignissimos corporis facere ab, voluptate quia! Cumque, hic explicabo ipsam ipsa vel perspiciatis recusandae sed quod magni quidem.
+                    Impedit, tempore alias. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Totam dignissimos corporis facere ab, voluptate quia! Cumque, hic explicabo ipsam ipsa vel perspiciatis recusandae sed quod magni quidem.
+                    Impedit, tempore alias. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Totam dignissimos corporis facere ab, voluptate quia! Cumque, hic explicabo ipsam ipsa vel perspiciatis recusandae sed quod magni quidem.
+                    Impedit, tempore alias. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Totam dignissimos corporis facere ab, voluptate quia! Cumque, hic explicabo ipsam ipsa vel perspiciatis recusandae sed quod magni quidem.
+                    Impedit, tempore alias.
+                </p>
+            </div>
+    
+            <div class="container mb-3">
+              <button shareButton="linkedin">
+                <img src="./assets/icons/linkedin.svg" alt="" class="img-rounded img-fluid" width="40px" height="40px">&nbsp;
+              </button>
+              <button shareButton="twitter">
+                <img src="./assets/icons/twitter.svg" alt="" class="img-rounded img-fluid" width="40px" height="40px">&nbsp;
+              </button>
+              <button shareButton="facebook">
+                <img src="./assets/icons/facebook.svg" alt="" class="img-rounded img-fluid" width="40px" height="40px">&nbsp;
+              </button>
+              <button shareButton="pinterest">
+                <img src="./assets/icons/pinterest.svg" alt="" class="img-rounded img-fluid" width="40px" height="40px">
+              </button>
+            </div>
+            <p class="keywords container mb-5">> Keywords: healthcare, cardiac care, AI, doctors</p>
+        </div>
+        <div class="mb-5" fxLayout='column'>
+          <h3 class="divider container mt-5 pt-5" fxLayoutAlign='center'></h3>
+          <p class="container related-posts" fxLayoutAlign='start'>Related Posts</p>
+          <div class="container" fxLayout="row wrap">
+            <div fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="33.33%" fxFlex.lg="33.33%" fxFlex.xl="33.33%" *ngFor="let num of [1, 2, 3]">
+              <app-blog-card></app-blog-card>
+            </div>
           </div>
+        </div>
+        <div>
+          <app-landing-page-subfooter></app-landing-page-subfooter>
+        </div>
     </div>
-    <app-landing-page-subfooter></app-landing-page-subfooter>
 </body>
 </html>

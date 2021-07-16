@@ -1,7 +1,35 @@
+/* Author: Vidit S Shah */
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital@1&display=swap');
 
 .blogInfo {
     font-family: 'Lato', sans-serif;
     font-size: 18;
     font-style: italic;
+}
+
+.keywords {
+    font-family: "Lato", serif;
+    color: #2d5059;
+    font-style: italic;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.divider {
+    border-top: 3px solid teal;
+}
+
+.postTitle {
+    font-family: 'Tinos', sans-serif;
+    font-weight: bold;
+    font-size: 36px;
+    color: #B2DFDB;
+}
+
+.related-posts {
+    font-family: "Lato", serif;
+    color: #2d5059;
+    font-style:normal;
+    font-weight: bold;
+    font-size: 24px;
 }

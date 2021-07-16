@@ -4,7 +4,12 @@
 
 .content > mat-card {
   width: 200px;
+  height: 422px;
 }
+
+/* .blog-card {
+  width: 391px;
+} */
 
 .card-cat-left{
   line-height: normal;

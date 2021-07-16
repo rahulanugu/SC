@@ -63,7 +63,6 @@ import { LandingWhoWeAreComponent } from "./landing-who-we-are/landing-who-we-ar
 import { LandingCapabilityStatementComponent } from "./landing-capability-statement/landing-capability-statement.component";
 import { LandingCareersComponent } from "./landing-careers/landing-careers.component";
 import { LandingFaq1Component } from "./landing-faq1/landing-faq1.component";
-import { LandingFaq2Component } from "./landing-faq2/landing-faq2.component";
 import { BlogComponent } from "./blog/blog.component";
 import { BecomeapartnerComponent } from "./becomeapartner/becomeapartner.component";
 import { ThankyoupartnerComponent } from "./thankyoupartner/thankyoupartner.component";
@@ -250,10 +249,6 @@ const routes: Routes = [
   {
     path: "faq",
     component: LandingFaq1Component,
-  },
-  {
-    path: "contactus",
-    component: LandingFaq2Component,
   },
   {
     path: "blog",

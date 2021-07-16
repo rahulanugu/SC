@@ -1,4 +1,4 @@
-<!--
+<!-- Author: Vidit S Shah & Tasheena -->
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -15,28 +15,36 @@
 
 
   </head>
--->
+  <body fxLayout='column'>
+    <div fxFlex="33%" fxFlex.xs="100%" fxFlex.sm="33%">
+      <div>
+        <app-landing-page-header></app-landing-page-header>
+      </div>
+      
+      <div>
+        <!-- <h1 [ngStyle]="{'color':'red'}" -->
+        <h1 id="heading">ScriptChain Blog</h1>
+        <div class="container text-center">
+          <label for="Category">Explore By Category:</label>
+        
+          <select name="Category" id="Category">
+            <option value="Category1">Category</option>
+            <option value="Category2">Category</option>
+            <option value="Category3">Category</option>
+          </select>
+        </div>
+      
+        <div fxLayout="row wrap" fxLayoutAlign="space-around">
+          <div fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="33.33%" fxFlex.lg="33.33%" fxFlex.xl="33.33%" *ngFor="let num of [1, 2, 3, 4, 5, 6]">
+            <app-blog-card></app-blog-card>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <app-landing-page-subfooter></app-landing-page-subfooter>
+      </footer>
+    </div>
+  </body>
 
-    
-<div>
-  <app-landing-page-header></app-landing-page-header>
-</div>
-
-<div>
-  <!-- <h1 [ngStyle]="{'color':'red'}" -->
-  <h1 id="heading">ScriptChain Blog</h1>
-  <label for="Category">Explore By Category:</label>
-
-  <select name="Category" id="Category">
-    <option value="Category1">Category</option>
-    <option value="Category2">Category</option>
-    <option value="Category3">Category</option>
-  </select>
-
-<app-blog-card> </app-blog-card>
-</div>
-
-<footer>
-  <app-landing-page-subfooter></app-landing-page-subfooter>
-</footer>
 

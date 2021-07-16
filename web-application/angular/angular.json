@@ -28,7 +28,8 @@
             ],
             "scripts": [
               "./node_modules/jquery/dist/jquery.min.js",
-              "./src/assets/js/canvasjs.min.js"
+              "./src/assets/js/canvasjs.min.js",
+              "./src/app/apply-job/script.js"
             ]
           },
           "configurations": {
