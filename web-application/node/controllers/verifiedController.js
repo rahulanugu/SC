@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const { check,body, validationResult } = require('express-validator');
+const { check, body } = require('express-validator');
 
-var Utility = require('../utility');
+const sec_utils = require('../security_utils');
 const db_utils = require('../db_utils');
 
 function generateId(count) {
@@ -22,17 +22,13 @@ router.post('/',[
     return Object.keys(body).every(key => keys.includes(key));
   })],
   async (req, res) => {
-    const valErr = validationResult(req);
-    if (!valErr.isEmpty()) {
-      return res.status(400).json({Message:'Bad Request'})
+    // Validate API request
+    const validate = sec_utils.APIRequestIsValid(req);
+    if (validate.statusCode != 200) {
+      return res.status(validate.statusCode).json({message: validate.message});
     }
 
-    const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
-    if (!keyIsValid) {
-      return res.status(401).json({message: 'Authorization failed'});
-    }
-
-    const decryptedToken = Utility.DecryptToken(req.body.jwtToken);
+    const decryptedToken = sec_utils.DecryptToken(req.body.jwtToken);
     if (decryptedToken['error']) {
       return res.status(401).json({message: decryptedToken['error_message']});
     }

@@ -144,7 +144,6 @@ app.get("*", (req, res) => {
 
 // start express server
 if (require.main === module) {
-  const { mongoose } = require("./db");
   app.listen(3000, () => console.log("Server started at port: 3000"));
 }
 

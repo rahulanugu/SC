@@ -24,7 +24,7 @@ function jsonResponse(code, message, body={}) {
 
 // Synchronous SQL query wrapper; extracts the result of an SQL query from its callback function into a JS Promise
 function queryDB(query, data) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     connection.query(query, data, (err, data) => {
       if (err) return resolve(jsonResponse(500, 'DB Error'));
       resolve(jsonResponse(200, 'Success', data));
@@ -55,12 +55,22 @@ async function getRowFromTableWhere(table, where = {email: ''}) {
     break;
   }
 
-  const response = await queryDB(query, data);
+  const response = new Promise((resolve) => {
+    connection.query(query, data, (err, rows) => {
+      if (err) return resolve(jsonResponse(500, 'DB Error'));
+      if (rows.length === 0) return resolve(jsonResponse(404, 'DB object not found'));
+      resolve(jsonResponse(200, 'Success', rows[0]));
+    });
+  });
   return response;
 }
 
 async function getRowByEmail(table, userEmail) {
   return getRowFromTableWhere(table, {'email': userEmail});
+}
+
+async function getRowByEmail_(table, userEmail) {
+  return getRowFromTableWhere(table, {'Email': userEmail});
 }
 
 async function getRowByID(table, _id) {
@@ -70,13 +80,20 @@ async function getRowByID(table, _id) {
 async function checkForUserInDB(table, userEmail) {
   const response = await getRowByEmail(table, userEmail);
   if (response.length === 200) {
-    return response.body.length != 0;
+    return response.body.length !== 0;
   }
   return false;
 }
 
 async function deleteUserFromDB(table, userEmail) {
-  const query = 'DELETE FROM ?? WHERE email=?';
+  const query = 'DELETE FROM ?? WHERE email=? ORDER BY _id LIMIT 1';
+  const data = [table, userEmail];
+  const response = await queryDB(query, data);
+  return response;
+}
+
+async function deleteUserFromDB_(table, userEmail) {
+  const query = 'DELETE FROM ?? WHERE Email=? ORDER BY _id LIMIT 1';
   const data = [table, userEmail];
   const response = await queryDB(query, data);
   return response;
@@ -97,6 +114,7 @@ async function insertUserIntoDB(table, user) {
   
   query = query.slice(0, query.length - 1) + ')' + values.slice(0, values.length - 1) + ')';
   const data = [table, ...data1, ...data2];
+
   const response = await queryDB(query, data);
   return response;
 }
@@ -119,13 +137,13 @@ async function updateUserInfoInDB(table, user) {
   return response;
 }
 
-
-module.exports.connection = connection;
 module.exports.getAllRowsFromTable = getAllRowsFromTable;
 module.exports.getRowFromTableWhere = getRowFromTableWhere;
 module.exports.getRowByEmail = getRowByEmail;
+module.exports.getRowByEmail_ = getRowByEmail_;
 module.exports.getRowByID = getRowByID;
 module.exports.checkForUserInDB = checkForUserInDB;
 module.exports.deleteUserFromDB = deleteUserFromDB;
+module.exports.deleteUserFromDB_ = deleteUserFromDB_;
 module.exports.insertUserIntoDB = insertUserIntoDB;
 module.exports.updateUserInfoInDB = updateUserInfoInDB;

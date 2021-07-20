@@ -19,37 +19,42 @@ chai.use(chaiHttp);
  *                              2. Chai Assertion Library: Used to do the assertions.
  */
 
-describe("/POST a query", () => {
-  it("create a query", () => {
+describe("/deactivate a patient account", () => {
+  it("deactivate patient", () => {
     let queryPost = {
-      email: "johndoe@gmail.com",
+      email: "testeremail@gmail.com",
     };
     request(app)
-      .post("/backend/deactivate/patient")
-      .query({
-        API_KEY: "TiKY7Md2dHpcZo1ih4KbkinTHh7CNTSjseg2ZB3ZiaEC2x1bFA==",
-      })
-      .send(queryPost)
-      .end((err, res) => {
-        assert.isNull(err);
-      });
+    .post("/backend/deactivate/patient")
+    .query({
+      API_KEY: "TiKY7Md2dHpcZo1ih4KbkinTHh7CNTSjseg2ZB3ZiaEC2x1bFA==",
+    })
+    .send(queryPost)
+    .end((err, res) => {
+      console.log('/backend/deactivate/patient', res.body);
+      assert.isNull(err);
+      assert.isTrue(res.statusCode != 404);
+      assert.isTrue(res.statusCode == 200);
     });
   });
+});
 
-  describe("/POST a query", () => {
-    it("create a query", () => {
-      let queryPost = {
-        email: "johndoe@gmail.com",
-      };
-      request(app)
-      .post("/backend/deactivate/healthcare")
-      .query({
-        API_KEY: "TiKY7Md2dHpcZo1ih4KbkinTHh7CNTSjseg2ZB3ZiaEC2x1bFA==",
-      })
-      .send(queryPost)
-      .end((err, res) => {
-        console.log("status code is ", res.statusCode);
-        assert.isNull(err);
-      });
+describe("/deactivate a provider account", () => {
+  it("deactivate provider", () => {
+    let queryPost = {
+      email: "testeremail@gmail.com",
+    };
+    request(app)
+    .post("/backend/deactivate/healthcare")
+    .query({
+      API_KEY: "TiKY7Md2dHpcZo1ih4KbkinTHh7CNTSjseg2ZB3ZiaEC2x1bFA==",
+    })
+    .send(queryPost)
+    .end((err, res) => {
+      console.log('/backend/deactivate/healthcare', res.body);
+      assert.isNull(err);
+      assert.isTrue(res.statusCode != 404);
+      assert.isTrue(res.statusCode == 200);
+    });
   });
 });

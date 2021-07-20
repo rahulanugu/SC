@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { check,body, validationResult } = require('express-validator');
+const { check, body } = require('express-validator');
 const nodemailer = require("nodemailer");
 
 const mailer_oauth = require('../mailer_oauth');

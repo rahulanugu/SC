@@ -5,20 +5,23 @@ const request = require('supertest');
 const bcrypt = require('bcryptjs');
 
 const app = require('../index');
-const Utility = require("../utility");
+const sec_utils = require("../security_utils");
 
 chai.use(chaiHttp);
 
 const password = "password123";
-let hashpassword = '';
-
-describe('/get hashed pw', () => {
-  it('generate hashed pw', async () => {
-    Utility.encryptPassword(password).then(res => {
-      if (res.statusCode === 200) hashpassword = res.body;
-    });
-  })
+const hashpassword = new Promise((resolve) => {
+  sec_utils.encryptPassword(password).then(res => {
+    if (res.statusCode === 200) return resolve(res.body);
+    resolve(res)
+  });
 });
+
+const testData = {
+  'email':'testeremail@gmail.com',
+  'password': hashpassword
+}
+const testToken = sec_utils.EncryptToken(testData);
 
 describe('/the creation of a new healthcareprovider user', () => {
   it('create a healthcare user', () => {
@@ -49,11 +52,6 @@ describe('/the creation of a new healthcareprovider user', () => {
   });
 
 
-const testData = {
-  'email':'testeremail@gmail.com',
-  'password': hashpassword
-}
-const testToken = Utility.EncryptToken(testData);
 
 describe('/Create a new healthcare provider in the db', () => {
     it('verifies the healthcare', () => {
@@ -76,9 +74,6 @@ describe('/Create a new healthcare provider in the db', () => {
   
 describe('/Checking if the user is authorized by verifying jwt token integrity', () => {
   it('verifies the JWT token', () => {
-    // let queryPost = {
-    //   "jwtToken":"xeKw6fIjwH7nJPph"
-    //   }
     let queryPost = {
       "jwtToken": testToken
     }
