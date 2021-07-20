@@ -17,21 +17,21 @@ chai.use(chaiHttp);
  */
 
 describe('/validates the user/patient to log in to the portal', () => {
-  // it('check the users', () => {
-  //   let queryPost = {
-  //     "email":"m@gmail.com",
-  //     "password":"crass"
-  //     }
-  //     request(app)
-  //         .post('/patient-login')
-  //         .query({
-  //           API_KEY: "TiKY7Md2dHpcZo1ih4KbkinTHh7CNTSjseg2ZB3ZiaEC2x1bFA==",
-  //         })
-  //         .send(queryPost)
-  //         .end((err, res) => {
-  //           assert.isNull(err);
-  //           assert.isTrue(res.statusCode != 404);
-  //           assert.isTrue(res.statusCode == 200);
-  //         });
-  //     });
+   it('check the users', () => {
+     let queryPost = {
+       "email":"testeremail@gmail.com",
+       "password":"password123"
+       }
+       request(app)
+           .post('/patient-login')
+           .query({
+             API_KEY: "TiKY7Md2dHpcZo1ih4KbkinTHh7CNTSjseg2ZB3ZiaEC2x1bFA==",
+           })
+           .send(queryPost)
+           .end((err, res) => {
+             assert.isNull(err);
+             assert.isTrue(res.statusCode != 404);
+             assert.isTrue(res.statusCode == 200);
+           });
+       });
     });
