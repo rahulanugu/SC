@@ -1,9 +1,9 @@
 const express = require('express');
 var router = express.Router();
-const { check, body, validationResult } = require('express-validator');
+const { check, body } = require('express-validator');
 const bcrypt = require('bcryptjs');
 
-const Utility = require('../utility');
+const sec_utils = require('../security_utils');
 const db_utils = require('../db_utils');
 //const {BigQuery} = require('@google-cloud/bigquery');
 /*const options = {
@@ -33,17 +33,11 @@ router.post('/',[
     return Object.keys(body).every(key => keys.includes(key));
   })],
   async (req, res) => {
-    console.log(req.query);
-    const valErr = validationResult(req);
-    if (!valErr.isEmpty()) {
-      return res.status(400).json({message:'Bad Request'})
+    // Validate API request
+    const validate = sec_utils.APIRequestIsValid(req);
+    if (validate.statusCode != 200) {
+      return res.status(validate.statusCode).json({message: validate.message});
     }
-
-    const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
-    if (!keyIsValid) {
-      return res.status(401).json({message: 'Authorization failed'});
-    }
-
     // Get patient from db
     const resp = await db_utils.getRowByEmail('patients', req.body.email);
     if (resp.statusCode != 200) {
@@ -58,15 +52,13 @@ router.post('/',[
 
     const validpassword = await bcrypt.compare(req.body.password, patient.password);
     if (!validpassword) {
-      return res.status(404).json({
-        message:"Invalid username or password"
-      });
+      return res.status(404).json({message:"Invalid username or password"});
     }
     console.log('logged in');
     
     // Get JWT using id, name, email
     const tokeBody = {_id: patient._id, fname: patient.fname, email: patient.email};
-    const token = Utility.EncryptToken(tokeBody);
+    const token = sec_utils.EncryptToken(tokeBody);
 
     return res.status(200).json({
       idToken: token,
@@ -91,18 +83,13 @@ router.post('/verifytokenintegrity',[
     return Object.keys(body).every(key => keys.includes(key));
   })], 
   async (req, res) => {
-    const valErr = validationResult(req);
-    if (!valErr.isEmpty()) {
-      return res.status(400).json({Message:'Bad Request'})
-    }
-    console.log("Verifying the integrity of the jwt token")
-    
-    const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
-    if (!keyIsValid) {
-      return res.status(401).json({message: 'Authorization failed'});
+    // Validate API request
+    const validate = sec_utils.APIRequestIsValid(req);
+    if (validate.statusCode != 200) {
+      return res.status(validate.statusCode).json({message: validate.message});
     }
 
-    const decryptedToken = Utility.DecryptToken(req.body.token);
+    const decryptedToken = sec_utils.DecryptToken(req.body.token);
     if (decryptedToken['error']) {
       return res.status(401).json({message: decryptedToken['error_message']});
     }

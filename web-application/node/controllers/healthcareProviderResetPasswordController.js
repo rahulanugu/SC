@@ -1,11 +1,11 @@
 const express = require('express');
 var router = express.Router();
-const { check,body,validationResult } = require('express-validator');
+const { check, body } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const nodemailer = require("nodemailer");
 const mailer_oauth = require('../mailer_oauth');
 
-var Utility = require('../utility');
+const sec_utils = require('../security_utils');
 const db_utils = require('../db_utils');
 
 const API_KEY = process.env.API_KEY;
@@ -25,42 +25,35 @@ router.post('/', [
     return Object.keys(body).every(key => keys.includes(key));
   })],
   async(req, res) => {
-    const valErr = validationResult(req);
-    if (!valErr.isEmpty()) {
-      return res.status(400).json({message: 'Bad Request'})
-    }
-    const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
-    if (!keyIsValid) {
-      return res.status(401).json({message: 'Unauthorized'});
+    // Validate API request
+    const validate = sec_utils.APIRequestIsValid(req);
+    if (validate.statusCode != 200) {
+      return res.status(validate.statusCode).json({message: validate.message});
     }
     console.log("request is recieved and being processed");
     
     // Get healthcare provider from db
-    const resp = await db_utils.getRowByEmail('healthcareProviders', req.body.email);
+    const resp = await db_utils.getRowByEmail('healthcareproviders', req.body.email);
     if (resp.statusCode != 200) {
       return res.status(resp.statusCode).json({message: resp.message});
     }
     const healthcareProvider = resp.body;
-    const encryptedToken = Utility.EncryptToken({healthcareProvider}, 120);
+    const encryptedToken = sec_utils.EncryptToken({healthcareProvider}, 120);
 
     //mail the token
     // sendVerificationMail(req.body.email, healthcareProvider.firstName, encryptedToken);
 
+    //create a new JWT token and send it to the email of the user
+    
+    // //check for password
+    // const validpassword = await bcrypt.compare(req.body.password, patient.password);
+    
+    // if(!validpassword) return res.status(401).json({
+      
+    //   message:"Invalid username or password"
+    // });
+      
     return res.status(200).json({message: "Email has been sent to reset password"});
-
-      //create a new JWT token and send it to the email of the user
-
-      // //check for password
-      // const validpassword = await bcrypt.compare(req.body.password, patient.password);
-
-      // if(!validpassword) return res.status(401).json({
-
-      //   message:"Invalid username or password"
-      // });
-
-
-      // create JSON Web Token
-      // *******make sure to change secret word to something secure and put it in env variable*****
 });
 
 /**
@@ -73,23 +66,17 @@ router.post('/check', [
     return Object.keys(body).every(key => keys.includes(key));
   })],
   async(req, res) => {
-    const valErr = validationResult(req);
-    if (!valErr.isEmpty()) {
-      return res.status(400).json({message: 'Bad Request'})
+    // Validate API request
+    const validate = sec_utils.APIRequestIsValid(req);
+    if (validate.statusCode != 200) {
+      return res.status(validate.statusCode).json({message: validate.message});
     }
 
-    const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
-    if (!keyIsValid) {
-      return res.status(401).json({message: 'Authorization failed'});
-    }
-
-    const decryptedToken = Utility.DecryptToken(req.body.token);
+    const decryptedToken = sec_utils.DecryptToken(req.body.token);
     if (decryptedToken['error']) {
       return res.status(401).json({message: decryptedToken['error_message']});
     }
-    return res.status(200).json({
-      message: "JWT is verified"
-    });
+    return res.status(200).json({message: "JWT is verified"});
 });
 
 /**
@@ -108,16 +95,13 @@ router.post('/change_password',[
     return Object.keys(body).every(key => keys.includes(key));
   })], 
   async (req, res) => {
-    const valErr = validationResult(req);
-    if (!valErr.isEmpty()) {
-      return res.status(400).json({message: 'Bad Request'});
-    }
-    const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
-    if (!keyIsValid) {
-      return res.status(401).json({message: 'Authorization failed'});
+    // Validate API request
+    const validate = sec_utils.APIRequestIsValid(req);
+    if (validate.statusCode != 200) {
+      return res.status(validate.statusCode).json({message: validate.message});
     }
 
-    const decryptedToken = Utility.DecryptToken(req.body.token);
+    const decryptedToken = sec_utils.DecryptToken(req.body.token);
     if (decryptedToken['error']) {
       return res.status(401).json({message: decryptedToken['error_message']});
     }
@@ -127,15 +111,15 @@ router.post('/change_password',[
     // decryptedToken will contain the provider json object
     
     // Get healthcare provider from db
-    const resp = await db_utils.getRowByEmail('healthcareProviders', decryptedToken.email);
+    const resp = await db_utils.getRowByEmail('healthcareproviders', decryptedToken.email);
     if (resp.statusCode != 200) {
       return res.status(resp.statusCode).json({message: resp.message});
     }
     const provider = resp.body;
-    const hashpassword = await Utility.encryptPassword(password);
+    const hashpassword = await sec_utils.encryptPassword(password);
     console.log(hashpassword);
     // Update provider info in db
-    const respo = await db_utils.updateUserInfoInDB('healthcareProviders', provider);
+    const respo = await db_utils.updateUserInfoInDB('healthcareproviders', provider);
     let body = respo.body;
     body['message'] = respo.message;
     return res.status(respo.statusCode).json(body);

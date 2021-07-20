@@ -6,12 +6,12 @@
 const nodemailer = require('nodemailer');
 const log = console.log;
 const express = require('express');
-const { check,body,validationResult } = require('express-validator');
+const { check, body } = require('express-validator');
 const router = express.Router();
 
 const mailer_oauth = require('../mailer_oauth');
 const db_utils = require('../db_utils');
-var Utility = require('../utility');
+const sec_utils = require('../security_utils');
 
 // get list of all patients
 /**
@@ -41,22 +41,15 @@ router.post("/",[
     return Object.keys(body).every(key => keys.includes(key));
   })], 
   async (req, res) => {
-    console.log('test');
-    const valErr = validationResult(req);
-    if (!valErr.isEmpty()) {
-      return res.status(400).json({message: 'Bad request'});
-    }
-    
-    const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
-    if (!keyIsValid) {
-      return res.status(401).json({message: 'Authorization failed'});
+    // Validate API request
+    const validate = sec_utils.APIRequestIsValid(req);
+    if (validate.statusCode != 200) {
+      return res.status(validate.statusCode).json({message: validate.message});
     }
     // Check for caregiver in db
     const userExists = await db_utils.checkForUserInDB('caregivers', req.body.email);
     if (userExists) {
-      return res.status(400).send({
-        message: 'User already exists'
-      });
+      return res.status(400).send({message: 'User already exists'});
     }
     console.log("Email does not exist");
     

@@ -6,11 +6,11 @@
 */
 const express = require('express');
 const router = express.Router();
-const { check,body,validationResult } = require('express-validator');
+const { check, body } = require('express-validator');
 const nodemailer = require('nodemailer');
 
 const mailer_oauth = require('../mailer_oauth');
-const Utility = require('../utility');
+const sec_utils = require('../security_utils');
 const db_utils = require('../db_utils');
 
 const API_KEY = process.env.API_KEY;
@@ -36,14 +36,15 @@ const API_KEY = process.env.API_KEY;
  *         200 - Succesfully retrieved all the patients in the database
  *         404 - No patients in the database
  */
-router.get('/', 
+router.get('/', [
+  body().custom(body => {
+    return Object.keys(body).length === 0;
+  })],
   async (req, res) => {
-    if (Object.keys(req.body).length > 0) {
-      return res.status(400).json({Message:'Bad Request'})
-    }
-    const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
-    if (!keyIsValid) {
-      return res.status(401).json({message: 'Authorization failed'});
+    // Validate API request
+    const validate = sec_utils.APIRequestIsValid(req);
+    if (validate.statusCode != 200) {
+      return res.status(validate.statusCode).json({message: validate.message});
     }
     console.log('you have entered');
     
@@ -69,21 +70,14 @@ router.get('/:id', [
   check('_id').notEmpty()
   ], 
   async (req, res) => {
-    const valErr = validationResult(req);
-    if (!valErr.isEmpty()) {
-      return res.status(400).json({Message:'Bad Request'})
-    }
-
-    const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
-    if (!keyIsValid) {
-      return res.status(401).json({message: 'Authorization failed'});
+    // Validate API request
+    const validate = sec_utils.APIRequestIsValid(req);
+    if (validate.statusCode != 200) {
+      return res.status(validate.statusCode).json({message: validate.message});
     }
 
     // Get patient from db
     const resp = await db_utils.getRowByID('patients', req.params._id);
-    if (resp.statusCode != 200 || resp.body.length === 0) {
-      return res.status(resp.statusCode).json({message: resp.message});
-    }
     let body = resp.body;
     body['message'] = resp.message;
     return res.status(resp.statusCode).json(body);
@@ -96,15 +90,13 @@ router.get('/:id', [
  * Output: message whether the subscriber exists or not
  */
 router.post('/:verify', [
-  check('verify').notEmpty()
+  check('verify').notEmpty().equals('verify')
   ],
   async (req, res) => {
-    if (req.params.verify != "verify") {
-      return res.status(400).json({message: "Bad Request"});
-    }
-    const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
-    if (!keyIsValid) {
-      return res.status(401).json({message: 'Authorization failed'});
+    // Validate API request
+    const validate = sec_utils.APIRequestIsValid(req);
+    if (validate.statusCode != 200) {
+      return res.status(validate.statusCode).json({message: validate.message});
     }
 
     // Check for user in verifiedUser table in db
@@ -131,11 +123,17 @@ router.post('/:verify', [
  * Input: user object
  * Output: message indicating whether the update was a success or not
  */
-router.patch('/', 
+router.patch('/', [
+  body().custom(body => {
+    const keys = ['_id'];
+    return Object.keys(body).every(key => keys.includes(key));
+  })
+  ],
   async (req,res) => {
-    const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
-    if (!keyIsValid) {
-      return res.status(401).json({message: 'Authorization failed'});
+    // Validate API request
+    const validate = sec_utils.APIRequestIsValid(req);
+    if (validate.statusCode != 200) {
+      return res.status(validate.statusCode).json({message: validate.message});
     }
 
     const userChanges = {

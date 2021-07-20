@@ -5,7 +5,7 @@ const request = require('supertest');
 const bcrypt = require('bcryptjs');
 
 const app = require('../index');
-const Utility = require('../utility');
+const sec_utils = require('../security_utils');
 chai.use(chaiHttp);
 
 /*
@@ -17,8 +17,19 @@ chai.use(chaiHttp);
  *                            2. Chai's assertion library to do the assertions.
  *                            3. Mocha: The testing framework in which the tests are written
  */
+const password = "password123";
+const hashpassword = new Promise((resolve) => {
+  sec_utils.encryptPassword(password).then(res => {
+    if (res.statusCode === 200) return resolve(res.body);
+    resolve(res)
+  });
+});
 
-const hashpassword = "$2a$10$CbaAL1HGsCTi9X.6.labkuWqeqOo6bmtKSjWyUni2n1QCbJhbr6Dy";
+const testData = {
+  'email':'testeremail@gmail.com',
+  'password': hashpassword
+}
+const testToken = sec_utils.EncryptToken(testData);
 /*
 describe('/the creation of a new healthcareprovider user', () => {
   it('create a healthcare user', () => {
@@ -55,7 +66,7 @@ describe('/Create a new healthcare provider in the db', () => {
         'email':'testeremail@gmail.com',
         'password': hashpassword
       }
-      const testToken = Utility.EncryptToken(testData);
+      const testToken = sec_utils.EncryptToken(testData);
       let queryPost = {
         "jwtToken": testToken
       }

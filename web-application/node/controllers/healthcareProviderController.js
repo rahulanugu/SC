@@ -5,13 +5,13 @@
  */
 const express = require('express');
 const router = express.Router();
-const { check, body, validationResult } = require('express-validator');
+const { check, body } = require('express-validator');
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcryptjs');
 const randtoken = require('rand-token');
 const mailer_oauth = require('../mailer_oauth');
 
-const Utility = require('../utility');
+const sec_utils = require('../security_utils');
 const db_utils = require('../db_utils');
 
 const API_KEY = process.env.API_KEY;
@@ -48,14 +48,10 @@ router.post('/account/create',[
     return Object.keys(body).every(key => keys.includes(key));
   })], 
   async (req, res) => {
-    const valErr = validationResult(req);
-    if (!valErr.isEmpty()) {
-      return res.status(400).json({message:'Bad Request'});
-    }
-
-    const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
-    if (!keyIsValid) {
-      return res.status(401).json({message: 'Authorization failed'});
+    // Validate API request
+    const validate = sec_utils.APIRequestIsValid(req);
+    if (validate.statusCode != 200) {
+      return res.status(validate.statusCode).json({message: validate.message});
     }
     
     var ip = req.connection.remoteAddress;
@@ -69,7 +65,7 @@ router.post('/account/create',[
     // User does not exist
     // Create JWT using details provided in body as payload
     const tokeBody = req.body;
-    var encryptedToken = Utility.EncryptToken(tokeBody);
+    var encryptedToken = sec_utils.EncryptToken(tokeBody);
     var data = {
       '_id': generateId(10),
       'token': randtoken.generate(16),
@@ -108,31 +104,25 @@ router.post('/account/verify', [
     return Object.keys(body).every(key => keys.includes(key));
   })], 
   async (req, res) => {
-    const valErr = validationResult(req);
-    if (!valErr.isEmpty()) {
-      return res.status(400).json({Message:'Bad Request'})
-    }
-    
-    const keyIsValid = Utility.APIkeyIsValid(req.query.API_KEY);
-    if (!keyIsValid) {
-      return res.status(401).json({message: 'Authorization failed'});
+    // Validate API request
+    const validate = sec_utils.APIRequestIsValid(req);
+    if (validate.statusCode != 200) {
+      return res.status(validate.statusCode).json({message: validate.message});
     }
 
-    const decryptedToken = Utility.DecryptToken(req.body.jwtToken);
+    const decryptedToken = sec_utils.DecryptToken(req.body.jwtToken);
     if (decryptedToken['error']) {
       return res.status(401).json({message: decryptedToken['error_message']});
     }
     // Check for healthcare provider in db
     const userExists = await db_utils.checkForUserInDB('healthcareproviders', req.body.email);
     if (userExists) {
-      return res.status(400).send({
-        message: 'User already exists'
-      });
+      return res.status(400).send({message: 'User already exists'});
     }
     const user = decryptedToken;
     console.log(user);
     // Encrypt the password
-    const passwordRes = await Utility.encryptPassword(user.password);
+    const passwordRes = await sec_utils.encryptPassword(user.password);
     if (passwordRes.statusCode != 200) {
       return res.status(passwordRes.statusCode).json({message: passwordRes.message});
     }
@@ -272,3 +262,4 @@ const sendVerificationMail = (email,fname,encryptedToken, callback)=>{
     });
 }
 module.exports = router;
+
