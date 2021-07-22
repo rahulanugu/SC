@@ -1,6 +1,7 @@
 # Scripts to request resources from Athena FHIR server should be written here.
 #  Code updated by Tejvir Singh 07/19
-#
+#  https://docs.athenahealth.com/api/guides/authentication-and-url-locations
+#  
 
 import requests
 from futures3.thread import ThreadPoolExecutor
@@ -47,14 +48,14 @@ def get_headers(token):
 def get_error_code(message):
     return {'status_code': 404, 'message': message}
 
-def fetch_FHIR_resource(url, resourceID, token):
+def get_FHIR_resource(url, resourceID, token):
     full_url = url + resourceID
     headers = get_headers(token)
 
     res = requests.get(url=full_url, headers=headers, timeout=DEFAULT_TIMEOUT)
     return res
 
-def fetch_patient_resource(url, patientID, token):
+def get_patient_resource(url, patientID, token):
     #  Needs to be updated further 
     # payload = {'patient': patientID}
     # headers = get_headers(token)
@@ -75,11 +76,11 @@ def generateAthenaJWT():
         'aud': 'https://fhir.epic.com/interconnect-fhir-oauth/oauth2/token',
         'exp': curr_time + 300
     }
-    token = jwt.encode(payload=payload, headers=headers, key=private_key, algorithm='RS384')
+    token = jwt.encode(payload=payload, headers=headers, algorithm='RS384')
     return token
 
 
-def fetch_access_token(jwtToken):
+def get_access_token(jwtToken):
     url = 'https://athena.okta.com/oauth2/aus2hfei6ookPyyCA297/v1/token'
     headers = {
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -96,38 +97,109 @@ def fetch_access_token(jwtToken):
 
 # <- Integrations ->
 
-def fetch_sex(url, practiceID, token):
-    return fetch_patient_resource(url, practiceID, token)
+# https://docs.athenahealth.com/api/sandbox#/Patient/getPracticeidPatientsSearch
+def get_sex(url, practiceID, token):
+    return get_patient_resource(url, practiceID, token)
 
-def fetch_racecode(url, practiceID, token):
-    return fetch_patient_resource(url, practiceID, token)    
+def get_racecode(url, practiceID, token):
+    return get_patient_resource(url, practiceID, token)    
 
-def fetch_maritalstatus(url, practiceID, token):
-    return fetch_patient_resource(url, practiceID, token)    
+def get_maritalstatus(url, practiceID, token):
+    return get_patient_resource(url, practiceID, token)    
+
+def get_medication(url, practiceID, departmentID, medicationID, token):
+    url = url + '/' + practiceID + '/' + departmentID + '/fhir/dstu2/Medication/' + medicationID
+    payload = {'practiceid': practiceID, 'departmentid': departmentID, 'medicationid': medicationID}
+    headers = get_headers(token)
+
+    res = requests.get(url=url, params=payload, headers=headers, timeout=DEFAULT_TIMEOUT)
+    return res
+
+def get_diagnosis(url, practiceID, departmentID, labresultID, token):
+    return get_FHIR_resource(url, practiceID, departmentID, labresultID, token)    
+
+def get_procedure(url, practiceID, brandID, chartsharinggroupID, token):
+    return get_FHIR_resource(url, practiceID, brandID, chartsharinggroupID, token)    
+
+def get_encounter(url, practiceID, departmentID, token):
+    return get_FHIR_resource(url, practiceID, departmentID, token)    
+
+def get_document_reference(url, practiceID, departmentID, token):
+    return get_FHIR_resource(url, practiceID, departmentID, token)    
+
+def get_medication_statement(url, practiceID, brandID, chartsharinggroupID, token):
+    return get_FHIR_resource(url, practiceID, brandID, chartsharinggroupID, token)    
+
+def get_condition(url, practiceID, brandID, chartsharinggroupID, token):
+    return get_FHIR_resource(url, practiceID, brandID, chartsharinggroupID, token)    
+
+def get_patient(url, practiceID, brandID, chartsharinggroupID, token):
+    return get_FHIR_resource(url, practiceID, brandID, chartsharinggroupID, token)    
+
+def get_allergy_intolerance(url, practiceID, brandID, chartsharinggroupID, allergyintoleranceID, token):
+    return get_FHIR_resource(url, practiceID, brandID, chartsharinggroupID, allergyintoleranceID, token)    
+
+def get_immunization(url, practiceID, brandID, chartsharinggroupID, patientID, token):
+    url = url + '/' + practiceID + '/' + brandID + '/' + chartsharinggroupID + '/fhir/dstu2/Immunization'
+    payload = {'practiceid': practiceID, 'brandid': brandID, 'chartsharinggroupid': chartsharinggroupID, 'patientid': patientID}
+    headers = get_headers(token)
+
+    res = requests.get(url=url, params=payload, headers=headers, timeout=DEFAULT_TIMEOUT)
+    if res.status_code == '':
+        return 
+    return res  
+
+def get_procedure(url, practiceID, brandID, chartsharinggroupID, token):
+    return get_FHIR_resource(url, practiceID, brandID, chartsharinggroupID, token)  
+
+def get_vital_signs(url, practiceID, brandID, chartsharinggroupID, vitalID, token):
+    return get_FHIR_resource(url, practiceID, brandID, chartsharinggroupID, vitalID, token)  
 
 
-def fetch_medication(url, practiceID, departmentID, medicationID, token):
-    return fetch_FHIR_resource(url, practiceID, departmentID, medicationID, token)    
 
-def fetch_diagnosis(url, practiceID, departmentID, labresultID, token):
-    return fetch_FHIR_resource(url, practiceID, departmentID, labresultID, token)    
+# <- Function mapping ->
+# Dictionary that maps keys (strings) to lambda functions
+key_func_mapping = {
+    'Sex':
+        lambda data: get_sex(data['url'], data['practiceID'], data['token']),
+    'Racecode.race':
+        lambda data: get_racecode(data['url'], data['practiceID'], data['token']),
+    'Marital.status':
+        lambda data: get_medication(data['url'], data['practiceID'], data['token']),
+    'medication':
+        lambda data: get_medication(data['url'], data['practiceID'], data['departmentID'], data['medicationID'], data['token']),
+    'Diagnosis':
+        lambda data: get_diagnosis(data['url'], data['practiceID'], data['departmentID'], data['labresultID'], data['token']),
+    'Procedure':
+        lambda data: get_procedure(data['url'], data['practiceID'], data['brandID'], data['chartsharinggroupID'], data['token']),
+    'Encounter':
+        lambda data: get_encounter(data['url'], data['practiceID'], data['departmentID'], data['token']),
+    'Document.reference':
+        lambda data: get_document_reference(data['url'], data['practiceID'], data['departmentID'], data['token']),
+    'Medication.statement':
+        lambda data: get_medication_statement(data['url'], data['practiceID'], data['brandID'], data['chartsharinggroupID'], data['token']),
+    'Condition':
+        lambda data: get_condition(data['url'], data['practiceID'], data['brandID'], data['chartsharinggroupID'], data['token']),
+    'Patient':
+        lambda data: get_diagnosis(data['url'], data['practiceID'], data['departmentID'], data['labresultID'], data['token']),
+    'Immunization':
+        lambda data: get_immunization(data['url'], data['practiceID'], data['departmentID'], data['token']),
+    'Procedure':
+        lambda data: get_procedure(data['url'], data['practiceID'], data['brandID'], data['chartsharinggroupID'], data['token']),
+    'Vital.signs':
+        lambda data: get_vital_signs(data['url'], data['practiceID'], data['brandID'], data['chartsharinggroupID'], data['vitalID'], data['token']),
+    'AllergyIntolerance':
+        lambda data: get_allergy_intolerance(data['url'], data['practiceID'], data['token']),
+    
+}
 
-def fetch_procedure(url, practiceID, brandID, chartsharinggroupID, token):
-    return fetch_FHIR_resource(url, practiceID, brandID, chartsharinggroupID, token)    
+# Handler to utilize the function mapping
+def get_handler(key, data):
+    func = key_func_mapping.get(key, None)
 
-def fetch_encounter(url, practiceID, departmentID, token):
-    return fetch_FHIR_resource(url, practiceID, departmentID, token)    
-
-def fetch_document_reference(url, practiceID, departmentID, token):
-    return fetch_FHIR_resource(url, practiceID, departmentID, token)    
-
-def fetch_racecode(url, practiceID, token):
-    return fetch_FHIR_resource(url, practiceID, token)    
-
-
-
-#source
-#https://docs.athenahealth.com/api/guides/authentication-and-url-locations
+    if func is None:
+        return get_error_code('Resource key not found')
+    return func(data)
 
 
 #Tests
