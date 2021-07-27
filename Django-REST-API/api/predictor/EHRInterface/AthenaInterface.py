@@ -24,7 +24,6 @@ import ast
 
 
 # Token
-TOKEN = ''
 DEFAULT_TIMEOUT = 5
 
 
