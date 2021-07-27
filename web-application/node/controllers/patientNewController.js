@@ -2,41 +2,19 @@
  * patientController.js
  * Uses express to create a RESTful API
  * Defines endpoints that allows application to perform CRUD operations
+ * Route: /patientnew
  */
-const nodemailer = require('nodemailer');
-const log = console.log;
 const express = require('express');
-const { check,body,validationResult } = require('express-validator');
 const router = express.Router();
-const jwt = require('jsonwebtoken');
-const { google } = require("googleapis");
-const OAuth2 = google.auth.OAuth2;
-const randtoken = require('rand-token');
-var Utility = require('../utility');
-const connection = require('../db_connection');
-const oauth2Client = new OAuth2(
-    "Y16828344230-21i76oqle90ehsrsrpptnb8ek2vqfjfp.apps.googleusercontent.com",
-    "ZYdS8bspVNCyBrSnxkMxzF2d",
-    "https://developers.google.com/oauthplayground"
-);
-oauth2Client.setCredentials({
-    refresh_token:
-      "ya29.GluBB_c8WGD6HI2wTAiAKnPeLap6FdqDdQYhplWyAPjw_ZBSNUNEMOfmsrVSDoHTAZWc8cjKHXXEEY_oMVJUq4YaoSD1LLseWzPNt2hcY2lCdhXAeuCxvDPbl6QP"
-  });
-const accessToken = oauth2Client.getAccessToken();
-var aes256 = require('aes256');
+const { check, body } = require('express-validator');
+const nodemailer = require('nodemailer');
+
+const mailer_oauth = require('../mailer_oauth');
+const sec_utils = require('../security_utils');
+const db_utils = require('../db_utils');
+
 const API_KEY = process.env.API_KEY;
-const key = process.env.KEY;
 
-
-// get list of all patients
-/**
- * Retrieve all the patients from the db
- * Input: N/A
- * Output: All the patientts in the database or error
- *         200 - Succesfully retrieved all the patients in the database
- *         404 - No patients in the database
- */
 function generateId(count) {
   var _sym = 'abcdefghijklmnopqrstuvwxyz1234567890';
   var str = '';
@@ -47,67 +25,78 @@ function generateId(count) {
   return str;
 }
 
-router.post("/",[check('firstName').notEmpty(),check('lastName').notEmpty(),
-check('email').notEmpty().isEmail(),check('phone').notEmpty(),body().custom(body => {
-  const keys = ['firstName','lastName','email','phone'];
-  return Object.keys(body).every(key => keys.includes(key));
-})], async(req, res) => {
-  var decrypted = aes256.decrypt(key, req.query.API_KEY);
-  if(decrypted!=API_KEY){
-    return res.status(401).json({Message:'Unauthorized'});
-  }
-  console.log('test');
-  var ip = req.connection.remoteAddress;
-  console.log(ip+" "+req.body.email);
-    //Check if user alread exists
-    const query= 'SELECT * FROM `patientsnew` WHERE email=?';
-    // req.body.email+'"';
-    connection.query(query,[req.body.email], async function(err, row) {
-      if(!err) {
-          if (row.length>0){
-            return res.status(400).send({
-                message: 'User already exists'
-            })
-          }else{
-            console.log("email does not exist");
-            const tokeBody = req.body;
-            const token = await jwt.sign({tokeBody}, "santosh", { expiresIn: 180 });
-            var idToken = randtoken.generate(16);
-            var json = {
-              '_id': generateId(10),
-              fname: req.body.firstName,
-              lname: req.body.lastName,
-              email: req.body.email,
-              phone: req.body.phone,
-            };
-            var query1= "INSERT INTO `patientsnew` VALUES ("
-            var val = [];
-            //REPLACE THIS AFTER VALUES
-            for(var myKey in json) {
-              query1+="?,";
-              val.push(json[myKey]);
-            }
-            query1 = query1.slice(0,query1.length-1);
-            query1 += ")";
-            connection.query(query1,val, function(err, row) {
-              if(!err) {
-                  console.log('Inserted successfully');
-                  var encryptedToken = Utility.EncryptToken(token);
-                  sendVerificationMail(req.body.email,req.body.fname,encryptedToken);
-                  res.status(200).json({
-                    "message":"Success"
-                  });
-              }else{
-                console.log(err);
-              }
-            })
-          }
-        }else{
-          console.log(err);
-          //res.status(500).send({message: "An error has occured trying to send the mail"});
-        }
-    });
-})
+/**
+ * User object ex:
+    _id: "12jg201bcm021em"
+    fname: "Mike",
+    lname: "Witzkowski",
+    email: "miketyke699@gmail.com",
+    password: "$2a$10$k2kDfbaiqJFLVV9FQrbs5euEC1ybn8xfDe1.ecjUKZK0YTALIP7wq",
+    photo: "./images/IMG_006637.png"
+    agreementSigned: true;
+    verified: false;
+ */
+
+/**
+ * /patientnew/
+ * Adds a new patient user to db
+ * Input: patient user object
+ * Output: Message indicating whether the account creation was a success or not
+ *         200 - Succesfully created patient account
+ *         400 - Patient user already exists
+ *         401 - Unauthorized client/user
+ *         404 - No patients in the database
+ */
+ router.post('/', [
+  check('fname').notEmpty(),
+  check('lname').notEmpty(),
+  check('email').notEmpty().isEmail(),
+  check('password').notEmpty(),
+  check('photo').notEmpty(),
+  check('agreement-signed').notEmpty(),
+  check('user-verified').notEmpty(),
+  body().custom(body => {
+    const keys = ['fname', 'lname', 'email','password', 'photo', 'agreement-signed', 'user-verified'];
+    return Object.keys(body).every(key => keys.includes(key));
+  })],
+  async (req,res) => {
+    // Validate API request
+    const validate = sec_utils.APIRequestIsValid(req);
+    if (validate.statusCode != 200) {
+      return res.status(validate.statusCode).json({message: validate.message});
+    }
+    //Check if user already exists
+    const userExists = await db_utils.checkForUserInDB('patientsnew', req.body.email);
+    if (userExists) {
+      return res.status(400).json({
+        message: 'User already exists'
+      });
+    }
+
+    const user = {
+      '_id': req.body._id,
+      'fname': req.body.fname,
+      'lname': req.body.lname,
+      'email': req.body.email,
+      'phone': "000-000-0000"
+      /*
+      'password': req.body.password,
+      'photo': req.body.photo,
+      'agreement-signed': req.body.agreement_signed,
+      'user-verified': req.body.user_verified
+      */
+    };
+    // Add new patient to patientsnew table in db
+    const resp = await db_utils.insertUserIntoDB('patientsnew', user);
+    let body = resp.body;
+    body['message'] = resp.message;
+    return res.status(resp.statusCode).json(body);
+});
+
+
+//Creating a new oauthclientt for mailing
+const oauth2Client = mailer_oauth.getClient();
+const accessToken = oauth2Client.getAccessToken();
 
 const sendVerificationMail = (email,fname,encryptedToken)=>{
 

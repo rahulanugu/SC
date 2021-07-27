@@ -8,7 +8,7 @@ import { Component, OnInit } from "@angular/core";
 @Component({
   selector: "app-request-access",
   templateUrl: "./request-access.component.html",
-  styleUrls: ["../app.component.css"]
+  styleUrls: ["./request-access.component.css"]
 })
 export class RequestAccessComponent implements OnInit {
   constructor(public requestaccessservice: RequestaccessnewuserService) {

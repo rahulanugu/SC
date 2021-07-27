@@ -1,25 +1,47 @@
 const express = require("express");
 const router = express.Router();
-const { check,body, validationResult } = require('express-validator');
-var aes256 = require('aes256');
-const API_KEY = process.env.API_KEY;
-const key = process.env.KEY;
+const { check, body } = require('express-validator');
+
+const sec_utils = require('../security_utils');
+
 var objJson = {};
 
-router.post('/storeInCache',(req, res) => {
-  console.log("Inside cache service");
-  var code = req.body.code;
-  var access_token = req.body.access_token;
-  objJson[code]=access_token;
-  //console.log(objJson);
-  res.status(200).json({"message":"received"});
+/* Controller route: localhost:3000/cache_service */
+
+router.post('/storeInCache', [
+  body().custom(body => {
+    const keys = ['code'];
+    return Object.keys(body).every(key => keys.includes(key));
+  })
+  ], 
+  (req, res) => {
+    // Validate API request
+    const validate = sec_utils.APIRequestIsValid(req);
+    if (validate.statusCode != 200) {
+      return res.status(validate.statusCode).json({message: validate.message});
+    }
+    console.log("Inside cache service");
+    
+    var code = req.body.code;
+    var access_token = req.body.access_token;
+    objJson[code] = access_token;
+    return res.status(200).json({"message":"received"});
 });
 
-router.get('/getFromCache',(req, res) => {
-  //console.log(objJson);
-  const code = req.query.code;
-  console.log(objJson[code]);
-  res.status(200).json(objJson[code]);
+router.get('/getFromCache', [
+  body().isEmpty()
+  ], 
+  (req, res) => {
+    // Validate API request
+    const validate = sec_utils.APIRequestIsValid(req);
+    if (validate.statusCode != 200) {
+      return res.status(validate.statusCode).json({message: validate.message});
+    }
+    console.log("Getting code from cache");
+
+    const code = req.query.code;
+    console.log(objJson[code]);
+    return res.status(200).json(objJson[code]);
 });
 
 module.exports = router;

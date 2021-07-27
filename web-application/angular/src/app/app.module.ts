@@ -3,6 +3,7 @@ import { LoginPatientService } from "./shared/login-patient.service";
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { HttpClientModule } from "@angular/common/http";
+import { CommonModule } from "@angular/common";
 import { RouterModule, ActivatedRoute } from "@angular/router";
 import { FormsModule } from "@angular/forms";
 import { MatGridListModule } from "@angular/material";
@@ -94,7 +95,6 @@ import { LandingWhoWeAreComponent } from "./landing-who-we-are/landing-who-we-ar
 import { LandingCapabilityStatementComponent } from "./landing-capability-statement/landing-capability-statement.component";
 import { LandingCareersComponent } from "./landing-careers/landing-careers.component";
 import { LandingFaq1Component } from "./landing-faq1/landing-faq1.component";
-import { LandingFaq2Component } from "./landing-faq2/landing-faq2.component";
 import { BlogComponent } from "./blog/blog.component";
 import { NgxMaskModule, IConfig } from "ngx-mask";
 import { MatToolbarModule } from "@angular/material/toolbar";
@@ -123,6 +123,12 @@ import { ProcedureInfoComponent } from './procedure-info/procedure-info.componen
 import { CaregiverProfileComponent } from './caregiver-profile/caregiver-profile.component';
 import { MedicationDetailsComponent } from './medication-details/medication-details.component';
 import { ProcedureDetailsComponent } from "./procedure-details/procedure-details.component";
+import { BlogCardComponent } from './shared/components/blog-card/blog-card.component';
+import { BlogPostComponent } from './blog-post/blog-post.component';
+import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
+import { ShareModule } from 'ngx-sharebuttons';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -191,7 +197,6 @@ import { ProcedureDetailsComponent } from "./procedure-details/procedure-details
     LandingCapabilityStatementComponent,
     LandingCareersComponent,
     LandingFaq1Component,
-    LandingFaq2Component,
     BlogComponent,
     BecomeapartnerComponent,
     ThankyoupartnerComponent,
@@ -211,17 +216,22 @@ import { ProcedureDetailsComponent } from "./procedure-details/procedure-details
     HealthcareFooterLoginComponent,
     CaregiverProfileComponent,
     MedicationDetailsComponent,
-    ProcedureDetailsComponent
+    ProcedureDetailsComponent,
+    BlogCardComponent,
+    BlogPostComponent,
   ],
 
   imports: [
-    BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule,
+    ShareButtonsModule,
+    ShareModule,
+    RouterModule,
+    CommonModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
     TextMaskModule,
-    RouterModule,
     ReactiveFormsModule,
     GoogleChartsModule,
     MatTableModule,

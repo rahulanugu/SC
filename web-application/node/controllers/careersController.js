@@ -1,12 +1,19 @@
 const express = require("express");
 const router = express.Router();
-const { check,body, validationResult } = require('express-validator');
-var aes256 = require('aes256');
-const API_KEY = process.env.API_KEY;
-const key = process.env.KEY;
-const { compareSync } = require("bcryptjs");
+const { check, body } = require('express-validator');
 
-const connection = require('../db_connection');
+const db_utils = require('../db_utils');
+const sec_utils = require('../security_utils');
+
+function generateId(count) {
+  var _sym = 'abcdefghijklmnopqrstuvwxyz1234567890';
+  var str = '';
+  
+  for(var i = 0; i < count; i++) {
+    str += _sym[parseInt(Math.random() * (_sym.length))];
+  }
+  return str;
+}
 
 /**
  * The method will create a job to the database
@@ -15,62 +22,33 @@ const connection = require('../db_connection');
  *         200 - If the job opening is succcesfully saved in the database
  *         500 - If the job couldn't be saved in the database
  */
-
-function generateId(count) {
-  var _sym = 'abcdefghijklmnopqrstuvwxyz1234567890';
-  var str = '';
-
-  for(var i = 0; i < count; i++) {
-      str += _sym[parseInt(Math.random() * (_sym.length))];
-  }
-  return str;
-}
-
-
-router.post("/jobposting",[check("title").notEmpty(),check('description').notEmpty(),check("salary").notEmpty(),check("location").notEmpty(),check("email").notEmpty(),check('category').notEmpty(),check('link').notEmpty(),body().custom(body => {
-  const keys = ['title','description','salary','location','email','category','link'];
-  return Object.keys(body).every(key => keys.includes(key));
-})],async(req, res) => {
-    const err = validationResult(req);
-    if(!err.isEmpty()){
-      console.log(err);
-      console.log('link is ', req.body.link);
-      return res.status(400).json({Message:'Bad Request'})
-    }
-    var decrypted = aes256.decrypt(key, req.query.API_KEY);
-    console.log(decrypted);
-    if(decrypted!=API_KEY){
-      return res.status(401).json({Message:'Unauthorized'});
+router.post("/jobposting", [
+  check("title").notEmpty(),
+  check('description').notEmpty(),
+  check("salary").notEmpty(),
+  check("location").notEmpty(),
+  check("email").notEmpty(),
+  check('category').notEmpty(),
+  check('link').notEmpty(),
+  body().custom(body => {
+    const keys = ['title','description','salary','location','email','category','link'];
+    return Object.keys(body).every(key => keys.includes(key));
+  })],
+  async (req, res) => {
+    // Validate API request
+    const validate = sec_utils.APIRequestIsValid(req);
+    if (validate.statusCode != 200) {
+      return res.status(validate.statusCode).json({message: validate.message});
     }
     console.log("posting a job to the database");
-    req.body['_id'] = generateId(10);
-    var query= "INSERT INTO `jobOpenings` (";
-    for(var myKey in req.body) {
-      query+=myKey+", ";
-    }
-    console.log(query);
-    query = query.slice(0,query.length-2);
-    query+= ") VALUES (";
-    var val = []
-    for(var myKey in req.body) {
-      query+="?,";
-      val.push(req.body[myKey]);
-    }
-    query = query.slice(0,query.length-1);
-    query += ")";
-    connection.query(query,val,function(err, row) {
-      if(!err) {
-          console.log("In careersController[jobposting, POST]: Inserted successfully");
-          res.status(200).json({
-            message: "Job opening saved in the database"
-          });
-      }else{
-        console.log(err);
-        res.status(500).json({
-          message: "Cannot save job in the database"
-        })
-      }
-    });
+
+    const jobOpening = req.body;
+    jobOpening['_id'] = generateId(10);
+    // Add job opening to db
+    const resp = await db_utils.insertUserIntoDB('jobOpenings', jobOpening);
+    let body = resp.body;
+    body['message'] = resp.message;
+    return res.status(resp.statusCode).json(body);
 });
 
 /**
@@ -81,29 +59,24 @@ router.post("/jobposting",[check("title").notEmpty(),check('description').notEmp
  *         200 - Returned along with all the job openings
  *         404 - If there are no jobOpning available in the db.
  */
-router.get('/jobposting', (req, res) => {
-  if(Object.keys(req.body).length>0){
-    return res.status(400).json({Message:'Bad Request'})
-  }
-  var decrypted = aes256.decrypt(key, req.query.API_KEY);
-  //console.log(decrypted);
-  if(decrypted!=API_KEY){
-    return res.status(401).json({Message:'Unauthorized'});
-  }
-  const query= 'SELECT * FROM `jobOpenings` WHERE 1=1';
-  connection.query(query, function(err, row) {
-    if(!err) {
-        if (row.length>0){
-          console.log("In careersController[jobposting]: Rows returned");
-          res.status(200).json(row);
-        }else{
-          console.log("In careersController[jobposting]: Could not retrieve job openings from DB")
-          res.status(404).send({message: "Could not retrieve job openings from DB"});
-        }
-      }else{
-        console.log(err);
-      }
-  });
+router.get('/jobposting', [
+  body().custom(body => {
+    return Object.keys(body).length === 0;
+  })],
+  async (req, res) => {
+    // Validate API request
+    const validate = sec_utils.APIRequestIsValid(req);
+    if (validate.statusCode != 200) {
+      return res.status(validate.statusCode).json({message: validate.message});
+    }
+    // Get all job openings from db
+    const resp = await db_utils.getAllRowsFromTable('jobOpenings');
+    if (resp.statusCode != 200) {
+      return res.status(resp.statusCode).json({message: resp.message});
+    }
+    let body = resp.body;
+    body['message'] = resp.message;
+    return res.status(resp.statusCode).json(body);
 });
 
 /**
@@ -120,30 +93,21 @@ router.get('/jobposting', (req, res) => {
   return Object.keys(body).every(key => keys.includes(key));
 }).withMessage('Some extra parameters are sent')]
 */
-router.get('/jobposting/:jobcategory', (req, res) => {
-  const errors = validationResult(req);
-  if(!errors.isEmpty()){
-    return res.status(400).json({Message:'Bad Request'})
-  }
-  var decrypted = aes256.decrypt(key, req.query.API_KEY);
-  console.log(decrypted);
-  if(decrypted!=API_KEY){
-    return res.status(401).json({Message:'Unauthorized'});
-  }
-  const query = 'SELECT * FROM `jobOpenings` WHERE category=?';
-  connection.query(query,[req.params.jobcategory], function(err, rows) {
-    if(!err) {
-      if(rows.length>0)
-        res.status(200).json(rows);
-    else
-      res.status(404).send({message: "Could not retrieve job openings from DB"});
-      // next();
+router.get('/jobposting/:jobcategory', [
+  body().custom(body => {
+    return Object.keys(body).length === 0;
+  })],
+  async (req, res) => {
+    // Validate API request
+    const validate = sec_utils.APIRequestIsValid(req);
+    if (validate.statusCode != 200) {
+      return res.status(validate.statusCode).json({message: validate.message});
     }
-    else{
-      res.status(500).send({message: "Server Error"});
-      console.log(err);
-    }
-  });
+    // Get job openings for jobcategory from db
+    const resp = await db_utils.getRowFromTableWhere('jobOpenings', {'category': req.params.jobcategory});
+    let body = resp.body;
+    body['message'] = resp.message;
+    return res.status(resp.statusCode).json(body);
 });
 
 
@@ -155,77 +119,51 @@ router.get('/jobposting/:jobcategory', (req, res) => {
  *         500 - If the job couldn't be saved in the database
  */
 
-router.post("/jobcategory",[check("title").notEmpty(),check('description').notEmpty(),body().custom(body => {
-  const keys = ['title','description'];
-  return Object.keys(body).every(key => keys.includes(key));
-})],async(req, res) => {
-    const err = validationResult(req);
-    if(!err.isEmpty()){
-      return res.status(400).json({Message:'Bad Request'})
+router.post("/jobcategory", [
+  check("title").notEmpty(),
+  check('description').notEmpty(),
+  body().custom(body => {
+    const keys = ['title','description'];
+    return Object.keys(body).every(key => keys.includes(key));
+  })],
+  async (req, res) => {
+    const validate = sec_utils.APIRequestIsValid(req);
+    if (validate.statusCode != 200) {
+      return res.status(validate.statusCode).json({message: validate.message});
     }
-    var decrypted = aes256.decrypt(key, req.query.API_KEY);
-    console.log(decrypted);
-    if(decrypted!=API_KEY){
-      return res.status(401).json({Message:'Unauthorized'});
-    }
-  console.log("posting a jobcategory to the database");
-  req.body['_id'] = generateId(10);
-  console.log(req.body);
-
-  var query= "INSERT INTO `jobCategories` ("
-  for(var myKey in req.body) {
-    query+=myKey+", ";
-  }
-  query = query.slice(0,query.length-2);
-  query+= ") VALUES (";
-  var val = []
-  for(var myKey in req.body) {
-    query+="?,";
-    val.push(req.body[myKey]);
-  }
-  query = query.slice(0,query.length-1);
-  query += ")";
-  connection.query(query,val, function(err, row) {
-    if(!err) {
-        console.log("In careersController[jobcategory, POST]: Inserted successfully");
-        res.status(200).json({
-          message: "Job category saved in the database"
-        });
-    }else{
-      console.log(err);
-      res.status(500).json({
-        message: "An error has occured trying to save the job category in the database"
-      })
-    }
-  });
+    
+    console.log("posting a jobcategory to the database");
+    const jobCategory = req.body;
+    jobCategory['_id'] = generateId(10);
+    console.log(jobCategory);
+    // Add job category to db
+    const resp = await db_utils.insertUserIntoDB('jobCategories', jobCategory);
+    let body = resp.body;
+    body['message'] = resp.message;
+    return res.status(resp.statusCode).json(body);
 });
 
 /**
- * The method will retrieve all the job categoried in the database
+ * The method will retrieve all the job categories in the database
  * Input: N/A
  * Output: Will return all the job openings in the database or error message along with
  *         the appropriate http status
  *         200 - Returned along with all the job categories
  *         404 - If there are no jobCategory available in the db.
  */
-router.get('/jobcategory', (req, res) => {
-  if(Object.keys(req.body).length>0){
-    return res.status(400).json({Message:'Bad Request'})
-  }
-  var decrypted = aes256.decrypt(key, req.query.API_KEY);
-  console.log(decrypted);
-  if(decrypted!=API_KEY){
-    return res.status(401).json({Message:'Unauthorized'});
-  }
-  const query = 'SELECT * FROM `jobCategories` WHERE 1=1';
-  connection.query(query, function(err, rows) {
-    if(!err) {
-      res.status(200).json(rows);
-    }else{
-      res.status(404).send({message: "Could not retrieve job openings from DB"});
-      next();
+router.get('/jobcategory', [
+  body().custom(body => {
+    return Object.keys(body).length === 0;
+  })],
+  async (req, res) => {
+    // Validate API request
+    const validate = sec_utils.APIRequestIsValid(req);
+    if (validate.statusCode != 200) {
+      return res.status(validate.statusCode).json({message: validate.message});
     }
-  });
+    // Get all job categories from db
+    const resp = await db_utils.getAllRowsFromTable('jobCategories');
+    return res.status(resp.statusCode).json(resp.body);
 });
 
 
@@ -238,32 +176,21 @@ router.get('/jobcategory', (req, res) => {
  *         200 - If the job is found
  *         404 - If the job with the given Id is not found
  */
-router.get('/jobposting/job/:jobid',(req, res) => {
-  console.log(req.params);
-  if(Object.keys(req.body).length>0){
-    return res.status(400).json({Message:'Bad Request'})
-  }
-  var decrypted = aes256.decrypt(key, req.query.API_KEY);
-  console.log(decrypted);
-  if(decrypted!=API_KEY){
-    return res.status(401).json({Message:'Unauthorized'});
-  }
-  const query = 'SELECT * FROM `jobOpenings` WHERE _id=?';
-  // req.params.jobid+'"';
-  console.log(req.params);
-     connection.query(query,[req.params.jobid], function(err, rows) {
-      if(!err) {
-        if(rows.length>0)
-          res.status(200).json(rows[0]);
-        else
-          res.status(404).send({message: "Job ID doesn't exist"});
-        //next();
-      }
-      else{
-        res.status(500).send({message: "Server Error"});
-        console.log(err);
-      }
-    });
+router.get('/jobposting/job/:jobid', [
+  body().custom(body => {
+    return Object.keys(body).length === 0;
+  })],
+  async (req, res) => {
+    // Validate API request
+    const validate = sec_utils.APIRequestIsValid(req);
+    if (validate.statusCode != 200) {
+      return res.status(validate.statusCode).json({message: validate.message});
+    }
+    // Get job opening from db
+    const resp = await db_utils.getRowByID('jobOpenings', req.params.jobid);
+    let body = resp.body;
+    body['message'] = resp.message;
+    return res.status(resp.statusCode).json(body);
 });
 
 module.exports = router;

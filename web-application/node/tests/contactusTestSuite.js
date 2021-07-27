@@ -24,23 +24,23 @@ chai.use(chaiHttp);
 describe("/POST a query", () => {
   it("create a query", async () => {
     let queryPost = {
-      FirstName: faker.name.firstName(),
-      LastName: faker.name.lastName(),
-      Email: faker.internet.email(),
-      Message: "Hello"
+      fname: faker.name.firstName(),
+      lname: faker.name.lastName(),
+      email: faker.internet.email(),
+      message: "Hello"
     };
-    var res = await request(app)
+    request(app)
       .post("/contact_us/")
       .query({
         API_KEY: "TiKY7Md2dHpcZo1ih4KbkinTHh7CNTSjseg2ZB3ZiaEC2x1bFA==",
       })
-      .send(queryPost);  
-      
-      // assert.isNull(err);
-      console.log("statuscode is ", res.statusCode);
-      assert.isTrue(res.statusCode != 404);
-      assert.isTrue(res.statusCode == 200);
-
+      .send(queryPost)
+      .end((err, res) => {
+        assert.isNull(err);
+        console.log("statuscode is ", res.statusCode);
+        assert.isTrue(res.statusCode != 404);
+        assert.isTrue(res.statusCode == 200);
+      });
   });
 });
 
@@ -59,86 +59,87 @@ describe("validity of input", () => {
   it("should have a response with status code 400 when any of the required fields are missing.", async () => {
     let fields = [
       {
-        FirstName: "John",
-        LastName: "Doe",
-        Email: "johndoe@gmail.com"
+        fname: "John",
+        lname: "Doe",
+        email: "johndoe@gmail.com"
       },
 
       {
-        FirstName: "John",
-        LastName: "Doe",
-        Message: "Hello"
+        fname: "John",
+        lname: "Doe",
+        message: "Hello"
       },
 
       {
-        LastName: "Doe",
-        Email: "johndoe@gmail.com",
-        Message: "Hello"
+        lname: "Doe",
+        email: "johndoe@gmail.com",
+        message: "Hello"
       },
 
       {
-        FirstName: "John",
-        Email: "johndoe@gmail.com",
-        Message: "Hello"
+        fname: "John",
+        email: "johndoe@gmail.com",
+        message: "Hello"
       },
 
       {
-        FirstName: "John",
-        LastName: "Doe"
+        fname: "John",
+        lname: "Doe"
       },
 
       {
-        LastName: "Doe",
-        Email: "johndoe@gmail.com"
+        lname: "Doe",
+        email: "johndoe@gmail.com"
       },
 
       {
-        Email: "johndoe@gmail.com",
-        Message: "Hello"
+        email: "johndoe@gmail.com",
+        message: "Hello"
       },
 
       {
-        FirstName: "John",
-        Email: "johndoe@gmail.com"
+        fname: "John",
+        email: "johndoe@gmail.com"
       },
 
       {
-        FirstName: "John",
-        Message: "Hello"
+        fname: "John",
+        message: "Hello"
       },
 
       {
-        LastName: "Doe",
-        Message: "Hello"
+        lname: "Doe",
+        message: "Hello"
       },
 
       {
-        FirstName: "John"
+        fname: "John"
       },
 
       {
-        LastName: "Doe"
+        lname: "Doe"
       },
 
       {
-        Email: "johndoe@gmail.com"
+        email: "johndoe@gmail.com"
       },
 
       {
-        Message: "Hello"
+        message: "Hello"
       },
     ];
 
     for (var i = 0; i < fields.length; i++) {
-      var res = await request(app)
+      request(app)
         .post("/contact_us/")
         .query({
           API_KEY: "TiKY7Md2dHpcZo1ih4KbkinTHh7CNTSjseg2ZB3ZiaEC2x1bFA==",
         })
         .send(fields[i])
-
-        // assert.isNull(err);
-        assert(res.statusCode == 400);
+        .end((err, res) => {
+          assert.isNull(err);
+          assert.isTrue(res.statusCode == 400);
+        });
     }
   });
 });

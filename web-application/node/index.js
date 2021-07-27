@@ -19,7 +19,7 @@ var contactUsController = require("./controllers/contactUsController");
 var careersController = require("./controllers/careersController");
 var resetPasswordController = require("./controllers/resetPasswordController");
 var healthcareProviderController = require("./controllers/healthcareProviderController");
-var healthcareProvideLoginController = require("./controllers/healthcareProviderLoginController");
+var healthcareProviderLoginController = require("./controllers/healthcareProviderLoginController");
 var healthcareProviderResetPasswordController = require("./controllers/healthcareProviderResetPasswordController");
 var deactivateController = require("./controllers/deactivateController");
 var reactivateController = require("./controllers/reactivateController");
@@ -86,7 +86,8 @@ app.use(function (req, res, next) {
     'https://scriptchain.co',
     'http://localhost:4200',
     'http://localhost:8080',
-    'http://localhost:3000'
+    'http://localhost:3000',
+    '127.0.0.1'
     //'http://3.16.14.209:3000'
   ];
   var origin = req.headers.origin;
@@ -128,7 +129,7 @@ app.use("/contact_us", contactUsController);
 app.use("/careers", careersController);
 app.use("/reset_password", resetPasswordController);
 app.use("/backend/healthcare",healthcareProviderController);
-app.use("/backend/healthcare-login",healthcareProvideLoginController);
+app.use("/backend/healthcare-login",healthcareProviderLoginController);
 app.use("/backend/healthcare/reset_password", healthcareProviderResetPasswordController);
 app.use("/backend/deactivate", deactivateController )
 app.use("/backend/reactivate", reactivateController )
@@ -143,7 +144,6 @@ app.get("*", (req, res) => {
 
 // start express server
 if (require.main === module) {
-  const { mongoose } = require("./db");
   app.listen(3000, () => console.log("Server started at port: 3000"));
 }
 
