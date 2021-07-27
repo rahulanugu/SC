@@ -43,8 +43,14 @@ DEFAULT_TIMEOUT = 5
 '''
 
 
-
 # Authorization section
+
+def get_patient(url, patientID, token):
+    payload = {'patient': patientID}
+    headers = get_headers(token)
+
+    res = requests.get(url=url, params=payload, headers=headers, timeout=DEFAULT_TIMEOUT)
+    return res
 
 def get_access_token():
     url = 'https://athena.okta.com/oauth2/aus2hfei6ookPyyCA297/v1/token'
@@ -69,13 +75,13 @@ def get_access_token():
 
 # https://docs.athenahealth.com/api/sandbox#/Patient/getPracticeidPatientsSearch
 def get_sex(url, practiceID, token):
-    return get_patient_resource(url, practiceID, token)
+    return get_patient(url, practiceID, token)
 
 def get_racecode(url, practiceID, token):
-    return get_patient_resource(url, practiceID, token)    
+    return get_patient(url, practiceID, token)    
 
 def get_maritalstatus(url, practiceID, token):
-    return get_patient_resource(url, practiceID, token)    
+    return get_patient(url, practiceID, token)    
 
 def get_medication(url, practiceID, departmentID, medicationID, token):
     url = url + '/' + practiceID + '/' + departmentID + '/fhir/dstu2/Medication/' + medicationID
@@ -132,54 +138,11 @@ def get_error_code(message):
     return {'status_code': 404, 'message': message}
 
 
-# <- Function mapping ->
-# Dictionary that maps keys (strings) to lambda functions
-key_func_mapping = {
-    'Sex':
-        lambda data: get_sex(data['url'], data['practiceID'], data['token']),
-    'Racecode.race':
-        lambda data: get_racecode(data['url'], data['practiceID'], data['token']),
-    'Marital.status':
-        lambda data: get_medication(data['url'], data['practiceID'], data['token']),
-    'medication':
-        lambda data: get_medication(data['url'], data['practiceID'], data['departmentID'], data['medicationID'], data['token']),
-    'Diagnosis':
-        lambda data: get_diagnosis(data['url'], data['practiceID'], data['departmentID'], data['labresultID'], data['token']),
-    'Procedure':
-        lambda data: get_procedure(data['url'], data['practiceID'], data['brandID'], data['chartsharinggroupID'], data['token']),
-    'Encounter':
-        lambda data: get_encounter(data['url'], data['practiceID'], data['departmentID'], data['token']),
-    'Document.reference':
-        lambda data: get_document_reference(data['url'], data['practiceID'], data['departmentID'], data['token']),
-    'Medication.statement':
-        lambda data: get_medication_statement(data['url'], data['practiceID'], data['brandID'], data['chartsharinggroupID'], data['token']),
-    'Condition':
-        lambda data: get_condition(data['url'], data['practiceID'], data['brandID'], data['chartsharinggroupID'], data['token']),
-    'Patient':
-        lambda data: get_diagnosis(data['url'], data['practiceID'], data['departmentID'], data['labresultID'], data['token']),
-    'Immunization':
-        lambda data: get_immunization(data['url'], data['practiceID'], data['departmentID'], data['token']),
-    'Procedure':
-        lambda data: get_procedure(data['url'], data['practiceID'], data['brandID'], data['chartsharinggroupID'], data['token']),
-    'Vital.signs':
-        lambda data: get_vital_signs(data['url'], data['practiceID'], data['brandID'], data['chartsharinggroupID'], data['vitalID'], data['token']),
-    'AllergyIntolerance':
-        lambda data: get_allergy_intolerance(data['url'], data['practiceID'], data['token']),
-    
-}
-
-# Handler to utilize the function mapping
-def get_handler(key, data):
-    func = key_func_mapping.get(key, None)
-
-    if func is None:
-        return get_error_code('Resource key not found')
-    return func(data)
-
-
 
 result = get_access_token()
 content = result.content.decode("UTF-8")
 data = ast.literal_eval(content)
-print(" Token from the authorization ", result.status_code, data['access_token'])
+print(" Token from the authorization ", data['access_token'])
+
+
 
