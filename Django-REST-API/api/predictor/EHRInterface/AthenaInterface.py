@@ -18,6 +18,9 @@ import subprocess
 import uuid
 from cryptography.hazmat.primitives.serialization import load_pem_private_key
 from cryptography import x509
+from requests.api import head
+import ast
+
 
 
 # Token
@@ -64,28 +67,34 @@ def get_patient_resource(url, patientID, token):
     return res
 
 # Method to generate JWT token which will be provided to server for authorization with the athena app
-def generateAthenaJWT():
-    curr_time = int(datetime.datetime.utcnow().timestamp())
-    headers = {
-        'alg': 'RS384',
-        'typ': 'JWT'
-    }
-    payload = {
-        'iss': '0oa946l55dFaXnUUB297',
-        'sub': '0oa946l55dFaXnUUB297',
-        'aud': 'https://fhir.epic.com/interconnect-fhir-oauth/oauth2/token',
-        'exp': curr_time + 300
-    }
-    token = jwt.encode(payload=payload, headers=headers, algorithm='RS384')
-    return token
+# def generateAthenaJWT():
+#     curr_time = int(datetime.datetime.utcnow().timestamp())
+#     priv_key = b"-----BEGIN RSA PRIVATE KEY-----\nMIIEpAIBAAKCAQEAs2VW52Z14AjirBRpMhIlhS3Advzwlk97JpN/uj6IN9foEibe\nyC6yYeVGxUY3h98VWIgCUFDdeUJn9NXxMRJeMH2AAwgn40uioZ9Lh3gpQt3i0kYi\nc4+Yv3oX+W4JN6JVDuss90vVT4kGEMs/+4fjGHSJHZJHz76a2L099lk5zls8N38h\nVtE3LRlKF7dQTqI5uh+UkXCElsWtVtiUVmC2tlC9G/PKqxYeiZ9Kr6/wUWJEySkL\nSdIAKOV7diS7CIwplkTgQhAPTKWHvvLBCAes7121T1lp+5EW0BYRafwqUSdB0PqP\nBcf2DjWJN5PRwzxQxZ7Pqi8Rfo/xRhtnCn7+YQIDAQABAoIBAG528VtN0Tmh3wn9\nC4WkfOwT7xaVzAOSb4+idZ0WUkSosyMyQi5b6sWzK6/f++Ozb25zWZFhKe83/9FY\nR8titxL+xGuZgw5IDZ2d/CEv0aB2BuxZ+W7VNkZ5hPe3VP+n+t5T2/1u+aufAVgn\n/37//suZPrEx2PxILwtVBCmEab7xkJkelEn3Imc/sZI1nbsiPkN4lV5CdjQRNEIR\n7MGTfTMfE7l/Hd+qgXQbv8F+swR8QlOY/d9B4xryTKYBvRs+bOlvnzH1dK1tmfej\ni1tV8ny+2Z7/SOVs3oVs4F8zr96qmd5DMHw6k1rKX6MLUgGQG55DMoOxmGLNWSE8\ned76pM0CgYEA5LRHmtHHbUOvLWCK5fzrVxl66hI0jY3rZA1MQVLWfvTos1xkKEZf\nitcXbdZke1wUWthAHByEr2WB/8UIpKD9ORg3A5T3CzFyMKNRzi15ned5v3np9Y0c\nufMQJJjUfTajSjYehWZTeRjuFg9bMf3UI38J3u/6x89W+IPD79N6xZ8CgYEAyM6D\n9ua1oX/+iW842W5BPsPlaSurdXrtyOU6S4TMLlZrC8Sucx8dMr4jbhr0m74PyOqq\nagVoc5dZG4G4RmhMFQoRo4wmmAeFR4Haq4UDuQf/BSrcN90Ys/XjTwx33C8sh1KC\nXvmFwiCj19XXmM51a93cdeudWGfZ7KuyeMKHu/8CgYEA4zUG/hPyn+ZiHh6PXzUJ\nSJqTtf8oHokjlV5wp2T4m2AL3kSnbCudt31AVWpsoPE1d5rm9gaO+wFJSSQiFguq\nBhK8dN6FH6Wb4B4go0giTnEsTsF7YOsz4rhLDVCXqV2ik5N4dubVfrT5swjGfL/D\nBRCsacLXzbF6oaGmApiCm9kCgYEAxzj8e+yQrtXJtph+ElnsqVS5Ogp1ZWy8lN+3\nYk0yNZbPRTGw0c5AraMui4J6xDlgd7k5sU4EPwodAclFBbVcJlODBHt7nsF3XWZb\niGfDNcPVI09OhK36YDDHgBmioPS8fNVDOu7b4al4ZB5oc9YBcS8AFo3X4WnHL6N4\nwY5eFAkCgYAJQTQsDFmUDeksWtAk7gZ2Y8IbhzCDEqt1ULtEyf+IY93ljfmIxyrA\npUQdbyhcIoxC55hnezwLLv98BFC/byzAP7OunahozGbObs58YN6+Dftdg6xgOY6w\nRLKybv4//fu+J0FxsR9fxrNK5HLCadMpRRV2gCQ0f0a98nPkPGsQjw==-----END RSA PRIVATE KEY-----"
+#     headers = {
+#         'alg': 'RS384',
+#         'typ': 'JWT'
+#     }
+#     payload = {
+#         'iss': '0oa946l55dFaXnUUB297',
+#         'sub': '0oa946l55dFaXnUUB297',
+#         'aud': 'https://fhir.epic.com/interconnect-fhir-oauth/oauth2/token',
+#         'exp': curr_time + 300
+#     }
+#     token = jwt.encode(payload=payload, key=priv_key, algorithm='RS384', headers=headers)
+#     jwt.encode()
+#     return token
 
 
-def get_access_token(jwtToken):
+def get_access_token():
     url = 'https://athena.okta.com/oauth2/aus2hfei6ookPyyCA297/v1/token'
+    client_id = '0oa946l55dFaXnUUB297'
+    client_secret = 'FWpXu4vWCr3qRdQwCV4sznm4lBHEM9DOYfQd4lDO'
     headers = {
         'Content-Type': 'application/x-www-form-urlencoded'
     }
     payload = {
+        'client_id' : client_id,
+        'client_secret' : client_secret,
         'grant_type': 'client_credentials',
         'scope' : 'athena/service/Athenanet.MDP.*'
     }
@@ -202,5 +211,9 @@ def get_handler(key, data):
     return func(data)
 
 
-#Tests
+
+result = get_access_token()
+content = result.content.decode("UTF-8")
+data = ast.literal_eval(content)
+print(" Token from the authorization ", result.status_code, data['access_token'])
 
