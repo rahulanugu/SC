@@ -137,7 +137,7 @@
   dependencies:
     "tslib" "^1.9.0"
 
-"@angular/cdk@^8.2.3":
+"@angular/cdk@^8.0.0-rc.0", "@angular/cdk@^8.2.3", "@angular/cdk@>=8.0.0":
   "integrity" "sha512-ZwO5Sn720RA2YvBqud0JAHkZXjmjxM0yNzCO8RVtRE9i8Gl26Wk0j0nQeJkVm4zwv2QO8MwbKUKGTMt8evsokA=="
   "resolved" "https://registry.npmjs.org/@angular/cdk/-/cdk-8.2.3.tgz"
   "version" "8.2.3"
@@ -172,7 +172,7 @@
     "universal-analytics" "^0.4.20"
     "uuid" "^3.3.2"
 
-"@angular/common@~8.2.14":
+"@angular/common@>=8.0.0", "@angular/common@>=8.0.0-rc.5", "@angular/common@~8.2.14":
   "integrity" "sha512-Qmt+aX2quUW54kaNT7QH7WGXnFxr/cC2C6sf5SW5SdkZfDQSiz8IaItvieZfXVQUbBOQKFRJ7TlSkt0jI/yjvw=="
   "resolved" "https://registry.npmjs.org/@angular/common/-/common-8.2.14.tgz"
   "version" "8.2.14"
@@ -202,17 +202,17 @@
   dependencies:
     "tslib" "^1.9.0"
 
-"@angular/core@~8.2.10":
+"@angular/core@^8.0.0-rc.5", "@angular/core@>=8.0.0", "@angular/core@>=8.0.0-rc.5", "@angular/core@~8.2.10":
   "integrity" "sha512-zeePkigi+hPh3rN7yoNENG/YUBUsIvUXdxx+AZq+QPaFeKEA2FBSrKn36ojHFrdJUjKzl0lPMEiGC2b6a6bo6g=="
   "resolved" "https://registry.npmjs.org/@angular/core/-/core-8.2.14.tgz"
   "version" "8.2.14"
   dependencies:
     "tslib" "^1.9.0"
 
-"@angular/flex-layout@^7.0.0-beta.23":
-  "integrity" "sha512-ll6sK0nLGxqI/f5+z4jbd+pve1QITzgehv2AuGvfSDgIjPMeqUDB5YZqQmIGM/dQRk/vIio5KCW5LQPJWzMMYQ=="
-  "resolved" "https://registry.npmjs.org/@angular/flex-layout/-/flex-layout-7.0.0-beta.24.tgz"
-  "version" "7.0.0-beta.24"
+"@angular/flex-layout@^8.0.0-beta.27":
+  "integrity" "sha512-qmpvQPesU4ZQ56IscwgmVRpK2UnyV+gwvXUql7TMv0QV215hLcHczjGsrKkLfW2By5E7XEyDat9br72uVXcPMw=="
+  "resolved" "https://registry.npmjs.org/@angular/flex-layout/-/flex-layout-8.0.0-beta.27.tgz"
+  "version" "8.0.0-beta.27"
   dependencies:
     "tslib" "^1.7.1"
 
@@ -249,7 +249,7 @@
   dependencies:
     "tslib" "^1.9.0"
 
-"@angular/platform-browser@~8.2.14":
+"@angular/platform-browser@>=8.0.0-rc.5", "@angular/platform-browser@~8.2.14":
   "integrity" "sha512-MtJptptyKzsE37JZ2VB/tI4cvMrdAH+cT9pMBYZd66YSZfKjIj5s+AZo7z8ncoskQSB1o3HMfDjSK7QXGx1mLQ=="
   "resolved" "https://registry.npmjs.org/@angular/platform-browser/-/platform-browser-8.2.14.tgz"
   "version" "8.2.14"
@@ -1060,24 +1060,38 @@
     "lodash" "^4.17.13"
     "to-fast-properties" "^2.0.0"
 
-"@fortawesome/fontawesome-common-types@^0.2.34":
-  "integrity" "sha512-XcIn3iYbTEzGIxD0/dY5+4f019jIcEIWBiHc3KrmK/ROahwxmZ/s+tdj97p/5K0klz4zZUiMfUlYP0ajhSJjmA=="
-  "resolved" "https://registry.npmjs.org/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-0.2.34.tgz"
-  "version" "0.2.34"
-
-"@fortawesome/fontawesome-svg-core@^1.2.34":
-  "integrity" "sha512-0KNN0nc5eIzaJxlv43QcDmTkDY1CqeN6J7OCGSs+fwGPdtv0yOQqRjieopBCmw+yd7uD3N2HeNL3Zm5isDleLg=="
-  "resolved" "https://registry.npmjs.org/@fortawesome/fontawesome-svg-core/-/fontawesome-svg-core-1.2.34.tgz"
-  "version" "1.2.34"
+"@fortawesome/angular-fontawesome@^0.5.0":
+  "integrity" "sha512-5IR/jNMddiEpgApcqSMfp7l5kZqOtxQYzkSLW6iZ4MZHbQQ+Kc9tu9qi2hro6VFSk/sPxeYEzkzGZUNrMYiwOg=="
+  "resolved" "https://registry.npmjs.org/@fortawesome/angular-fontawesome/-/angular-fontawesome-0.5.0.tgz"
+  "version" "0.5.0"
   dependencies:
-    "@fortawesome/fontawesome-common-types" "^0.2.34"
+    "tslib" "^1.9.0"
 
-"@fortawesome/free-brands-svg-icons@^5.15.2":
-  "integrity" "sha512-YPlVjE1cEO+OJ9I9ay3TQ3I88+XkxMTYwnnddqAboxLhPNGncsHV0DjWOVLCyuAY66yPfyndWwVn4v7vuqsO1g=="
-  "resolved" "https://registry.npmjs.org/@fortawesome/free-brands-svg-icons/-/free-brands-svg-icons-5.15.2.tgz"
-  "version" "5.15.2"
+"@fortawesome/fontawesome-common-types@^0.2.35":
+  "integrity" "sha512-IHUfxSEDS9dDGqYwIW7wTN6tn/O8E0n5PcAHz9cAaBoZw6UpG20IG/YM3NNLaGPwPqgjBAFjIURzqoQs3rrtuw=="
+  "resolved" "https://registry.npmjs.org/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-0.2.35.tgz"
+  "version" "0.2.35"
+
+"@fortawesome/fontawesome-svg-core@^1.2.21", "@fortawesome/fontawesome-svg-core@^1.2.35":
+  "integrity" "sha512-uLEXifXIL7hnh2sNZQrIJWNol7cTVIzwI+4qcBIq9QWaZqUblm0IDrtSqbNg+3SQf8SMGHkiSigD++rHmCHjBg=="
+  "resolved" "https://registry.npmjs.org/@fortawesome/fontawesome-svg-core/-/fontawesome-svg-core-1.2.35.tgz"
+  "version" "1.2.35"
   dependencies:
-    "@fortawesome/fontawesome-common-types" "^0.2.34"
+    "@fortawesome/fontawesome-common-types" "^0.2.35"
+
+"@fortawesome/free-brands-svg-icons@^5.15.3":
+  "integrity" "sha512-1hirPcbjj72ZJtFvdnXGPbAbpn3Ox6mH3g5STbANFp3vGSiE5u5ingAKV06mK6ZVqNYxUPlh4DlTnaIvLtF2kw=="
+  "resolved" "https://registry.npmjs.org/@fortawesome/free-brands-svg-icons/-/free-brands-svg-icons-5.15.3.tgz"
+  "version" "5.15.3"
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "^0.2.35"
+
+"@fortawesome/free-solid-svg-icons@^5.15.3":
+  "integrity" "sha512-XPeeu1IlGYqz4VWGRAT5ukNMd4VHUEEJ7ysZ7pSSgaEtNvSo+FLurybGJVmiqkQdK50OkSja2bfZXOeyMGRD8Q=="
+  "resolved" "https://registry.npmjs.org/@fortawesome/free-solid-svg-icons/-/free-solid-svg-icons-5.15.3.tgz"
+  "version" "5.15.3"
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "^0.2.35"
 
 "@istanbuljs/schema@^0.1.2":
   "integrity" "sha512-ZXRY4jNvVgSVQ8DL3LTcakaAtXwTVUxE81hslsyD2AtoXW/wVob10HkOJ1X/pAlcI7D+2YoZKg5do8G/w6RYgA=="
@@ -1101,6 +1115,11 @@
     "rxjs" "6.4.0"
     "tree-kill" "1.2.2"
     "webpack-sources" "1.4.3"
+
+"@popperjs/core@^2.9.2":
+  "integrity" "sha512-VZMYa7+fXHdwIq1TDhSXoVmSPEGM/aa+6Aiq3nVVJ9bXr24zScr+NlKFKC3iPljA7ho/GAZr+d2jOf5GIRC30Q=="
+  "resolved" "https://registry.npmjs.org/@popperjs/core/-/core-2.9.2.tgz"
+  "version" "2.9.2"
 
 "@schematics/angular@8.3.29":
   "integrity" "sha512-If+UhCsQzCgnQymiiF8dQRoic34+RgJ6rV0n4k7Tm4N2xNYJOG7ajjzKM7PIeafsF50FKnFP8dqaNGxCMyq5Ew=="
@@ -1462,6 +1481,11 @@
   dependencies:
     "@types/google.visualization" "^0.0.52"
     "tslib" "^2.0.0"
+
+"angular-socialshare@^2.3.11":
+  "integrity" "sha1-BTKLM9mF/Zt+FQAmPCCpqg+ELJk="
+  "resolved" "https://registry.npmjs.org/angular-socialshare/-/angular-socialshare-2.3.11.tgz"
+  "version" "2.3.11"
 
 "angular2-text-mask@^9.0.0":
   "integrity" "sha512-iALcnhJPS1zvX48d86rgUgDe/crX6XfhZrXC4Gdlo2/YwZW7u7KJZY6/b3ieSCIWVq/E6p+wDCzeo3E6leRjDA=="
@@ -1898,6 +1922,11 @@
     "dns-txt" "^2.0.2"
     "multicast-dns" "^6.0.1"
     "multicast-dns-service-types" "^1.1.0"
+
+"bootstrap@^5.0.2":
+  "integrity" "sha512-1Ge963tyEQWJJ+8qtXFU6wgmAVj9gweEjibUdbmcCEYsn38tVwRk8107rk2vzt6cfQcRr3SlZ8aQBqaD8aqf+Q=="
+  "resolved" "https://registry.npmjs.org/bootstrap/-/bootstrap-5.0.2.tgz"
+  "version" "5.0.2"
 
 "brace-expansion@^1.1.7":
   "integrity" "sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA=="
@@ -5524,6 +5553,13 @@
   dependencies:
     "tslib" "^2.0.0"
 
+"ngx-sharebuttons@^8.0.0":
+  "integrity" "sha512-X/janRE4HBr3/ZZvsRF5go0rFDhIAquftDj1cHYzwweNa7vh2L9v2/tP+n9DzCtAUlHL7qXHPpwO9ON8+SBcIA=="
+  "resolved" "https://registry.npmjs.org/ngx-sharebuttons/-/ngx-sharebuttons-8.0.0.tgz"
+  "version" "8.0.0"
+  dependencies:
+    "tslib" "^1.10.0"
+
 "nice-try@^1.0.4":
   "integrity" "sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ=="
   "resolved" "https://registry.npmjs.org/nice-try/-/nice-try-1.0.5.tgz"
@@ -6820,7 +6856,7 @@
   "resolved" "https://registry.npmjs.org/rxjs-compat/-/rxjs-compat-6.5.4.tgz"
   "version" "6.5.4"
 
-"rxjs@^6.4.0", "rxjs@^6.5.4":
+"rxjs@^6.0.0", "rxjs@^6.4.0", "rxjs@^6.5.4", "rxjs@>=6.0.0":
   "integrity" "sha512-hTdwr+7yYNIT5n4AMYp85KA6yw2Va0FLa3Rguvbpa4W3I5xynaBZo41cM3XM+4Q6fRMj3sBYIR1VAmZMXYJvRQ=="
   "resolved" "https://registry.npmjs.org/rxjs/-/rxjs-6.6.7.tgz"
   "version" "6.6.7"

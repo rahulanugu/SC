@@ -30,8 +30,6 @@ export class HealthcareAuthGuard implements CanActivate {
         this._router.navigate(['healthcare/login']);
         authorized =  false;
       });
-      if(authorized){
-        return true;
-      } else return false;
+      return authorized;
   }
 }

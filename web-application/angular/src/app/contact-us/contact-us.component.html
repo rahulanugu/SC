@@ -1,26 +1,78 @@
-<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
+<!-- Author: Vidit S Shah -->
 
 <!DOCTYPE html>
-<html lang="zxx">
-<body>
-  <app-common-header></app-common-header>
-  
-  <app-contact-us-form></app-contact-us-form>
-      <app-footer id="footer"></app-footer>
+<html lang="en">
 
-      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148334798-1"></script>
-      <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="http://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet" type="text/css" />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+  <!-- Hotjar Tracking Code for https://www.scriptchain.co/home -->
+  <script>
+    (function (h, o, t, j, a, r) {
+      h.hj =
+        h.hj ||
+        function () {
+          (h.hj.q = h.hj.q || []).push(arguments);
+        };
+      h._hjSettings = { hjid: 2374837, hjsv: 6 };
+      a = o.getElementsByTagName("head")[0];
+      r = o.createElement("script");
+      r.async = 1;
+      r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+      a.appendChild(r);
+    })(window, document, "https://static.hotjar.com/c/hotjar-", ".js?sv=");
+  </script>
+</head>
+
+<body fxLayout="column">
+  <div>
+    <app-landing-page-header></app-landing-page-header>
+  </div>
+  <div fxFlex.xl="80%">
+    <div class="container contentMargin" fxLayout="column" fxLayoutAlign="center center">
+      <div>
+        <div class="content1">
+          <h3 id="loginHeading">Contact Us</h3>
+          <p class="desc">
+            We look forward to serve you. Feel free to fill that form and we will
+            get back to you as soon as possible.
+          </p>
+        </div>
+      </div>
+    
+      <div class="quesForm pt-3 pb-4 mt-xl-5">
+        <div class="container" fxLayoutAlign="center">
+          <form class="mt-3">
+            <label>First Name</label>
+            <br />
+            <input type="text" />
+            <br />
+            <label>Last Name</label>
+            <br />
+            <input type="text" />
+            <br />
+            <label>Email</label>
+            <br />
+            <input type="text" /> <br />
+            <label>Message</label>
+            <br />
+            <textarea></textarea><br />
       
-        gtag('config', 'UA-148334798-1');
-      </script>
+            <button type="button" class="sendBtn" style="margin-left: 0px; width: 195px">
+              Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <app-landing-page-subfooter></app-landing-page-subfooter>
+  </div>
 </body>
 
 </html>

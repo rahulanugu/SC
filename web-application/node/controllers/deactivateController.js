@@ -1,11 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const { check,body,validationResult } = require('express-validator');
-const fs = require('fs');
-var aes256 = require('aes256');
-const API_KEY = process.env.API_KEY;
-const key = process.env.KEY;
-const connection = require('../db_connection');
+const { check, body } = require('express-validator');
+
+const db_utils = require('../db_utils');
+const sec_utils = require('../security_utils');
 
 //The controller handles the requests for deactivating user accounts
 
@@ -18,80 +16,42 @@ const connection = require('../db_connection');
  *         500 - An error occured trying to perform the request
  *         404 - Patient not found
  */
-// doubt
-/*
-
-*/
-
-router.post("/patient",[check('email').notEmpty().isEmail(),body().custom(body => {
+router.post("/patient", [
+  check('email').notEmpty().isEmail(),
+  body().custom(body => {
     const keys = ['email'];
     return Object.keys(body).every(key => keys.includes(key));
-  })], async (req, res) => {
-  const e = validationResult(req);
-  if(!e.isEmpty()){
-    return res.status(400).json({Message:'Bad Request'});
-  }
-  var decrypted = aes256.decrypt(key, req.query.API_KEY);
-  console.log(decrypted);
-  if(decrypted!=API_KEY){
-    return res.status(401).json({Message:'Unauthorized'});
-  }
-    console.log("reached deacivate patient controller");
-    const query = 'SELECT * FROM `patients` WHERE Email=?';
-    // req.body.Email+'"';
-    connection.query(query,[req.body.email], function(err, row) {
-        if(!err) {
-            if (row.length>0){
-                const query1 = 'DELETE FROM `patients` WHERE Email=?';
-                // req.body.Email+'"';
-                const retrievedPatient = row[0];
-                connection.query(query1,[req.body.email], function(err, row1) {
-                    if(err){
-                        res.status(500).json({"message": "account could not be deactivated due to an error"});
-                        next();
-                    }else{
-                        var query4= "INSERT INTO `deactivatedPatients` (";
-                        var val = [];
-                        for(var myKey in retrievedPatient) {
-                            query4+=myKey+", ";
-                            val.push(req.body[myKey]);
-                        }
-                        //val = val.slice(0,-1);
-                        //val += ']';
-                        query4 = query4.slice(0,query4.length-2);
-                        query4+= ") VALUES (";
-                        for(var myKey in retrievedPatient) {
-                            /*if(retrievedPatient[myKey]==false || retrievedPatient[myKey]==true)
-                                query4+="@"+myKey+",";
-                            else*/
-                            query4+="?,";
-                        }
-                        query4 = query4.slice(0,query4.length-1);
-                        query4 += ")";
-                        //console.log(query4);
-                        connection.query(query4,val, function(err, row) {
-                            if(!err) {
-                                console.log("In deactivateController[patient, POST]: Inserted successfully");;
-                                res.status(200).json({
-                                    "message":"account has been deactivated"
-                                });
-                            }else{
-                            console.log(err);
-                            res.status(500).json({
-                                "message": "account could not be deactivated due to an error"
-                            })
-                            }
-                        });
-                    }
-                });
-            } else {
-                res.status(404).json({"messsage": "An account could not be found with the email provided"})
-            }
+  })], 
+  async (req, res) => {
+    // Validate API request
+    const validate = sec_utils.APIRequestIsValid(req);
+    if (validate.statusCode != 200) {
+      return res.status(validate.statusCode).json({message: validate.message});
     }
-    });
+    
+    console.log('/deactivate/patient', 'reached get');
+    // Get patient from DB
+    const resp = await db_utils.getRowByEmail('patients', req.body.email);
+    if (resp.statusCode != 200) {
+      return res.status(resp.statusCode).json({message: resp.message});
+    }
 
-});
+    console.log('/deactivate/patient', 'reached insert');
+    // Patient found, copy patient over to `deactivatedPatients` table
+    const retrievedPatient = resp.body;
+    const respo = await db_utils.insertUserIntoDB('deactivatedPatients', retrievedPatient);
+    if (respo.statusCode != 200) {
+      return res.status(respo.statusCode).json({message: respo.message});
+    }
 
+    console.log('/deactivate/patient', 'reached delete');
+    // Insert successful, delete patient from `patients` table
+    const respon = await db_utils.deleteUserFromDB_('patients', req.body.email);
+    let body = respon.body;
+    body['message'] = respon.message;
+    return res.status(respon.statusCode).json(body);
+  });
+  
 /**
  * Method to move a patient object from HealthcareProvider database to DeactivatedHealthcareProvider database
  * Input: Body containing the email of the HealthcareProvider to be deactivated
@@ -101,69 +61,38 @@ router.post("/patient",[check('email').notEmpty().isEmail(),body().custom(body =
  *         500 - An error occured trying to perform the request
  *         404 - HealthcareProvider not found
  */
-
-//Update the code
-/*
-
-*/
-router.post("/healthcare",[check('email').notEmpty().isEmail(),body().custom(body => {
+router.post("/healthcare", [
+  check('email').notEmpty().isEmail(),
+  body().custom(body => {
     const keys = ['email'];
     return Object.keys(body).every(key => keys.includes(key));
-  })],async (req, res) => {
-  const e = validationResult(req);
-  if(!e.isEmpty()){
-    return res.status(400).json({Message:'Bad Request'});
-  }
-  var decrypted = aes256.decrypt(key, req.query.API_KEY);
-  console.log(decrypted);
-  if(decrypted!=API_KEY){
-    return res.status(401).json({Message:'Unauthorized'});
-  }
-    console.log("reached deactivate controller");
-    const query = 'SELECT * FROM `healthcareProviders` WHERE email=?';
-    // req.body.Email+'"';
-    connection.query(query,[req.body.email], function(err, row) {
-        if(!err) {
-            if (row.length>0){
-                const query1 = 'DELETE FROM `healthcareProviders` WHERE email=?';
-                // req.body.Email+'"';
-                const retrievedHealthcareProvider = row[0];
-                connection.query(query1,[req.body.email], function(err, row1) {
-                    if(err){
-                        res.status(500).json({"message": "account could not be deactivated due to an error"});
-                        next();
-                    }else{
-                        delete retrievedHealthcareProvider['phone'];
-                        var query= "INSERT INTO `deactivatedHealthcareProviders` VALUES ("
-                        var val = [];
-                        for(var myKey in retrievedHealthcareProvider) {
-                          query+="?,";
-                          val.push(retrievedHealthcareProvider[myKey]);
-                        }
-                        query = query.slice(0,query.length-1);
-                        query += ")";
-                        console.log(query);
-                        connection.query(query,val, function(err, row) {
-                            if(!err) {
-                                console.log("In deactivateController[healthcare, POST]: Inserted successfully");;
-                                res.status(200).json({
-                                    "message":"account has been deactivated"
-                                });
-                            }else{
-                            console.log(err);
-                            res.status(500).json({
-                                "message": "account could not be deactivated due to an error"
-                            })
-                            }
-                        });
-                    }
-                });
-            } else {
-                res.status(404).json({"messsage": "An account could not be found with the email provided"})
-            }
+  })],
+  async (req, res) => {
+    // Validate API request
+    const validate = sec_utils.APIRequestIsValid(req);
+    if (validate.statusCode != 200) {
+      return res.status(validate.statusCode).json({message: validate.message});
     }
-    });
-
+    
+    console.log('/deactivate/healthcare', 'reached get');
+    // Get provider from DB
+    const resp = await db_utils.getRowByEmail('healthcareproviders', req.body.email);
+    if (resp.statusCode != 200) {
+      return res.status(resp.statusCode).json({message: resp.message});
+    }
+    console.log('/deactivate/healthcare', 'reached insert');
+    // Provider found, copy provider over to `deactivatedHealthcareProviders` table
+    const retrievedHealthcareProvider = resp.body;
+    const respo = await db_utils.insertUserIntoDB('deactivatedHealthcareProviders', retrievedHealthcareProvider);
+    if (respo.statusCode != 200) {
+      return res.status(respo.statusCode).json({message: respo.message});
+    }
+    console.log('/deactivate/healthcare', 'reached delete');
+    // Insert successful, delete provider from `healthcareproviders` table
+    const respon = await db_utils.deleteUserFromDB('healthcareproviders', req.body.email);
+    let body = respon.body;
+    body['message'] = respon.message;
+    return res.status(respon.statusCode).json(body);
 });
 
 module.exports = router;

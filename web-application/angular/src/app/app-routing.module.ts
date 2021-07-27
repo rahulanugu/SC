@@ -4,6 +4,12 @@ import { ContactUsComponent } from "./contact-us/contact-us.component";
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatCardModule} from '@angular/material/card';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 /* Componets to create routes for */
 import { LoginComponent } from "./login/login.component";
 import { RequestAccessComponent } from "./request-access/request-access.component";
@@ -57,7 +63,6 @@ import { LandingWhoWeAreComponent } from "./landing-who-we-are/landing-who-we-ar
 import { LandingCapabilityStatementComponent } from "./landing-capability-statement/landing-capability-statement.component";
 import { LandingCareersComponent } from "./landing-careers/landing-careers.component";
 import { LandingFaq1Component } from "./landing-faq1/landing-faq1.component";
-import { LandingFaq2Component } from "./landing-faq2/landing-faq2.component";
 import { BlogComponent } from "./blog/blog.component";
 import { BecomeapartnerComponent } from "./becomeapartner/becomeapartner.component";
 import { ThankyoupartnerComponent } from "./thankyoupartner/thankyoupartner.component";
@@ -77,6 +82,8 @@ import { ProcedureInfoComponent } from "./procedure-info/procedure-info.componen
 import { CaregiverProfileComponent } from "./caregiver-profile/caregiver-profile.component";
 import { MedicationDetailsComponent } from "./medication-details/medication-details.component";
 import { ProcedureDetailsComponent } from "./procedure-details/procedure-details.component";
+import { JobOpeningsComponent } from "./job-openings/job-openings.component";
+import { BlogPostComponent } from "./blog-post/blog-post.component";
 const routes: Routes = [
   /* pages for the app */
   {
@@ -132,6 +139,7 @@ const routes: Routes = [
   { path: "careers", component: CareersComponent },
   { path: "privacy-policy", component: PrivacyPolicyComponent },
   { path: "apply-job/:jobid", component: ApplyJobComponent },
+  { path: "job-openings", component: JobOpeningsComponent},
   { path: "terms-conditions", component: TermsConditionsComponent },
   { path: "", redirectTo: "/home", pathMatch: "full" },
   { path: "registersuccessful", component: RegisterSuccessfulPageComponent },
@@ -243,12 +251,12 @@ const routes: Routes = [
     component: LandingFaq1Component,
   },
   {
-    path: "contactus",
-    component: LandingFaq2Component,
-  },
-  {
     path: "blog",
     component: BlogComponent,
+  },
+  {
+    path: "blog-post",
+    component: BlogPostComponent
   },
   {
     path: "becomeapartner",

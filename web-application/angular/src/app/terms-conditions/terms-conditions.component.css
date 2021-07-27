@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Tinos&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap');
+
+.tosHeader {
+    font-family: 'Tinos', serif;
+    font-size: 36px;
+    color: #2d5059;
+}
+
+.tosBody {
+    font-family: 'Lato', sans-serif;
+    font-size: 14px;
+    color: black;
+}
+
+.tosHeadings {
+    font-family: 'Lato', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    color: black;
+}
+
+.justifyList {
+    text-align: justify;
+    list-style-position: inside;
+}

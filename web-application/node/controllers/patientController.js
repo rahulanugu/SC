@@ -1,293 +1,164 @@
 /**
- * patientController.js
- * Uses express to create a RESTful API
- * Defines endpoints that allows application to perform CRUD operations
- */
-const nodemailer = require('nodemailer');
-const log = console.log;
+* patientController.js
+* Uses express to create a RESTful API
+* Defines endpoints that allows application to perform CRUD operations
+* Route: /patient
+*/
 const express = require('express');
-const { check,body,validationResult } = require('express-validator');
 const router = express.Router();
-const jwt = require('jsonwebtoken');
-const { google } = require("googleapis");
-const OAuth2 = google.auth.OAuth2;
-const randtoken = require('rand-token');
-var Utility = require('../utility');
-const oauth2Client = new OAuth2(
-    "Y16828344230-21i76oqle90ehsrsrpptnb8ek2vqfjfp.apps.googleusercontent.com",
-    "ZYdS8bspVNCyBrSnxkMxzF2d",
-    "https://developers.google.com/oauthplayground"
-);
-const connection = require('../db_connection');
-oauth2Client.setCredentials({
-    refresh_token:
-      "ya29.GluBB_c8WGD6HI2wTAiAKnPeLap6FdqDdQYhplWyAPjw_ZBSNUNEMOfmsrVSDoHTAZWc8cjKHXXEEY_oMVJUq4YaoSD1LLseWzPNt2hcY2lCdhXAeuCxvDPbl6QP"
-  });
-const accessToken = oauth2Client.getAccessToken();
-var aes256 = require('aes256');
+const { check, body } = require('express-validator');
+const nodemailer = require('nodemailer');
+
+const mailer_oauth = require('../mailer_oauth');
+const sec_utils = require('../security_utils');
+const db_utils = require('../db_utils');
+
 const API_KEY = process.env.API_KEY;
-const key = process.env.KEY;
 // http://localhost:3000/patient/
+
+
+// --- Previous dev notes ---
+// Authentication to enter this?
+// How to secure this?
+// Need some sort of hack check. How do we check it?
+// Possible type of hacks for an API.
+//validation for id is a side task
+//express validation is a side task
+//usage of headers, how UI handles it?
+//helmet npm package usage?
 
 // get list of all patients
 /**
+ * /patient/
  * Retrieve all the patients from the db
  * Input: N/A
  * Output: All the patientts in the database or error
  *         200 - Succesfully retrieved all the patients in the database
  *         404 - No patients in the database
  */
-function generateId(count) {
-  var _sym = 'abcdefghijklmnopqrstuvwxyz1234567890';
-  var str = '';
-
-  for(var i = 0; i < count; i++) {
-      str += _sym[parseInt(Math.random() * (_sym.length))];
-  }
-  return str;
-}
-    // Authentication to enter this?
-    // How to secure this?
-    // Need some sort of hack check. How do we check it?
-    // Possible type of hacks for an API.
-    //validation for id is a side task
-    //express validation is a side task
-    //usage of headers, how UI handles it?
-    //helmet npm package usage?
-
-router.get('/',async (req, res) => {
-    //ADD THIS
-    var decrypted = aes256.decrypt(key, req.query.API_KEY);
-    console.log(decrypted);
-    if(decrypted!=API_KEY){
-      return res.status(401).json({Message:'Unauthorized'});
+router.get('/', [
+  body().custom(body => {
+    return Object.keys(body).length === 0;
+  })],
+  async (req, res) => {
+    // Validate API request
+    const validate = sec_utils.APIRequestIsValid(req);
+    if (validate.statusCode != 200) {
+      return res.status(validate.statusCode).json({message: validate.message});
     }
-    //ADD THIS
     console.log('you have entered');
-
-    const query = 'SELECT * FROM `patients` WHERE 1=1';
-    connection.query(query, function(err, doc) {
-      if (!err) {
-        if(doc){
-          res.status(200).json(doc);
-        }else{
-          res.status(404).send({message: "No patients found"})
-        }
-      }
-      else {
-        res.status(500).json({message: "DB Error"});
-        console.log('Error in retrieving patients: ' + JSON.stringify(err, undefined, 2));
-      }
-    });
+    
+    // Get all patients from db
+    const resp = await db_utils.getAllRowsFromTable('patients');
+    if (resp.statusCode != 200) {
+      return res.status(resp.statusCode).json({message: resp.message});
+    }
+    return res.status(resp.statusCode).json(resp.body);
 });
 
 
 // get patient using id
 /**
+ * /patient/:id
  * Get the details of a patient finding by Id
  * Input: Id of the patient to search
  * Output: Details of the patient as specified in the patient schema
  *         200 - patient details are found
  *         404 - An error occured/ No patients found
  */
-router.get('/:id',[check('id').notEmpty()],(req, res) => {
-  const errors = validationResult(req);
-  if(!errors.isEmpty()){
-    return res.status(400).json({Message:'Bad Request'})
-  }
-  var decrypted = aes256.decrypt(key, req.query.API_KEY);
-  console.log(decrypted);
-  if(decrypted!=API_KEY){
-    return res.status(401).json({Message:'Unauthorized'});
-  }
-
-  const query = 'SELECT * FROM `patients` WHERE _id = ?';
-  connection.query(query,[req.params.id], function(err, doc) {
-    if (!err) {
-      if(doc.length==1){
-        res.status(200).json(doc[0]);
-      }else{
-        res.status(404).send({message: "No patient with the provided id found"});
-      }
-    }else{
-      res.status(500).json({message: "DB Error"});
-      console.log('Error in retrieving patients: ' + JSON.stringify(err, undefined, 2));
+router.get('/:id', [
+  check('_id').notEmpty()
+  ], 
+  async (req, res) => {
+    // Validate API request
+    const validate = sec_utils.APIRequestIsValid(req);
+    if (validate.statusCode != 200) {
+      return res.status(validate.statusCode).json({message: validate.message});
     }
-  });
+
+    // Get patient from db
+    const resp = await db_utils.getRowByID('patients', req.params._id);
+    let body = resp.body;
+    body['message'] = resp.message;
+    return res.status(resp.statusCode).json(body);
 });
 
 /**
+ * /patient/:verify
  * Check if the subscriber already exists in the database
  * Input: user object
  * Output: message whether the subscriber exists or not
  */
-router.post('/:verify',async(req,res)=>{
-  //console.log(req.query);
-  if(req.params.verify!="verify"){
-    res.status(400).json({message: "Bad Request"});
-  }
-  var decrypted = aes256.decrypt(key, req.query.API_KEY);
-  console.log(decrypted);
-   if(decrypted!=API_KEY){
-     return res.status(401).json({Message:'Unauthorized'});
-   }
-  const query = 'SELECT * FROM `verifieduser` WHERE email = ?';
-  connection.query(query,[req.body.user], function(err, checkCurrentSubscriber) {
-    if (!err) {
-      if (checkCurrentSubscriber.length>0){
-        return res.json('Subscriber already exists')
-      }else{
-          return res.json('Does not exist')
-      }
-    }else{
-      res.status(500).json({message: "DB Error"});
+router.post('/:verify', [
+  check('verify').notEmpty().equals('verify')
+  ],
+  async (req, res) => {
+    // Validate API request
+    const validate = sec_utils.APIRequestIsValid(req);
+    if (validate.statusCode != 200) {
+      return res.status(validate.statusCode).json({message: validate.message});
     }
-  });
+
+    // Check for user in verifiedUser table in db
+    const userExists = await db_utils.checkForUserInDB('verifiedUser', req.body.email);
+    if (userExists) {
+      return res.status(403).json({message:'Subscriber already exists'});
+    }
+    return res.status(200).json({message:'Does not exist'});
 });
 
-    // check if email already exist
-    //const checkCurrentSubscriber = await VerifiedUser.findOne({email: req.body.email})
-    //console.log(req);
 /**
- * This metthod will check if the user/patient already exists in the system and sends a verification email if not
- * Input: Body, will contain the JWT token that contains user/patient as defined in the respective schemas
- * Output: 400 - the user already exists
- *         200 - sent the verification mail
+ * User object ex:
+    fname: "Mike",
+    lname: "Witzkowski",
+    email: "miketyke699@gmail.com",
+    password: "$2a$10$k2kDfbaiqJFLVV9FQrbs5euEC1ybn8xfDe1.ecjUKZK0YTALIP7wq",
+    photo: "./images/IMG_006637.png"
+    agreementSigned: true;
+    verified: false;
  */
-/*
-,
-*/
-router.post('/',[check('fname').notEmpty().isAlpha(),
-check('lname').notEmpty().isAlpha(),
-check('email').isEmail().notEmpty(),
-check("street").notEmpty(),
-check("city").notEmpty(),
-check("state").notEmpty(),
-check("zip").notEmpty(),
-check("country").notEmpty(),
-check("address").notEmpty(),
-check('phone').notEmpty(),
-check('birthday').notEmpty().isDate(),
-check('sex').notEmpty(),
-check('ssn').notEmpty(),
-check('allergies').notEmpty(),
-check('ec').notEmpty(),
-check('ecPhone').notEmpty(),
-check('ecRelationship').notEmpty().isAlpha(),
-check("password").exists().notEmpty(),
-check('anemia').isBoolean(),
-check("asthma").isBoolean(),
-check("arthritis").isBoolean(),
-check("cancer").isBoolean(),
-check("gout").isBoolean(),
-check("diabetes").isBoolean(),
-check("emotionalDisorder").isBoolean(),
-check("epilepsy").isBoolean(),
-check("fainting").isBoolean(),
-check("gallstones").isBoolean(),
-check("heartDisease").isBoolean(),
-check("heartAttack").isBoolean(),
-check("rheumaticFever").isBoolean(),
-check("highBP").isBoolean(),
-check("digestiveProblems").isBoolean(),
-check("ulcerative").isBoolean(),
-check("ulcerDisease").isBoolean(),
-check("hepatitis").isBoolean(),
-check("kidneyDiseases").isBoolean(),
-check("liverDisease").isBoolean(),
-check("sleepApnea").isBoolean(),
-check("papMachine").isBoolean(),
-check("thyroid").isBoolean(),
-check("tuberculosis").isBoolean(),
-check("venereal").isBoolean(),
-check("neurologicalDisorders").isBoolean(),
-check("bleedingDisorders").isBoolean(),
-check("lungDisease").isBoolean(),
-check("emphysema").isBoolean(),
-check("none").isBoolean(),check("drink").notEmpty(),
-check("smoke").notEmpty(),
-body().custom(body => {
-  const keys = ['fname','lname','email','street','city','state','zip','country','address','phone','birthday',
-  'sex','ssn','allergies','ec','ecPhone','ecRelationship',"password",'anemia',"asthma","arthritis","cancer",
-  "gout","diabetes","emotionalDisorder","epilepsy","fainting","gallstones","heartDisease","heartAttack",
-  "rheumaticFever","highBP","digestiveProblems","ulcerative","ulcerDisease","hepatitis","kidneyDiseases",
-  "liverDisease","sleepApnea","papMachine","thyroid","tuberculosis","venereal","neurologicalDisorders",
-  "bleedingDisorders","lungDisease","emphysema","none","drink","smoke","_id"]
-  return Object.keys(body).every(key => keys.includes(key));
-})],async(req, res) => {
-  const e= validationResult(req);
-  console.log(e);
-  if(!e.isEmpty()){
-    console.log('error: ', e);
-    return res.status(400).json({Message:"Bad Request"});
-  }
-  var decrypted = aes256.decrypt(key, req.query.API_KEY);
-  console.log(decrypted);
-  if(decrypted!=API_KEY){
-    return res.status(401).json({Message:'Unauthorized'});
-  }
-    const tokeBody = req.body;
-    const query1= 'SELECT * FROM `verifieduser` WHERE email = ?';
-    connection.query(query1,[tokeBody.email], async function(err, checkCurrentSubscriber) {
-      if (!err) {
-        if (checkCurrentSubscriber.length>0){
-          res.json('Subscriber already exists')
-        }else{
-          //res.json("Does not exist")
-          console.log('first pass');
-          const query2 = 'SELECT * FROM `patients` WHERE Email=?';
-          connection.query(query2,[tokeBody.email], async function(err, checkEmailExist) {
-            if (!err) {
-              if (checkEmailExist.length>0){
-                return res.status(400).send('Email already exists');
-              }else{// create JSON Web Token
-                // *******make sure to change secret word to something secure and put it in env variable*****
-                console.log('second pass');
-                const tokeBody = req.body;
-                const token = await jwt.sign({tokeBody}, "santosh", { expiresIn: 180 });
 
-                // using jwt and token
-                res.status(200).json(token)
+/**
+ * Updates existing user
+ * Input: user object
+ * Output: message indicating whether the update was a success or not
+ */
+router.patch('/', [
+  body().custom(body => {
+    const keys = ['_id'];
+    return Object.keys(body).every(key => keys.includes(key));
+  })
+  ],
+  async (req,res) => {
+    // Validate API request
+    const validate = sec_utils.APIRequestIsValid(req);
+    if (validate.statusCode != 200) {
+      return res.status(validate.statusCode).json({message: validate.message});
+    }
 
-                var idToken = randtoken.generate(16);
-
-                var tokenSchema = {
-                  '_id': generateId(10),
-                  'token': idToken,
-                  'email': req.body.email
-                };
-                var query3= "INSERT INTO `tokenSchema` VALUES (";
-                var val = [];
-                console.log(tokenSchema);
-                for(var myKey in tokenSchema) {
-                  query3+="?,";
-                  val.push(tokenSchema[myKey]);
-                }
-                query3 = query3.slice(0,query3.length-1);
-                query3 += ")";
-                connection.query(query3,val, function(err, row) {
-                  if(!err) {
-                      console.log('Inserted successfully');
-                      var encryptedToken = Utility.EncryptToken(token);
-                      console.log('third pass and mail sent');
-                      sendVerificationMail(req.body.email,req.body.fname,encryptedToken);
-                  }else{
-                    console.log("error");
-                    console.log(err);
-                  }
-                });
-              }
-            }else{
-              res.status(500).json({message:'DB Error'});
-            }
-          });
-        }
-      }else{
-        res.status(500).json({message:'DB Error'});
-      }
-    });
+    const userChanges = {
+      '_id': req.body._id,
+      'fname': req.body?.fname,
+      'lname': req.body?.lname,
+      'email': req.body?.email,
+      'password': req.body?.password,
+      'photo': req.body?.photo,
+      'agreement-signed': req.body?.agreement_signed,
+      'user-verified':req.body?.user_verified
+    };
+    // Update patient info in db
+    const resp = await db_utils.updateUserInDB('patients', userChanges);
+    let body = resp.body;
+    body['message'] = resp.message;
+    return res.status(resp.statusCode).json(body);
 });
-const sendVerificationMail = (email,fname,encryptedToken)=>{
+
+/*   NodeMailer   */
+
+const oauth2Client = mailer_oauth.getClient();
+const accessToken = oauth2Client.getAccessToken();
+
+const sendVerificationMail = (email,fname,encryptedToken) => {
 
     //create a transporter with OAuth2
     const transporter = nodemailer.createTransport({
