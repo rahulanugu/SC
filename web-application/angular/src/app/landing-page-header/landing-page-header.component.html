@@ -10,7 +10,7 @@
         <mat-icon>menu</mat-icon>
       </button>
       <span
-        ><a href="home"><img src="./assets/logo6.png" style="height: 56px" /></a
+        ><a routerLink="/home"><img src="./assets/logo6.png" style="height: 56px" /></a
       ></span>
       <span class="example-spacer"></span>
       <div fxShow="true" fxHide.lt-md="true">
@@ -19,10 +19,10 @@
         <button mat-button [matMenuTriggerFor]="menu">About</button>
         <!-- #enddocregion mat-menu-trigger-for -->
         <mat-menu #menu="matMenu">
-          <a href="whatisscriptchain" mat-menu-item>What is ScriptChain?</a>
-          <a href="capabilitystatement" mat-menu-item>Capability Statement</a>
-          <a href="whoweare" mat-menu-item>Our Team</a>
-          <a href="javascript:void(0)" mat-menu-item>Blog</a>
+          <a routerLink="/whatisscriptchain" mat-menu-item>What is ScriptChain?</a>
+          <a routerLink="/capabilitystatement" mat-menu-item>Capability Statement</a>
+          <a routerLink="/whoweare" mat-menu-item>Our Team</a>
+          <a routerLink="/blog" mat-menu-item>Blog</a>
         </mat-menu>
 
         <!-- #docregion mat-menu-trigger-for -->
@@ -30,19 +30,20 @@
         <!-- #enddocregion mat-menu-trigger-for -->
         <mat-menu #menu1="matMenu">
           <a href="javascript:void(0)" mat-menu-item>Our Partners</a>
-          <a href="becomeapartner" mat-menu-item>Become a Partner</a>
+          <a routerLink="/becomeapartner" mat-menu-item>Become a Partner</a>
         </mat-menu>
-        <a href="healthcare/login" class='menu' mat-button> Providers </a>
+        <a routerLink="/healthcare/login" class='menu' mat-button> Providers </a>
         <a href="javascript:void(0)" class='menu' mat-button> Patients </a>
 
         <!-- #docregion mat-menu-trigger-for -->
         <button mat-button [matMenuTriggerFor]="menu2">Support</button>
         <!-- #enddocregion mat-menu-trigger-for -->
         <mat-menu #menu2="matMenu">
-          <a href="javascript:void(0)" mat-menu-item>Request Access</a>
+          <a routerLink="/request-access" mat-menu-item>Request Access</a>
           <a href="faq" mat-menu-item>FAQs</a>
         </mat-menu>
-        <a href="contactus" class='menu' mat-button> Contact Us </a>
+        <a routerLink="/contact-us" class='menu' mat-button> Contact Us </a>
+        <a routerLink="/terms-conditions" class='menu' mat-button> Terms & Conditions </a>
         <button class="helpBtn" mat-raised-button onclick = "window.location.href='healthcare/login'">Login</button>
       </div>
     </mat-toolbar-row>
@@ -57,22 +58,23 @@
               <mat-panel-title>About</mat-panel-title>
             </mat-expansion-panel-header>
             <mat-nav-list>
-              <a href="whatisscriptchain" mat-list-item>What is ScriptChain?</a>
-              <a href="capabilitystatement" mat-list-item
+              <a routerLink="/whatisscriptchain" mat-list-item>What is ScriptChain?</a>
+              <a routerLink="/capabilitystatement" mat-list-item
                 >Capability Statement</a
               >
-              <a href="whoweare" mat-list-item>Our Team</a>
-              <a href="blog" mat-list-item>Blog</a>
+              <a routerLink="/whoweare" mat-list-item>Our Team</a>
+              <a routerLink="/blog" mat-list-item>Blog</a>
             </mat-nav-list>
           </mat-expansion-panel>
         </mat-accordion>
         <a href="javascript:void(0)" mat-list-item> Partnerships </a>
         <!--need become a partner here-->
-        <a href="javascript:void(0)" mat-list-item> Providers</a>
+        <a routerLink="/healthcare/login" mat-list-item> Providers</a>
         <a href="javascript:void(0)" mat-list-item> Patients </a>
-        <a href="faq" mat-list-item> Support </a>
-        <a href="contactus" mat-list-item> Contact Us </a>
-        <a href="healthcare/login" mat-list-item> Login</a>
+        <a routerLink="/faq" mat-list-item> Support </a>
+        <a routerLink="/contact-us" mat-list-item> Contact Us </a>
+        <a routerLink="/terms-conditions" mat-list-item> Terms & Conditions </a>
+        <a routerLink="/healthcare/login" mat-list-item> Login</a>
         <a (click)="sidenav.toggle()" mat-list-item>
           <mat-icon>close</mat-icon> Close
         </a>

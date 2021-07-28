@@ -172,7 +172,7 @@
     "universal-analytics" "^0.4.20"
     "uuid" "^3.3.2"
 
-"@angular/common@>=8.0.0", "@angular/common@>=8.0.0-rc.5", "@angular/common@~8.2.14":
+"@angular/common@>=8.0.0", "@angular/common@>=8.0.0-0", "@angular/common@>=8.0.0-rc.5", "@angular/common@~8.2.14":
   "integrity" "sha512-Qmt+aX2quUW54kaNT7QH7WGXnFxr/cC2C6sf5SW5SdkZfDQSiz8IaItvieZfXVQUbBOQKFRJ7TlSkt0jI/yjvw=="
   "resolved" "https://registry.npmjs.org/@angular/common/-/common-8.2.14.tgz"
   "version" "8.2.14"
@@ -202,7 +202,7 @@
   dependencies:
     "tslib" "^1.9.0"
 
-"@angular/core@^8.0.0-rc.5", "@angular/core@>=8.0.0", "@angular/core@>=8.0.0-rc.5", "@angular/core@~8.2.10":
+"@angular/core@^8.0.0-rc.5", "@angular/core@>=8.0.0", "@angular/core@>=8.0.0-0", "@angular/core@>=8.0.0-rc.5", "@angular/core@~8.2.10":
   "integrity" "sha512-zeePkigi+hPh3rN7yoNENG/YUBUsIvUXdxx+AZq+QPaFeKEA2FBSrKn36ojHFrdJUjKzl0lPMEiGC2b6a6bo6g=="
   "resolved" "https://registry.npmjs.org/@angular/core/-/core-8.2.14.tgz"
   "version" "8.2.14"
@@ -249,7 +249,7 @@
   dependencies:
     "tslib" "^1.9.0"
 
-"@angular/platform-browser@>=8.0.0-rc.5", "@angular/platform-browser@~8.2.14":
+"@angular/platform-browser@>=8.0.0-0", "@angular/platform-browser@>=8.0.0-rc.5", "@angular/platform-browser@~8.2.14":
   "integrity" "sha512-MtJptptyKzsE37JZ2VB/tI4cvMrdAH+cT9pMBYZd66YSZfKjIj5s+AZo7z8ncoskQSB1o3HMfDjSK7QXGx1mLQ=="
   "resolved" "https://registry.npmjs.org/@angular/platform-browser/-/platform-browser-8.2.14.tgz"
   "version" "8.2.14"
@@ -5559,6 +5559,13 @@
   "version" "8.0.0"
   dependencies:
     "tslib" "^1.10.0"
+
+"ngx-toastr@^11.3.3":
+  "integrity" "sha512-DbLFkSZHsVPuuIIrsY1ziEhdkFUQ0V1yG1N0+1nKXGI5QBVesEDxLUVtntjzxJcWw/uUV+bKApo//tGHHORabQ=="
+  "resolved" "https://registry.npmjs.org/ngx-toastr/-/ngx-toastr-11.3.3.tgz"
+  "version" "11.3.3"
+  dependencies:
+    "tslib" "^1.9.0"
 
 "nice-try@^1.0.4":
   "integrity" "sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ=="

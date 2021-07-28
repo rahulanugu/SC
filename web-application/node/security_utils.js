@@ -4,9 +4,12 @@ const aes256 = require('aes256');
 const bcrypt = require('bcryptjs');
 const { validationResult } = require('express-validator');
 
-const API_KEY = process.env.API_KEY;
+// const API_KEY = process.env.API_KEY; => this method omits a few characters in the API Key. Don't know why!
+const API_KEY = "scriptChain@13$67ahi1";
 const key = process.env.KEY;
 
+console.log('API key is', API_KEY);
+console.log('key is', key);
 /* Helpers */
 
 // JSON response generator to pass DB responses up to controllers
@@ -16,6 +19,8 @@ function jsonResponse(code, message, body={}) {
 
 // Validate API key (decrypt and compare to local environment variable)
 function APIkeyIsValid(key_) {
+  console.log('API key is', API_KEY);
+  console.log('decrypted key is', aes256.decrypt(key, key_));
   return API_KEY === aes256.decrypt(key, key_);
 }
 
@@ -48,11 +53,13 @@ function APIRequestIsValid(req) {
   // Express validation, passed as array in second param of API's controller
   const valErr = validationResult(req);
   if (!valErr.isEmpty()) {
+    console.log('err', valErr);
     return jsonResponse(400, 'Bad Request');
   }
   // Validate API key, received as query parameter
   const keyIsValid = APIkeyIsValid(req.query.API_KEY);
   if (!keyIsValid) {
+    console.log("authorization failed");
     return jsonResponse(401, 'Authorization failed');
   }
   return jsonResponse(200, 'Validation passed.');

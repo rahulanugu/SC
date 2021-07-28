@@ -127,6 +127,7 @@ import { BlogCardComponent } from './shared/components/blog-card/blog-card.compo
 import { BlogPostComponent } from './blog-post/blog-post.component';
 import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
 import { ShareModule } from 'ngx-sharebuttons';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -224,6 +225,7 @@ import { ShareModule } from 'ngx-sharebuttons';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ToastrModule.forRoot(),
     ShareButtonsModule,
     ShareModule,
     RouterModule,

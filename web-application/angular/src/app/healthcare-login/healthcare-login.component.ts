@@ -98,7 +98,7 @@ export class HealthcareLoginComponent implements OnInit {
             document
               .querySelector("#invalidEmailPrompt")
               .classList.remove("d-none");
-            document.querySelector("#deactivatedEmail").classList.add("d-none");
+            // document.querySelector("#deactivatedEmail").classList.add("d-none");
           }
         }
       );

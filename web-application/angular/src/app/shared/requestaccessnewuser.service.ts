@@ -9,7 +9,7 @@ import { environment } from "src/environments/environment";
   providedIn: "root"
 })
 export class RequestaccessnewuserService {
-  readonly baseURL = environment.serverUrl+"request_access";
+  readonly baseURL = environment.serverUrl+"/request_access";
   user: RequestAccessUser;
 
   constructor(private http: HttpClient) {}

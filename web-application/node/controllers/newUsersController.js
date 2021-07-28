@@ -34,7 +34,7 @@ router.post("/", [
   check('email').notEmpty().isEmail(),
   check('typeOfUser').notEmpty(),
   body().custom(body => {
-    const keys = ['_id','fname','lname','email','typeOfUser'];
+    const keys = ['_id','fname','lname','email','typeOfUser']; // _id needs to be deleted
     return Object.keys(body).every(key => keys.includes(key));
   })],
   async (req, res) => {
