@@ -19,28 +19,45 @@ function APIkeyIsValid(key_) {
   return API_KEY === aes256.decrypt(key, key_);
 }
 
+// Verify JWT asynchronously
+function verifyJWT(userJWT) {
+  return new Promise((resolve) => {
+    jwt.verify(userJWT, "santosh", (err, decodedValue) => {
+      if (err) {
+        return resolve(jsonResponse(401, err.message));
+      }
+      resolve(jsonResponse(200, "Successfully verified JWT.", decodedValue));
+    });
+  });
+}
+
+// Sign JWT asynchronously
+function createJWT(payload, expiresIn) {
+  return new Promise((resolve) => {
+    jwt.sign(payload, "santosh", { expiresIn: expiresIn }, (err, token) => {
+      if (err) {
+        return resolve(jsonResponse(400, err.message));
+      }
+      resolve(jsonResponse(200, "Successfully created JWT.", token));
+    });
+  });
+}
+
 /* Module definitions */
 
 // Encrypt JWT
-function EncryptToken(payload, expiresIn = 300) {
-  const token = jwt.sign(payload, "santosh", { expiresIn: expiresIn });
-  const encrypted = CryptoJS.AES.encrypt(token, 'secret key 123').toString();
+async function EncryptToken(payload, expiresIn = 300) {
+  const res = await createJWT(payload, expiresIn);
+  const encrypted = CryptoJS.AES.encrypt(res.body, 'secret key 123').toString();
   return encrypted;
 }
 
 // Decrypt JWT
-function DecryptToken(encrypted) {
+async function DecryptToken(encrypted) {
   const bytes  = CryptoJS.AES.decrypt(encrypted, 'secret key 123');
   const decrypted = bytes.toString(CryptoJS.enc.Utf8);
-  payload = {};
-  jwt.verify(decrypted, "santosh", (err, decodedValue) => {
-    if (err) {
-      payload = {'error': true, 'error_message': err.message};
-      return;
-    }
-    payload = decodedValue;
-  });
-  return payload;
+  const res = await verifyJWT(decrypted);
+  return res;
 }
 
 // Universal validator for all API requests

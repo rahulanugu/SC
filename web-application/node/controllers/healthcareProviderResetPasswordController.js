@@ -38,7 +38,7 @@ router.post('/', [
       return res.status(resp.statusCode).json({message: resp.message});
     }
     const healthcareProvider = resp.body;
-    const encryptedToken = sec_utils.EncryptToken({healthcareProvider}, 120);
+    const encryptedToken = await sec_utils.EncryptToken({healthcareProvider}, 120);
 
     //mail the token
     // sendVerificationMail(req.body.email, healthcareProvider.firstName, encryptedToken);
@@ -72,9 +72,9 @@ router.post('/check', [
       return res.status(validate.statusCode).json({message: validate.message});
     }
 
-    const decryptedToken = sec_utils.DecryptToken(req.body.token);
-    if (decryptedToken['error']) {
-      return res.status(401).json({message: decryptedToken['error_message']});
+    const decryptedRes = await sec_utils.DecryptToken(req.body.token);
+    if (decryptedRes.statusCode != 200) {
+      return res.status(decryptedRes.statusCode).json({message: decryptedRes.message});
     }
     return res.status(200).json({message: "JWT is verified"});
 });
@@ -87,7 +87,7 @@ router.post('/check', [
  *         401 - Authorization failed
  *         500 - DB error
  */
-router.post('/change_password',[
+router.patch('/change_password',[
   check("token").notEmpty(),
   check("password").notEmpty(),
   body().custom(body => {
@@ -101,9 +101,9 @@ router.post('/change_password',[
       return res.status(validate.statusCode).json({message: validate.message});
     }
 
-    const decryptedToken = sec_utils.DecryptToken(req.body.token);
-    if (decryptedToken['error']) {
-      return res.status(401).json({message: decryptedToken['error_message']});
+    const decryptedRes = await sec_utils.DecryptToken(req.body.token);
+    if (decryptedRes.statusCode != 200) {
+      return res.status(decryptedRes.statusCode).json({message: decryptedRes.message});
     }
     console.log("Reached change password for healthcare provider")
 
@@ -111,7 +111,7 @@ router.post('/change_password',[
     // decryptedToken will contain the provider json object
     
     // Get healthcare provider from db
-    const resp = await db_utils.getRowByEmail('healthcareproviders', decryptedToken.email);
+    const resp = await db_utils.getRowByEmail('healthcareproviders', decryptedRes.body.email);
     if (resp.statusCode != 200) {
       return res.status(resp.statusCode).json({message: resp.message});
     }
@@ -120,9 +120,10 @@ router.post('/change_password',[
     console.log(hashpassword);
     // Update provider info in db
     const respo = await db_utils.updateUserInfoInDB('healthcareproviders', provider);
-    let body = respo.body;
-    body['message'] = respo.message;
-    return res.status(respo.statusCode).json(body);
+    if (respo.statusCode != 200) {
+      return res.status(respo.statusCode).json({message: respo.message});
+    }
+    return res.status(200).json(provider);
 });
 
 const oauth2Client = mailer_oauth.getClient();

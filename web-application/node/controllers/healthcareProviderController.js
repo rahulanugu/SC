@@ -65,15 +65,18 @@ router.post('/account/create',[
     // User does not exist
     // Create JWT using details provided in body as payload
     const tokeBody = req.body;
-    var encryptedToken = sec_utils.EncryptToken(tokeBody);
-    var data = {
+    const encryptedToken = await sec_utils.EncryptToken(tokeBody);
+    const data = {
       '_id': generateId(10),
       'token': randtoken.generate(16),
       'email': req.body.email,
     };
     // Save the token for reference purposes - optional
     const resp = await db_utils.insertUserIntoDB('tokenSchema', data);
-    return res.status(resp.statusCode).json({message: resp.message});
+    if (resp.statusCode != 200) {
+      return res.status(resp.statusCode).json({message: resp.message});
+    }
+    return res.status(200).json(data);
     /*
     if (resp.statusCode != 200) {
       return res.status(resp.statusCode).json({message: resp.message});
@@ -110,34 +113,34 @@ router.post('/account/verify', [
       return res.status(validate.statusCode).json({message: validate.message});
     }
 
-    const decryptedToken = sec_utils.DecryptToken(req.body.jwtToken);
-    if (decryptedToken['error']) {
-      return res.status(401).json({message: decryptedToken['error_message']});
+    const decryptedRes = await sec_utils.DecryptToken(req.body.jwtToken);
+    if (decryptedRes.statusCode != 200) {
+      return res.status(decryptedRes.statusCode).json({message: decryptedRes.message});
     }
     // Check for healthcare provider in db
     const userExists = await db_utils.checkForUserInDB('healthcareproviders', req.body.email);
     if (userExists) {
       return res.status(400).send({message: 'User already exists'});
     }
-    const user = decryptedToken;
+    const user = decryptedRes.body;
     console.log(user);
     // Encrypt the password
     const passwordRes = await sec_utils.encryptPassword(user.password);
     if (passwordRes.statusCode != 200) {
       return res.status(passwordRes.statusCode).json({message: passwordRes.message});
     }
-    user['password'] = passwordRes.body;
-    user['_id'] = generateId(10);
+    
     delete user['iat'];
     delete user['exp'];
-    console.log("USER", user);
+    user['password'] = passwordRes.body;
+    user['_id'] = generateId(10);
+
     // Add user user object to healthcareproviders table in db
     const resp = await db_utils.insertUserIntoDB('healthcareproviders', user);
-    console.log("RESP", resp);
-    let body = resp.body;
-    body['message'] = resp.message;
-    return res.status(resp.statusCode).json(body);
-
+    if (resp.statusCode != 200) {
+      return res.status(resp.statusCode).json({message: resp.message});
+    }
+    return res.status(200).json(user);
 });
 
 

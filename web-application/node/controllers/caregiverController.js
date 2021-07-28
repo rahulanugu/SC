@@ -13,14 +13,6 @@ const mailer_oauth = require('../mailer_oauth');
 const db_utils = require('../db_utils');
 const sec_utils = require('../security_utils');
 
-// get list of all patients
-/**
- * Retrieve all the patients from the db
- * Input: N/A
- * Output: All the patientts in the database or error
- *         200 - Succesfully retrieved all the patients in the database
- *         404 - No patients in the database
- */
 function generateId(count) {
   var _sym = 'abcdefghijklmnopqrstuvwxyz1234567890';
   var str = '';
@@ -31,6 +23,14 @@ function generateId(count) {
   return str;
 }
 
+/**
+ * Add caregiver to the db
+ * Input: First name, last name, email, phone #
+ * Output: Newly created caregiver, barring errors
+ *         200 - Succesfully retrieved all the patients in the database
+ *         400 - Validation failed/ user already exists
+ *         404 - No patients in the database
+ */
 router.post("/",[
   check('firstName').notEmpty(),
   check('lastName').notEmpty(),
@@ -53,8 +53,8 @@ router.post("/",[
     }
     console.log("Email does not exist");
     
-    const data = {
-      '_id': generateId(10),
+    const user = {
+      _id: generateId(10),
       fname: req.body.firstName,
       lname: req.body.lastName,
       email: req.body.email,
@@ -62,10 +62,11 @@ router.post("/",[
       employer: req.body.employer
     };
     // Add caregiver to db
-    const resp = await db_utils.insertDataIntoDB('caregivers', data);
-    let body = resp.body;
-    body['message'] = resp.message;
-    return res.status(resp.statusCode).json(body);
+    const resp = await db_utils.insertDataIntoDB('caregivers', user);
+    if (resp.statusCode != 200) {
+      return res.status(resp.statusCode).json({message: resp.message});
+    }
+    return res.status(200).json(user);
 })
 
 /* Mailer */

@@ -43,12 +43,10 @@ router.post('/', [
       password: patient.password
     }
     console.log(data);
-    const encryptedToken = sec_utils.EncryptToken(data, 120);
+    const encryptedToken = await sec_utils.EncryptToken(data, 120);
     // Email the token
     //sendVerificationMail(req.body.email, patient.fname, encryptedToken);
-    return res.status(200).json({
-      message: "Email has been sent to reset password"
-    });
+    return res.status(200).json({message: "Email has been sent to reset password"});
 });
 
 /**
@@ -71,9 +69,9 @@ router.post('/check',[
       return res.status(validate.statusCode).json({message: validate.message});
     }
 
-    const decryptedToken = sec_utils.DecryptToken(req.body.token);
-    if (decryptedToken['error']) {
-      return res.status(401).json({message: decryptedToken['error_message']});
+    const decryptedRes = await sec_utils.DecryptToken(req.body.token);
+    if (decryptedRes.statusCode != 200) {
+      return res.status(decryptedRes.statusCode).json({message: decryptedRes.message});
     }
     return res.status(200).json({message: "JWT is verified"});
 });
@@ -86,7 +84,7 @@ router.post('/check',[
  *         401 - Authorization failed
  *         500 - DB error
  */
-router.post('/change_password',[
+router.patch('/change_password',[
   check("token").notEmpty(),
   check("password").notEmpty(),
   body().custom(body => { 
@@ -100,12 +98,12 @@ router.post('/change_password',[
       return res.status(validate.statusCode).json({message: validate.message});
     }
 
-    const decryptedToken = sec_utils.DecryptToken(req.body.token);
-    if (decryptedToken['error']) {
-      return res.status(401).json({message: decryptedToken['error_message']});
+    const decryptedRes = await sec_utils.DecryptToken(req.body.token);
+    if (decryptedRes.statusCode != 200) {
+      return res.status(decryptedRes.statusCode).json({message: decryptedRes.message});
     }
-    console.log("Reached change password")
-    console.log(decryptedToken);
+    console.log("Reached changed password");
+    const decryptedToken = decryptedRes.body;
     
     // JWT is verified
     // decryptedToken will contain the user json object
@@ -123,7 +121,10 @@ router.post('/change_password',[
     patient['password'] = hashpassword;
     // Update patient info in db
     const respo = await db_utils.updateUserInfoInDB('patients', patient);
-    return res.status(respo.statusCode).json({message: respo.message});
+    if (respo.statusCode != 200) {
+      return res.status(respo.statusCode).json({message: respo.message});
+    }
+    return res.status(200).json(patient)
 });
 
 const oauth2Client = mailer_oauth.getClient();

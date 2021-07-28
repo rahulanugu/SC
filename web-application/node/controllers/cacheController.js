@@ -22,10 +22,13 @@ router.post('/storeInCache', [
     }
     console.log("Inside cache service");
     
-    var code = req.body.code;
-    var access_token = req.body.access_token;
-    objJson[code] = access_token;
-    return res.status(200).json({"message":"received"});
+    const resp = {
+      code: req.body.code, 
+      access_token: req.body.access_token,
+      message: "Code successfully created."
+    }
+    objJson[resp.code] = resp.access_token;
+    return res.status(200).json(resp);
 });
 
 router.get('/getFromCache', [
@@ -38,10 +41,20 @@ router.get('/getFromCache', [
       return res.status(validate.statusCode).json({message: validate.message});
     }
     console.log("Getting code from cache");
-
+    
     const code = req.query.code;
-    console.log(objJson[code]);
-    return res.status(200).json(objJson[code]);
+    if (objJson[code] == null) {
+      return res.status(400).json({message: "Bad request"})
+    }
+
+    const resp = {
+      code: code, 
+      access_token: objJson[code],
+      message: "Code successfully retrieved."
+    }
+
+    console.log(resp);
+    return res.status(200).json(resp);
 });
 
 module.exports = router;

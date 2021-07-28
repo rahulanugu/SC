@@ -78,20 +78,23 @@ router.get('/:id', [
 
     // Get patient from db
     const resp = await db_utils.getRowByID('patients', req.params._id);
-    let body = resp.body;
-    body['message'] = resp.message;
-    return res.status(resp.statusCode).json(body);
+    if (resp.statusCode != 200) {
+      return res.status(resp.statusCode).json({message: resp.message});
+    }
+    return res.status(resp.statusCode).json(resp.body);
 });
 
 /**
- * /patient/:verify
+ * /patient/verify
  * Check if the subscriber already exists in the database
  * Input: user object
  * Output: message whether the subscriber exists or not
  */
-router.post('/:verify', [
-  check('verify').notEmpty().equals('verify')
-  ],
+router.post('/verify', [
+  body().custom(body => {
+    const keys = ['email']
+    return Object.keys(body).every(key => keys.includes(key))
+  })],
   async (req, res) => {
     // Validate API request
     const validate = sec_utils.APIRequestIsValid(req);
@@ -136,21 +139,13 @@ router.patch('/', [
       return res.status(validate.statusCode).json({message: validate.message});
     }
 
-    const userChanges = {
-      '_id': req.body._id,
-      'fname': req.body?.fname,
-      'lname': req.body?.lname,
-      'email': req.body?.email,
-      'password': req.body?.password,
-      'photo': req.body?.photo,
-      'agreement-signed': req.body?.agreement_signed,
-      'user-verified':req.body?.user_verified
-    };
+    const userChanges = req.body
     // Update patient info in db
     const resp = await db_utils.updateUserInDB('patients', userChanges);
-    let body = resp.body;
-    body['message'] = resp.message;
-    return res.status(resp.statusCode).json(body);
+    if (resp.statusCode != 200) {
+      return res.status(resp.statusCode).json({message: resp.message});
+    }
+    return res.status(resp.statusCode).json(userChanges);
 });
 
 /*   NodeMailer   */
