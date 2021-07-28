@@ -4,8 +4,7 @@ John Whiteside - branch jdw
 '''
 
 import requests
-from futures3.thread import ThreadPoolExecutor
-from futures3 import as_completed
+from predictor.EHRInterface.concurr import fetch_all_patient_data as _fetch
 import jwt
 import datetime
 from urllib.parse import quote_plus, urlencode
@@ -18,17 +17,17 @@ import subprocess
 import uuid
 from cryptography.hazmat.primitives.serialization import load_pem_private_key
 from cryptography import x509
-
-
-DEFAULT_TIMEOUT = 5
+import base64
 
 
 # --- EHR Integrations ---
 
+DEFAULT_TIMEOUT = 5
+
 # <- Request helpers ->
 
 def get_headers(token):
-  return {'Authorization': token, 'Accept': 'application/json+fhir'}
+  return {'Authorization': f'Basic {token}', 'Accept': 'application/json+fhir'}
 
 def get_error_code(message):
     return {'status_code': 404, 'message': message}
@@ -60,20 +59,30 @@ def dict_to_query(dictn, sep='=', line=''):
 def http_req_to_str(req_type, url, headers=None, params=None, body=None):
     return f'{req_type} {url} HTTP/1.1\n{dict_to_query(headers, ": ", line="new")}\n{dict_to_query(params)}{dict_to_query(body)}'
 
+def b64_encode_str(s):
+    message_bytes = s.encode('ascii')
+    base64_bytes = base64.b64encode(message_bytes)
+    base64_s = base64_bytes.decode('ascii')
+    return base64_s
 
 # <- Authorization ->
+# Generate auth token, for requesting bearer token for Basic auth
+def generateToken():
+    client_id = ''
+    secret = ''
+    concat = f"{client_id}:{secret}"
+    return b64_encode_str(concat)
 
 # Use system-level auth offered by Cerner
 
-
 # <- Integrations ->
 '''
- * Inputs:
- * url:         URL endpoint  - resource endpoint
- * patientID:   URL param     - patient id
- * token:       Header        - JWT auth token
- *
- * Output: request.py response object
+ Inputs:
+ url:         URL endpoint  - resource endpoint
+ patientID:   URL param     - patient id
+ token:       Header        - JWT auth token
+
+ Output: request.py response object
 '''
 
 # https://fhir.cerner.com/millennium/dstu2/general-clinical/allergy-intolerance/
@@ -119,23 +128,22 @@ def fetch_procedure(url, patientID, token):
 # --- Concurrency Features ---
 
 '''
- * Use: Function mapping
- * Input: key indicating resource type, object containing requests data
- * Output: List of available patient data as requests.py responses
- *   Available keys: (* TO DO)
-
-        AllergyIntolerance
-        Condition
-        CarePlan
-        DiagnosticReport 
-        DocumentReference
-        Encounter.type
-        Encounter.priority
-        Immunization
-        MedicationRequest
-        Observation
-        Patient
-        Procedure
+ Use: Function mapping
+ Input: key indicating resource type, object containing requests data
+ Output: List of available patient data as requests.py responses
+   Available keys: (* TO DO)
+      AllergyIntolerance
+      Condition
+      CarePlan
+      DiagnosticReport 
+      DocumentReference
+      Encounter.type
+      Encounter.priority
+      Immunization
+      MedicationRequest
+      Observation
+      Patient
+      Procedure
 '''
 # <- Function mapping ->
 # Dictionary that maps keys (strings) to lambda functions
@@ -165,23 +173,9 @@ key_func_mapping = {
 }
 
 '''
- * Use: Handle data fetching by mapping input to proper endpoint
- * Input: key indicating resource type, object containing requests data
- * Output: List of available patient data as requests.py responses
- *   Available keys: (* TO DO)
-
-        AllergyIntolerance
-        Condition
-        CarePlan
-        DiagnosticReport 
-        DocumentReference
-        Encounter.type
-        Encounter.priority
-        Immunization
-        MedicationRequest
-        Observation
-        Patient
-        Procedure
+ Use: Handle data fetching by mapping input to proper endpoint
+ Input: key indicating resource type, object containing requests data
+ Output: List of available patient data as requests.py responses
 '''
 def fetch_handler(key, data):
     func = key_func_mapping.get(key, None)
@@ -190,31 +184,10 @@ def fetch_handler(key, data):
         return get_error_code('Resource key not found')
     return func(data)
 
-'''
- * Use: Fetch multiple patient data using multithreading
- * Input: Array of (key, object) pairs reflecting (resource type, request data)
- * Output: List of available patient data as requests.py responses
-'''
-def fetch_all_patient_data(pairs):
-    threads = []
-    results = []
-
-    with ThreadPoolExecutor(max_workers=20) as executor:
-        for (key, params) in pairs:
-            threads.append(executor.submit(fetch_handler, key, params))
-
-        for task in as_completed(threads):
-            try:
-                results.append(task.result())
-                print(task.result())
-            except requests.ConnectTimeout:
-                results.append(get_error_code('Resource timed out'))
-                print('Resource timed out')
-
-    return results
-
 
 # --- Tests ---
+
+TOKEN = generateToken()
 
 pairs = [
   ['AllergyIntolerance', { 
@@ -273,3 +246,6 @@ pairs = [
       'token': TOKEN }
   ]
 ]
+
+data = _fetch(pairs, fetch_handler)
+print(data)

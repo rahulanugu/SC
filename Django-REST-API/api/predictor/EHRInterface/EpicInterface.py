@@ -18,6 +18,7 @@ import subprocess
 import uuid
 from cryptography.hazmat.primitives.serialization import load_pem_private_key
 from cryptography import x509
+from predictor.EHRInterface.concurr import fetch_all_patient_data as _fetch
 # from predictor.EHRInterface import mmlrestclient as mml
 
 # Token needs to come from FE ?? <- why if we are using server-to-server OAuth2?
@@ -28,15 +29,15 @@ DEFAULT_TIMEOUT = 5
 
 # --- EHR Integrations ---
 '''
- * Inputs:
- * url:         URL endpoint  - resource endpoint
- * patientID:   URL param     - patient id
- * resourceID:  URL param     - FHIR resource id
- * subject:     URL param     - subject of event/document
- * type_:       URL param     - Resource type (type is reserved keyword)
- * token:       Header        - JWT auth token
- *
- * Output: request.py response object
+ Inputs:
+ url:         URL endpoint  - resource endpoint
+ patientID:   URL param     - patient id
+ resourceID:  URL param     - FHIR resource id
+ subject:     URL param     - subject of event/document
+ type_:       URL param     - Resource type (type is reserved keyword)
+ token:       Header        - JWT auth token
+
+ Output: request.py response object
 '''
 
 # <- Request helpers ->
@@ -223,27 +224,27 @@ def fetch_procedure_request_search(url, patientID, token, status):
 # --- Concurrency Features ---
 
 '''
- * Use: Handle data fetching by mapping input to proper endpoint
- * Input: key indicating resource type, object containing requests data
- * Output: List of available patient data as requests.py responses
- *   Available keys: (* TO DO)
-        AllergyIntolerance.Read
-        AllergyIntolerance.Search
-        CarePlan.Read
-        Condition.Read 
-        Condition.Search
-        DiagnosticReport.Read 
-        DiagnosticReport.Search
-        DocumentReference.Search 
-        Encounter.Search
-        Immunization.Read 
-        MedicationOrder.Search
-        MedicationRequest.Search
-        MedicationStatement.Search
-        Observation.Search
-        Patient.Read
-        Procedure.Search
-        ProcedureRequest.Search
+ Use: Handle data fetching by mapping input to proper endpoint
+ Input: key indicating resource type, object containing requests data
+ Output: List of available patient data as requests.py responses
+   Available keys: (* TO DO)
+      AllergyIntolerance.Read
+      AllergyIntolerance.Search
+      CarePlan.Read
+      Condition.Read 
+      Condition.Search
+      DiagnosticReport.Read 
+      DiagnosticReport.Search
+      DocumentReference.Search 
+      Encounter.Search
+      Immunization.Read 
+      MedicationOrder.Search
+      MedicationRequest.Search
+      MedicationStatement.Search
+      Observation.Search
+      Patient.Read
+      Procedure.Search
+      ProcedureRequest.Search
 '''
 # <- Function mapping ->
 # Dictionary that maps keys (strings) to lambda functions
@@ -291,30 +292,6 @@ def fetch_handler(key, data):
     if func is None:
         return get_error_code('Resource key not found')
     return func(data)
-
-'''
- * Use: Fetch multiple patient data using multithreading
- * Input: Array of (key, object) pairs reflecting (resource type, request data)
- * Output: List of available patient data as requests.py responses
-'''
-# array of ('event' , {url, id, token, category}) tuples
-def fetch_all_patient_data(pairs):
-    threads = []
-    results = []
-
-    with ThreadPoolExecutor(max_workers=20) as executor:
-        for (key, params) in pairs:
-            threads.append(executor.submit(fetch_handler, key, params))
-
-        for task in as_completed(threads):
-            try:
-                results.append(task.result())
-                print(task.result())
-            except requests.ConnectTimeout:
-                results.append(get_error_code('Resource timed out'))
-                print('Resource timed out')
-
-    return results
 
 
 # --- Tests ---
@@ -404,6 +381,16 @@ pairs = [
   ]
 ]
 
+# Fetch data
+data = _fetch(pairs, fetch_handler)
+print(data)
+
+jwtToken = generateEpicJWT()
+tokenRes = fetch_access_token(jwtToken)
+
+print(tokenRes)
+print(tokenRes.json())
+
 # Simple authorization flow -> not what we want, just for testing
 def basic_auth_test():
     url = 'https://fhir.epic.com/interconnect-fhir-oauth/oauth2/authorize'
@@ -416,13 +403,6 @@ def basic_auth_test():
 
     res = requests.post(url=url,  data=payload, timeout=DEFAULT_TIMEOUT)
     return res
-
-
-jwtToken = generateEpicJWT()
-tokenRes = fetch_access_token(jwtToken)
-
-print(tokenRes)
-print(tokenRes.json())
 
 # <- Unneeded integrations ->
 
