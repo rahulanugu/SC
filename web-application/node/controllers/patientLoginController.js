@@ -3,8 +3,8 @@ var router = express.Router();
 const { check, body } = require('express-validator');
 const bcrypt = require('bcryptjs');
 
-const sec_utils = require('../security_utils');
-const db_utils = require('../db_utils');
+const sec_utils = require('../utils/security_utils');
+const db_utils = require('../utils/db_utils');
 //const {BigQuery} = require('@google-cloud/bigquery');
 /*const options = {
   keyFilename: 'serviceAccountKeys/scriptchain-259015-689b82dcb0fe.json',

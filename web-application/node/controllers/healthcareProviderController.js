@@ -9,10 +9,10 @@ const { check, body } = require('express-validator');
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcryptjs');
 const randtoken = require('rand-token');
-const mailer_oauth = require('../mailer_oauth');
+const mailer_oauth = require('../utils/mailer_oauth');
 
-const sec_utils = require('../security_utils');
-const db_utils = require('../db_utils');
+const sec_utils = require('../utils/security_utils');
+const db_utils = require('../utils/db_utils');
 
 const API_KEY = process.env.API_KEY;
 

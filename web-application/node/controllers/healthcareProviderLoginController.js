@@ -3,8 +3,8 @@ var router = express.Router();
 const { check, body } = require('express-validator');
 const bcrypt = require('bcryptjs');
 
-const db_utils = require('../db_utils');
-const sec_utils = require('../security_utils');
+const db_utils = require('../utils/db_utils');
+const sec_utils = require('../utils/security_utils');
 
 //const fs = require('fs')
 /**
@@ -76,7 +76,7 @@ router.post('/',[
  */
 router.get('/verifytokenintegrity/:jwtToken',[
   check("jwtToken").notEmpty(),
-  body().isEmpty()
+  body().custom(body => Object.keys(body).length == 0)
 ],
   async (req,res) => {
     // Validate API request
