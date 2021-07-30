@@ -8,7 +8,7 @@ const mailer_oauth = require('../mailer_oauth');
 const sec_utils = require('../security_utils');
 const db_utils = require('../db_utils');
 
-const API_KEY = process.env.API_KEY;
+const API_KEY = '';
 
 //The controller is used for generating a JWT token to initiate a password reset request for healthcareProvider portal
 /**

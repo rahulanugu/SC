@@ -6,7 +6,7 @@ const { validationResult } = require('express-validator');
 
 // const API_KEY = process.env.API_KEY; => this method omits a few characters in the API Key. Don't know why!
 const API_KEY = "scriptChain@13$67ahi1";
-const key = process.env.KEY;
+const key = 'hosenkinosumabeni';
 
 console.log('API key is', API_KEY);
 console.log('key is', key);

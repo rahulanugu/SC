@@ -6,7 +6,7 @@ const nodemailer = require("nodemailer");
 const mailer_oauth = require('../mailer_oauth');
 const db_utils = require('../db_utils');
 
-const API_KEY = process.env.API_KEY;
+// const API_KEY = process.env.API_KEY;
 
 
 const oauth2Client = mailer_oauth.getClient();

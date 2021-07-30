@@ -8,10 +8,10 @@ const mysql = require('mysql');
 /* DB connection instance */
 
  var connection = mysql.createConnection({
-    host: process.env.DB_HOST,
+    host: 'database-1.cgurbeaohou6.us-east-2.rds.amazonaws.com',
     user: 'admin',
-    password: process.env.DB_PASS,
-    port: process.env.PORT,
+    password: 'Scriptchain21!',
+    port: 3306,
     database: 'scriptchain'
   });
 

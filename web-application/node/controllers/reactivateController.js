@@ -10,7 +10,9 @@ const db_utils = require('../db_utils');
 const mailer_oauth = require('../mailer_oauth');
 const sec_utils = require("../security_utils");
 
-const API_KEY = process.env.API_KEY;
+const API_KEY = 'process.env.API_KEY';
+// const API_KEY = process.env.API_KEY;
+
 //The controller handles the requests for reactivating user accounts
 
 function generateId(count) {
