@@ -54,7 +54,7 @@ router.post("/patient/request",[
     const patient = resp.body;
     // Get JWT using id, name, email
     const tokeBody = { _id: patient._id, fname: patient.fname, email: patient.Email };
-    const token = sec_utils.EncryptToken(tokeBody, 500);
+    const token = await sec_utils.EncryptToken(tokeBody, 500);
     
     // Email the token
     // sendVerificationMail(req.body.email, patient.fname, token);
@@ -93,8 +93,11 @@ router.post("/healthcare/request", [
     // Get JWT using id, name, email
     const healthcareProvider = resp.body;
     const tokeBody = {_id: healthcareProvider._id, firstName: healthcareProvider.firstName, email: healthcareProvider.email};
-    const token = sec_utils.EncryptToken(tokeBody, 500);
-
+    const tokenRes = await sec_utils.EncryptToken(tokeBody, 500);
+    if (tokenRes.statusCode != 200) {
+      return res.status(tokenRes.statusCode).json({message: tokenRes.message});
+    }
+    const token = tokenRes.body;
     // Email the token
     // sendVerificationMailHealthcare(req.body.email,healthcareProvider.firstName,token);
 
@@ -126,12 +129,12 @@ router.post("/patient/activate", [
       return res.status(validate.statusCode).json({message: validate.message});
     }
 
-    const decryptedToken = sec_utils.DecryptToken(req.body.jwtToken);
-    if (decryptedToken['error']) {
-      return res.status(401).json({message: decryptedToken['error_message']});
+    const decryptedRes = await sec_utils.DecryptToken(req.body.jwtToken);
+    if (decryptedRes.statusCode != 200) {
+      return res.status(decryptedRes.statusCode).json({message: decryptedRes.message});
     }
     console.log("Token succesfully verified");
-    console.log(decryptedToken);
+    const decryptedToken = decryptedRes.body;
 
     console.log('/reactivate/patient', 'reached get');
     // Check if patient exists in deactivatedPatients table
@@ -149,7 +152,10 @@ router.post("/patient/activate", [
     console.log('/reactivate/patient', 'reached delete');
     // Delete user from deactivatedPatients table
     const respon = await db_utils.deleteUserFromDB_('deactivatedPatients', decryptedToken.Email);
-    return res.status(respon.statusCode).json({message: respon.message});
+    if (respon.statusCode != 200) {
+      return res.status(respon.statusCode).json({message: respon.message});
+    }
+    return res.status(200).json(patient)
   });
   
   
@@ -177,12 +183,12 @@ router.post("/healthcare/activate", [
       return res.status(validate.statusCode).json({message: validate.message});
     }
 
-    const decryptedToken = sec_utils.DecryptToken(req.body.jwtToken);
-    if (decryptedToken['error']) {
-      return res.status(401).json({message: decryptedToken['error_message']});
+    const decryptedRes = await sec_utils.DecryptToken(req.body.jwtToken);
+    if (decryptedRes.statusCode != 200) {
+      return res.status(decryptedRes.statusCode).json({message: decryptedRes.message});
     }
-    console.log("Token succesfully verified")
-    console.log(decryptedToken)
+    console.log("Token succesfully verified");
+    const decryptedToken = decryptedRes.body;
 
     console.log('/reactivate/healthcare', 'reached get');
     // Insert into active patients table
@@ -205,7 +211,10 @@ router.post("/healthcare/activate", [
     console.log('/reactivate/healthcare', 'reached delete');
     // Delete user from deactivatedPatients table
     const respon = await db_utils.deleteUserFromDB('deactivatedHealthcareProviders', decryptedToken.email);
-    return res.status(respon.statusCode).json({message: respon.message});
+    if (respon.statusCode != 200) {
+      return res.status(respon.statusCode).json({message: respon.message});
+    }
+    return res.status(200).json(retrievedHealthcareProvider)
 });
 
 const oauth2Client = mailer_oauth.getClient();

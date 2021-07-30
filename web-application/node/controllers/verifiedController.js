@@ -28,13 +28,13 @@ router.post('/',[
       return res.status(validate.statusCode).json({message: validate.message});
     }
 
-    const decryptedToken = sec_utils.DecryptToken(req.body.jwtToken);
-    if (decryptedToken['error']) {
-      return res.status(401).json({message: decryptedToken['error_message']});
+    const decryptedRes = await sec_utils.DecryptToken(req.body.jwtToken);
+    if (decryptedRes.statusCode != 200) {
+      return res.status(decryptedRes.statusCode).json({message: decryptedRes.message});
     }
     console.log("Creating an actual user after verification in the database");
 
-    const user = decryptedToken;
+    const user = decryptedRes.body;
     // Check for user in verifieduser table in db
     const userExists = await db_utils.checkForUserInDB('verifieduser', user.email);
     if (userExists) {
@@ -49,9 +49,10 @@ router.post('/',[
     };
     // Add user to verifieduser table in db
     const resp = await db_utils.insertUserIntoDB('verifieduser', verifieduser);
-    let body = resp.body;
-    body['message'] = resp.message;
-    return res.status(resp.statusCode).json(body);
+    if (resp.statusCode != 200) {
+      return res.status(resp.statusCode).json({message: resp.message});
+    }
+    return res.status(200).json(verifieduser)
 
     // Old code, not sure why they wanted a new patient created here - JDW
     /*

@@ -58,7 +58,7 @@ router.post('/',[
     
     // Get JWT using id, name, email
     const tokeBody = {_id: patient._id, fname: patient.fname, email: patient.email};
-    const token = sec_utils.EncryptToken(tokeBody);
+    const token = await sec_utils.EncryptToken(tokeBody);
 
     return res.status(200).json({
       idToken: token,
@@ -89,9 +89,9 @@ router.post('/verifytokenintegrity',[
       return res.status(validate.statusCode).json({message: validate.message});
     }
 
-    const decryptedToken = sec_utils.DecryptToken(req.body.token);
-    if (decryptedToken['error']) {
-      return res.status(401).json({message: decryptedToken['error_message']});
+    const decryptedRes = await sec_utils.DecryptToken(req.body.token);
+    if (decryptedRes.statusCode != 200) {
+      return res.status(decryptedRes.statusCode).json({message: decryptedRes.message});
     }
     return res.status(200).json({message: "User is authorized"});
 })

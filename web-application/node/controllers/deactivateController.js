@@ -47,9 +47,10 @@ router.post("/patient", [
     console.log('/deactivate/patient', 'reached delete');
     // Insert successful, delete patient from `patients` table
     const respon = await db_utils.deleteUserFromDB_('patients', req.body.email);
-    let body = respon.body;
-    body['message'] = respon.message;
-    return res.status(respon.statusCode).json(body);
+    if (respon.statusCode != 200) {
+      return res.status(resp.statusCode).json({message: respz.message});
+    }
+    return res.status(200).json(retrievedPatient);
   });
   
 /**
@@ -90,9 +91,10 @@ router.post("/healthcare", [
     console.log('/deactivate/healthcare', 'reached delete');
     // Insert successful, delete provider from `healthcareproviders` table
     const respon = await db_utils.deleteUserFromDB('healthcareproviders', req.body.email);
-    let body = respon.body;
-    body['message'] = respon.message;
-    return res.status(respon.statusCode).json(body);
+    if (respon.statusCode != 200) {
+      return res.status(respon.statusCode).json({message: respon.message});
+    }
+    return res.status(200).json(retrievedHealthcareProvider);
 });
 
 module.exports = router;

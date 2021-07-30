@@ -11,6 +11,7 @@ chai.use(chaiHttp);
 const APIKey = "?API_KEY=TiKY7Md2dHpcZo1ih4KbkinTHh7CNTSjseg2ZB3ZiaEC2x1bFA==";
 const execSync = require('child_process').execSync;
 var net = require('net');
+const sec_utils = require('../security_utils');
 /*
 var portInUse = function(port, callback) {
   var server = net.createServer(function(socket) {
@@ -29,9 +30,13 @@ var portInUse = function(port, callback) {
   server.listen(port, '127.0.0.1');
 };
 */
+
 // The test case will create a job
 describe("/POST Create a job", () => {
   it("Create job testing", async () => {
+    const password = "password123"
+    const hashpassword = await sec_utils.encryptPassword(password);
+    console.log("PASSWORD", hashpassword);
     let jobPost = {
       title: "Project Intern",
       description:

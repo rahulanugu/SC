@@ -54,9 +54,6 @@ router.post('/',[
       return res.status(404).json({message: "Invalid Email or password"});
     }
     console.log("HEALTHCARE PROVIDER", resp);
-    if (resp.body.length === 0) {
-      return res.status(404).json({message: "Invalid Email or password"});
-    }
     // Provider found
     const healthcareProvider = resp.body;
 
@@ -66,7 +63,7 @@ router.post('/',[
     }
     // Create JWT
     const tokeBody = { _id: healthcareProvider._id, fname: healthcareProvider.firstName };
-    const token = sec_utils.EncryptToken(tokeBody, 1800);
+    const token = await sec_utils.EncryptToken(tokeBody, 1800);
     return res.status(200).json({
       idToken: token,
       firstName: healthcareProvider.firstName
@@ -78,12 +75,10 @@ router.post('/',[
  * Input: JwtToken
  * Output: 200 on success , 401,400 on error
  */
-router.post('/verifytokenintegrity',[
+router.get('/verifytokenintegrity/:jwtToken',[
   check("jwtToken").notEmpty(),
-  body().custom(body => {
-    const keys = ['jwtToken'];
-    return Object.keys(body).every(key => keys.includes(key));
-  })],
+  body().isEmpty()
+],
   async (req,res) => {
     // Validate API request
     const validate = sec_utils.APIRequestIsValid(req);
@@ -91,9 +86,9 @@ router.post('/verifytokenintegrity',[
       return res.status(validate.statusCode).json({message: validate.message});
     }
 
-    const decryptedToken = sec_utils.DecryptToken(req.body.jwtToken);
-    if (decryptedToken['error']) {
-      return res.status(401).json({message: decryptedToken['error_message']});
+    const decryptedRes = await sec_utils.DecryptToken(req.params.jwtToken);
+    if (decryptedRes.statusCode != 200) {
+      return res.status(decryptedRes.statusCode).json({message: decryptedRes.message});
     }
     return res.status(200).json({message: "User is authorized"})
 })

@@ -20,7 +20,6 @@ function generateId(count) {
 }
 
 /**
- * POST :host/request_access/
  * Method to save a new rew request access user
  * Input: Body, Contains the details specified in te NewRequesttAccessUser schema
  * Output: The status of the save operation
@@ -34,7 +33,7 @@ router.post("/", [
   check('email').notEmpty().isEmail(),
   check('typeOfUser').notEmpty(),
   body().custom(body => {
-    const keys = ['_id','fname','lname','email','typeOfUser']; // _id needs to be deleted
+    const keys = ['fname','lname','email','typeOfUser'];
     return Object.keys(body).every(key => keys.includes(key));
   })],
   async (req, res) => {
@@ -44,22 +43,21 @@ router.post("/", [
       return res.status(validate.statusCode).json({message: validate.message});
     }
 
+    const user = req.body;
     // Check for user in newUsers table in db
-    const userExists = await db_utils.checkForUserInDB('newUsers', req.body.email);
+    const userExists = await db_utils.checkForUserInDB('newUsers', user.email);
     if (userExists) {
       return res.status(400).json({message: "Email is already registered to an existing user"});
     }
 
-    const user = req.body;
     user['_id'] = generateId(10);
     // Add user to db
     const resp = await db_utils.insertUserIntoDB('newUsers', user);
-    if (resp.statusCode === 200) {
-      //mailer(req.body.fname, req.body.email);
+    if (resp.statusCode != 200) {
+      return res.status(resp.statusCode).json({message: resp.message});
     }
-    let body = resp.body;
-    body['message'] = resp.message;
-    return res.status(resp.statusCode).json(body);
+    //mailer(req.body.fname, req.body.email);
+    return res.status(200).json(user);
 });
   
 

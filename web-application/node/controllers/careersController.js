@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { check, body } = require('express-validator');
+const { check, body, buildCheckFunction } = require('express-validator');
 
 const db_utils = require('../db_utils');
 const sec_utils = require('../security_utils');
@@ -46,9 +46,11 @@ router.post("/jobposting", [
     jobOpening['_id'] = generateId(10);
     // Add job opening to db
     const resp = await db_utils.insertUserIntoDB('jobOpenings', jobOpening);
-    let body = resp.body;
-    body['message'] = resp.message;
-    return res.status(resp.statusCode).json(body);
+    if (resp.statusCode != 200) {
+      return res.status(resp.statusCode).json({message: resp.message});
+    }
+    
+    return res.status(200).json(jobOpening);
 });
 
 /**
@@ -60,9 +62,8 @@ router.post("/jobposting", [
  *         404 - If there are no jobOpning available in the db.
  */
 router.get('/jobposting', [
-  body().custom(body => {
-    return Object.keys(body).length === 0;
-  })],
+  body().isEmpty()
+],
   async (req, res) => {
     // Validate API request
     const validate = sec_utils.APIRequestIsValid(req);
@@ -74,9 +75,7 @@ router.get('/jobposting', [
     if (resp.statusCode != 200) {
       return res.status(resp.statusCode).json({message: resp.message});
     }
-    let body = resp.body;
-    body['message'] = resp.message;
-    return res.status(resp.statusCode).json(body);
+    return res.status(200).json(resp.body);
 });
 
 /**
@@ -94,9 +93,9 @@ router.get('/jobposting', [
 }).withMessage('Some extra parameters are sent')]
 */
 router.get('/jobposting/:jobcategory', [
-  body().custom(body => {
-    return Object.keys(body).length === 0;
-  })],
+  body().isEmpty(),
+  check('jobcategory').notEmpty()
+],
   async (req, res) => {
     // Validate API request
     const validate = sec_utils.APIRequestIsValid(req);
@@ -104,10 +103,11 @@ router.get('/jobposting/:jobcategory', [
       return res.status(validate.statusCode).json({message: validate.message});
     }
     // Get job openings for jobcategory from db
-    const resp = await db_utils.getRowFromTableWhere('jobOpenings', {'category': req.params.jobcategory});
-    let body = resp.body;
-    body['message'] = resp.message;
-    return res.status(resp.statusCode).json(body);
+    const resp = await db_utils.getRowFromTableWhere('jobOpenings', {'category': req.params.jobcategory})
+    if (resp.statusCode != 200) {
+      return res.status(resp.statusCode).json({message: resp.message});
+    }
+    return res.status(200).json(resp.body);
 });
 
 
@@ -138,9 +138,10 @@ router.post("/jobcategory", [
     console.log(jobCategory);
     // Add job category to db
     const resp = await db_utils.insertUserIntoDB('jobCategories', jobCategory);
-    let body = resp.body;
-    body['message'] = resp.message;
-    return res.status(resp.statusCode).json(body);
+    if (resp.statusCode != 200) {
+      return res.status(resp.statusCode).json({message: resp.message});
+    }
+    return res.status(200).json(jobCategory);
 });
 
 /**
@@ -152,9 +153,8 @@ router.post("/jobcategory", [
  *         404 - If there are no jobCategory available in the db.
  */
 router.get('/jobcategory', [
-  body().custom(body => {
-    return Object.keys(body).length === 0;
-  })],
+  body().isEmpty()
+],
   async (req, res) => {
     // Validate API request
     const validate = sec_utils.APIRequestIsValid(req);
@@ -163,7 +163,10 @@ router.get('/jobcategory', [
     }
     // Get all job categories from db
     const resp = await db_utils.getAllRowsFromTable('jobCategories');
-    return res.status(resp.statusCode).json(resp.body);
+    if (resp.statusCode != 200) {
+      return res.status(resp.statusCode).json({message: resp.message});
+    }
+    return res.status(200).json(resp.body);
 });
 
 
@@ -177,9 +180,9 @@ router.get('/jobcategory', [
  *         404 - If the job with the given Id is not found
  */
 router.get('/jobposting/job/:jobid', [
-  body().custom(body => {
-    return Object.keys(body).length === 0;
-  })],
+  body().isEmpty(),
+  check('jobid').notEmpty()
+],
   async (req, res) => {
     // Validate API request
     const validate = sec_utils.APIRequestIsValid(req);
@@ -188,9 +191,10 @@ router.get('/jobposting/job/:jobid', [
     }
     // Get job opening from db
     const resp = await db_utils.getRowByID('jobOpenings', req.params.jobid);
-    let body = resp.body;
-    body['message'] = resp.message;
-    return res.status(resp.statusCode).json(body);
+    if (resp.statusCode != 200) {
+      return res.status(resp.statusCode).json({message: resp.message});
+    }
+    return res.status(200).json(resp.body);
 });
 
 module.exports = router;

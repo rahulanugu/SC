@@ -68,9 +68,7 @@ function generateId(count) {
     //Check if user already exists
     const userExists = await db_utils.checkForUserInDB('patientsnew', req.body.email);
     if (userExists) {
-      return res.status(400).json({
-        message: 'User already exists'
-      });
+      return res.status(400).json({message: 'User already exists'});
     }
 
     const user = {
@@ -88,9 +86,10 @@ function generateId(count) {
     };
     // Add new patient to patientsnew table in db
     const resp = await db_utils.insertUserIntoDB('patientsnew', user);
-    let body = resp.body;
-    body['message'] = resp.message;
-    return res.status(resp.statusCode).json(body);
+    if (resp.statusCode != 200) {
+      return res.status(resp.statusCode).json({message: resp.message});
+    }
+    return res.status(200).json({message: user})
 });
 
 

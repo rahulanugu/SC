@@ -62,13 +62,12 @@ router.post("/", [
     partner['_id'] = generateId(10);
     const resp = await db_utils.insertUserIntoDB('partners', partner);
     if (resp.statusCode != 200) {
-      console.log("error in saving requested access user");
       return res.status(resp.statusCode).json({message: resp.message});
     }
     // Send emails
     //mailer(partner.fname, partner.email);
     //mailer1(partner.fname, partner.email);
-    return res.status(200).json({message: "Your message has been saved"});
+    return res.status(200).json(partner);
 });
   
 
