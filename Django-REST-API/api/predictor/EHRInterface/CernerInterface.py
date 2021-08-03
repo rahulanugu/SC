@@ -4,7 +4,7 @@ John Whiteside - branch jdw
 '''
 
 import requests
-from predictor.EHRInterface.concurr import fetch_all_patient_data as _fetch
+from concurr import fetch_all_patient_data as _fetch
 import jwt
 import datetime
 from urllib.parse import quote_plus, urlencode
@@ -68,12 +68,27 @@ def b64_encode_str(s):
 # <- Authorization ->
 # Generate auth token, for requesting bearer token for Basic auth
 def generateToken():
-    client_id = ''
-    secret = ''
+    client_id = '48efa01e-1935-48ff-b696-fff03f499f07'
+    secret = 'YtQt2VjXeEY-zDS1M4VDw_eW8L0Br0Wz'
     concat = f"{client_id}:{secret}"
     return b64_encode_str(concat)
 
-# Use system-level auth offered by Cerner
+# Fetch OAuth 2.0 Backend bearer token for system-level authorization
+# https://fhir.cerner.com/authorization/#requesting-authorization-on-behalf-of-a-system
+def fetch_access_token(jwtToken):
+    url = 'https://authorization.cerner.com/tenants/ec2458f2-1e24-41c8-b71b-0e701af7583d/protocols/oauth2/profiles/smart-v1/token'
+    headers = {
+        'Content-Type': 'application/x-www-form-urlencoded'
+    }
+    payload = {
+        'grant_type': 'client_credentials',
+        'client_assertion_type': quote_plus('urn:ietf:params:oauth:client-assertion-type:jwt-bearer'),
+        'client_assertion': quote_plus(str(jwtToken))
+    }
+
+    res = requests.post(url=url, headers=headers, data=payload, timeout=DEFAULT_TIMEOUT)
+    print(http_req_to_str('POST', url, headers, params=payload))
+    return res
 
 # <- Integrations ->
 '''
@@ -187,65 +202,76 @@ def fetch_handler(key, data):
 
 # --- Tests ---
 
+rootURL = 'ec2458f2-1e24-41c8-b71b-0e701af7583d'
 TOKEN = generateToken()
+print(TOKEN)
 
+'''
+['AllergyIntolerance', { 
+    'url': f'https://fhir-open.cerner.com/r4/{rootURL}/AllergyIntolerance',
+    'patientID': '12724066',
+    'token': TOKEN }
+],
+['Condition', { 
+    'url': f'https://fhir-open.cerner.com/dstu2/{rootURL}/Condition',
+    'patientID': '12724066',
+    'token': TOKEN }
+],
+['CarePlan', { 
+    'url': f'https://fhir-open.cerner.com/r4/{rootURL}/CarePlan',
+    'patientID': '12724066',
+    'token': TOKEN }
+],
+  '''
 pairs = [
-  ['AllergyIntolerance', { 
-      'url': 'https://fhir-open.cerner.com/r4/${rootURL}/AllergyIntolerance', 
-      'patientID': '12724066',
-      'token': TOKEN }
-  ],
-  ['Condition', { 
-      'url': 'https://fhir-open.cerner.com/dstu2/${rootURL}/Condition', 
-      'patientID': '12724066',
-      'token': TOKEN }
-  ],
-  ['CarePlan', { 
-      'url': 'https://fhir-open.cerner.com/r4/${rootURL}/CarePlan', 
-      'patientID': '12724066',
-      'token': TOKEN }
-  ],
   ['DiagnosticReport', { 
-      'url': 'https://fhir-open.cerner.com/r4/${rootURL}/DiagnosticReport', 
+      'url': f'https://fhir-open.cerner.com/r4/{rootURL}/DiagnosticReport',
       'patientID': '12724066',
       'token': TOKEN }
   ],
   ['DocumentReference', { 
-      'url': 'https://fhir-open.cerner.com/dstu2/${rootURL}/DocumentReference', 
+      'url': f'https://fhir-open.cerner.com/dstu2/{rootURL}/DocumentReference',
       'patientID': '12724066',
       'token': TOKEN }
   ],
   ['Encounter', { 
-      'url': 'https://fhir-open.cerner.com/r4/${rootURL}/Encounter', 
+      'url': f'https://fhir-open.cerner.com/r4/{rootURL}/Encounter',
       'patientID': '12724066',
       'token': TOKEN }
   ],
   ['Immunization', { 
-      'url': 'https://fhir-open.cerner.com/dstu2/${rootURL}/Immunization', 
+      'url': f'https://fhir-open.cerner.com/dstu2/{rootURL}/Immunization',
       'patientID': '12724066',
       'token': TOKEN }
   ],
   ['MedicationRequest', { 
-      'url': 'https://fhir-open.cerner.com/r4/${rootURL}/MedicationRequest', 
+      'url': f'https://fhir-open.cerner.com/r4/{rootURL}/MedicationRequest',
       'patientID': '12724066',
       'token': TOKEN }
   ],
   ['Observation', { 
-      'url': 'https://fhir-open.cerner.com/dstu2/${rootURL}/Observation', 
+      'url': f'https://fhir-open.cerner.com/dstu2/{rootURL}/Observation',
       'patientID': '12724066',
       'token': TOKEN }
   ],
   ['Patient', { 
-      'url': 'https://fhir-open.cerner.com/r4/${rootURL}/Patient', 
+      'url': f'https://fhir-open.cerner.com/r4/{rootURL}/Patient',
       'patientID': '12724066',
       'token': TOKEN }
   ],
   ['Procedure', { 
-      'url': 'https://fhir-open.cerner.com/dstu2/${rootURL}/Procedure', 
+      'url': f'https://fhir-open.cerner.com/dstu2/{rootURL}/Procedure',
       'patientID': '12724066',
       'token': TOKEN }
   ]
 ]
 
+
+#data = fetch_allergy_intolerance(f'https://fhir-open.cerner.com/r4/{rootURL}/AllergyIntolerance', '12724065', TOKEN)
+
+#data = fetch_care_plan(f'https://fhir-open.cerner.com/r4/{rootURL}/CarePlan', '12724065', TOKEN)
+#print(data)
+#print(data.json())
 data = _fetch(pairs, fetch_handler)
 print(data)
+print(data.json())
