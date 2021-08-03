@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { jobOpening } from '../careers/careers.component';
 import { ActivatedRoute } from '@angular/router';
 import { CareersService } from '../shared/careers.service';
+
 /**
  * Page: specific job page
  */
@@ -33,10 +34,10 @@ export class ApplyJobComponent implements OnInit {
   }
 
   loadScript() {
-    var script = document.createElement('script');
-    script.src = "app/apply-job/script.js"
-    script.type = 'text/javascript'
-    document.getElementsByTagName('head')[0].appendChild(script);
+    // var script = document.createElement('script');
+    // script.src = "app/apply-job/script.js"
+    // script.type = 'text/javascript'
+    // document.getElementsByTagName('head')[0].appendChild(script);
   }
 
 }

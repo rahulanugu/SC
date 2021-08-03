@@ -1,0 +1,37 @@
+.content {
+  padding: 16px;
+}
+
+.content > mat-card {
+  width: 200px;
+  height: 422px;
+}
+
+/* .blog-card {
+  width: 391px;
+} */
+
+.card-cat-left{
+  line-height: normal;
+  display: inline;
+  width: 100% !important;
+}
+
+.card-title-left{
+  margin:1vh 0;
+  width: 100% !important;
+}
+
+.card-read-right{
+  margin:1vh;
+  line-height: normal;
+  display: inline;
+  font-size: 2vh;
+  width: 100% !important;
+}
+
+.card-title {
+  display: grid;
+  grid-template-columns: 80% 1fr;
+  align-items: flex-end;
+}

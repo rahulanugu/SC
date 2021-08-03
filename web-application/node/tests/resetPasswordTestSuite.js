@@ -62,21 +62,21 @@ describe('/Generate a JWT token for user/patient object and save it in db', () =
   });
 });
 
-describe('change password for patient', () => {
-  it('password change', () => {
-    let queryPost = {
-      "token": testToken
-    }
-    request(app)
-      .post('/reset_password/change_password')
-      .query({
-        API_KEY: "TiKY7Md2dHpcZo1ih4KbkinTHh7CNTSjseg2ZB3ZiaEC2x1bFA==",
-      })
-      .send(queryPost)
-      .end((err, res) => {
-        assert.isNull(err);
-        assert.isTrue(res.statusCode != 404);
-        assert.isTrue(res.statusCode == 200);
-      });
-  });
-});
+// describe('change password for patient', () => {
+//   it('password change', () => {
+//     let queryPost = {
+//       "token": testToken
+//     }
+//     request(app)
+//       .post('/reset_password/change_password')
+//       .query({
+//         API_KEY: "TiKY7Md2dHpcZo1ih4KbkinTHh7CNTSjseg2ZB3ZiaEC2x1bFA==",
+//       })
+//       .send(queryPost)
+//       .end((err, res) => {
+//         assert.isNull(err);
+//         assert.isTrue(res.statusCode != 404);
+//         assert.isTrue(res.statusCode == 200);
+//       });
+//   });
+// });

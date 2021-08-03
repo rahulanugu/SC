@@ -34,6 +34,7 @@ router.post('/',[
     // Validate API request
     const validate = sec_utils.APIRequestIsValid(req);
     if (validate.statusCode != 200) {
+      console.log('validate', validate);
       return res.status(validate.statusCode).json({message: validate.message});
     }
     console.log("[INFO] Entered");

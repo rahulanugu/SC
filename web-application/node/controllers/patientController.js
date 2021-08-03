@@ -13,7 +13,8 @@ const mailer_oauth = require('../utils/mailer_oauth');
 const sec_utils = require('../utils/security_utils');
 const db_utils = require('../utils/db_utils');
 
-const API_KEY = process.env.API_KEY;
+const API_KEY = '';
+// const API_KEY = process.env.API_KEY;
 // http://localhost:3000/patient/
 
 
