@@ -29,6 +29,10 @@ var cacheController = require("./controllers/cacheController");
 var partnersController = require("./controllers/partnersController");
 var patientsNewController = require("./controllers/patientNewController");
 const mailer_oauth = require('./mailer_oauth');
+const fs = require("fs");
+const { promisify } = require('util');
+
+const readFile = promisify(fs.readFile);
 
 var app = express();
 
@@ -148,24 +152,30 @@ app.use("/partners", partnersController);
 const oauth2Client = mailer_oauth.getClient();
 const accessToken = oauth2Client.getAccessToken();
 
-app.post("/sendEmail", (req, res) => {
-  var data = req.body;
+app.post("/sendEmail", async (req, res) => {
+  // var data = req.body;
   var transporter = nodemailer.createTransport({
-    service: "gmail",
+    service: "outlook365",
     auth: {
-      type: "OAuth2",
-      user: "moh@scriptchain.co",
-      clientId: "867282827024-auj9ljqodshuhf3lq5n8r79q28b4ovun.apps.googleusercontent.com",
-      clientSecret: "zjrK7viSEMoPXsEmVI_R7I6O",
-      refreshToken: "1//04OyV2qLPD5iYCgYIARAAGAQSNwF-L9IrfYyKF4kF_HhkGaFjxxnxdgxU6tDbQ1l-BLlOIPtXtCDOSj9IkwiWekXwLCNWn9ruUiE",
-      accessToken: accessToken
+      user: "shah444@purdue.edu",
+      pass: "krishna18"
     },
   });
+
+  let html = await readFile('./emailTemplates/welcome-email.html', 'utf8');
   const emailConfig = {
-    from: "moh@scriptchain.co",
-    to: data.email,
-    subject: data.subject,
-    html: data.template,
+    from: "shah444@purdue.edu",
+    to: "shahvidit39@gmail.com",
+    subject: "Test email",
+    html: html,
+    attachments: [{
+      filename: "welcome.svg",
+      path: "./assets/welcome.svg",
+      cid: "welcome"
+    }]
+    // to: data.email,
+    // subject: data.subject,
+    // html: data.template,
   };
   transporter.sendMail(emailConfig, (err, info) => {
     if (err) console.log(err);
