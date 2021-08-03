@@ -2,7 +2,7 @@ const { assert } = require("chai");
 const chai = require("chai");
 const chaiHttp = require("chai-http");
 const app = require('../index');
-const sec_utils = require('../security_utils');
+const sec_utils = require('../utils/security_utils');
 const request = require('supertest');
 chai.use(chaiHttp);
 

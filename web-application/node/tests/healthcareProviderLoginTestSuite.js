@@ -5,7 +5,7 @@ const request = require('supertest');
 const bcrypt = require('bcryptjs');
 
 const app = require('../index');
-const sec_utils = require("../security_utils");
+const sec_utils = require("../utils/security_utils");
 
 chai.use(chaiHttp);
 
