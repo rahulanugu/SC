@@ -3,10 +3,10 @@ var router = express.Router();
 const { check, body } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const nodemailer = require("nodemailer");
-const mailer_oauth = require('../mailer_oauth');
+const mailer_oauth = require('../utils/mailer_oauth');
 
-const sec_utils = require('../security_utils');
-const db_utils = require('../db_utils');
+const sec_utils = require('../utils/security_utils');
+const db_utils = require('../utils/db_utils');
 
 const API_KEY = '';
 

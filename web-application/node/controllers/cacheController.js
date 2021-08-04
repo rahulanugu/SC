@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { check, body } = require('express-validator');
 
-const sec_utils = require('../security_utils');
+const sec_utils = require('../utils/security_utils');
 
 var objJson = {};
 
@@ -32,7 +32,7 @@ router.post('/storeInCache', [
 });
 
 router.get('/getFromCache', [
-  body().isEmpty()
+  body().custom(body => Object.keys(body).length == 0)
   ], 
   (req, res) => {
     // Validate API request

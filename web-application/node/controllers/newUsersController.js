@@ -3,9 +3,9 @@ const router = express.Router();
 const { check, body } = require('express-validator');
 const nodemailer = require("nodemailer");
 
-const mailer_oauth = require('../mailer_oauth');
-const db_utils = require('../db_utils');
-const sec_utils = require('../security_utils');
+const mailer_oauth = require('../utils/mailer_oauth');
+const db_utils = require('../utils/db_utils');
+const sec_utils = require('../utils/security_utils');
 //const {BigQuery} = require('@google-cloud/bigquery');
 //const bigquery = new BigQuery();
 

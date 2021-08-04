@@ -9,9 +9,9 @@ const express = require('express');
 const { check, body } = require('express-validator');
 const router = express.Router();
 
-const mailer_oauth = require('../mailer_oauth');
-const db_utils = require('../db_utils');
-const sec_utils = require('../security_utils');
+const mailer_oauth = require('../utils/mailer_oauth');
+const db_utils = require('../utils/db_utils');
+const sec_utils = require('../utils/security_utils');
 
 function generateId(count) {
   var _sym = 'abcdefghijklmnopqrstuvwxyz1234567890';
