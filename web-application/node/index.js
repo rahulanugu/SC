@@ -162,7 +162,7 @@ app.post("/sendEmail", async (req, res) => {
     },
   });
 
-  let html = await readFile('./emailTemplates/welcome-email.html', 'utf8');
+  let html = await readFile('./emailTemplates/verification-email.html', 'utf8');
   const emailConfig = {
     from: "shah444@purdue.edu",
     to: "shahvidit39@gmail.com",

@@ -70,7 +70,7 @@ function APIRequestIsValid(req) {
   // Express validation, passed as array in second param of API's controller
   const valErr = validationResult(req);
   if (!valErr.isEmpty()) {
-    console.log('err', valErr);
+    console.log('APIRequestNotValid err', valErr);
     return jsonResponse(400, 'Bad Request');
   }
   // Validate API key, received as query parameter

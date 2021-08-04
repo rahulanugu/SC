@@ -62,9 +62,10 @@ router.post("/jobposting", [
  *         404 - If there are no jobOpning available in the db.
  */
 router.get('/jobposting', [
-  body().isEmpty()
+  // body().isEmpty()
 ],
   async (req, res) => {
+    // console.log('request is ', req);
     // Validate API request
     const validate = sec_utils.APIRequestIsValid(req);
     if (validate.statusCode != 200) {

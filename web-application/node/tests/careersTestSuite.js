@@ -80,13 +80,13 @@ describe("/POST Create a job", () => {
 
 describe("get all job openings", () => {
   it("should return all job openings without an error", async () => {
-    // portInUse(3000, value => console.log("val is ", value));
     request(app)
-      .get("/careers/jobposting")
-      .query({
-        API_KEY: "TiKY7Md2dHpcZo1ih4KbkinTHh7CNTSjseg2ZB3ZiaEC2x1bFA==",
-      })
-      .end((err, res) => {
+    .get("/careers/jobposting")
+    .query({
+      API_KEY: "TiKY7Md2dHpcZo1ih4KbkinTHh7CNTSjseg2ZB3ZiaEC2x1bFA==",
+    })
+    .end((err, res) => {
+        console.log('/get all job openings: status code => ', res.status);
         assert.isNull(err);
         assert.isTrue(res.status != 404);
         assert.isTrue(res.status == 200);
