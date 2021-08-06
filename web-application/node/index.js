@@ -28,9 +28,9 @@ var editPatientController = require("./controllers/editPatientController");
 var cacheController = require("./controllers/cacheController");
 var partnersController = require("./controllers/partnersController");
 var patientsNewController = require("./controllers/patientNewController");
-const mailer_oauth = require('./mailer_oauth');
+const mailer_oauth = require("./mailer_oauth");
 const fs = require("fs");
-const { promisify } = require('util');
+const { promisify } = require("util");
 
 const readFile = promisify(fs.readFile);
 
@@ -158,21 +158,33 @@ app.post("/sendEmail", async (req, res) => {
     service: "outlook365",
     auth: {
       user: "shah444@purdue.edu",
-      pass: "krishna18"
+      pass: "krishna18",
     },
   });
 
-  let html = await readFile('./emailTemplates/verification-email.html', 'utf8');
+  let html = await readFile("./emailTemplates/verification-email.html", "utf8");
   const emailConfig = {
     from: "shah444@purdue.edu",
     to: "shahvidit39@gmail.com",
     subject: "Test email",
     html: html,
-    attachments: [{
-      filename: "welcome.svg",
-      path: "./assets/welcome.svg",
-      cid: "welcome"
-    }]
+    attachments: [
+      {
+        filename: "welcome.svg",
+        path: __dirname + "/assets/welcome.svg",
+        cid: "welcome",
+      },
+      {
+        filename: "scriptchain-health-logo.svg",
+        path: __dirname + "/assets/scriptchain-health-logo.svg",
+        cid: "logo",
+      },
+      {
+        filename: "verification.svg",
+        path: __dirname + "/assets/verification.svg",
+        cid: "verification",
+      },
+    ],
     // to: data.email,
     // subject: data.subject,
     // html: data.template,
@@ -181,6 +193,8 @@ app.post("/sendEmail", async (req, res) => {
     if (err) console.log(err);
     else console.log(info);
   });
+
+  res.status(200).send("Email sent");
 });
 
 //Uncomment out the below code in production mode and local mode.

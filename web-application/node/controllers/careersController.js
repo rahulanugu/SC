@@ -44,6 +44,7 @@ router.post("/jobposting", [
 
     const jobOpening = req.body;
     jobOpening['_id'] = generateId(10);
+    console.log('req.body is ', req.body);
     // Add job opening to db
     const resp = await db_utils.insertUserIntoDB('jobOpenings', jobOpening);
     if (resp.statusCode != 200) {

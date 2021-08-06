@@ -7,7 +7,7 @@ const mysql = require('mysql');
 
 /* DB connection instance */
 
- var connection = mysql.createConnection({
+ var connection = mysql.createPool({
     host: 'database-1.cgurbeaohou6.us-east-2.rds.amazonaws.com',
     user: 'admin',
     password: 'Scriptchain21!',
@@ -26,6 +26,7 @@ function jsonResponse(code, message, body={}) {
 function queryDB(query, data) {
   return new Promise((resolve) => {
     connection.query(query, data, (err, data) => {
+      console.log('DB err is ', err);
       if (err) return resolve(jsonResponse(500, 'DB Error'));
       resolve(jsonResponse(200, 'Success', data));
     });

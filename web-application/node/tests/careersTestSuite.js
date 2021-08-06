@@ -69,8 +69,8 @@ describe("/POST Create a job", () => {
       })
       .send(jobPost)
       .end((err, res) => {
-        assert.isNull(err);
         console.log("status code is ", res.statusCode);
+        assert.isNull(err);
         assert.isTrue(res.status != 404);
         assert.isTrue(res.status == 200);
       });
