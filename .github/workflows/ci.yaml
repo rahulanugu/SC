@@ -96,19 +96,19 @@ jobs:
       with: 
         files: web-application/node appspec.yml start_setup.sh
         recursive: true
-        dest: scriptchain.zip
+        dest: scriptchain1.zip
 
     - name: upload archive
       uses: actions/upload-artifact@v2
       with:
-        name: scriptchain.zip
-        path: ./scriptchain.zip
+        name: scriptchain1.zip
+        path: ./scriptchain1.zip
 
     - name: copy artifact to S3
       run: |
         aws s3 cp \
         --region us-east-2 \
-        scriptchain.zip s3://scriptchain-deploy-bucket
+        scriptchain1.zip s3://scriptchain-deploy-bucket
       
     # ------------ pre-process and upload build output to AWS S3 ---------------------
 
@@ -121,7 +121,7 @@ jobs:
         --application-name ScriptChain \
         --deployment-group-name CodeDeployGitHubDemo-DepGrp \
         --deployment-config-name CodeDeployDefault.AllAtOnce \
-        --s3-location bundleType=zip,bucket=scriptchain-deploy-bucket,key=scriptchain.zip
+        --s3-location bundleType=zip,bucket=scriptchain-deploy-bucket,key=scriptchain1.zip
 
     # --------------- deploy AWS S3 bucket contents ---------------------
 
@@ -131,6 +131,6 @@ jobs:
       with:
         name: |
           dist
-          scriptchain.zip
+          scriptchain1.zip
 
     # ------------ delete the artifacts from the workflow run ---------------
