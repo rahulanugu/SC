@@ -24,23 +24,23 @@ jobs:
         node-version: 16.0.0
 
     - name: clear npm cache
-      working-directory: ./web-application/angular
+      working-directory: /home/ec2-user/app/web-application/angular
       run: npm cache clean -f
 
     - name: install latest npm version
-      working-directory: ./web-application/angular
+      working-directory: /home/ec2-user/app/web-application/angular
       run: npm install -g npm@latest
 
     - name: install all packages
-      working-directory: ./web-application/angular
+      working-directory: /home/ec2-user/app/web-application/angular
       run: npm install -g
 
     - name: install ansi-colors
-      working-directory: ./web-application/angular
+      working-directory: /home/ec2-user/app/web-application/angular
       run: npm install -g ansi-colors
 
     - name: install angular cli
-      working-directory: ./web-application/angular
+      working-directory: /home/ec2-user/app/web-application/angular
       run: npm install -g @angular/cli@8.3.29
 
     # --------- install all dependencies -----------------
@@ -48,7 +48,7 @@ jobs:
     # configurations
 
     - name: link npm with angular cli
-      working-directory: ./web-application/angular 
+      working-directory: /home/ec2-user/app/web-application/angular 
       run: npm link @angular/cli
 
     - name: configure AWS credentials
@@ -64,14 +64,14 @@ jobs:
     # build and store output
 
     - name: build in production mode
-      working-directory: ./web-application/angular
+      working-directory: /home/ec2-user/app/web-application/angular
       run: npm run build
     
     - name: store build result in the dist directory
       uses: actions/upload-artifact@v2
       with:
         name: dist
-        path: ./web-application/node/dist
+        path: /home/ec2-user/app/web-application/node/dist
 
     # ------------- build and store output ---------------
 
