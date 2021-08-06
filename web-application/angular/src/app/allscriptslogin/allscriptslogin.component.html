@@ -1,0 +1,53 @@
+<!--
+Allscripts login
+-->
+
+<!DOCTYPE html>
+<html lang="zxx">
+
+<body>
+  <app-common-header></app-common-header>
+  <!-- Allscripts login -->
+  <section class="login py-5">
+    <div class="container py-xl-5 py-lg-3">
+      <div class="title-section mb-md-5 mb-4">
+        <h3 class="w3ls-title text-dark font-weight-bold" style="padding-top: 50px">AllscriptsHealth Login</h3> 
+        <!-- <img src="../../assets/Allscripts/Allscripts_logo.png"/> -->
+
+      </div>
+      <div class="login px-sm-4 mx-auto mw-100 login-wrapper" style = "width: 50%;">
+        <form ngNativeValidate [formGroup]="Form" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <small id="deactivatedEmail" class="text-danger d-none"><strong>Looks like you have deactivated your account, please check your email to reactivate.</strong><br/></small>
+            <label>Username</label>
+            <input [class.is-invalid]="Form.get('username').invalid && Form.get('username').touched"
+              formControlName="username" class="form-control" id="username" required>
+            <small [class.d-none]="Form.get('username') || Form.get('username')"
+              class="text-danger">Username is required.</small>
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input [class.is-invalid]="Form.get('password').invalid && Form.get('password').touched"
+              formControlName="password" type="password" class="form-control" id="password"required>
+            <small [class.d-none]="Form.get('password').valid || Form.get('password').untouched"
+              class="text-danger">Password is required</small>
+              <a style ="text-align: center; padding-left: 35%;" routerLink="https://clarinet.Allscriptshealth.com/Accounts/bet#/">Forgot Password</a>
+          </div>
+          <small id="invalidEmailPrompt" class="text-danger d-none">Email does not exist</small>
+          <small id="invalidPasswordPrompt" class="text-danger d-none">Please recheck your password</small>
+
+          <div class="n-right-w3ls mt-5 pt-lg-4">
+            <button class="submit btn font-weight-bold" type="submit">Login</button>
+          </div>
+          <p class="text-center mt-5">
+            <a routerLink="/healthcare/register"> Don't have an Account?</a>
+          </p>
+        </form>
+      </div>
+    </div>
+  </section>
+  <!-- //Allscripts login -->
+
+
+  <app-footer></app-footer>
+  <!-- //footer -->
