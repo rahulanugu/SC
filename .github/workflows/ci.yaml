@@ -131,6 +131,6 @@ jobs:
       with:
         name: |
           dist
-          scriptchain1.zip
+          scriptchain1.zip 
 
     # ------------ delete the artifacts from the workflow run ---------------
