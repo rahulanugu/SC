@@ -28,7 +28,7 @@ var editPatientController = require("./controllers/editPatientController");
 var cacheController = require("./controllers/cacheController");
 var partnersController = require("./controllers/partnersController");
 var patientsNewController = require("./controllers/patientNewController");
-const mailer_oauth = require("./mailer_oauth");
+// const mailer_oauth = require("./mailer_oauth");
 const fs = require("fs");
 const { promisify } = require("util");
 
@@ -149,8 +149,8 @@ app.use("/backend/editpatient", editPatientController);
 app.use("/cache_service", cacheController);
 app.use("/partners", partnersController);
 
-const oauth2Client = mailer_oauth.getClient();
-const accessToken = oauth2Client.getAccessToken();
+// const oauth2Client = mailer_oauth.getClient();
+// const accessToken = oauth2Client.getAccessToken();
 
 app.post("/sendEmail", async (req, res) => {
   // var data = req.body;
