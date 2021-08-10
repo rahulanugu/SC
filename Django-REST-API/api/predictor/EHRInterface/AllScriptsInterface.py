@@ -38,14 +38,21 @@ def get_error_code(message):
 
 
 def get_access_token():
-    url = 
-    client_id = 
-    client_secret = 
+    url = 'https://applescm184region.open.allscripts.com/authorization/connect/token'
+    code = 'f53e501a51f2909d1f7ac5dd0d148c46'
+    client_id = 'DE864F8EC4E0'
+    client_secret = 'f3985621-7884-4f05-9964-281861e43ba7'
+    redirect_uri = 'urn:ietf:wg:oauth:2.0:oob'
     headers = {
         'Content-Type': 'application/x-www-form-urlencoded'
     }
     payload = {
-        
+        'code' : code,
+        'redirect_uri' : redirect_uri,
+        'client_id' : client_id,
+        'client_secret' : client_secret,
+        'grant_type' : 'authorization_code',
+        'scope' : 'patient/*.read',
     }
 
     res = requests.post(url=url, headers=headers, data=payload, timeout=DEFAULT_TIMEOUT)
@@ -160,8 +167,8 @@ def get_access_token():
 
 
 
-# result = get_access_token()
-# content = result.content.decode("UTF-8")
-# data = ast.literal_eval(content)
-# print(" Token from the authorization ", result.status_code, data['access_token'])
+result = get_access_token()
+content = result.content.decode("UTF-8")
+data = ast.literal_eval(content)
+print(" Token from the authorization ", result.status_code, data['access_token'])
 
