@@ -38,7 +38,7 @@ import {
 /**
  * Page: Login page for heatlhcare providers
  */
-export class AthenaLoginDetails {
+export class AllscriptsLoginDetails {
   //datamodel for sending username and password to backend
   username: string;
   password: string;
@@ -46,13 +46,13 @@ export class AthenaLoginDetails {
 
 @Component({
   selector: 'app-healthcare-login',
-  templateUrl: './athenalogin.component.html',
+  templateUrl: './allscriptslogin.component.html',
   styleUrls: ['../app.component.css']
 })
 
-export class AthenaLoginComponent implements OnInit {
+export class AllscriptsLoginComponent implements OnInit {
 
-  healthcareLoginDetails = new AthenaLoginDetails();
+  healthcareLoginDetails = new AllscriptsLoginDetails();
 
   allPatients: Patient[]
   filteredPatients: Patient[]

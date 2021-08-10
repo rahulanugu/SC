@@ -84,6 +84,7 @@ import { MedicationDetailsComponent } from "./medication-details/medication-deta
 import { ProcedureDetailsComponent } from "./procedure-details/procedure-details.component";
 import { JobOpeningsComponent } from "./job-openings/job-openings.component";
 import { BlogPostComponent } from "./blog-post/blog-post.component";
+import { AllscriptsLoginComponent } from "./allscriptslogin/allscriptslogin.component";
 const routes: Routes = [
   /* pages for the app */
   {
@@ -105,6 +106,7 @@ const routes: Routes = [
   { path: "patientlogin", component: PatientComponent },
   { path: "login", component: LoginComponent },
   { path: "login/athena", component: AthenaLoginComponent },
+  { path: "login/allscripts", component: AllscriptsLoginComponent },
   { path: "request-access", component: RequestAccessComponent },
   { path: "error404", component: Error404Component },
   { path: "error500", component: Error500Component },

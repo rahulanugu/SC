@@ -128,6 +128,7 @@ import { BlogPostComponent } from './blog-post/blog-post.component';
 import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
 import { ShareModule } from 'ngx-sharebuttons';
 import { ToastrModule } from 'ngx-toastr';
+import { AllscriptsLoginComponent } from "./allscriptslogin/allscriptslogin.component";
 
 
 @NgModule({
@@ -135,7 +136,7 @@ import { ToastrModule } from 'ngx-toastr';
     AppComponent,
     LoginComponent,
     AthenaLoginComponent,
-    AthenaLoginComponent,
+    AllscriptsLoginComponent,
     HomeComponent,
     RequestAccessComponent,
     PatientComponent,
