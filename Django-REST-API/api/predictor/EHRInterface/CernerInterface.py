@@ -68,8 +68,8 @@ def b64_encode_str(s):
 # <- Authorization ->
 # Generate auth token, for requesting bearer token for Basic auth
 def generateToken():
-    client_id = ''
-    secret = ''
+    client_id = '48efa01e-1935-48ff-b696-fff03f499f07'
+    secret = 'YtQt2VjXeEY-zDS1M4VDw_eW8L0Br0Wz'
     concat = f"{client_id}:{secret}"
     return b64_encode_str(concat)
 
