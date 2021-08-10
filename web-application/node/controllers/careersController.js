@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 const { check, body, buildCheckFunction } = require('express-validator');
 
-const db_utils = require('../db_utils');
-const sec_utils = require('../security_utils');
+const db_utils = require('../utils/db_utils');
+const sec_utils = require('../utils/security_utils');
 
 function generateId(count) {
   var _sym = 'abcdefghijklmnopqrstuvwxyz1234567890';
@@ -62,11 +62,12 @@ router.post("/jobposting", [
  *         404 - If there are no jobOpning available in the db.
  */
 router.get('/jobposting', [
-  body().isEmpty()
+  body().custom(body => Object.keys(body).length == 0)
 ],
   async (req, res) => {
     // Validate API request
     const validate = sec_utils.APIRequestIsValid(req);
+    console.log(validate)
     if (validate.statusCode != 200) {
       return res.status(validate.statusCode).json({message: validate.message});
     }
@@ -93,8 +94,8 @@ router.get('/jobposting', [
 }).withMessage('Some extra parameters are sent')]
 */
 router.get('/jobposting/:jobcategory', [
-  body().isEmpty(),
-  check('jobcategory').notEmpty()
+  check('jobcategory').notEmpty(),
+  body().custom(body => Object.keys(body).length == 0)
 ],
   async (req, res) => {
     // Validate API request
@@ -153,7 +154,7 @@ router.post("/jobcategory", [
  *         404 - If there are no jobCategory available in the db.
  */
 router.get('/jobcategory', [
-  body().isEmpty()
+  body().custom(body => Object.keys(body).length == 0)
 ],
   async (req, res) => {
     // Validate API request
@@ -180,8 +181,8 @@ router.get('/jobcategory', [
  *         404 - If the job with the given Id is not found
  */
 router.get('/jobposting/job/:jobid', [
-  body().isEmpty(),
-  check('jobid').notEmpty()
+  check('jobid').notEmpty(),
+  body().custom(body => Object.keys(body).length == 0)
 ],
   async (req, res) => {
     // Validate API request

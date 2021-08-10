@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 const { check, body } = require('express-validator');
 
-const db_utils = require('../db_utils');
-const sec_utils = require('../security_utils');
+const db_utils = require('../utils/db_utils');
+const sec_utils = require('../utils/security_utils');
 
 function generateId(count) {
   var _sym = 'abcdefghijklmnopqrstuvwxyz1234567890';

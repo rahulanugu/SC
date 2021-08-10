@@ -104,6 +104,10 @@ def fetch_access_token(jwtToken):
 def fetch_allergy_intolerance(url, patientID, token):
     return fetch_patient_resource(url, patientID, token)
 
+# https://fhir.cerner.com/millennium/r4/clinical/care-provision/care-plan/
+def fetch_care_plan(url, patientID, token):
+    return fetch_patient_resource(url, patientID, token)
+
 # https://fhir.cerner.com/millennium/dstu2/general-clinical/condition/
 def fetch_condition(url, patientID, token):
     return fetch_patient_resource(url, patientID, token)

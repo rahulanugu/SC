@@ -34,9 +34,6 @@ var portInUse = function(port, callback) {
 // The test case will create a job
 describe("/POST Create a job", () => {
   it("Create job testing", async () => {
-    const password = "password123"
-    const hashpassword = await sec_utils.encryptPassword(password);
-    console.log("PASSWORD", hashpassword);
     let jobPost = {
       title: "Project Intern",
       description:
