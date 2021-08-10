@@ -162,29 +162,29 @@ app.post("/sendEmail", async (req, res) => {
     },
   });
 
-  let html = await readFile("./emailTemplates/verification-email.html", "utf8");
+  let html = await readFile("./emailTemplates/accessGranted-email.html", "utf8");
   const emailConfig = {
     from: "shah444@purdue.edu",
     to: "shahvidit39@gmail.com",
     subject: "Test email",
     html: html,
-    attachments: [
-      {
-        filename: "welcome.svg",
-        path: __dirname + "/assets/welcome.svg",
-        cid: "welcome",
-      },
-      {
-        filename: "scriptchain-health-logo.svg",
-        path: __dirname + "/assets/scriptchain-health-logo.svg",
-        cid: "logo",
-      },
-      {
-        filename: "verification.svg",
-        path: __dirname + "/assets/verification.svg",
-        cid: "verification",
-      },
-    ],
+    // attachments: [
+      // {
+      //   filename: "welcome.svg",
+      //   path: __dirname + "/assets/welcome.svg",
+      //   cid: "welcome",
+      // },
+      // {
+      //   filename: "scriptchain-health-logo.svg",
+      //   path: __dirname + "/assets/scriptchain-health-logo.svg",
+      //   cid: "logo",
+      // },
+      // {
+      //   filename: "verification.svg",
+      //   path: __dirname + "/assets/verification.svg",
+      //   cid: "verification",
+      // },
+    // ],
     // to: data.email,
     // subject: data.subject,
     // html: data.template,
