@@ -104,7 +104,7 @@ jobs:
         name: scriptchain1.zip
         path: ./scriptchain1.zip
 
-    - name: copy artifact to S3
+    - name: copy artifact to S3 
       run: |
         aws s3 cp \
         --region us-east-2 \
