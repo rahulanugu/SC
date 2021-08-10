@@ -135,6 +135,7 @@ import { ToastrModule } from 'ngx-toastr';
     AppComponent,
     LoginComponent,
     AthenaLoginComponent,
+    AthenaLoginComponent,
     HomeComponent,
     RequestAccessComponent,
     PatientComponent,
