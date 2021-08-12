@@ -1,16 +1,5 @@
-#loginHeading {
-  font-family: "Tinos", serif;
-  color: #2d5059;
-  text-align: center;
-  font-size: 36px;
-  padding-top: 40px;
-  margin-top: 40px;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 36px;
-  line-height: 41px;
-  margin-bottom: 40px;
-}
+/* the prefix cs stands for capability statement */
+
 html {
   width: 100%;
   height: 100%;
@@ -31,15 +20,18 @@ body {
   overflow-x: hidden;
 }
 
-#logo {
+.csHeader {
+  font-family: "Tinos", serif;
+  color: #2d5059;
+  font-size: 36px;
+}
+
+.csImg {
   width: 448px;
   height: 252px;
-  left: 496px;
-  top: 183px;
   margin-left: auto;
   margin-right: auto;
   display: block;
-  margin-bottom: 40px;
   border-radius: 8px;
 }
 
