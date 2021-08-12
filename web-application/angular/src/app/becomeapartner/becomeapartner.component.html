@@ -1,99 +1,113 @@
-<app-landing-page-header></app-landing-page-header>
-<div>
-  <div style="background-color: #faf6f2">
-    <h3 id="loginHeading">Become a Partner</h3>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Become a Partner</title>
+  </head>
+  <body>
+    <app-landing-page-header></app-landing-page-header>
+    <div>
+      <p class="bpHeader text-center pt-5">Partnerships are Awesome!</p>
+      <p class="bpSubHeader text-center">Use the form below to contact the ScriptChain Health Team about partnership opportunites.</p>
 
-    <div class="quesForm">
-      <form ngNativeValidate [formGroup]="registerForm" ><!--(ngSubmit)="onSubmit()"-->
-        <label>First Name*</label>
-        <br />
-        <input
-          type="text"
-          required
-          [class.is-invalid]="
-          registerForm.get('firstName').invalid && registerForm.get('firstName').touched
-          "
-          formControlName="firstName"
-          class="form-control"
-        />
-        <br />
-        <label>Last Name*</label>
-        <br />
-        <input type="text" required />
-        <br />
-        <label>Email*</label>
-        <br />
-        <input type="email" required /> <br />
-        <label>Phone Number*</label>
-        <br />
-        <input
-          type="text"
-          placeholder="(000)-000-0000"
-          mask="(000)-000-0000"
-          required
-        />
-        <br />
-        <label>Job Title</label>
-        <br />
-        <input type="text" />
-        <br />
-        <label>Company Name*</label>
-        <br />
-        <input type="text" required />
-        <br />
-        <label>Company Vertical</label>
-        <br />
-        <select name="company verticals">
-          <option value="provider">Provider</option>
-          <option value="healthcareInstitution">Healthcare Institution</option>
-          <option value="insurer">Insurer</option>
-          <option value="socialMedia">Social Media</option>
-          <option value="investor">Investor</option>
-          <option value="healthcareit">Healthcare IT</option>
-          <option value="entepreneur">Entepreneur</option>
-        </select>
-        <br />
-        <label>Company address</label>
-        <input type="text" placeholder="Street address" />
-        <br />
-        <br />
-        <div class="row">
-          <div class="col-sm">
-            <input type="text" placeholder="City" />
-            <br />
-            <br />
+      <div class="quesForm">
+        <form ngNativeValidate [formGroup]="registerForm">
+          <!--(ngSubmit)="onSubmit()"-->
+          <label>First Name*</label>
+          <br />
+          <input
+            type="text"
+            required
+            [class.is-invalid]="
+              registerForm.get('firstName').invalid &&
+              registerForm.get('firstName').touched
+            "
+            formControlName="firstName"
+            class="form-control"
+          />
+          <br />
+          <label>Last Name*</label>
+          <br />
+          <input type="text" required />
+          <br />
+          <label>Email*</label>
+          <br />
+          <input type="email" required /> <br />
+          <label>Phone Number*</label>
+          <br />
+          <input
+            type="text"
+            placeholder="(000)-000-0000"
+            mask="(000)-000-0000"
+            required
+          />
+          <br />
+          <label>Job Title</label>
+          <br />
+          <input type="text" />
+          <br />
+          <label>Company Name*</label>
+          <br />
+          <input type="text" required />
+          <br />
+          <label>Company Vertical</label>
+          <br />
+          <select name="company verticals">
+            <option value="provider">Provider</option>
+            <option value="healthcareInstitution">
+              Healthcare Institution
+            </option>
+            <option value="insurer">Insurer</option>
+            <option value="socialMedia">Social Media</option>
+            <option value="investor">Investor</option>
+            <option value="healthcareit">Healthcare IT</option>
+            <option value="entepreneur">Entepreneur</option>
+          </select>
+          <br />
+          <label>Company address</label>
+          <input type="text" placeholder="Street address" />
+          <br />
+          <br />
+          <div class="row">
+            <div class="col-sm">
+              <input type="text" placeholder="City" />
+              <br />
+              <br />
+            </div>
+            <div class="col-sm">
+              <input type="text" placeholder="State/Province/Region" />
+              <br />
+              <br />
+            </div>
           </div>
-          <div class="col-sm">
-            <input type="text" placeholder="State/Province/Region" />
-            <br />
-            <br />
-          </div>
-        </div>
 
-        <div class="row">
-          <div class="col-sm">
-            <input type="text" placeholder="Postal code" />
-            <br />
-            <br />
+          <div class="row">
+            <div class="col-sm">
+              <input type="text" placeholder="Postal code" />
+              <br />
+              <br />
+            </div>
+            <div class="col-sm">
+              <input type="text" placeholder="Country" />
+            </div>
           </div>
-          <div class="col-sm">
-            <input type="text" placeholder="Country" />
-          </div>
-        </div>
-        <label>Message*</label>
-        <br />
-        <textarea required></textarea><br />
+          <label>Message*</label>
+          <br />
+          <textarea required></textarea><br />
 
-        <button
-          type="button"
-          class="sendBtn"
-          style="margin-left: 0px; width: 195px"
-        >
-          Submit
-        </button>
-      </form>
+          <button
+            type="button"
+            class="sendBtn"
+            style="margin-left: 0px; width: 195px"
+          >
+            Submit
+          </button>
+        </form>
+      </div>
+
+      <app-landing-page-subfooter></app-landing-page-subfooter>
     </div>
-  </div>
-
-  <app-landing-page-subfooter></app-landing-page-subfooter>
-</div>
+  </body>
+</html>

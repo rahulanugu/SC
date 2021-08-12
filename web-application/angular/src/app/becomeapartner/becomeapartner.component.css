@@ -1,9 +1,21 @@
-#loginHeading {
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tinos&display=swap');
+
+body {
+  background-color: #faf6f2
+}
+
+.bpHeader {
   font-family: "Tinos", serif;
-  color: #2d5059;
-  text-align: center;
+  color: #2D5059;
   font-size: 36px;
-  padding-top: 40px;
+}
+
+.bpSubHeader {
+  font-family: "Lato", sans-serif;
+  font-size: 14px;
+  color: #1D1F26;
 }
 
 .form-container {

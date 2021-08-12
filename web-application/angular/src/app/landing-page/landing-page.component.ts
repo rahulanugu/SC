@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { ContactusService } from "../shared/contactus.service";
 
 @Component({
   selector: "app-landing-page",
@@ -7,7 +8,7 @@ import { Component, OnInit } from "@angular/core";
 })
 export class LandingPageComponent implements OnInit {
   breakpoint: number;
-  constructor() {}
+  constructor(private contactService: ContactusService) {}
 
   ngOnInit() {
     //console.log(window.innerWidth);
@@ -30,5 +31,9 @@ export class LandingPageComponent implements OnInit {
     } else {
       this.breakpoint = 1;
     }
+  }
+
+  onContactClicked() {
+    
   }
 }
