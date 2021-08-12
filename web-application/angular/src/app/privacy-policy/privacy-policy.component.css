@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Tinos&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap');
+
+body {
+    background-color: #faf6f2;
+}
+
+.ppHeader {
+    font-size: 36px;
+    font-family: 'Tinos', serif;
+    color: #2d5059;
+}
+
+.ppBody {
+    font-size: 14px;
+    font-family: 'Lato', sans-serif;
+    color: #2d5059;
+}

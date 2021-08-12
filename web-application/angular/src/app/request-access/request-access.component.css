@@ -1,6 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Tinos&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 
+.appHeader {
+    width: 100%;
+}
 
 .raHeader {
     font-family: 'Tinos', serif;
@@ -15,14 +18,24 @@
 }
 
 .raBox {
-    background-color: #B2D8D8;
+    background-color: #B2DFDB;
     align-self: center;
-    border-radius: 3px;
+    border-radius: 20px;
     margin: auto;
+}
+
+.raInput {
+    border-radius: 10px;
+    height: 40px;
+    width: 200px;
 }
 
 .submitBtn {
     background-color: #4DB6AC;
+}
+
+.footer {
+    width: 100%;
 }
 
 @media only screen and (min-width: 1680.5px) {

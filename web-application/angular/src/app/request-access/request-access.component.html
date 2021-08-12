@@ -11,24 +11,24 @@
   <title>Document</title>
 </head>
 
-<body fxLayout="column">
+<body>
   <div>
     <app-landing-page-header></app-landing-page-header>
   </div>
-  <div fxFlex.xl="80%">
-    <div class="container my-5" fxLayout="column" fxLayoutAlign="center center">
-      <div class="raHeader" fxLayoutAlign="center center">
+  <div class="text-center" fxFlexFill fxLayout="column">
+    <div class="my-5" fxLayout="column" fxLayoutAlign="center center">
+      <div class="raHeader text-center" fxLayoutAlign="center center">
         Request Access to ScriptChain Health
       </div>
-      <p class="raDesc" fxLayoutAlign="center">Please fill out this form to request access to ScriptChain Health</p>
-      <div class="raBox py-3 px-4 mt-xl-5">
+      <p class="raDesc text-center" fxLayoutAlign="center center">Please fill out this form to request access to ScriptChain Health</p>
+      <div class="raBox pl-5 pr-5 ml-5 mr-5 pt-5 pb-4 mb-5 mt-xl-5" fxLayoutAlign="center center">
         <form ngNativeValidate action="#" (ngSubmit)="requestAccess()" method="post">
           <div class="px-sm-4" fxLayout="column" fxLayoutAlign="center center">
   
             <div class="form-group">
   
               <label>First Name*</label>
-              <input class="form-control" type="text" name="fname" pattern="[a-zA-Z ]{2,30}" #fname="ngModel"
+              <input class="form-control raInput" type="text" name="fname" pattern="[a-zA-Z ]{2,30}" #fname="ngModel"
                 [class.is-invalid]="fname.invalid && fname.touched" [(ngModel)]="requestaccessservice.user.fname"
                 placeholder="First Name" required>
               <small class="text-danger" [class.d-none]="fname.valid || fname.untouched">First Name is required</small>
@@ -37,7 +37,7 @@
   
               <label>Last Name*</label>
   
-              <input class="form-control" type="text" name="lname" pattern="[a-zA-Z ]{2,30}" #lname="ngModel"
+              <input class="form-control raInput" type="text" name="lname" pattern="[a-zA-Z ]{2,30}" #lname="ngModel"
                 [class.is-invalid]="lname.invalid && lname.touched" [(ngModel)]="requestaccessservice.user.lname"
                 placeholder="Last Name" required>
               <small class="text-danger" [class.d-none]="lname.valid || lname.untouched">Last Name is required</small>
@@ -46,7 +46,7 @@
   
               <label>E-mail Address*</label>
   
-              <input class="form-control" type="email" name="email" #email="ngModel"
+              <input class="form-control raInput" type="email" name="email" #email="ngModel"
                 [class.is-invalid]="email.invalid && email.touched" [(ngModel)]="requestaccessservice.user.email"
                 placeholder="Email" required>
               <small class="text-danger" [class.d-none]="email.valid || email.untouched">Email is required</small>
@@ -55,7 +55,7 @@
   
               <label>Type of User*</label>
   
-              <select class="form-control" name="usertype" #typeofuser="ngModel"
+              <select class="form-control raInput" name="usertype" #typeofuser="ngModel"
                 [class.is-invalid]="typeofuser.invalid && typeofuser.touched"
                 [(ngModel)]="requestaccessservice.user.typeOfUser" required>
                 <option value="">Select One</option>
@@ -73,7 +73,7 @@
       </div>
     </div>
   </div>
-  <div>
+  <div class="footer" fxLayout="column" fxLayoutAlign="end">
     <app-landing-page-subfooter></app-landing-page-subfooter>
   </div>
 
