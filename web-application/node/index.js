@@ -28,7 +28,7 @@ var editPatientController = require("./controllers/editPatientController");
 var cacheController = require("./controllers/cacheController");
 var partnersController = require("./controllers/partnersController");
 var patientsNewController = require("./controllers/patientNewController");
-// const mailer_oauth = require("./mailer_oauth");
+const mailer_oauth = require('./utils/mailer_oauth');
 const fs = require("fs");
 const { promisify } = require("util");
 
