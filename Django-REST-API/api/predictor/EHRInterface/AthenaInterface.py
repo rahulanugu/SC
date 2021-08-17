@@ -21,6 +21,8 @@ from cryptography import x509
 from requests.api import head
 import ast
 
+from requests.models import DecodeError
+
 
 
 # Token
@@ -45,12 +47,12 @@ DEFAULT_TIMEOUT = 5
 
 # Authorization section
 
-def get_patient(url, patientID, token):
-    payload = {'patient': patientID}
-    headers = get_headers(token)
+# def get_patient(url, patientID, token):
+#     payload = {'patient': patientID}
+#     headers = get_headers(token)
 
-    res = requests.get(url=url, params=payload, headers=headers, timeout=DEFAULT_TIMEOUT)
-    return res
+#     res = requests.get(url=url, params=payload, headers=headers, timeout=DEFAULT_TIMEOUT)
+#     return res
 
 def get_access_token():
     url = 'https://athena.okta.com/oauth2/aus2hfei6ookPyyCA297/v1/token'
@@ -73,16 +75,22 @@ def get_access_token():
 
 # <- Integrations ->
 
-# https://docs.athenahealth.com/api/sandbox#/Patient/getPracticeidPatientsSearch
+# https://docs.athenahealth.com/api/sandbox#/Patient/getPracticeidPatients
 def get_sex(url, practiceID, token):
-    return get_patient(url, practiceID, token)
+    url = url + '/' + str(practiceID) + '/patients'
+    payload = {'practiceID' : practiceID}
+    headers = get_headers(token)
+    res = requests.get(url=url, params=payload, headers=headers, timeout=DEFAULT_TIMEOUT)
+    return res
 
+# Following functions might not be required, since the previous one 
 def get_racecode(url, practiceID, token):
     return get_patient(url, practiceID, token)    
 
 def get_maritalstatus(url, practiceID, token):
     return get_patient(url, practiceID, token)    
 
+# https://docs.athenahealth.com/api/sandbox#/Chart/getPracticeidDepartmentidFhirDstu2MedicationMedicationid
 def get_medication(url, practiceID, departmentID, medicationID, token):
     url = url + '/' + practiceID + '/' + departmentID + '/fhir/dstu2/Medication/' + medicationID
     payload = {'practiceid': practiceID, 'departmentid': departmentID, 'medicationid': medicationID}
@@ -91,58 +99,146 @@ def get_medication(url, practiceID, departmentID, medicationID, token):
     res = requests.get(url=url, params=payload, headers=headers, timeout=DEFAULT_TIMEOUT)
     return res
 
-def get_diagnosis(url, practiceID, departmentID, labresultID, token):
-    return get_FHIR_resource(url, practiceID, departmentID, labresultID, token)    
-
-def get_procedure(url, practiceID, brandID, chartsharinggroupID, token):
-    return get_FHIR_resource(url, practiceID, brandID, chartsharinggroupID, token)    
-
-def get_encounter(url, practiceID, departmentID, token):
-    return get_FHIR_resource(url, practiceID, departmentID, token)    
-
-def get_document_reference(url, practiceID, departmentID, token):
-    return get_FHIR_resource(url, practiceID, departmentID, token)    
-
-def get_medication_statement(url, practiceID, brandID, chartsharinggroupID, token):
-    return get_FHIR_resource(url, practiceID, brandID, chartsharinggroupID, token)    
-
-def get_condition(url, practiceID, brandID, chartsharinggroupID, token):
-    return get_FHIR_resource(url, practiceID, brandID, chartsharinggroupID, token)    
-
-def get_patient(url, practiceID, brandID, chartsharinggroupID, token):
-    return get_FHIR_resource(url, practiceID, brandID, chartsharinggroupID, token)    
-
-def get_allergy_intolerance(url, practiceID, brandID, chartsharinggroupID, allergyintoleranceID, token):
-    return get_FHIR_resource(url, practiceID, brandID, chartsharinggroupID, allergyintoleranceID, token)    
-
-def get_immunization(url, practiceID, brandID, chartsharinggroupID, patientID, token):
-    url = url + '/' + practiceID + '/' + brandID + '/' + chartsharinggroupID + '/fhir/dstu2/Immunization'
-    payload = {'practiceid': practiceID, 'brandid': brandID, 'chartsharinggroupid': chartsharinggroupID, 'patientid': patientID}
+# https://docs.athenahealth.com/api/sandbox#/Chart/getPracticeidBrandidChartsharinggroupidFhirDstu2DiagnosticReport
+def get_diagnosis(url, practiceID, brandID, chartsharinggroupID, token):
+    url = url + '/' + practiceID + brandID + chartsharinggroupID + '/fhir/dstu2/DiagnosticReport'
+    payload = {'practiceid': practiceID, 'brandid' : brandID, 'chartsharinggroupid' :chartsharinggroupID}
+    token = get_access_token()
+    content = token.content.decode("UTF-8")
+    data = ast.literal_eval(content)
+    print(" Access token ", token)
     headers = get_headers(token)
-
     res = requests.get(url=url, params=payload, headers=headers, timeout=DEFAULT_TIMEOUT)
-    if res.status_code == '':
-        return 
-    return res  
+    return res    
 
-def get_procedure(url, practiceID, brandID, chartsharinggroupID, token):
-    return get_FHIR_resource(url, practiceID, brandID, chartsharinggroupID, token)  
+# https://docs.athenahealth.com/api/sandbox#/Chart/getPracticeidDepartmentidFhirDstu2Procedure
+def get_procedure(url, practiceID, departmentID, token):
+    url = url + '/' + practiceID + departmentID + 'fhir/dstu2/Procedure'
+    payload = {'practiceid': practiceID, 'departmentid' : departmentID}
+    token = get_access_token()
+    content = token.content.decode("UTF-8")
+    data = ast.literal_eval(content)
+    print(" Access token ", token)
+    headers = get_headers(token)
+    res = requests.get(url=url, params=payload, headers=headers, timeout=DEFAULT_TIMEOUT)
+    return res
+    
+# https://docs.athenahealth.com/api/sandbox#/Encounter/getPracticeidDepartmentidFhirDstu2Encounter
+def get_encounter(url, practiceID, departmentID, token):
+    url = url + '/' + practiceID + departmentID + '/fhir/dstu2/Encounter'
+    payload = {'practiceid': practiceID, 'departmentid' : departmentID}
+    token = get_access_token()
+    content = token.content.decode("UTF-8")
+    data = ast.literal_eval(content)
+    print(" Access token ", token)
+    headers = get_headers(token)
+    res = requests.get(url=url, params=payload, headers=headers, timeout=DEFAULT_TIMEOUT)
+    return res    
 
-def get_vital_signs(url, practiceID, brandID, chartsharinggroupID, vitalID, token):
-    return get_FHIR_resource(url, practiceID, brandID, chartsharinggroupID, vitalID, token)  
+# https://docs.athenahealth.com/api/sandbox#/Documents%20and%20Forms/getPracticeidDepartmentidFhirDstu2DocumentReference
+def get_document_reference(url, practiceID, departmentID, token):
+    url = url + '/' + practiceID + departmentID + 'fhir/dstu2/DocumentReference'
+    payload = {'practiceid': practiceID, 'departmentid' : departmentID}
+    token = get_access_token()
+    content = token.content.decode("UTF-8")
+    data = ast.literal_eval(content)
+    print(" Access token ", token)
+    headers = get_headers(token)
+    res = requests.get(url=url, params=payload, headers=headers, timeout=DEFAULT_TIMEOUT)
+    return res    
+
+# https://docs.athenahealth.com/api/sandbox#/Chart/getPracticeidDepartmentidFhirDstu2MedicationStatement
+def get_medication_statement(url, practiceID, departmentID, token):
+    url = url + '/' + practiceID + departmentID + 'fhir/dstu2/MedicationStatement'
+    payload = {'practiceid': practiceID, 'departmentid' : departmentID}
+    token = get_access_token()
+    content = token.content.decode("UTF-8")
+    data = ast.literal_eval(content)
+    print(" Access token ", token)
+    headers = get_headers(token)
+    res = requests.get(url=url, params=payload, headers=headers, timeout=DEFAULT_TIMEOUT)
+    return res    
+
+# https://docs.athenahealth.com/api/sandbox#/Chart/getPracticeidDepartmentidFhirDstu2Condition
+def get_condition(url, practiceID, departmentID, token):
+    url = url + '/' + practiceID + departmentID + 'fhir/dstu2/Condition'
+    payload = {'practiceid': practiceID, 'departmentid' : departmentID}
+    token = get_access_token()
+    content = token.content.decode("UTF-8")
+    data = ast.literal_eval(content)
+    print(" Access token ", token)
+    headers = get_headers(token)
+    res = requests.get(url=url, params=payload, headers=headers, timeout=DEFAULT_TIMEOUT)
+    return res    
+
+# https://docs.athenahealth.com/api/sandbox#/Patient/getPracticeidPatients
+def get_patient(url, practiceID, token):
+    url = url + '/' + str(practiceID) + '/patients'
+    payload = {'practiceID' : practiceID}
+    token = get_access_token()
+    content = token.content.decode("UTF-8")
+    data = ast.literal_eval(content)
+    print(" Access token ", token)
+    headers = get_headers(token)
+    res = requests.get(url=url, params=payload, headers=headers, timeout=DEFAULT_TIMEOUT)
+    return res    
+
+# https://docs.athenahealth.com/api/sandbox#/Chart/getPracticeidDepartmentidFhirDstu2AllergyIntolerance
+def get_allergy_intolerance(url, practiceID, departmentID, token):
+    url = url + '/' + practiceID + departmentID + '/fhir/dstu2/AllergyIntolerance'
+    payload = {'practiceID' : practiceID, 'departmentid' : departmentID}
+    token = get_access_token()
+    content = token.content.decode("UTF-8")
+    data = ast.literal_eval(content)
+    print(" Access token ", token)
+    headers = get_headers(token)
+    res = requests.get(url=url, params=payload, headers=headers, timeout=DEFAULT_TIMEOUT)
+    return res    
+
+# https://docs.athenahealth.com/api/sandbox#/Chart/getPracticeidDepartmentidFhirDstu2Immunization
+def get_immunization(url, practiceID, departmentID, token):
+    url = url + '/' + practiceID + '/' + departmentID + '/fhir/dstu2/Immunization'
+    payload = {'practiceid': practiceID, 'departmentid' : departmentID}
+    token = get_access_token()
+    content = token.content.decode("UTF-8")
+    data = ast.literal_eval(content)
+    print(" Access token ", token)
+    headers = get_headers(token)
+    res = requests.get(url=url, params=payload, headers=headers, timeout=DEFAULT_TIMEOUT)
+    return res   
+
+# https://docs.athenahealth.com/api/sandbox#/Chart/getPracticeidDepartmentidFhirDstu2ObservationVital-vitalid
+def get_vital_signs(url, practiceID, patientID, departmentID, vitalID, token):
+    url = url + '/' + practiceID + '/' + departmentID + '/fhir/dstu2/Observation/Vital-' + vitalID
+    payload = {'practiceid': practiceID, 'patientid' : patientID, 'departmentid' : departmentID, 'vitalid' : vitalID}
+    token = get_access_token()
+    content = token.content.decode("UTF-8")
+    data = ast.literal_eval(content)
+    print(" Access token ", token)
+    headers = get_headers(token)
+    res = requests.get(url=url, params=payload, headers=headers, timeout=DEFAULT_TIMEOUT)
+    return res 
 
 def get_headers(token):
-  return {'Authorization': f'Bearer {token}', 'Accept': 'application/json'}
+  return {'Authorization': 'Bearer ' + token, 'Accept': 'application/json'}
 
 def get_error_code(message):
     return {'status_code': 404, 'message': message}
 
 
 
-result = get_access_token()
-content = result.content.decode("UTF-8")
+print(" Testing get patient sex api ")
+url = 'https://api.preview.platform.athenahealth.com/v1'
+token = get_access_token()
+content = token.content.decode("UTF-8")
 data = ast.literal_eval(content)
-print(" Token from the authorization ", data['access_token'])
+print(" Access token ", token)
+result = get_sex(str(url), 1128700, data['access_token'])
+print(" Result from the api call is ", result)
+# result = get_access_token()
+# content = result.content.decode("UTF-8")
+# data = ast.literal_eval(content)
+# print(" Token from the authorization ", data['access_token'])
 
 
 
