@@ -62,62 +62,62 @@ def get_access_token():
 
 # <- Integrations ->
 
-# def get_sex(url, practiceID, token):
-#     return get_patient_resource(url, practiceID, token)
+def get_sex(url, practiceID, token):
+    return get_patient_resource(url, practiceID, token)
 
-# def get_racecode(url, practiceID, token):
-#     return get_patient_resource(url, practiceID, token)    
+def get_racecode(url, practiceID, token):
+    return get_patient_resource(url, practiceID, token)    
 
-# def get_maritalstatus(url, practiceID, token):
-#     return get_patient_resource(url, practiceID, token)    
+def get_maritalstatus(url, practiceID, token):
+    return get_patient_resource(url, practiceID, token)    
 
-# def get_medication(url, practiceID, departmentID, medicationID, token):
-#     url = url + '/' + practiceID + '/' + departmentID + '/fhir/dstu2/Medication/' + medicationID
-#     payload = {'practiceid': practiceID, 'departmentid': departmentID, 'medicationid': medicationID}
-#     headers = get_headers(token)
+def get_medication(url, practiceID, departmentID, medicationID, token):
+    url = url + '/' + practiceID + '/' + departmentID + '/fhir/dstu2/Medication/' + medicationID
+    payload = {'practiceid': practiceID, 'departmentid': departmentID, 'medicationid': medicationID}
+    headers = get_headers(token)
 
-#     res = requests.get(url=url, params=payload, headers=headers, timeout=DEFAULT_TIMEOUT)
-#     return res
+    res = requests.get(url=url, params=payload, headers=headers, timeout=DEFAULT_TIMEOUT)
+    return res
 
-# def get_diagnosis(url, practiceID, departmentID, labresultID, token):
-#     return get_FHIR_resource(url, practiceID, departmentID, labresultID, token)    
+def get_diagnosis(url, practiceID, departmentID, labresultID, token):
+    return get_FHIR_resource(url, practiceID, departmentID, labresultID, token)    
 
-# def get_procedure(url, practiceID, brandID, chartsharinggroupID, token):
-#     return get_FHIR_resource(url, practiceID, brandID, chartsharinggroupID, token)    
+def get_procedure(url, practiceID, brandID, chartsharinggroupID, token):
+    return get_FHIR_resource(url, practiceID, brandID, chartsharinggroupID, token)    
 
-# def get_encounter(url, practiceID, departmentID, token):
-#     return get_FHIR_resource(url, practiceID, departmentID, token)    
+def get_encounter(url, practiceID, departmentID, token):
+    return get_FHIR_resource(url, practiceID, departmentID, token)    
 
-# def get_document_reference(url, practiceID, departmentID, token):
-#     return get_FHIR_resource(url, practiceID, departmentID, token)    
+def get_document_reference(url, practiceID, departmentID, token):
+    return get_FHIR_resource(url, practiceID, departmentID, token)    
 
-# def get_medication_statement(url, practiceID, brandID, chartsharinggroupID, token):
-#     return get_FHIR_resource(url, practiceID, brandID, chartsharinggroupID, token)    
+def get_medication_statement(url, practiceID, brandID, chartsharinggroupID, token):
+    return get_FHIR_resource(url, practiceID, brandID, chartsharinggroupID, token)    
 
-# def get_condition(url, practiceID, brandID, chartsharinggroupID, token):
-#     return get_FHIR_resource(url, practiceID, brandID, chartsharinggroupID, token)    
+def get_condition(url, practiceID, brandID, chartsharinggroupID, token):
+    return get_FHIR_resource(url, practiceID, brandID, chartsharinggroupID, token)    
 
-# def get_patient(url, practiceID, brandID, chartsharinggroupID, token):
-#     return get_FHIR_resource(url, practiceID, brandID, chartsharinggroupID, token)    
+def get_patient(url, practiceID, brandID, chartsharinggroupID, token):
+    return get_FHIR_resource(url, practiceID, brandID, chartsharinggroupID, token)    
 
-# def get_allergy_intolerance(url, practiceID, brandID, chartsharinggroupID, allergyintoleranceID, token):
-#     return get_FHIR_resource(url, practiceID, brandID, chartsharinggroupID, allergyintoleranceID, token)    
+def get_allergy_intolerance(url, practiceID, brandID, chartsharinggroupID, allergyintoleranceID, token):
+    return get_FHIR_resource(url, practiceID, brandID, chartsharinggroupID, allergyintoleranceID, token)    
 
-# def get_immunization(url, practiceID, brandID, chartsharinggroupID, patientID, token):
-#     url = url + '/' + practiceID + '/' + brandID + '/' + chartsharinggroupID + '/fhir/dstu2/Immunization'
-#     payload = {'practiceid': practiceID, 'brandid': brandID, 'chartsharinggroupid': chartsharinggroupID, 'patientid': patientID}
-#     headers = get_headers(token)
+def get_immunization(url, practiceID, brandID, chartsharinggroupID, patientID, token):
+    url = url + '/' + practiceID + '/' + brandID + '/' + chartsharinggroupID + '/fhir/dstu2/Immunization'
+    payload = {'practiceid': practiceID, 'brandid': brandID, 'chartsharinggroupid': chartsharinggroupID, 'patientid': patientID}
+    headers = get_headers(token)
 
-#     res = requests.get(url=url, params=payload, headers=headers, timeout=DEFAULT_TIMEOUT)
-#     if res.status_code == '':
-#         return 
-#     return res  
+    res = requests.get(url=url, params=payload, headers=headers, timeout=DEFAULT_TIMEOUT)
+    if res.status_code == '':
+        return 
+    return res  
 
-# def get_procedure(url, practiceID, brandID, chartsharinggroupID, token):
-#     return get_FHIR_resource(url, practiceID, brandID, chartsharinggroupID, token)  
+def get_procedure(url, practiceID, brandID, chartsharinggroupID, token):
+    return get_FHIR_resource(url, practiceID, brandID, chartsharinggroupID, token)  
 
-# def get_vital_signs(url, practiceID, brandID, chartsharinggroupID, vitalID, token):
-#     return get_FHIR_resource(url, practiceID, brandID, chartsharinggroupID, vitalID, token)  
+def get_vital_signs(url, practiceID, brandID, chartsharinggroupID, vitalID, token):
+    return get_FHIR_resource(url, practiceID, brandID, chartsharinggroupID, vitalID, token)  
 
 
 
