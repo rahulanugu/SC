@@ -154,19 +154,31 @@ app.use("/partners", partnersController);
 
 app.post("/sendEmail", async (req, res) => {
   // var data = req.body;
-  var transporter = nodemailer.createTransport({
-    service: "outlook365",
+  // var transporter = nodemailer.createTransport({
+  //   service: "outlook365",
+  //   auth: {
+  //     user: "shah444@purdue.edu",
+  //     pass: "krishna18",
+  //   },
+  // });
+
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
     auth: {
-      user: "shah444@purdue.edu",
-      pass: "krishna18",
-    },
+      type: "OAuth2",
+      user: "moh@scriptchain.co",
+      clientId: "903951478096-c71h0t50i0rnnb8vnq0asaqhmrcp0l1j.apps.googleusercontent.com",
+      clientSecret: "vMUSoWSvx4A7hH1fTGoQbNFM",
+      refreshToken: "1//04vP3OUukrfheCgYIARAAGAQSNwF-L9IrqyBU45KpNdua_rhjOsCJMkULG90ThRS5xcSrG4dX2BvHRVXjO_bdq9EB1KPsuza9eUw",
+      accessToken: "ya29.a0ARrdaM80kJkjFBdcuvsO3-50z3rZ35lXQJxdQeOT2uepbXtS242C6eh1us-EyLXPHF_pl9EzRpa7WPZkvKQO2EtMHS2R_fTpzFQnF-zXeroYFs-QYl1jm1kiLJf38R4WRCEhACW2ydnRWT3_oaHSQS57W-7j"
+    }
   });
 
-  let html = await readFile("./emailTemplates/accessGranted-email.html", "utf8");
+  let html = await readFile(req.body.template, "utf8");
   const emailConfig = {
-    from: "shah444@purdue.edu",
-    to: "shahvidit39@gmail.com",
-    subject: "Test email",
+    from: "moh@scriptchain.co",
+    to: req.body.email,
+    subject: req.body.subject,
     html: html,
     // attachments: [
       // {

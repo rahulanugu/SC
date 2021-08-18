@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ContactusService } from '../shared/contactus.service';
+import { ToastrNotificationService } from '../toastr-notification.service';
 
 /**
  * Page: Contact us page
@@ -12,9 +16,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContactUsComponent implements OnInit {
  
-  constructor() { }
+  constructor(private contactUsService: ContactusService, private router: Router, private toastr: ToastrNotificationService) { }
   ngOnInit() {
     window.scrollTo(0,0);
+ }
+
+ onSubmit(form: NgForm) {
+   this.contactUsService.sendMessage(form.value);
+   this.router.navigate(['/', 'home']);
+   this.toastr.successToast("Message Sent", "Contact Us");
  }
   
 }

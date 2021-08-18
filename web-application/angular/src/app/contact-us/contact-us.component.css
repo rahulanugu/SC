@@ -19,7 +19,7 @@
   body {
     width: 100%;
     display: table-cell;
-    background-color: #f5f5dc;
+    background-color: #F5F1ED;
   }
   
   html,
@@ -29,6 +29,10 @@
     overflow-x: hidden;
   }
   
+  input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched {
+    border: 1px solid red;
+  }
+
   .desc {
     font-family: 'Lato', sans-serif;
     font-size: 14px;
@@ -72,7 +76,7 @@
     box-shadow: inset 0px 2px 2px rgba(29, 31, 38, 0.15);
     border-radius: 8px;
     height: 40px;
-    width: 272px;
+    width: auto;
   }
   
   .vertical-center {
@@ -84,7 +88,7 @@
   .quesForm {
     /* width: 400px; */
     /* height: 500px; */
-    background-color: #B2DFDB;
+    background-color: #E6EFF1;
     border-radius: 10px;
     align-self: center;
     margin-top: 20px;
@@ -97,7 +101,7 @@
     border: 2px solid #e1e4eb;
     box-sizing: border-box;
     /* Inner Shadow E-100 */
-    width: 272px;
+    width: auto;
     box-shadow: inset 0px 2px 2px rgba(29, 31, 38, 0.15);
     border-radius: 8px;
   }

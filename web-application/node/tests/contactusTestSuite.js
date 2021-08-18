@@ -22,7 +22,7 @@ chai.use(chaiHttp);
  *                3. Chai's assertion library to do the assertions.
  */
 describe("/POST a query", () => {
-  it("create a query", async (done) => {
+  it("create a query", async () => {
     let queryPost = {
       fname: faker.name.firstName(),
       lname: faker.name.lastName(),
@@ -40,7 +40,7 @@ describe("/POST a query", () => {
         console.log('err', err);
         assert.isNull(err);
         console.log("statuscode is ", res.statusCode);
-        done();
+        // done();
       });
   });
 });
