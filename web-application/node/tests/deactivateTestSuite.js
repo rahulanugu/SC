@@ -5,6 +5,7 @@ const request = require("supertest");
 const { assert } = require("chai");
 const expect = chai.expect;
 const should = chai.expect;
+const db_utils = require('../utils/db_utils');
 chai.use(chaiHttp);
 
 /*
@@ -20,10 +21,13 @@ chai.use(chaiHttp);
  */
 
 describe("/deactivate a patient account", () => {
-  it("deactivate patient", () => {
+  it("deactivate patient", async () => {
     let queryPost = {
       email: "testeremail@gmail.com",
     };
+
+    await db_utils.insertUserIntoDB("patients", {email: "testeremail@gmail.com"});
+
     request(app)
     .post("/backend/deactivate/patient")
     .query({
@@ -39,11 +43,14 @@ describe("/deactivate a patient account", () => {
   });
 });
 
-describe("/deactivate a provider account", () => {
-  it("deactivate provider", () => {
+describe("/deactivate a provider account", async () => {
+  it("deactivate provider", async () => {
     let queryPost = {
       email: "testeremail@gmail.com",
     };
+
+    await db_utils.insertUserIntoDB("healthcareproviders", {_id: "dsmflkfdlkj", email: "testeremail@gmail.com", password: "fdkslfjlld"});
+
     request(app)
     .post("/backend/deactivate/healthcare")
     .query({

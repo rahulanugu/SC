@@ -304,27 +304,65 @@
         get back to you as soon as possible.
       </p>
       <div class="quesForm">
-        <form>
+        <form (ngSubmit)="onContactClicked(form)" #form="ngForm">
           <label>First Name</label>
           <br />
-          <input type="text" />
+          <input
+            type="text"
+            ngModel
+            name="fname"
+            required
+            #firstName="ngModel"
+          />
+          <p class="help-block" *ngIf="!firstName.valid && firstName.touched">
+            Please enter a valid first name
+          </p>
           <br />
           <label>Last Name</label>
           <br />
-          <input type="text" />
+          <input
+            type="text"
+            ngModel
+            name="lname"
+            required
+            #lastName="ngModel"
+          />
+          <p class="help-block" *ngIf="!lastName.valid && lastName.touched">
+            Please enter a valid last name
+          </p>
           <br />
           <label>Email</label>
           <br />
-          <input type="text" /> <br />
+          <input
+            type="text"
+            ngModel
+            required
+            email
+            name="email"
+            #email="ngModel"
+          />
+          <br />
+          <p class="help-block" *ngIf="!email.valid && email.touched">
+            Please enter a valid email address
+          </p>
           <label>Message</label>
           <br />
-          <textarea></textarea><br />
+          <textarea
+            ngModel
+            required
+            name="message"
+            #message="ngModel"
+          ></textarea>
+          <p class="help-block" *ngIf="!message.valid && message.touched">
+            Please enter a valid message
+          </p>
+          <br />
 
           <button
-            type="button"
+            type="submit"
             class="sendBtn"
             style="margin-left: 0px; width: 195px"
-            (click)="onContactClicked()"
+            [disabled]="!form.valid"
           >
             Send Message
           </button>

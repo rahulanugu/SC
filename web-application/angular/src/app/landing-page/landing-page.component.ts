@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
+import { NgForm } from "@angular/forms";
 import { ContactusService } from "../shared/contactus.service";
+import { ToastrNotificationService } from "../toastr-notification.service";
 
 @Component({
   selector: "app-landing-page",
@@ -8,7 +10,7 @@ import { ContactusService } from "../shared/contactus.service";
 })
 export class LandingPageComponent implements OnInit {
   breakpoint: number;
-  constructor(private contactService: ContactusService) {}
+  constructor(private contactService: ContactusService, private toastr: ToastrNotificationService) {}
 
   ngOnInit() {
     //console.log(window.innerWidth);
@@ -33,7 +35,8 @@ export class LandingPageComponent implements OnInit {
     }
   }
 
-  onContactClicked() {
-    
+  onContactClicked(form: NgForm) {
+    this.contactService.sendMessage(form.value);
+    this.toastr.successToast("Message sent", "Contact Us");
   }
 }

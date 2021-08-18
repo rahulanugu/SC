@@ -4,6 +4,7 @@ const { check, body } = require('express-validator');
 
 const db_utils = require('../utils/db_utils');
 const sec_utils = require('../utils/security_utils');
+const sendEmail = require("./sendEmail");
 
 function generateId(count) {
   var _sym = 'abcdefghijklmnopqrstuvwxyz1234567890';
@@ -47,6 +48,9 @@ router.post("/", [
     if (resp.statusCode != 200) {
       return res.status(resp.statusCode).json({message: resp.message});
     }
+
+    sendEmail(req.body.email, "Thank You for Contacting ScriptChain!", "./emailTemplates/contactConfirmation-email.html");
+
     return res.status(200).json(user);
 });
 
