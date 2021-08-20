@@ -50,3 +50,9 @@ ng serve --o
 ```
 
 You should now have the full website running that is connected to the MongoDB database!
+
+# Best Practices
+
+Best Practices | Purpose
+-------------- | -------
+Always write your name and your contribution to a specific file after you finish modifying it. | In case of a bug in the future, we can refer to the person who wrote the code and understand what’s wrong.
