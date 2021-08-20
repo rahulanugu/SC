@@ -14,7 +14,7 @@ const mysql = require('mysql');
     port: 3306,
     database: 'scriptchain'
   });
-
+  
 /* General helpers */
 
 // JSON response generator to pass DB responses up to controllers

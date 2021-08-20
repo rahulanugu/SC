@@ -9,7 +9,70 @@ import { Router } from '@angular/router';
   styleUrls: ['./patient-healthcareview.component.css']
 })
 export class PatientHealthcareviewComponent implements OnInit {
+  // JDW
+  patientDetails = {
+    'name': 'Theodore Grey',
+    'id': '1234',
+    'mrn': 'YTK89123456',
+    'dob': '03/12/1951',
+    'next_appt': {
+      'date': '11/25/2020',
+      'time': '10:30 am'
+    }
+  }
 
+  readmissionRisk = 52
+
+  symptomsComplaints = [
+    {
+      'name': 'Tiredness',
+      'date': '11/25/2020',
+      'details': '' }
+  ]
+
+  diagnosedConditions = [
+    {
+      'name': 'Coronary Artery Disease',
+      'date': '1/20/2015',
+      'details': '' },
+    {
+      'name': 'Diabetes (Type II)',
+      'date': '07/13/2011',
+      'details': '' },
+    {
+      'name': 'Hyperlipidemia',
+      'date': '12/02/2009',
+      'details': '' }
+  ]
+
+  conditionRisks = [
+    {
+      'name': 'Coronary Artery Disease',
+      'value': '100',
+      'link': '/healthcare-profile/patient/1234/93',
+      'show': 'select',
+      'diagnosed': true },
+    {
+      'name': 'Hypertension',
+      'value': '83',
+      'link': '/healthcare-profile/patient/1234/93',
+      'show': 'select',
+      'diagnosed': false },
+    {
+      'name': 'Heart Failure',
+      'value': '45',
+      'link': '/healthcare-profile/patient/1234/93',
+      'show': 'select',
+      'diagnosed': false },
+    {
+      'name': 'Atrial Fibrilation',
+      'value': '27',
+      'link': '/healthcare-profile/patient/1234/93',
+      'show': 'select',
+      'diagnosed': false }
+  ]
+
+  // Graphs
    title = 'Average Temperatures of Body';
    type = 'LineChart';
    data = [
@@ -349,6 +412,11 @@ export class PatientHealthcareviewComponent implements OnInit {
       //console.log("patientId being rtried to access is "+patientId)
       this.router.navigate(["healthcare-profile/patient/"+patientId+"/"+diseaseId]);
     }
+
+  printPage() {
+    window.print()
+  }
+  
   constructor(private router: Router) {}
 
   ngOnInit() {

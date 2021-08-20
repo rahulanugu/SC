@@ -129,6 +129,7 @@ import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
 import { ShareModule } from 'ngx-sharebuttons';
 import { ToastrModule } from 'ngx-toastr';
 import { AllscriptsLoginComponent } from "./allscriptslogin/allscriptslogin.component";
+import { PortalProgressBarComponent } from './shared/components/portal-progress-bar/portal-progress-bar.component';
 
 
 @NgModule({
@@ -222,6 +223,7 @@ import { AllscriptsLoginComponent } from "./allscriptslogin/allscriptslogin.comp
     ProcedureDetailsComponent,
     BlogCardComponent,
     BlogPostComponent,
+    PortalProgressBarComponent,
   ],
 
   imports: [

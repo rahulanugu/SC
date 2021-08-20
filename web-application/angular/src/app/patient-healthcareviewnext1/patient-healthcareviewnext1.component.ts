@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import * as Highcharts from 'highcharts';
 import { Router } from '@angular/router';
 
@@ -8,6 +8,67 @@ import { Router } from '@angular/router';
   styleUrls: ['./patient-healthcareviewnext1.component.css']
 })
 export class PatientHealthcareviewnextComponent1 implements OnInit {
+
+  patientInfo = {
+    'name': 'Theodore Grey',
+    'sex': 'Male',
+    'age': 68,
+    'height': 70,
+    'weight': 200,
+    'bmi': (703 * 200 / (70 * 70)).toFixed(2),
+    'id': '1234',
+    'mrn': 'YTK89123456',
+    'dob': '03/12/1951',
+    'next_appt': {
+      'date': '11/25/2020',
+      'time': '10:30 am'
+    },
+    'readmissionRisks': [
+      {
+        'name': 'Coronary Heart Disease',
+        'symptoms': 'Angina, dizziness, nausea'}
+    ],
+    'allergies': [],
+    'lifestyle': {
+      'smokes': true,
+    },
+    'prescribedMedications': [
+      {
+        'name': 'Crestor',
+        'dosage': '20mg',
+        'date_prescribed': '09/17/2008'
+      }
+    ]
+  }
+
+  feet = Math.trunc(this.patientInfo.height / 12)
+  inches = this.patientInfo.height % 12
+
+  readmissionRisk = 52
+
+  diagnosedConditions = [
+    {
+      'name': 'Coronary Artery Disease',
+      'date': '1/20/2015',
+      'details': '' },
+    {
+      'name': 'Diabetes (Type II)',
+      'date': '07/13/2011',
+      'details': '' },
+    {
+      'name': 'Hyperlipidemia',
+      'date': '12/02/2009',
+      'details': '' }
+  ]
+
+  admissionHistory = [
+    {
+      'discharge': '11/05/2020',
+      'date': '11/12/2020',
+      'details': 'Patient admitted for heart failure' }
+  ]
+
+  // Graph
   title = 'Average Temperatures of Body';
    type = 'LineChart';
    data = [

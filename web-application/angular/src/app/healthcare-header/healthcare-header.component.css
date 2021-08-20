@@ -1,0 +1,9 @@
+.header {
+  height: 64px;
+  left: 0px;
+  top: 0px;
+  /* Teal 400 */
+  background: #2d5059;
+  /* Drop Shadow E300 */
+  box-shadow: 0px 6px 16px rgba(31, 33, 38, 0.15);
+}
