@@ -1,3 +1,6 @@
+# Authors and their contributions:
+# Vidit: Wrote the whole file.
+
 name: Build and Test application (Scriptchain)
 
 on:
