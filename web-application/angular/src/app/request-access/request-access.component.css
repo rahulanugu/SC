@@ -1,5 +1,13 @@
+/* Authors and their contributions: */
+/* Vidit: Wrote all the styles. Some of the styles are
+            taken from the contact-us component's css file. */
+
 @import url('https://fonts.googleapis.com/css2?family=Tinos&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+body {
+    background-color: #F5F1ED;
+}
 
 .appHeader {
     width: 100%;
@@ -18,21 +26,55 @@
 }
 
 .raBox {
-    background-color: #B2DFDB;
+    background-color: #E6EFF1;
     align-self: center;
     border-radius: 20px;
     margin: auto;
 }
 
+form label {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 17px;
+    /* identical to box height */
+
+    margin-top: 8px;
+    margin-bottom: 8px;
+    color: #1d1f26;
+}
+
 .raInput {
-    border-radius: 10px;
+    background-color: #ffffff;
+    border: 2px solid #e1e4eb;
+    box-sizing: border-box;
+    box-shadow: inset 0px 2px 2px rgba(29, 31, 38, 0.15);
+    border-radius: 8px;
     height: 40px;
-    width: 200px;
+    width: auto;
+}
+
+input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched {
+    border: 1px solid red;
 }
 
 .submitBtn {
-    background-color: #4DB6AC;
-}
+    width: 195x;
+    height: 40px;
+    color: #E6EFF1;
+    background: #5c8a96;
+    font-size: 18px;
+    font-family: "Lato", sans-serif;
+    font-weight: bold;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 7px;
+  
+    /* White */
+    margin-top: 16px;
+    box-sizing: border-box;
+    border-radius: 8px;
+  }
 
 .footer {
     width: 100%;

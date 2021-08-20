@@ -1,4 +1,5 @@
-<!-- Author: Vidit S Shah -->
+<!-- Authors and their contributions -->
+<!-- Vidit: UI enhancements and responsiveness -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -104,6 +105,7 @@
             <p class="help-block" *ngIf="!email.valid && email.touched">
               Please enter a valid email address
             </p>
+            <br>
             <label>Message</label>
             <br />
             <textarea
@@ -112,15 +114,14 @@
               name="message"
               #message="ngModel"
             ></textarea>
+            <br />
             <p class="help-block" *ngIf="!message.valid && message.touched">
               Please enter a valid message
             </p>
-            <br />
-
+            <br>
             <button
               type="submit"
               class="sendBtn"
-              style="margin-left: 0px; width: 195px"
               [disabled]="!form.valid"
             >
               Send Message

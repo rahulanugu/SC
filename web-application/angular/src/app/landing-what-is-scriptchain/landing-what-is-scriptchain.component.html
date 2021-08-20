@@ -1,3 +1,7 @@
+<!-- Authors and their contributions:
+    Vidit: Fixed the alignment issue and added the icons.
+ -->
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -45,7 +49,8 @@
         <div class="px-xs-3 px-sm-3">
           <h3 class="loginHeading">What is ScriptChain Health?</h3>
           <div>
-            <div class="card">
+            <div class="card text-center pt-3">
+              <img class="img img-fluid img-responsive mx-auto d-block" src="../../assets/icons/heart.svg" alt="">
               <h3>Preventative Healthcare</h3>
               <p>
                 Covering the first half of quality healthcare which is to prevent
@@ -55,19 +60,23 @@
           </div>
           <!--Row1-->
           <div class="row">
-            <div class="card">
-              <h3>Time Savings</h3>
-              <p>
-                We significantly reduce the amount of time spent reviewing medical
-                data and make more time for patient care.
-              </p>
+            <div class="col">
+              <div class="card text-center pt-3">
+                <img src="../../assets/icons/clock.svg" alt="" class="img img-fluid img-responsive mx-auto d-block">
+                <h3>Time Savings</h3>
+                <p>
+                  We significantly reduce the amount of time spent reviewing medical
+                  data and make more time for patient care.
+                </p>
+              </div>
             </div>
           </div>
   
           <!---Row2-->
           <div class="row">
             <div class="col">
-              <div class="card">
+              <div class="card text-center pt-3">
+                <img src="../../assets/icons/artificial-intelligence.svg" alt="" class="img img-responsive img-fluid mx-auto d-block">
                 <h3>Artificial Intelligence</h3>
                 <p>
                   Using deep learning models to reduce the mortality rate for
@@ -86,7 +95,8 @@
                 <div class="rectangle">Video</div>
               </div> -->
             <div class="col">
-              <div class="card">
+              <div class="card text-center pt-3">
+                <img src="../../assets/icons/diagnosis.svg" alt="" class="img img-responsive img-fluid mx-auto d-block">
                 <h3>Plug-in Platform</h3>
                 <p>
                   ScriptChain integrates with EMR systems like EPIC systems,
@@ -98,7 +108,8 @@
           <!---Row2-->
           <div class="row">
             <div class="col">
-              <div class="card">
+              <div class="card text-center pt-3">
+                <img src="../../assets/icons/analysis.svg" alt="" class="img img-responsive img-fluid mx-auto d-block">
                 <h3>Data Accuracy</h3>
                 <p>
                   Being able to track and trace all your inputs into the system
@@ -117,7 +128,8 @@
                 <div class="rectangle">Video</div>
               </div> -->
             <div class="col">
-              <div class="card">
+              <div class="card text-center pt-3">
+                <img src="../../assets/icons/book.svg" alt="" class="img img-responsive img-fluid mx-auto d-block">
                 <h3>American College of Cardiology</h3>
                 <p>
                   We follow the American College of Cardiology guidelines on how
@@ -129,7 +141,8 @@
           <!---Row2-->
           <div class="row">
             <div class="col">
-              <div class="card">
+              <div class="card text-center pt-3">
+                <img src="../../assets/icons/cloud-service.svg" alt="" class="img img-responsive img-fluid mx-auto d-block">
                 <h3>HIPAA & HITECH</h3>
                 <p>
                   We are a cloud application that is HIPAA compliant and HITECH
@@ -147,7 +160,8 @@
                 <div class="rectangle">Images</div>
               </div> -->
             <div class="col">
-              <div class="card">
+              <div class="card text-center pt-3">
+                <img src="../../assets/icons/encrypted.svg" alt="" class="img img-responsive img-fluid mx-auto d-block">
                 <h3>Data Security</h3>
                 <p>
                   We know that your medical data is important so we've made sure
@@ -160,7 +174,9 @@
         </div>
         <div class="mt-5" fxLayout="column" fxLayoutAlign="center center">
           <h3>Ready to sign up?</h3>
-          <button type="button" class="signUpBtn">Sign Up</button>
+          <a routerLink="/healthcare/register">
+            <button type="submit" class="signUpBtn">Sign Up</button>
+          </a>
         </div>
   
       </div>

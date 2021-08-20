@@ -1,3 +1,8 @@
+/* Authors and their contributions:
+    Vidit: Added the img class for styling the icons on the page
+            Also worked on the responsiveness by adding a few media queries.
+ */
+
 .loginHeading {
   font-family: "Tinos", serif;
   color: #2d5059;
@@ -26,7 +31,7 @@ body {
 } */
 
 .card {
-  width: 447px;
+  width: auto;
   height: auto;
   /* margin: auto; */
   /* White */
@@ -98,15 +103,39 @@ body {
   color: #1d1f26;
 }
 
-/* @media screen and (max-width: 800px) {
+.img {
+  width: 91px;
+  height: 91px;
+}
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
   .card {
-    width: 100%;
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
-@media screen and (max-width: 1300px) and (min-width: 900px) {
+@media screen and (min-width: 992px) and (max-width: 1199px) {
   .card {
-    width: 60%;
-    align-content: center;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
   }
-} */
+}
+
+@media screen and (min-width: 1200px) and (max-width: 1399px) {
+  .card {
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  .card {
+    width: 35%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

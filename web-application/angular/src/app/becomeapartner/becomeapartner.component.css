@@ -1,3 +1,6 @@
+/* Authors and their contributions */
+/* Vidit: Redesigned the form using CSS grid and made the page responsive. */
+
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Tinos&display=swap');
@@ -94,7 +97,7 @@ form select {
 }
 
 .divider {
-  border-top: 1px solid black;
+  border-top: 1px solid #B0B4BF;
   grid-column: 1 / -1;
 }
 
@@ -112,25 +115,6 @@ form > div {
   /* margin-left: auto;
   margin-right: auto; */
 }
-
-/* .wrapper {
-
-  margin-left: auto;
-  margin-right: auto;
-} */
-
-/* .jobTitle {
-  grid-column-start: 1;
-} */
-
-/* .firstName {
-  display: grid;
-  grid-template-columns: 1fr;
-} */
-
-/* .label {
-  display: inline-block;
-} */
 
 @media only screen and (max-width: 450px) {
   .wrapper {
@@ -249,6 +233,38 @@ form > div {
     border-radius: 8px;
     height: 40px;
     width: 200px;
+  }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1220px) {
+  .wrapper {
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media only screen and (min-width: 1221px) and (max-width: 1474px) {
+  .wrapper {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media only screen and (min-width: 1475px) and (max-width: 1699px) {
+  .wrapper {
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media only screen and (min-width: 1700px) {
+  .wrapper {
+    width: 35%;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 

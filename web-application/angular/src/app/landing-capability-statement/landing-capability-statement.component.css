@@ -1,3 +1,8 @@
+/* Authors and their contributions: 
+    Vidit: Added icons and alignment. Also worked on responsiveness
+            by adding a few media queries.
+*/
+
 /* the prefix cs stands for capability statement */
 
 html {
@@ -26,13 +31,18 @@ body {
   font-size: 36px;
 }
 
-.csImg {
+.csLogo {
   width: 448px;
   height: 252px;
   margin-left: auto;
   margin-right: auto;
   display: block;
   border-radius: 8px;
+}
+
+.csImg {
+  width: 50px;
+  height: 50px;
 }
 
 .content2 {
@@ -86,7 +96,7 @@ body {
   line-height: 29px;
   /* identical to box height */
   margin-right: 15%;
-  display: flex;
+  /* display: flex; */
   align-items: center;
   margin-top: 37px;
   /* Grey 500 */
@@ -132,4 +142,16 @@ table {
   font-weight: bold;
   border: 1px solid #5c8a96;
   border-collapse: collapse;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+@media only screen and (max-width: 588px) {
+  .wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
 }

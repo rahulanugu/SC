@@ -1,3 +1,6 @@
+/* Authors and their contributions: */
+/* Vidit: Designed the whole page */
+
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Tinos&display=swap');
@@ -23,15 +26,15 @@
 }
 
 .heading {
-    font-size: 18;
+    font-size: 18px;
     font-family: 'Lato', sans-serif;
     font-weight: bold;
     color: gray 500;
 }
 
 .jobTitle {
-    font-size: 36;
-    font-family: 'Tinos', serif;
+    font-size: 36px;
+    font-family: 'Lato', sans-serif;
     font-weight: bold;
     color: teal 100;
 }
@@ -47,8 +50,8 @@
     width: 275px;
     height: 60px;
     color: white;
-    background-color:teal;
-    border: teal 300;
+    background-color:#2D5059;
+    border: #5C8A96;
     font-size: 18px;
     font-family: "Lato", sans-serif;
     font-weight: bold;
