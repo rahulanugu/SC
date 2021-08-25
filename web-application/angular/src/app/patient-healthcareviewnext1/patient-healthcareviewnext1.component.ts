@@ -26,7 +26,8 @@ export class PatientHealthcareviewnextComponent1 implements OnInit {
     'readmissionRisks': [
       {
         'name': 'Coronary Heart Disease',
-        'symptoms': 'Angina, dizziness, nausea'}
+        'symptoms': 'Angina, dizziness, nausea',
+        'value': null }
     ],
     'allergies': [],
     'lifestyle': {

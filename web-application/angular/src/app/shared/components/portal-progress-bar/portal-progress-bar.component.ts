@@ -13,7 +13,7 @@ export class PortalProgressBarComponent implements OnInit {
   }
   @Input() name: string = '';
   @Input() value: number = 0;
-  @Input() link: string = '/healthcare-profile';
+  @Input() link: string = '';
   @Input() show: string = 'all';
   @Input() diagnosed: boolean = false;
 }

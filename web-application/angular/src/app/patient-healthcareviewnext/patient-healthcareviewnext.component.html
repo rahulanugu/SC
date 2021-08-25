@@ -1,425 +1,428 @@
 
-<div>
-   <app-healthcare-header></app-healthcare-header> 
+<app-healthcare-header></app-healthcare-header>
+
+<div class="sub-bar-contain">
+  <div class="sub-nav-contain">
+    <a routerLink="/healthcare-profile" class="sub-nav">
+      <img src="../../assets/homeIcon.png" />
+      <span>Home</span>
+    </a>
+    <img src="../../assets/view.png" />
+    <a [routerLink]="'/healthcare-profile/patient/' + patientInfo.id" class="sub-nav">
+      <img src="../../assets/UserIcon.png" />
+      <span>{{patientInfo.name}}</span>
+    </a>
+    <img src="../../assets/view.png" />
+    <a routerLink="/healthcare-profile/readmission" class="sub-nav">
+      <img src="../../assets/Readmission_Risk_Icon_Grey.svg" />
+      <span>Condition Risk: {{condition.name}}</span>
+    </a>
+  </div>
+  
+  <div (click)="printPage()" class="print-contain">
+    <img src="../../assets/printIconGray.png" />
+    <span>Print</span>
+  </div>
 </div>
-<div class="container-full">
-   <div class="row">
-      <p style="padding-left: 5px;">
-         <a href="javascript:history.back()" style="color:black;text-decoration: none;margin-bottom: 10px;cursor: pointer;"><b><i class="arrow left"></i>Back To Search</b></a>
-      </p>
-      <i style="cursor: pointer;margin:4px"class="fa fa-print" (click)="printPage()" aria-hidden="true"></i>
-   </div>
-      <div class="row" style="margin: 0 0.5% 0 0.5%;">
-         <div class="col-md-6" id="readmission_symptoms">
-           <div
-             id="readmission"
-             style="
-               padding: 5px 5px 57px 5px;
-               background-color: white;
-               box-shadow: 1px 1px 10px 3px lightgray;
-             "
-           >
-             <div
-               style="
-                 border-bottom: 2px solid #b0b4bf;
-                 padding: 10px 0px 10px 10px;
-               "
-             >
-             <img src="../../assets/i_Con.png" style="position: absolute; right: 5%;"/>
-             <img src="../../assets/grid.png" style="position: absolute; right: 2%;"/>
-               <h4>
-                 <img class="icon" src="../../assets/Condition_Risk.svg" />
-                 &nbsp;Condition Risk: Heart Failure
-               </h4>
-               <span style="font-family: Lato;font-style: italic;font-weight: normal;color: #575B66;">FDA Approval would go here</span>
-             </div>
-   
-             <div
-               style="
-                 border-bottom: 2px solid #b0b4bf;
-                 padding-left: 1%;
-                 margin-bottom: 2%;
-               "
-             >
-               <div style="margin-top: 3%; margin-bottom: -2%;font-family: Lato;font-style: normal;font-weight: bold;
-               font-size: 18px;">Risk of Developing Heart Failure
-                <button
-                class="btn btn-danger btn-sm high"
-                style="margin-left: 53.5%;"
-              >
-                High
-              </button></div>
-               <div class="progress" style="margin-top: 3%; margin-bottom: 3%; font-size:1rem!important">
-                 <div
-                   class="progress-bar progress-bar-danger"
-                   role="progressbar"
-                   aria-valuenow="100"
-                   aria-valuemin="0"
-                   aria-valuemax="100"
-                   style="width: 100%;border-radius: 15px;"
-                 >
-                   <span>100%</span>
-                 </div>
-               </div>
-             </div>
-             <ul id="indicators">
-               <li id="safe">Low(~40%)</li>
-               <li id="med">Moderate(40-75%)</li>
-               <li id="serious">High(>75%)</li>
-             </ul>
-           </div>
-   
-           <div
-             id="symptoms"
-             style="
-               margin-top: 4%;
-               padding: 5px 10px 0px 0px;
-               background-color: white;
-               box-shadow: 1px 1px 10px 3px lightgray;
-             "
-           >
-             <div
-               style="
-                 border-bottom: 2px solid #b0b4bf;
-                 padding: 10px 0px 10px 10px;
-               "
-             >
-             <img src="../../assets/grid.png" style="position: absolute; right: 2%;"/>
-               <h4>
-                 <img class="icon" src="../../assets/patient.png" />
-                 &nbsp;Patient Info
-               </h4>
-             </div>
-             <div class="table area">
-               
-               <div style="margin-left: 2%;padding-bottom: 2%;border-bottom: 2px solid #E1E4EB;">
-                  <p class="bold_p" style="margin-top: 2%;"><img class="icon" src="../../assets/patientview.png" /><span style="font-family: Lato;font-style: normal;font-weight: normal;font-size: 18px;line-height: 22px;color: #575B66;">&nbsp; Physical</span></p>
-                  <p class="bold_p"><span class="bold">Sex:</span> Male</p>
-                  <p class="bold_p"><span class="bold">Age:</span> 70</p>
-                  <p class="bold_p"><span class="bold">Weight:</span> 200</p>
-                  <p class="bold_p"><span class="bold">Height:</span> 5' 10"</p>
-                  <p class="bold_p"><span class="bold">BMI:</span> <span style="color:#8C2C27;font-weight: bold;
-                     "> 28.69</span> <button
-                     class="btn btn-sm high1" style="margin-left: 1%!important;padding-top: 0%;
-                     padding-bottom: 0%;background-color: #8C2C27;"
-                  >
-                     Overweight
-                  </button></p>
-               </div>
-               <div style="margin-left: 2%;margin-bottom: 2%;border-bottom: 2px solid #E1E4EB;">
-                  <p class="bold_p" style="margin-top: 2%;"><span style="font-family: Lato;font-style: normal;font-weight: normal;font-size: 18px;line-height: 22px;color: #575B66;">Allergies</span></p>
-                  <ul>
-                     <li>Allergy 1</li>
-                     <li>Allergy 2</li>
-                  </ul>
-               </div>
-               <div style="margin-left: 2%;margin-bottom: 2%;padding-bottom: 2%;border-bottom: 2px solid #E1E4EB;">
-                  <p class="bold_p" style="margin-top: 2%;"><span style="font-family: Lato;font-style: normal;font-weight: normal;font-size: 18px;line-height: 22px;color: #575B66;">Lifestyle</span></p>
-                  <p class="bold_p"><span class="bold">Smokes:</span> <span style="color:#8C2C27;font-weight: bold;
-                     ">Yes</span></p>
-               </div>
-               <div style="margin-left: 2%;margin-bottom: 2%;">
-                  <p class="bold_p" style="margin-top: 2%;"><span style="font-family: Lato;font-style: normal;font-weight: normal;font-size: 18px;line-height: 22px;color: #575B66;">
-                     <img src="../../assets/px.png"/>Prescribed Medications</span></p>
-                  <table style="width: 100%; padding: 2%">
-                     <thead>
-                        <tr>
-                           <th>Medication</th>
-                           <th>Dosage</th>
-                           <th>Date Prescribed</th>
-                           <th></th>
-                        </tr>
-                     </thead>
-                     <tbody>
-                        <tr>
-                           <td>Medication 1</td>
-                           <td>00 mg</td>
-                           <td>mm/dd/yyyy</td>
-                           <td style="text-decoration: underline;">View More<img src="../../assets/link.png" style="padding-left: 1%;"></td>
-                        </tr>
-                        <tr>
-                           <td>Medication 2</td>
-                           <td>00 mg</td>
-                           <td>mm/dd/yyyy</td>
-                           <td style="text-decoration: underline;">View More<img src="../../assets/link.png" style="padding-left: 1%;"></td>
-                        </tr>
-                        <tr>
-                           <td>Medication 3</td>
-                           <td>00 mg</td>
-                           <td>mm/dd/yyyy</td>
-                           <td style="text-decoration: underline;">View More<img src="../../assets/link.png" style="padding-left: 1%;"></td>
-                        </tr>
-                        <tr>
-                           <td>Medication 4</td>
-                           <td>00 mg</td>
-                           <td>mm/dd/yyyy</td>
-                           <td style="text-decoration: underline;">View More<img src="../../assets/link.png" style="padding-left: 1%;"></td>
-                        </tr>
-                     </tbody>
-                  </table>
-               </div>
-             </div>
-           </div>
-           <div
-            id="chartContainer"
-            style="
-               height: 380px;
-               margin-top: 4%;
-               background-color: white;
-               box-shadow: 1px 1px 10px 3px lightgray;
-               border-bottom: 2px solid #b0b4bf;
-            "
-            >
-            <h4>
-               <img class="icon" src="../../assets/Vitals_Icon.svg" />
-               &nbsp;Vitals
-            </h4>
+
+<div class="container full-contain">
+  
+  <div class="container">
+    <div class="card-contain">
+
+      <div id="card-left">
+
+        <div id="readmission" class="display-card">
+          <div class="card-head-wrap">
+            <div class="card-head">
+              <div>
+                <img class="icon" src="../../assets/Condition_Risk.svg" />
+                <h4>
+                  Condition Risk: {{condition.name}}
+                </h4>
+              </div>
+              <div>
+                <img src="../../assets/i_Con.png" />
+                <img src="../../assets/grid.png" />
+              </div>
+            </div>
+            <p style="font-style: italic; font-size: 14px; color: #575b66; margin: 0 0 12px 12px;">FDA Approval would go here</p>
+          </div>
+          <app-portal-progress-bar 
+            name='Risk of Developing Hypertension' 
+            [value]="condition.value"
+            show="all"
+            ></app-portal-progress-bar>
+          <div id="indicators">
+            <div class="sub-inds">
+              <div id="safe">
+                <div class="bubble"></div>
+                Low (~40%)
+              </div>
+              <div id="med">
+                <div class="bubble"></div>
+                Moderate (40-75%)
+              </div>
+              <div id="serious">
+                <div class="bubble"></div>
+                High (>75%)
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="symptoms" class="display-card">
+          <div class="card-head-wrap">
+            <div class="card-head">
+              <div>
+                <img class="icon" src="../../assets/patient.png"/>
+                <h4>
+                  Patient Info
+                </h4>
+              </div>
+              <div>
+                <img src="../../assets/grid.png" />
+              </div>
+            </div>
+          </div>
+          <div class="table area">
+              
+              <div style="padding-bottom: 2%;border-bottom: 2px solid #E1E4EB;">
+                <div class="card-sub-tit">
+                  <div class="pat-icon-wrap">
+                    <img class="sub-icon" src="../../assets/patientview.png" style="width: 16px;" />
+                  </div>
+                  <span>Physical</span>
+                </div>
+                <div class="pat-details">
+                  <p class="bold_p"><span class="bold">Sex:</span><span>{{patientInfo.sex}}</span></p>
+                  <p class="bold_p"><span class="bold">Age:</span><span>{{patientInfo.age}}</span></p>
+                  <p class="bold_p"><span class="bold">Weight:</span><span>{{patientInfo.weight}} lbs</span></p>
+                  <p class="bold_p"><span class="bold">Height:</span><span>{{feet}}' {{inches}}"</span></p>
+                  <p class="bold_p">
+                    <span class="bold">BMI:</span> 
+                    <span style="color:#8C2C27;font-weight: bold;">{{patientInfo.bmi}}</span> 
+                    <button class="btn btn-sm high1" style="margin-left: 1%!important;padding-top: 0%;padding-bottom: 0%;background-color: #8C2C27;">
+                      Overweight
+                    </button>
+                  </p>
+                </div>
+            </div>
+            <div style="margin-bottom: 2%;border-bottom: 2px solid #E1E4EB;">
+              <div class="card-sub-tit">
+                <div class="pat-icon-wrap">
+                  <img class="sub-icon" src="../../assets/Readmission_Risk_Icon_Red.svg" />
+                </div>
+                <span style="color: #cc0000;">Readmission Risk</span>
+              </div>
+              <ul *ngFor="let risk of patientInfo.readmissionRisks"  style="margin-left: 16px; padding-left: 0;">
+                <li style="list-style: none;">
+                  <span style="font-weight: bold;">{{risk.name}}:&nbsp;</span>
+                  <span>{{risk.symptoms}}</span>
+                </li>
+              </ul>
+              <ul *ngIf="patientInfo.readmissionRisks.length === 0" style="margin-left: 16px; padding-left: 0;">
+                <li style="list-style: none; font-weight: bold;">Patient has no known readmission risks</li>
+              </ul>
+            </div>
+            <div style="margin-bottom: 2%;border-bottom: 2px solid #E1E4EB;">
+              <div class="card-sub-tit">
+                <div class="pat-icon-wrap">
+                  <img class="sub-icon" src="../../assets/alertBubbleIconGray_.png" style="width: 20px;"/>
+                </div>
+                <span>Allergies</span>
+              </div>
+              <ul *ngFor="let allergy of patientInfo.allergies">
+                <li>{{allergy.name}}</li>
+              </ul>
+              <ul *ngIf="patientInfo.allergies.length === 0" style="margin-left: 16px; padding-left: 0;">
+                <li style="list-style: none; font-weight: bold;">Patient has no known allergies</li>
+              </ul>
+            </div>
+            <div style="margin-bottom: 2%;border-bottom: 2px solid #E1E4EB;">
+              <div class="card-sub-tit">
+                <div class="pat-icon-wrap">
+                  <img class="sub-icon" src="../../assets/lifestyleIconGrey.png" />
+                </div>
+                <span>Lifestyle</span>
+              </div>
+              <p style="margin-left: 16px; margin-left: 16px;">
+                <span class="bold">Smokes:</span>
+                <span style="color:#8C2C27;font-weight: bold;">&nbsp;Algorithm detects a history of smoking</span>
+              </p>
+            </div>
+            <div style="margin-bottom: 2%;">
+              <div class="card-sub-tit">
+                <div class="pat-icon-wrap">
+                  <img class="sub-icon" src="../../assets/px.png" style="width: 13px;"/>
+                </div>
+                <span>Prescribed Medications</span>
+              </div>
+              <table style="width: 100%; padding: 2%">
+                <colgroup>
+                  <col span="1" style="width: 36%">
+                  <col span="1" style="width: 16%">
+                  <col span="1" style="width: 28%">
+                  <col span="1" style="width: 20%">
+                </colgroup>
+                <thead>
+                  <tr>
+                      <th>Medication</th>
+                      <th>Dosage</th>
+                      <th>Date Prescribed</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let medication of patientInfo.prescribedMedications">
+                      <td>{{medication.name}}</td>
+                      <td>{{medication.dosage}}</td>
+                      <td>{{medication.date_prescribed}}</td>
+                      <td>
+                        <a routerLink="/">
+                          <span>View More</span>
+                          <img src="../../assets/link.png" />
+                        </a>
+                      </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        
+        <div id="chart" class="display-card">
+          <div class="card-head">
             <div>
-               <google-chart #chart
-                  [title]="title"
-                  [type]="type"
-                  [data]="data"
-                  [columns]="columnNames"
-                  [options]="options"
-                  [width]="width"
-                  [height]="height">
-               </google-chart>
+              <img class="icon" src="../../assets/Vitals_Icon.svg" />
+              <h4>
+                Vitals
+              </h4>
             </div>
-         </div>
+            <div>
+              <img src="../../assets/grid.png" />
+            </div>
+          </div>
+          <div class="chart-contain">
+            <img src="../../assets/chart_placeholder.png" style="width: 100%;"/>
+          </div>
+          <div class="graph-controls">
+            <div>
+              <span>Vital Type</span>
+              <div>
+                <span>Placeholder</span>
+                <img src="../../assets/downArrowGrey.png" />
+              </div>
+            </div>
+            <div>
+              <span>Start Date</span>
+              <div>
+                <span>mm/dd/yyyy</span>
+                <img src="../../assets/Calendar-Small.png"/>
+              </div>
+            </div>
+            <div>
+              <span>End Date</span>
+              <div>
+                <span>mm/dd/yyyy</span>
+                <img src="../../assets/Calendar-Small.png"/>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-   
-         <div class="tile__media col-6">
-            <img src="../../assets/grid.png" style="position: absolute; right: 3%;top:1%"/>
-           <div
-             style="
-               height: 400px;
-               background-color: white;
-               padding-left: 10px;
-               box-shadow: 1px 1px 10px 3px lightgray;
-             "
-           >
-             <div
-               style="
-                 border-bottom: 2px solid #b0b4bf;
-                 padding: 10px 0px 10px 10px;
-               "
-             >
-               <h4>
-                 <img class="icon" src="../../assets/recommended.png" />
-                 &nbsp;Recommended Medication Classes
-               </h4>
-             </div>
-             <div style="border-bottom: 2px solid #E1E4EB;padding-bottom: 2%;padding-top:1%;">
-               <p class="np" style="padding-left:2.5%">Not Prescribed</p>
-               <div class="row row1" style="margin-left: 1%;">
-                  <div class="col-md-4" style="margin-left:-1.5%;"><button class="grey">Medication Class 1 ATC</button></div>
-                  <div class="col-md-4" style="margin-left:-1.5%;"><button class="grey">Medication Class 2 ATC</button></div>
-               </div>
-            </div>
-            <div style="border-bottom: 2px solid #E1E4EB;padding-bottom: 2%;padding-top:2%;">
-               <p class="np" style="padding-left:2.5%">Patient is Allergic</p>
-               <div class="row row1" style="margin-left: 1%;">
-                  <div class="col-md-4" style="margin-left:-1.5%;"><button class="grey1">Medication Class 1 ATC</button></div>
-               </div>
-            </div>
-            <div style="padding-top:2%;padding-bottom: 2%;">
-               <p class="np" style="padding-left:2.5%">Currently Prescribed</p>
-               <div class="row row1" style="margin-left: 1%;">
-                  <div class="col-md-4" style="margin-left:-1.5%;"><button class="grey2">Medication Class 1 ATC</button></div>
-               </div>
-            </div>
-         </div>
-            <div
-             id="diagnosed"
-             style="
-               margin-top: 3%;
-               padding: 15px 10px 0px 0px;
-               background-color: white;
-               box-shadow: 1px 1px 10px 3px lightgray;
-             "
-           >
-           <img src="../../assets/grid.png" style="position: absolute; right: 3%;"/>
-             <div
-               style="
-                 border-bottom: 2px solid #b0b4bf;
-                 padding: 10px 0px 10px 10px;
-               "
-             >
-               <h4>
-                 <img
-                   class="icon"
-                   src="../../assets/Diagnosed_Condition_Icon.svg"
-                 />
-                 &nbsp;Diagnosed Conditions
-               </h4>
-             </div>
-   
-             <div class="table area">
-               <table style="width: 100%; padding: 2%">
-                  <thead>
-                     <tr>
-                        <th>Condition</th>
-                        <th>Date</th>
-                        <th>Details</th>
-                        <th></th>
-                     </tr>
-                  </thead>
-                  <tbody>
-                     <tr>
-                        <td>Condition 1</td>
-                        <td>mm/dd/yyyy</td>
-                        <td>Sample txt</td>
-                        <td style="text-decoration: underline;">View More<img src="../../assets/link.png" style="padding-left: 1%;"></td>
-                     </tr>
-                     <tr>
-                        <td>Condition 2</td>
-                        <td>mm/dd/yyyy</td>
-                        <td>Sample txt</td>
-                        <td style="text-decoration: underline;">View More<img src="../../assets/link.png" style="padding-left: 1%;"></td>
-                     </tr>
-                     <tr>
-                        <td>Condition 3</td>
-                        <td>mm/dd/yyyy</td>
-                        <td>Sample txt</td>
-                        <td style="text-decoration: underline;">View More<img src="../../assets/link.png" style="padding-left: 1%;"></td>
-                     </tr>
-                     <tr>
-                        <td>Condition 4</td>
-                        <td>mm/dd/yyyy</td>
-                        <td>Sample txt</td>
-                        <td style="text-decoration: underline;">View More<img src="../../assets/link.png" style="padding-left: 1%;"></td>
-                     </tr>
-                  </tbody>
-               </table>
-             </div>
-           
-         </div>
-           <div
-             id="diagnosed1"
-             style="
-               margin-top: 3%;
-               padding: 15px 10px 0px 0px;
-               background-color: white;
-               box-shadow: 1px 1px 10px 3px lightgray;
-             "
-           >
-           <img src="../../assets/grid.png" style="position: absolute; right: 3%;"/>
-             <div
-               style="
-                 border-bottom: 2px solid #b0b4bf;
-                 padding: 10px 0px 10px 10px;
-               "
-             >
-               <h4>
-                 <img
-                   class="icon"
-                   src="../../assets/Diagnosed_Condition_Icon.svg"
-                 />
-                 &nbsp;Abnormal Labs
-               </h4>
-             </div>
-   
-             <div class="table area">
-               <table style="width: 100%; padding: 2%">
-                  <thead>
-                     <tr>
-                        <th>Test</th>
-                        <th>Result</th>
-                        <th></th>
-                     </tr>
-                  </thead>
-                  <tbody>
-                     <tr>
-                        <td>Cholesterol:</td>
-                        <td style="color: #8C2C27;padding:2px">243 mg/dL<button
-                           class="btn btn-danger btn-sm high3"
-                         >
-                           H
-                         </button></td>
-                        <td style="text-decoration: underline;">View More<img src="../../assets/link.png" style="padding-left: 1%;"></td>
-                     </tr>
-                     <tr>
-                        <td>LDL Cholesterol:</td>
-                        <td style="color: #8C2C27;padding:2px">141 mg/dL<button
-                           class="btn btn-danger btn-sm high3"
-                         >
-                           H
-                         </button></td>
-                        <td style="text-decoration: underline;">View More<img src="../../assets/link.png" style="padding-left: 1%;"></td>
-                     </tr>
-                     <tr>
-                        <td>Non-HDL Cholesterol:</td>
-                        <td style="color: #8C2C27;padding:2px">149 mg/dL<button
-                           class="btn btn-danger btn-sm high3"
-                         >
-                           H
-                         </button></td>
-                        <td style="text-decoration: underline;">View More<img src="../../assets/link.png" style="padding-left: 1%;"></td>
-                     </tr>
-                  </tbody>
-               </table>
-             </div>
-           </div>
 
-         <div id="diagnosed2" style="
-               margin-top: 3%;
-               padding: 15px 10px 0px 0px;
-               background-color: white;
-               box-shadow: 1px 1px 10px 3px lightgray;
-             ">
-             <img src="../../assets/grid.png" style="position: absolute; right: 3%;"/>
-             <div style="border-bottom: 2px solid #b0b4bf;padding: 10px 0px 10px 10px;">
-               <h4>
-                 <img
-                   class="icon"
-                   src="../../assets/Diagnosed_Condition_Icon.svg"
-                 />
-                 &nbsp;Prior Procedures
-               </h4>
-             </div>
-   
-             <div class="table area">
-               <table style="width: 100%; padding: 2%">
-                  <thead>
-                     <tr>
-                        <th>Condition</th>
-                        <th>Date</th>
-                        <th>Details</th>
-                        <th></th>
-                     </tr>
-                  </thead>
-                  <tbody>
-                     <tr>
-                        <td>Condition 1</td>
-                        <td>mm/dd/yyyy</td>
-                        <td>Sample txt</td>
-                        <td style="text-decoration: underline;">View More<img src="../../assets/link.png" style="padding-left: 1%;"></td>
-                     </tr>
-                     <tr>
-                        <td>Condition 2</td>
-                        <td>mm/dd/yyyy</td>
-                        <td>Sample txt</td>
-                        <td style="text-decoration: underline;">View More<img src="../../assets/link.png" style="padding-left: 1%;"></td>
-                     </tr>
-                     <tr>
-                        <td>Condition 3</td>
-                        <td>mm/dd/yyyy</td>
-                        <td>Sample txt</td>
-                        <td style="text-decoration: underline;">View More<img src="../../assets/link.png" style="padding-left: 1%;"></td>
-                     </tr>
-                     <tr>
-                        <td>Condition 4</td>
-                        <td>mm/dd/yyyy</td>
-                        <td>Sample txt</td>
-                        <td style="text-decoration: underline;">View More<img src="../../assets/link.png" style="padding-left: 1%;"></td>
-                     </tr>
-                  </tbody>
-               </table>
-             </div>
-           </div>
-         </div>
+      <div id="card-right">
+
+        <div id="recommended" class="display-card">
+          
+          <div class="card-head-wrap">
+            <div class="card-head">
+              <div>
+                <img class="icon" src="../../assets/recommended.png" />
+                <h4>
+                  Recommended Medication Classes
+                </h4>
+              </div>
+              <div>
+                <img src="../../assets/grid.png" />
+              </div>
+            </div>
+            <p style="font-style: italic; font-size: 14px; color: #575b66; margin: 0 0 12px 12px;">FDA Approval would go here</p>
+          </div>
+          <div>
+            <div class="med-wrap">
+              <div class="card-sub-tit">
+                <div class="pat-icon-wrap">
+                  <img class="sub-icon" src="../../assets/notPrescribedGrey.png"style="width: 24px; height: 27px;" />
+                </div>
+                <span>Not Prescribed</span>
+              </div>
+              <div class="med-box">
+                <div *ngFor="let medication of recommendedMedications.not_prescribed" class="med-bubble">
+                  <span>{{medication.class}}</span>
+                  <span>{{medication.meds}}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="med-wrap">
+              <div class="card-sub-tit">
+                <div class="pat-icon-wrap">
+                  <img class="sub-icon" src="../../assets/alertBubbleIconGray_.png" style="width: 24px; height: 21px;" />
+                </div>
+                <span>Patient is Allergic</span>
+              </div>
+              <div class="med-box">
+                <div *ngFor="let medication of recommendedMedications.allergic" class="med-bubble">
+                  <span>{{medication.class}}</span>
+                  <span>{{medication.meds}}</span>
+                </div>
+                <div *ngIf="recommendedMedications.allergic.length === 0" class="med-bubble" style="background-color: #eef2ff;">
+                  <span style="color: #27365e; border: none;">None</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="diagnosed" class="display-card">
+          <div class="card-head-wrap">
+            <div class="card-head">
+              <div>
+                <img class="icon" src="../../assets/Diagnosed_Condition_Icon.svg" />
+                <h4>
+                  Diagnosed Conditions
+                </h4>
+              </div>
+              <div>
+                <img src="../../assets/grid.png" />
+              </div>
+            </div>
+          </div>
+          <div class="table area">
+            <table style="width: 100%; padding: 2%">
+              <colgroup>
+                <col span="1" style="width: 36%">
+                <col span="1" style="width: 20%">
+                <col span="1" style="width: 24%">
+                <col span="1" style="width: 20%">
+              </colgroup>
+              <thead>
+                <tr>
+                  <th>Condition</th>
+                  <th>Date</th>
+                  <th>Details</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let condition of diagnosedConditions">
+                  <td>{{condition.name}}</td>
+                  <td>{{condition.date}}</td>
+                  <td>{{condition.details}}</td>
+                  <td>
+                    <a routerLink="/">
+                      <span>View More</span>
+                      <img src="../../assets/link.png" />
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div id="abnormal" class="display-card">
+          <div class="card-head-wrap">
+            <div class="card-head">
+              <div>
+                <img class="sub-icon" src="../../assets/admissionIcon.png" style="height: 28px; width: 30px;"/>
+                <h4>
+                  Abnormal Labs
+                </h4>
+              </div>
+              <div>
+                <img src="../../assets/grid.png" />
+              </div>
+            </div>
+          </div>
+          <div class="table area">
+            <table style="width: 100%; padding: 2%">
+              <colgroup>
+                <col span="1" style="width: 36%">
+                <col span="1" style="width: 44%">
+                <col span="1" style="width: 20%">
+              </colgroup>
+              <thead>
+                <tr>
+                  <th>Test</th>
+                  <th>Result</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let lab of abnormalLabs">
+                  <td>{{lab.test}}</td>
+                  <td>{{lab.result}}</td>
+                  <td>
+                    <a routerLink="/">
+                      <span>View More</span>
+                      <img src="../../assets/link.png" />
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div id="prior" class="display-card">
+          <div class="card-head-wrap">
+            <div class="card-head">
+              <div>
+                <img class="sub-icon" src="../../assets/admissionIcon.png" style="height: 28px; width: 30px;"/>
+                <h4>
+                  Prior Procedures
+                </h4>
+              </div>
+              <div>
+                <img src="../../assets/grid.png" />
+              </div>
+            </div>
+          </div>
+          <div class="table area">
+            <table style="width: 100%; padding: 2%">
+              <colgroup>
+                <col span="1" style="width: 36%">
+                <col span="1" style="width: 20%">
+                <col span="1" style="width: 24%">
+                <col span="1" style="width: 20%">
+              </colgroup>
+              <thead>
+                <tr>
+                  <th>Procedure</th>
+                  <th>Date</th>
+                  <th>Details</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let procedure of priorProcedures">
+                  <td>{{procedure.name}}</td>
+                  <td>{{procedure.date}}</td>
+                  <td>{{procedure.details}}</td>
+                  <td>
+                    <a routerLink="/">
+                      <span>View More</span>
+                      <img src="../../assets/link.png" />
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
-           
+    </div>
+  </div>
+  <br />
 </div>
 
-<app-patient-footer></app-patient-footer> 
+<app-healthcare-footer></app-healthcare-footer>
