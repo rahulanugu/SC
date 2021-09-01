@@ -21,3 +21,18 @@
   display: flex;
   align-items: center;
 }
+
+@media only screen and (max-width: 600px) {
+  .footer {
+    height: 84px;
+    padding: 8px 0;
+  }
+  .footer > span {
+    display: grid;
+    grid-template-rows: auto auto auto;
+    text-align: center;
+  }
+  #mid {
+    display: none;
+  }
+}

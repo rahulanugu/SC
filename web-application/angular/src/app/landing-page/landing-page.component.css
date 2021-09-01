@@ -32,44 +32,43 @@ body {
   top: 64px;
 }
 
-.helpBtn {
-  width: 118px;
-  height: 40px;
+.signUpBtn, .helpBtn {
   color: white;
   background-color: #5c8a96;
-  border: none;
-
-  font-size: 18px;
-  font-family: "Lato", sans-serif;
-  font-weight: bold;
   border: 2px solid #5c8a96;
-  border-radius: 8px;
-}
-
-.helpBtn:hover {
-  color: #5c8a96;
-  border: 2px solid #5c8a96;
-  background-color: white;
-}
-
-.signUpBtn {
-  width: 118px;
-  height: 40px;
-  color: white;
-  background-color: #5c8a96;
-  border: none;
   font-size: 18px;
   font-family: "Lato", sans-serif;
   font-weight: bold;
   margin-right: 17px;
   border-radius: 7px;
+  padding: 8px 16px;
+  min-width: 120px;
+  transition: all 60ms ease-in-out;
+  transition-property: background-color, color;
 }
 
-.signUpBtn:hover {
+.helpBtn-inv {
   color: #5c8a96;
+  background-color: #faf6f2;
   border: 2px solid #5c8a96;
+}
+
+.signUpBtn-clear {
+  color: #5c8a96;
+  background-color: #faf6f2;
+  border: 2px solid #5c8a96;
+}
+
+.helpBtn:hover, .signUpBtn:hover {
+  color: #5c8a96;
   background-color: white;
 }
+
+.helpBtn-inv:hover {
+  color: #faf6f2;
+  background-color: #5c8a96;
+}
+
 content {
   width: 1156px;
   min-height: 1500px;
@@ -118,6 +117,10 @@ content {
   content: "";
   display: table;
   clear: both;
+}
+
+.button-wrap {
+  display: flex;
 }
 
 /* Responsive columns */

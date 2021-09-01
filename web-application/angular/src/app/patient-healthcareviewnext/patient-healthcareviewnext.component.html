@@ -13,7 +13,7 @@
       <span>{{patientInfo.name}}</span>
     </a>
     <img src="../../assets/view.png" />
-    <a routerLink="/healthcare-profile/readmission" class="sub-nav">
+    <a [routerLink]="'/healthcare-profile/patient/' + patientInfo.id + '/1234'" class="sub-nav">
       <img src="../../assets/Readmission_Risk_Icon_Grey.svg" />
       <span>Condition Risk: {{condition.name}}</span>
     </a>
@@ -335,7 +335,7 @@
           <div class="card-head-wrap">
             <div class="card-head">
               <div>
-                <img class="sub-icon" src="../../assets/admissionIcon.png" style="height: 28px; width: 30px;"/>
+                <img class="sub-icon" src="../../assets/abnormalLabsIcon_.png" style="height: 28px; width: 26px;"/>
                 <h4>
                   Abnormal Labs
                 </h4>
@@ -360,8 +360,15 @@
               </thead>
               <tbody>
                 <tr *ngFor="let lab of abnormalLabs">
-                  <td>{{lab.test}}</td>
-                  <td>{{lab.result}}</td>
+                  <td>{{lab.test}}:</td>
+                  <td>
+                    <span *ngIf="lab.status == 'high'" style="color: #8C2C27;">{{lab.result}}</span>
+                    <span *ngIf="lab.status == 'mod'" style="color: #deae33;">{{lab.result}}</span>
+                    <span *ngIf="lab.status == 'low'" style="color: #429855;">{{lab.result}}</span>
+                    <span *ngIf="lab.status == 'high'" style="background-color: #8C2C27;">H</span>
+                    <span *ngIf="lab.status == 'mod'" style="background-color: #deae33;">M</span>
+                    <span *ngIf="lab.status == 'low'" style="background-color: #429855;">L</span>
+                  </td>
                   <td>
                     <a routerLink="/">
                       <span>View More</span>

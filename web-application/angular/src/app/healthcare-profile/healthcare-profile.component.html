@@ -1,10 +1,8 @@
 <div>
-  <app-patient-navbar></app-patient-navbar>
-  </div>
-<div class="container">
-  <div class="row">
-    <h1 style="margin: 2% 38% 0% 38%">Hello Dr. Noori!</h1>
-  </div>
+  <app-healthcare-header></app-healthcare-header>
+</div>
+<div class="outer-contain">
+  <h1 style="text-align: center; padding-top: 48px;">Hello Dr. Noori!</h1>
   <br />
   <br />
   <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -42,8 +40,8 @@
       role="tabpanel"
       aria-labelledby="basic-tab"
     >
-      <div class="row">
-        <div class="col-md-5 appointment-range">
+      <div class="control-contain">
+        <div class="appointment-range">
           <h3>
             <i class="calendar-range eight-right"></i>
             Check-In Range
@@ -104,9 +102,7 @@
           </div>
         </div>
 
-        <hr />
-
-        <div class="col-md-7 risk-filter">
+        <div class="risk-filter">
           <h3><i class="risk eight-right"></i> Risk</h3>
           <table>
             <tr>
@@ -183,6 +179,7 @@
             </tr>
           </table>
         </div>
+        <hr />
       </div>
     </div>
     <div
@@ -190,17 +187,16 @@
       id="advanced"
       role="tabpanel"
       aria-labelledby="advanced-tab"
-      style="box-shadow: 1px 1px 10px 3px lightgray"
     >
-      <div class="row">
-        <div class="col-md-8" style="padding: 30px">
-          <h3>
-            <img class="appointment" src="../../assets/smol_patient_info.svg" />
-            Patient Info
-          </h3>
+      <div class="control-contain">
+        <div style="padding: 24px">
+          <div class="control-title">
+            <img style="height: 21px;" src="../../assets/smol_patient_info.svg" />
+            <h3>Patient Info</h3>
+          </div>
 
-          <div class="row">
-            <div class="col-md-4 form-group">
+          <div class="search-input-wrap">
+            <div class="form-group">
               <label for="inputend">First Name</label>
               <input
                 type="First Name"
@@ -210,7 +206,7 @@
                 style="width: 250px" [(ngModel)]="fName"
               />
             </div>
-            <div class="col-md-4 form-group">
+            <div class="form-group">
               <label for="inputend">Last Name</label>
               <input
                 type="Last Name"
@@ -221,7 +217,7 @@
               />
             </div>
 
-            <div class="col-md-2 form-group">
+            <div class="form-group">
               <label for="inputend">Date of Birth</label>
               <input
                 type="date"
@@ -234,11 +230,11 @@
           </div>
         </div>
 
-        <div class="col-md-4" style="padding: 30px">
-          <h3>
-            <img class="appointment" src="../../assets/appointment_range.png" />
-            Check-In Range
-          </h3>
+        <div style="padding: 24px">
+          <div class="control-title">
+            <img src="../../assets/appointment_range.png" />
+            <h3>Check-In Range</h3>
+          </div>
 
           <div class="quick-selection">
             <label for="inputend">Quick Selection</label>
@@ -342,6 +338,69 @@
         </div>
       </div>
     </div>
+  <div class="new-table">
+    <div class="sub-control-contain">
+      <div class="sort-control">
+        <img src="../../assets/appointment_range.png" />
+        <span>Sort: </span>
+        <span>A-Z (Last)</span>
+      </div>
+      <span>DOB</span>
+      <span>MRN</span>
+      <div class="control-dropdown">
+        <span>Check-In</span>
+        <img src="../../assets/downArrowGrey.png" />
+      </div>
+      <span>Readmission Risk</span>
+      <span>Condition Risk</span>
+    </div>
+
+    <div *ngFor="let patient of newDataSource" class="patient-row">
+      <div>
+        <img src="../../assets/{{patient.png}}" />
+        <span>{{patient.name}}</span>
+      </div>
+      <span>{{patient.dob}}</span>
+      <span>{{patient.mrn}}</span>
+      <div id="check-in">
+        <span>{{patient.check_in1}}</span>
+        <span>{{patient.check_in2}}</span>
+      </div>
+      <div id="read-risk">
+        <div *ngIf="patient.readd_risk1" class="disp-bubble">
+          <span>{{patient.readd_risk1}}</span>
+          <span>Cardiovascular Disease</span>
+        </div>
+        <div *ngIf="!patient.readd_risk1" class="disp-bubble">
+          <span>Dx</span>
+          <span>No Admission History</span>
+        </div>
+      </div>
+      <div id="read-risk">
+        <div *ngIf="patient.cond_risk1" class="disp-bubble">
+          <span>{{patient.cond_risk1}}</span>
+          <span>Atrial Fibrilation</span>
+        </div>
+        <div *ngIf="patient.cond_risk2" class="disp-bubble">
+          <span>{{patient.cond_risk2}}</span>
+          <span>Heart Failure</span>
+        </div>
+        <div *ngIf="patient.cond_risk3" class="disp-bubble">
+          <span>{{patient.cond_risk3}}</span>
+          <span>Hypertension</span>
+        </div>
+        <div *ngIf="patient.cond_risk4" class="disp-bubble">
+          <span>{{patient.cond_risk4}}</span>
+          <span>Coronary Heart Disease</span>
+        </div>
+      </div>
+      <div class="full-button">
+        <span>Full Profile</span>
+      </div>
+    </div>
+  </div>  
+
+
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <ng-container matColumnDef="png" class="photo-name col-md-3">
       <th mat-header-cell *matHeaderCellDef> Sort:</th>
@@ -411,4 +470,4 @@
   </div>
 </div>
 
-<app-patient-footer></app-patient-footer>
+<app-healthcare-footer></app-healthcare-footer>
