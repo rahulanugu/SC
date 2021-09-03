@@ -94,6 +94,7 @@ li.nav-item {
 .nav-tabs {
   border: none;
   margin-bottom: 16px;
+  margin-left: 24px;
 }
 .nav-item a[aria-selected="true"] {
   color: #2d5059;
@@ -215,6 +216,11 @@ li.nav-item {
 #advanced {
   background-color: white;
 }
+
+#advanced {
+  box-shadow: 0px 5px 10px rgb(80 80 80 / 15%);
+  border-radius: 12px;
+}
 .btn {
   white-space: nowrap;
 }
@@ -270,13 +276,13 @@ li.nav-item {
 .button-grp {
   padding: 8px 8px;
 }
-.container {
+.outer-contain {
   font-family: "Lato";
   color: #575b66;
   font-weight: 400;
   font-style: normal;
   background-color: #faf6f2;
-  max-width: 1392px;
+  min-height: calc(100vh - 128px);
 }
 
 .patient-list {
@@ -348,7 +354,7 @@ li.nav-item {
 
 .box {
   background-color: white;
-  box-shadow: 0px 4px 8px 0px rgba(29,31,38,0.15);
+  box-shadow: 0px 5px 10px rgb(80 80 80 / 15%);
   border-radius: 8px;
 }
 .btn-details {
@@ -686,5 +692,85 @@ table {
 }
 
 .eight-right{
+  margin-right: 8px;
+}
+
+.tab-content {
+  margin: 0 24px;
+}
+
+.tab-content > table {
+  margin-top: 32px;
+  border-radius: 12px;
+}
+.control-contain {
+  display: grid;
+  grid-template-columns: 450px auto 10%;
+  border-radius: 16px;
+}
+
+.control-title {
+  display: grid;
+  grid-template-columns: 42px auto;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.control-title > img {
+  width: 18px;
+  height: 18px;
+  justify-self: center;
+}
+.control-title > h3 {
+  margin: 0;
+}
+
+.search-input-wrap {
+  display: grid;
+  grid-auto-rows: auto;
+}
+
+.sub-control-contain {
+  padding: 8px;
+}
+
+.sub-control-contain, .patient-row {
+  display: grid;
+  grid-template-columns: 20% 10% 10% 10% 15% 1fr;
+  margin: 16px;
+}
+
+.patient-row {
+  background-color: white;
+  grid-template-columns: 20% 10% 10% 10% 15% 1fr 10%;
+  border-radius: 12px;
+  padding: 8px;
+  box-shadow: 0px 5px 10px rgb(80 80 80 / 15%);
+}
+
+.patient-row > div:first-child {
+  display: grid;
+  grid-template-columns: 108px auto;
+  align-self: center;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.patient-row > div:first-child > img {
+  height: 84px;
+  width: 84px;
+  margin: 0 16px 0 8px;
+}
+
+.control-dropdown {
+  display: grid;
+  grid-template-columns: auto 18px;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border: 2px solid #575b66;
+  border-radius: 8px;
+}
+.control-dropdown > span:first-child {
   margin-right: 8px;
 }

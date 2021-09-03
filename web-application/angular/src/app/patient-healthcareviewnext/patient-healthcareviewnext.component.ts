@@ -9,6 +9,104 @@ import { DataService } from '../data.service';
   styleUrls: ['./patient-healthcareviewnext.component.css']
 })
 export class PatientHealthcareviewnextComponent implements OnInit {
+
+  patientInfo = {
+    'name': 'Theodore Grey',
+    'sex': 'Male',
+    'age': 68,
+    'height': 70,
+    'weight': 200,
+    'bmi': (703 * 200 / (70 * 70)).toFixed(2),
+    'id': '1234',
+    'mrn': 'YTK89123456',
+    'dob': '03/12/1951',
+    'next_appt': {
+      'date': '11/25/2020',
+      'time': '10:30 am'
+    },
+    'readmissionRisks': [
+      {
+        'name': 'Coronary Heart Disease',
+        'symptoms': 'Angina, dizziness, nausea',
+        'value': null }
+    ],
+    'allergies': [],
+    'lifestyle': {
+      'smokes': true,
+    },
+    'prescribedMedications': [
+      {
+        'name': 'Crestor',
+        'dosage': '20mg',
+        'date_prescribed': '09/17/2008'
+      }
+    ]
+  }
+
+  condition = {
+    'name': 'Hypertension',
+    'value': 83
+  }
+
+  recommendedMedications = {
+    'not_prescribed': [
+      {
+        'class': 'ACE Inhibitors',
+        'meds': 'CO2A'
+      }, 
+      {
+        'class': 'Antiplatelet Agents',
+        'meds': 'CO2B'
+      }, 
+      {
+        'class': 'Angiotensin Receptor-Neprilysin Inhibitors',
+        'meds': 'CO2L'
+      }
+    ],
+    'allergic': []
+  }
+
+  diagnosedConditions = [
+    {
+      'name': 'Coronary Artery Disease',
+      'date': '1/20/2015',
+      'details': '' },
+    {
+      'name': 'Diabetes (Type II)',
+      'date': '07/13/2011',
+      'details': '' },
+    {
+      'name': 'Hyperlipidemia',
+      'date': '12/02/2009',
+      'details': '' }
+  ]
+
+  abnormalLabs = [
+    {
+      'test': 'Cholesterol',
+      'result': '243 mg/dL',
+      'status': 'high' 
+    },
+    {
+      'test': 'LDL Cholesterol',
+      'result': '141 mg/dL',
+      'status': 'high' 
+    },
+    {
+      'test': 'Non-HDL Cholesterol',
+      'result': '149 mg/dL',
+      'status': 'high' 
+    }
+  ]
+
+  priorProcedures = [
+    {
+      'name': 'Angioplasty',
+      'date': '11/05/2015',
+      'details': '' }
+  ]
+
+  // Graph
   title = 'Average Temperatures of Body';
    type = 'LineChart';
    data = [

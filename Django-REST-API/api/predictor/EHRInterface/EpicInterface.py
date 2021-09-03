@@ -47,7 +47,9 @@ def get_error_code(message):
     return {'status_code': 404, 'message': message}
 
 def fetch_FHIR_resource(url, resourceID, token):
-    full_url = url + resourceID
+    optSlash = '/' if url[-1] != '/' else ''
+
+    full_url = url + optSlash + resourceID
     headers = get_headers(token)
 
     res = requests.get(url=full_url, headers=headers, timeout=DEFAULT_TIMEOUT)
@@ -194,6 +196,10 @@ def fetch_medication_request_search(url, patientID, token, status=None):
 def fetch_medication_statement_search(url, patientID, token, status=None):
     return fetch_medication_order_search(url, patientID, token, status)
 
+# https://fhir.epic.com/Specifications?api=964, https://fhir.epic.com/Specifications?api=998, https://fhir.epic.com/Specifications?api=965, https://fhir.epic.com/Specifications?api=967, https://fhir.epic.com/Specifications?api=10070, https://fhir.epic.com/Specifications?api=968, 
+def fetch_observation(url, resourceID, token):
+    return fetch_FHIR_resource(url, resourceID, token)
+
 # https://fhir.epic.com/Sandbox?api=969, https://fhir.epic.com/Sandbox?api=854, https://fhir.epic.com/Sandbox?api=28, https://fhir.epic.com/Sandbox?api=999, https://fhir.epic.com/Sandbox?api=495, https://fhir.epic.com/Sandbox?api=970, https://fhir.epic.com/Sandbox?api=899, https://fhir.epic.com/Sandbox?api=971, https://fhir.epic.com/Sandbox?api=882, https://fhir.epic.com/Sandbox?api=448, https://fhir.epic.com/Sandbox?api=972, https://fhir.epic.com/Sandbox?api=856, https://fhir.epic.com/Sandbox?api=450, https://fhir.epic.com/Sandbox?api=973, https://fhir.epic.com/Sandbox?api=498
 def fetch_observation_search(url, patientID, token, category):
     payload = {'patient': patientID, 'category': category}
@@ -206,7 +212,7 @@ def fetch_observation_search(url, patientID, token, category):
 def fetch_patient(url, patientID, token):
     return fetch_FHIR_resource(url, patientID, token)
 
-# https://fhir.epic.com/Sandbox?api=34, https://fhir.epic.com/Sandbox?api=940, https://fhir.epic.com/Sandbox?api=10042, https://fhir.epic.com/Sandbox?api=10030
+# https://fhir.epic.com/Sandbox?api=34, https://fhir.epic.com/Sandbox?api=940, https://fhir.epic.com/Specifications?api=976, https://fhir.epic.com/Sandbox?api=10042, https://fhir.epic.com/Sandbox?api=10030
 def fetch_procedure_search(url, patientID, token, date=None):
     if date is None:
         return fetch_patient_resource(url, patientID, token)

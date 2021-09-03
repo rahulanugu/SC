@@ -33,22 +33,25 @@
       <div id="card-left">
 
         <div id="readmission" class="display-card">
-          <div class="card-head">
-            <div>
-              <img class="icon" src="../../assets/Readmission_Risk_Icon.svg" />
-              <h4>
-                Readmission Risk
-              </h4>
+          
+          <div class="card-head-wrap">
+            <div class="card-head">
+              <div>
+                <img class="icon" src="../../assets/Readmission_Risk_Icon.svg" />
+                <h4>
+                  Readmission Risk
+                </h4>
+              </div>
+              <div>
+                <img src="../../assets/i_Con.png" />
+                <img src="../../assets/grid.png" />
+              </div>
             </div>
-            <div>
-              <img src="../../assets/i_Con.png" />
-              <img src="../../assets/grid.png" />
-            </div>
+            <p style="font-style: italic; font-size: 14px; color: #575b66; margin: 0 0 12px 12px;">FDA Approval would go here</p>
           </div>
           <app-portal-progress-bar 
             name='Readmission Risk for Cardiovascular Disease' 
             [value]="readmissionRisk"
-            link="/healthcare-profile/readmission"
             show="all"
             ></app-portal-progress-bar>
           <div id="indicators">
@@ -71,32 +74,36 @@
         </div>
 
         <div id="symptoms" class="display-card">
-          <div class="card-head">
-            <div>
-              <img class="icon" src="../../assets/patient.png" />
-              <h4>
-                Patient Info
-              </h4>
-            </div>
-            <div>
-              <img src="../../assets/grid.png" />
+          <div class="card-head-wrap">
+            <div class="card-head">
+              <div>
+                <img class="icon" src="../../assets/patient.png"/>
+                <h4>
+                  Patient Info
+                </h4>
+              </div>
+              <div>
+                <img src="../../assets/grid.png" />
+              </div>
             </div>
           </div>
           <div class="table area">
               
               <div style="padding-bottom: 2%;border-bottom: 2px solid #E1E4EB;">
                 <div class="card-sub-tit">
-                  <img class="icon" src="../../assets/patientview.png" />
+                  <div class="pat-icon-wrap">
+                    <img class="sub-icon" src="../../assets/patientview.png" style="width: 16px;" />
+                  </div>
                   <span>Physical</span>
                 </div>
                 <div class="pat-details">
                   <p class="bold_p"><span class="bold">Sex:</span><span>{{patientInfo.sex}}</span></p>
                   <p class="bold_p"><span class="bold">Age:</span><span>{{patientInfo.age}}</span></p>
-                  <p class="bold_p"><span class="bold">Weight:</span><span>{{patientInfo.weight}}</span></p>
+                  <p class="bold_p"><span class="bold">Weight:</span><span>{{patientInfo.weight}} lbs</span></p>
                   <p class="bold_p"><span class="bold">Height:</span><span>{{feet}}' {{inches}}"</span></p>
-                  <p class="bold_p"><span class="bold">BMI:</span> 
-                    <span style="color:#8C2C27;font-weight: bold;
-                      ">{{patientInfo.bmi}}</span> 
+                  <p class="bold_p">
+                    <span class="bold">BMI:</span> 
+                    <span style="color:#8C2C27;font-weight: bold;">{{patientInfo.bmi}}</span> 
                     <button class="btn btn-sm high1" style="margin-left: 1%!important;padding-top: 0%;padding-bottom: 0%;background-color: #8C2C27;">
                       Overweight
                     </button>
@@ -105,7 +112,26 @@
             </div>
             <div style="margin-bottom: 2%;border-bottom: 2px solid #E1E4EB;">
               <div class="card-sub-tit">
-                <img class="icon" src="../../assets/alertBubbleIconGray_.png" style="width: 20px;"/>
+                <div class="pat-icon-wrap">
+                  <img class="sub-icon" src="../../assets/Readmission_Risk_Icon_Red.svg" />
+                </div>
+                <span style="color: #cc0000;">Readmission Risk</span>
+              </div>
+              <ul *ngFor="let risk of patientInfo.readmissionRisks"  style="margin-left: 16px; padding-left: 0;">
+                <li style="list-style: none;">
+                  <span style="font-weight: bold;">{{risk.name}}:&nbsp;</span>
+                  <span>{{risk.symptoms}}</span>
+                </li>
+              </ul>
+              <ul *ngIf="patientInfo.readmissionRisks.length === 0" style="margin-left: 16px; padding-left: 0;">
+                <li style="list-style: none; font-weight: bold;">Patient has no known readmission risks</li>
+              </ul>
+            </div>
+            <div style="margin-bottom: 2%;border-bottom: 2px solid #E1E4EB;">
+              <div class="card-sub-tit">
+                <div class="pat-icon-wrap">
+                  <img class="sub-icon" src="../../assets/alertBubbleIconGray_.png" style="width: 20px;"/>
+                </div>
                 <span>Allergies</span>
               </div>
               <ul *ngFor="let allergy of patientInfo.allergies">
@@ -115,14 +141,23 @@
                 <li style="list-style: none; font-weight: bold;">Patient has no known allergies</li>
               </ul>
             </div>
-            <div style="margin-left: 2%;margin-bottom: 2%;padding-bottom: 2%;border-bottom: 2px solid #E1E4EB;">
-                <p class="bold_p" style="margin-top: 2%;"><span style="font-family: Lato;font-style: normal;font-weight: normal;font-size: 18px;line-height: 22px;color: #575B66;">Lifestyle</span></p>
-                <p class="bold_p"><span class="bold">Smokes:</span> <span style="color:#8C2C27;font-weight: bold;
-                    ">&nbsp;Algorithm detects a history of smoking</span></p>
+            <div style="margin-bottom: 2%;border-bottom: 2px solid #E1E4EB;">
+              <div class="card-sub-tit">
+                <div class="pat-icon-wrap">
+                  <img class="sub-icon" src="../../assets/lifestyleIconGrey.png" />
+                </div>
+                <span>Lifestyle</span>
+              </div>
+              <p style="margin-left: 16px; margin-left: 16px;">
+                <span class="bold">Smokes:</span>
+                <span style="color:#8C2C27;font-weight: bold;">&nbsp;Algorithm detects a history of smoking</span>
+              </p>
             </div>
             <div style="margin-bottom: 2%;">
               <div class="card-sub-tit">
-                <img class="icon" src="../../assets/px.png" style="width: 16px;"/>
+                <div class="pat-icon-wrap">
+                  <img class="sub-icon" src="../../assets/px.png" style="width: 13px;"/>
+                </div>
                 <span>Prescribed Medications</span>
               </div>
               <table style="width: 100%; padding: 2%">
@@ -161,15 +196,17 @@
       <div id="card-right">
 
         <div id="diagnosed" class="display-card">
-          <div class="card-head">
-            <div>
-              <img class="icon" src="../../assets/admissionIcon.png" />
-              <h4>
-                Admission History
-              </h4>
-            </div>
-            <div>
-              <img src="../../assets/grid.png" />
+          <div class="card-head-wrap">
+            <div class="card-head">
+              <div>
+                <img class="sub-icon" src="../../assets/admissionIcon.png" style="height: 28px; width: 30px;"/>
+                <h4>
+                  Admission History
+                </h4>
+              </div>
+              <div>
+                <img src="../../assets/grid.png" />
+              </div>
             </div>
           </div>
           <div class="table area">
@@ -205,15 +242,17 @@
         </div>
 
         <div id="diagnosed" class="display-card">
-          <div class="card-head">
-            <div>
-              <img class="icon" src="../../assets/Diagnosed_Condition_Icon.svg" />
-              <h4>
-                Diagnosed Conditions
-              </h4>
-            </div>
-            <div>
-              <img src="../../assets/grid.png" />
+          <div class="card-head-wrap">
+            <div class="card-head">
+              <div>
+                <img class="icon" src="../../assets/Diagnosed_Condition_Icon.svg" />
+                <h4>
+                  Diagnosed Conditions
+                </h4>
+              </div>
+              <div>
+                <img src="../../assets/grid.png" />
+              </div>
             </div>
           </div>
           <div class="table area">
@@ -249,15 +288,17 @@
         </div>
 
         <div class="display-card" id="chartContainer">
-          <div class="card-head">
-            <div>
-              <img class="icon" src="../../assets/Vitals_Icon.svg" />
-              <h4>
-                Vitals
-              </h4>
-            </div>
-            <div>
-              <img src="../../assets/grid.png" />
+          <div class="card-head-wrap">
+            <div class="card-head">
+              <div>
+                <img class="icon" src="../../assets/Vitals_Icon.svg" />
+                <h4>
+                  Vitals
+                </h4>
+              </div>
+              <div>
+                <img src="../../assets/grid.png" />
+              </div>
             </div>
           </div>
           <div class="chart-contain">

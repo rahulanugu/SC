@@ -26,7 +26,7 @@
     <div class="top-info">
       <div>
         <img class="avatar" src="../../assets/albert_johnson.png"/>
-        <b>{{patientDetails.name}}</b>
+        <p><b>{{patientDetails.name}}</b></p>
       </div>
       <div class="sub-top-info">
         <div class="sub-tit">
@@ -39,7 +39,7 @@
         </div>
         <div class="sub-tit">
           <b>Next Appointment</b>
-          <span>{{patientDetails.next_appt.date}}&nbsp;&nbsp;&nbsp;&nbsp;{{patientDetails.next_appt.date}}</span>
+          <span>{{patientDetails.next_appt.date}}&nbsp;&nbsp;{{patientDetails.next_appt.time}}</span>
         </div>
       </div>
       <div class="sub-top-info">
@@ -101,7 +101,7 @@
             <div>
               <img class="icon" src="../../assets/Symptoms_Icon.svg" />
               <h4>
-                Symptoms and Cheif Complaints
+                Symptoms and Chief Complaints
               </h4>
             </div>
             <div>
@@ -128,11 +128,12 @@
                   <td>{{symCom.name}}</td>
                   <td>{{symCom.date}}</td>
                   <td>{{symCom.details}}</td>
-                  <td>
+                  <td class="view-more">
                     <a routerLink="/">
                       <span>View More</span>
                       <img src="../../assets/link.png" />
                     </a>
+                    <img src="../../assets/view.png" />
                   </td>
                 </tr>
               </tbody>
@@ -172,11 +173,12 @@
                   <td>{{condition.name}}</td>
                   <td>{{condition.date}}</td>
                   <td>{{condition.details}}</td>
-                  <td>
+                  <td class="view-more">
                     <a routerLink="/">
                       <span>View More</span>
                       <img src="../../assets/link.png" />
                     </a>
+                    <img src="../../assets/view.png" />
                   </td>
                 </tr>
               </tbody>

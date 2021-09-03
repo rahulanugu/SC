@@ -53,6 +53,7 @@ export class HealthcareProfileComponent implements OnInit {
   filteredPatients: Patient[]
   providerFirstName: string;
   displayedColumns: string[] = ['png','sort(a-z)', 'dob', 'mrn','check_in','readd_risk','cond_risk','btn'];
+  newDataSource: PeriodicElement[];
   dataSource: MatTableDataSource<PeriodicElement>;
   fName: string;
   lName: string;
@@ -66,6 +67,7 @@ export class HealthcareProfileComponent implements OnInit {
     private http:HttpClient
   ) {
     this.dataSource = new MatTableDataSource(ELEMENT_DATA);
+    this.newDataSource = ELEMENT_DATA;
   }
 
   ngOnInit() {
