@@ -56,6 +56,10 @@ input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched {
   transition-property: background-color, color;
 }
 
+a:hover .helpBtn{
+  text-decoration: none!important;
+}
+
 .helpBtn-inv {
   color: #5c8a96;
   background-color: #faf6f2;
