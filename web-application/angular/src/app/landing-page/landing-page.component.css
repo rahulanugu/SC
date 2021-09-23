@@ -73,6 +73,11 @@ input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched {
   border: 2px solid #5c8a96!important;
 }
 
+.signUpBtn-clear:hover{
+  color: #faf6f2!important;
+  background-color: #5c8a96!important;
+}
+
 .helpBtn:hover, .signUpBtn:hover {
   color: #5c8a96;
   background-color: white;
