@@ -54,7 +54,7 @@ input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched {
   min-width: 120px;
   transition: all 60ms ease-in-out;
   transition-property: background-color, color;
-  text-decoration-line: none!important;
+  text-decoration: none!important;
 }
 
 /* a:hover .helpBtn{
