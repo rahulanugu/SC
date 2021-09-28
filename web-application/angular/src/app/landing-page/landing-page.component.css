@@ -55,6 +55,7 @@ input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched {
   transition: all 60ms ease-in-out;
   transition-property: background-color, color;
   text-decoration: none!important;
+  -webkit-appearance: none;
 }
 
 /* a:hover .helpBtn{
