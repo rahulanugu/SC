@@ -29,17 +29,21 @@
         <!-- <h1 [ngStyle]="{'color':'red'}" -->
         <h1 id="heading">ScriptChain Blog</h1>
         <div class="container text-center">
-          <label for="Category">Explore By Category:</label>
-        
-          <select name="Category" id="Category">
-            <option value="Category1">Category</option>
-            <option value="Category2">Category</option>
-            <option value="Category3">Category</option>
+          <label for="Category"></label>
+          <select  name="Category" id="Category">
+            <option value="default" hidden>Explore by Category:</option>
+            <option *ngFor="let category of categoryList" value="{{category.id}}">{{category.name}}</option>
+            <!-- <option value="updates">Scriptchain Updates</option>
+            <option value="ai">AI</option>
+            <option value="invest">Investing in Healthcare</option>
+            <option value="patient">Patient Outcomes</option>
+            <option value="scholar">Scholarly Articles</option>
+            <option value="industry">What the Industry is Saying</option> -->
           </select>
         </div>
       
-        <div fxLayout="row wrap" fxLayoutAlign="space-around">
-          <div fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="33.33%" fxFlex.lg="33.33%" fxFlex.xl="33.33%" *ngFor="let num of [1, 2, 3, 4, 5, 6]">
+        <div fxLayout="row wrap" fxLayoutAlign="center">
+          <div fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="32%" fxFlex.lg="32%" fxFlex.xl="32%" *ngFor="let num of [1, 2, 3, 4, 5, 6, 7, 8, 9]">
             <app-blog-card></app-blog-card>
           </div>
         </div>

@@ -1,5 +1,5 @@
 .content {
-  padding: 16px;
+  padding: 35px 25px;
 }
 
 .content > mat-card {
@@ -7,14 +7,15 @@
   height: 422px;
 }
 
-/* .blog-card {
-  width: 391px;
-} */
+.blog-card {
+  border-radius: 12px;
+}
 
 .card-cat-left{
   line-height: normal;
   display: inline;
   width: 100% !important;
+  color: #B27036;
 }
 
 .card-title-left{
@@ -23,15 +24,23 @@
 }
 
 .card-read-right{
-  margin:1vh;
+  margin-bottom: 23px;
   line-height: normal;
   display: inline;
-  font-size: 2vh;
+  font-size: 15px;
   width: 100% !important;
+  color: #a5a7ad;
 }
 
 .card-title {
   display: grid;
   grid-template-columns: 80% 1fr;
   align-items: flex-end;
+}
+
+.readMoreBtn{
+  font-weight: 100;
+  padding-left: 10px;
+  color: #5C8A96;
+
 }
