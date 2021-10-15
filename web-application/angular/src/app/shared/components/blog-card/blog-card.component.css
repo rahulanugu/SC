@@ -1,10 +1,11 @@
+/* Sammy - add styling for category text and readmore butto */
+
 .content {
   padding: 35px 25px;
 }
 
-.content > mat-card {
-  width: 200px;
-  height: 422px;
+.content mat-card {
+  height: 450px;
 }
 
 .blog-card {
@@ -16,6 +17,7 @@
   display: inline;
   width: 100% !important;
   color: #B27036;
+  text-transform: uppercase;
 }
 
 .card-title-left{
@@ -36,11 +38,11 @@
   display: grid;
   grid-template-columns: 80% 1fr;
   align-items: flex-end;
+  margin-bottom: 0px;
 }
 
 .readMoreBtn{
   font-weight: 100;
   padding-left: 10px;
   color: #5C8A96;
-
 }

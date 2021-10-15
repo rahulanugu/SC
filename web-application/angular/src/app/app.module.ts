@@ -124,6 +124,7 @@ import { CaregiverProfileComponent } from './caregiver-profile/caregiver-profile
 import { MedicationDetailsComponent } from './medication-details/medication-details.component';
 import { ProcedureDetailsComponent } from "./procedure-details/procedure-details.component";
 import { BlogCardComponent } from './shared/components/blog-card/blog-card.component';
+import { IndustryCardComponent } from './shared/components/industry-card/industry-quote-card.component';
 import { BlogPostComponent } from './blog-post/blog-post.component';
 import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
 import { ShareModule } from 'ngx-sharebuttons';
@@ -222,6 +223,7 @@ import { PortalProgressBarComponent } from './shared/components/portal-progress-
     MedicationDetailsComponent,
     ProcedureDetailsComponent,
     BlogCardComponent,
+    IndustryCardComponent,
     BlogPostComponent,
     PortalProgressBarComponent,
   ],
