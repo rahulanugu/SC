@@ -1,6 +1,7 @@
 /* Authors and their contributions:
     Vidit: Added the img class for styling the icons on the page
             Also worked on the responsiveness by adding a few media queries.
+    Vince G: Changed html and body to fix half background color in styling.
  */
 
 .loginHeading {
@@ -16,19 +17,22 @@
 
   display: table;
 } */
-
+html {
+  height: 100%;
+  width: 100%;
+  display: table;
+}
 body {
-  /* width: 100%; */
-  /* display: table-cell; */
+  width:100%;
+  display: table-cell;
   background-color: #faf6f2;
   font-family: "Lato", sans-serif;
 }
+html, body{
+  margin:0;
+  padding:0;
+}
 
-/* html,
-body {
-  margin: 0px;
-  padding: 0px;
-} */
 
 .card {
   width: auto;

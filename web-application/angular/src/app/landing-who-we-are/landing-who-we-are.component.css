@@ -1,3 +1,5 @@
+/* Authors and their contributions:
+Vince G:  added image scaling to avoid "squished" headshots*/
 .loginHeading {
   font-family: "Tinos", serif;
   color: #2d5059;
@@ -143,6 +145,8 @@ body {
   height: 144px;
   height: 144px;
   width: 144px;
+  
+  object-fit:scale-down;
 }
 
 .row {
