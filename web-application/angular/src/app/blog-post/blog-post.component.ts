@@ -1,3 +1,4 @@
+// Sammy - update blog images and category text from blogservice
 import { Component, OnInit } from '@angular/core';
 import { BlogService } from '../shared/blogService.service';
 
