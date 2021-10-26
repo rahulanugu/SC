@@ -25,14 +25,11 @@ export class BlogComponent implements OnInit {
   ngOnInit() {
     this.blogList = this.blogService.blogList
     this.categoryList = this.blogService.categoryList
-    console.log(this.categoryList)
   }
   industryCard = IndustryCardComponent;
 
   public selectedCategory;
   public categoryFilter() {
-    console.log(this.selectedCategory)
-    console.log(this.blogList)
     this.blogList = this.blogService.blogList.filter(
       blog => blog.category === this.selectedCategory
     );  
@@ -41,10 +38,20 @@ export class BlogComponent implements OnInit {
     }
   }
 
-
   public load() {
     this.numberOfPages = Math.ceil(this.blogList.length / this.numberOfPages);
   }
+
+  public nextPage() {
+    if(this.currentPage != this.numberPerPage) {
+      this.currentPage +=1;
+      this.load()
+    }
+  }
+
+  // public previousPage() {
+  //   if()
+  // }
   
 }
 

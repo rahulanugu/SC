@@ -127,9 +127,8 @@
         Related Posts
       </p>
       <div class="container" fxLayout="row wrap">
-        <div fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="33.33%" fxFlex.lg="33.33%" fxFlex.xl="33.33%"
-          *ngFor="let num of [1, 2, 3]">
-          <app-blog-card></app-blog-card>
+        <div *ngFor="let blog of blogList" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="33.33%" fxFlex.lg="33.33%" fxFlex.xl="33.33%">
+          <app-blog-card [blogCategory]="blog.category" [blogImg]="blog.link" ></app-blog-card>
         </div>
       </div>
     </div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BlogService } from '../shared/blogService.service';
 
 @Component({
   selector: 'app-blog-post',
@@ -6,10 +7,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./blog-post.component.css']
 })
 export class BlogPostComponent implements OnInit {
-
-  constructor() { }
+  blogList = [];
+  categoryList = [];
+  constructor(
+    private blogService: BlogService
+  ) { }
 
   ngOnInit() {
+    this.blogList = this.blogService.blogList.filter(
+      blog => blog.category === 'updates'
+    )
+    this.categoryList = this.blogService.categoryList
   }
 
 }

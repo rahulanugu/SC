@@ -42,9 +42,16 @@
             <app-blog-card *ngFor="let blog of blogList" [blogCategory]="blog.category" [blogImg]="blog.link" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="32%" fxFlex.lg="32%" fxFlex.xl="32%"></app-blog-card>
         </div>
       </div>
-      <div>
-        <input type="button" (click)="nextPage()" class="paginateLeft">
-        <input type="button" (click)="previousPage()" class="paginateRight">
+      <div class="pagination">
+        <ul fxFlex.lg="100%" fxFlex.md="100%" fxFlex.sm="40%">
+          <li><a href="#" class="prev"> < Prev</a></li>
+          <div style="display: flex;">
+            <li class="pageNumber" *ngFor="let page of [1,2,3,4,6,7,8]">
+            <a href=""> {{page}} </a>
+            </li>
+          </div>
+          <li><a href="#" class="next">Next > </a></li>
+        </ul>
       </div>
       
       <footer>
