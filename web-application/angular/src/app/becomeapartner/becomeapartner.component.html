@@ -13,101 +13,120 @@
       class="bpForm container pb-3 pt-4"
       ngNativeValidate
       [formGroup]="registerForm"
+      fxFlex
+      fxLayout="column"
     >
-      <div class="firstName">
-        <label>First Name*</label>
-        <br />
-        <input
-          type="text"
-          required
-          [class.is-invalid]="
-            registerForm.get('firstName').invalid &&
-            registerForm.get('firstName').touched
-          "
-          formControlName="firstName"
-          name="firstName"
-        />
+      <div fxFlex fxLayout="row" class="partnership-flex-row">
+        <div class="firstName">
+          <label>First Name*</label>
+          <br />
+          <input
+            type="text"
+            required
+            [class.is-invalid]="
+              registerForm.get('firstName').invalid &&
+              registerForm.get('firstName').touched
+            "
+            formControlName="firstName"
+            name="firstName"
+          />
+        </div>
+  
+        <div class="lastName">
+          <label>Last Name*</label>
+          <br />
+          <input type="text" required name="lastName" />
+        </div>
       </div>
 
-      <div class="lastName">
-        <label>Last Name*</label>
-        <br />
-        <input type="text" required name="lastName" />
+      <div fxFlex fxLayout="row" class="partnership-flex-row">
+        <div class="email">
+          <label>Email*</label>
+          <br />
+          <input type="email" name="email" required email />
+        </div>
+  
+        <div class="primaryPhone">
+          <label>Primary Phone*</label>
+          <br />
+          <input type="text" mask="(000)-000-0000" name="phone" required />
+        </div>
       </div>
 
-      <div class="email">
-        <label>Email*</label>
-        <br />
-        <input type="email" name="email" required email />
+      <div fxFlex fxLayout="row" class="partnership-flex-row">
+        <div class="jobTitle">
+          <label>Job Title</label>
+          <br />
+          <input type="text" name="jobTitle" />
+        </div>
+        
       </div>
-
-      <div class="primaryPhone">
-        <label>Primary Phone*</label>
-        <br />
-        <input type="text" mask="(000)-000-0000" name="phone" required />
-      </div>
-
-      <div class="jobTitle">
-        <label>Job Title</label>
-        <br />
-        <input type="text" name="jobTitle" />
-      </div>
-
+      
       <h3 class="divider container text-center mt-5 mb-5"></h3>
 
-      <div class="companyName">
-        <label>Company Name*</label>
-        <br />
-        <input type="text" required name="companyName" />
+      <div fxFlex fxLayout="row" class="partnership-flex-row">
+        <div class="companyName">
+          <label>Company Name*</label>
+          <br />
+          <input type="text" required name="companyName" />
+        </div>
+        <div class="typeOfBusiness">
+          <label>Type of Business</label>
+          <br />
+          <select name="typeOfBusiness">
+            <option value="provider">Provider</option>
+            <option value="healthcareInstitution">
+              Healthcare Institution
+            </option>
+            <option value="insurer">Insurer</option>
+            <option value="socialMedia">Social Media</option>
+            <option value="investor">Investor</option>
+            <option value="healthcareit">Healthcare IT</option>
+            <option value="entepreneur">Entrepreneur</option>
+          </select>
+        </div>
       </div>
 
-      <div class="typeOfBusiness">
-        <label>Type of Business</label>
-        <br />
-        <select name="typeOfBusiness">
-          <option value="provider">Provider</option>
-          <option value="healthcareInstitution">
-            Healthcare Institution
-          </option>
-          <option value="insurer">Insurer</option>
-          <option value="socialMedia">Social Media</option>
-          <option value="investor">Investor</option>
-          <option value="healthcareit">Healthcare IT</option>
-          <option value="entepreneur">Entrepreneur</option>
-        </select>
+      <div fxFlex fxLayout="row" class="partnership-flex-row">
+        <div class="streetAddress">
+          <label>Company Street Address</label>
+          <br />
+          <input type="text" name="companyAddress" />
+        </div>
+  
+        <div class="city">
+          <label for="city">City</label>
+          <br />
+          <input type="text" name="city" />
+        </div>
       </div>
 
-      <div class="streetAddress">
-        <label>Company Street Address</label>
-        <br />
-        <input type="text" name="companyAddress" />
+      <div fxFlex fxLayout="row" class="partnership-flex-row">
+        <div class="state">
+          <label for="state">State</label>
+          <br />
+          <input type="text" name="state" />
+        </div>
+  
+        <div class="zipCode">
+          <label for="zipCode">Zip Code</label>
+          <br />
+          <input type="text" name="zipCode" />
+        </div>
       </div>
 
-      <div class="city">
-        <label for="city">City</label>
-        <br />
-        <input type="text" name="city" />
+      <div fxFlex fxLayout="row" class="partnership-flex-row">
+        <div class="country">
+          <label for="country">Country</label>
+          <br />
+          <input type="text" name="country" />
+        </div>
       </div>
 
-      <div class="state">
-        <label for="state">State</label>
-        <br />
-        <input type="text" name="state" />
+      <div fxFlex fxLayout="row" fxLayoutAlign="center">
+        <button type="button" class="sendBtn mt-3">Submit</button>
       </div>
 
-      <div class="zipCode">
-        <label for="zipCode">Zip Code</label>
-        <br />
-        <input type="text" name="zipCode" />
-      </div>
-
-      <div class="country">
-        <label for="country">Country</label>
-        <br />
-        <input type="text" name="country" />
-      </div>
-
-      <button type="button" class="sendBtn mt-3">Submit</button>
     </form>
   </div>
 </div>

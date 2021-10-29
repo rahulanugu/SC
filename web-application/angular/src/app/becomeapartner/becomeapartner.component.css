@@ -125,3 +125,11 @@ form > div {
   text-align: center;
   margin: 0 auto;
 }
+
+#partnership-form form {
+  padding: 3em;
+}
+
+.partnership-flex-row {
+  justify-content: space-between;
+}
