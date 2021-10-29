@@ -28,8 +28,8 @@ body {
 
 form label {
   font-style: normal;
-  font-weight: bold;
-  font-size: 14px;
+  font-weight: 800;
+  font-size: 15px;
   line-height: 17px;
   /* identical to box height */
 
@@ -52,7 +52,7 @@ form input {
   box-shadow: inset 0px 2px 2px rgba(29, 31, 38, 0.15);
   border-radius: 8px;
   height: 40px;
-  width: 272px;
+  width: 100%;
 }
 
 .sendBtn {
@@ -132,4 +132,8 @@ form > div {
 
 .partnership-flex-row {
   justify-content: space-between;
+}
+
+.partnership-flex-row div {
+  min-width: 280px;
 }
