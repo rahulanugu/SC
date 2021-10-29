@@ -28,8 +28,8 @@ body {
 
 form label {
   font-style: normal;
-  font-weight: bold;
-  font-size: 14px;
+  font-weight: 800;
+  font-size: 15px;
   line-height: 17px;
   /* identical to box height */
 
@@ -52,7 +52,7 @@ form input {
   box-shadow: inset 0px 2px 2px rgba(29, 31, 38, 0.15);
   border-radius: 8px;
   height: 40px;
-  width: 272px;
+  width: 100%;
 }
 
 .sendBtn {
@@ -112,162 +112,33 @@ form > div {
   background-color: #E6EFF1;
   border-radius: 15px;
   height: auto;
-  /* margin-left: auto;
-  margin-right: auto; */
+  margin-left: auto;
+  margin-right: auto;
 }
 
-@media only screen and (max-width: 450px) {
-  .wrapper {
-    /* display: grid;
-    grid-template-columns: 2fr 2fr;
-    grid-gap: 1em; */
-    width: 75%;
-    margin-left: auto;
-    margin-right: auto;
-  }
+#partnership-div {
+  background-color: #F5F1ED;
+}
 
-  form input {
-    /* White */
-  
-    background: #ffffff;
-    /* Grey 200 */
-  
-    border: 2px solid #e1e4eb;
-    box-sizing: border-box;
-    /* Inner Shadow E-100 */
-  
-    box-shadow: inset 0px 2px 2px rgba(29, 31, 38, 0.15);
-    border-radius: 8px;
-    height: 40px;
-    width: 100px;
-  }
+#partnership-form {
+  max-width: 720px;
+  text-align: center;
+  margin: 0 auto;
+}
 
-  form select {
-    /* White */
-  
-    background: #ffffff;
-    /* Grey 200 */
-  
-    border: 2px solid #e1e4eb;
-    box-sizing: border-box;
-    /* Inner Shadow E-100 */
-  
-    box-shadow: inset 0px 2px 2px rgba(29, 31, 38, 0.15);
-    border-radius: 8px;
-    height: 40px;
-    width: 150px;
+#partnership-form form {
+  padding: 1em;
+}
+@media screen and (min-width: 600px) {
+  #partnership-form form {
+    padding: 3em;
   }
 }
 
-@media only screen and (min-width: 451px) and (max-width: 575px) {
-  .wrapper {
-    /* display: grid;
-    grid-template-columns: 2fr 2fr;
-    grid-gap: 1em; */
-    width: 75%;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  form input {
-    /* White */
-  
-    background: #ffffff;
-    /* Grey 200 */
-  
-    border: 2px solid #e1e4eb;
-    box-sizing: border-box;
-    /* Inner Shadow E-100 */
-  
-    box-shadow: inset 0px 2px 2px rgba(29, 31, 38, 0.15);
-    border-radius: 8px;
-    height: 40px;
-    width: 150px;
-  }
-
-  form select {
-    /* White */
-  
-    background: #ffffff;
-    /* Grey 200 */
-  
-    border: 2px solid #e1e4eb;
-    box-sizing: border-box;
-    /* Inner Shadow E-100 */
-  
-    box-shadow: inset 0px 2px 2px rgba(29, 31, 38, 0.15);
-    border-radius: 8px;
-    height: 40px;
-    width: 150px;
-  }
+.partnership-flex-row {
+  justify-content: space-between;
 }
 
-@media only screen and (min-width: 576px) and (max-width: 767px) {
-  form input {
-    /* White */
-  
-    background: #ffffff;
-    /* Grey 200 */
-  
-    border: 2px solid #e1e4eb;
-    box-sizing: border-box;
-    /* Inner Shadow E-100 */
-  
-    box-shadow: inset 0px 2px 2px rgba(29, 31, 38, 0.15);
-    border-radius: 8px;
-    height: 40px;
-    width: 200px;
-  }
-
-  form select {
-    /* White */
-  
-    background: #ffffff;
-    /* Grey 200 */
-  
-    border: 2px solid #e1e4eb;
-    box-sizing: border-box;
-    /* Inner Shadow E-100 */
-  
-    box-shadow: inset 0px 2px 2px rgba(29, 31, 38, 0.15);
-    border-radius: 8px;
-    height: 40px;
-    width: 200px;
-  }
+.partnership-flex-row div {
+  min-width: 280px;
 }
-
-@media only screen and (min-width: 992px) and (max-width: 1220px) {
-  .wrapper {
-    width: 60%;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-
-@media only screen and (min-width: 1221px) and (max-width: 1474px) {
-  .wrapper {
-    width: 50%;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-
-@media only screen and (min-width: 1475px) and (max-width: 1699px) {
-  .wrapper {
-    width: 40%;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-
-@media only screen and (min-width: 1700px) {
-  .wrapper {
-    width: 35%;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-
-/* .text-center label {
-  justify-self: flex-start;
-} */
