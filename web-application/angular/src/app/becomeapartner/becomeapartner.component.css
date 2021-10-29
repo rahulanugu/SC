@@ -127,7 +127,12 @@ form > div {
 }
 
 #partnership-form form {
-  padding: 3em;
+  padding: 1em;
+}
+@media screen and (min-width: 600px) {
+  #partnership-form form {
+    padding: 3em;
+  }
 }
 
 .partnership-flex-row {
