@@ -1,3 +1,4 @@
+<!-- Sammy - add blog page link -->
 <div>
   <mat-toolbar color="primary">
     <mat-toolbar-row>
@@ -16,31 +17,32 @@
       <div fxShow="true" fxHide.lt-md="true">
         <!-- The following menu items will be hidden on both SM and XS screen sizes -->
         <!-- #docregion mat-menu-trigger-for -->
-        <button mat-button [matMenuTriggerFor]="menu">About</button>
+        <button mat-button [matMenuTriggerFor]="menu" #menuTrigger1="matMenuTrigger" (mouseenter)="mouseEnter(menuTrigger1)" (mouseleave)="mouseLeave(menuTrigger1)">About</button>
         <!-- #enddocregion mat-menu-trigger-for -->
-        <mat-menu #menu="matMenu">
-          <a routerLink="/whatisscriptchain" mat-menu-item>What is ScriptChain Health?</a>
-          <a routerLink="/capabilitystatement" mat-menu-item>Capability Statement</a>
-          <a routerLink="/whoweare" mat-menu-item>Our Team</a>
+        <mat-menu #menu="matMenu" [hasBackdrop]="false">
+          <a routerLink="/whatisscriptchain" mat-menu-item (mouseenter)="mouseEnter(menuTrigger1)" (mouseleave)="mouseLeave(menuTrigger1)">What is ScriptChain Health?</a>
+          <a routerLink="/blog" mat-menu-item (mouseenter)="mouseEnter(menuTrigger1)" (mouseleave)="mouseLeave(menuTrigger1)">Blog page</a>
+          <a routerLink="/capabilitystatement" mat-menu-item (mouseenter)="mouseEnter(menuTrigger1)" (mouseleave)="mouseLeave(menuTrigger1)">Capability Statement</a>
+          <a routerLink="/whoweare" mat-menu-item (mouseenter)="mouseEnter(menuTrigger1)" (mouseleave)="mouseLeave(menuTrigger1)">Our Team</a>
           <!-- <a routerLink="/blog" mat-menu-item>Blog</a> -->
         </mat-menu>
 
         <!-- #docregion mat-menu-trigger-for -->
-        <button mat-button [matMenuTriggerFor]="menu1">Partnerships</button>
+        <button mat-button [matMenuTriggerFor]="menu1" #menuTrigger2="matMenuTrigger" (mouseenter)="mouseEnter(menuTrigger2)" (mouseleave)="mouseLeave(menuTrigger2)">Partnerships</button>
         <!-- #enddocregion mat-menu-trigger-for -->
-        <mat-menu #menu1="matMenu">
+        <mat-menu #menu1="matMenu" [hasBackdrop]="false">
           <!-- <a href="javascript:void(0)" mat-menu-item>Our Partners</a> -->
-          <a routerLink="/becomeapartner" mat-menu-item>Become a Partner</a>
+          <a routerLink="/becomeapartner" mat-menu-item (mouseenter)="mouseEnter(menuTrigger2)" (mouseleave)="mouseLeave(menuTrigger2)">Become a Partner</a>
         </mat-menu>
         <a routerLink="/healthcare/login" class='menu' mat-button> Providers </a>
         <a href="javascript:void(0)" class='menu' mat-button> Patients </a>
 
         <!-- #docregion mat-menu-trigger-for -->
-        <button mat-button [matMenuTriggerFor]="menu2">Support</button>
+        <button mat-button [matMenuTriggerFor]="menu2"  #menuTrigger3="matMenuTrigger" (mouseenter)="mouseEnter(menuTrigger3)" (mouseleave)="mouseLeave(menuTrigger3)">Support</button>
         <!-- #enddocregion mat-menu-trigger-for -->
-        <mat-menu #menu2="matMenu">
-          <a routerLink="/request-access" mat-menu-item>Request Access</a>
-          <a href="faq" mat-menu-item>FAQs</a>
+        <mat-menu #menu2="matMenu" [hasBackdrop]="false">
+          <a routerLink="/request-access" mat-menu-item (mouseenter)="mouseEnter(menuTrigger3)" (mouseleave)="mouseLeave(menuTrigger3)">Request Access</a>
+          <a href="faq" mat-menu-item (mouseenter)="mouseEnter(menuTrigger3)" (mouseleave)="mouseLeave(menuTrigger3)">FAQs</a>
         </mat-menu>
         <a routerLink="/contact-us" class='menu' mat-button> Contact Us </a>
         <button class="helpBtn" mat-raised-button onclick = "window.location.href='healthcare/login'">Login</button>
