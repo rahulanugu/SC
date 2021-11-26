@@ -34,7 +34,11 @@
   color: #fff;
 }
 
-.menu:hover{
+.menu:hover {
   text-decoration: none!important;
   color:white!important;
+}
+
+.mat-menu-trigger:focus {
+  outline: none;
 }

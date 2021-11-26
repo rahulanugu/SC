@@ -1,6 +1,4 @@
 
-
-
 html {
   width: 100%;
   height: 100%;
@@ -50,7 +48,6 @@ body {
 }
 
 .container {
-  width: 60%;
   margin: 2rem auto;
 }
 
@@ -189,6 +186,40 @@ body {
   height: 200px;
 }
 
+.pagination {
+  display: flex;
+  justify-content: space-between;
+}
+
+.pagination ul{
+  position: relative; 
+  padding: 10px 30px; 
+  display: flex;
+  width: 100%; 
+  justify-content: space-between;
+
+}
+
+.pagination ul li {
+    list-style: none;
+    line-height: 50px;
+    margin: 0 5px;
+}
+
+.pagination ul li.pageNumber{
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+}
+
+.pagination ul li a{
+    display: block;
+    text-decoration: none; 
+    color: #2d5059;
+}
+
+
 .quoteImg {
   height: 400px;
   width: 400px;
@@ -252,5 +283,22 @@ figcaption {
   color: whitesmoke;
   opacity: 1;
 }
+
+@media only screen and (max-width: 500px){ 
+  #heading{
+    font-size: 28px;
+  }
+
+  .pagination ul li.pageNumber {
+    width: 20px; 
+    height: auto;
+  }
+
+  .pagination ul {
+    padding: 10px 20px; 
+  }
+
+}
+
 
 
