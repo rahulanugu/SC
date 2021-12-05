@@ -14,4 +14,4 @@ Database Setup
 
       d. username: admin
 
-      e. password: Scriptchain20!
+      e. password: Scriptchain21!
