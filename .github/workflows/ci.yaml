@@ -109,7 +109,7 @@ jobs:
         run: |
           aws s3 cp \
           --region us-east-2 \
-          scriptchain1.zip s3://scriptchain-dev-deploy-bucket
+          scriptchain.zip s3://scriptchain-dev-deploy-bucket
 
       # ------------ pre-process and upload build output to AWS S3 ---------------------
 
