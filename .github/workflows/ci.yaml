@@ -120,7 +120,7 @@ jobs:
         run: |
           aws deploy create-deployment \
           --application-name Scriptchain-DEV \
-          --deployment-group-name CodeDeployGitHubDemo-DepGrp \
+          --deployment-group-name CodeDeployGitHubDEV-DepGrp \
           --deployment-config-name CodeDeployDefault.AllAtOnce \
           --s3-location bundleType=zip,bucket=scriptchain-dev-deploy-bucket,key=scriptchain.zip
       # --------------- deploy AWS S3 bucket contents ---------------------
