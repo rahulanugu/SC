@@ -44,6 +44,7 @@ router.post("/", [
     const user = req.body;
     user['_id'] = generateId(10);
     // Add user object into contactUsers table
+    console.log("Test "); 
     const resp = await db_utils.insertUserIntoDB('contactUsers', user);
     if (resp.statusCode != 200) {
       return res.status(resp.statusCode).json({message: resp.message});
