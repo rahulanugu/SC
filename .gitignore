@@ -11,4 +11,4 @@
 .project
 
 # Github workflow ci.yaml file
-.github
+.github/
