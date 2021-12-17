@@ -21,8 +21,8 @@ if ($link->linkect_error) {
     die("linkection failed: " . $link->linkect_error);
 } 
 
-$sql = "INSERT INTO employee (emp_no, first_name, last_name, dept_name)
-VALUES ($emp_no, $first_name, $last_name , $dept_name)";
+$sql = "INSERT INTO contactusers (fname, lname, email, message)
+VALUES ($fname, $lname, $email , $message)";
 
 if ($link->query($sql) === TRUE) {
     echo "New record created successfully";
