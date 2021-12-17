@@ -15,8 +15,9 @@
       href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
       rel="stylesheet"
     />
+    <script src = "/scriptchain/web-application/node/controllers/contactUsController.js"></script> <!-- load up our controller-->
+    <script src = "/scriptchain/web-application/node/index.js"></script> <!--load up our main application-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-
     <!-- Hotjar Tracking Code for https://www.scriptchain.co/home -->
     <script>
       (function (h, o, t, j, a, r) {
@@ -63,8 +64,8 @@
         fxLayout="column"
         fxLayoutAlign="center center"
       >
-        <div class="container">
-          <form class="mt-3" (ngSubmit)="onSubmit(form)" #form="ngForm">
+        <div class="container" ng-controller = "contactUsController">
+          <form class="mt-3" (ngSubmit)="onSubmit(form)" #form="ngForm" method="post">
             <label>First Name</label>
             <br />
             <input
@@ -123,11 +124,13 @@
               type="submit"
               class="sendBtn"
               [disabled]="!form.valid"
+              ng-click="postData()"
             >
               Send Message
             </button>
           </form>
         </div>
+        <script src = "/scriptchain/web-application/node/controllers/contactUsController.js"></script>
       </div>
       <div class="mt-5 pt-5" fxFlexFill fxLayout="column" fxLayoutAlign="end">
         <app-landing-page-subfooter></app-landing-page-subfooter>
