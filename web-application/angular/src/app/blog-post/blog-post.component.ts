@@ -1,6 +1,8 @@
 // Sammy - update blog images and category text from blogservice
+// Stephanie - access single posts with id via Wordpress API
 import { Component, OnInit } from '@angular/core';
 import { BlogService } from '../shared/blogService.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-blog-post',
@@ -8,17 +10,28 @@ import { BlogService } from '../shared/blogService.service';
   styleUrls: ['./blog-post.component.css']
 })
 export class BlogPostComponent implements OnInit {
-  blogList = [];
-  categoryList = [];
-  constructor(
-    private blogService: BlogService
-  ) { }
+  singlePosts: any;
+  errorMessage: any;
+  id: string;
 
+  constructor(private blogService: BlogService, private route: ActivatedRoute) { }
+
+  // Stores ID for post from URL and accesses corresponding post
   ngOnInit() {
-    this.blogList = this.blogService.blogList.filter(
-      blog => blog.category === 'updates'
-    )
-    this.categoryList = this.blogService.categoryList
+    this.id = this.route.snapshot.paramMap.get('id') as string;
+    this.getSinglePosts();
+  }
+
+  // Accesses single blog posts from blogService using ID or returns error
+  getSinglePosts() {
+    this.blogService.getSinglePosts(this.id).subscribe((data) => {
+      this.singlePosts = data;
+      console.log(data);
+    },
+    (error) => {
+      this.errorMessage = error.message;
+      console.log(error);
+    })
   }
 
 }

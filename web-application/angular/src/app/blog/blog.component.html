@@ -2,6 +2,7 @@
 <!--Tasheena: Worked on the initial page design
     Vidit: Worked on UI enhancements and responsiveness -->
 <!-- Sammy - Worked on the an blog category styling and content update-->
+<!-- Stephanie - updated HTML to be compatible with WP API objects (started 12/16) -->
 
 
 <head>
@@ -25,7 +26,7 @@
       <div>
         <app-landing-page-header></app-landing-page-header>
       </div>
-      
+
       <div>
         <!-- <h1 [ngStyle]="{'color':'red'}" -->
         <h1 id="heading">ScriptChain Health Blog</h1>
@@ -33,13 +34,13 @@
           <label for="Category"></label>
           <select  [(ngModel)]="selectedCategory" (change)="categoryFilter()">
             <option selected value="undefined">Explore by Category:</option>
-            <option *ngFor="let category of categoryList" value="{{category.value}}">{{category.name}}</option>
+            <option *ngFor="let category of categoryList" value="{{category.name}}">{{category.name}}</option>
           </select>
         </div>
-      
+
         <div fxLayout="row wrap" fxLayoutAlign="center">
-            <app-industry-quote-card *ngIf="!selectedCategory || selectedCategory == 'industry' || selectedCategory == 'undefined'" [blogCategory]="industry" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="32%" fxFlex.lg="32%" fxFlex.xl="32%"></app-industry-quote-card>
-            <app-blog-card *ngFor="let blog of blogList" [blogCategory]="blog.category" [blogImg]="blog.link" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="32%" fxFlex.lg="32%" fxFlex.xl="32%"></app-blog-card>
+            <app-industry-quote-card *ngIf="!selectedCategory || selectedCategory == 'industry' || selectedCategory == 'undefined'" [blogCategory]="'industry'" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="32%" fxFlex.lg="32%" fxFlex.xl="32%"></app-industry-quote-card>
+            <app-blog-card *ngFor="let blog of blogList" [blogCategories]="blog.categories" [blogImg]="blog.link" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="32%" fxFlex.lg="32%" fxFlex.xl="32%"></app-blog-card>
         </div>
       </div>
       <div class="pagination">
@@ -53,7 +54,7 @@
           <li><a href="#" class="next">Next > </a></li>
         </ul>
       </div>
-      
+
       <footer>
         <app-landing-page-subfooter></app-landing-page-subfooter>
       </footer>

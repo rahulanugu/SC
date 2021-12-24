@@ -10,20 +10,21 @@ import { MatCardModule } from '@angular/material/card';
 })
 export class BlogCardComponent implements OnInit {
   @Input() blogImg: string  = '';
-  @Input() blogCategory: string = '';
+  @Input() blogCategories: any;
+  @Input() blogID: any;
   wordsToMinutes = 5;
-  
+
   getColor() {
-    switch(this.blogCategory){
-      case 'updates': 
+    switch(this.blogCategories[0].name){
+      case 'Updates':
         return '#B27036'
-      case 'ai': 
+      case 'AI':
         return '#B83D37'
-      case 'invest': 
+      case 'Invest':
         return '#3458C2'
-      case 'patient': 
+      case 'Patient':
         return '#7742C2'
-      case 'scholar': 
+      case 'Scholar':
         return '#E0AE48'
     }
   }

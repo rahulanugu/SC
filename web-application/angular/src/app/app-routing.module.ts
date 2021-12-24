@@ -257,7 +257,7 @@ const routes: Routes = [
     component: BlogComponent,
   },
   {
-    path: "blog-post",
+    path: "blog-post/:id",
     component: BlogPostComponent
   },
   {
