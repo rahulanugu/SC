@@ -1,20 +1,21 @@
-app.controller('contactUsController', function ($scope, $http) {
+var app = angular.module('myApp', []);
+app.controller('contactUsController', function ($scope) {
    /*
    * This method will be called on click event of button.
    */
    $scope.postData = function () {
    
-       var request = $http({
-           method: "post",
-           url: window.location.href + "contactUsController.php",
-           data: {
+       var data = $.param({
+           contact: JSON.stringify({
                fname: $scope.fname,
                lname: $scope.lname,
                email: $scope.email,
-               message: $scope.message,
-           },
-           headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+               message: $scope.message
+           })
        });
-   
+
+       $http.post("/api/contact", data).success(function(data,status) {
+           console.log('Data posted successfully');
+       })
     }
    }); 

@@ -21,7 +21,7 @@ if ($link->linkect_error) {
     die("linkection failed: " . $link->linkect_error);
 } 
 
-$sql = "INSERT INTO contactusers (fname, lname, email, message)
+$sql = "INSERT INTO contactUsers (fname, lname, email, message)
 VALUES ($fname, $lname, $email , $message)";
 
 if ($link->query($sql) === TRUE) {
