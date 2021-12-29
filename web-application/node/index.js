@@ -5,6 +5,7 @@
  */
 
 // package import
+const config = require('./config.js');
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -33,6 +34,8 @@ const fs = require("fs");
 const { promisify } = require("util");
 
 const readFile = promisify(fs.readFile);
+
+console.log(`NODE_ENV=${config.NODE_ENV}`);
 
 var app = express();
 
