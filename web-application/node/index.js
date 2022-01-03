@@ -86,6 +86,7 @@ app.use(function (req, res, next) {
   //res.cookie('cookie','value',{signed:true});
   // Website you wish to allow to connect
   var whitelist = [
+    "https://dev.scriptchain.co",
     "https://www.scriptchain.co",
     "https://scriptchain.co",
     "http://localhost:4200",
