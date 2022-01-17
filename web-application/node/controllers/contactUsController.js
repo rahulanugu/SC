@@ -25,7 +25,7 @@ function generateId(count) {
  *         401 - API Key invalid
  *         500 - An error occured trying to save the request
  */
-router.post("/", [
+router.post("/contact-us", [
   check('fname').notEmpty().isAlpha(),
   check('lname').notEmpty().isAlpha(),
   check('email').isEmail(),
