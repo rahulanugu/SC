@@ -1,4 +1,5 @@
 // Sammy - add input component to pass in different img from parent
+// Stephanie - updated to be compatible with WP API object attributes
 import { Component, OnInit, Input } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 // const {wordsToMinutes, wordsToHours, wordsToSeconds} = require('words-to-time-converter');
@@ -12,6 +13,8 @@ export class BlogCardComponent implements OnInit {
   @Input() blogImg: string  = '';
   @Input() blogCategories: any;
   @Input() blogID: any;
+  @Input() blogTitle: any;
+  @Input() blogContent: any;
   wordsToMinutes = 5;
 
   getColor() {

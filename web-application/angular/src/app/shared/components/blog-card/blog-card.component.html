@@ -8,14 +8,13 @@
 
         <!-- <mat-card-header> -->
         <div class="card-title">
-          <mat-card-title class="card-title-left">Scriptchain Health</mat-card-title>
+          <mat-card-title class="card-title-left">{{blogTitle}}</mat-card-title>
           <mat-card-title class="card-read-right">min</mat-card-title>
           <!-- </mat-card-header> -->
         </div>
 
         <mat-card-content style="margin-bottom: 0px;">
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Totam dignissimos corporis facere ab, voluptate quia!</p>
+          <p [innerHTML]="blogContent.rendered"></p>
         </mat-card-content>
 
         <mat-card-actions >

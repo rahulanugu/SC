@@ -180,7 +180,6 @@ const routes: Routes = [
   {
     path: "healthcare/confirmation",
     component: HealthcareConfirmationComponent, canActivate: [HealthcareAuthGuard],
-    //needs backend
   },
   {
     path: "healthcare/verificationemail",

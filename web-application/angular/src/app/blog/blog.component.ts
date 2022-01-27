@@ -1,6 +1,6 @@
 // contribution
 // Sammy - filter blogs based on the drop down value and update blog list accordingly
-// Stephanie - get and filter blog posts from Wordpress API (started 12/16)
+// Stephanie - get and filter blog posts from Wordpress API
 
 import { Component, OnInit } from "@angular/core";
 import { BlogCardComponent } from "../shared/components/blog-card/blog-card.component";
@@ -31,7 +31,7 @@ export class BlogComponent implements OnInit {
   // Accesses blog posts from blogService or returns error
   getPosts() {
     this.blogService.getPosts().subscribe((data) => {
-      this.blogList = data;
+      this.blogList = JSON.parse(data).posts;
       console.log(data);
     },
     (error) => {
@@ -42,7 +42,7 @@ export class BlogComponent implements OnInit {
   // Accesses list of category objects from blogService or returns error
   getCategories() {
     this.blogService.getCategories().subscribe((data) => {
-      this.categoryList = data;
+      this.categoryList = JSON.parse(data).categories;
       console.log(data);
     },
     (error) => {

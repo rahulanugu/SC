@@ -26,7 +26,7 @@
     <div class="justify-content-center" fxLayout="column" fxLayoutAlign="center">
       <div class="container text-justify mt-5" fxLayout.xs="column" fxLayout.sm="column" fxLayout.md="row"
         fxLayout.lg="row" fxLayout.xl="row" fxLayoutGap="20px" fxLayoutGap.xs="0px">
-        <h4 class="blogInfo">> written by Moh Noori</h4>
+        <h4 class="blogInfo">> written by {{singlePosts.author.name}}</h4>
         <h4 class="blogInfo">>{{singlePosts.date | date: 'short'}}</h4>
       </div>
       <div class="text-justify container mb-5" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.lg="33%" fxFlex.xl="33%"
@@ -61,7 +61,7 @@
       </p>
       <div class="container" fxLayout="row wrap">
         <div *ngIf="singlePosts" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="33.33%" fxFlex.lg="33.33%" fxFlex.xl="33.33%">
-          <app-blog-card [blogCategories]="singlePosts.categories" [blogImg]="singlePosts.link" [blogID]="singlePosts.id" ></app-blog-card>
+          <app-blog-card [blogCategories]="singlePosts.categories" [blogImg]="singlePosts.post_thumbnail.URL" [blogID]="singlePosts.ID" ></app-blog-card>
         </div>
       </div>
     </div>
