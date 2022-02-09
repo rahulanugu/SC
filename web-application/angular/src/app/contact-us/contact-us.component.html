@@ -15,8 +15,16 @@
       href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
       rel="stylesheet"
     />
+<<<<<<< Updated upstream
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
+=======
+    <script src = "contactUsController.js"></script> <!-- load up our controller-->
+    <script src = "angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src = "/scriptchain/web-application/node/controllers/contactUsController.js"></script>
+    <script src = "/scriptchain/web-application/node/index.js"></script>
+>>>>>>> Stashed changes
     <!-- Hotjar Tracking Code for https://www.scriptchain.co/home -->
     <script>
       (function (h, o, t, j, a, r) {
@@ -35,10 +43,10 @@
     </script>
   </head>
 
-  <body>
+  <body ng-app="myApp">
     <app-landing-page-header></app-landing-page-header>
 
-    <div fxFlexFill fxLayout="column">
+    <div fxFlexFill fxLayout="column" ng-controller = "contactUsController">
       <div>
         <div class="content1">
           <h3 id="loginHeading">Contact Us</h3>
@@ -69,8 +77,7 @@
             <br />
             <input
               type="text"
-              ngModel
-              name="fname"
+              ngModel = "data.fname"
               required
               #firstName="ngModel"
             />
@@ -82,8 +89,7 @@
             <br />
             <input
               type="text"
-              ngModel
-              name="lname"
+              ngModel ="data.lname"
               required
               #lastName="ngModel"
             />
@@ -95,6 +101,7 @@
             <br />
             <input
               type="text"
+              ngModel ="data.email"
               ngModel
               required
               email
@@ -109,7 +116,7 @@
             <label>Message</label>
             <br />
             <textarea
-              ngModel
+              ngModel ="data.message"
               required
               name="message"
               #message="ngModel"
@@ -123,11 +130,20 @@
               type="submit"
               class="sendBtn"
               [disabled]="!form.valid"
+<<<<<<< Updated upstream
+=======
+              value="Submit"
+              ng-click="submit()"
+>>>>>>> Stashed changes
             >
               Send Message
             </button>
           </form>
         </div>
+<<<<<<< Updated upstream
+=======
+        
+>>>>>>> Stashed changes
       </div>
       <div class="mt-5 pt-5" fxFlexFill fxLayout="column" fxLayoutAlign="end">
         <app-landing-page-subfooter></app-landing-page-subfooter>
