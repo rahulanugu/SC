@@ -47,6 +47,7 @@
     "ng": "0.0.0",
     "ngx-mask": "^11.1.4",
     "ngx-sharebuttons": "^8.0.0",
+    "ngx-spinner": "^13.0.0",
     "ngx-toastr": "^11.3.3",
     "rxjs": "^6.5.4",
     "rxjs-compat": "^6.5.4",

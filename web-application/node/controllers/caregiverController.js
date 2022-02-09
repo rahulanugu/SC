@@ -39,7 +39,7 @@ router.post("/",[
   body().custom(body => {
     const keys = ['firstName','lastName','email','phone'];
     return Object.keys(body).every(key => keys.includes(key));
-  })], 
+  })],
   async (req, res) => {
     // Validate API request
     const validate = sec_utils.APIRequestIsValid(req);
@@ -52,7 +52,7 @@ router.post("/",[
       return res.status(400).send({message: 'User already exists'});
     }
     console.log("Email does not exist");
-    
+
     const user = {
       _id: generateId(10),
       fname: req.body.firstName,
