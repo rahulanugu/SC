@@ -131,6 +131,7 @@ import { ShareModule } from 'ngx-sharebuttons';
 import { ToastrModule } from 'ngx-toastr';
 import { AllscriptsLoginComponent } from "./allscriptslogin/allscriptslogin.component";
 import { PortalProgressBarComponent } from './shared/components/portal-progress-bar/portal-progress-bar.component';
+import { BlogService } from "./shared/blogService.service";
 
 
 @NgModule({
@@ -271,6 +272,7 @@ import { PortalProgressBarComponent } from './shared/components/portal-progress-
     PatientAuthGuard,
     DataService,
     ScriptLoaderService,
+    BlogService
   ],
   bootstrap: [AppComponent],
   entryComponents: [MatConfirmDialogComponent],
