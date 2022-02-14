@@ -15,6 +15,10 @@
       href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
       rel="stylesheet"
     />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
     <script src = "contactUsController.js"></script> <!-- load up our controller-->
     <script src = "angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -73,7 +77,8 @@
             <br />
             <input
               type="text"
-              ngModel = "data.fname"
+              ngModel 
+              name= "fname"
               required
               #firstName="ngModel"
             />
@@ -85,7 +90,8 @@
             <br />
             <input
               type="text"
-              ngModel ="data.lname"
+              ngModel 
+              name ="lname"
               required
               #lastName="ngModel"
             />
@@ -97,8 +103,7 @@
             <br />
             <input
               type="text"
-              ngModel ="data.email"
-              ngModel
+              ngModel 
               required
               email
               name="email"
@@ -112,7 +117,7 @@
             <label>Message</label>
             <br />
             <textarea
-              ngModel ="data.message"
+              ngModel
               required
               name="message"
               #message="ngModel"
@@ -126,12 +131,13 @@
               type="submit"
               class="sendBtn"
               [disabled]="!form.valid"
-
-            >
+              value="Submit"
+              ng-click="submit()">
               Send Message
             </button>
           </form>
         </div>
+
       </div>
       <div class="mt-5 pt-5" fxFlexFill fxLayout="column" fxLayoutAlign="end">
         <app-landing-page-subfooter></app-landing-page-subfooter>
