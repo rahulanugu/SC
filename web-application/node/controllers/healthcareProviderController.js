@@ -21,7 +21,7 @@ const API_KEY = '';
 function generateId(count) {
   var _sym = 'abcdefghijklmnopqrstuvwxyz1234567890';
   var str = '';
-  
+
   for(var i = 0; i < count; i++) {
     str += _sym[parseInt(Math.random() * (_sym.length))];
   }
@@ -47,14 +47,14 @@ router.post('/account/create',[
   body().custom(body => {
     const keys = ['firstName', 'lastName', 'companyName', 'roleInCompany', 'email', 'ehr', 'password', 'phone', 'photo'];
     return Object.keys(body).every(key => keys.includes(key));
-  })], 
+  })],
   async (req, res) => {
     // Validate API request
     const validate = sec_utils.APIRequestIsValid(req);
     if (validate.statusCode != 200) {
       return res.status(validate.statusCode).json({message: validate.message});
     }
-    
+
     var ip = req.connection.remoteAddress;
     console.log(ip, req.body.email);
     //Check if user already exists
@@ -106,7 +106,7 @@ router.post('/account/verify', [
   body().custom(body => {
     const keys = ['jwtToken'];
     return Object.keys(body).every(key => keys.includes(key));
-  })], 
+  })],
   async (req, res) => {
     // Validate API request
     const validate = sec_utils.APIRequestIsValid(req);
@@ -130,7 +130,7 @@ router.post('/account/verify', [
     if (passwordRes.statusCode != 200) {
       return res.status(passwordRes.statusCode).json({message: passwordRes.message});
     }
-    
+
     delete user['iat'];
     delete user['exp'];
     user['password'] = passwordRes.body;

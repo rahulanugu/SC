@@ -95,7 +95,7 @@ jobs:
     # pre-process and upload build output to AWS S3
   
     - name: zip artifact
-      uses: papeloto/action-zip@v1
+      uses: vimtor/action-zip@v1
       with: 
         files: web-application/node appspec.yml start_setup.sh
         recursive: true
