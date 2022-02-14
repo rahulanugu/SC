@@ -60,38 +60,38 @@
 //     }
 
 
-//     return res.status(200).json(user);
+// //     return res.status(200).json(user);
+// // });
+
+// // module.exports = router;
+
+// var express = require('express');
+// var bodyParser = require('body-parser');
+// var mysql = require('mysql');
+// var app = express.Router();
+
+//  app.use(bodyParser.json({limit: '50mb'}));
+//  app.use(express.static('public'));
+
+// var connection = mysql.createConnection({
+// host: 'database-1.cgurbeaohou6.us-east-2.rds.amazonaws.com',
+// user: 'admin',
+// password: 'Scriptchain21',
+// port: 3306,
+// database: 'scriptchain'
 // });
+// connection.connect();
 
-// module.exports = router;
-
-var express = require('express');
-var bodyParser = require('body-parser');
-var mysql = require('mysql');
-var app = express.Router();
-
- app.use(bodyParser.json({limit: '50mb'}));
- app.use(express.static('public'));
-
-var connection = mysql.createConnection({
-host: 'database-1.cgurbeaohou6.us-east-2.rds.amazonaws.com',
-user: 'admin',
-password: 'Scriptchain21',
-port: 3306,
-database: 'scriptchain'
-});
-connection.connect();
-
- app.post('/contact_us', function(req, res, next) {
- var cope = req.body;
- console.log('request received:', req.body);
-var query = connection.query('insert into cope set ?', cope, function (err,     result) {
- if (err) {
-     console.error(err);
-     return res.send(err);
- } else {
-     return res.send('Ok');
- }
-  });
-});
-module.exports = app;
+//  app.post('/contact_us', function(req, res, next) {
+//  var cope = req.body;
+//  console.log('request received:', req.body);
+// var query = connection.query('insert into cope set ?', cope, function (err,     result) {
+//  if (err) {
+//      console.error(err);
+//      return res.send(err);
+//  } else {
+//      return res.send('Ok');
+//  }
+//   });
+// });
+// module.exports = app;
