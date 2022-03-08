@@ -61,3 +61,5 @@ You should now have the full website running that is connected to the MongoDB da
 | If working on the frontend, delete any unwanted/not used components. | Keeping unwanted components or components not in use creates unnecessary load and unnecessarily increases the size of the code base. |
 | If working on the backend, delete any unwanted/not used controllers and files. | Keeping unwanted controllers or files not in use creates unnecessary load and unnecessarily increases the size of the code base. |
 | If working on the frontend, do not use any script tags in the html files. Angular ignores script tags during execution. | Using code that is eventually going to be ignored will contribute unnecessarily to the size of the code base. |
+| If you comment a chunk of code out, please comment why you commented out this said chunk of code. | This will inform the
+reader what is the purpose of this mass uncommenting.|
