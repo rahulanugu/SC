@@ -1,0 +1,41 @@
+<nav fxLayout="row">
+  <div class="leftHeader" fxLayoutAlign="start center" fxFlex="50" fxHide fxShow.gt-sm>
+    <!-- Logo -->
+    <a class="logo" routerLink=""
+      ><img
+        src="./assets/company-logo/scriptchain-health-logo.svg"
+        style="height: 50px"
+    /></a>
+
+    <ul fxLayoutGap="30px">
+      <li><a href="">Partnerships</a></li>
+      <li><a href="">Blog</a></li>
+      <li><a href="">About</a></li>
+      <li><a href="">Support</a></li>
+    </ul>
+  </div>
+
+  <div class="rightHeader" fxFlex="50" fxLayoutAlign="end center">
+    <div fxHide fxShow.gt-sm>
+      <button mat-icon-button>
+        <mat-icon class="search">search</mat-icon>
+      </button>
+      <button class="login" mat-button>Log in</button>
+      <button class="signup" mat-flat-button color="primary">Sign Up</button>
+    </div>
+    <div  fxShow fxHide.gt-sm>
+      <button class="dropdown" mat-button [matMenuTriggerFor]="menu">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <a class="logo-sm" routerLink=""><img src="./assets/company-logo/scriptchain-health-logo.svg"style="height: 50px"></a>
+      <mat-menu class="matMenu" #menu="matMenu">
+        <button mat-menu-item>Partnerships</button>
+        <button mat-menu-item>Blog</button>
+        <button mat-menu-item>About</button>
+        <button mat-menu-item>Support</button>
+        <button mat-menu-item>Log In</button>
+        <button mat-menu-item>Sign Up</button>
+      </mat-menu>
+    </div>
+  </div>
+</nav>

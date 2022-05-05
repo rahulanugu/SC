@@ -131,6 +131,12 @@ import { ShareModule } from 'ngx-sharebuttons';
 import { ToastrModule } from 'ngx-toastr';
 import { AllscriptsLoginComponent } from "./allscriptslogin/allscriptslogin.component";
 import { PortalProgressBarComponent } from './shared/components/portal-progress-bar/portal-progress-bar.component';
+import { LandingPageDemoComponent } from './landing-page-demo/landing-page-demo.component';
+import { LandingPageDemoHeaderComponent } from './landing-page-demo-header/landing-page-demo-header.component';
+import { LandingPageDemoWelcomeMessageComponent } from './landing-page-demo-welcome-message/landing-page-demo-welcome-message.component';
+import { LandingPageDemoDataComponent } from './landing-page-demo-data/landing-page-demo-data.component';
+import { LandingPageDemoAboutUsComponent } from './landing-page-demo-about-us/landing-page-demo-about-us.component';
+import { LandingPageDemoInformationComponent } from './landing-page-demo-information/landing-page-demo-information.component';
 
 
 @NgModule({
@@ -226,6 +232,12 @@ import { PortalProgressBarComponent } from './shared/components/portal-progress-
     IndustryCardComponent,
     BlogPostComponent,
     PortalProgressBarComponent,
+    LandingPageDemoComponent,
+    LandingPageDemoHeaderComponent,
+    LandingPageDemoWelcomeMessageComponent,
+    LandingPageDemoDataComponent,
+    LandingPageDemoAboutUsComponent,
+    LandingPageDemoInformationComponent,
   ],
 
   imports: [

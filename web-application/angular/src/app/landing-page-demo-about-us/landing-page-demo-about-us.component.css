@@ -1,0 +1,33 @@
+div{
+  display: grid;
+  background-color: white;
+  text-align: center;
+  height: 220px;
+  color: #2D5059;
+}
+div h1{
+  margin: 0 auto;
+  margin-top: 40px;
+  height: max-content;
+  font-family: "Rubik One";
+  font-size: 43px;
+}
+div h3{
+  align-items: center;
+  height: max-content;
+  width: 40%;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  font-family: "Lato";
+  font-weight: bold;
+  font-size: 25px;
+}
+
+h2{
+  margin-top: 20px;
+}
+h5{
+  margin-bottom: 50px;
+}
+
+
