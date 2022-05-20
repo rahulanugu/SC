@@ -1,4 +1,3 @@
-import { LandingPageDemoComponent } from './landing-page-demo/landing-page-demo.component';
 import { TermsConditionsComponent } from "./terms-conditions/terms-conditions.component";
 import { PrivacyPolicyComponent } from "./privacy-policy/privacy-policy.component";
 import { ContactUsComponent } from "./contact-us/contact-us.component";
@@ -144,14 +143,11 @@ const routes: Routes = [
   { path: "apply-job/:jobid", component: ApplyJobComponent },
   { path: "job-openings", component: JobOpeningsComponent},
   { path: "terms-conditions", component: TermsConditionsComponent },
-  { path: "", redirectTo: "/landingdemo", pathMatch: "full" },
+  { path: "", redirectTo: "/home", pathMatch: "full" },
   { path: "registersuccessful", component: RegisterSuccessfulPageComponent },
   { path: "deactivatedpatient", component: DeactivatedPatientComponent },
   { path: "reactivatepatient", component: ReactivatePatientComponent },
   {path: "reactivatehealthcareprovider",component: ReactivateHealthcareProviderComponent},
-  {
-    path: "landingdemo",component:LandingPageDemoComponent
-  },
   {
     path: "searchTest",
     component: HomePageComponent,

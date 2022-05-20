@@ -1,97 +1,186 @@
-<!-- Sammy - add blog page link -->
-<footer class="page-footer font-small" (window:resize)="onResize($event)">
-  <div>
-    <div
-      class="text-center text-md-left px-4 py-4"
-      style="background-color: #0d1a1e"
-    >
-      <div class="row">
-        <div class="col-sm">
-          <h6 class="text mb-4 font-weight-bold">About</h6>
-          <p>
-            <a class="anchor" routerLink="/whatisscriptchain">What is ScriptChain Health?</a>
-          </p>
-          <p>
-            <a class="anchor" routerLink="/blog">Explore Our Blog</a>
-          </p>
-          <p>
-            <a class="anchor" routerLink="/capabilitystatement">Capability Statement</a>
-          </p>
-          <p>
-            <a class="anchor" routerLink="/whoweare">Who We Are</a>
-          </p>
-          <!-- <p>
-            <a routerLink="/blog">Blog</a>
-          </p> -->
-        </div>
-  
-        <div class="col-sm">
-          <h6 class="text mb-4 font-weight-bold">Partnerships</h6>
-          <!-- <p>
-            <a href="javascript:void(0)">Our Partners</a>
-          </p> -->
-          <p>
-            <a class="anchor" routerLink="/becomeapartner">Become a Partner</a>
-          </p>
-        </div>
-        <div class="col-sm">
-          <h6 class="text mb-4 font-weight-bold">Providers</h6>
-          <p>
-            <a class="anchor" href="javascript:void(0)" >Information</a>
-          </p>
-          <p>
-            <a class="anchor" routerLink="/healthcare/login">Provider Portal</a>
-          </p>
-        </div>
-        <div class="col-sm">
-          <h6 class="text mb-4 font-weight-bold">Patients</h6>
-          <p>
-            <a class="anchor" href="javascript:void(0)" >Information</a>
-          </p>
-          <p>
-            <a class="anchor" href="javascript:void(0)" >Patient Portal</a>
-          </p>
-        </div>
-        <div class="col-sm">
-          <h6 class="text mb-4 font-weight-bold">Support</h6>
-  
-          <p><a class="anchor" routerLink="/faq">FAQ</a></p>
-  
-          <p>
-            <a class="anchor" routerLink="/request-access">Request Access</a>
-          </p>
-        </div>
-        <div class="col-sm-5 text-right" id="contactId">
-          <p>
-            <label>Need to get in touch?</label>
-          </p>
-          <p>
-            <a class="anchor" routerLink="/contact-us">
-              <button type="button">Contact</button></a
-            >
-          </p>
-          <p>
-            <label id="support" style="color: #ffffff"
-              >For technical issues, please visit our
-              <a
-                class="anchor"
-                routerLink="/faq"
-                style="
-                  text-decoration: underline;
-                  color: #ffffff;
-                  font-size: 18px;
-                "
-                >support page</a
-              >.</label
-            >
-          </p>
+<!-- Footer -->
+<footer fxHide fxShow.gt-sm class="page-footer font-small blue pt-4">
+  <!-- Footer Links -->
+  <div class="container-fluid text-center text-md-left">
+    <!-- Grid row -->
+    <div class="row">
+      <!-- Grid column -->
+      <div class="col-md-5 mt-md-0 mt-3">
+        <!-- Content -->
+        <img
+          class="logo"
+          src="../../assets/company-logo/scriptchain-health-logo.svg"
+          alt=""
+        />
+        <p class="description">
+          We use AI for Cardiovascular Disease and Readmission prevention by
+          optimizing the point of care at the time of admission.
+        </p>
+        <div class="icons">
+          <a href=""><img src="../../assets/icons/facebook.svg" alt=""></a>
+          <a href=""><img src="../../assets/icons/instagram.svg" alt=""></a>
+          <a href=""><img src="../../assets/icons/twitter.svg" alt=""></a>
+          <a href=""><img src="../../assets/icons/linkedin.svg" alt=""></a>
         </div>
       </div>
+      <!-- Grid column -->
+
+      <hr class="clearfix w-100 d-md-none pb-3" />
+
+      <!-- Grid column -->
+      <div class="col">
+        <!-- Links -->
+        <h5>Partnerships</h5>
+
+        <ul class="list-unstyled">
+          <li>
+            <a routerLink="/becomeapartner">Become a Partner</a>
+          </li>
+        </ul>
+      </div>
+      <!-- Grid column -->
+
+      <!-- Grid column -->
+      <div class="col middle">
+        <!-- Links -->
+        <h5>About</h5>
+
+        <ul class="list-unstyled">
+          <li>
+            <a routerLink="/whatisscriptchain">What is ScriptChain Health</a>
+          </li>
+          <li>
+            <a routerLink="/blog">Explore Our Blog</a>
+          </li>
+          <li>
+            <a routerLink="/capabilitystatement">Capability Statement</a>
+          </li>
+          <li>
+            <a routerLink="/whoweare">Who We Are</a>
+          </li>
+        </ul>
+      </div>
+      <!-- Grid column -->
+      <div class="col">
+        <!-- Links -->
+        <h5>Support</h5>
+
+        <ul class="list-unstyled">
+          <li>
+            <a routerLink="/faq">Faq</a>
+          </li>
+          <li>
+            <a routerLink="/request-access">Request Access</a>
+          </li>
+        </ul>
+      </div>
+      <!-- Grid row -->
+      <div class="col"></div>
     </div>
-    <!-- Copyright -->
-    <div class="footer-copyright text-right px-2 py-3 text-center">
-      <label>&copy; 2021 ScriptChain Health. All rights reserved. <a class="subLink" routerLink="/privacy-policy" style="text-decoration: none;">Privacy Policy</a> | <a class="subLink" routerLink="/terms-conditions" style="text-decoration: none;">Terms & Conditons</a></label>
-    </div>
-    <!-- Copyright -->
+    <!-- Grid row -->
   </div>
+  <!-- Footer Links -->
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">
+    <label for="">© 2022 ScriptChain Health. All rights reserved. </label>
+    <a href="">Privacy Policy</a>
+    <label for=""> </label>
+    <a href="">Terms & Conditons</a>
+  </div>
+  <!-- Copyright -->
 </footer>
+
+<!-- Mobile View -->
+<footer fxShow fxHide.gt-sm class="page-footer font-small blue pt-4">
+  <!-- Footer Links -->
+  <div class="container-fluid text-center text-md-left">
+    <!-- Grid row -->
+    <div class="row">
+      <!-- Grid column -->
+      <div class="col">
+        <!-- Content -->
+        <img
+          class="logo"
+          src="../../assets/company-logo/scriptchain-health-logo.svg"
+          alt=""
+        />
+        <p class="top">
+          We use AI for Cardiovascular Disease and Readmission prevention by
+          optimizing the point of care at the time of admission.
+        </p>
+        <div class="icons">
+          <a href=""><img src="../../assets/icons/facebook.svg" alt=""></a>
+          <a href=""><img src="../../assets/icons/instagram.svg" alt=""></a>
+          <a href=""><img src="../../assets/icons/twitter.svg" alt=""></a>
+          <a href=""><img src="../../assets/icons/linkedin.svg" alt=""></a>
+        </div>
+      </div>
+      <!-- Grid column -->
+
+      <hr class="clearfix w-100 d-md-none pb-3" />
+
+      <!-- Grid column -->
+      <div class="col">
+        <!-- Links -->
+        <h5>Partnerships</h5>
+
+        <ul class="list-unstyled">
+          <li>
+            <a routerLink="/becomeapartner">Become a Partner</a>
+          </li>
+        </ul>
+      </div>
+      <!-- Grid column -->
+
+      <!-- Grid column -->
+      <div class="col middle">
+        <!-- Links -->
+        <h5>About</h5>
+
+        <ul class="list-unstyled">
+          <li>
+            <a routerLink="/whatisscriptchain">What is ScriptChain Health</a>
+          </li>
+          <li>
+            <a routerLink="/blog">Explore Our Blog</a>
+          </li>
+          <li>
+            <a routerLink="/capabilitystatement">Capability Statement</a>
+          </li>
+          <li>
+            <a routerLink="/whoweare">Who We Are</a>
+          </li>
+        </ul>
+      </div>
+      <!-- Grid column -->
+      <div class="col">
+        <!-- Links -->
+        <h5>Support</h5>
+
+        <ul class="list-unstyled">
+          <li>
+            <a routerLink="/faq">Faq</a>
+          </li>
+          <li>
+            <a routerLink="/request-access">Request Access</a>
+          </li>
+        </ul>
+      </div>
+      <!-- Grid row -->
+
+    </div>
+    <!-- Grid row -->
+  </div>
+  <!-- Footer Links -->
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">
+    <label for="">© 2022 ScriptChain Health. All rights reserved. </label>
+    <a href="">Privacy Policy</a>
+    <label for=""> </label>
+    <a href="">Terms & Conditons</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+<!-- Footer -->

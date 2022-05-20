@@ -131,12 +131,9 @@ import { ShareModule } from 'ngx-sharebuttons';
 import { ToastrModule } from 'ngx-toastr';
 import { AllscriptsLoginComponent } from "./allscriptslogin/allscriptslogin.component";
 import { PortalProgressBarComponent } from './shared/components/portal-progress-bar/portal-progress-bar.component';
-import { LandingPageDemoComponent } from './landing-page-demo/landing-page-demo.component';
-import { LandingPageDemoHeaderComponent } from './landing-page-demo-header/landing-page-demo-header.component';
-import { LandingPageDemoWelcomeMessageComponent } from './landing-page-demo-welcome-message/landing-page-demo-welcome-message.component';
-import { LandingPageDemoDataComponent } from './landing-page-demo-data/landing-page-demo-data.component';
-import { LandingPageDemoAboutUsComponent } from './landing-page-demo-about-us/landing-page-demo-about-us.component';
-import { LandingPageDemoInformationComponent } from './landing-page-demo-information/landing-page-demo-information.component';
+import { LandingPageCarouselComponent } from './landing-page-carousel/landing-page-carousel.component';
+import { LandingPageWelcomeMessageComponent } from './landing-page-welcome-message/landing-page-welcome-message.component';
+import { LandingPageInformationComponent } from './landing-page-information/landing-page-information.component';
 
 
 @NgModule({
@@ -232,12 +229,9 @@ import { LandingPageDemoInformationComponent } from './landing-page-demo-informa
     IndustryCardComponent,
     BlogPostComponent,
     PortalProgressBarComponent,
-    LandingPageDemoComponent,
-    LandingPageDemoHeaderComponent,
-    LandingPageDemoWelcomeMessageComponent,
-    LandingPageDemoDataComponent,
-    LandingPageDemoAboutUsComponent,
-    LandingPageDemoInformationComponent,
+    LandingPageCarouselComponent,
+    LandingPageWelcomeMessageComponent,
+    LandingPageInformationComponent,
   ],
 
   imports: [

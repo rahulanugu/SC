@@ -41,145 +41,134 @@
       })(window, document, "https://static.hotjar.com/c/hotjar-", ".js?sv=");
     </script>
   </head>
-
+  <app-landing-page-header></app-landing-page-header>
   <body>
-    <app-landing-page-header></app-landing-page-header>
     <div class="container">
-      <div fxLayout="column" fxLayoutAlign.sm="center center" fxLayoutAlign.md="center center" fxLayoutAlign.lg="center center">
-        <div class="px-xs-3 px-sm-3">
+      <mat-grid-list cols="2" rowHeight="200px" [gutterSize]="'10px'">
+        <mat-grid-tile [colspan]="2" [rowspan]="1">
           <h3 class="loginHeading">What is ScriptChain Health?</h3>
-          <div>
-            <div class="card text-center pt-3">
-              <img class="img img-fluid img-responsive mx-auto d-block" src="../../assets/icons/heart.svg" alt="">
-              <h3>Preventative Healthcare</h3>
-              <p>
-                Covering the first half of quality healthcare which is to prevent
-                and lower the risk of heart disease.
-              </p>
-            </div>
+        </mat-grid-tile>
+        <!-- Row 1 -->
+        <mat-grid-tile [rowspan]="2">
+          <div class="card">
+            <img
+              src="../../assets/icons/cloud-service.svg"
+              alt=""
+              class="img-card"
+            />
+            <h3>HIPAA & HITECH</h3>
+            <p>
+              We are a cloud application that is HIPAA compliant and HITECH
+              compliant.
+            </p>
           </div>
-          <!--Row1-->
-          <div class="row">
-            <div class="col">
-              <div class="card text-center pt-3">
-                <img src="../../assets/icons/clock.svg" alt="" class="img img-fluid img-responsive mx-auto d-block">
-                <h3>Time Savings</h3>
-                <p>
-                  We significantly reduce the amount of time spent reviewing medical
-                  data and make more time for patient care.
-                </p>
-              </div>
-            </div>
+        </mat-grid-tile>
+        <mat-grid-tile [rowspan]="2">
+          <div class="card">
+            <img
+              src="../../assets/icons/encrypted.svg"
+              alt=""
+              class="img-card"
+            />
+            <h3>Data Security</h3>
+            <p>
+              We know that your medical data is important so we've made sure
+              that we make data security a top priority.
+            </p>
           </div>
-  
-          <!---Row2-->
-          <div class="row">
-            <div class="col">
-              <div class="card text-center pt-3">
-                <img src="../../assets/icons/artificial-intelligence.svg" alt="" class="img img-responsive img-fluid mx-auto d-block">
-                <h3>Artificial Intelligence</h3>
-                <p>
-                  Using deep learning models to reduce the mortality rate for
-                  cardiovascular disease and decrease the costs of readmission for
-                  healthcare institutions.
-                </p>
-              </div>
-            </div>
-            <!-- <div class="col">
-                <div class="rectangle">Video</div>
-              </div> -->
+        </mat-grid-tile>
+        <!-- Row  2-->
+        <mat-grid-tile [rowspan]="2">
+          <div class="card">
+            <img src="../../assets/icons/book.svg" alt="" class="img-card" />
+            <h3>American College of Cardiology</h3>
+            <p>
+              We follow the American College of Cardiology guidelines on how AI
+              algorithms are developed.
+            </p>
           </div>
-          <!--Row1-->
-          <div class="row">
-            <!-- <div class="col">
-                <div class="rectangle">Video</div>
-              </div> -->
-            <div class="col">
-              <div class="card text-center pt-3">
-                <img src="../../assets/icons/diagnosis.svg" alt="" class="img img-responsive img-fluid mx-auto d-block">
-                <h3>Plug-in Platform</h3>
-                <p>
-                  ScriptChain integrates with EMR systems like EPIC systems,
-                  Athenahealth, Cerner, Allscripts, and soon to be eClinical.
-                </p>
-              </div>
-            </div>
+        </mat-grid-tile>
+        <mat-grid-tile [rowspan]="2">
+          <div class="card">
+            <img
+              src="../../assets/icons/analysis.svg"
+              alt=""
+              class="img-card"
+            />
+            <h3>Data Accuracy</h3>
+            <p>
+              Being able to track and trace all your inputs into the system with
+              log information easily accessible.
+            </p>
           </div>
-          <!---Row2-->
-          <div class="row">
-            <div class="col">
-              <div class="card text-center pt-3">
-                <img src="../../assets/icons/analysis.svg" alt="" class="img img-responsive img-fluid mx-auto d-block">
-                <h3>Data Accuracy</h3>
-                <p>
-                  Being able to track and trace all your inputs into the system
-                  with log information easily accessible.
-                </p>
-              </div>
-            </div>
-            <!-- <div class="col">
-                <div class="rectangle">Video</div>
-              </div> -->
+        </mat-grid-tile>
+        <!-- Row 3 -->
+        <mat-grid-tile [rowspan]="2">
+          <div class="card">
+            <img
+              src="../../assets/icons/diagnosis.svg"
+              alt=""
+              class="img-card"
+            />
+            <h3>Plug-in Platform</h3>
+            <p>
+              ScriptChain integrates with EMR systems like EPIC systems,
+              Athenahealth, Cerner, Allscripts, and soon to be eClinical.
+            </p>
           </div>
-  
-          <!--Row1-->
-          <div class="row">
-            <!-- <div class="col">
-                <div class="rectangle">Video</div>
-              </div> -->
-            <div class="col">
-              <div class="card text-center pt-3">
-                <img src="../../assets/icons/book.svg" alt="" class="img img-responsive img-fluid mx-auto d-block">
-                <h3>American College of Cardiology</h3>
-                <p>
-                  We follow the American College of Cardiology guidelines on how
-                  AI algorithms are developed.
-                </p>
-              </div>
-            </div>
+        </mat-grid-tile>
+        <mat-grid-tile [rowspan]="2">
+          <div class="card">
+            <img
+              src="../../assets/icons/artificial-intelligence.svg"
+              alt=""
+              class="img-card"
+            />
+            <h3>Artificial Intelligence</h3>
+            <p>
+              Using deep learning models to reduce the mortality rate for
+              cardiovascular disease and decrease the costs of readmission for
+              healthcare institutions.
+            </p>
           </div>
-          <!---Row2-->
-          <div class="row">
-            <div class="col">
-              <div class="card text-center pt-3">
-                <img src="../../assets/icons/cloud-service.svg" alt="" class="img img-responsive img-fluid mx-auto d-block">
-                <h3>HIPAA & HITECH</h3>
-                <p>
-                  We are a cloud application that is HIPAA compliant and HITECH
-                  compliant.
-                </p>
-              </div>
-            </div>
-            <!-- <div class="col">
-                <div class="rectangle">Video</div>
-              </div> -->
+        </mat-grid-tile>
+        <!-- Row 4 -->
+        <mat-grid-tile [rowspan]="2">
+          <div class="card">
+            <img
+              src="../../assets/icons/clock.svg"
+              alt=""
+              class="img-card"
+            />
+            <h3>Time Savings</h3>
+            <p>
+              We significantly reduce the amount of time spent reviewing medical
+              data and make more time for patient care.
+            </p>
           </div>
-          <!--Row1-->
-          <div class="row">
-            <!-- <div class="col">
-                <div class="rectangle">Images</div>
-              </div> -->
-            <div class="col">
-              <div class="card text-center pt-3">
-                <img src="../../assets/icons/encrypted.svg" alt="" class="img img-responsive img-fluid mx-auto d-block">
-                <h3>Data Security</h3>
-                <p>
-                  We know that your medical data is important so we've made sure
-                  that we make data security a top priority.
-                </p>
-              </div>
-            </div>
+        </mat-grid-tile>
+        <mat-grid-tile [rowspan]="2">
+          <div class="card">
+            <img
+              class="img-card"
+              src="../../assets/icons/heart.svg"
+              alt=""
+            />
+            <h3>Preventative Healthcare</h3>
+            <p>
+              Covering the first half of quality healthcare which is to prevent
+              and lower the risk of heart disease.
+            </p>
           </div>
-          <!---Row2-->
-        </div>
-        <div class="mt-5" fxLayout="column" fxLayoutAlign="center center">
-          <h3>Ready to sign up?</h3>
-          <a routerLink="/healthcare/register">
-            <button type="submit" class="signUpBtn">Sign Up</button>
-          </a>
-        </div>
-  
-      </div>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+    <!-- Sign Up -->
+    <div class="mt-5" fxLayout="column" fxLayoutAlign="center center">
+      <h3>Ready to sign up?</h3>
+      <a routerLink="/healthcare/register">
+        <button type="submit" class="signUpBtn">Sign Up</button>
+      </a>
     </div>
     <div>
       <app-landing-page-subfooter></app-landing-page-subfooter>

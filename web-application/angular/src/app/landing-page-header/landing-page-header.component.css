@@ -1,44 +1,45 @@
-.helpBtn {
-  width: 124px;
-  height: 40px;
-
-  margin-right: 16px;
-  /* Teal 400 */
-  color: #ffffff;
+.nav{
+  position: fixed;
+  width: 100%;
+  z-index: 10;
+  border-bottom: 1px #2d50599c  solid;
+  box-shadow: 0 2px 55px 1px #2d5059c9
+}
+.mat-toolbar{
   background: #2d5059;
-  /* White */
-  margin-top: 12px;
-  border: 2px solid #ffffff;
-  box-sizing: border-box;
-  border-radius: 8px;
-  font-size: 18px;
-  font-family: "Lato", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+.dropdown{
+  margin-top: 7px;
+  left: 15px;
+}
+.leftHeader {
+  background-color: seashell;
+  padding-left: 15px;
+}
+.leftHeader button{
+  text-decoration: none;
+  color: teal;
+  font-family: "Lato";
+  font-weight: medium;
+  margin: 0 6px;
+}
+.right{
+  padding-right: 15px;
+}
+.rightHeader{
+  width: 100%;
+  margin-right: 15px;
+}
+.search , .login{
+  color: seashell;
+  font-weight: medium;
+}
+.signup{
+  background-color: seashell;
+  color: teal;
+  font-family: "Lato";
   font-weight: bold;
-  margin-bottom: 21px;
 }
 
-.mat-drawer-container {
-  position: inherit !important;
-}
-
-.example-icon {
-  padding: 0 14px;
-}
-
-.example-spacer {
-  flex: 1 1 auto;
-}
-.mat-toolbar {
-  background: #2d5059;
-
-  color: #fff;
-}
-
-.menu:hover {
-  text-decoration: none!important;
-  color:white!important;
-}
-
-.mat-menu-trigger:focus {
-  outline: none;
-}

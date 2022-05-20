@@ -1,0 +1,70 @@
+.left {
+  height: 500px;
+  background-color: seashell;
+}
+
+.left div {
+  margin-top: 164px;
+  margin-left: 5%;
+}
+
+h1 {
+  color: #2D5059;
+  font-family: "Rubik One";
+  font-size: 43px;
+}
+
+h1 p {
+  display: inline;
+  background-color: #3366ff;
+  color: seashell;
+}
+
+h1 a {
+  color: inherit;
+  text-decoration: underline 3px;
+}
+
+button {
+  background-color: #2D5059;
+  color: seashell;
+  font-family: "Lato";
+  font-size: 15px;
+  width: 300px;
+  height: 40px;
+  border-style: none;
+}
+
+.image {
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 500px;
+}
+
+.top {
+  margin: 0 auto !important;
+  min-height: min-content;
+  max-height: 250px;
+  align-items: center;
+  width: 100vw;
+  background-color: seashell;
+}
+
+.smallWelcome {
+  text-align: center;
+  font-size: 25px;
+}
+
+.top div {
+  margin-top: 75px;
+}
+
+.top button {
+display: block;
+  margin-top: 10px;
+  margin: 0 auto;
+}
+
+.bottom {
+  background-size: cover;
+}

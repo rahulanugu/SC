@@ -4,7 +4,7 @@
   text-align: center;
   font-size: 36px;
   padding-top: 40px;
-  margin-top: 40px;
+  margin-top: 50px;
   font-style: normal;
   font-weight: normal;
   font-size: 36px;
@@ -20,7 +20,7 @@ html {
 body {
   width: 100%;
   display: table-cell;
-  background-color: #faf6f2;
+  background-color: seashell;
   font-family: "Lato", sans-serif;
 }
 
@@ -31,13 +31,11 @@ body {
 }
 
 #logo {
+  display: flex;
   width: 448px;
   height: 252px;
-  left: 496px;
-  top: 183px;
-  margin-left: 496px;
-
   border-radius: 8px;
+  margin: 0 auto;
 }
 
 .content1 h3 {
@@ -63,6 +61,7 @@ body {
 }
 
 .signUpBtn {
+  display: flex;
   width: 223px;
   height: 40px;
   color: white;
@@ -71,10 +70,10 @@ body {
   font-size: 18px;
   font-family: "Lato", sans-serif;
   font-weight: bold;
-  margin-right: 17px;
   border-radius: 7px;
-  margin-bottom: 49px;
-  margin-left: 608px;
+  margin: 10px auto;
+  justify-content: center;
+  text-align: center;
 }
 
 .content2 {

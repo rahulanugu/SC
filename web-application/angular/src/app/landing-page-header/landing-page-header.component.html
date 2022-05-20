@@ -1,84 +1,74 @@
 <!-- Sammy - add blog page link -->
-<div>
-  <mat-toolbar color="primary">
-    <mat-toolbar-row>
-      <button
-        mat-icon-button
-        (click)="sidenav.toggle()"
-        fxShow="true"
-        fxHide.gt-sm
-      >
-        <mat-icon>menu</mat-icon>
-      </button>
+<div class="nav">
+  <mat-toolbar>
+    <button
+      class="dropdown"
+      mat-icon-button
+      [matMenuTriggerFor]="menu"
+      fxShow
+      fxHide.gt-sm
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+    <a style="margin-left: 15px" fxShow fxHide.gt-sm routerLink="/home"
+      ><img
+        src="../../assets/company-logo/scriptchain-health-logo.svg"
+        style="height: 64px"
+    /></a>
+    <mat-menu class="matMenu" #menu="matMenu">
+      <button routerLink="/partnerships" mat-menu-item>Partnerships</button>
+      <button mat-menu-item>Blog</button>
+      <button mat-menu-item>About</button>
+      <button mat-menu-item>Support</button>
+      <button mat-menu-item>Log In</button>
+      <button mat-menu-item>Sign Up</button>
+    </mat-menu>
+    <mat-toolbar
+      class="leftHeader"
+      fxHide
+      fxShow.gt-sm
+      fxLayoutAlign="start center"
+      fxFlex="100"
+    >
       <span
-        ><a routerLink="/home"><img src="./assets/company-logo/scriptchain-health-logo.svg" style="height: 56px" /></a
+        ><a routerLink="/home"
+          ><img
+            src="../../assets/company-logo/scriptchain-health-logo-dark.svg"
+            style="height: 64px" /></a
       ></span>
-      <span class="example-spacer"></span>
-      <div fxShow="true" fxHide.lt-md="true">
+      <div>
         <!-- The following menu items will be hidden on both SM and XS screen sizes -->
         <!-- #docregion mat-menu-trigger-for -->
-        <button mat-button [matMenuTriggerFor]="menu" #menuTrigger1="matMenuTrigger" (mouseenter)="mouseEnter(menuTrigger1)" (mouseleave)="mouseLeave(menuTrigger1)">About</button>
-        <!-- #enddocregion mat-menu-trigger-for -->
-        <mat-menu #menu="matMenu" [hasBackdrop]="false">
-          <a routerLink="/whatisscriptchain" mat-menu-item (mouseenter)="mouseEnter(menuTrigger1)" (mouseleave)="mouseLeave(menuTrigger1)">What is ScriptChain Health?</a>
-          <a routerLink="/blog" mat-menu-item (mouseenter)="mouseEnter(menuTrigger1)" (mouseleave)="mouseLeave(menuTrigger1)">Blog page</a>
-          <a routerLink="/capabilitystatement" mat-menu-item (mouseenter)="mouseEnter(menuTrigger1)" (mouseleave)="mouseLeave(menuTrigger1)">Capability Statement</a>
-          <a routerLink="/whoweare" mat-menu-item (mouseenter)="mouseEnter(menuTrigger1)" (mouseleave)="mouseLeave(menuTrigger1)">Our Team</a>
-          <!-- <a routerLink="/blog" mat-menu-item>Blog</a> -->
-        </mat-menu>
+        <button mat-button routerLink="/partnerships">Partnership</button>
 
         <!-- #docregion mat-menu-trigger-for -->
-        <button mat-button [matMenuTriggerFor]="menu1" #menuTrigger2="matMenuTrigger" (mouseenter)="mouseEnter(menuTrigger2)" (mouseleave)="mouseLeave(menuTrigger2)">Partnerships</button>
-        <!-- #enddocregion mat-menu-trigger-for -->
-        <mat-menu #menu1="matMenu" [hasBackdrop]="false">
-          <!-- <a href="javascript:void(0)" mat-menu-item>Our Partners</a> -->
-          <a routerLink="/becomeapartner" mat-menu-item (mouseenter)="mouseEnter(menuTrigger2)" (mouseleave)="mouseLeave(menuTrigger2)">Become a Partner</a>
-        </mat-menu>
-        <a routerLink="/healthcare/login" class='menu' mat-button> Providers </a>
-        <a href="javascript:void(0)" class='menu' mat-button> Patients </a>
+        <button mat-button>Blog</button>
 
         <!-- #docregion mat-menu-trigger-for -->
-        <button mat-button [matMenuTriggerFor]="menu2"  #menuTrigger3="matMenuTrigger" (mouseenter)="mouseEnter(menuTrigger3)" (mouseleave)="mouseLeave(menuTrigger3)">Support</button>
-        <!-- #enddocregion mat-menu-trigger-for -->
-        <mat-menu #menu2="matMenu" [hasBackdrop]="false">
-          <a routerLink="/request-access" mat-menu-item (mouseenter)="mouseEnter(menuTrigger3)" (mouseleave)="mouseLeave(menuTrigger3)">Request Access</a>
-          <a href="faq" mat-menu-item (mouseenter)="mouseEnter(menuTrigger3)" (mouseleave)="mouseLeave(menuTrigger3)">FAQs</a>
-        </mat-menu>
-        <a routerLink="/contact-us" class='menu' mat-button> Contact Us </a>
-        <button class="helpBtn" mat-raised-button onclick = "window.location.href='healthcare/login'">Login</button>
+        <button mat-button>About</button>
+
+        <!-- #docregion mat-menu-trigger-for -->
+        <button mat-button>Support</button>
       </div>
-    </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-toolbar class="right">
+      <div class="rightHeader" fxFlex="100" fxLayoutAlign="end center">
+        <div fxHide fxShow.gt-sm>
+          <button mat-icon-button>
+            <mat-icon class="search">search</mat-icon>
+          </button>
+          <button
+            onclick="window.location.href='healthcare/login'"
+            class="login"
+            mat-button
+          >
+            Log in
+          </button>
+          <button class="signup" mat-flat-button color="primary">
+            Sign Up
+          </button>
+        </div>
+      </div>
+    </mat-toolbar>
   </mat-toolbar>
-
-  <mat-sidenav-container fxFlexFill>
-    <mat-sidenav #sidenav>
-      <mat-nav-list>
-        <mat-accordion class="app-nav-accordion">
-          <mat-expansion-panel class="mat-elevation-z0">
-            <mat-expansion-panel-header>
-              <mat-panel-title>About</mat-panel-title>
-            </mat-expansion-panel-header>
-            <mat-nav-list>
-              <a routerLink="/whatisscriptchain" mat-list-item>What is ScriptChain Health?</a>
-              <a routerLink="/capabilitystatement" mat-list-item
-                >Capability Statement</a
-              >
-              <a routerLink="/whoweare" mat-list-item>Our Team</a>
-              <!-- <a routerLink="/blog" mat-list-item>Blog</a> -->
-            </mat-nav-list>
-          </mat-expansion-panel>
-        </mat-accordion>
-        <a href="javascript:void(0)" mat-list-item> Partnerships </a>
-        <!--need become a partner here-->
-        <a routerLink="/healthcare/login" mat-list-item> Providers</a>
-        <a href="javascript:void(0)" mat-list-item> Patients </a>
-        <a routerLink="/faq" mat-list-item> Support </a>
-        <a routerLink="/contact-us" mat-list-item> Contact Us </a>
-        <a routerLink="/healthcare/login" mat-list-item> Login</a>
-        <a (click)="sidenav.toggle()" mat-list-item>
-          <mat-icon>close</mat-icon> Close
-        </a>
-      </mat-nav-list>
-    </mat-sidenav>
-  </mat-sidenav-container>
 </div>

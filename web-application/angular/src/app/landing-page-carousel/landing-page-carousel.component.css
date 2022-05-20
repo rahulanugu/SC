@@ -1,0 +1,86 @@
+.body {
+  display: flex;
+}
+/* Centering controls and giving them size */
+.control{
+  display: flex;
+  width: 20%;
+  align-items: center;
+  justify-content: center;
+  font-size: 50px;
+  color: #2D5059;
+}
+/* Styling the H1 */
+.carousel-header {
+  text-align: center;
+  color: #2D5059;
+  font-size: 30px;
+  font-weight: bold;
+  font-family: "Lato Bold";
+  margin-bottom: 24px;
+}
+
+/* Styling the cards */
+.my-4{
+  margin-top: 0;
+}
+
+.card-body {
+  display: flex;
+  background-color: #BCE5C6;
+  min-height: 150px;
+  color: #2D5059;
+}
+
+.card-body p {
+  font-size: 16px;
+  font-style: "Lato";
+  text-align: center;
+  width: 80%;
+  margin: 5px 15px;
+  padding: 0;
+}
+.card-body::before{
+  content: '\275D';
+  font-size: 40px;
+  position: absolute;
+  top: 130px;
+  left: 10px;
+}
+.card-body::after{
+  position: absolute;
+  content: '\2760';
+  font-size: 40px;
+  bottom: 5px;
+  right: 10px;
+}
+
+.card .upper {
+  align-items: center;
+  margin: 0 auto;
+}
+
+.card img {
+  width: 20%;
+  align-self: center;
+  border-radius: 50%;
+  margin-top: 10px;
+}
+
+.upper h3,
+ .upper h4 {
+  text-align: center;
+  font-size: 14px;
+}
+.upper h3{
+  font-family: "Lato Bold";
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 0px;
+}
+ .upper h4{
+  font-family: "Lato";
+}
+.card-text{
+  font-size: 16px;
+}
