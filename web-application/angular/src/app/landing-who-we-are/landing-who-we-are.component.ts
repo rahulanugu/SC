@@ -8,13 +8,39 @@ import { Router } from '@angular/router';
 })
 export class LandingWhoWeAreComponent implements OnInit {
 
+  teamMembers:{
+    icon:string,
+    name:string,
+    title:string,
+    credentials:string
+  }[]=[
+    {icon:"../../assets/Avatar1.png",name:"Full Name",title:"title",credentials:"CS"},
+    {icon:"../../assets/Avatar1.png",name:"Full Name",title:"title",credentials:"CS"},
+    {icon:"../../assets/Avatar1.png",name:"Full Name",title:"title",credentials:"CS"},
+    {icon:"../../assets/Avatar1.png",name:"Full Name",title:"title",credentials:"CS"},
+    {icon:"../../assets/Avatar1.png",name:"Full Name",title:"title",credentials:"CS"},
+    {icon:"../../assets/Avatar1.png",name:"Full Name",title:"title",credentials:"CS"},
+    {icon:"../../assets/Avatar1.png",name:"Full Name",title:"title",credentials:"CS"},
+    {icon:"../../assets/Avatar1.png",name:"Full Name",title:"title",credentials:"CS"},
+    {icon:"../../assets/Avatar1.png",name:"Full Name",title:"title",credentials:"CS"},
+    {icon:"../../assets/Avatar1.png",name:"Full Name",title:"title",credentials:"CS"},
+    {icon:"../../assets/Avatar1.png",name:"Full Name",title:"title",credentials:"CS"},
+    {icon:"../../assets/Avatar1.png",name:"Full Name",title:"title",credentials:"CS"}
+  ]
+  advisors:{
+    icon:string,
+    name:string,
+    title:string,
+    credentials:string
+  }[]=[
+    {icon:"../../assets/Avatar1.png",name:"Full Name",title:"title",credentials:"CS"},
+    {icon:"../../assets/Avatar1.png",name:"Full Name",title:"title",credentials:"CS"},
+    {icon:"../../assets/Avatar1.png",name:"Full Name",title:"title",credentials:"CS"},
+    {icon:"../../assets/Avatar1.png",name:"Full Name",title:"title",credentials:"CS"}
+  ]
   constructor(private router: Router) { }
 
   ngOnInit() {
-  }
-
-  jobOpenings() {
-    // this.router.navigate(['/job-openings']);
   }
 
 }

@@ -134,7 +134,12 @@ import { PortalProgressBarComponent } from './shared/components/portal-progress-
 import { LandingPageCarouselComponent } from './landing-page-carousel/landing-page-carousel.component';
 import { LandingPageWelcomeMessageComponent } from './landing-page-welcome-message/landing-page-welcome-message.component';
 import { LandingPageInformationComponent } from './landing-page-information/landing-page-information.component';
-
+import { ReadMoreComponent } from './read-more/read-more.component';
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faChevronRight, faChevronDown } from "@fortawesome/free-solid-svg-icons";
+library.add(faChevronDown)
+library.add(faChevronRight)
 
 @NgModule({
   declarations: [
@@ -232,6 +237,7 @@ import { LandingPageInformationComponent } from './landing-page-information/land
     LandingPageCarouselComponent,
     LandingPageWelcomeMessageComponent,
     LandingPageInformationComponent,
+    ReadMoreComponent,
   ],
 
   imports: [
@@ -242,6 +248,7 @@ import { LandingPageInformationComponent } from './landing-page-information/land
     ShareModule,
     RouterModule,
     CommonModule,
+    FontAwesomeModule,
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,

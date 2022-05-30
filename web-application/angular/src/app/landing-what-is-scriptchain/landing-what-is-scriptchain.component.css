@@ -4,13 +4,13 @@
     Vince G: Changed html and body to fix half background color in styling.
  */
 
-body{
+body {
   margin: 0;
   background: linear-gradient(to right, #D1E4BF, white);
   height: max-content;
 }
 
-.loginHeading{
+.loginHeading {
   text-align: center;
   font-family: "Tinos";
   font-size: 36px;
@@ -18,7 +18,8 @@ body{
   font-weight: bold;
   margin-top: 70px;
 }
-.card{
+
+.card {
   width: 30vw;
   min-height: 350px;
   margin: 0 auto;
@@ -27,24 +28,26 @@ body{
   box-shadow: -5px 5px rgba(0, 0, 0, 0.1);
   font-size: 24px;
 }
-.img-card{
+
+.img-card {
   align-items: center;
   width: 91px;
   height: 91px;
   margin: 10px auto;
 }
-.card h3{
+
+.card h3 {
   text-align: center;
   font-family: "Lato Bold";
   font-weight: bold;
   margin: 5px;
 }
-.card p{
+
+.card p {
   text-align: center;
   font-family: "Lato";
   margin: 0 10px;
 }
-
 
 .signUpBtn {
   width: 134px;
@@ -58,4 +61,41 @@ body{
   margin-right: 17px;
   border-radius: 7px;
   margin-bottom: 49px;
+}
+
+.mobile div {
+  margin: 15px auto;
+}
+
+.small-card {
+  position: relative;
+  text-align: left;
+  min-width: 500px;
+  max-width: 75vw;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  box-shadow: -5px 5px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  padding: 15px 15px;
+  text-align: center;
+}
+
+.small-card img {
+  width: 50px;
+  height: 50px;
+  margin: 0 auto;
+  margin-right: 9px;
+}
+
+.small-card span {
+  font-size: 22px;
+  font-family: "Lato Bold";
+  font-weight: bold;
+  text-align: center;
+}
+.small-card a{
+  position: absolute;
+  top: 15px;
+  right: 10px;
+  font-size: 26px;
 }

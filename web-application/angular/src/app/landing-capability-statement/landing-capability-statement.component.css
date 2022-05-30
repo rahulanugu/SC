@@ -1,30 +1,19 @@
-/* Authors and their contributions: 
+/* Authors and their contributions:
     Vidit: Added icons and alignment. Also worked on responsiveness
             by adding a few media queries.
 */
-
-/* the prefix cs stands for capability statement */
-
-html {
-  width: 100%;
-  height: 100%;
-  display: table;
+body{
+  background-color: rgba(251,246,241,255);
+  background-color: black;
+  height: max-content;
 }
-
-body {
-  width: 100%;
-  display: table-cell;
-  background-color: #faf6f2;
-  font-family: "Lato", sans-serif;
+app-landing-page-header{
+  position: absolute;
+  top: 0;
 }
-
-html,
-body {
-  margin: 0px;
-  padding: 0px;
-  overflow-x: hidden;
+.logo{
+  padding: 100px 0;
 }
-
 .csHeader {
   font-family: "Tinos", serif;
   color: #2d5059;
@@ -39,119 +28,21 @@ body {
   display: block;
   border-radius: 8px;
 }
-
-.csImg {
-  width: 50px;
-  height: 50px;
+.content-1{
+  width: 80vw;
+  margin: 40px auto;
 }
-
-.content2 {
-  height: auto;
-
-  /* Teal 400 */
-  padding-bottom: 40px;
-  background: #2d5059;
-}
-
-.content2 h3 {
-  font-style: normal;
-  font-weight: bold;
-  font-size: 1.4em;
-  line-height: 29px;
-  color: #ffffff;
-  margin-left: 15%;
-  margin-right: 15%;
-  padding-top: 40px;
-}
-
-.content2 p {
-  font-style: normal;
-  font-weight: normal;
-  font-size: 1em;
-  margin-right: 15%;
-  display: flex;
-  align-items: center;
-  margin-left: 15%;
-  /* White */
-
-  color: #ffffff;
-}
-
-.content2 ul {
-  font-style: normal;
-  font-weight: normal;
-  font-size: 1em;
-  margin-right: 15%;
-  margin-left: 15%;
-  /* White */
-  margin-top: 0px;
-  color: #ffffff;
-  margin-bottom: 40px;
-}
-
-.contentwhite h3 {
-  font-style: normal;
-  font-weight: bold;
-  font-size: 1.4em;
-  line-height: 29px;
-  /* identical to box height */
-  margin-right: 15%;
-  /* display: flex; */
-  align-items: center;
-  margin-top: 37px;
-  /* Grey 500 */
-  margin-left: 15%;
-  /* White */
-
-  color: #1d1f26;
-}
-
-.contentwhite p {
-  font-style: normal;
-  font-weight: normal;
-  font-size: 1em;
-  line-height: 17px;
-  display: flex;
-  align-items: center;
-  margin-right: 15%;
-  /* Grey 500 */
-
-  color: #1d1f26;
-
-  margin-left: 15%;
-}
-.contentwhite ul {
-  font-style: normal;
-  font-weight: normal;
-  font-size: 1em;
-
-  /* Grey 500 */
-  margin-right: 15%;
-  color: #1d1f26;
-  margin-left: 15%;
-  /* White */
-  margin-top: 0px;
-  margin-bottom: 40px;
-}
-
-table {
-  margin-right: 15%;
-  margin-left: 15%;
-  color: #ffffff;
-  font-style: normal;
-  font-weight: bold;
-  border: 1px solid #5c8a96;
-  border-collapse: collapse;
-}
-
-.wrapper {
+.card-3-top{
   display: grid;
   grid-template-columns: 1fr 1fr;
+  font-family: "Lato";
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
 }
+.card-3-top img{
+  width: 90px;
+}
+.card-3-bottom{
 
-@media only screen and (max-width: 588px) {
-  .wrapper {
-    display: grid;
-    grid-template-columns: 1fr;
-  }
 }

@@ -1,3 +1,4 @@
+
 .page-footer {
   background-color: #2d5059;
   color: white;
@@ -54,4 +55,17 @@
   font-size: 14px;
   text-align: center;
   margin: 0 auto !important;
+}
+hr{
+  background-color: #2d5059;
+}
+.logo-center{
+  display: flex;
+  margin: 0 auto;
+}
+.icons-center{
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
 }

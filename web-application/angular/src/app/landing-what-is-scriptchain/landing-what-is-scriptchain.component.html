@@ -42,133 +42,82 @@
     </script>
   </head>
   <app-landing-page-header></app-landing-page-header>
+
   <body>
-    <div class="container">
-      <mat-grid-list cols="2" rowHeight="200px" [gutterSize]="'10px'">
-        <mat-grid-tile [colspan]="2" [rowspan]="1">
-          <h3 class="loginHeading">What is ScriptChain Health?</h3>
-        </mat-grid-tile>
-        <!-- Row 1 -->
-        <mat-grid-tile [rowspan]="2">
-          <div class="card">
-            <img
-              src="../../assets/icons/cloud-service.svg"
-              alt=""
-              class="img-card"
-            />
-            <h3>HIPAA & HITECH</h3>
-            <p>
-              We are a cloud application that is HIPAA compliant and HITECH
-              compliant.
-            </p>
-          </div>
-        </mat-grid-tile>
-        <mat-grid-tile [rowspan]="2">
-          <div class="card">
-            <img
-              src="../../assets/icons/encrypted.svg"
-              alt=""
-              class="img-card"
-            />
-            <h3>Data Security</h3>
-            <p>
-              We know that your medical data is important so we've made sure
-              that we make data security a top priority.
-            </p>
-          </div>
-        </mat-grid-tile>
-        <!-- Row  2-->
-        <mat-grid-tile [rowspan]="2">
-          <div class="card">
-            <img src="../../assets/icons/book.svg" alt="" class="img-card" />
-            <h3>American College of Cardiology</h3>
-            <p>
-              We follow the American College of Cardiology guidelines on how AI
-              algorithms are developed.
-            </p>
-          </div>
-        </mat-grid-tile>
-        <mat-grid-tile [rowspan]="2">
-          <div class="card">
-            <img
-              src="../../assets/icons/analysis.svg"
-              alt=""
-              class="img-card"
-            />
-            <h3>Data Accuracy</h3>
-            <p>
-              Being able to track and trace all your inputs into the system with
-              log information easily accessible.
-            </p>
-          </div>
-        </mat-grid-tile>
-        <!-- Row 3 -->
-        <mat-grid-tile [rowspan]="2">
-          <div class="card">
-            <img
-              src="../../assets/icons/diagnosis.svg"
-              alt=""
-              class="img-card"
-            />
-            <h3>Plug-in Platform</h3>
-            <p>
-              ScriptChain integrates with EMR systems like EPIC systems,
-              Athenahealth, Cerner, Allscripts, and soon to be eClinical.
-            </p>
-          </div>
-        </mat-grid-tile>
-        <mat-grid-tile [rowspan]="2">
-          <div class="card">
-            <img
-              src="../../assets/icons/artificial-intelligence.svg"
-              alt=""
-              class="img-card"
-            />
-            <h3>Artificial Intelligence</h3>
-            <p>
-              Using deep learning models to reduce the mortality rate for
-              cardiovascular disease and decrease the costs of readmission for
-              healthcare institutions.
-            </p>
-          </div>
-        </mat-grid-tile>
-        <!-- Row 4 -->
-        <mat-grid-tile [rowspan]="2">
-          <div class="card">
-            <img
-              src="../../assets/icons/clock.svg"
-              alt=""
-              class="img-card"
-            />
-            <h3>Time Savings</h3>
-            <p>
-              We significantly reduce the amount of time spent reviewing medical
-              data and make more time for patient care.
-            </p>
-          </div>
-        </mat-grid-tile>
-        <mat-grid-tile [rowspan]="2">
-          <div class="card">
-            <img
-              class="img-card"
-              src="../../assets/icons/heart.svg"
-              alt=""
-            />
-            <h3>Preventative Healthcare</h3>
-            <p>
-              Covering the first half of quality healthcare which is to prevent
-              and lower the risk of heart disease.
-            </p>
-          </div>
-        </mat-grid-tile>
-      </mat-grid-list>
+    <div fxShow fxHide.gt-sm>
+      <!-- Mobile View -->
+      <div class="mobile">
+        <!-- Header -->
+        <mat-grid-list cols="2" rowHeight="200px" [gutterSize]="'10px'">
+          <mat-grid-tile [colspan]="2" [rowspan]="1">
+            <h3 class="loginHeading">What is ScriptChain Health?</h3>
+          </mat-grid-tile>
+        </mat-grid-list>
+        <!-- All cards
+          *ngFor creates a card for each element on array (check .ts)
+          ngClass gives isCollapsed classed if clicked (if it doesnt have or removes it if it has)
+        -->
+        <div
+          *ngFor="let datas of dataInfo"
+          [ngClass]="{
+            isCollapsed: !datas.isCollapsed,
+            collapsed: datas.isCollapsed
+          }"
+          class="small-card"
+          (click)="datas.isCollapsed = !datas.isCollapsed"
+        >
+          <!-- Displays all the data from the array -->
+          <span
+            ><img src="{{ datas.icon }}" alt="" class="img-card" />{{
+              datas.title
+            }}</span
+          >
+          <!-- Check if collapsed then displays the proper arrow -->
+          <a *ngIf="datas.isCollapsed"
+            ><img src="../../assets/icons/arrow-down-short.svg" alt=""
+          /></a>
+          <a *ngIf="!datas.isCollapsed"
+            ><img src="../../assets/icons/arrow-up-short.svg" alt=""
+          /></a>
+          <!-- If not collapsed doesnt display -->
+          <div *ngIf="!datas.isCollapsed">{{ datas.info }}</div>
+        </div>
+        <!-- Sign Up -->
+        <div class="mt-5" fxLayout="column" fxLayoutAlign="center center">
+          <h3>Ready to sign up?</h3>
+          <a routerLink="/healthcare/register">
+            <button type="submit" class="signUpBtn">Sign Up</button>
+          </a>
+        </div>
+      </div>
     </div>
-    <!-- Sign Up -->
-    <div class="mt-5" fxLayout="column" fxLayoutAlign="center center">
-      <h3>Ready to sign up?</h3>
-      <a routerLink="/healthcare/register">
-        <button type="submit" class="signUpBtn">Sign Up</button>
-      </a>
+    <div fxHide fxShow.gt-sm>
+      <!-- Full View -->
+      <div class="container">
+        <!-- Displays header -->
+        <mat-grid-list cols="2" rowHeight="200px" [gutterSize]="'10px'">
+          <mat-grid-tile [colspan]="2" [rowspan]="1">
+            <h3 class="loginHeading">What is ScriptChain Health?</h3>
+          </mat-grid-tile>
+          <!-- Creates a card for each element of the array in .ts -->
+          <mat-grid-tile *ngFor="let data of dataInfo" [rowspan]="2">
+            <div class="card">
+              <img src="{{ data.icon }}" alt="" class="img-card" />
+              <h3>{{ data.title }}</h3>
+              <p>
+                {{ data.info }}
+              </p>
+            </div>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </div>
+      <!-- Sign Up -->
+      <div class="mt-5" fxLayout="column" fxLayoutAlign="center center">
+        <h3>Ready to sign up?</h3>
+        <a routerLink="/healthcare/register">
+          <button type="submit" class="signUpBtn">Sign Up</button>
+        </a>
+      </div>
     </div>
     <div>
       <app-landing-page-subfooter></app-landing-page-subfooter>
