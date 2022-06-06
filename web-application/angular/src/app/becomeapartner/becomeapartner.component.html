@@ -5,70 +5,81 @@
 <div id="partnership-div">
   <p class="bpHeader text-center pt-5">Partnerships are Awesome!</p>
   <p class="bpSubHeader text-center">
-    Use the form below to contact the ScriptChain Health Team about
-    partnership opportunites.
+    Use the form below to contact the ScriptChain Health Team about partnership
+    opportunites.
   </p>
   <div class="wrapper pb-5" id="partnership-form">
     <form
       class="bpForm container pb-3 pt-4"
       ngNativeValidate
-      [formGroup]="registerForm"
+      [formGroup]="partnerForm"
       fxFlex
       fxLayout="column"
     >
-      <div fxFlex fxLayout="column" fxLayout.gt-sm="row" class="partnership-flex-row">
+      <div
+        fxFlex
+        fxLayout="column"
+        fxLayout.gt-sm="row"
+        class="partnership-flex-row"
+      >
         <div class="firstName">
-          <label>First Name*</label>
+          <label>First Name</label>
           <br />
-          <input
-            type="text"
-            required
-            [class.is-invalid]="
-              registerForm.get('firstName').invalid &&
-              registerForm.get('firstName').touched
-            "
-            formControlName="firstName"
-            name="firstName"
-          />
+          <input [ngClass]="{'error':firstName && firstName.invalid && firstName.touched}" required formControlName="firstName" />
+
         </div>
-  
+
         <div class="lastName">
-          <label>Last Name*</label>
+          <label>Last Name</label>
           <br />
-          <input type="text" required name="lastName" />
+          <input [ngClass]="{'error':lastName && lastName.invalid && lastName.touched}" required formControlName="lastName" />
         </div>
       </div>
 
-      <div fxFlex fxLayout="column" fxLayout.gt-sm="row" class="partnership-flex-row">
+      <div
+        fxFlex
+        fxLayout="column"
+        fxLayout.gt-sm="row"
+        class="partnership-flex-row"
+      >
         <div class="email">
-          <label>Email*</label>
+          <label>Email</label>
           <br />
-          <input type="email" name="email" required email />
+          <input [ngClass]="{'error':email && email.invalid && email.touched}" required formControlName="email" />
         </div>
-  
+
         <div class="primaryPhone">
-          <label>Primary Phone*</label>
+          <label>Primary Phone</label>
           <br />
-          <input type="text" mask="(000)-000-0000" name="phone" required />
+          <input [ngClass]="{'error':phone && phone.invalid && phone.touched}" required formControlName="phone" />
         </div>
       </div>
 
-      <div fxFlex fxLayout="column" fxLayout.gt-sm="row" class="partnership-flex-row">
+      <div
+        fxFlex
+        fxLayout="column"
+        fxLayout.gt-sm="row"
+        class="partnership-flex-row"
+      >
         <div class="jobTitle">
           <label>Job Title</label>
           <br />
-          <input type="text" name="jobTitle" />
+          <input [ngClass]="{'error':job && job.invalid && job.touched}" required formControlName="job" />
         </div>
-        
       </div>
-      
+
       <h3 class="divider container text-center mt-5 mb-5"></h3>
 
-      <div fxFlex fxLayout="column" fxLayout.gt-sm="row" class="partnership-flex-row">
+      <div
+        fxFlex
+        fxLayout="column"
+        fxLayout.gt-sm="row"
+        class="partnership-flex-row"
+      >
         <div class="companyName">
-          <label>Company Name*</label>
+          <label>Company Name</label>
           <br />
-          <input type="text" required name="companyName" />
+          <input [ngClass]="{'error':company_name && company_name.invalid && company_name.touched}" required formControlName="company_name" />
         </div>
         <div class="typeOfBusiness">
           <label>Type of Business</label>
@@ -87,46 +98,60 @@
         </div>
       </div>
 
-      <div fxFlex fxLayout="column" fxLayout.gt-sm="row" class="partnership-flex-row">
+      <div
+        fxFlex
+        fxLayout="column"
+        fxLayout.gt-sm="row"
+        class="partnership-flex-row"
+      >
         <div class="streetAddress">
           <label>Company Street Address</label>
           <br />
-          <input type="text" name="companyAddress" />
+          <input [ngClass]="{'error':company_adr && company_adr.invalid && company_adr.touched}" required formControlName="company_adr" />
         </div>
-  
+
         <div class="city">
           <label for="city">City</label>
           <br />
-          <input type="text" name="city" />
+          <input [ngClass]="{'error':city && city.invalid && city.touched}" required formControlName="city" />
         </div>
       </div>
 
-      <div fxFlex fxLayout="column" fxLayout.gt-sm="row" class="partnership-flex-row">
+      <div
+        fxFlex
+        fxLayout="column"
+        fxLayout.gt-sm="row"
+        class="partnership-flex-row"
+      >
         <div class="state">
           <label for="state">State</label>
           <br />
-          <input type="text" name="state" />
+          <input [ngClass]="{'error':state && state.invalid && state.touched}" required formControlName="state" />
         </div>
-  
+
         <div class="zipCode">
           <label for="zipCode">Zip Code</label>
           <br />
-          <input type="text" name="zipCode" />
+          <input [ngClass]="{'error':zipCode && zipCode.invalid && zipCode.touched}" required formControlName="zipCode" />
         </div>
       </div>
 
-      <div fxFlex fxLayout="column" fxLayout.gt-sm="row" class="partnership-flex-row">
+      <div
+        fxFlex
+        fxLayout="column"
+        fxLayout.gt-sm="row"
+        class="partnership-flex-row"
+      >
         <div class="country">
           <label for="country">Country</label>
           <br />
-          <input type="text" name="country" />
+          <input [ngClass]="{'error':country && country.invalid && country.touched}" required formControlName="country" />
         </div>
       </div>
 
-      <div fxFlex fxLayout="row" fxLayoutAlign="center">
+      <div fxFlex fxLayout="row">
         <button type="button" class="sendBtn mt-3">Submit</button>
       </div>
-
     </form>
   </div>
 </div>

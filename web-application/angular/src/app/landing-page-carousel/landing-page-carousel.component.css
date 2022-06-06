@@ -10,10 +10,10 @@
   justify-content: center;
   color: #2D5059;
 }
-.control a{
+.control a img{
   text-decoration: none;
-  color: black;
-  font-size: 60px;
+  color: #2D5059;
+  width: 60px;
 }
 /* Styling the H1 */
 .carousel-header {

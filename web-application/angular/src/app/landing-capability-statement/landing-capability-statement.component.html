@@ -44,33 +44,41 @@
     </div>
     <!-- Logo+Msg -->
     <div class="logo">
+      <!-- Displays the logo -->
       <img
         class="csLogo img-responsive img-fluid"
         src="./assets/company-logo/scriptchain-health-logo-dark.svg"
       />
+      <!-- Displays a line of text -->
       <p class="csHeader text-center mb-3">
         ScriptChain Health Capability Statement
       </p>
     </div>
+    <!-- Container that hold the cards -->
     <div class="content-1">
+      <!-- Creates a grid display with 3 colomns/600px height per row and 20px in between each colomn/row -->
       <mat-grid-list cols="3" rowHeight="600px" [gutterSize]="'20px'">
+        <!-- *ngFor takes an array(in this case cards_3 from .ts file) and creates a card for each element(3 in this case) -->
+        <!-- mat-grid-tile represents each element, if u dont specify the nr of col/row it will be defaulted as 1 -->
         <mat-grid-tile
           *ngFor="let card of cards_3; let nr = index"
           class="card card-3"
         >
+        <!-- Displays the elements of the card -->
             <img src="{{ card.icon }}" alt="" />
             <h2>
               {{ card.title }}
             </h2>
-            
+
             <p>{{ card.paragraph }}</p>
             <ul>
               <li *ngFor="let i of card.list">{{ i.list_element }}</li>
             </ul>
         </mat-grid-tile>
       </mat-grid-list>
+      <!-- Card container ends -->
     </div>
-
+    <!-- Footer -->
     <footer>
       <app-landing-page-subfooter></app-landing-page-subfooter>
     </footer>

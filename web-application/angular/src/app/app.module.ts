@@ -138,6 +138,7 @@ import { ReadMoreComponent } from './read-more/read-more.component';
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faChevronRight, faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { EmployeeComponent } from './employee/employee.component';
 library.add(faChevronDown)
 library.add(faChevronRight)
 
@@ -238,6 +239,7 @@ library.add(faChevronRight)
     LandingPageWelcomeMessageComponent,
     LandingPageInformationComponent,
     ReadMoreComponent,
+    EmployeeComponent,
   ],
 
   imports: [

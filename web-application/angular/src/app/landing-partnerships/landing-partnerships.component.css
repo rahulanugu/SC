@@ -82,10 +82,11 @@ app-landing-page-header{
 }
 
 /* Carousels */
+
 .content2 .carousel-container {
   display: flex;
   align-content: center;
-  margin-bottom: 20px;
+  margin-bottom: 45px;
 }
 /* Partner 1/2/3 */
 .carousel-header{
@@ -106,11 +107,10 @@ app-landing-page-header{
   justify-content: center;
   color: #2D5059;
 }
-.control a {
+.control a img{
   text-decoration: none;
-  color: #2d5059;
-  font-size: 60px;
-  margin: 0 auto;
+  color: #2D5059;
+  width: 60px;
 }
 /* Card styling */
 .card {

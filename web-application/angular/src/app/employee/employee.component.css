@@ -1,0 +1,98 @@
+body {
+  background-color: #fbf6f1;
+  height: max-content;
+}
+
+app-landing-page-header {
+  position: absolute;
+  top: 0;
+}
+/* Upper container  Full name/Img*/
+.fullNameContainer {
+  margin-top: 64px;
+  background-color: #E6EFF1;
+}
+
+.fullName {
+  margin: 10%;
+}
+.fullName h1{
+  font-family: "Tinos";
+  font-weight: 36px;
+  color: #2D5059;
+}
+.fullName h3,.fullName p{
+  padding-left: 10px;
+}
+.fullName h3{
+  font-family: "Lato";
+  font-size: 16px;
+  color: #2D5060;
+}
+.image img {
+  width: 77%;
+  height: 400px;
+  border-radius: 25px;
+}
+.top{
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  margin-bottom: 40px;
+}
+.top img {
+  width: 77%;
+  height: 400px;
+  border-radius: 25px;
+  margin: 20px auto 0 auto;
+}
+/* Lower container More About */
+.moreAbout{
+  background-color: white;
+  padding-bottom: 40px;
+}
+.moreAbout h1{
+  font-size: 36px;
+  font-family: "Tinos";
+  color: #2D5059;
+  text-align: center;
+  padding: 20px 0;
+  margin-right: 30%;
+}
+.bottom h1{
+  margin-right: 0;
+}
+.moreAbout div p{
+  text-align: left;
+  width: 60%;
+
+  margin: 0 auto;
+}
+/* Intersted in joining our team div */
+.join-team {
+  display: grid;
+  place-items: center;
+  height: 200px;
+  background-color: #E6EFF1;
+}
+
+.join-team h1 {
+  margin-top: 40px;
+  font-family: "Lato";
+  font-weight: bold;
+  font-size: 24px;
+  color: #5c95a0;
+}
+
+.join-team button {
+  background-color: #4d8c98;
+  color: white;
+  font-family: "Lato";
+  font-weight: bold;
+  font-size: 18px;
+  border: none;
+  border-radius: 10px;
+  width: 250px;
+  height: 40px;
+  margin-bottom: 60px;
+}

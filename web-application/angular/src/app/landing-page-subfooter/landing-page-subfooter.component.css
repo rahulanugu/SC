@@ -1,4 +1,6 @@
-
+.bottom{
+  padding-bottom: 10px;
+}
 .page-footer {
   background-color: #2d5059;
   color: white;

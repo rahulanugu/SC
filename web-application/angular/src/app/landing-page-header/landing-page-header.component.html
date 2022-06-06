@@ -55,19 +55,26 @@
     <mat-toolbar class="right">
       <div class="rightHeader" fxFlex="100" fxLayoutAlign="end center">
         <div fxHide fxShow.gt-sm>
-          <button mat-icon-button>
-            <mat-icon class="search">search</mat-icon>
-          </button>
-          <button
-            onclick="window.location.href='healthcare/login'"
-            class="login"
-            mat-button
-          >
-            Log in
-          </button>
-          <button class="signup" mat-flat-button color="primary">
-            Sign Up
-          </button>
+          <div>
+            <button  class="search" [ngClass]="{active:isActive}" >
+              <mat-icon *ngIf="!isActive" (click)="search()" class="input">search
+              </mat-icon>
+              <input *ngIf="isActive" type="text" name="" placeholder="Search...">
+              <mat-icon *ngIf="isActive" (click)="search()" class="input">clear
+              </mat-icon>
+            </button>
+            <button
+              onclick="window.location.href='healthcare/login'"
+              class="login"
+              mat-button
+            >
+              Log in
+            </button>
+            <button class="signup" mat-flat-button color="primary">
+              Sign Up
+            </button>
+
+          </div>
         </div>
       </div>
     </mat-toolbar>

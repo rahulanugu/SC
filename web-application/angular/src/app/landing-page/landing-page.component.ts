@@ -16,33 +16,12 @@ export class LandingPageComponent implements OnInit {
   constructor(private contactService: ContactusService, private toastr: ToastrNotificationService) {}
   exform: FormGroup;
   ngOnInit() {
-    //console.log(window.innerWidth);
-    if (window.innerWidth > 800) {
-      this.breakpoint = 4;
-    } else if (window.innerWidth >= 640) {
-      this.breakpoint = 2;
-    } else {
-      this.breakpoint = 1;
-    }
-    //console.log(this.breakpoint);
-
     this.exform = new FormGroup({
       'name' : new FormControl(null, Validators.required),
       'email' : new FormControl(null, [Validators.required, Validators.email]),
       'subject' : new FormControl(null,[Validators.required]),
       'message' : new FormControl(null, [Validators.required, Validators.minLength(10)])
     });
-  }
-
-  onResize(event) {
-    //this.breakpoint = (event.target.innerWidth <= 800) ? 2 : 4;
-    if (event.target.innerWidth > 800) {
-      this.breakpoint = 4;
-    } else if (event.target.innerWidth >= 640) {
-      this.breakpoint = 2;
-    } else {
-      this.breakpoint = 1;
-    }
   }
 
   onContactClicked(form: NgForm) {
