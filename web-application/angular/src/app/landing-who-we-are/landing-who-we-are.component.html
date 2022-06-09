@@ -94,7 +94,7 @@
       <div class="team">
         <mat-grid-list cols="4" rowHeight="300px" [gutterSize]="'20px'">
           <mat-grid-tile class="hover" *ngFor="let team of teamMembers">
-            <div routerLink="/whoweare/{{ team.name }}" class="card">
+            <div routerLink="/whoweare/{{ team.id }}" class="card">
               <img src="{{ team.icon }}" />
               <div class="bottomleft">
                 <h1>{{ team.name }}</h1>
@@ -131,7 +131,7 @@
       <div class="team">
         <mat-grid-list cols="3" rowHeight="300px" [gutterSize]="'20px'">
           <mat-grid-tile class="hover" *ngFor="let team of teamMembers">
-            <div routerLink="/whoweare/{{ team.name }}" class="card">
+            <div routerLink="/whoweare/{{ team.id }}" class="card">
               <img src="{{ team.icon }}" />
               <div class="bottomleft">
                 <h1>{{ team.name }}</h1>
@@ -169,7 +169,7 @@
       <div class="team">
         <mat-grid-list cols="2" rowHeight="230px" [gutterSize]="'20px'">
           <mat-grid-tile class="hover" *ngFor="let team of teamMembers">
-            <div routerLink="/whoweare/{{ team.name }}" class="card">
+            <div routerLink="/whoweare/{{ team.id }}" class="card">
               <img src="{{ team.icon }}" />
               <div class="bottomleft">
                 <h1>{{ team.name }}</h1>

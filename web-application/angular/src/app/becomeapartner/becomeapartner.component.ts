@@ -27,23 +27,22 @@ export class BecomeapartnerComponent implements OnInit {
     ]),
     phone: new FormControl("", [
       Validators.required,
-      Validators.pattern("[a-zA-Z]*"),
+      Validators.pattern(/^-?(0|[1-9]\d*)?$/),
+      Validators.minLength(10)
     ]),
     job: new FormControl("", [
       Validators.required,
       Validators.pattern("[a-zA-Z]*"),
     ]),
     company_name: new FormControl("", [
-      Validators.required,
-      Validators.pattern("[a-zA-Z]*"),
+      Validators.required
     ]),
     buisness_type: new FormControl("", [
       Validators.required,
       Validators.pattern("[a-zA-Z]*"),
     ]),
     company_adr: new FormControl("", [
-      Validators.required,
-      Validators.pattern("[a-zA-Z]*"),
+      Validators.required
     ]),
     city: new FormControl("", [
       Validators.required,
@@ -55,7 +54,9 @@ export class BecomeapartnerComponent implements OnInit {
     ]),
     zipCode: new FormControl("", [
       Validators.required,
-      Validators.pattern("[a-zA-Z]*"),
+      Validators.pattern(/^-?(0|[1-9]\d*)?$/),
+      Validators.minLength(5),
+      Validators.maxLength(5)
     ]),
     country: new FormControl("", [
       Validators.required,

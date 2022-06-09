@@ -51,7 +51,7 @@
         <div class="primaryPhone">
           <label>Primary Phone</label>
           <br />
-          <input [ngClass]="{'error':phone && phone.invalid && phone.touched}" required formControlName="phone" />
+          <input mask='(000)000-0000' [ngClass]="{'error':phone && phone.invalid && phone.touched}" required formControlName="phone" />
         </div>
       </div>
 
@@ -130,7 +130,7 @@
         </div>
 
         <div class="zipCode">
-          <label for="zipCode">Zip Code</label>
+          <label mask="00000" for="zipCode">Zip Code</label>
           <br />
           <input [ngClass]="{'error':zipCode && zipCode.invalid && zipCode.touched}" required formControlName="zipCode" />
         </div>

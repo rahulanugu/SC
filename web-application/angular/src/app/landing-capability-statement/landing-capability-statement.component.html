@@ -1,9 +1,3 @@
-<!-- Authors and their contributions:
-      Vidit: Added icons and aligned content as per the
-              user story.
-    DenisH - Update
- -->
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -38,62 +32,134 @@
     </script>
   </head>
   <body>
-    <!-- Nav bar -->
     <div>
       <app-landing-page-header></app-landing-page-header>
     </div>
-    <!-- Logo+Msg -->
-    <div class="logo">
-      <!-- Displays the logo -->
+    <div>
       <img
         class="csLogo img-responsive img-fluid"
         src="./assets/company-logo/scriptchain-health-logo-dark.svg"
       />
-      <!-- Displays a line of text -->
-      <p class="csHeader text-center mb-3">
+      <p class="csHeader text-center mb-4">
         ScriptChain Health Capability Statement
       </p>
     </div>
-    <!-- Container that hold the cards -->
-    <div class="content-1">
-      <!-- Creates a grid display with 3 colomns/600px height per row and 20px in between each colomn/row -->
-      <mat-grid-list cols="3" rowHeight="600px" [gutterSize]="'20px'">
-        <!-- *ngFor takes an array(in this case cards_3 from .ts file) and creates a card for each element(3 in this case) -->
-        <!-- mat-grid-tile represents each element, if u dont specify the nr of col/row it will be defaulted as 1 -->
-        <mat-grid-tile
-          *ngFor="let card of cards_3; let nr = index"
-          class="card card-3"
-        >
-        <!-- Displays the elements of the card -->
-            <img src="{{ card.icon }}" alt="" />
-            <h2>
-              {{ card.title }}
-            </h2>
+    <div class="container my-5 px-4">
+    <div class="row justify-content-center">
+      <div class="col-md-4">
+        <div class="card h-100">
+          <div class="card-body">
+            <h3 class="text-center">
+              <img
+                src="../../assets/icons/head.svg"
+                alt=""
+                class="csImg img-responsive img-fluid pr-2"
+              />
+              Core Capabilities
+            </h3>
+            <p class="card-text text-left"> 
+              Our machine learning engineers form algorithms, as well as design
+              and implement solutions in the areas of:
+            </p>
+            <div class="capabilityContent2">
+              <ul class="text-left">
+                <li>Predictive Analytics</li>
+                <li>Data Integration / Transfer</li>
+                <li>Better Patient Outcomes</li>
+                <li>Optimize the Point of Care</li>
+              </ul>
+            </div>
+            <!--<a href="#" class="btn btn-primary">Go somewhere</a>-->
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100">
+          <div class="card-body">
+            <h3 class="text-center">
+              <img
+                src="https://picsum.photos/id/237/200/300"
+                alt=""
+                class="csImg img-responsive img-fluid pr-2"
+              />
+              Machine Learning | AI | Risk Management
+            </h3>
+            <p class="card-text text-left">ScriptChain Health utilizes deep learning algorithms to provide
+              individualized risk assessment and predicted readmission risk to
+              healthcare providers through interfacing with major EMRs.
+            </p>
+            <p class="card-text text-left">
+              Our
+              actionable insights can save valuable physician time, improve
+              workflow, and drastically reduce overhead costs through redfucing
+              readmission rate.
+            </p>
+            <p class="card-text text-left">
+              As a Minority Owned Small Business, ScriptChain Health is committed
+              to excellence and creating innovative and cost-effective solutions
+              for our health provider clients.
+            </p>
+              <p>What sets ScriptChain Health apart from the competition?</p>
+          <ul class="text-left">
+            <li>Our People</li>
 
-            <p>{{ card.paragraph }}</p>
-            <ul>
-              <li *ngFor="let i of card.list">{{ i.list_element }}</li>
-            </ul>
-        </mat-grid-tile>
-      </mat-grid-list>
-      <!-- Card container ends -->
+            <li>Innovative Machine Learning Capabilities</li>
+            <li>Quality of Data</li>
+            <li>User Interface Centered On Physician Convenience</li>
+            <li>Integration With Major EMRs</li>
+          </ul>
+            
+            <!--<a href="#" class="btn btn-primary">Go somewhere</a>-->
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100">
+          <div class="card-body">
+            <h3 class="text-center">
+              <img
+                src="https://picsum.photos/id/237/200/300"
+                alt=""
+                class="csImg img-responsive img-fluid pr-2"
+              />Predictive Analytics
+            </h3>
+            <p class="card-text text-left">
+              Our services in this area utilize data-points sourced from a patient’s
+              history (as procured from the EMR) to individualize their risk measures,
+              both in terms of readmission and likelihood of developing specific
+              conditions.
+            </p>
+            <p class="card-text text-left">
+              Our analytics are able to do this through analysis of an
+              array of factors, including pre-existing conditions, variables such as
+              BMI and blood pressure, as well as interpreting lab tests and clinical notes.
+            </p>
+            <p class="card-text text-left">
+              This diagnostic capability benefits a health care provider organization 
+              through the following:</p>
+              <ul class = "text-left">
+                <li>Improvemnet of Physician Workflow</li>
+                <li>Clinical Decision Support</li>
+                <li>Individualized Patient Rist Assessement</li>
+                <li>Reduction of Healthcare waste (lowering readmission)</li>
+              </ul>
+
+            <!--<a href="#" class="btn btn-primary">Go somewhere</a>-->
+          </div>
+        </div>
+      </div>
     </div>
-    <!-- Footer -->
-    <footer>
-      <app-landing-page-subfooter></app-landing-page-subfooter>
-    </footer>
-  </body>
-</html>
-<!-- <div class="content2">
+    </div>
+
+    <!--<div class="content2">
       <h3 class="text-center">
         <img
           src="../../assets/icons/ai-white.svg"
           alt=""
-          class="csImg img-responsive img-fluid pr-2"
+          class="csImg img-responsive img-fluid pr-1"
         />
         Machine Learning | AI | Risk Management
       </h3>
-
       <div class="wrapper">
         <div class="mlContent1">
           <p>
@@ -142,7 +208,7 @@
             and implement solutions in the areas of:
           </p>
         </div>
-
+      
         <div class="capabilityContent2">
           <ul>
             <li>Predictive Analytics</li>
@@ -151,7 +217,7 @@
         </div>
       </div>
     </div>
-
+  
     <div class="content2">
       <h3 class="text-center">
         <img
@@ -168,7 +234,7 @@
             both in terms of readmission and likelihood of developing specific
             conditions.
           </p>
-
+            
           <p>
             Our analytics are able to do this through analysis of an
             array of factors, including pre-existing conditions, variables such as
@@ -191,9 +257,9 @@
         </div>
       </div>
 
-
+        
     </div>
-
+  -->
     <div class="contentwhite">
       <h3 class="text-center">
         <img
@@ -210,7 +276,7 @@
             in mind: Cerner, Athena, Allscripts, EPIC, and Meditech, we interface
             directly with data pulled from their APIs.
           </p>
-
+            
           <p>
             By facilitating the movement
             of data across hospitals and providers in a customizable patient
@@ -231,13 +297,13 @@
         </div>
       </div>
     </div>
-    <div class="content2">
+    <!-- <div class="content2">
       <h3>Federal Certification</h3>
 
       <ul>
         <li>Insert certification here</li>
       </ul>
-    </div>
+    </div> -->
     <div class="content2">
       <h3 class="text-center">
         <img
@@ -250,7 +316,7 @@
         <li>Insert certification here</li>
       </ul>
     </div>
-
+    
     <div class="contentwhite">
       <h3 class="text-center">
         <img
@@ -327,4 +393,9 @@
         </div>
       </div>
     </div>
- -->
+
+    <footer>
+      <app-landing-page-subfooter></app-landing-page-subfooter>
+    </footer>
+  </body>
+</html>
