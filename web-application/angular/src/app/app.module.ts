@@ -132,6 +132,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { AllscriptsLoginComponent } from "./allscriptslogin/allscriptslogin.component";
 import { PortalProgressBarComponent } from './shared/components/portal-progress-bar/portal-progress-bar.component';
 import { BlogService } from "./shared/blogService.service";
+import { BlogPostQuoteComponent } from './blog-post-quote/blog-post-quote.component';
 
 
 @NgModule({
@@ -227,6 +228,7 @@ import { BlogService } from "./shared/blogService.service";
     IndustryCardComponent,
     BlogPostComponent,
     PortalProgressBarComponent,
+    BlogPostQuoteComponent,
   ],
 
   imports: [

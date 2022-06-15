@@ -1,98 +1,73 @@
-.footer-copyright {
-  /* bottom: 0%;
-    margin-top: auto; */
-  background: #2d5059;
+.bottom{
+  padding-bottom: 10px;
+}
+.page-footer {
+  background-color: #2d5059;
+  color: white;
 }
 
-/* .copyright-container label {
+.logo {
+  width: 100px;
+  margin: 5px 20px;
+}
+.description{
+  margin-left: 20px;
+  width: 70%;
+  font-size: 14px;
+}
+.icons{
+  margin-left: 20px;
+  margin-top: 20px;
+}
+.icons img{
+  width: 20px;
+  margin: 0 5px;
+}
+
+.col ul li a{
   color: white;
   font-size: 14px;
-  font-family: "Lato", sans-serif;
-  margin-top: 22.8px;
-  float: right;
-
-  font-weight: normal;
+}
+.middle{
+  padding: 0 40px;
+  border: solid white;
+  margin-right: 20px;
+  border-top: 0px;
+  border-bottom: 0px;
+}
+.footer-copyright{
+  font-family: Lato,sans-serif;
+  font-weight: 700;
   font-size: 14px;
-  line-height: 17px;
-  /* identical to box height */
+  text-align: center;
+  color: white;
+  line-height: 1.6;
+  height: 64px;
+  background-color: #2d5059;
+  padding-top: 18px;
+}
 
-/* display: flex;
+.footer-copyright a{
+  color: white;
+  text-decoration: none;
+  margin: 0 10px;
+}
+.top{
+  width: 70%;
+  font-size: 14px;
+  text-align: center;
+  margin: 0 auto !important;
+}
+hr{
+  background-color: #2d5059;
+}
+.logo-center{
+  display: flex;
+  margin: 0 auto;
+}
+.icons-center{
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
   align-items: center;
-  text-align: right;
-} */
-.container {
-  width: 100%;
-  min-height: 220px;
-  background: #0d1a1e;
-  font-family: "Lato", sans-serif;
-}
-
-button {
-  width: 124px;
-  height: 40px;
-
-  color: #ffffff;
-  background: #0d1a1e;
-  /* White */
-  margin-top: 12px;
-  border: 2px solid #ffffff;
-  box-sizing: border-box;
-  border-radius: 8px;
-  font-size: 18px;
-  font-family: "Lato", sans-serif;
-  font-weight: bold;
-  margin-bottom: 21px;
-}
-.right-part {
-  float: right;
-}
-
-h6 {
-  font-style: normal;
-  font-weight: bold;
-  font-size: 18px;
-  line-height: 22px;
-  color: #ffffff;
-  font-family: "Lato", sans-serif;
-}
-
-.anchor {
-  font-style: normal;
-  font-weight: bold;
-  font-size: 14px;
-  line-height: 17px;
-  text-decoration-line: underline;
-
-  font-family: "Lato", sans-serif;
-  /* White */
-  margin-top: 8px;
-
-  color: #ffffff;
-}
-
-.subLink {
-  color: #ffffff;
-
-  font-style: normal;
-  font-weight: bold;
-  font-size: 14px;
-  font-family: "Lato", sans-serif;
-}
-
-#support {
-  font-family: "Lato", sans-serif;
-
-  font-style: normal;
-  font-weight: bold;
-  font-size: 18px;
-  line-height: 22px;
-}
-
-label {
-  color: #ffffff;
-
-  font-style: normal;
-  font-weight: bold;
-  font-size: 14px;
-  font-family: "Lato", sans-serif;
 }
