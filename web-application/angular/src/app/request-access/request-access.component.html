@@ -17,7 +17,7 @@
   <div>
     <app-landing-page-header></app-landing-page-header>
   </div>
-  <div fxLayout="column" style="min-height: 1000px;">
+  <div fxLayout="column" style="min-height: 1000px; margin-top: 64px;">
     <div>
       <div class="raHeader text-center pt-5">
         Request Access to ScriptChain Health
@@ -29,10 +29,10 @@
     <div class="
           raBox
           justify-content-center
+          container
           pl-5
           pr-5
         " fxLayout="column" fxLayoutAlign="center center">
-      <div class="container">
         <form ngNativeValidate action="#" fxFlex fxLayout="column" (ngSubmit)="requestAccess()" method="post">
           <!-- <div
               class="px-sm-4"
@@ -72,7 +72,7 @@
             </small>
           </div>
 
-          <div class="form-element mt-1" fxLayout="column">
+          <div class="form-element mt-1" fxFlex fxLayout="column">
             <label>Type of User*</label>
             <select class="raInput" name="usertype" [(ngModel)]="requestaccessservice.user.typeOfUser"
               #typeofuser="ngModel" required>
@@ -90,7 +90,6 @@
             Request Access</button><br />
           <!-- </div> -->
         </form>
-      </div>
     </div>
   </div>
   <div class="footer" fxLayout="column" fxLayoutAlign="end">

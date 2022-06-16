@@ -18,7 +18,7 @@
 
 <body>
   <app-landing-page-header></app-landing-page-header>
-  <div fxLayout="column" style="background-color: #faf6f2">
+  <div fxLayout="column" style="background-color: #faf6f2; margin-top: 64px;">
     <div fxFlexFill>
       <div class="py-5 text-center" style="
             background-image: url(./assets/blog-header-bkgrd.jpg);
@@ -29,15 +29,15 @@
     </div>
     <div class="justify-content-center" fxLayout="column" fxLayoutAlign="center">
       <div fxLayout="row">
-        <div class="container text-justify ml-5 mt-5 goBack">
+        <div class="container text-justify mt-5 ml-gt-md-5 goBack">
           <a class="back" (click)="goBack()">
-            < back</a>
-        </div>
-        <div class="container text-justify mt-5 mr-5" fxLayout.xs="column" fxLayout.sm="row" fxLayout.md="row"
+              < back</a>
+      </div>
+        <div class="container text-justify mt-5 mr-gt-md-5" fxLayout.xs="column" fxLayout.sm="row" fxLayout.md="row"
           fxLayout.lg="row" fxLayout.xl="row" fxLayoutGap="20px" fxLayoutGap.xs="0px" fxLayoutAlign.xl="end"
           fxLayoutAlign.lg="end" fxLayoutAlign.md="end">
           <h4 class="blogInfo">> written by {{authorName}}</h4>
-          <h4 class="blogInfo">>{{date | date: 'short'}}</h4>
+          <h4 class="blogInfo mt-sm-md-1">>{{date | date: 'short'}}</h4>
         </div>
       </div>
 

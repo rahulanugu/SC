@@ -23,7 +23,7 @@
       <app-landing-page-header></app-landing-page-header>
     </div>
 
-    <div>
+    <div style="margin-top: 64px;">
       <!-- <h1 [ngStyle]="{'color':'red'}" -->
       <h1 id="heading">ScriptChain Health Blog</h1>
       <div class="container text-center">
@@ -51,7 +51,7 @@
     <div class="pagination">
       <ul class="row wrap" fxFlex>
         <li><a class="prev" (click)="previousPage()">
-            < PREVIOUS PAGE</a>
+            < PREVIOUS</a>
         </li>
         <div style="display: flex;">
           <li class="pageNumber d-none d-md-block" [ngClass]="{'active': currentPage == page}"
@@ -59,7 +59,7 @@
             <a (click)="jumpPage($event)"> {{page}} </a>
           </li>
         </div>
-        <li><a class="next" (click)="nextPage()">NEXT PAGE > </a>
+        <li><a class="next" (click)="nextPage()">NEXT > </a>
         </li>
       </ul>
     </div>

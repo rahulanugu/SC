@@ -19,6 +19,11 @@ body {
   overflow-x: hidden;
 }
 
+app-landing-page-header {
+  position: absolute;
+  top: 0;
+}
+
 #heading {
   font-family: "Tinos", serif;
   color: #2d5059;

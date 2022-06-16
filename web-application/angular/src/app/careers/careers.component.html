@@ -48,7 +48,7 @@ Register Paitent Form
   <div>
     <app-landing-page-header></app-landing-page-header>
   </div>
-  <h3 class="Heading text-center">Job Openings</h3>
+  <h3 class="Heading text-center" style="margin-top: 74px;">Job Openings</h3>
   <div style="margin-bottom: 10rem;">
     <div class="card mt-2" *ngFor="let jobOpening of jobOpenings">
       <div class="card-body" fxFlex fxLayout="column">
@@ -62,7 +62,7 @@ Register Paitent Form
             <p class="card-text location" style="display: inline;"> {{job["location"]}}</p>
           </div>
           <br fxFlex>
-          <button fxFlex class="applyBtn mt-2">
+          <button fxFlex routerLink="/apply-job" class="applyBtn mt-2">
             Apply
           </button>
         </div>
