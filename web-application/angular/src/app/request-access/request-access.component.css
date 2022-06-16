@@ -74,7 +74,7 @@ form label {
     width: 300px;
 }
 
-input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched {
+input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched, select.ng-invalid.ng-touched {
     border: 1px solid red;
 }
 
