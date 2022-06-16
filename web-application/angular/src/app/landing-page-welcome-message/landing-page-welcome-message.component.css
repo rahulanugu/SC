@@ -68,3 +68,11 @@ display: block;
 .bottom {
   background-size: cover;
 }
+#request-demo{
+  margin-top: 43px;
+}
+#request-demo:hover{
+  opacity: .9;
+}
+
+

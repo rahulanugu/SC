@@ -71,13 +71,12 @@
       <!-- Advisor cards -->
       <h1 class="advisor-h1">Advisors</h1>
       <div class="advisors">
-        <mat-grid-list cols="5" rowHeight="300px" [gutterSize]="'20px'">
+        <mat-grid-list style="width: 45%; margin: 0 auto;" cols="2" rowHeight="300px" [gutterSize]="'20px'">
           <mat-grid-tile
             class="hover"
-            [routerLink]="['/home']"
             *ngFor="let advisor of advisors"
           >
-            <div class="card">
+          <div routerLink="/whoweare/{{ advisor.id }}" class="card">
               <img src="{{ advisor.icon }}" />
               <div class="bottomleft">
                 <h1>{{ advisor.name }}</h1>
@@ -108,13 +107,12 @@
       <!-- Advisor cards -->
       <h1 class="advisor-h1">Advisors</h1>
       <div class="advisors">
-        <mat-grid-list cols="4" rowHeight="300px" [gutterSize]="'20px'">
+        <mat-grid-list style="width: 45%; margin: 0 auto;" cols="2" rowHeight="300px" [gutterSize]="'20px'">
           <mat-grid-tile
             class="hover"
-            [routerLink]="['/home']"
             *ngFor="let advisor of advisors"
           >
-            <div class="card">
+          <div routerLink="/whoweare/{{ advisor.id }}" class="card">
               <img src="{{ advisor.icon }}" />
               <div class="bottomleft">
                 <h1>{{ advisor.name }}</h1>
@@ -145,13 +143,12 @@
       <!-- Advisor cards -->
       <h1 class="advisor-h1">Advisors</h1>
       <div class="advisors">
-        <mat-grid-list cols="3" rowHeight="300px" [gutterSize]="'20px'">
+        <mat-grid-list style="width: 65%; margin: 0 auto;" cols="2" rowHeight="300px" [gutterSize]="'20px'">
           <mat-grid-tile
             class="hover"
-            [routerLink]="['/home']"
             *ngFor="let advisor of advisors"
           >
-            <div class="card">
+            <div routerLink="/whoweare/{{ advisor.id }}" class="card">
               <img src="{{ advisor.icon }}" />
               <div class="bottomleft">
                 <h1>{{ advisor.name }}</h1>
@@ -186,10 +183,9 @@
         <mat-grid-list cols="2" rowHeight="230px" [gutterSize]="'20px'">
           <mat-grid-tile
             class="hover"
-            [routerLink]="['/home']"
             *ngFor="let advisor of advisors"
           >
-            <div class="card">
+          <div routerLink="/whoweare/{{ advisor.id }}" class="card">
               <img src="{{ advisor.icon }}" />
               <div class="bottomleft">
                 <h1>{{ advisor.name }}</h1>
@@ -203,7 +199,7 @@
     <!-- Mobile view ends -->
     <div class="join-team">
       <h1>Interested in joining our team?</h1>
-      <button>View Open Roles</button>
+      <button routerLink="/careers">View Open Roles</button>
     </div>
     <footer>
       <app-landing-page-subfooter></app-landing-page-subfooter>

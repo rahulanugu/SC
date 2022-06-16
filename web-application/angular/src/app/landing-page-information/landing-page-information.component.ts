@@ -22,10 +22,6 @@ export class LandingPageInformationComponent implements OnInit {
     {cardImage:"../../assets/icons/secure-folder.png",cardTitle:"Data Security",cardContects:"We know that your medical data is important so we've made sure that we make data security a top priority.",  colSpan:1,rowSpan:3},
     {cardImage:"../../assets/icons/computer.png",cardTitle:"Data Accuracy",cardContects:"Being able to track and trace all your inputs into the system with log information easily available.",  colSpan:1,rowSpan:3}
   ]
-  button=[
-    {context:"ScriptChain Health White Paper",colSpan:2,rowSpan:1},
-    {context:"Request Access",colSpan:1,rowSpan:1}
-  ]
   constructor(
     private size:ScreenSizeService,
     private mediaObserver: MediaObserver) {
@@ -50,5 +46,8 @@ export class LandingPageInformationComponent implements OnInit {
         layout:"colomn"
       }
     }
+  }
+  whitePaper(){
+    window.open('../../assets/pdf/whitepaper.pdf')
   }
 }

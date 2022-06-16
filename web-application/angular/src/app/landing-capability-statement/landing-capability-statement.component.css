@@ -1,65 +1,49 @@
-/* Authors and their contributions: 
+/* Authors and their contributions:
     Vidit: Added icons and alignment. Also worked on responsiveness
             by adding a few media queries.
 */
-​
+
 /* the prefix cs stands for capability statement */
-​
-html {
-  width: 100%;
-  height: 100%;
-  display: table;
-}
-​
-body {
-  width: 100%;
-  display: table-cell;
-  background-color: #faf6f2;
-  font-family: "Lato", sans-serif;
-}
-​
 html,
 body {
   margin: 0px;
   padding: 0px;
   overflow-x: hidden;
 }
-​
-.card{
+
+.card {
   padding: 1.5em .5em .5em;
   border-radius: 2em;
   text-align: center;
-  box-shadow: 0 5px 10px rgba(0,0,0,.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
   transition: transform 500ms ease;
-  margin: 0 auto; 
-  float: none; 
-  margin-bottom: 10px; 
-  width:500px;
+  margin: 0 auto;
+  float: none;
+  margin-bottom: 10px;
+  width: 500px;
 }
-​
-.card:hover{
-  transform: translateY(-20px);
+
+.card:hover {
+  transform: translateY(-25px);
 }
-​
-​
-.btn{
-  border-radius:2em;
+
+.btn {
+  border-radius: 2em;
   background-color: teal;
   color: #ffffff;
   padding: .5em 1.5em;
 }
+
 .btn:hover {
-background-color: rgba(0, 128, 128, 0.7);
-color: #ffffff;
-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 128, 128, 0.7);
+  color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
-​
 .csHeader {
   font-family: "Tinos", serif;
   color: #2d5059;
   font-size: 36px;
 }
-​
 .csLogo {
   width: 448px;
   height: 252px;
@@ -68,19 +52,18 @@ box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   display: block;
   border-radius: 8px;
 }
-​
 .csImg {
   width: 50px;
   height: 50px;
 }
-​
+
 .content2 {
   height: auto;
   /* Teal 400 */
   padding-bottom: 40px;
   background: #2d5059;
 }
-​
+
 .content2 h3 {
   font-style: normal;
   font-weight: bold;
@@ -91,7 +74,7 @@ box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   margin-right: 15%;
   padding-top: 40px;
 }
-​
+
 .content2 p {
   font-style: normal;
   font-weight: normal;
@@ -101,8 +84,9 @@ box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   align-items: center;
   margin-left: 15%;
   /* White */
-  color: #ffffff;
+ color: #ffffff;
 }
+
 .content2 ul {
   font-style: normal;
   font-weight: normal;
@@ -114,6 +98,7 @@ box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   color: #ffffff;
   margin-bottom: 40px;
 }
+
 .contentwhite h3 {
   font-style: normal;
   font-weight: bold;
@@ -129,6 +114,7 @@ box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   /* White */
   color: #1d1f26;
 }
+
 .contentwhite p {
   font-style: normal;
   font-weight: normal;
@@ -139,12 +125,14 @@ box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   margin-right: 15%;
   /* Grey 500 */
   color: #1d1f26;
-  margin-left: 15%;
+ margin-left: 15%;
 }
+
 .contentwhite ul {
   font-style: normal;
   font-weight: normal;
   font-size: 1em;
+
   /* Grey 500 */
   margin-right: 15%;
   color: #1d1f26;
@@ -153,6 +141,7 @@ box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   margin-top: 0px;
   margin-bottom: 40px;
 }
+
 table {
   margin-right: 15%;
   margin-left: 15%;
@@ -162,17 +151,20 @@ table {
   border: 1px solid #5c8a96;
   border-collapse: collapse;
 }
+
 .wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
+
 @media only screen and (max-width: 588px) {
   .wrapper {
     display: grid;
     grid-template-columns: 1fr;
   }
 }
-.capabilityContent2{
-    display: table;
-    margin: 0 auto;
+
+.capabilityContent2 {
+  display: table;
+  margin: 0 auto;
 }

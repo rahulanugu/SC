@@ -141,7 +141,7 @@ const routes: Routes = [
   { path: "contact-us", component: ContactUsComponent },
   { path: "careers", component: CareersComponent },
   { path: "privacy-policy", component: PrivacyPolicyComponent },
-  { path: "apply-job/:jobid", component: ApplyJobComponent },
+  { path: "apply-job/:jobId", component: ApplyJobComponent },
   { path: "job-openings", component: JobOpeningsComponent },
   { path: "terms-conditions", component: TermsConditionsComponent },
   { path: "", redirectTo: "/home", pathMatch: "full" },

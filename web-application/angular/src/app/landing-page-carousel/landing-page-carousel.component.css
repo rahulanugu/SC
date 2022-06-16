@@ -33,8 +33,10 @@
 .card-body {
   display: flex;
   background-color: #BCE5C6;
-  min-height: 150px;
+  height: 250px;
   color: #2D5059;
+  justify-content: center;
+  align-items: center;
 }
 
 .card-body p {
@@ -45,19 +47,19 @@
   margin: 5px 15px;
   padding: 0;
 }
-.card-body::before{
+.card-body p::before{
   content: '\275D';
   font-size: 40px;
   position: absolute;
-  top: 130px;
-  left: 10px;
+  top: 140px;
+  left: 15px;
 }
-.card-body::after{
+.card-body p::after{
   position: absolute;
   content: '\2760';
   font-size: 40px;
-  bottom: 5px;
-  right: 10px;
+  bottom: 15px;
+  right: 15px;
 }
 
 .card .upper {
@@ -88,4 +90,7 @@
 }
 .card-text{
   font-size: 16px;
+}
+.active{
+  width: 100%;
 }

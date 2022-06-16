@@ -16,13 +16,30 @@
         src="../../assets/company-logo/scriptchain-health-logo.svg"
         style="height: 64px"
     /></a>
-    <mat-menu class="matMenu" #menu="matMenu">
-      <button routerLink="/partnerships" mat-menu-item>Partnerships</button>
-      <button mat-menu-item>Blog</button>
-      <button mat-menu-item>About</button>
-      <button mat-menu-item>Support</button>
-      <button mat-menu-item>Log In</button>
-      <button mat-menu-item>Sign Up</button>
+    <mat-menu fxShow fxHide.gt-sm class="matMenu" #menu="matMenu" id="matMenu">
+      <div class="mat-menu-container">
+        <div class="button-container">
+          <button mat-icon-button class="dropdown-clear">
+            <mat-icon>clear</mat-icon>
+          </button>
+        </div>
+        <input
+          placeholder="Search..."
+          type="text"
+          (click)="$event.stopPropagation()"
+        />
+        <div (click)="$event.stopPropagation()" class="anchor-container">
+          <a routerLink="/partnerships" mat-menu-item id="partnership">
+            Partnerships
+          </a>
+          <a routerLink="/blog" mat-menu-item>Blog</a>
+          <a routerLink="/whoweare" mat-menu-item>About</a>
+          <a routerLink="/faq" mat-menu-item>Support</a>
+          <a routerLink="/healthcare/login" mat-menu-item>Log In</a>
+          <a routerLink="/patients/signup" mat-menu-item>Sign Up</a>
+        </div>
+      </div>
+      <div class="fill" (click)="$event.stopPropagation()"></div>
     </mat-menu>
     <mat-toolbar
       class="leftHeader"
@@ -43,24 +60,31 @@
         <button mat-button routerLink="/partnerships">Partnership</button>
 
         <!-- #docregion mat-menu-trigger-for -->
-        <button mat-button>Blog</button>
+        <button routerLink="/blog" mat-button>Blog</button>
 
         <!-- #docregion mat-menu-trigger-for -->
-        <button mat-button>About</button>
+        <button routerLink="/whoweare" mat-button>About</button>
 
         <!-- #docregion mat-menu-trigger-for -->
-        <button mat-button>Support</button>
+        <button routerLink="/faq" mat-button>Support</button>
       </div>
     </mat-toolbar>
     <mat-toolbar class="right">
       <div class="rightHeader" fxFlex="100" fxLayoutAlign="end center">
         <div fxHide fxShow.gt-sm>
           <div>
-            <button  class="search" [ngClass]="{active:isActive}" >
-              <mat-icon *ngIf="!isActive" (click)="search()" class="input">search
+            <button class="search" [ngClass]="{ active: isActive }">
+              <mat-icon *ngIf="!isActive" (click)="search()" class="input"
+                >search
               </mat-icon>
-              <input *ngIf="isActive" type="text" name="" placeholder="Search...">
-              <mat-icon *ngIf="isActive" (click)="search()" class="input">clear
+              <input
+                *ngIf="isActive"
+                type="text"
+                name=""
+                placeholder="Search..."
+              />
+              <mat-icon *ngIf="isActive" (click)="search()" class="input"
+                >clear
               </mat-icon>
             </button>
             <button
@@ -70,10 +94,14 @@
             >
               Log in
             </button>
-            <button class="signup" mat-flat-button color="primary">
+            <button
+              routerLink="/patients/signup"
+              class="signup"
+              mat-flat-button
+              color="primary"
+            >
               Sign Up
             </button>
-
           </div>
         </div>
       </div>

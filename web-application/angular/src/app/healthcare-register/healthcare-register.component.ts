@@ -1,5 +1,10 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, Validators } from "@angular/forms";
+import {
+  FormBuilder,
+  Validators,
+  FormGroup,
+  FormControl,
+} from "@angular/forms";
 import { HealthcareAccountService } from "../shared/healthcare-account.service";
 import { Router } from "@angular/router";
 import { CustomValidator } from "../shared/validators/validation";
@@ -17,23 +22,6 @@ import { HealthcareDialogContent } from "../healthcare-dialog-content/healthcare
   styleUrls: ["./healthcare-register.component.css"],
 })
 export class HealthcareRegisterComponent implements OnInit {
-  public phonemask = [
-    "(",
-    /[0-9]/,
-    /\d/,
-    /\d/,
-    ")",
-    "-",
-    /\d/,
-    /\d/,
-    /\d/,
-    "-",
-    /\d/,
-    /\d/,
-    /\d/,
-    /\d/,
-  ];
-
   passwordNotMatch: boolean = false;
   userAlreadyExist: boolean = false;
   constructor(
@@ -44,7 +32,7 @@ export class HealthcareRegisterComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    document.getElementById("registersuccessful").style.display = "none";
+
   }
   openDialog() {
     const dialogRef = this.dialog.open(HealthcareDialogContent);
@@ -55,15 +43,16 @@ export class HealthcareRegisterComponent implements OnInit {
 
   pattern1 = "^[0-9_-]{10,12}";
 
-  Form = this.formBuilderService.group({
-    firstName: ["", Validators.required],
-    lastName: ["", Validators.required],
-    email: ["", Validators.required],
-    companyName: ["", Validators.required],
-    ehr: ["", Validators.required],
-    roleInCompany: ["", Validators.required],
-    password: ["", Validators.required],
-    phone: ["", [Validators.required, CustomValidator.phoneValidator]],
+  Form = new FormGroup({
+    firstName: new FormControl("", [Validators.required]),
+    lastName: new FormControl("", [Validators.required]),
+    email: new FormControl("", [Validators.required, Validators.email]),
+    orgName: new FormControl("", [Validators.required]),
+    orgPosition: new FormControl("", [Validators.required]),
+    password: new FormControl("", [Validators.required]),
+    phone: new FormControl("", [Validators.required,CustomValidator.phoneValidator,]),
+    ReTypePassword: new FormControl("", [Validators.required]),
+
   });
 
   submitForm() {
@@ -84,4 +73,29 @@ export class HealthcareRegisterComponent implements OnInit {
         }
       );
   }
+  get firstName() {
+    return this.Form.get("firstName");
+  }
+  get lastName() {
+    return this.Form.get("lastName");
+  }
+  get email() {
+    return this.Form.get("email");
+  }
+  get phone() {
+    return this.Form.get("phone");
+  }
+  get orgName() {
+    return this.Form.get("orgName");
+  }
+  get orgPosition() {
+    return this.Form.get("orgPosition");
+  }
+  get ReTypePassword() {
+    return this.Form.get("ReTypePassword");
+  }
+  get password() {
+    return this.Form.get("password");
+  }
+
 }

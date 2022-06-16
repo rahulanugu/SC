@@ -9,7 +9,7 @@
 
 .mat-toolbar {
   background: #2d5059;
-  margin: 0;
+  margin: 0 !important;
   padding: 0;
 }
 
@@ -88,6 +88,59 @@
 }
 
 /*  */
-button:focus {
+.mat-toolbar-single-row{
+  padding: 0 !important;
+}
+/*  */
+button:focus,input:focus {
   outline: none;
 }
+.mat-menu-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 100vw !important;
+  min-height: 100% !important;
+  background: #2d5059;
+  opacity: .99;
+}
+.mat-menu-panel .fill{
+  height: 500px;
+}
+.mat-menu-panel div{
+  height: 100%;
+}
+.mat-menu-panel div div button mat-icon{
+  margin-top: 4px;
+  margin-left: 14px;
+  color: white;
+}
+.mat-menu-panel div input{
+  margin-top: 10px;
+  margin-right: 9px;
+  width: 90%;
+  height: 43px;
+  align-self: center;
+  border-radius: 10px;
+  margin-bottom: 23px;
+}
+.mat-menu-panel div{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.mat-menu-panel div a{
+  margin: 0 auto;
+  color: white;
+  border-top: 1px solid #616161;
+  text-align: center;
+  width: 90%;
+  text-decoration: none;
+}
+.mat-menu-panel div a:hover{
+  background: black;
+}
+.mat-menu-panel div #partnership{
+  width: 100%;
+}
+/*  */

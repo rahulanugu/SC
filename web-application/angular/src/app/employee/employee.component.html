@@ -50,14 +50,7 @@
             <h1>{{ teamMembers[employeeId].name }}</h1>
             <h3>{{ teamMembers[employeeId].title }}</h3>
             <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Alias
-              maxime, laboriosam error reprehenderit necessitatibus nesciunt
-              accusantium, eveniet natus atque expedita possimus quisquam,
-              perferendis fugit doloremque. Modi reprehenderit dicta molestias
-              ipsum? Voluptates, illum asperiores totam quae sit laborum?
-              Corporis nulla, magni modi soluta ipsam exercitationem vero
-              tempore incidunt, sapiente rerum ipsum quaerat consectetur beatae
-              blanditiis quae unde praesentium alias illo aliquam.
+              {{teamMembers[employeeId].bio}}
             </p>
           </div>
         </mat-grid-tile>
@@ -67,36 +60,9 @@
       </mat-grid-list>
       <div class="moreAbout">
         <h1>More about "{{ teamMembers[employeeId].name }}"</h1>
-        <div>
+        <div *ngFor="let about of teamMembers[employeeId].about">
           <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Harum
-            obcaecati maxime nobis sequi, praesentium, temporibus, totam neque
-            et fugit quam dicta doloremque. Corporis voluptatem, autem fugit
-            amet tenetur nostrum quasi?Lorem ipsum dolor sit amet consectetur
-            adipisicing elit. Sit ullam nemo optio assumenda rem, tempore omnis
-            ex molestiae quasi modi inventore repellat iusto voluptatibus esse.
-            Id consequuntur nobis reiciendis fuga!
-          </p>
-          <br />
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. A
-            exercitationem culpa debitis non temporibus voluptatem consequatur.
-            Porro voluptatum sunt aspernatur aperiam error. Delectus natus
-            dolores, rem beatae itaque magni tempore. Lorem ipsum dolor sit
-            amet, consectetur adipisicing elit. Veniam, assumenda hic.
-            Laboriosam, adipisci! Alias in, voluptatem deleniti autem, quas, ea
-            amet assumenda saepe nostrum nisi repellat ullam dolor laborum
-            consequuntur.
-          </p>
-          <br />
-          <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi
-            dicta eos illum voluptatibus magnam, totam ratione soluta itaque
-            expedita minus animi. Labore temporibus sunt quibusdam aut qui
-            molestias error obcaecati! Lorem ipsum dolor sit amet consectetur
-            adipisicing elit. Temporibus, quod corporis inventore, perspiciatis
-            illo veniam quibusdam ipsa cupiditate, nobis repudiandae illum
-            itaque quia fuga doloremque magni. Labore quas fugit dicta.
+            {{about}}
           </p>
         </div>
       </div>
@@ -108,49 +74,15 @@
         <h1>{{ teamMembers[employeeId].name }}</h1>
         <h3>{{ teamMembers[employeeId].title }}</h3>
         <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Alias
-          maxime, laboriosam error reprehenderit necessitatibus nesciunt
-          accusantium, eveniet natus atque expedita possimus quisquam,
-          perferendis fugit doloremque. Modi reprehenderit dicta molestias
-          ipsum? Voluptates, illum asperiores totam quae sit laborum? Corporis
-          nulla, magni modi soluta ipsam exercitationem vero tempore incidunt,
-          sapiente rerum ipsum quaerat consectetur beatae blanditiis quae unde
-          praesentium alias illo aliquam.
+          {{teamMembers[employeeId].bio}}
         </p>
         <img src="{{ teamMembers[employeeId].icon }}" alt="" />
       </div>
       <div class="moreAbout bottom">
         <h1>More about "{{ teamMembers[employeeId].name }}"</h1>
-        <div>
+        <div *ngFor="let about of teamMembers[employeeId].about">
           <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Harum
-            obcaecati maxime nobis sequi, praesentium, temporibus, totam neque
-            et fugit quam dicta doloremque. Corporis voluptatem, autem fugit
-            amet tenetur nostrum quasi?Lorem ipsum dolor sit amet consectetur
-            adipisicing elit. Sit ullam nemo optio assumenda rem, tempore omnis
-            ex molestiae quasi modi inventore repellat iusto voluptatibus esse.
-            Id consequuntur nobis reiciendis fuga!
-          </p>
-          <br />
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. A
-            exercitationem culpa debitis non temporibus voluptatem consequatur.
-            Porro voluptatum sunt aspernatur aperiam error. Delectus natus
-            dolores, rem beatae itaque magni tempore. Lorem ipsum dolor sit
-            amet, consectetur adipisicing elit. Veniam, assumenda hic.
-            Laboriosam, adipisci! Alias in, voluptatem deleniti autem, quas, ea
-            amet assumenda saepe nostrum nisi repellat ullam dolor laborum
-            consequuntur.
-          </p>
-          <br />
-          <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi
-            dicta eos illum voluptatibus magnam, totam ratione soluta itaque
-            expedita minus animi. Labore temporibus sunt quibusdam aut qui
-            molestias error obcaecati! Lorem ipsum dolor sit amet consectetur
-            adipisicing elit. Temporibus, quod corporis inventore, perspiciatis
-            illo veniam quibusdam ipsa cupiditate, nobis repudiandae illum
-            itaque quia fuga doloremque magni. Labore quas fugit dicta.
+            {{about}}
           </p>
         </div>
       </div>
@@ -158,7 +90,7 @@
 
     <div class="join-team">
       <h1>Interested in joining our team?</h1>
-      <button>View Open Roles</button>
+      <button routerLink="/careers">View Open Roles</button>
     </div>
     <footer>
       <app-landing-page-subfooter></app-landing-page-subfooter>

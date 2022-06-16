@@ -99,6 +99,9 @@ app-landing-page-header{
 .carousel {
   width: 80vw;
 }
+.active{
+  width: 100% !important;
+}
 /* The controls </> */
 .control {
   display: flex;
@@ -129,3 +132,6 @@ app-landing-page-header{
   font-weight: normal;
   font-size: 36px;
 }
+
+
+

@@ -33,14 +33,14 @@
           <h1 class="header">Watch How We Interpret Data</h1>
         </mat-grid-tile>
         <mat-grid-tile [colspan]="3" [rowspan]="5">
-          <iframe src="https://www.youtube.com/embed/hXFf1Ncwkgw"></iframe>
+          <video controls poster="../../assets/company-logo/scriptchain-health-logo-dark.svg"><source src="../../assets/videos/ScriptChain Health Product Demo.mp4" type="video/mp4"></video>
         </mat-grid-tile>
-        <mat-grid-tile
-          *ngFor="let buttons of button"
-          [colspan]="buttons.colSpan"
-          [rowspan]="buttons.rowSpan"
-          ><button>{{ buttons.context }}</button></mat-grid-tile
-        >
+        <mat-grid-tile [colspan]="2" [rowspan]="1"
+        ><button (click)="whitePaper()">ScriptChain Health White Paper</button></mat-grid-tile
+      >
+      <mat-grid-tile [colspan]="1" [rowspan]="1"
+        ><button routerLink="/request-access" >Request Demo</button></mat-grid-tile
+      >
       </mat-grid-list>
     </div>
   </div>
@@ -109,13 +109,13 @@
         <h1 class="header">Watch How We Interpret Data</h1>
       </mat-grid-tile>
       <mat-grid-tile [colspan]="3" [rowspan]="5">
-        <iframe src="https://www.youtube.com/embed/hXFf1Ncwkgw"></iframe>
+        <video controls poster="../../assets/company-logo/scriptchain-health-logo-dark.svg"><source src="../../assets/videos/ScriptChain Health Product Demo.mp4" type="video/mp4"></video>
       </mat-grid-tile>
       <mat-grid-tile [colspan]="2" [rowspan]="1"
-        ><button>ScriptChain Health White Paper</button></mat-grid-tile
+        ><button (click)="whitePaper()">ScriptChain Health White Paper</button></mat-grid-tile
       >
       <mat-grid-tile [colspan]="1" [rowspan]="1"
-        ><button>Request Access</button></mat-grid-tile
+        ><button routerLink="/request-access" >Request Demo</button></mat-grid-tile
       >
     </mat-grid-list>
   </div>
@@ -185,15 +185,15 @@
         <h1 class="header">Watch How We Interpret Data</h1>
       </mat-grid-tile>
       <mat-grid-tile [colspan]="2" [rowspan]="5">
-        <iframe src="https://www.youtube.com/embed/hXFf1Ncwkgw"></iframe>
+        <video controls poster="../../assets/company-logo/scriptchain-health-logo-dark.svg"><source src="../../assets/videos/ScriptChain Health Product Demo.mp4" type="video/mp4"></video>
       </mat-grid-tile>
       <mat-grid-tile [colspan]="1" [rowspan]="1"
-        ><button style="font-size: 13px">
+        ><button (click)="whitePaper()" style="font-size: 13px">
           ScriptChain Health White Paper
         </button></mat-grid-tile
       >
       <mat-grid-tile [colspan]="1" [rowspan]="1"
-        ><button style="font-size: 13px">Request Access</button></mat-grid-tile
+        ><button routerLink="/request-access" style="font-size: 13px">Request Demo</button></mat-grid-tile
       >
     </mat-grid-list>
   </div>

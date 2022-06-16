@@ -42,8 +42,8 @@
 }
 
 .small-card span {
-  font-size: 22px;
-  font-family: "Lato Bold";
+  font-size: 18px;
+  font-family: "Lato";
   font-weight: bold;
   text-align: left;
 }
@@ -52,4 +52,8 @@
   top: 15px;
   right: 10px;
   font-size: 26px;
+}
+.small-card div{
+  font-size: 14px;
+  font-family: "Lato";
 }
