@@ -1,17 +1,4 @@
 /* DenisH */
-<<<<<<< HEAD
-.nav {
-  position: fixed;
-  width: 100%;
-  z-index: 10;
-  border-bottom: 1px #2d50599c solid;
-  box-shadow: 0 2px 55px 1px #2d5059c9
-}
-
-.mat-toolbar {
-  background: #2d5059;
-  margin: 0 !important;
-=======
 
 
 .nav {
@@ -25,7 +12,6 @@
 .mat-toolbar {
   background: #2d5059;
   margin: 0;
->>>>>>> dda28ebcf7156adb0e7302af4a22661643a97720
   padding: 0;
 }
 
@@ -49,7 +35,6 @@
 
 .right {
   padding-right: 15px;
-<<<<<<< HEAD
 }
 
 .rightHeader {
@@ -90,48 +75,6 @@
   left: 14px;
 }
 
-=======
-}
-
-.rightHeader {
-  width: 100%;
-  margin-right: 15px;
-}
-
-.rightHeader div div button {
-  margin: 0 3px;
-}
-
-.login {
-  color: seashell;
-}
-
-.signup {
-  background-color: seashell;
-  color: teal;
-  font-family: "Lato";
-  font-weight: bold;
-}
-
-/* Search bar */
-
-.search {
-  position: relative;
-  background: white;
-  width: 50px;
-  height: 50px;
-  border: none;
-  border-radius: 50%;
-  transition: 0.2s;
-}
-
-.search mat-icon {
-  position: absolute;
-  top: 14px;
-  left: 14px;
-}
-
->>>>>>> dda28ebcf7156adb0e7302af4a22661643a97720
 .search input {
   position: absolute;
   top: 9px;
@@ -147,65 +90,6 @@
 }
 
 /*  */
-<<<<<<< HEAD
-.mat-toolbar-single-row{
-  padding: 0 !important;
-}
-/*  */
-button:focus,input:focus {
-  outline: none;
-}
-.mat-menu-panel {
-  position: fixed;
-  top: 0;
-  left: 0;
-  min-width: 100vw !important;
-  min-height: 100% !important;
-  background: #2d5059;
-  opacity: .99;
-}
-.mat-menu-panel .fill{
-  height: 500px;
-}
-.mat-menu-panel div{
-  height: 100%;
-}
-.mat-menu-panel div div button mat-icon{
-  margin-top: 4px;
-  margin-left: 14px;
-  color: white;
-}
-.mat-menu-panel div input{
-  margin-top: 10px;
-  margin-right: 9px;
-  width: 90%;
-  height: 43px;
-  align-self: center;
-  border-radius: 10px;
-  margin-bottom: 23px;
-}
-.mat-menu-panel div{
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-.mat-menu-panel div a{
-  margin: 0 auto;
-  color: white;
-  border-top: 1px solid #616161;
-  text-align: center;
-  width: 90%;
-  text-decoration: none;
-}
-.mat-menu-panel div a:hover{
-  background: black;
-}
-.mat-menu-panel div #partnership{
-  width: 100%;
-}
-/*  */
-=======
 button:focus {
   outline: none;
 }
->>>>>>> dda28ebcf7156adb0e7302af4a22661643a97720
