@@ -51,7 +51,7 @@ jobs:
 
       - name: link npm with angular cli
         working-directory: ./web-application/angular
-        run: npm link @angular/cli
+        run: npm link --legacy-peer-deps @angular/cli
 
       - name: configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
