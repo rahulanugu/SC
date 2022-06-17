@@ -2,10 +2,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap');
 
+app-landing-page-header {
+  position: absolute;
+  top: 0;
+}
+
 body {
     background-color: #faf6f2;
 }
-
+body div{
+  margin-top: 25px;
+}
 .tosHeader {
     font-family: 'Tinos', serif;
     font-size: 36px;
