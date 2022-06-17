@@ -3,12 +3,12 @@
 <!--Charan: Creation of contact form and styling-->
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app='myApp'>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
-      href="http://fonts.googleapis.com/css?family=Lato:400,700"
+      href="//fonts.googleapis.com/css?family=Lato:400,700"
       rel="stylesheet"
       type="text/css"
     />
@@ -126,11 +126,11 @@
               [disabled]="!form.valid"
               value="Submit"
               ng-click="submit()">
+
               Send Message 
             </button>
           </form>
         </div>
-
       </div>
       <div class="mt-5 pt-5" fxFlexFill fxLayout="column" fxLayoutAlign="end">
         <app-landing-page-subfooter></app-landing-page-subfooter>

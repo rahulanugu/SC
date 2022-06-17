@@ -131,8 +131,16 @@ import { ShareModule } from 'ngx-sharebuttons';
 import { ToastrModule } from 'ngx-toastr';
 import { AllscriptsLoginComponent } from "./allscriptslogin/allscriptslogin.component";
 import { PortalProgressBarComponent } from './shared/components/portal-progress-bar/portal-progress-bar.component';
-import { BlogService } from "./shared/blogService.service";
-
+import { LandingPageCarouselComponent } from './landing-page-carousel/landing-page-carousel.component';
+import { LandingPageWelcomeMessageComponent } from './landing-page-welcome-message/landing-page-welcome-message.component';
+import { LandingPageInformationComponent } from './landing-page-information/landing-page-information.component';
+import { ReadMoreComponent } from './read-more/read-more.component';
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faChevronRight, faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { EmployeeComponent } from './employee/employee.component';
+library.add(faChevronDown)
+library.add(faChevronRight)
 
 @NgModule({
   declarations: [
@@ -227,6 +235,11 @@ import { BlogService } from "./shared/blogService.service";
     IndustryCardComponent,
     BlogPostComponent,
     PortalProgressBarComponent,
+    LandingPageCarouselComponent,
+    LandingPageWelcomeMessageComponent,
+    LandingPageInformationComponent,
+    ReadMoreComponent,
+    EmployeeComponent,
   ],
 
   imports: [
@@ -237,6 +250,7 @@ import { BlogService } from "./shared/blogService.service";
     ShareModule,
     RouterModule,
     CommonModule,
+    FontAwesomeModule,
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
@@ -271,8 +285,7 @@ import { BlogService } from "./shared/blogService.service";
     LoginPatientService,
     PatientAuthGuard,
     DataService,
-    ScriptLoaderService,
-    BlogService
+    ScriptLoaderService
   ],
   bootstrap: [AppComponent],
   entryComponents: [MatConfirmDialogComponent],

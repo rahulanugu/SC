@@ -1,11 +1,14 @@
 // contribution
 // Sammy - filter blogs based on the drop down value and update blog list accordingly
 // Stephanie - get and filter blog posts from Wordpress API
+// Kefan - implement pagination, category filter
+
 
 import { Component, OnInit } from "@angular/core";
 import { BlogCardComponent } from "../shared/components/blog-card/blog-card.component";
 import { BlogService } from '../shared/blogService.service';
 import { IndustryCardComponent } from "../shared/components/industry-card/industry-quote-card.component";
+import { max } from "rxjs/operators";
 
 @Component({
   selector: "app-blog",
@@ -13,73 +16,158 @@ import { IndustryCardComponent } from "../shared/components/industry-card/indust
   styleUrls: ["./blog.component.css"],
 })
 export class BlogComponent implements OnInit {
-  blogList: any;
+  blogList: any; // the list of all the blogs
+  showList: any; // the list filtered by category
+  curList: any; // the list of blogs need to be shown on the current page
+
+  pageList: number[];
+
   errorMessage: any;
   categoryList: any;
-  numberOfPages = 1;
-  currentPage = 1;
-  numberPerPage = 9;
+  slug: any;
 
-  constructor(private blogService: BlogService) {}
+  pageList: number[];
+
+  errorMessage: any;
+  categoryList: any;
+  slug: any;
+
+  numberOfPages: number;
+  currentPage: number;
+  numberPerPage = 8; // 8 + 1
+  maxLen = 10;
+
+  constructor(private blogService: BlogService) { }
 
   industryCard = IndustryCardComponent;
 
   ngOnInit() {
-    this.getPosts;
-    this.getCategories;
+    this.getPosts();
+    this.getCategories();
   }
   // Accesses blog posts from blogService or returns error
+
+  // getPosts() {
+  //   this.blogService.getPosts().subscribe((data) => {
+  //     console.log(data.posts);
+  //     this.blogList = data.posts;
+  //     //this.blogList = [...this.blogList, ...this.blogList, ...this.blogList, ...this.blogList]
+  //     this.showList = this.blogList;
+  //     this.load();
+  //   },
+  //     (error) => {
+  //       this.errorMessage = error.message;
+  //       console.log(error);
+  //     })
+  // }
+  // // Accesses list of category objects from blogService or returns error
+  // getCategories() {
+  //   this.blogService.getCategories().subscribe((data) => {
+  //     console.log(data);
+  //     this.categoryList = data.categories;
+  //     this.categoryList = this.categoryList.filter(
+  //       category => category.name !== "Scriptchain"
+  //     );
+  //   },
+  //     (error) => {
+  //       this.errorMessage = error.message;
+  //       console.log(error);
+  //     })
+  // }
+
   getPosts() {
     this.blogService.getPosts().subscribe((data) => {
-      this.blogList = JSON.parse(data).posts;
-      console.log(data);
+      console.log(data.posts);
+      this.blogList = data.posts;
+      this.blogList.forEach((elem, index) => {
+        if (this.blogList[index].excerpt.length > 100) {
+          this.blogList[index].excerpt = this.blogList[index].excerpt.substring(0, 100) + ' ...'
+        }
+      })
+      //this.blogList = [...this.blogList, ...this.blogList]
+      this.showList = this.blogList;
+      this.load();
     },
-    (error) => {
-      this.errorMessage = error.message;
-      console.log(error);
-    })
+      (error) => {
+        this.errorMessage = error.message;
+        console.log(error);
+      })
   }
   // Accesses list of category objects from blogService or returns error
   getCategories() {
     this.blogService.getCategories().subscribe((data) => {
-      this.categoryList = JSON.parse(data).categories;
       console.log(data);
+      this.categoryList = data.categories;
+      this.categoryList = this.categoryList.filter(
+        category => category.name !== "Scriptchain"
+      );
     },
-    (error) => {
-      this.errorMessage = error.message;
-      console.log(error);
-    })
+      (error) => {
+        this.errorMessage = error.message;
+        console.log(error);
+      })
   }
 
-  public selectedCategory;
+  public selectedCategory = "undefined";
 
   // Filters list of posts based on chosen category
   public categoryFilter() {
-    this.blogList = this.blogList.filter(
-      blog => blog.categories[0].name === this.selectedCategory
+    this.showList = this.blogList.filter(
+      blog => Object.values(blog.categories)[0]["name"] === this.selectedCategory
     );
-    if(this.selectedCategory === "undefined"){
-      this.blogList = this.blogList
+    if (this.selectedCategory === "undefined") {
+      this.showList = this.blogList;
     }
+    else {
+      this.slug = this.categoryList.filter(category => category.name == this.selectedCategory);
+      this.slug = this.slug[0].slug;
+      console.log(this.slug);
+    }
+    this.load();
   }
 
   public load() {
-    this.numberOfPages = Math.ceil(this.blogList.length / this.numberOfPages);
+    if (this.showList.length == 0) {
+      this.numberOfPages = 1;
+      this.currentPage = 1; // at least we have one page
+    }
+    else {
+      this.numberOfPages = Math.ceil(this.showList.length / this.numberPerPage);
+      this.currentPage = 1;
+    }
+    this.updatePage();
+    console.log(this.curList);
+  }
+
+  public updatePage() {
+    this.curList = this.showList.slice((this.currentPage - 1) * this.numberPerPage, this.currentPage * this.numberPerPage);
+    var lowEnd = Math.max(this.currentPage - this.maxLen / 2, 1);
+    var highEnd = Math.min(lowEnd + this.maxLen - 1, this.numberOfPages);
+    var lowEnd = Math.max(1, highEnd - this.maxLen + 1);
+    var list = []
+    for (var i = lowEnd; i <= highEnd; i++) {
+      list.push(i);
+    }
+    this.pageList = list
   }
 
   public nextPage() {
-    if(this.currentPage != this.numberPerPage) {
-      this.currentPage +=1;
-      this.load()
+    if (this.currentPage != this.numberOfPages) {
+      this.currentPage += 1;
+      this.updatePage();
     }
   }
 
   public previousPage() {
-    if(this.currentPage != 1) {
+    if (this.currentPage != 1) {
       this.currentPage -= 1;
-      this.load();
+      this.updatePage();
     }
   }
 
-}
+  public jumpPage(event) {
+    this.currentPage = Number(event.target.innerText);
+    this.updatePage();
+  }
 
+}

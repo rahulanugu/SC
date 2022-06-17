@@ -1,5 +1,6 @@
 <!--  Authors and their contributions:
     Vince: updated pitchdeck and cropped images.
+    Denis: Design update
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -36,179 +37,217 @@
   </head>
   <body>
     <div>
+      <!-- Header -->
       <app-landing-page-header></app-landing-page-header>
     </div>
     <div>
+      <!-- H1 plus description -->
       <h3 class="loginHeading">Who We Are</h3>
-
-      <div class="ceoIntro ceoAlign">
-        <div class="row">
-          <div class="col">
-            <h3 style="text-align: center">CEO/Founder</h3>
-            <img
-              src="./assets/MohImg.JPG"
-              id="ceoImg"
-              style="text-align: center"
-            />
-            <br />
-            <label style="text-align: center">Moh Noori</label>
-            <p style="text-align: center">MBA at Boston College</p>
-          </div>
-        </div>
+      <p class="whoWeAreDesc">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore
+        excepturi maiores architecto harum. Vel, excepturi dolorum, totam
+        repellat exercitationem recusandae sit dicta ea, sequi deleniti rerum
+        voluptatibus nulla facilis. Mollitia!
+      </p>
+    </div>
+    <!-- Top card/Founder -->
+    <!-- XL View -->
+    <div fxHide fxShow.xl>
+      <!-- Team cards -->
+      <div class="team">
+        <mat-grid-list cols="5" rowHeight="300px" [gutterSize]="'20px'">
+          <mat-grid-tile class="hover" *ngFor="let team of teamMembers">
+            <div routerLink="/whoweare/{{ team.id }}" class="card">
+              <img src="{{ team.icon }}" />
+              <div class="bottomleft">
+                <h1>{{ team.name }}</h1>
+                <h2>{{ team.title }}</h2>
+              </div>
+            </div>
+          </mat-grid-tile>
+        </mat-grid-list>
       </div>
 
-      <div class="teamDiv">
-        <div class="team">
-          <h4 id="teamheading">Artificial Intelligence</h4>
-          <div class="row" style="align-items: center">
-            <!-- Col1 -->
-            <div class="col px-3 py-3">
-              <img src="./assets/headshots/NiranjanNimbargi.jpg" id="ceoImg" />
-              <br />
-              <label>Niranjan Nimbargi</label>
-              <h6>Machine Learning Engineer</h6>
-              <p>MS in Computer Science at Columbia University</p>
+      <!-- Advisor cards -->
+      <h1 class="advisor-h1">Advisors</h1>
+      <div class="advisors">
+        <mat-grid-list style="width: 45%; margin: 0 auto;" cols="2" rowHeight="300px" [gutterSize]="'20px'">
+          <mat-grid-tile
+            class="hover"
+            *ngFor="let advisor of advisors"
+          >
+          <div routerLink="/whoweare/{{ advisor.id }}" class="card">
+              <img src="{{ advisor.icon }}" />
+              <div class="bottomleft">
+                <h1>{{ advisor.name }}</h1>
+                <h2>{{ advisor.title }}</h2>
+              </div>
             </div>
-            <!--Col2-->
-            <!-- Col3 -->
-            <div class="col px-3 py-3">
-              <img src="./assets/headshots/John_O_Boyle_Engineering.jpg" id="ceoImg" />
-              <br />
-              <label>John O Boyle</label>
-              <h6>Machine Learning Engineer</h6>
-              <p>MS at University of California San Diego</p>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </div>
+    </div>
+    <!-- LG View -->
+    <div fxHide fxShow.lg>
+      <!-- Team cards -->
+      <div class="team">
+        <mat-grid-list cols="4" rowHeight="300px" [gutterSize]="'20px'">
+          <mat-grid-tile class="hover" *ngFor="let team of teamMembers">
+            <div routerLink="/whoweare/{{ team.id }}" class="card">
+              <img src="{{ team.icon }}" />
+              <div class="bottomleft">
+                <h1>{{ team.name }}</h1>
+                <h2>{{ team.title }}</h2>
+              </div>
             </div>
-            <!--Col4-->
-            <div class="col px-3 py-3">
-              <img src="./assets/headshots/MamoonMasud.jpg" id="ceoImg" />
-              <br />
-              <label>Mamoon Masud</label>
-              <h6>Machine Learning Engineer</h6>
-              <p>MS at Texas A&M University</p>
-            </div>
-            <!-- Col5 -->
-            <div class="col px-3 py-3">
-              <img src="./assets/headshots/TomImg.jpg" id="ceoImg" />
-              <br />
-              <label>Tom Jose</label>
-              <h6>Machine Learning Engineer</h6>
-              <p>MS at UPenn</p>
-            </div>
-          </div>
-          <!---Row1-->
-        </div>
-        <!--AI Team-->
-        <div class="team">
-          <h4 id="teamheading">Software Development</h4>
-          <div class="row row1">
-            <!--Col1-->
-            <div class="col px-3 py-3">
-              <img src="./assets/headshots/SammyImg.jpg" id="ceoImg" />
-              <br />
-              <label>Sammy Lee</label>
-              <h6>Software Developer</h6>
-              <p>BS at Boston College</p>
-            </div>
-            <!--Col2-->
-            <div class="col px-3 py-3">
-              <img src="./assets/headshots/VinceImg.jpg" id="ceoImg" />
-              <br />
-              <label>Vince Guan</label>
-              <h6>Software Developer</h6>
-              <p>BS at UC Santa Cruz</p>
-            </div>
-            <!-- Col3 -->
-            <div class="col px-3 py-3">
-              <img src="./assets/headshots/Tejvir.jpg" id="ceoImg" />
-              <br />
-              <label>Tejvir Singh Saggu</label>
-              <h6>Software Developer</h6>
-              <p>MS in Computer Science at University of Texas, Arlington</p>
-            </div>
-            <!-- Col4 -->
-            <div class="col px-3 py-3">
-              <img src="./assets/headshots/LincolnImg.jpg" id="ceoImg" />
-              <br />
-              <label>Lincoln Ngyuyen</label>
-              <h6>Software Developer</h6>
-              <p>BS at Stony Brook University</p>
-            </div>
-          </div>
-          
-
-          <!---Row1-->
-        </div>
-        <!--Software Development Team-->
-        <div class="team">
-          <h4 id="teamheading">Business Analysts</h4>
-          <div class="row row1">
-            <!-- Col1 -->
-            <div class="col px-3 py-3 padding-0">
-              <img src="./assets/headshots/SaachiImg.jpg" id="ceoImg" />
-              <br />
-              <label>Saachi Jain</label>
-              <h6>Business Analyst</h6>
-              <p>BS at Washington University</p>
-            </div>
-            <!-- Col2 -->
-            <div class="col px-3 py-3 padding-0">
-              <img src="./assets/headshots/MelindaImg.jpg" id="ceoImg" />
-              <br />
-              <label>Melinda B Chu</label>
-              <h6>Business Analyst</h6>
-              <p>MD & MBA at Washington University</p>
-            </div>
-          </div>
-          <!---Row1-->
-        </div>
-        <!--Business Analyst Team-->
-        <!-- <div class="team"> -->
-          <!-- <h4 id="teamheading">Design</h4> -->
-          <!-- <div class="row"> -->
-            <!--Col1-->
-          <!-- </div> -->
-          <!---Row1-->
-        <!-- </div> -->
-        <!--Design Team-->
+          </mat-grid-tile>
+        </mat-grid-list>
       </div>
 
-      <div class="advisorDiv" style="margin-bottom: 20px">
-        <h4 class="py-3 ceoIntr" style="text-align: center">Advisors</h4>
-        <div class="team">
-          <div class="row">
-            <div class="col px-3 py-3">
-              <img src="./assets/headshots/DaveImg.jpg" id="ceoImg" />
-              <label>Dr. David Denmark</label>
-              <h6>Advisor and Cardiologist</h6>
-              <p>MD at Brigham and Women's Hospital</p>
+      <!-- Advisor cards -->
+      <h1 class="advisor-h1">Advisors</h1>
+      <div class="advisors">
+        <mat-grid-list style="width: 45%; margin: 0 auto;" cols="2" rowHeight="300px" [gutterSize]="'20px'">
+          <mat-grid-tile
+            class="hover"
+            *ngFor="let advisor of advisors"
+          >
+          <div routerLink="/whoweare/{{ advisor.id }}" class="card">
+              <img src="{{ advisor.icon }}" />
+              <div class="bottomleft">
+                <h1>{{ advisor.name }}</h1>
+                <h2>{{ advisor.title }}</h2>
+              </div>
             </div>
-            <!--Col1-->
+          </mat-grid-tile>
+        </mat-grid-list>
+      </div>
+    </div>
+    <!-- Md View -->
+    <div fxHide fxShow.md>
+      <!-- Team cards -->
+      <div class="team">
+        <mat-grid-list cols="3" rowHeight="300px" [gutterSize]="'20px'">
+          <mat-grid-tile class="hover" *ngFor="let team of teamMembers">
+            <div routerLink="/whoweare/{{ team.id }}" class="card">
+              <img src="{{ team.icon }}" />
+              <div class="bottomleft">
+                <h1>{{ team.name }}</h1>
+                <h2>{{ team.title }}</h2>
+              </div>
+            </div>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </div>
 
-            <div class="col px-3 py-3">
-              <img src="./assets/headshots/Dr.ChristianImg.jpg" id="ceoImg" />
-              <label>Dr. Christian Ruff</label>
-              <h6>Co-Principal Investigator</h6>
-              <p>MD at Mass General Hospital</p>
+      <!-- Advisor cards -->
+      <h1 class="advisor-h1">Advisors</h1>
+      <div class="advisors">
+        <mat-grid-list style="width: 65%; margin: 0 auto;" cols="2" rowHeight="300px" [gutterSize]="'20px'">
+          <mat-grid-tile
+            class="hover"
+            *ngFor="let advisor of advisors"
+          >
+            <div routerLink="/whoweare/{{ advisor.id }}" class="card">
+              <img src="{{ advisor.icon }}" />
+              <div class="bottomleft">
+                <h1>{{ advisor.name }}</h1>
+                <h2>{{ advisor.title }}</h2>
+              </div>
             </div>
-            <!--Col2-->
-            <div class="col px-3 py-3">
-              <img src="./assets/headshots/Dr.NicholsonImg.jpg" id="ceoImg" />
-              <label>Dr. Nicholas Marston</label>
-              <h6>Co-Principal Investigator</h6>
-              <p>MD at Mass General Hospital</p>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </div>
+    </div>
+    <!-- Full View Ends -->
+    <!-- Mobile view -->
+    <div fxShow fxHide.gt-sm>
+      <!-- Team cards -->
+      <div class="team">
+        <mat-grid-list cols="2" rowHeight="230px" [gutterSize]="'20px'">
+          <mat-grid-tile class="hover" *ngFor="let team of teamMembers">
+            <div routerLink="/whoweare/{{ team.id }}" class="card">
+              <img src="{{ team.icon }}" />
+              <div class="bottomleft">
+                <h1>{{ team.name }}</h1>
+                <h2>{{ team.title }}</h2>
+              </div>
             </div>
-            <!--Col3-->
-          </div>
-          <!---Row 1 end-->
-        </div>
+          </mat-grid-tile>
+        </mat-grid-list>
       </div>
-      <div class="joinDiv">
-        <h4>Interested in joining our team?</h4>
-        <button type="button" class="signUpBtn">View Open Roles</button>
+
+      <!-- Advisor cards -->
+      <h1 class="advisor-h1">Advisors</h1>
+      <div class="advisors">
+        <mat-grid-list cols="2" rowHeight="230px" [gutterSize]="'20px'">
+          <mat-grid-tile
+            class="hover"
+            *ngFor="let advisor of advisors"
+          >
+          <div routerLink="/whoweare/{{ advisor.id }}" class="card">
+              <img src="{{ advisor.icon }}" />
+              <div class="bottomleft">
+                <h1>{{ advisor.name }}</h1>
+                <h2>{{ advisor.title }}</h2>
+              </div>
+            </div>
+          </mat-grid-tile>
+        </mat-grid-list>
       </div>
+    </div>
+    <!-- Mobile view ends -->
+    <div class="join-team">
+      <h1>Interested in joining our team?</h1>
+      <button routerLink="/careers">View Open Roles</button>
     </div>
     <footer>
       <app-landing-page-subfooter></app-landing-page-subfooter>
     </footer>
   </body>
 </html>
+<!--       <div class="card founder-card">
+
+        <mat-grid-list cols="3" rowHeight="400px" [gutterSize]="'20px'">
+          <mat-grid-tile class="left-tile" [colspan]="1" [rowspan]="1">
+            <div>
+              <img
+                src="{{founder[0].icon}}"
+                alt=""
+              />
+              <h2>{{founder[0].name}}</h2>
+              <h4>{{founder[0].credentials}}</h4>
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile class="right-tile" [colspan]="2" [rowspan]="1">
+            <div>
+              <h1>CEO/Founder</h1>
+              <p>
+                {{founder[0].text}}
+              </p>
+            </div>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </div> -->
+<!-- <div class="card founder-card">
+        <mat-grid-list cols="1" rowHeight="90px" [gutterSize]="'20px'">
+          <mat-grid-tile class="left-tile left-tile-top" [colspan]="1" [rowspan]="3">
+            <div>
+              <img
+                src="{{founder[0].icon}}"
+                alt=""
+              />
+              <h2>{{founder[0].name}}</h2>
+              <h4>{{founder[0].credentials}}</h4>
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile class="right-tile bottom" [colspan]="1" [rowspan]="3">
+            <div>
+              <h1>CEO/Founder</h1>
+              <p>
+                {{founder[0].text}}
+              </p>
+            </div>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </div> -->

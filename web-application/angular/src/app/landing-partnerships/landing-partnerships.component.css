@@ -1,54 +1,34 @@
+app-landing-page-header{
+  position: absolute;
+  top: 0;
+}
 #loginHeading {
   font-family: "Tinos", serif;
   color: #2d5059;
   text-align: center;
   font-size: 36px;
   padding-top: 40px;
-  margin-top: 40px;
-  font-style: normal;
+  margin-top: 50px;
   font-weight: normal;
   font-size: 36px;
-  line-height: 41px;
   margin-bottom: 40px;
-}
-html {
-  width: 100%;
-  height: 100%;
-  display: table;
-}
-
-body {
-  width: 100%;
-  display: table-cell;
-  background-color: #faf6f2;
-  font-family: "Lato", sans-serif;
-}
-
-html,
-body {
-  margin: 0px;
-  padding: 0px;
 }
 
 #logo {
-  width: 448px;
-  height: 252px;
-  left: 496px;
-  top: 183px;
-  margin-left: 496px;
-
+  display: flex;
+  min-width: 80%;
+  min-height: 80%;
+  max-height: 224px;
   border-radius: 8px;
+  margin: 0 auto;
 }
-
+/* Content 1 (Upper text,not carousel) */
 .content1 h3 {
   font-style: normal;
   font-weight: bold;
   font-size: 24px;
   line-height: 29px;
   color: #1d1f26;
-  margin-top: 40px;
-  margin-left: 260px;
-  margin-right: 260px;
 }
 
 .content1 p {
@@ -57,12 +37,10 @@ body {
   font-size: 14px;
   line-height: 17px;
   color: #1d1f26;
-  margin-top: 16px;
-  margin-left: 260px;
-  margin-right: 260px;
 }
 
 .signUpBtn {
+  display: flex;
   width: 223px;
   height: 40px;
   color: white;
@@ -71,71 +49,89 @@ body {
   font-size: 18px;
   font-family: "Lato", sans-serif;
   font-weight: bold;
-  margin-right: 17px;
   border-radius: 7px;
-  margin-bottom: 49px;
-  margin-left: 608px;
+  margin: 10px auto;
+  padding: 0;
+  justify-content: center;
+  align-items: center;
 }
 
+/* Carousel stylings */
+/* Header */
 .content2 {
-  height: 779px;
-  left: 0px;
-  top: 910px;
-
-  /* Teal 400 */
-
-  background: #2d5059;
+  display: flex;
+  height: max-content;
+  background: #E6EFF1;
+  flex-direction: column;
 }
 
-.content2 h3 {
-  /* White */
-  font-style: normal;
-  font-weight: bold;
-  font-size: 24px;
-  line-height: 29px;
-  color: #ffffff;
-  padding-top: 40px;
+.content2 .header {
   text-align: center;
+  color: #2d5059;
+  margin-top: 20px;
 }
 
-.content2 p {
-  font-style: normal;
-  font-weight: bold;
+.content2 .header h1 {
+  font-family: 'Rubik One', sans-serif;
+  font-size: 55px;
+}
+
+.content2 .header h6 {
+  font-family: "Lato";
   font-size: 14px;
-  line-height: 17px;
-  color: #ffffff;
-  padding-top: 3.5px;
-  text-align: center;
 }
 
-.content2 h4 {
-  font-style: normal;
+/* Carousels */
+
+.content2 .carousel-container {
+  display: flex;
+  align-content: center;
+  margin-bottom: 45px;
+}
+/* Partner 1/2/3 */
+.carousel-header{
+  text-align: center;
+  font-family: "Lato Bold";
+  font-size: 31px;
+  color: #2d5059;
   font-weight: bold;
-  font-size: 18px;
-  line-height: 22px;
-  color: #ffffff;
-  padding-top: 3.5px;
-  text-align: center;
 }
-
-.arrow {
-  margin-left: 24px;
-  margin-right: 24px;
-  width: 22px;
-  height: 11px;
-  vertical-align: center;
-  margin-top: 70px;
+.carousel {
+  width: 80vw;
 }
-
+.active{
+  width: 100% !important;
+}
+/* The controls </> */
+.control {
+  display: flex;
+  width: 20%;
+  align-items: center;
+  justify-content: center;
+  color: #2D5059;
+}
+.control a img{
+  text-decoration: none;
+  color: #2D5059;
+  width: 60px;
+}
+/* Card styling */
 .card {
-  width: 316px;
-  height: 141px;
-
-  /* White */
-
-  background: #ffffff;
-  /* Drop Shadow E200 */
-  margin-right: 10px;
-  box-shadow: 0px 4px 8px rgba(29, 31, 38, 0.15);
-  border-radius: 8px;
+  min-width: 200px;
+  max-width: 300px;
+  height: 130px;
+  margin: 0 auto;
 }
+/* Mobile view styling */
+#loginHeading-small {
+  font-family: "Tinos", serif;
+  color: #2d5059;
+  text-align: center;
+  font-size: 36px;
+  padding-top: 40px;
+  font-weight: normal;
+  font-size: 36px;
+}
+
+
+

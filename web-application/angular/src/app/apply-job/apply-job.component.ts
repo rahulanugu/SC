@@ -2,7 +2,6 @@ import { Component, OnInit } from "@angular/core";
 import { jobOpening } from "../careers/careers.component";
 import { ActivatedRoute } from "@angular/router";
 import { CareersService } from "../shared/careers.service";
-​
 /**
  * Page: specific job page
  */
@@ -13,7 +12,6 @@ import { CareersService } from "../shared/careers.service";
 })
 export class ApplyJobComponent implements OnInit {
   job: jobOpening;
-​
   jobList: {
     page:number;
     name: string;
@@ -29,11 +27,11 @@ export class ApplyJobComponent implements OnInit {
     {page:5,name:"Software Development",jobDesc:"Something to say about the job description",Responsibilities:["Responsibility nr1","Responsibility nr2","Responsibility nr3"],Requirements:["Requirement nr1","Requirement nr2","Requirement nr3"],posted:"06/18/2022"},
     {page:6,name:"Web Development",jobDesc:"Something to say about the job description",Responsibilities:["Responsibility nr4","Responsibility nr5","Responsibility nr6"],Requirements:["Requirement nr4","Requirement nr5","Requirement nr6"],posted:"06/19/2022"},
   ];
-​
+
   jobListCount:number=0
-​
+
   constructor(private route: ActivatedRoute, private service: CareersService) {}
-​
+
   ngOnInit() {
   }
   previousPage(){
@@ -42,7 +40,7 @@ export class ApplyJobComponent implements OnInit {
       document.documentElement.scrollTo({top:0,behavior:"smooth"});
     }
     console.log(this.jobListCount)
-​
+
   }
   nextPage(){
     if(this.jobListCount!=(this.jobList.length-1)){
@@ -50,7 +48,7 @@ export class ApplyJobComponent implements OnInit {
       document.documentElement.scrollTo({top:0,behavior:"smooth"});
     }
     console.log(this.jobListCount)
-​
+
   }
   jumpPage(page){
     this.jobListCount=page-1;
@@ -69,7 +67,6 @@ export class ApplyJobComponent implements OnInit {
   //     }
   //   );
   // }
-​
   // loadScript() {
   //   var script = document.createElement("script");
   //   script.src = "app/apply-job/script.js";

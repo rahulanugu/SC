@@ -1,12 +1,13 @@
+/*Charan Jagwani: Worked on responsiveness of page and styling*/
 @import url('https://fonts.googleapis.com/css2?family=Tinos&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap');
-
+/*Background color*/
 body {
     background-color: #faf6f2 !important;
     height: max-content;
 }
-
+/*Background color of inner rectangle*/
 .background{
     background-color: white;
     margin-top: 80px;
@@ -15,7 +16,7 @@ body {
     padding-right:50px;
     padding-bottom:50px;
 }
-
+/*Header Text*/
 .tosHeader {
     font-family: 'Tinos', serif;
     font-size: 36px;
@@ -36,7 +37,7 @@ body {
     color: black;
     letter-spacing: 0px;
 }
-
+/*Text-alignmnet*/
 .justifyList {
     text-align: justify;
     list-style-position: inside;

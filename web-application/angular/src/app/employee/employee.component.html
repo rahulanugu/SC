@@ -1,0 +1,99 @@
+<!--
+    Denis: Created for Who we are
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="http://fonts.googleapis.com/css?family=Lato:400,700"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <!-- Hotjar Tracking Code for https://www.scriptchain.co/home -->
+    <script>
+      (function (h, o, t, j, a, r) {
+        h.hj =
+          h.hj ||
+          function () {
+            (h.hj.q = h.hj.q || []).push(arguments);
+          };
+        h._hjSettings = { hjid: 2374837, hjsv: 6 };
+        a = o.getElementsByTagName("head")[0];
+        r = o.createElement("script");
+        r.async = 1;
+        r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+        a.appendChild(r);
+      })(window, document, "https://static.hotjar.com/c/hotjar-", ".js?sv=");
+    </script>
+  </head>
+  <body>
+    <div>
+      <!-- Header -->
+      <app-landing-page-header></app-landing-page-header>
+    </div>
+
+    <!-- Gives layout row -->
+    <div fxHide fxShow.gt-sm>
+      <!-- Upper part of container with main info -->
+      <mat-grid-list class="fullNameContainer" cols="2" rowHeight="500px">
+        <mat-grid-tile>
+          <div class="fullName">
+            <!-- Gets name and title form the object on .ts File with an Id gotten from who we are -->
+            <h1>{{ teamMembers[employeeId].name }}</h1>
+            <h3>{{ teamMembers[employeeId].title }}</h3>
+            <p>
+              {{teamMembers[employeeId].bio}}
+            </p>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile class="image">
+          <img src="{{ teamMembers[employeeId].icon }}" alt="" />
+        </mat-grid-tile>
+      </mat-grid-list>
+      <div class="moreAbout">
+        <h1>More about "{{ teamMembers[employeeId].name }}"</h1>
+        <div *ngFor="let about of teamMembers[employeeId].about">
+          <p>
+            {{about}}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div fxShow fxHide.gt-sm fxLayout="column">
+      <div class="fullName top">
+        <!-- Gets name and title form the object on .ts File with an Id gotten from who we are -->
+        <h1>{{ teamMembers[employeeId].name }}</h1>
+        <h3>{{ teamMembers[employeeId].title }}</h3>
+        <p>
+          {{teamMembers[employeeId].bio}}
+        </p>
+        <img src="{{ teamMembers[employeeId].icon }}" alt="" />
+      </div>
+      <div class="moreAbout bottom">
+        <h1>More about "{{ teamMembers[employeeId].name }}"</h1>
+        <div *ngFor="let about of teamMembers[employeeId].about">
+          <p>
+            {{about}}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="join-team">
+      <h1>Interested in joining our team?</h1>
+      <button routerLink="/careers">View Open Roles</button>
+    </div>
+    <footer>
+      <app-landing-page-subfooter></app-landing-page-subfooter>
+    </footer>
+  </body>
+</html>

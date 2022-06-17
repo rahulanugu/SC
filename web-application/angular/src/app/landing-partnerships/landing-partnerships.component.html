@@ -12,6 +12,10 @@
       href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
       rel="stylesheet"
     />
+    <link
+      href="https://fonts.googleapis.com/css?family=Rubik One"
+      rel="stylesheet"
+    />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
     <!-- Hotjar Tracking Code for https://www.scriptchain.co/home -->
@@ -32,60 +36,138 @@
     </script>
   </head>
   <body>
+    <app-landing-page-header></app-landing-page-header>
+
+    <!-- Header/Logo/Button -->
     <div>
-      <app-landing-page-header></app-landing-page-header>
-    </div>
-    <div class="content1">
-      <h3 id="loginHeading">Partnerships</h3>
-      <img src="./assets/logo6.png" id="logo" />
-      <h3 style="text-align: center; font-size: 26px">
-        Making a positive impact in the world, starting with your heart.
-      </h3>
-      <p style="text-align: center; font-size: 19px">
-        Scriptchain partners with the most innovative leaders in the market to
-        help achieve better healthcare for all.
-      </p>
-      <button type="button" class="signUpBtn">Become a Partner</button>
-    </div>
-    <div class="content2">
-      <h3 style="text-align: center">Our Partners</h3>
-      <br />
-      <h4>Partner Group 1</h4>
-      <div class="card-container">
-        <div class="row">
-          <img src="./assets/leftarrow.png" class="arrow" />
-          <div class="card"></div>
-          <div class="card"></div>
-          <div class="card"></div>
-          <div class="card"></div>
-          <img src="./assets/rightarrow.png" class="arrow" />
+      <div class="content1">
+        <h3 id="loginHeading">Partnerships</h3>
+        <img
+          src="../../assets/company-logo/scriptchain-health-logo-dark.svg"
+          id="logo"
+        />
+        <h3 style="text-align: center; font-size: 26px">
+          Making a positive impact in the world, starting with your heart.
+        </h3>
+        <p style="text-align: center; font-size: 19px">
+          Scriptchain partners with the most innovative leaders in the market to
+          help achieve better healthcare for all.
+        </p>
+        <button routerLink="/becomeapartner" type="button" class="signUpBtn">
+          Become a Partner
+        </button>
+      </div>
+      <!-- Carousels -->
+      <div class="content2">
+        <!-- Header -->
+        <div class="header">
+          <h1>Our Partners</h1>
+          <h6>Description of relationship with said partners</h6>
+        </div>
+        <br />
+        <div fxHide fxShow.gt-sm >
+          <!-- Carousel Nr 1 -->
+          <!-- Carousel Header -->
+          <div class="carousel-header"><h1>Partner 1</h1></div>
+          <div class="carousel-container carousel-1">
+            <div class="control left">
+              <a class="btn-floating" href="#multi-item-1" data-slide="prev"
+                ><img src="../../assets/icons/chevron-left.svg" alt=""></a
+              >
+            </div>
+            <div
+              id="multi-item-1"
+              class="carousel slide"
+              data-type="carousel"
+              data-interval="false"
+            >
+              <div class="carousel-inner">
+                <!-- Item 1 -->
+                <div class="carousel-item active">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="card"></div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="card"></div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="card"></div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Item 2 -->
+                <div class="carousel-item">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="card"></div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="card"></div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="card"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="control right">
+              <a class="btn-floating" href="#multi-item-1" data-slide="next"
+                ><img src="../../assets/icons/chevron-right.svg" alt="">
+              </a>
+            </div>
+          </div>
+          <!-- End Carousel 1 -->
+        </div>
+        <div fxShow fxHide.gt-sm >
+          <!-- Carousel Nr 1 -->
+          <!-- Carousel Header -->
+          <div class="carousel-header"><h1>Partner 1</h1></div>
+          <div class="carousel-container carousel-1">
+            <div class="control left">
+              <a
+                class="btn-floating"
+                href="#multi-item-1-small"
+                data-slide="prev"
+                ><img src="../../assets/icons/chevron-left.svg" alt=""></a
+              >
+            </div>
+            <div
+              id="multi-item-1-small"
+              class="carousel slide"
+              data-type="carousel"
+              data-interval="false"
+            >
+              <div class="carousel-inner">
+                <!-- Item 1 -->
+                <div class="carousel-item active">
+                  <div class="col-md-12">
+                    <div class="card"></div>
+                  </div>
+                </div>
+                <!-- Item 2 -->
+                <div class="carousel-item">
+                  <div class="col-md-12">
+                    <div class="card"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="control right">
+              <a
+                class="btn-floating"
+                href="#multi-item-1-small"
+                data-slide="next"
+                ><img src="../../assets/icons/chevron-right.svg" alt="">
+              </a>
+            </div>
+          </div>
+          <!-- End Carousel 1 -->
         </div>
       </div>
-      <br />
-      <h4>Partner Group 2</h4>
-      <div class="card-container">
-        <div class="row">
-          <img src="./assets/leftarrow.png" class="arrow" />
-          <div class="card"></div>
-          <div class="card"></div>
-          <div class="card"></div>
-          <div class="card"></div>
-          <img src="./assets/rightarrow.png" class="arrow" />
-        </div>
-      </div>
-      <br />
-      <h4>Partner Group 3</h4>
-      <div class="card-container">
-        <div class="row">
-          <img src="./assets/leftarrow.png" class="arrow" />
-          <div class="card"></div>
-          <div class="card"></div>
-          <div class="card"></div>
-          <div class="card"></div>
-          <img src="./assets/rightarrow.png" class="arrow" />
-        </div>
-      </div>
     </div>
+
     <footer>
       <app-landing-page-subfooter></app-landing-page-subfooter>
     </footer>

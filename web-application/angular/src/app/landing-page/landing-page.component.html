@@ -1,9 +1,10 @@
 <!--  Authors and their contributions:
-    
+
 -->
 <!-- contributions -->
-<!-- Sammy: Updated description for paragraph in card-container 
-  Vince: fixed grammarical errors in text body of "Why ScriptChain"-->
+<!-- Sammy: Updated description for paragraph in card-container
+  Vince: fixed grammarical errors in text body of "Why ScriptChain"
+  DenisH: Design Update/Clear the code-->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -40,104 +41,267 @@
   </head>
 
   <body>
+    <!-- Landing page header -->
     <app-landing-page-header></app-landing-page-header>
-    <div
-      class="content-card pb-5"
-      style="
-        background-image: url(./assets/7T9364v.gif);
-        background-repeat: no-repeat;
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
-      "
-    >
-      <div class="content">
-        <h1 class="heading" style="color: #ffffff">Welcome to ScriptChain Health</h1>
-        <p style="color: #ffffff">
-          A digital health platform that uses artificial intelligence for early prevention in readmission and cardiovascular disease.
-        </p>
-        <div class="button-wrap">
-          <button type="button" onclick="window.location.href='healthcare/register'" class="signUpBtn" style="margin-left: 142px">
-            Sign Up
-          </button>
+    <!-- Welcoming message/Text+Image -->
+    <app-landing-page-welcome-message></app-landing-page-welcome-message>
+    <!--Content Data -->
+    <!-- Content Data Full view (Left/Right)-->
+    <div fxHide fxShow.gt-sm>
+      <mat-grid-list class="mat-grid-list-data" cols="3" rowHeight="10:1">
+        <mat-grid-tile></mat-grid-tile>
+        <mat-grid-tile></mat-grid-tile>
+        <mat-grid-tile></mat-grid-tile>
+        <mat-grid-tile class="numeric">700,000</mat-grid-tile>
+        <mat-grid-tile class="numeric">30.3 M</mat-grid-tile>
+        <mat-grid-tile class="numeric">$351 B</mat-grid-tile>
+        <mat-grid-tile class="data"
+          >Total Death Could've Been Prevented</mat-grid-tile
+        >
+        <mat-grid-tile class="data"
+          >Total CVD Case Copuld've Been Prevented</mat-grid-tile
+        >
+        <mat-grid-tile class="data">Total Medical Cost Savings</mat-grid-tile>
+        <mat-grid-tile></mat-grid-tile>
+        <mat-grid-tile class="study"
+          >**Stats from Healthline 2020 study**</mat-grid-tile
+        >
+        <mat-grid-tile></mat-grid-tile>
+        <mat-grid-tile></mat-grid-tile>
+        <mat-grid-tile></mat-grid-tile>
+        <mat-grid-tile></mat-grid-tile>
+      </mat-grid-list>
+    </div>
+    <!-- Content Data Mobile view (Up/Down)-->
+    <div fxShow fxHide.gt-sm>
+      <mat-grid-list class="mat-grid-list-data" cols="1" rowHeight="25:1">
+        <mat-grid-tile></mat-grid-tile>
+        <mat-grid-tile class="numericsmall">700,000</mat-grid-tile>
+        <mat-grid-tile class="datasmall"
+          >Total Death Could've Been Prevented</mat-grid-tile
+        >
+        <mat-grid-tile></mat-grid-tile>
+        <mat-grid-tile class="numericsmall">30.3 M</mat-grid-tile>
+        <mat-grid-tile class="datasmall"
+          >Total CVD Case Copuld've Been Prevented</mat-grid-tile
+        >
+        <mat-grid-tile></mat-grid-tile>
+        <mat-grid-tile class="numericsmall">$351 B</mat-grid-tile>
+        <mat-grid-tile class="datasmall"
+          >Total Medical Cost Savings</mat-grid-tile
+        >
+        <mat-grid-tile></mat-grid-tile>
+        <mat-grid-tile class="studysmall"
+          >**Stats from Healthline 2020 study**</mat-grid-tile
+        >
 
-          <a type="button" class="helpBtn" href="https://scriptchain-whitepaper.s3.us-east-2.amazonaws.com/Scriptchain+Health+WhitePaper+.pdf">ScriptChain Health White Paper</a>
-          <a type="button" class="helpBtn" href="https://docs.google.com/forms/d/e/1FAIpQLSeHJTfN33METJU4QRYXA1di-bsqLX2JJ___M6K4PMwx7cA-0w/viewform">Request Access</a>         
+        <mat-grid-tile></mat-grid-tile>
+        <mat-grid-tile></mat-grid-tile>
+      </mat-grid-list>
+    </div>
+    <!-- Content Data ends-->
+    <!-- Denis - About Us-->
+    <!-- About Us Full view -->
+    <div class="about-us" fxHide fxShow.gt-sm>
+      <h1>About Us</h1>
+      <h3>
+        We use AI for Cardiovascular Disease and Readmission prevention by
+        optimizing the point of care at the time of admission.
+      </h3>
+    </div>
+    <!-- About Us Mobile view -->
+    <div class="about-us" fxShow fxHide.gt-sm>
+      <h2>About Us</h2>
+      <h5>
+        We use AI for Cardiovascular Disease and Readmission prevention by
+        optimizing the point of care at the time of admission.
+      </h5>
+    </div>
+    <!-- Denis - About Us ends-->
+    <!-- Denis - Card Componnet/Video -->
+    <app-landing-page-information></app-landing-page-information>
+    <!-- Denis - Card Componnet/Video end-->
+    <!-- Contact Us -->
+    <!-- Contact Us Full View -->
+    <div class="holder">
+      <div fxHide fxShow.gt-sm fxLayout="row">
+        <div fxFlex="50">
+          <div class="left-contact-us">
+            <h1 class="contact-us">Contact us</h1>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero
+              veritatis enim eos quasi, accusantium consectetur quaerat sed?
+              Amet corporis minus iure consectetur quibusdam, ducimus assumenda?
+              Ab dignissimos iusto dolorum accusantium.
+            </p>
+            <button routerLink="/becomeapartner" class="partner">Become A Partner</button>
+            <br />
+            <button class="sign">Sign Up Here</button>
+          </div>
+        </div>
+
+        <div fxFlex="50">
+          <div class="right-contact-us">
+            <form [formGroup]="exform" class="form">
+              <div class="form-group">
+                <input
+                  formControlName="name"
+                  type="text"
+                  class="form-control"
+                  placeholder="Full Name"
+                />
+                <small *ngIf="name.invalid && name.touched" class="text-danger"
+                  >Name is Required</small
+                >
+              </div>
+              <div class="form-group">
+                <input
+                  formControlName="email"
+                  type="text"
+                  class="form-control"
+                  placeholder="Your Email"
+                />
+                <small
+                  *ngIf="email.invalid && email.touched"
+                  class="text-danger"
+                  >Email is invalid!</small
+                >
+              </div>
+              <div class="form-group">
+                <input
+                  formControlName="subject"
+                  type="text"
+                  class="form-control"
+                  placeholder="Subject"
+                />
+              </div>
+              <div class="form-group">
+                <textarea
+                  formControlName="message"
+                  class="form-control message"
+                  placeholder="Type a message"
+                ></textarea>
+                <small
+                  *ngIf="message.invalid && message.touched"
+                  class="text-danger"
+                >
+                  Message is Required(minimum length 10)</small
+                >
+              </div>
+              <button
+                (click)="clicksub()"
+                [disabled]="exform.invalid"
+                type="button"
+                class="btn btn-primary"
+              >
+                Submit
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- ---------------------------- -->
+      <!-- Contact Us Mobile View -->
+      <div fxShow fxHide.gt-sm fxLayout="column">
+        <div class="left-contact-us top-contact-us">
+          <h1 class="contact-us">Contact us</h1>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero
+            veritatis enim eos quasi, accusantium consectetur quaerat sed? Amet
+            corporis minus iure consectetur quibusdam, ducimus assumenda? Ab
+            dignissimos iusto dolorum accusantium.
+          </p>
+          <button routerLink="/becomeapartner" class="partner">Become A Partner</button>
+          <br />
+          <button class="sign">Sign Up Here</button>
+        </div>
+
+        <div class="right-contact-us bottom-contact-us">
+          <form [formGroup]="exform" class="form">
+            <div class="form-group">
+              <input
+                formControlName="name"
+                type="text"
+                class="form-control"
+                placeholder="Full Name"
+              />
+              <small *ngIf="name.invalid && name.touched" class="text-danger"
+                >Name is Required</small
+              >
+            </div>
+            <div class="form-group">
+              <input
+                formControlName="email"
+                type="text"
+                class="form-control"
+                placeholder="Your Email"
+              />
+              <small *ngIf="email.invalid && email.touched" class="text-danger"
+                >Email is Required</small
+              >
+            </div>
+            <div class="form-group">
+              <input
+                formControlName="subject"
+                type="text"
+                class="form-control"
+                placeholder="Subject"
+              />
+            </div>
+            <div class="form-group">
+              <textarea
+                formControlName="message"
+                class="form-control message"
+                placeholder="Type a message"
+              ></textarea>
+              <small
+                *ngIf="message.invalid && message.touched"
+                class="text-danger"
+              >
+                Message is Required(minimum length 10)</small
+              >
+            </div>
+            <button
+              (click)="clicksub()"
+              [disabled]="exform.invalid"
+              type="button"
+              class="btn btn-primary"
+            >
+              Submit
+            </button>
+          </form>
         </div>
       </div>
     </div>
-    <div class="content2">
-      <h2 style="margin-bottom: 30px">At a Glance</h2>
 
-      <!--<div class="row">-->
-      <mat-grid-list
-        [cols]="breakpoint"
-        rowHeight="220px"
-        (window:resize)="onResize($event)"
-      >
-        <!--<div class="col">-->
-        <mat-grid-tile>
-          <div class="card1">
-            <img src="./assets/brain.png" style="float: left" />
-            <h3>Artificial Intelligence</h3>
-            <p>
-              Using deep learning models to help consolidate and make actionable
-              outcomes using patient medical data.
-            </p>
-          </div>
+    <!-- Contact Us ends -->
+    <!-- Read Cases -->
+    <div class="read-case-container">
+      <mat-grid-list cols="1" rowHeight="50px">
+        <mat-grid-tile [colspan]="1" [rowspan]="4">
+          <h1>Readmission & Cardiovascular Disease prevention</h1>
         </mat-grid-tile>
-        <!--</div>-->
-        <!--Col1-->
-        <!--<div class="col">-->
-        <mat-grid-tile>
-          <div class="card1">
-            <img src="./assets/stethoscope.png" style="float: left" />
-            <h3>Preventive Healthcare</h3>
-            <p>
-              Covering the first half of quality healthcare which is to prevent
-              and lower the risk of heart disease.
-            </p>
-          </div>
+        <mat-grid-tile [colspan]="1" [rowspan]="1">
+          <button>Read Case Studies &#x2192;</button>
         </mat-grid-tile>
-        <!--</div>-->
-        <!--Col1-->
-        <!--<div class="col">-->
-        <mat-grid-tile>
-          <div class="card1">
-            <img src="./assets/lock.png" style="float: left" />
-            <h3>Data Security</h3>
-            <p>
-              We know that your medical data is important so we've made sure
-              that we make data security a top priority.
-            </p>
-          </div>
-        </mat-grid-tile>
-        <!--</div>-->
-        <!--Col1-->
-        <!--<div class="col">-->
-        <mat-grid-tile>
-          <div class="card1">
-            <img src="./assets/dataAccuracyImg.png" style="float: left" />
-            <h3>Data Accuracy</h3>
-            <p>
-              Being able to track and trace all your inputs into the system with
-              log information easily available.
-            </p>
-          </div>
-        </mat-grid-tile>
-        <!--</div>-->
-        <!--Col1-->
-        <!--</div>-->
       </mat-grid-list>
-      <!---Row-->
-      <div style="align-items: center; margin-top: 33px; margin-bottom: 33px">
-        <button type="button" onclick="window.location.href='healthcare/register'" class="signUpBtn signUpBtn-clear">Sign Up</button>
-        <button type="button" class="helpBtn helpBtn-inv" onclick="window.location.href='/whatisscriptchain'">Learn More</button>
-      </div>
     </div>
-    <!--Content2-->
-    <div class="content3">
+
+    <!-- Read Cases -->
+    <!-- Carousel -->
+    <app-landing-page-carousel></app-landing-page-carousel>
+    <!-- Carousel ends -->
+
+    <!--Content4-->
+
+    <footer>
+      <app-landing-page-subfooter></app-landing-page-subfooter>
+    </footer>
+  </body>
+</html>
+<!-- 2 cards carousel -->
+<!--
+  <div class="content3">
       <h3>Why ScriptChain Health?</h3>
       <div class="row">
         <div class="col">
@@ -243,140 +407,4 @@
         </div>
       </div>
     </div>
-
-    <div class="content2">
-      <h2>Partnerships</h2>
-
-      <span
-        style="
-          text-align: center;
-
-          margin-top: 8px;
-          font-size: 19px;
-        "
-      >
-        ScriptChain partners with the most innovative leaders in the market to
-        help achieve better healthcare for all.
-      </span>
-      <!-- <mat-grid-list
-        [cols]="breakpoint"
-        rowHeight="220px"
-        (window:resize)="onResize($event)"
-      >
-       <div class="col">-->
-      <!-- <mat-grid-tile>
-          <div class="card1"></div>
-        </mat-grid-tile> -->
-      <!--</div>-->
-      <!--Col1-->
-      <!--<div class="col">-->
-      <!-- <mat-grid-tile>
-          <div class="card1"></div>
-        </mat-grid-tile> -->
-      <!--</div>-->
-      <!--Col1-->
-      <!--<div class="col">-->
-      <!-- <mat-grid-tile>
-          <div class="card1"></div>
-        </mat-grid-tile> -->
-      <!--</div>-->
-      <!--Col1-->
-      <!--<div class="col">-->
-      <!-- <mat-grid-tile>
-          <div class="card1"></div>
-        </mat-grid-tile> -->
-      <!--</div>-->
-      <!--Col1-->
-      <!--</div>-->
-      <!-- </mat-grid-list> -->
-      <!---Row-->
-      <div style="align-items: center; margin-top: 33px; margin-bottom: 33px">
-        <button type="button" class="partnerBtn">Become a Partner</button>
-      </div>
-    </div>
-    <!--Content2-->
-    <div class="content4">
-      <h3>Questions?</h3>
-      <p
-        style="
-          text-align: center;
-
-          margin-top: 8px;
-          font-size: 18px;
-          color: #ffffff;
-        "
-      >
-        We look forward to serve you. Feel free to fill that form and we will
-        get back to you as soon as possible.
-      </p>
-      <div class="quesForm">
-        <form (ngSubmit)="onContactClicked(form)" #form="ngForm">
-          <label>First Name</label>
-          <br />
-          <input
-            type="text"
-            ngModel
-            name="fname"
-            required
-            #firstName="ngModel"
-          />
-          <p class="help-block" *ngIf="!firstName.valid && firstName.touched">
-            Please enter a valid first name
-          </p>
-          <br />
-          <label>Last Name</label>
-          <br />
-          <input
-            type="text"
-            ngModel
-            name="lname"
-            required
-            #lastName="ngModel"
-          />
-          <p class="help-block" *ngIf="!lastName.valid && lastName.touched">
-            Please enter a valid last name
-          </p>
-          <br />
-          <label>Email</label>
-          <br />
-          <input
-            type="text"
-            ngModel
-            required
-            email
-            name="email"
-            #email="ngModel"
-          />
-          <br />
-          <p class="help-block" *ngIf="!email.valid && email.touched">
-            Please enter a valid email address
-          </p>
-          <label>Message</label>
-          <br />
-          <textarea
-            ngModel
-            required
-            name="message"
-            #message="ngModel"
-          ></textarea>
-          <p class="help-block" *ngIf="!message.valid && message.touched">
-            Please enter a valid message
-          </p>
-          <br />
-
-          <button
-            type="submit"
-            class="sendBtn"
-            style="margin-left: 0px; width: 195px"
-            [disabled]="!form.valid"
-          >
-            Send Message
-          </button>
-        </form>
-      </div>
-    </div>
-    <footer>
-      <app-landing-page-subfooter></app-landing-page-subfooter>
-    </footer>
-  </body>
-</html>
+ -->

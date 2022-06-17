@@ -10,3 +10,4 @@ export class LandingPageSubfooterComponent implements OnInit {
   ngOnInit() {
   }
 }
+

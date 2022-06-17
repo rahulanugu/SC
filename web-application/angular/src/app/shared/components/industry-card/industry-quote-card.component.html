@@ -1,22 +1,23 @@
+<!-- Kefan - developed the entire page -->
 <div class="content">
   <div>
     <div>
-      <mat-card class="mat-elevation-z4 industry-card" routerLink="/blog-post">
+      <mat-card class="mat-elevation-z4 industry-card" (click)="Relocate()">
         <div class="blogTop">
-          <img mat-card-image src="../../assets/images/blog_bckgrd.jpg" />
-          <p mat-card-title > What Industry is Saying</p>
+          <img mat-card-image style="height: 175px; object-fit: cover;" src="../../assets/images/blog_bckgrd.jpg" />
+          <p mat-card-title> What {{blogCategory}} is Saying</p>
         </div>
 
         <!-- <mat-card-header> -->
 
         <mat-card-content layout-align="center center">
-          <p> "Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
+          <p> "Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
             nisi ut aliquip ex ea commodo consequat."</p>
         </mat-card-content>
 
-        <mat-card-actions >
+        <mat-card-actions>
         </mat-card-actions>
       </mat-card>
     </div>

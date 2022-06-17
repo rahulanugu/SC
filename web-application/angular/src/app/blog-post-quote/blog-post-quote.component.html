@@ -1,0 +1,81 @@
+<!-- Authors and their contributions: -->
+<!-- Kefan: Worked on the entire page  -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="http://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <app-landing-page-header></app-landing-page-header>
+    <div fxLayout="column" style="background-color: #faf6f2; margin-top: 64px;">
+        <div fxFlexFill>
+            <div class="py-5 text-center" style="
+            background-image: url(./assets/blog-header-bkgrd.jpg);
+            height: 263px;
+          ">
+                <p class="postTitle my-5">What the {{name}} is Saying...</p>
+            </div>
+        </div>
+        <div class="justify-content-center" fxLayout="column" fxLayoutAlign="center">
+            <div fxLayout="row">
+                <div class="container text-justify ml-gt-md-5 mt-5 goBack">
+                    <a class="back" (click)="goBack()">
+                        < back</a>
+                </div>
+            </div>
+            <div class="text-justify post-body container mb-5" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.lg="33%"
+                fxFlex.xl="33%">
+                <p class="text-wrap mt-5" [innerHTML]="content"></p>
+            </div>
+
+            <div class="container mb-3">
+                <button shareButton="linkedin">
+                    <img src="./assets/icons/linkedin.svg" alt="" class="img-rounded img-fluid" width="40px"
+                        height="40px" />&nbsp;
+                </button>
+                <button shareButton="twitter">
+                    <img src="./assets/icons/twitter.svg" alt="" class="img-rounded img-fluid" width="40px"
+                        height="40px" />&nbsp;
+                </button>
+                <button shareButton="facebook">
+                    <img src="./assets/icons/facebook.svg" alt="" class="img-rounded img-fluid" width="40px"
+                        height="40px" />&nbsp;
+                </button>
+                <button shareButton="pinterest">
+                    <img src="./assets/icons/pinterest.svg" alt="" class="img-rounded img-fluid" width="40px"
+                        height="40px" />
+                </button>
+            </div>
+            <p class="keywords container mb-5">
+                > Keywords: healthcare, cardiac care, AI, doctors
+            </p>
+        </div>
+        <div class="mb-5 ml-3 mr-3" fxLayout="column">
+            <h3 class="divider mt-5 pt-5 ml-3 mr-3" fxLayoutAlign="center"></h3>
+            <p class="related-posts  ml-3 mr-3" fxLayoutAlign="start">
+                Related Posts
+            </p>
+            <div fxLayout="row wrap">
+                <app-blog-card *ngFor="let blog of relateList" [blogCategories]="blog.categories"
+                    [blogTitle]="blog.title" [blogContent]="blog.content" [blogExcerpt]="blog.excerpt"
+                    [blogImg]="blog.post_thumbnail.URL" [blogID]="blog.ID" fxFlex.xs="100%" fxFlex.sm="50%"
+                    fxFlex.md="33.33%" fxFlex.lg="33.33%" fxFlex.xl="33.33%">
+                </app-blog-card>
+            </div>
+        </div>
+    </div>
+    <div>
+        <app-landing-page-subfooter></app-landing-page-subfooter>
+    </div>
+</body>
+
+</html>

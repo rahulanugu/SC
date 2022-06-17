@@ -41,7 +41,6 @@ body {
   color: #2d5059;
   font-size: 36px;
 }
-
 .csLogo {
   width: 448px;
   height: 252px;
@@ -50,7 +49,6 @@ body {
   display: block;
   border-radius: 8px;
 }
-
 .csImg {
   width: 50px;
   height: 50px;
@@ -93,8 +91,7 @@ body {
   margin-left: 15%;
   padding-right: 800px;
   /* White */
-
-  color: #ffffff;
+ color: #ffffff;
 }
 
 .content2 ul {
@@ -143,7 +140,6 @@ body {
   /* Grey 500 */
   margin-left: 29%;
   /* White */
-
   color: #1d1f26;
 }
 
@@ -160,10 +156,8 @@ body {
  
   
   /* Grey 500 */
-
   color: #1d1f26;
-
-  margin-left: 15%;
+ margin-left: 15%;
 }
 
 .contentwhite2 p {
