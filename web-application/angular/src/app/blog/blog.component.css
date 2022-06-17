@@ -65,6 +65,7 @@ body {
   font-weight: bold;
 }
 
+
 .gallery {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
@@ -225,6 +226,7 @@ body {
     color: #2d5059;
 }
 
+
 .quoteImg {
   height: 400px;
   width: 400px;
@@ -309,11 +311,14 @@ figcaption {
   #heading{
     font-size: 28px;
   }
+
   .pagination ul li.pageNumber {
     width: 20px;
     height: auto;
   }
+
   .pagination ul {
     padding: 10px 20px;
   }
+
 }

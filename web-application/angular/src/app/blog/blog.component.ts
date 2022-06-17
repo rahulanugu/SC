@@ -1,10 +1,8 @@
 // contribution
 // Sammy - filter blogs based on the drop down value and update blog list accordingly
 // Stephanie - get and filter blog posts from Wordpress API
-<<<<<<< HEAD
-=======
 // Kefan - implement pagination, category filter
->>>>>>> dda28ebcf7156adb0e7302af4a22661643a97720
+
 
 import { Component, OnInit } from "@angular/core";
 import { BlogCardComponent } from "../shared/components/blog-card/blog-card.component";
@@ -21,12 +19,6 @@ export class BlogComponent implements OnInit {
   blogList: any; // the list of all the blogs
   showList: any; // the list filtered by category
   curList: any; // the list of blogs need to be shown on the current page
-<<<<<<< HEAD
-  pageList: number[];
-  errorMessage: any;
-  categoryList: any;
-  slug: any;
-=======
 
   pageList: number[];
 
@@ -34,19 +26,27 @@ export class BlogComponent implements OnInit {
   categoryList: any;
   slug: any;
 
->>>>>>> dda28ebcf7156adb0e7302af4a22661643a97720
+  pageList: number[];
+
+  errorMessage: any;
+  categoryList: any;
+  slug: any;
+
   numberOfPages: number;
   currentPage: number;
   numberPerPage = 8; // 8 + 1
   maxLen = 10;
-<<<<<<< HEAD
+
   constructor(private blogService: BlogService) { }
+
   industryCard = IndustryCardComponent;
+
   ngOnInit() {
-    // this.getPosts();
-    // this.getCategories();
+    this.getPosts();
+    this.getCategories();
   }
   // Accesses blog posts from blogService or returns error
+
   // getPosts() {
   //   this.blogService.getPosts().subscribe((data) => {
   //     console.log(data.posts);
@@ -74,17 +74,7 @@ export class BlogComponent implements OnInit {
   //       console.log(error);
   //     })
   // }
-=======
 
-  constructor(private blogService: BlogService) { }
-
-  industryCard = IndustryCardComponent;
-
-  ngOnInit() {
-    this.getPosts();
-    this.getCategories();
-  }
-  // Accesses blog posts from blogService or returns error
   getPosts() {
     this.blogService.getPosts().subscribe((data) => {
       console.log(data.posts);
@@ -117,7 +107,6 @@ export class BlogComponent implements OnInit {
         console.log(error);
       })
   }
->>>>>>> dda28ebcf7156adb0e7302af4a22661643a97720
 
   public selectedCategory = "undefined";
 
@@ -182,4 +171,3 @@ export class BlogComponent implements OnInit {
   }
 
 }
-
