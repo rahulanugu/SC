@@ -1,8 +1,8 @@
-var app = angular.module('myApp', []);
+/*var app = angular.module('myApp', []);
 app.controller('contactUsController', function ($scope) {
    /*
    * This method will be called on click event of button.
-   */
+   */cd
     $scope.data = {};
     $scope.submit = function () {
         console.log('clicked submit')
