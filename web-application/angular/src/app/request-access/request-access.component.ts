@@ -25,8 +25,8 @@ export class RequestAccessComponent implements OnInit {
 
   ngOnInit() {
     window.scrollTo(0, 0);
-    document.getElementById("requestAccessSuccess").style.display = "none";
-    document.getElementById("userexistalready").style.display = "none";
+    // document.getElementById("requestAccessSuccess").style.display = "none";
+    // document.getElementById("userexistalready").style.display = "none";
   }
   requestAccess() {
     this.requestaccessservice
