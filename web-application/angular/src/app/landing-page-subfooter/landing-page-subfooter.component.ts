@@ -6,7 +6,7 @@ import { HostListener } from "@angular/core";
   styleUrls: ["./landing-page-subfooter.component.css"],
 })
 export class LandingPageSubfooterComponent implements OnInit {
-  constructor() {}
+  constructor() { }
 
   ngOnInit() {
 

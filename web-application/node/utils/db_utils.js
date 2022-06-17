@@ -9,9 +9,9 @@ const mysql = require('mysql');
 
  var connection = mysql.createPool({
     host: 'database-1.cgurbeaohou6.us-east-2.rds.amazonaws.com',
+    port: 3306,
     user: 'admin',
     password: 'Scriptchain21!',
-    port: 3306,
     database: 'scriptchain'
   });
   

@@ -285,7 +285,7 @@ library.add(faChevronRight)
     LoginPatientService,
     PatientAuthGuard,
     DataService,
-    ScriptLoaderService,
+    ScriptLoaderService
   ],
   bootstrap: [AppComponent],
   entryComponents: [MatConfirmDialogComponent],

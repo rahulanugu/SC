@@ -84,6 +84,7 @@ import { MedicationDetailsComponent } from "./medication-details/medication-deta
 import { ProcedureDetailsComponent } from "./procedure-details/procedure-details.component";
 import { JobOpeningsComponent } from "./job-openings/job-openings.component";
 import { BlogPostComponent } from "./blog-post/blog-post.component";
+import { BlogPostQuoteComponent } from "./blog-post-quote/blog-post-quote.component";
 import { AllscriptsLoginComponent } from "./allscriptslogin/allscriptslogin.component";
 import { EmployeeComponent } from "./employee/employee.component";
 const routes: Routes = [
@@ -272,6 +273,10 @@ const routes: Routes = [
     component: BlogPostComponent,
   },
   {
+    path: "blog-post-quote/:slug",
+    component: BlogPostQuoteComponent
+  },
+  {
     path: "becomeapartner",
     component: BecomeapartnerComponent,
   },
@@ -343,4 +348,4 @@ const routes: Routes = [
   exports: [RouterModule],
   entryComponents: [HealthcareDialogContent],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

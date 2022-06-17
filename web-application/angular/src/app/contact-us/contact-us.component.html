@@ -15,8 +15,16 @@
       href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
       rel="stylesheet"
     />
-    <script src = "contactUsController.js"></script> <!-- load up our controller-->
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+    <script src = "contactUsController.js"></script> <!-- load up our controller-->
+    <script src = "angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src = "/scriptchain/web-application/node/controllers/contactUsController.js"></script>
+    <script src = "/scriptchain/web-application/node/index.js"></script>
+
     <!-- Hotjar Tracking Code for https://www.scriptchain.co/home -->
     <script>
       (function (h, o, t, j, a, r) {
@@ -35,10 +43,10 @@
     </script>
   </head>
 
-  <body>
+  <body ng-app="myApp">
     <app-landing-page-header></app-landing-page-header>
 
-    <div fxFlexFill fxLayout="column">
+    <div fxFlexFill fxLayout="column" ng-controller = "contactUsController">
       <div>
         <div class="content1">
           <h3 id="loginHeading">Contact Us</h3>
@@ -69,8 +77,8 @@
             <br />
             <input
               type="text"
-              ngModel
-              name="fname"
+              ngModel 
+              name= "fname"
               required
               #firstName="ngModel"
             />
@@ -82,8 +90,8 @@
             <br />
             <input
               type="text"
-              ngModel
-              name="lname"
+              ngModel 
+              name ="lname"
               required
               #lastName="ngModel"
             />
@@ -95,7 +103,7 @@
             <br />
             <input
               type="text"
-              ngModel
+              ngModel 
               required
               email
               name="email"
@@ -123,13 +131,22 @@
               type="submit"
               class="sendBtn"
               [disabled]="!form.valid"
+<<<<<<< HEAD
+              value="Submit"
+              ng-click="submit()">
+=======
               ng-click="postData()"
             >
+>>>>>>> development-environment
               Send Message
             </button>
           </form>
         </div>
+<<<<<<< HEAD
+
+=======
         <script src = "/scriptchain/web-application/node/controllers/contactUsController.js"></script>
+>>>>>>> development-environment
       </div>
       <div class="mt-5 pt-5" fxFlexFill fxLayout="column" fxLayoutAlign="end">
         <app-landing-page-subfooter></app-landing-page-subfooter>

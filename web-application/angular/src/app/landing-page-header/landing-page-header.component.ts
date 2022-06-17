@@ -9,12 +9,12 @@ import { MatMenu, MatMenuTrigger } from "@angular/material/menu";
 })
 export class LandingPageHeaderComponent implements OnInit {
 
-  isActive=false
-  constructor() {}
+  isActive = false
+  constructor() { }
 
   ngOnInit() { }
 
-  search(){
-    this.isActive=!this.isActive
+  search() {
+    this.isActive = !this.isActive
   }
 }

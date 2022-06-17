@@ -4,9 +4,9 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { ToastrNotificationService } from "../toastr-notification.service";
 
-/**
- * Page: Request demo form for propspective clients
- */
+// Kefan - developed with the entire page
+
+
 @Component({
   selector: "app-request-access",
   templateUrl: "./request-access.component.html",
@@ -25,15 +25,15 @@ export class RequestAccessComponent implements OnInit {
 
   ngOnInit() {
     window.scrollTo(0, 0);
-    document.getElementById("requestAccessSuccess").style.display = "none";
-    document.getElementById("userexistalready").style.display = "none";
+    // document.getElementById("requestAccessSuccess").style.display = "none";
+    // document.getElementById("userexistalready").style.display = "none";
   }
   requestAccess() {
     this.requestaccessservice
       .requestAccessforNewUser(this.requestaccessservice.user)
       .subscribe(
         res => {
-          if(res['message'].includes("registered")) {
+          if (res['message'].includes("registered")) {
             document.getElementById("userexistalready").style.display = "block";
             window.scrollTo(0, 0);
           } else {
@@ -48,7 +48,7 @@ export class RequestAccessComponent implements OnInit {
           document.getElementById("userexistalready").style.display = "block";
           window.scrollTo(0, 0);
         }
-        );
+      );
     this.router.navigate(['/', 'home']);
     this.toastr.successToast("Request sent", "Request Access");
   }

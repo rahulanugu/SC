@@ -108,7 +108,7 @@
             method="post"
             #itemForm2="ngForm"
             method="post"
-            #itemForm2="ngForm"
+            
             style="position:absolute; top:30%; left:35%;"
           >
             <div class="form-group">
@@ -163,7 +163,7 @@
                 required
                 [textMask]="{ mask: socialsecurity }"
                 placeholder="ex: 123-45-6789"
-                #ssn="ngModel"
+                
                 [(ngModel)]="patientService.selectedPatient.ssn"
                 [class.is-invalid]="ssn.invalid && ssn.touched"
               />
