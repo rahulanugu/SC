@@ -28,29 +28,21 @@ healthcare login
 
   <body style="background-color: #faf6f2">
     <!-- healthcare login -->
-    <div>
+    <div fxLayout="column">
       <app-healthcare-header></app-healthcare-header>
       <h3 class="loginHeading">Provider Login</h3>
       <!--heading--->
       <div class="card">
         <div class="container">
-          <!-- <strong>
-            <h6
-              style="
-                margin-top: 16px;
-                color: #1d1f26;
-                position: static;
+          <form ngNativeValidate [formGroup]="Form" (ngSubmit)="onSubmit()"
+          fxLayout.md="column">
+            <div class="form-element" style="margin: 0px 0px 5px 0px">
+              <br>
+                Patients: Please log in through the
+                <a href="#" style="text-decoration: underline">patient portal</a>
+                <br>
+            </div>
 
-                height: 17px;
-                left: 16px;
-                top: 16px;
-              "
-            >
-              Patients: Please log in through the
-              <a href="#" style="text-decoration: underline">patient portal</a>
-            </h6>
-          </strong> -->
-          <form ngNativeValidate [formGroup]="Form" (ngSubmit)="onSubmit()">
             <div class="form-element">
               <label>Email</label>
 
@@ -105,7 +97,7 @@ healthcare login
               <button type="submit" class="loginBtn">Login</button>
             </div>
             <div class="form-element">
-              <button type="button" class="helpBtn">Forgot Password</button>
+              <button type="button" class="helpBtn">Help</button>
             </div>
             <hr />
 
