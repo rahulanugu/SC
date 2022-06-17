@@ -20,9 +20,11 @@
   body {
     width: 100%;
     display: table-cell;
-    background-color: #F5F1ED;
   }
-  
+  .background{
+    background-color: #faf6f2 ;
+    height: max-content;
+  }
   html,
   body {
     margin: 0px;
@@ -33,7 +35,9 @@
   input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched {
     border: 1px solid red;
   }
-
+  .text{
+    padding-left:30px;
+  }
   .desc {
     font-family: 'Lato', sans-serif;
     font-size: 14px;
@@ -77,8 +81,14 @@
     box-shadow: inset 0px 2px 2px rgba(29, 31, 38, 0.15);
     border-radius: 8px;
     height: 40px;
-    width: auto;
+    width: 320px;
+    margin-left:30px;
+    
   }
+
+  input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched {
+    border: 2.5px solid red;
+} 
   
   .vertical-center {
     display: flex;  
@@ -93,6 +103,7 @@
     border-radius: 10px;
     align-self: center;
     margin-top: 20px;
+    width: 500px;
   }
   
   form textarea {
@@ -102,9 +113,10 @@
     border: 2px solid #e1e4eb;
     box-sizing: border-box;
     /* Inner Shadow E-100 */
-    width: auto;
+    width: 320px;
     box-shadow: inset 0px 2px 2px rgba(29, 31, 38, 0.15);
     border-radius: 8px;
+    margin-left:30px;
   }
   
   .sendBtn {
@@ -115,9 +127,9 @@
     font-size: 18px;
     font-family: "Lato", sans-serif;
     font-weight: bold;
-    margin-left: auto;
     margin-right: auto;
     border-radius: 7px;
+    margin-left:120px;
   
     /* White */
     margin-top: 16px;
@@ -125,6 +137,23 @@
     border-radius: 8px;
   }
   
+  .ripple{
+    background-position: center;
+    transition: background 0.1s;
+  }
+
+  .ripple:hover{
+    background-color: rgb(78, 193, 189);
+    background-image: radial-gradient(circle, transparent 1%, rgb(78,193,189) 1%);
+    background-position: center;
+    background-size: 15000%;
+  }
+
+  .ripple:active{
+    transition: background 0s;
+    background-color: rgb(53, 221, 221);
+    background-size: 100%;
+  }
   /* @media screen and (max-width: 1300px) and (min-width: 900px) {
     .quesForm {
       margin-left: 40%;

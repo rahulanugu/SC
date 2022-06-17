@@ -1,44 +1,41 @@
-/* Authors and their contributions:
-    Vidit: Added icons and alignment. Also worked on responsiveness
-            by adding a few media queries.
-*/
+/*Charan: Worked on responsiveness and styling*/
+html {
+  width: 100%;
+  height: 100%;
+  display: table;
+}
 
-/* the prefix cs stands for capability statement */
+body {
+  background-image: url(/assets/images/background.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: table-cell;
+  background-color: #faf6f2;
+  font-family: "Lato", sans-serif;
+}
+
 html,
 body {
-  margin: 0px;
-  padding: 0px;
   overflow-x: hidden;
 }
 
-.card {
-  padding: 1.5em .5em .5em;
+.card{
+  padding: 1em .5em 2em;
   border-radius: 2em;
   text-align: center;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+  box-shadow: 0 5px 10px rgba(0,0,0,.2);
   transition: transform 500ms ease;
-  margin: 0 auto;
-  float: none;
-  margin-bottom: 10px;
-  width: 500px;
+  margin: auto;
+  float: none; 
+  margin-bottom: 10px; 
+  width:500px;
 }
 
-.card:hover {
+.card:hover{
   transform: translateY(-25px);
 }
 
-.btn {
-  border-radius: 2em;
-  background-color: teal;
-  color: #ffffff;
-  padding: .5em 1.5em;
-}
 
-.btn:hover {
-  background-color: rgba(0, 128, 128, 0.7);
-  color: #ffffff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-}
 .csHeader {
   font-family: "Tinos", serif;
   color: #2d5059;
@@ -57,11 +54,9 @@ body {
   height: 50px;
 }
 
-.content2 {
-  height: auto;
-  /* Teal 400 */
-  padding-bottom: 40px;
-  background: #2d5059;
+.csImg1 {
+  width: 50px;
+  height: 50px;
 }
 
 .content2 h3 {
@@ -72,7 +67,20 @@ body {
   color: #ffffff;
   margin-left: 15%;
   margin-right: 15%;
-  padding-top: 40px;
+  padding-top: 250px;
+  padding-left: 160px;
+}
+
+.content3 h3{
+  font-style: normal;
+  font-weight: bold;
+  font-size: 1.4em;
+  line-height: 29px;
+  color: #ffffff;
+  margin-left: 15%;
+  margin-right: 15%;
+  padding-top: 170px;
+  padding-left: -13px;
 }
 
 .content2 p {
@@ -80,9 +88,8 @@ body {
   font-weight: normal;
   font-size: 1em;
   margin-right: 15%;
-  display: flex;
-  align-items: center;
   margin-left: 15%;
+  padding-right: 800px;
   /* White */
  color: #ffffff;
 }
@@ -96,21 +103,42 @@ body {
   /* White */
   margin-top: 0px;
   color: #ffffff;
-  margin-bottom: 40px;
+  margin-bottom: -43px;
+  padding-left: 180px;
 }
 
+.dataInteg{
+  /* padding-top:160px; */
+  padding-top: 360px;
+  margin-bottom:20px;
+}
+
+.naicsContent1{
+  padding-left: 700px;
+  margin-bottom:0px;
+  color: #ffffff
+}
+
+.naicsContent2{
+  color: #ffffff;
+}
+.contentwhite {
+  margin-top: 70px;
+  background-color: #e0dcdc; 
+}
 .contentwhite h3 {
   font-style: normal;
   font-weight: bold;
   font-size: 1.4em;
   line-height: 29px;
+  padding-left: 44px;
   /* identical to box height */
-  margin-right: 15%;
+  margin-right: 10%;
   /* display: flex; */
   align-items: center;
   margin-top: 37px;
   /* Grey 500 */
-  margin-left: 15%;
+  margin-left: 29%;
   /* White */
   color: #1d1f26;
 }
@@ -119,19 +147,60 @@ body {
   font-style: normal;
   font-weight: normal;
   font-size: 1em;
-  line-height: 17px;
-  display: flex;
-  align-items: center;
-  margin-right: 15%;
+  margin-left:10%;
+  margin-right: 9%;
+  padding-left: 165px;   
+  padding-top: 0px;  
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+
+ 
+  
   /* Grey 500 */
   color: #1d1f26;
  margin-left: 15%;
 }
 
-.contentwhite ul {
+.contentwhite2 p {
   font-style: normal;
   font-weight: normal;
   font-size: 1em;
+  margin-left:50px;
+  margin-right: 50px;
+  padding-left: 165px;  
+  padding-top: 10px;
+  padding-bottom: -100px;
+
+ 
+  
+  /* Grey 500 */
+
+  color: #1d1f26;
+
+  margin-left: 15%;
+}
+
+.contentwhite3 p {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1em;
+  margin-left:50px;
+  margin-right: 50px;
+  padding-left: 165px;  
+  padding-top: 10px;
+  padding-bottom: -100px;
+
+ 
+  
+  /* Grey 500 */
+
+  color: #1d1f26;
+
+  margin-left: 15%;
+}
+.contentwhite ul {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1em;                                                                                                                                                                                                        
 
   /* Grey 500 */
   margin-right: 15%;
@@ -141,6 +210,11 @@ body {
   margin-top: 0px;
   margin-bottom: 40px;
 }
+
+.dataContent1+div > p {
+  margin: 0;
+  padding-left: 10px;
+  }
 
 table {
   margin-right: 15%;
@@ -164,7 +238,205 @@ table {
   }
 }
 
-.capabilityContent2 {
-  display: table;
-  margin: 0 auto;
+.capabilityContent2{
+    display: table;
+    margin: 0 auto;
+}
+
+
+
+/*Phone view*/
+@media only screen 
+and (max-width: 600px){ 
+  .h-100 {
+    height: inherit !important;
+  }
+  .capabilityContent2 {
+    margin: 0;
+  }
+  .sidebar{ 
+    float: none;
+    width: 100%
+  }
+  body{
+    background-size: cover;
+  }
+  .dataInteg{
+   padding-top: 30px;
+  }
+  .contentwhite2{
+    margin-left:-240px;
+  }
+  .contentwhite3{
+    margin-left:-240px;
+  }
+  .contentwhite2 + .wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 70px;
+  }
+  .contentwhite3 + .wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 70px;
+  }
+  .contentwhite2 ul{
+    margin-left:280px;
+    margin-right:200px;
+    padding-bottom:100px;
+  }
+  .contentwhite3 ul{
+    margin-left:280px;
+    margin-right:200px;
+    padding-bottom:100px;
+  }
+  .content2 h3{
+    padding: 0;
+    margin: 0;
+    padding-left:30px;
+    color:black;
+  }
+  .content2 ul{
+    padding-left: 50px;
+    margin:0;
+    color:black;
+    padding-bottom:50px;
+    padding-top: 20px;
+  }
+  .csImg{
+    filter: brightness(0) saturate(100%)invert(25%) sepia(6%) saturate(3945%) hue-rotate(146deg) brightness(93%) contrast(79%);
+  }
+  .csimg1{
+    width: 50px;
+    height: 50px;
+  }
+  .naicsContent1{
+    padding: 0;
+    margin: 0;
+    margin-right:130px;
+    padding-right:50px;
+    padding-bottom: -100px;
+  }
+  .content3 .wrapper{
+    display: flex;
+    justify-content: center;
+  }
+  .content3 h3 {
+    padding-top: 10px;
+    margin-bottom: 20px;
+  }
+  .contentwhite{
+    background-color: #faf6f2;
+    padding-left:100px;
+    padding-bottom: 20px;
+    padding-top:20px;
+  }
+  .card {
+    width: 600px;
+  }
+  .generalContent h3,.contactContent h3 {
+    margin: 0;
+  }
+  .generalContent p,.contactContent p {
+    margin: 0;
+    padding-left: 100px;
+  }
+
+}
+/*Tablet View*/
+@media only screen  
+  and (min-device-width: 660px)
+  and (max-device-width: 1200px) {
+    html {
+      display: flex;
+      height: inherit;
+      width: inherit;
+    }
+    body{
+      background-size: cover;
+    }
+    .capabilityContent2 {
+      margin: 0;
+    }
+    .h-100 {
+      height: inherit !important;
+    }
+    .card {
+      width: 650px;
+    }
+    .dataInteg{
+      margin-top:30px;
+      margin-bottom:30px;
+      padding-top: 0;
+    }
+    .contentwhite2{
+      margin: 0 15px;
+      margin-left:100px;
+      margin-right:50px;
+      padding-bottom:230px;
+    }
+    .content2 h{
+      padding-right:40px;
+    }
+    .contentwhite2 p{
+      margin: 0;
+      padding: 0;
+      margin-bottom:20px;
+    }
+    .content2 {
+      margin: -50px 0 0 30px;
+      
+    }
+    .contentwhite2 + .wrapper {
+      margin-left: 70px;
+      margin-right: 50px;
+      display: flex;
+      justify-content: center;
+      padding-bottom:150px;
+    }
+    .naicsContent1 {
+      padding-left: 0px;
+      padding-right:30px;
+      margin-right:70px;
+      padding-bottom:50px;
+    }
+    .naicsContent2{
+      padding-left:0px;
+    }
+    .content2 h3 {
+      margin-left: 0;
+      margin-right: 0;
+      padding-top: 0px;
+      padding-left: 0;
+    }
+    .content2 ul {
+      padding-left: 0;
+    }
+    .contentwhite{
+      margin-top:20px;
+      background-color:#faf6f2 ;
+      padding-top:80px;
+      padding-left:110px;
+      padding-bottom:30px;
+    }
+    .contentwhite p,.contentwhite h3 {
+      margin: 0;
+      padding: 0;
+    }
+    .contentwhite ul{
+      padding-right:30%;
+    }
+    /* .card{
+      margin-top:100px;
+    } */
+    .csHeader{
+      margin-top:25px;
+    }
+    .content3 .wrapper{
+      display: flex;
+      justify-content: center;
+    }
+    .content3 h3{
+      text-align: center;
+    }
 }

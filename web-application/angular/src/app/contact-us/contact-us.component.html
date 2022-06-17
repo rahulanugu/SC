@@ -1,5 +1,6 @@
 <!-- Authors and their contributions -->
 <!-- Vidit: UI enhancements and responsiveness -->
+<!--Charan: Creation of contact form and styling-->
 
 <!DOCTYPE html>
 <html lang="en" ng-app='myApp'>
@@ -45,7 +46,7 @@
 
   <body ng-app="myApp">
     <app-landing-page-header></app-landing-page-header>
-
+    <div class="background">
     <div fxFlexFill fxLayout="column" ng-controller = "contactUsController">
       <div>
         <div class="content1">
@@ -71,9 +72,10 @@
         fxLayout="column"
         fxLayoutAlign="center center"
       >
-        <div class="container" ng-controller = "contactUsController">
-          <form class="mt-3" (ngSubmit)="onSubmit(form)" #form="ngForm" method="post">
-            <label>First Name</label>
+      <!--Creation of form-->
+        <div class="container">
+          <form class="mt-3" (ngSubmit)="onSubmit(form)" #form="ngForm">
+            <label class="text">First Name</label>
             <br />
             <input
               type="text"
@@ -82,11 +84,8 @@
               required
               #firstName="ngModel"
             />
-            <p class="help-block" *ngIf="!firstName.valid && firstName.touched">
-              Please enter a valid first name
-            </p>
             <br />
-            <label>Last Name</label>
+            <label class="text">Last Name</label>
             <br />
             <input
               type="text"
@@ -95,11 +94,9 @@
               required
               #lastName="ngModel"
             />
-            <p class="help-block" *ngIf="!lastName.valid && lastName.touched">
-              Please enter a valid last name
-            </p>
+            
             <br />
-            <label>Email</label>
+            <label class="text">Email</label>
             <br />
             <input
               type="text"
@@ -110,11 +107,9 @@
               #email="ngModel"
             />
             <br />
-            <p class="help-block" *ngIf="!email.valid && email.touched">
-              Please enter a valid email address
-            </p>
+            
             <br>
-            <label>Message</label>
+            <label class="text">Message</label>
             <br />
             <textarea
               ngModel
@@ -123,34 +118,24 @@
               #message="ngModel"
             ></textarea>
             <br />
-            <p class="help-block" *ngIf="!message.valid && message.touched">
-              Please enter a valid message
-            </p>
+            
             <br>
             <button
               type="submit"
-              class="sendBtn"
+              class="sendBtn ripple"
               [disabled]="!form.valid"
-<<<<<<< HEAD
               value="Submit"
               ng-click="submit()">
-=======
-              ng-click="postData()"
-            >
->>>>>>> development-environment
-              Send Message
+
+              Send Message 
             </button>
           </form>
         </div>
-<<<<<<< HEAD
-
-=======
-        <script src = "/scriptchain/web-application/node/controllers/contactUsController.js"></script>
->>>>>>> development-environment
       </div>
       <div class="mt-5 pt-5" fxFlexFill fxLayout="column" fxLayoutAlign="end">
         <app-landing-page-subfooter></app-landing-page-subfooter>
       </div>
+    </div>
     </div>
   </body>
 </html>

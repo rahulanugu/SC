@@ -21,16 +21,43 @@
       <div>
         <!-- The following menu items will be hidden on both SM and XS screen sizes -->
         <!-- #docregion mat-menu-trigger-for -->
+<<<<<<< HEAD
+        <button mat-button [matMenuTriggerFor]="menu" #menuTrigger1="matMenuTrigger" (mouseenter)="mouseEnter(menuTrigger1)" (mouseleave)="mouseLeave(menuTrigger1)">About</button>
+        <!-- #enddocregion mat-menu-trigger-for -->
+        <mat-menu #menu="matMenu" [hasBackdrop]="false">
+          <a routerLink="/whatisscriptchain" mat-menu-item (mouseenter)="mouseEnter(menuTrigger1)" (mouseleave)="mouseLeave(menuTrigger1)">What is ScriptChain Health?</a>
+          <a routerLink="/blog" mat-menu-item (mouseenter)="mouseEnter(menuTrigger1)" (mouseleave)="mouseLeave(menuTrigger1)">Blog page</a>
+          <a routerLink="/capabilitystatement" mat-menu-item (mouseenter)="mouseEnter(menuTrigger1)" (mouseleave)="mouseLeave(menuTrigger1)">Capability Statement</a>
+          <a routerLink="/whoweare" mat-menu-item (mouseenter)="mouseEnter(menuTrigger1)" (mouseleave)="mouseLeave(menuTrigger1)">Our Team</a>
+          
+          
+          <!-- <a routerLink="/blog" mat-menu-item>Blog</a> -->
+        </mat-menu>
+=======
         <button mat-button routerLink="/partnerships">Partnership</button>
+>>>>>>> 30682a2f9cfc03e21f231f194c7981666e579e23
 
         <!-- #docregion mat-menu-trigger-for -->
         <button mat-button routerLink="/blog">Blog</button>
 
         <!-- #docregion mat-menu-trigger-for -->
+<<<<<<< HEAD
+        <button mat-button [matMenuTriggerFor]="menu2"  #menuTrigger3="matMenuTrigger" (mouseenter)="mouseEnter(menuTrigger3)" (mouseleave)="mouseLeave(menuTrigger3)">Support</button>
+        <!-- #enddocregion mat-menu-trigger-for -->
+        <mat-menu #menu2="matMenu" [hasBackdrop]="false">
+          <a routerLink="/request-access" mat-menu-item (mouseenter)="mouseEnter(menuTrigger3)" (mouseleave)="mouseLeave(menuTrigger3)">Request Access</a>
+          <a href="privacy-policy" mat-menu-item (mouseenter)="mouseEnter(menuTrigger3)" (mouseleave)="mouseLeave(menuTrigger3)">Privacy Policy</a>
+          <a href="faq" mat-menu-item (mouseenter)="mouseEnter(menuTrigger3)" (mouseleave)="mouseLeave(menuTrigger3)">FAQs</a>
+          <a href="terms-conditions" mat-menu-item (mouseenter)="mouseEnter(menuTrigger3)" (mouseleave)="mouseLeave(menuTrigger3)">Terms of Service</a>
+        </mat-menu>
+        <a routerLink="/contact-us" class='menu' mat-button> Contact Us </a>
+        <button class="helpBtn" mat-raised-button onclick = "window.location.href='healthcare/login'">Login</button>
+=======
         <button mat-button>About</button>
 
         <!-- #docregion mat-menu-trigger-for -->
         <button mat-button>Support</button>
+>>>>>>> 30682a2f9cfc03e21f231f194c7981666e579e23
       </div>
     </mat-toolbar>
     <mat-toolbar class="right">
