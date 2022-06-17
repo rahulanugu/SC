@@ -29,8 +29,8 @@ body {
   height: auto;
 }
 
-@media screen and (max-width: 550px) {
+/* @media screen and (max-width: 550px) {
   .footer {
     position: relative !important;
   }
-}
+} */

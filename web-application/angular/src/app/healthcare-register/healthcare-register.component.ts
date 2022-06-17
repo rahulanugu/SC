@@ -29,10 +29,14 @@ export class HealthcareRegisterComponent implements OnInit {
     private healthCareAccountService: HealthcareAccountService,
     private router: Router,
     public dialog: MatDialog
-  ) {}
+  ) { }
 
   ngOnInit() {
+<<<<<<< HEAD
 
+=======
+    //document.getElementById("registersuccessful").style.display = "none";
+>>>>>>> dda28ebcf7156adb0e7302af4a22661643a97720
   }
   openDialog() {
     const dialogRef = this.dialog.open(HealthcareDialogContent);
@@ -43,6 +47,7 @@ export class HealthcareRegisterComponent implements OnInit {
 
   pattern1 = "^[0-9_-]{10,12}";
 
+<<<<<<< HEAD
   Form = new FormGroup({
     firstName: new FormControl("", [Validators.required]),
     lastName: new FormControl("", [Validators.required]),
@@ -53,6 +58,18 @@ export class HealthcareRegisterComponent implements OnInit {
     phone: new FormControl("", [Validators.required,CustomValidator.phoneValidator,]),
     ReTypePassword: new FormControl("", [Validators.required]),
 
+=======
+  Form = this.formBuilderService.group({
+    firstName: ["", Validators.required],
+    lastName: ["", Validators.required],
+    email: ["", Validators.required],
+    companyName: ["", Validators.required],
+    ehr: ["", Validators.required],
+    roleInCompany: ["", Validators.required],
+    password: ["", Validators.required],
+    confirmPassword: ["", Validators.required],
+    phone: ["", [Validators.required, CustomValidator.phoneValidator]],
+>>>>>>> dda28ebcf7156adb0e7302af4a22661643a97720
   });
 
   submitForm() {

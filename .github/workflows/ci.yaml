@@ -6,10 +6,10 @@ name: Build and Test DEV application (Scriptchain)
 on:
   push:
     branches:
-      - dev2
+      - development-environment
   pull_request:
     types: [closed]
-    branches: [dev2]
+    branches: [development-environment]
 
 jobs:
   ci-cd:
@@ -43,7 +43,7 @@ jobs:
 
       - name: install angular cli
         working-directory: ./web-application/angular
-        run: npm install -g @angular/cli@8.3.29
+        run: npm install --legacy-peer-deps -g @angular/cli@8.3.29 
 
       # --------- install all dependencies -----------------
 
@@ -51,7 +51,7 @@ jobs:
 
       - name: link npm with angular cli
         working-directory: ./web-application/angular
-        run: npm link @angular/cli
+        run: npm link --legacy-peer-deps @angular/cli
 
       - name: configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -59,9 +59,7 @@ jobs:
           aws-access-key-id: ${{ secrets.AWSACCESSKEYID }}
           aws-secret-access-key: ${{ secrets.AWSSECRETKEY }}
           aws-region: "us-east-2"
-
-      # ----------- configurations ---------------------
-
+          
       # build and store output
 
       - name: build in production mode
@@ -90,7 +88,18 @@ jobs:
 
       # ----------- backend testing ------------------------
 
+<<<<<<< HEAD
+    # pre-process and upload build output to AWS S3
+  
+    - name: zip artifact
+      uses: vimtor/action-zip@v1
+      with: 
+        files: web-application/node appspec.yml start_setup.sh
+        recursive: true
+        dest: scriptchain1.zip
+=======
       # pre-process and upload build output to AWS S3
+>>>>>>> development-environment
 
       - name: zip artifact
         uses: papeloto/action-zip@v1

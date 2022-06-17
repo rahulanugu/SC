@@ -25,7 +25,7 @@ function generateId(count) {
  *         401 - API Key invalid
  *         500 - An error occured trying to save the request
  */
-router.post("/contact-us", [
+router.post("/", [
   check('fname').notEmpty().isAlpha(),
   check('lname').notEmpty().isAlpha(),
   check('email').isEmail(),
@@ -40,58 +40,18 @@ router.post("/contact-us", [
     if (validate.statusCode != 200) {
       return res.status(validate.statusCode).json({message: validate.message});
     }
-    // const user = req.body;
+    
+    const user = req.body;
     user['_id'] = generateId(10);
     // Add user object into contactUsers table
     const resp = await db_utils.insertUserIntoDB('contactUsers', user);
     if (resp.statusCode != 200) {
       return res.status(resp.statusCode).json({message: resp.message});
     }
-
+    //send an email to the consumer 
     sendEmail(req.body.email, "Thank You for Contacting ScriptChain!", "./emailTemplates/contactConfirmation-email.html");
-
-    // const user = req.body;
-    // user['_id'] = generateId(10);
-    // // Add user object into contactUsers table
-    // console.log("Test "); 
-    // const resp = await db_utils.insertUserIntoDB('contactUsers', user);
-    // if (resp.statusCode != 200) {
-    //   return res.status(resp.statusCode).json({message: resp.message});
-    // }
-
 
     return res.status(200).json(user);
 });
 
 module.exports = router;
-
-// var express = require('express');
-// var bodyParser = require('body-parser');
-// var mysql = require('mysql');
-// var app = express.Router();
-
-//  app.use(bodyParser.json({limit: '50mb'}));
-//  app.use(express.static('public'));
-
-// var connection = mysql.createConnection({
-// host: 'database-1.cgurbeaohou6.us-east-2.rds.amazonaws.com',
-// user: 'admin',
-// password: 'Scriptchain21',
-// port: 3306,
-// database: 'scriptchain'
-// });
-// connection.connect();
-
-//  app.post('/contact_us', function(req, res, next) {
-//  var cope = req.body;
-//  console.log('request received:', req.body);
-// var query = connection.query('insert into cope set ?', cope, function (err,     result) {
-//  if (err) {
-//      console.error(err);
-//      return res.send(err);
-//  } else {
-//      return res.send('Ok');
-//  }
-//   });
-// });
-// module.exports = app;

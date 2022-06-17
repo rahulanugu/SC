@@ -1,6 +1,10 @@
 // Sammy - add input component to pass in different img from parent
+// Stephanie - updated to be compatible with WP API object attributes
+// Kefan - updated the reading time calculation
+
 import { Component, OnInit, Input } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
+import { trim } from 'jquery';
 // const {wordsToMinutes, wordsToHours, wordsToSeconds} = require('words-to-time-converter');
 
 @Component({
@@ -9,21 +13,27 @@ import { MatCardModule } from '@angular/material/card';
   styleUrls: ['./blog-card.component.css']
 })
 export class BlogCardComponent implements OnInit {
-  @Input() blogImg: string  = '';
-  @Input() blogCategory: string = '';
+  @Input() blogImg: string = '';
+  @Input() blogCategories: any;
+  @Input() blogID: any;
+  @Input() blogTitle: any;
+  @Input() blogContent: any;
+  @Input() blogExcerpt: any;
+  Categories: any;
+  wpm = 220;
   wordsToMinutes = 5;
-  
+
   getColor() {
-    switch(this.blogCategory){
-      case 'updates': 
+    switch (this.Categories.name as any) {
+      case 'Updates':
         return '#B27036'
-      case 'ai': 
+      case 'AI':
         return '#B83D37'
-      case 'invest': 
+      case 'Invest':
         return '#3458C2'
-      case 'patient': 
+      case 'Patient':
         return '#7742C2'
-      case 'scholar': 
+      case 'Scholar':
         return '#E0AE48'
     }
   }
@@ -31,6 +41,8 @@ export class BlogCardComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.Categories = Object.values(this.blogCategories)[0];
+    this.wordsToMinutes = Math.ceil(this.blogContent.split(" ").length / this.wpm);
   }
 
 }

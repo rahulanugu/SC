@@ -1,4 +1,5 @@
 /* DenisH */
+<<<<<<< HEAD
 .nav {
   position: fixed;
   width: 100%;
@@ -10,6 +11,21 @@
 .mat-toolbar {
   background: #2d5059;
   margin: 0 !important;
+=======
+
+
+.nav {
+  position: fixed;
+  width: 100%;
+  z-index: 10;
+  border-bottom: 1px #2d50599c solid;
+  box-shadow: 0 2px 55px 1px #2d5059c9
+}
+
+.mat-toolbar {
+  background: #2d5059;
+  margin: 0;
+>>>>>>> dda28ebcf7156adb0e7302af4a22661643a97720
   padding: 0;
 }
 
@@ -33,6 +49,7 @@
 
 .right {
   padding-right: 15px;
+<<<<<<< HEAD
 }
 
 .rightHeader {
@@ -73,6 +90,48 @@
   left: 14px;
 }
 
+=======
+}
+
+.rightHeader {
+  width: 100%;
+  margin-right: 15px;
+}
+
+.rightHeader div div button {
+  margin: 0 3px;
+}
+
+.login {
+  color: seashell;
+}
+
+.signup {
+  background-color: seashell;
+  color: teal;
+  font-family: "Lato";
+  font-weight: bold;
+}
+
+/* Search bar */
+
+.search {
+  position: relative;
+  background: white;
+  width: 50px;
+  height: 50px;
+  border: none;
+  border-radius: 50%;
+  transition: 0.2s;
+}
+
+.search mat-icon {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+}
+
+>>>>>>> dda28ebcf7156adb0e7302af4a22661643a97720
 .search input {
   position: absolute;
   top: 9px;
@@ -88,6 +147,7 @@
 }
 
 /*  */
+<<<<<<< HEAD
 .mat-toolbar-single-row{
   padding: 0 !important;
 }
@@ -144,3 +204,8 @@ button:focus,input:focus {
   width: 100%;
 }
 /*  */
+=======
+button:focus {
+  outline: none;
+}
+>>>>>>> dda28ebcf7156adb0e7302af4a22661643a97720

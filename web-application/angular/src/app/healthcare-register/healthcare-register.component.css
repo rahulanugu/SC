@@ -1,5 +1,17 @@
+<<<<<<< HEAD
 /* Authors and their contributions */
 /* Vidit: Redesigned the form using CSS grid and made the page responsive. */
+=======
+/* Stephanie - updated to match user story */
+
+.loginHeading {
+  font-family: "Tinos", serif;
+  color: #2d5059;
+  text-align: center;
+  font-size: 36px;
+  padding-top: 40px;
+}
+>>>>>>> dda28ebcf7156adb0e7302af4a22661643a97720
 
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap');
@@ -11,8 +23,26 @@ app-landing-page-header {
 }
 
 body {
+<<<<<<< HEAD
   background-color: #F5F1ED;
   min-height: 100vh;
+=======
+  margin: 0px;
+  padding: 0px;
+}
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  border-radius: 5px;
+  width: 652px;
+  margin: 0 auto;
+  float: none;
+  margin-bottom: 40px;
+  font-family: "Lato", sans-serif;
+  background-color: white;
+
+  align-items: flex-start;
+>>>>>>> dda28ebcf7156adb0e7302af4a22661643a97720
 }
 
 .bpHeader {
@@ -28,6 +58,7 @@ body {
   color: #1D1F26;
 }
 
+<<<<<<< HEAD
 form label {
   font-style: normal;
   font-weight: 800;
@@ -39,6 +70,18 @@ form label {
   margin-top: 3px;
   margin-bottom: 8px;
   color: #1d1f26;
+=======
+.card-container {
+  justify-content: center;
+  align-items: center;
+  background-color: #e6eff1;
+}
+.sectionHeading img {
+  width: 20px;
+  height: 18px;
+  margin-left: 18px;
+  margin-bottom: 5px;
+>>>>>>> dda28ebcf7156adb0e7302af4a22661643a97720
 }
 
 form input {
@@ -75,6 +118,7 @@ form span {
   text-align: center;
   font-family: "Lato", sans-serif;
   font-weight: bold;
+<<<<<<< HEAD
   border-radius: 8px;
   justify-self: center;
   grid-column: 1 / -1;
@@ -88,19 +132,58 @@ form select {
   /* Grey 200 */
 
   border: 2px solid #e1e4eb;
+=======
+  color: #1d1f26;
+}
+
+.form-group input {
+  font-family: "Lato", sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  margin-left: 18px;
+  color: black;
+  width: 250px;
+  height: 40px;
+  border-radius: 8px;
+  box-shadow: inset 0px 2px 2px rgba(29, 31, 38, 0.15);
+>>>>>>> dda28ebcf7156adb0e7302af4a22661643a97720
   box-sizing: border-box;
   /* Inner Shadow E-100 */
 
+<<<<<<< HEAD
+=======
+.form-group select {
+  font-family: "Lato", sans-serif;
+  margin-left: 18px;
+  color: black;
+  width: 250px;
+  height: 40px;
+  border-radius: 8px;
+>>>>>>> dda28ebcf7156adb0e7302af4a22661643a97720
   box-shadow: inset 0px 2px 2px rgba(29, 31, 38, 0.15);
   border-radius: 8px;
   height: 40px;
   width: 272px;
 }
 
+<<<<<<< HEAD
 .left {
   display: inline-block;
   margin-left: 10px;
   vertical-align: middle;
+=======
+.divider {
+  border-top: 3px solid #d5dde1;
+}
+
+input.invalid {
+  border: 1px solid red;
+}
+
+small {
+  font-family: "Lato", sans-serif;
+  margin-left: 18px;
+>>>>>>> dda28ebcf7156adb0e7302af4a22661643a97720
 }
 
 .clear {
@@ -131,9 +214,23 @@ form>div {
   background-color: #F5F1ED;
 }
 
+<<<<<<< HEAD
 #partnership-form {
   max-width: 720px;
   margin: 0 auto;
+=======
+.signUpBtn {
+  width: 145px;
+  height: 40px;
+  color: white;
+  background-color: #5c8a96;
+  border: none;
+  font-size: 14px;
+  font-family: "Lato", sans-serif;
+  font-weight: bold;
+  margin-right: 18px;
+  border-radius: 7px;
+>>>>>>> dda28ebcf7156adb0e7302af4a22661643a97720
 }
 
 #partnership-form form {

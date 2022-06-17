@@ -131,6 +131,7 @@ import { ShareModule } from 'ngx-sharebuttons';
 import { ToastrModule } from 'ngx-toastr';
 import { AllscriptsLoginComponent } from "./allscriptslogin/allscriptslogin.component";
 import { PortalProgressBarComponent } from './shared/components/portal-progress-bar/portal-progress-bar.component';
+<<<<<<< HEAD
 import { LandingPageCarouselComponent } from './landing-page-carousel/landing-page-carousel.component';
 import { LandingPageWelcomeMessageComponent } from './landing-page-welcome-message/landing-page-welcome-message.component';
 import { LandingPageInformationComponent } from './landing-page-information/landing-page-information.component';
@@ -141,6 +142,11 @@ import { faChevronRight, faChevronDown } from "@fortawesome/free-solid-svg-icons
 import { EmployeeComponent } from './employee/employee.component';
 library.add(faChevronDown)
 library.add(faChevronRight)
+=======
+import { BlogService } from "./shared/blogService.service";
+import { BlogPostQuoteComponent } from './blog-post-quote/blog-post-quote.component';
+
+>>>>>>> dda28ebcf7156adb0e7302af4a22661643a97720
 
 @NgModule({
   declarations: [
@@ -235,11 +241,15 @@ library.add(faChevronRight)
     IndustryCardComponent,
     BlogPostComponent,
     PortalProgressBarComponent,
+<<<<<<< HEAD
     LandingPageCarouselComponent,
     LandingPageWelcomeMessageComponent,
     LandingPageInformationComponent,
     ReadMoreComponent,
     EmployeeComponent,
+=======
+    BlogPostQuoteComponent,
+>>>>>>> dda28ebcf7156adb0e7302af4a22661643a97720
   ],
 
   imports: [
@@ -286,6 +296,7 @@ library.add(faChevronRight)
     PatientAuthGuard,
     DataService,
     ScriptLoaderService,
+    BlogService
   ],
   bootstrap: [AppComponent],
   entryComponents: [MatConfirmDialogComponent],
