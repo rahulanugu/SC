@@ -1,97 +1,105 @@
 # Authors and their contributions:
 # Vidit: Wrote the whole file.
 
-name: Build and Test application (Scriptchain)
+name: Build and Test DEV application (Scriptchain)
 
 on:
   push:
     branches:
-      - master
+      - development-environment
   pull_request:
-    types: [ closed ]
-    branches: [ master ]
+    types: [closed]
+    branches: [development-environment]
 
 jobs:
   ci-cd:
     runs-on: ubuntu-latest
-    
+
     steps:
+      # install all dependencies
 
-    # install all dependencies
+      - uses: actions/checkout@v2
 
-    - uses: actions/checkout@v2
+      - name: Use Node.js v16.0.0
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.0.0
 
-    - name: Use Node.js v16.0.0
-      uses: actions/setup-node@v2
-      with:
-        node-version: 16.0.0
+      - name: clear npm cache
+        working-directory: ./web-application/angular
+        run: npm cache clean -f
 
-    - name: clear npm cache
-      working-directory: ./web-application/angular
-      run: npm cache clean -f
+      - name: install latest npm version
+        working-directory: ./web-application/angular
+        run: npm install -g npm@latest
 
-    - name: install latest npm version
-      working-directory: ./web-application/angular
-      run: npm install -g npm@latest
+      - name: install all packages
+        working-directory: ./web-application/angular
+        run: npm install -g
 
-    - name: install all packages
-      working-directory: ./web-application/angular
-      run: npm install -g
+      - name: install ansi-colors
+        working-directory: ./web-application/angular
+        run: npm install -g ansi-colors
 
-    - name: install ansi-colors
-      working-directory: ./web-application/angular
-      run: npm install -g ansi-colors
+      - name: install angular cli
+        working-directory: ./web-application/angular
+        run: npm install --legacy-peer-deps -g @angular/cli@8.3.29 
 
-    - name: install angular cli
-      working-directory: ./web-application/angular
-      run: npm install -g @angular/cli@8.3.29
+      # --------- install all dependencies -----------------
 
-    # --------- install all dependencies -----------------
+      # configurations
 
-    # configurations
+      - name: link npm with angular cli
+        working-directory: ./web-application/angular
+        run: npm link --legacy-peer-deps @angular/cli
 
-    - name: link npm with angular cli
-      working-directory: ./web-application/angular 
-      run: npm link @angular/cli
+      - name: configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWSACCESSKEYID }}
+          aws-secret-access-key: ${{ secrets.AWSSECRETKEY }}
+          aws-region: "us-east-2"
 
+<<<<<<< HEAD
     - name: configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
         aws-access-key-id: ${{ secrets.AWSACCESSKEYID }}
         aws-secret-access-key: ${{ secrets.AWSSECRETKEY }} 
         aws-region: 'us-east-2'
+=======
+      # ----------- configurations ---------------------
+>>>>>>> development-environment
 
-    # ----------- configurations ---------------------
-    
+      # build and store output
 
-    # build and store output
+      - name: build in production mode
+        working-directory: ./web-application/angular
+        run: npm run build
 
-    - name: build in production mode
-      working-directory: ./web-application/angular
-      run: npm run build
-    
-    - name: store build result in the dist directory
-      uses: actions/upload-artifact@v2
-      with:
-        name: dist
-        path: ./web-application/node/dist
+      - name: store build result in the dist directory
+        uses: actions/upload-artifact@v2
+        with:
+          name: dist
+          path: ./web-application/node/dist
 
-    # ------------- build and store output ---------------
+      # ------------- build and store output ---------------
 
-    # backend testing
+      # backend testing
 
-    # Temporarily commenting out tests so that deployment works
+      # Temporarily commenting out tests so that deployment works
 
-    # - name: install all backend packages
-    #   working-directory: ./web-application/node
-    #   run: npm install
+      # - name: install all backend packages
+      #   working-directory: ./web-application/node
+      #   run: npm install
 
-    # - name: Test backend
-    #   working-directory: ./web-application/node
-    #   run: npm test
+      # - name: Test backend
+      #   working-directory: ./web-application/node
+      #   run: npm test
 
-    # ----------- backend testing ------------------------
+      # ----------- backend testing ------------------------
 
+<<<<<<< HEAD
     # pre-process and upload build output to AWS S3
   
     - name: zip artifact
@@ -100,40 +108,47 @@ jobs:
         files: web-application/node appspec.yml start_setup.sh
         recursive: true
         dest: scriptchain1.zip
+=======
+      # pre-process and upload build output to AWS S3
+>>>>>>> development-environment
 
-    - name: upload archive
-      uses: actions/upload-artifact@v2
-      with:
-        name: scriptchain1.zip
-        path: ./scriptchain1.zip
+      - name: zip artifact
+        uses: papeloto/action-zip@v1
+        with:
+          files: web-application/node appspec.yml start_setup.sh
+          recursive: true
+          dest: scriptchain.zip
 
-    - name: copy artifact to S3 
-      run: |
-        aws s3 cp \
-        --region us-east-2 \
-        scriptchain1.zip s3://scriptchain-deploy-bucket
-      
-    # ------------ pre-process and upload build output to AWS S3 ---------------------
+      - name: upload archive
+        uses: actions/upload-artifact@v2
+        with:
+          name: scriptchain.zip
+          path: ./scriptchain.zip
 
-    # deploy AWS S3 bucket contents
+      - name: copy artifact to S3
+        run: |
+          aws s3 cp \
+          --region us-east-2 \
+          scriptchain.zip s3://scriptchain-dev-deploy-bucket
 
-    - name: Deploy s3 bucket
-      id: deploy
-      run: |
-        aws deploy create-deployment \
-        --application-name ScriptChain \
-        --deployment-group-name CodeDeployGitHubDemo-DepGrp \
-        --deployment-config-name CodeDeployDefault.AllAtOnce \
-        --s3-location bundleType=zip,bucket=scriptchain-deploy-bucket,key=scriptchain1.zip
+      # ------------ pre-process and upload build output to AWS S3 ---------------------
 
-    # --------------- deploy AWS S3 bucket contents ---------------------
+      # deploy AWS S3 bucket contents
 
-    # delete the artifacts from the workflow run
+      - name: Deploy s3 bucket
+        id: deploy
+        run: |
+          aws deploy create-deployment \
+          --application-name Scriptchain-DEV \
+          --deployment-group-name CodeDeployGitHubDEV-DepGrp \
+          --deployment-config-name CodeDeployDefault.AllAtOnce \
+          --s3-location bundleType=zip,bucket=scriptchain-dev-deploy-bucket,key=scriptchain.zip
+      # --------------- deploy AWS S3 bucket contents ---------------------
+      # delete the artifacts from the workflow run
 
-    - uses: geekyeggo/delete-artifact@v1
-      with:
-        name: |
-          dist
-          scriptchain1.zip 
-
+      - uses: geekyeggo/delete-artifact@v1
+        with:
+          name: |
+            dist
+            scriptchain.zip
     # ------------ delete the artifacts from the workflow run ---------------
