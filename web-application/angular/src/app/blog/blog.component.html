@@ -3,22 +3,10 @@ Authors and their contributions:
     Vidit: Worked on UI enhancements and responsiveness -->
 <!-- Sammy - Worked on the an blog category styling and content update-->
 <!-- Stephanie - updated HTML to be compatible with WP API objects -->
-<<<<<<< HEAD
-<!-- ​
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="http://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet" type="text/css" />
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" />
-=======
 <!-- Kefan - update HTML to enable the pagination and the css style and implement the blog card-->
->>>>>>> dda28ebcf7156adb0e7302af4a22661643a97720
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-<<<<<<< HEAD
-</head>
-=======
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -30,20 +18,14 @@ Authors and their contributions:
 
 </head>
 
->>>>>>> dda28ebcf7156adb0e7302af4a22661643a97720
 <body fxLayout='column'>
   <div fxFlex="33%" fxFlex.xs="100%" fxFlex.sm="33%">
     <div>
       <app-landing-page-header></app-landing-page-header>
     </div>
-<<<<<<< HEAD
-    <div>
-
-=======
 
     <div style="margin-top: 64px;">
       <!-- <h1 [ngStyle]="{'color':'red'}" -->
->>>>>>> dda28ebcf7156adb0e7302af4a22661643a97720
       <h1 id="heading">ScriptChain Health Blog</h1>
       <div class="container text-center">
         <label for="Category"></label>
@@ -53,34 +35,6 @@ Authors and their contributions:
         </select>
       </div>
 
-<<<<<<< HEAD
-      <div fxLayout="row wrap">
-        <app-industry-quote-card *ngIf="selectedCategory == 'undefined'" [blogCategory]="'ScriptChain'"
-          [blogSlug]="'scriptchain'" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="32%" fxFlex.lg="32%" fxFlex.xl="32%">
-        </app-industry-quote-card>
-        <app-industry-quote-card *ngIf="selectedCategory !== 'undefined'" [blogCategory]="selectedCategory"
-          [blogSlug]="slug" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="32%" fxFlex.lg="32%" fxFlex.xl="32%">
-        </app-industry-quote-card>
-        <app-blog-card *ngFor="let blog of curList" [blogCategories]="blog.categories" [blogTitle]="blog.title"
-          [blogContent]="blog.excerpt" [blogImg]="blog.post_thumbnail.URL" [blogID]="blog.ID" fxFlex.xs="100%"
-          fxFlex.sm="50%" fxFlex.md="32%" fxFlex.lg="32%" fxFlex.xl="32%"></app-blog-card>
-      </div>
-    </div>
-    <div class="pagination">
-      <ul fxFlex.lg="100%" fxFlex.md="100%" fxFlex.sm="40%">
-        <li><a class="prev" (click)="previousPage()">
-            < PREVIOUS PAGE</a>
-        </li>
-        <div style="display: flex;">
-          <li class="pageNumber" [ngClass]="{'active': currentPage == page}" *ngFor="let page of pageList">
-            <a (click)="jumpPage($event)"> {{page}} </a>
-          </li>
-        </div>
-        <li><a class="next" (click)="nextPage()">NEXT PAGE > </a>
-        </li>
-      </ul>
-    </div>
-=======
       <!--fxLayoutAlign="center"-->
       <div fxLayout="row wrap" fxLayoutAlign="center">
         <app-industry-quote-card *ngIf="selectedCategory == 'undefined'" [blogCategory]="'ScriptChain'"
@@ -111,13 +65,8 @@ Authors and their contributions:
       </ul>
     </div>
 
->>>>>>> dda28ebcf7156adb0e7302af4a22661643a97720
     <footer>
       <app-landing-page-subfooter></app-landing-page-subfooter>
     </footer>
   </div>
-<<<<<<< HEAD
-</body> -->
-=======
 </body>
->>>>>>> dda28ebcf7156adb0e7302af4a22661643a97720

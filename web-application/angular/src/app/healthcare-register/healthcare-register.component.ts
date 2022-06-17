@@ -32,11 +32,6 @@ export class HealthcareRegisterComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-<<<<<<< HEAD
-
-=======
-    //document.getElementById("registersuccessful").style.display = "none";
->>>>>>> dda28ebcf7156adb0e7302af4a22661643a97720
   }
   openDialog() {
     const dialogRef = this.dialog.open(HealthcareDialogContent);
@@ -47,18 +42,6 @@ export class HealthcareRegisterComponent implements OnInit {
 
   pattern1 = "^[0-9_-]{10,12}";
 
-<<<<<<< HEAD
-  Form = new FormGroup({
-    firstName: new FormControl("", [Validators.required]),
-    lastName: new FormControl("", [Validators.required]),
-    email: new FormControl("", [Validators.required, Validators.email]),
-    orgName: new FormControl("", [Validators.required]),
-    orgPosition: new FormControl("", [Validators.required]),
-    password: new FormControl("", [Validators.required]),
-    phone: new FormControl("", [Validators.required,CustomValidator.phoneValidator,]),
-    ReTypePassword: new FormControl("", [Validators.required]),
-
-=======
   Form = this.formBuilderService.group({
     firstName: ["", Validators.required],
     lastName: ["", Validators.required],
@@ -69,7 +52,6 @@ export class HealthcareRegisterComponent implements OnInit {
     password: ["", Validators.required],
     confirmPassword: ["", Validators.required],
     phone: ["", [Validators.required, CustomValidator.phoneValidator]],
->>>>>>> dda28ebcf7156adb0e7302af4a22661643a97720
   });
 
   submitForm() {

@@ -305,11 +305,7 @@ figcaption {
   transition: background-color 0.3s linear;
 }
 
-<<<<<<< HEAD
-@media only screen and (max-width: 500px){
-=======
 @media only screen and (max-width: 500px){ 
->>>>>>> dda28ebcf7156adb0e7302af4a22661643a97720
   #heading{
     font-size: 28px;
   }
