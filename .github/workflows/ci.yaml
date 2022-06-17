@@ -43,7 +43,7 @@ jobs:
 
       - name: install angular cli
         working-directory: ./web-application/angular
-        run: npm install -g @angular/cli@8.3.29
+        run: npm install --legacy-peer-deps -g @angular/cli@8.3.29 
 
       # --------- install all dependencies -----------------
 
