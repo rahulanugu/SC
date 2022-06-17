@@ -19,162 +19,211 @@ body {
   padding: 0px;
 }
 
-input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched {
-  border: 3px solid red;
+/* Denis - Content for data */
+.mat-grid-list-data{
+  background-image: url(../../assets/images/lightbackgroud.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
-
-.help-block {
+.mat-grid-list-data mat-grid-tile{
+  text-align: center;
   color: white;
 }
-
-.footer1 {
-  margin: 0 auto;
-  width: 100%;
-  height: auto;
-  overflow: hidden;
-
-  bottom: 0px;
+.numeric{
+  font-family: "Rubik One";
+  font-size: 43px;
 }
 
-.content-card {
-  min-height: 480px;
-  left: 0px;
-  top: 64px;
-}
-
-.signUpBtn, .helpBtn {
-  color: white;
-  background-color: #5c8a96;
-  border: 2px solid #5c8a96;
+.data{
+  font-family: "Lato Bold";
+  font-weight: Bold;
   font-size: 18px;
-  font-family: "Lato", sans-serif;
-  font-weight: bold;
-  margin-right: 17px;
-  border-radius: 7px;
-  padding: 8px 16px;
-  min-width: 120px;
-  transition: all 60ms ease-in-out;
-  transition-property: background-color, color;
-  text-decoration: none!important;
-  -webkit-appearance: none;
+}
+.study{
+  font-family: "Lato Italic";
+  font-size: 18px;
 }
 
-/* a:hover .helpBtn{
-  text-decoration: none!important;
-} */
-
-.helpBtn-inv {
-  color: #5c8a96;
-  background-color: #faf6f2;
-  border: 2px solid #5c8a96;
+.numericsmall{
+  font-family: "Rubik One";
+  font-size: 18px;
 }
 
-.signUpBtn-clear {
-  color: #5c8a96!important;
-  background-color: #faf6f2!important;
-  border: 2px solid #5c8a96!important;
+.datasmall{
+  font-family: "Lato Bold";
+  font-weight: Bold;
+  font-size: 10px;
 }
-
-.signUpBtn-clear:hover{
-  color: #faf6f2!important;
-  background-color: #5c8a96!important;
+.studysmall{
+  font-family: "Lato Italic";
+  font-size: 10px;
 }
-
-.helpBtn:hover, .signUpBtn:hover {
-  color: #5c8a96;
+/* Denis- Content for data ends */
+/* Denis- Content for about us */
+.about-us{
+  display: grid;
   background-color: white;
+  text-align: center;
+  height: 220px;
+  color: #2D5059;
+}
+.about-us h1{
+  margin: 0 auto;
+  margin-top: 20px;
+  height: max-content;
+  font-family: "Rubik One";
+  font-weight: bold;
+  font-size: 43px;
+}
+.about-us h3{
+  align-items: center;
+  height: max-content;
+  width: 40%;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  font-family: "Lato";
+  font-weight: bold;
+  font-size: 25px;
 }
 
-.helpBtn-inv:hover {
-  color: #faf6f2;
-  background-color: #5c8a96;
+.about-us h2{
+  margin-top: 20px;
+  font-family: "Rubik One";
+  font-weight: bold;
+}
+.about-us h5{
+  font-weight: bold;
+  margin-bottom: 50px;
 }
 
+/* Denis- Content for about us */
+/* Denis- Contact us */
+.holder{
+  height: max-content;
+  background: white;
+  align-items: center;
+  display: flex;
+}
+
+.left-contact-us{
+  width: 60%;
+  margin: auto;
+}
+
+.contact-us{
+  font-family: "Rubik One";
+  font-weight: 43px;
+  color: #2D5059;
+  margin-bottom: 30px;
+  margin-top: 100px;
+}
+
+.left-contact-us p{
+  font-family: "Lato";
+  font-weight: 14px;
+  color: #2D5059;
+}
+
+.left-contact-us button{
+  font-style: "Lato";
+  font-weight: bold;
+  text-decoration: none;
+  border: white;
+  background-color: white;
+  color: #2D5059;
+  padding-left: 0;
+}
+.partner{
+  margin-top: 25px;
+  font-size: 18px;
+}
+.sign{
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.right-contact-us{
+  background-color: #2D5059;
+  align-items: center;
+  margin: 50px 120px 20px 50px;
+  padding: 20px 0;
+  min-height: 450px;
+  max-height: max-content;
+}
+.form{
+  width: 80%;
+  margin: 10px auto;
+
+}
+.form input{
+  width: 100%;
+  height: 45px;
+  text-align: top;
+}
+.message{
+  width: 100%;
+  text-decoration: none;
+  resize: none;
+  height: 130px;
+}
+
+.right-contact-us button{
+  text-decoration: none;
+  width: 100%;
+  height: 45px;
+  background-color: #BCE5C5;
+}
+.top-contact-us{
+  text-align: center;
+  margin-bottom: 5px;
+}
+.bottom-contact-us{
+  width: 80vw;
+  margin: 20px auto;
+}
+
+/* Denis- Contact us ends*/
+/* Denis- Read Case */
+.read-case-container{
+  height: 350px;
+  background-image:url( "../../assets/readCase.png");
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: cover;
+  justify-content: center;
+  align-items: center;
+}
+.read-case-container h1{
+  text-align: center;
+  font-family: "Rubik One";
+  font-size: 35px;
+  color: #FFFFFF;
+
+}
+.read-case-container button{
+  color: #2d5059;
+  background-color: white;
+  border-color: #2d5059;
+  border-radius: 10px;
+  font-style: "Lato";
+  font-weight: bold;
+  font-size: 18px;
+  padding: 5px 10px;
+}
+/* Denis- Read Case ends*/
+/*  */
 content {
   width: 1156px;
   min-height: 1500px;
 
   align-items: center;
 }
-.content h1 {
-  font-family: "Tinos", serif;
-  color: #2d5059;
-  padding-top: 116px;
-  font-size: 36px;
-  padding-left: 142px;
-}
 
-.content p {
-  font-style: normal;
-  font-weight: bold;
-  font-size: 24px;
-  line-height: 29px;
-  font-family: "Tinos", serif;
-  color: #1d1f26;
-  padding-left: 142px;
-  padding-right: 142px;
-}
-.card {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  padding: 16px;
-  text-align: center;
-  background-color: #f1f1f1;
-}
-
-/* Float four columns side by side */
-.column {
-  float: left;
-  width: 25%;
-  padding: 0 10px;
-}
-
-/* Remove extra left and right margins, due to padding */
-.row {
-  margin: 0 -5px;
-}
-
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-.button-wrap {
-  display: flex;
-}
-
-/* Responsive columns */
-@media screen and (max-width: 600px) {
-  .column {
-    width: 100%;
-    display: block;
-    margin-bottom: 20px;
-  }
-  .content3 {
-    font-size: 12px;
-  }
-}
-.buttons {
-  display: inline;
-}
 @media screen and (max-width: 500px) {
-  .heading {
-    padding-left: 20px !important;
-  }
-
   .content p {
     padding-left: 20px !important;
     padding-right: 20px !important;
-  }
-  .signUpBtn {
-    margin-left: 20px !important;
-  }
-  .helpBtn,
-  .signUpBtn {
-    font-size: 14px !important;
-    width: 120px !important;
-    font-weight: normal !important;
   }
 }
 
@@ -242,28 +291,6 @@ content {
   color: #1d1f26;
 }
 
-.card1 {
-  min-height: 200px;
-  width: 95%;
-  /* White */
-
-  background: #ffffff;
-  /* Drop Shadow E200 */
-
-  box-shadow: 0px 4px 8px rgba(29, 31, 38, 0.15);
-  border-radius: 8px;
-}
-
-/*.card1:hover {
-  box-shadow: 8px 8px 8px #2d5059;
-  height: 170px;
-}*/
-
-.col {
-  float: left;
-  width: 25%;
-  padding: 0 10px;
-}
 
 /* Remove extra left and right margins, due to padding in columns */
 .row {
@@ -275,248 +302,4 @@ content {
   content: "";
   display: table;
   clear: both;
-}
-
-.card1 img {
-  margin-top: 32px;
-  margin-left: 18px;
-}
-.card1 h3 {
-  font-style: normal;
-  font-weight: normal;
-  font-size: 18px;
-  line-height: 22px;
-  /* identical to box height */
-  padding-top: 23px;
-  /* Grey 400 */
-
-  color: #575b66;
-  font-family: "Lato", sans-serif;
-}
-/*.card1:hover h3 {
-  font-weight: bold;
-  font-size: 22px;
-}*/
-
-.card1 p {
-  font-style: normal;
-  font-family: "Lato", sans-serif;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 17px;
-  display: flex;
-  align-items: center;
-  width: 202px;
-  /* Grey 500 */
-
-  color: #1d1f26;
-  padding: 10px;
-}
-
-/*.card1:hover p {
-  font-size: 19px;
-  margin-right: 10px;
-}*/
-
-.content3 {
-  height: 300px;
-  left: 0px;
-  top: 910px;
-  overflow: hidden;
-  /* Teal 400 */
-
-  background: #2d5059;
-}
-
-.content3 h3,
-.content4 h3 {
-  /* White */
-  font-style: normal;
-  font-weight: bold;
-  font-size: 24px;
-  line-height: 29px;
-  color: #ffffff;
-  padding-top: 40px;
-  text-align: center;
-}
-
-.card2 {
-  height: 170px;
-  left: 24px;
-  top: 131px;
-
-  /* White */
-
-  background: #ffffff;
-  /* Drop Shadow E200 */
-
-  box-shadow: 0px 4px 8px rgba(29, 31, 38, 0.15);
-  border-radius: 8px;
-}
-
-.card2 label {
-  text-align: center;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 18px;
-}
-.item {
-  margin-left: 10px;
-}
-.item label {
-  color: #ffffff;
-  font-size: 0.9em;
-}
-
-.partnerBtn {
-  width: 223px;
-  height: 40px;
-  color: white;
-  background: #2d5059;
-  border: none;
-  font-size: 18px;
-  font-family: "Lato", sans-serif;
-  font-weight: bold;
-  display: block;
-  margin: auto;
-  /* White */
-
-  border: 2px solid #ffffff;
-  box-sizing: border-box;
-  border-radius: 8px;
-}
-
-.partnerBtn:hover {
-  color: #5c8a96;
-  background: white;
-
-  /* White */
-
-  border: 2px solid #5c8a96;
-}
-
-.content4 {
-  min-height: 300px;
-  left: 0px;
-  top: 1538px;
-
-  /* Teal 400 */
-
-  background: #2d5059;
-}
-
-form label {
-  font-style: normal;
-  font-weight: bold;
-  font-size: 14px;
-  line-height: 17px;
-  /* identical to box height */
-
-  /* White */
-  margin-top: 8px;
-  margin-bottom: 8px;
-  color: #ffffff;
-}
-
-form input {
-  /* White */
-
-  background: #ffffff;
-  /* Grey 200 */
-
-  border: 2px solid #e1e4eb;
-  box-sizing: border-box;
-  /* Inner Shadow E-100 */
-
-  box-shadow: inset 0px 2px 2px rgba(29, 31, 38, 0.15);
-  border-radius: 8px;
-  height: 40px;
-  width: 272px;
-}
-
-.vertical-center {
-  display: flex;
-  align-items: center;
-  min-height: 100vh;
-}
-
-.quesForm {
-  width: 280px;
-  margin: auto;
-}
-
-form textarea {
-  background: #ffffff;
-  /* Grey 200 */
-  height: 120px;
-  border: 2px solid #e1e4eb;
-  box-sizing: border-box;
-  /* Inner Shadow E-100 */
-  width: 272px;
-  box-shadow: inset 0px 2px 2px rgba(29, 31, 38, 0.15);
-  border-radius: 8px;
-}
-
-.sendBtn {
-  width: 195x;
-  height: 40px;
-  color: white;
-  background: #2d5059;
-  border: none;
-  font-size: 18px;
-  font-family: "Lato", sans-serif;
-  font-weight: bold;
-  margin-right: 17px;
-  border-radius: 7px;
-
-  /* White */
-  margin-top: 16px;
-  margin-bottom: 40px;
-  border: 2px solid #ffffff;
-  box-sizing: border-box;
-  border-radius: 8px;
-}
-.sendBtn:hover {
-  width: 195x;
-  height: 40px;
-
-  background: #2d5059;
-  border: none;
-  font-size: 18px;
-  font-family: "Lato", sans-serif;
-  font-weight: bold;
-  margin-right: 17px;
-  border-radius: 8px;
-
-  /* White */
-  margin-top: 16px;
-  margin-bottom: 40px;
-  border: 2px solid #ffffff;
-  box-sizing: border-box;
-  border-radius: 8px;
-
-  color: #5c8a96;
-  border: 2px solid #5c8a96;
-  background-color: white;
-}
-
-blockquote {
-  padding-bottom: 0px;
-  padding: 1em;
-
-  font-family: "Lato", sans-serif;
-  margin-bottom: 0px;
-  font-size: 1em;
-}
-
-figcaption {
-  padding: 0.5em;
-  float: right;
-}
-
-cite {
-  padding-top: 0px;
-
-  font-family: "Lato", sans-serif;
-  font-size: 0.9em;
 }

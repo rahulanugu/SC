@@ -1,0 +1,264 @@
+<!-- DenisH - Created -->
+<div fxHide fxShow.gt-sm>
+  <div class="body">
+    <!-- Control Left -->
+    <div class="control left">
+      <a class="btn-floating" href="#multi-item-example" data-slide="prev"><img src="../../assets/icons/chevron-left.svg" alt=""></a>
+    </div>
+    <div class="container my-4">
+      <!-- H1 -->
+      <h1 class="carousel-header">{{header}}</h1>
+      <!--Carousel Wrapper-->
+      <div
+        id="multi-item-example"
+        class="carousel slide"
+        data-type="carousel"
+        data-interval="false"
+      >
+        <!--Slides-->
+
+        <div class="carousel-inner">
+          <!--First item-->
+          <div class="carousel-item active">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="card mb-2">
+                  <img
+                    class="card-img-top"
+                    src="{{ cards[0].icon }}"
+                    alt="Card image cap"
+                  />
+                  <div class="upper">
+                    <h3>{{ cards[0].doctor }}</h3>
+                    <h4>{{ cards[0].title }}</h4>
+                  </div>
+                  <div class="card-body">
+                    <p class="card-text">
+                      {{ cards[0].text }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card mb-2">
+                  <img
+                    class="card-img-top"
+                    src="{{ cards[1].icon }}"
+                    alt="Card image cap"
+                  />
+                  <div class="upper">
+                    <h3>{{ cards[1].doctor }}</h3>
+                    <h4>{{ cards[1].title }}</h4>
+                  </div>
+                  <div class="card-body">
+                    <p class="card-text">
+                      {{ cards[1].text }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card mb-2">
+                  <img
+                    class="card-img-top"
+                    src="{{ cards[2].icon }}"
+                    alt="Card image cap"
+                  />
+                  <div class="upper">
+                    <h3>{{ cards[2].doctor }}</h3>
+                    <h4>{{ cards[2].title }}</h4>
+                  </div>
+                  <div class="card-body">
+                    <p class="card-text">
+                      {{ cards[2].text }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Second item -->
+          <div class="carousel-item">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="card mb-2">
+                  <img
+                    class="card-img-top"
+                    src="{{ cards[1].icon }}"
+                    alt="Card image cap"
+                  />
+                  <div class="upper">
+                    <h3>{{ cards[1].doctor }}</h3>
+                    <h4>{{ cards[1].title }}</h4>
+                  </div>
+                  <div class="card-body">
+                    <p class="card-text">
+                      {{ cards[1].text }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card mb-2">
+                  <img
+                    class="card-img-top"
+                    src="{{ cards[2].icon }}"
+                    alt="Card image cap"
+                  />
+                  <div class="upper">
+                    <h3>{{ cards[2].doctor }}</h3>
+                    <h4>{{ cards[2].title }}</h4>
+                  </div>
+                  <div class="card-body">
+                    <p class="card-text">
+                      {{ cards[2].text }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card mb-2">
+                  <img
+                    class="card-img-top"
+                    src="{{ cards[3].icon }}"
+                    alt="Card image cap"
+                  />
+                  <div class="upper">
+                    <h3>{{ cards[3].doctor }}</h3>
+                    <h4>{{ cards[3].title }}</h4>
+                  </div>
+                  <div class="card-body">
+                    <p class="card-text">
+                      {{ cards[3].text }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Right Controler -->
+    <div class="control right">
+      <a class="btn-floating" href="#multi-item-example" data-slide="next"
+        ><img src="../../assets/icons/chevron-right.svg" alt="">
+      </a>
+    </div>
+  </div>
+</div>
+<!-- Mobile view -->
+<div fxShow fxHide.gt-sm>
+  <!-- wrapper -->
+  <div class="body">
+    <!-- Control Left -->
+    <div class="control left">
+      <a class="btn-floating" href="#multi-item-mobile" data-slide="prev"><img src="../../assets/icons/chevron-left.svg" alt=""></a>
+    </div>
+
+    <div class="container my-4">
+      <!-- H1 -->
+      <h1 class="carousel-header">{{header}}</h1>
+      <!--Carousel Wrapper-->
+      <div
+        id="multi-item-mobile"
+        class="carousel slide"
+        data-type="carousel"
+        data-interval="false"
+      >
+        <!--Slides-->
+
+        <div class="carousel-inner">
+          <!--First item-->
+          <div class="carousel-item active">
+            <div class="col-md-4">
+              <div class="card mb-2">
+                <img
+                  class="card-img-top"
+                  src="{{ cards[0].icon }}"
+                  alt="Card image cap"
+                />
+                <div class="upper">
+                  <h3>{{ cards[0].doctor }}</h3>
+                  <h4>{{ cards[0].title }}</h4>
+                </div>
+                <div class="card-body">
+                  <p class="card-text">
+                    {{ cards[0].text }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Second item -->
+          <div class="carousel-item">
+            <div class="col-md-4">
+              <div class="card mb-2">
+                <img
+                  class="card-img-top"
+                  src="{{ cards[1].icon }}"
+                  alt="Card image cap"
+                />
+                <div class="upper">
+                  <h3>{{ cards[1].doctor }}</h3>
+                  <h4>{{ cards[1].title }}</h4>
+                </div>
+                <div class="card-body">
+                  <p class="card-text">
+                    {{ cards[1].text }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Third item -->
+          <div class="carousel-item">
+            <div class="col-md-4">
+              <div class="card mb-2">
+                <img
+                  class="card-img-top"
+                  src="{{ cards[2].icon }}"
+                  alt="Card image cap"
+                />
+                <div class="upper">
+                  <h3>{{ cards[2].doctor }}</h3>
+                  <h4>{{ cards[2].title }}</h4>
+                </div>
+                <div class="card-body">
+                  <p class="card-text">
+                    {{ cards[2].text }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Forth item -->
+          <div class="carousel-item">
+            <div class="col-md-4">
+              <div class="card mb-2">
+                <img
+                  class="card-img-top"
+                  src="{{ cards[3].icon }}"
+                  alt="Card image cap"
+                />
+                <div class="upper">
+                  <h3>{{ cards[3].doctor }}</h3>
+                  <h4>{{ cards[3].title }}</h4>
+                </div>
+                <div class="card-body">
+                  <p class="card-text">
+                    {{ cards[3].text }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Right Controler -->
+    <div class="control right">
+      <a class="btn-floating" href="#multi-item-mobile" data-slide="next"><img src="../../assets/icons/chevron-right.svg" alt=""></a>
+    </div>
+  </div>
+</div>

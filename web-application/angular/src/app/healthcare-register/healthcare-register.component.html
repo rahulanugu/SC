@@ -36,6 +36,252 @@ Register Paitent Form
     });
   </script> -->
 
+<<<<<<< HEAD
+  <body>
+    <!--
+Register Paitent Form
+-->
+
+    <!DOCTYPE html>
+
+    <html lang="zxx">
+      <link
+        href="http://fonts.googleapis.com/css?family=Lato:400,700"
+        rel="stylesheet"
+        type="text/css"
+      />
+      <link
+        href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
+        rel="stylesheet"
+      />
+      <!-- Hotjar Tracking Code for https://www.scriptchain.co/home -->
+      <script>
+        (function (h, o, t, j, a, r) {
+          h.hj =
+            h.hj ||
+            function () {
+              (h.hj.q = h.hj.q || []).push(arguments);
+            };
+          h._hjSettings = { hjid: 2374837, hjsv: 6 };
+          a = o.getElementsByTagName("head")[0];
+          r = o.createElement("script");
+          r.async = 1;
+          r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+          a.appendChild(r);
+        })(window, document, "https://static.hotjar.com/c/hotjar-", ".js?sv=");
+      </script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+      <!-- <script>
+    $("i").click(function () {
+      $("input[type='file']").trigger("click");
+    });
+
+    $('input[type="file"]').on("change", function () {
+      var val = $(this).val();
+      $(this).siblings("span").text(val);
+    });
+  </script> -->
+
+      <body>
+        <!-- Authors and their contributions: -->
+        <!-- Vidit: Redesigned the form and did UI enhancements -->
+
+        <app-landing-page-header></app-landing-page-header>
+        <div id="partnership-div">
+          <p class="bpHeader text-center pt-5">Provider Sign Up</p>
+          <p class="bpSubHeader text-center">
+            Use the form below to get started on your ScriptChain Health
+            journey.
+          </p>
+          <div class="wrapper pb-5" id="partnership-form">
+            <form
+              class="bpForm container pb-3 pt-4"
+              ngNativeValidate
+              [formGroup]="Form"
+              (ngSubmit)="submitForm()"
+              fxFlex
+              fxLayout="column"
+            >
+              <div
+                fxFlex
+                fxLayout="column"
+                fxLayout.gt-sm="row"
+                class="partnership-flex-row"
+              >
+                <div class="firstName">
+                  <label>First Name</label>
+                  <br />
+                  <div class="input-group">
+                    <input
+                      [ngClass]="{
+                        error:
+                          firstName && firstName.invalid && firstName.touched
+                      }"
+                      required
+                      class="input"
+                      formControlName="firstName"
+                    />
+                    <!-- <label for="name" class="input-label">First Name</label> -->
+                  </div>
+                </div>
+
+                <div class="lastName">
+                  <label>Last Name</label>
+                  <br />
+                  <input
+                    [ngClass]="{
+                      error: lastName && lastName.invalid && lastName.touched
+                    }"
+                    required
+                    formControlName="lastName"
+                  />
+                </div>
+              </div>
+
+              <div
+                fxFlex
+                fxLayout="column"
+                fxLayout.gt-sm="row"
+                class="partnership-flex-row"
+              >
+                <div class="email">
+                  <label>Email</label>
+                  <br />
+                  <input
+                    [ngClass]="{
+                      error: email && email.invalid && email.touched
+                    }"
+                    required
+                    formControlName="email"
+                  />
+                </div>
+
+                <div class="primaryPhone">
+                  <label>Primary Phone</label>
+                  <br />
+                  <!-- <input
+                    [ngClass]="{
+                      error: phone && phone.invalid && phone.touched
+                    }"
+                    required
+                    formControlName="phone"
+                    mask="(000)000-0000"
+                  /> -->
+                  <input
+                    [ngClass]="{
+                      error: phone && phone.invalid && phone.touched
+                    }"
+                    required
+                    formControlName="phone"
+                    mask="(000)000-0000"
+                  />
+                </div>
+              </div>
+
+              <div
+                fxFlex
+                fxLayout="column"
+                fxLayout.gt-sm="row"
+                class="partnership-flex-row"
+              >
+                <div class="orgName">
+                  <label>Organization Name</label>
+                  <br />
+                  <input
+                    [ngClass]="{
+                      error: orgName && orgName.invalid && orgName.touched
+                    }"
+                    required
+                    formControlName="orgName"
+                  />
+                </div>
+                <div class="orgPosition">
+                  <label>Postition in Organization</label>
+                  <br />
+                  <input
+                    [ngClass]="{
+                      error:
+                        orgPosition &&
+                        orgPosition.invalid &&
+                        orgPosition.touched
+                    }"
+                    required
+                    formControlName="orgPosition"
+                  />
+                </div>
+              </div>
+              <div
+                fxFlex
+                fxLayout="column"
+                fxLayout.gt-sm="row"
+                class="partnership-flex-row"
+              >
+                <div class="ehr">
+                  <label>Current EHR system</label>
+                  <br />
+                  <select name="typeOfBusiness">
+                    <option value="epicSystem">Epic System</option>
+                    <option value="center">Center</option>
+                    <option value="allScripts">AllScripts</option>
+                    <option value="athenaHealth">Athenahealth</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+              </div>
+              <h3 class="divider container text-center mt-5 mb-5"></h3>
+
+              <div
+                fxFlex
+                fxLayout="column"
+                fxLayout.gt-sm="row"
+                class="partnership-flex-row"
+              > <span>Password requires a capital letter, number, and special symbol (such as:!,@,?..)</span></div>
+              <div
+                fxFlex
+                fxLayout="column"
+                fxLayout.gt-sm="row"
+                class="partnership-flex-row"
+              >
+                <div class="password">
+                  <label>Password</label>
+                  <br />
+                  <input
+                    [ngClass]="{
+                      error: password && password.invalid && password.touched
+                    }"
+                    required
+                    formControlName="password"
+                  />
+                </div>
+
+                <div class="ReTypePassword">
+                  <label for="city">Retype Password</label>
+                  <br />
+                  <input
+                    [ngClass]="{
+                      error:
+                        ReTypePassword &&
+                        ReTypePassword.invalid &&
+                        ReTypePassword.touched
+                    }"
+                    required
+                    formControlName="ReTypePassword"
+                  />
+                </div>
+              </div>
+
+              <div fxFlex fxLayout="row">
+                <button type="button" class="sendBtn mt-3">Sign Up</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <app-landing-page-subfooter></app-landing-page-subfooter>
+      </body>
+    </html>
+  </body>
+</html>
+=======
 <body>
   <!-- healthcare register -->
   <div>
@@ -342,3 +588,4 @@ Register Paitent Form
 </body>
 
 </html>
+>>>>>>> dda28ebcf7156adb0e7302af4a22661643a97720

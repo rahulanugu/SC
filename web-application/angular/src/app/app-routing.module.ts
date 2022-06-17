@@ -4,11 +4,19 @@ import { ContactUsComponent } from "./contact-us/contact-us.component";
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
+<<<<<<< HEAD
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { MatCardModule } from "@angular/material/card";
+import { MatToolbarModule } from "@angular/material/toolbar";
+import { MatButtonModule } from "@angular/material/button";
+import { FlexLayoutModule } from "@angular/flex-layout";
+=======
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { FlexLayoutModule } from '@angular/flex-layout';
+>>>>>>> dda28ebcf7156adb0e7302af4a22661643a97720
 
 /* Componets to create routes for */
 import { LoginComponent } from "./login/login.component";
@@ -86,6 +94,7 @@ import { JobOpeningsComponent } from "./job-openings/job-openings.component";
 import { BlogPostComponent } from "./blog-post/blog-post.component";
 import { BlogPostQuoteComponent } from "./blog-post-quote/blog-post-quote.component";
 import { AllscriptsLoginComponent } from "./allscriptslogin/allscriptslogin.component";
+import { EmployeeComponent } from "./employee/employee.component";
 const routes: Routes = [
   /* pages for the app */
   {
@@ -141,7 +150,11 @@ const routes: Routes = [
   { path: "contact-us", component: ContactUsComponent },
   { path: "careers", component: CareersComponent },
   { path: "privacy-policy", component: PrivacyPolicyComponent },
+<<<<<<< HEAD
+  { path: "apply-job/:jobId", component: ApplyJobComponent },
+=======
   { path: "apply-job/:jobid", component: ApplyJobComponent },
+>>>>>>> dda28ebcf7156adb0e7302af4a22661643a97720
   { path: "job-openings", component: JobOpeningsComponent },
   { path: "terms-conditions", component: TermsConditionsComponent },
   { path: "", redirectTo: "/home", pathMatch: "full" },
@@ -159,19 +172,23 @@ const routes: Routes = [
   },
   {
     path: "healthcare-profile",
-    component: HealthcareProfileComponent/*, canActivate: [HealthcareAuthGuard]*/,
+    component:
+      HealthcareProfileComponent /*, canActivate: [HealthcareAuthGuard]*/,
   },
   {
     path: "healthcare-profile/patient/:patientid",
-    component: PatientHealthcareviewComponent/*, canActivate: [HealthcareAuthGuard]*/,
+    component:
+      PatientHealthcareviewComponent /*, canActivate: [HealthcareAuthGuard]*/,
   },
   {
     path: "healthcare-profile/patient/:patientid/:diseaseid",
-    component: PatientHealthcareviewnextComponent/*, canActivate: [HealthcareAuthGuard]*/,
+    component:
+      PatientHealthcareviewnextComponent /*, canActivate: [HealthcareAuthGuard]*/,
   },
   {
     path: "healthcare-profile/readmission",
-    component: PatientHealthcareviewnextComponent1/*, canActivate: [HealthcareAuthGuard]*/,
+    component:
+      PatientHealthcareviewnextComponent1 /*, canActivate: [HealthcareAuthGuard]*/,
   },
   /*{
     path: "healthcare-profile/editprofile",
@@ -180,11 +197,18 @@ const routes: Routes = [
   },*/
   {
     path: "healthcare/confirmation",
+<<<<<<< HEAD
+    component: HealthcareConfirmationComponent,
+    canActivate: [HealthcareAuthGuard],
+    //needs backend
+=======
     component: HealthcareConfirmationComponent, canActivate: [HealthcareAuthGuard],
+>>>>>>> dda28ebcf7156adb0e7302af4a22661643a97720
   },
   {
     path: "healthcare/verificationemail",
-    component: HealthcareVerificationComponent, canActivate: [HealthcareAuthGuard],
+    component: HealthcareVerificationComponent,
+    canActivate: [HealthcareAuthGuard],
     //needs backend
   },
   {
@@ -241,6 +265,10 @@ const routes: Routes = [
     component: LandingWhoWeAreComponent,
   },
   {
+    path: "whoweare/:employee",
+    component:EmployeeComponent
+  },
+  {
     path: "capabilitystatement",
     component: LandingCapabilityStatementComponent,
   },
@@ -257,8 +285,13 @@ const routes: Routes = [
     component: BlogComponent,
   },
   {
+<<<<<<< HEAD
+    path: "blog-post",
+    component: BlogPostComponent,
+=======
     path: "blog-post/:id",
     component: BlogPostComponent
+>>>>>>> dda28ebcf7156adb0e7302af4a22661643a97720
   },
   {
     path: "blog-post-quote/:slug",

@@ -131,9 +131,22 @@ import { ShareModule } from 'ngx-sharebuttons';
 import { ToastrModule } from 'ngx-toastr';
 import { AllscriptsLoginComponent } from "./allscriptslogin/allscriptslogin.component";
 import { PortalProgressBarComponent } from './shared/components/portal-progress-bar/portal-progress-bar.component';
+<<<<<<< HEAD
+import { LandingPageCarouselComponent } from './landing-page-carousel/landing-page-carousel.component';
+import { LandingPageWelcomeMessageComponent } from './landing-page-welcome-message/landing-page-welcome-message.component';
+import { LandingPageInformationComponent } from './landing-page-information/landing-page-information.component';
+import { ReadMoreComponent } from './read-more/read-more.component';
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faChevronRight, faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { EmployeeComponent } from './employee/employee.component';
+library.add(faChevronDown)
+library.add(faChevronRight)
+=======
 import { BlogService } from "./shared/blogService.service";
 import { BlogPostQuoteComponent } from './blog-post-quote/blog-post-quote.component';
 
+>>>>>>> dda28ebcf7156adb0e7302af4a22661643a97720
 
 @NgModule({
   declarations: [
@@ -228,7 +241,15 @@ import { BlogPostQuoteComponent } from './blog-post-quote/blog-post-quote.compon
     IndustryCardComponent,
     BlogPostComponent,
     PortalProgressBarComponent,
+<<<<<<< HEAD
+    LandingPageCarouselComponent,
+    LandingPageWelcomeMessageComponent,
+    LandingPageInformationComponent,
+    ReadMoreComponent,
+    EmployeeComponent,
+=======
     BlogPostQuoteComponent,
+>>>>>>> dda28ebcf7156adb0e7302af4a22661643a97720
   ],
 
   imports: [
@@ -239,6 +260,7 @@ import { BlogPostQuoteComponent } from './blog-post-quote/blog-post-quote.compon
     ShareModule,
     RouterModule,
     CommonModule,
+    FontAwesomeModule,
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,

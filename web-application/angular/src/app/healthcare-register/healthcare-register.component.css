@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+/* Authors and their contributions */
+/* Vidit: Redesigned the form using CSS grid and made the page responsive. */
+=======
 /* Stephanie - updated to match user story */
 
 .loginHeading {
@@ -7,21 +11,22 @@
   font-size: 36px;
   padding-top: 40px;
 }
+>>>>>>> dda28ebcf7156adb0e7302af4a22661643a97720
 
-html {
-  width: 100%;
-  height: 100%;
-  display: table;
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tinos&display=swap');
+
+app-landing-page-header {
+  position: absolute;
+  top: 0;
 }
 
 body {
-  width: 100%;
-  display: table-cell;
-  background-color: #faf6f2;
-}
-
-html,
-body {
+<<<<<<< HEAD
+  background-color: #F5F1ED;
+  min-height: 100vh;
+=======
   margin: 0px;
   padding: 0px;
 }
@@ -37,19 +42,35 @@ body {
   background-color: white;
 
   align-items: flex-start;
+>>>>>>> dda28ebcf7156adb0e7302af4a22661643a97720
 }
 
-a:link {
-  color: black;
+.bpHeader {
+  font-family: "Tinos", serif;
+  color: #2D5059;
+  font-size: 36px;
+  margin-top: 60px;
 }
 
-h6 {
+.bpSubHeader {
   font-family: "Lato", sans-serif;
-  font-weight: bold;
-  margin-left: 18px;
   font-size: 14px;
+  color: #1D1F26;
 }
 
+<<<<<<< HEAD
+form label {
+  font-style: normal;
+  font-weight: 800;
+  font-size: 15px;
+  line-height: 17px;
+  /* identical to box height */
+  text-align: left;
+  /* White */
+  margin-top: 3px;
+  margin-bottom: 8px;
+  color: #1d1f26;
+=======
 .card-container {
   justify-content: center;
   align-items: center;
@@ -60,29 +81,58 @@ h6 {
   height: 18px;
   margin-left: 18px;
   margin-bottom: 5px;
-}
-.sectionHeading label {
-  color: #575b66;
-  font-family: "Lato", sans-serif;
-  margin-left: 10px;
-  font-size: 18px;
-
-  position: static;
-
-  /* Lato/18/Regular */
-
-  font-style: normal;
-  font-weight: normal;
-  font-size: 18px;
-  line-height: 22px;
-  /* identical to box height */
+>>>>>>> dda28ebcf7156adb0e7302af4a22661643a97720
 }
 
-.form-group label {
-  font-family: "Lato", sans-serif;
-  margin-left: 18px;
+form input {
+  /* White */
+  background: #ffffff;
+  /* Grey 200 */
+  border: 2px solid #e1e4eb;
+  box-sizing: border-box;
+  /* Inner Shadow E-100 */
+
+  box-shadow: inset 0px 2px 2px rgba(29, 31, 38, 0.15);
+  border-radius: 8px;
+  height: 40px;
+  width: 100%;
+}
+form select{
+  width: 100% !important;
+}
+form span {
+  display: block;
+}
+
+.error {
+  border: 2px red solid !important;
+}
+
+.sendBtn {
+  width: 140px;
+  height: 40px;
+  color: #E6EFF1;
+  background-color: #5C8A96;
+  border: #5C8A96;
   font-size: 14px;
+  text-align: center;
+  font-family: "Lato", sans-serif;
   font-weight: bold;
+<<<<<<< HEAD
+  border-radius: 8px;
+  justify-self: center;
+  grid-column: 1 / -1;
+  margin: 0 auto;
+}
+
+form select {
+  /* White */
+
+  background: #ffffff;
+  /* Grey 200 */
+
+  border: 2px solid #e1e4eb;
+=======
   color: #1d1f26;
 }
 
@@ -96,9 +146,12 @@ h6 {
   height: 40px;
   border-radius: 8px;
   box-shadow: inset 0px 2px 2px rgba(29, 31, 38, 0.15);
+>>>>>>> dda28ebcf7156adb0e7302af4a22661643a97720
   box-sizing: border-box;
-}
+  /* Inner Shadow E-100 */
 
+<<<<<<< HEAD
+=======
 .form-group select {
   font-family: "Lato", sans-serif;
   margin-left: 18px;
@@ -106,10 +159,19 @@ h6 {
   width: 250px;
   height: 40px;
   border-radius: 8px;
+>>>>>>> dda28ebcf7156adb0e7302af4a22661643a97720
   box-shadow: inset 0px 2px 2px rgba(29, 31, 38, 0.15);
-  box-sizing: border-box;
+  border-radius: 8px;
+  height: 40px;
+  width: 272px;
 }
 
+<<<<<<< HEAD
+.left {
+  display: inline-block;
+  margin-left: 10px;
+  vertical-align: middle;
+=======
 .divider {
   border-top: 3px solid #d5dde1;
 }
@@ -121,53 +183,42 @@ input.invalid {
 small {
   font-family: "Lato", sans-serif;
   margin-left: 18px;
+>>>>>>> dda28ebcf7156adb0e7302af4a22661643a97720
 }
 
-input {
-  font-size: 20px;
-  height: 50px;
+.clear {
+  clear: both;
 }
 
-.element {
-  display: inline-flex;
-  align-items: center;
-  font-size: 18px;
-  font-family: "Lato", sans-serif;
+.divider {
+  border-top: 1px solid #B0B4BF;
+  grid-column: 1 / -1;
 }
 
-input[type="file"] {
-  visibility: hidden;
-  width: 1px;
-  height: 1px;
+form>div {
+  display: inline-block;
 }
 
-.btn {
-  width: 195px;
-  height: 42px;
-  color: #5c8a96;
-  border: 2px solid #5c8a96;
-  background-color: white;
-  border-radius: 8px;
-  text-align: center;
-  font-size: 18px;
-  font-family: "Lato", sans-serif;
-  font-weight: bold;
+.bpForm {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1em;
+  background-color: #E6EFF1;
+  border-radius: 15px;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.helpBtn {
-  width: 118px;
-  height: 40px;
-  color: #5c8a96;
-  border: 2px solid #5c8a96;
-  background-color: white;
-  margin-left: 18px;
-  font-size: 18px;
-  font-family: "Lato", sans-serif;
-  font-weight: bold;
-  border: 2px solid #5c8a96;
-  border-radius: 8px;
+#partnership-div {
+  background-color: #F5F1ED;
 }
 
+<<<<<<< HEAD
+#partnership-form {
+  max-width: 720px;
+  margin: 0 auto;
+=======
 .signUpBtn {
   width: 145px;
   height: 40px;
@@ -179,45 +230,47 @@ input[type="file"] {
   font-weight: bold;
   margin-right: 18px;
   border-radius: 7px;
+>>>>>>> dda28ebcf7156adb0e7302af4a22661643a97720
 }
 
-hr {
-  left: 0%;
-  right: 0%;
-  margin-top: 0px;
-  margin-bottom: 12px;
-  /* Grey 200 */
-  border: 2px solid #e1e4eb;
+#partnership-form form {
+  padding: 3em;
 }
 
-.hr-sect {
-  display: flex;
-  flex-basis: 100%;
-  align-items: center;
-  color: #1d1f26;
-  margin: 8px 0px;
-  margin-top: 0px;
-}
-.hr-sect::before,
-.hr-sect::after {
-  content: "";
-  flex-grow: 1;
-  background: #f5f6fa;
-  height: 1px;
-  font-size: 0px;
-  line-height: 0px;
-  margin: 0px 8px;
-  margin-top: 0px;
-  border: 2px solid #f5f6fa;
-  transform: matrix(1, 0, 0, -1, 0, 0);
+.partnership-flex-row {
+  justify-content: space-between;
 }
 
-.btn img {
-  margin-bottom: 4px;
+.partnership-flex-row div {
+  min-width: 280px;
+}
+/* Testing */
+
+.input-group{
+  position: relative;
+}
+.input{
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  font: inherit;
+  color: black;
+  background-color: transparent;
+  outline: 2px solid #fff;
+}
+.input-label{
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(10px,10px);
+  transition: transform .25s;
+}
+.input:focus+.input-label,
+.input:valid+.input-label{
+  transform:translate(10px,-14px)scale(.8);
+  color: #2D5059;
+  padding-inline: 5px;
+  background-color: #fff;
 }
 
-@media screen and (max-width: 550px) {
-  .card {
-    width: 100% !important;
-  }
-}
+/*  */
