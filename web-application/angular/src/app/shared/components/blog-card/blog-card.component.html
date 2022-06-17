@@ -1,24 +1,27 @@
+<!-- Stephanie - updated compatibility with WP API objects and attributes -->
+<!-- Kefan - updated the read time and excerpt part-->
+
 <div class="content">
   <div>
     <div>
       <mat-card class="mat-elevation-z4 blog-card" routerLink="/blog-post">
-        <img mat-card-image style="max-height: 220px; object-fit: cover;" src="{{blogImg}}" />
-        <mat-card-subtitle [style.color]="getColor()" class="card-cat-left">>{{blogCategory}}<br /></mat-card-subtitle>
+        <img mat-card-image style="height: 175px; object-fit: cover;" src="{{blogImg}}" />
+        <mat-card-subtitle [style.color]="getColor()" class="card-cat-left">
+          > {{Categories.name}}<br /></mat-card-subtitle>
 
         <!-- <mat-card-header> -->
         <div class="card-title">
-          <mat-card-title class="card-title-left">Scriptchain Health</mat-card-title>
-          <mat-card-title class="card-read-right">min</mat-card-title>
+          <mat-card-title class="card-title-left">{{blogTitle}}</mat-card-title>
+          <mat-card-title class="card-read-right">{{wordsToMinutes}} minutes read</mat-card-title>
           <!-- </mat-card-header> -->
         </div>
 
         <mat-card-content style="margin-bottom: 0px;">
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-            Totam dignissimos corporis facere ab, voluptate quia!</p>
+          <p class="card-excerpt" [innerHTML]="blogExcerpt"></p>
         </mat-card-content>
 
-        <mat-card-actions >
-          <button class="readMoreBtn" mat-button>READ MORE</button>
+        <mat-card-actions>
+          <button class="readMoreBtn" mat-button [routerLink]="['/blog-post',blogID]">READ MORE</button>
         </mat-card-actions>
       </mat-card>
     </div>

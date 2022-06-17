@@ -1,5 +1,7 @@
 <!-- Authors and their contributions: -->
 <!-- Vidit: Worked on the entire page  -->
+<!-- Stephanie - updated compatibility with WP API objects and attributes -->
+<!-- Kefan - update go back button and related post part, also work with the whole page-->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,97 +10,40 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="http://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet" type="text/css" />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <title>Document</title>
 </head>
 
 <body>
   <app-landing-page-header></app-landing-page-header>
-  <div fxLayout="column">
+  <div fxLayout="column" style="background-color: #faf6f2; margin-top: 64px;">
     <div fxFlexFill>
       <div class="py-5 text-center" style="
             background-image: url(./assets/blog-header-bkgrd.jpg);
             height: 263px;
           ">
-        <p class="postTitle my-5">Blog Post Article Title</p>
+        <p class="postTitle my-5">{{title}}</p>
       </div>
     </div>
     <div class="justify-content-center" fxLayout="column" fxLayoutAlign="center">
-      <div class="container text-justify mt-5" fxLayout.xs="column" fxLayout.sm="column" fxLayout.md="row"
-        fxLayout.lg="row" fxLayout.xl="row" fxLayoutGap="20px" fxLayoutGap.xs="0px">
-        <h4 class="blogInfo">> written by Moh Noori</h4>
-        <h4 class="blogInfo">> posted on mm/dd/yyyy</h4>
+      <div fxLayout="row">
+        <div class="container text-justify mt-5 ml-gt-md-5 goBack">
+          <a class="back" (click)="goBack()">
+              < back</a>
       </div>
-      <div class="text-justify container mb-5" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.lg="33%" fxFlex.xl="33%"
-        fxLayoutAlign="center">
-        <p class="text-wrap mt-5">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam
-          dignissimos corporis facere ab, voluptate quia! Cumque, hic
-          explicabo ipsam ipsa vel perspiciatis recusandae sed quod magni
-          quidem. Impedit, tempore alias. Lorem ipsum dolor sit amekt
-          consectetur adipisicing elit. Totam dignissimos corporis facere ab,
-          voluptate quia! Cumque, hic explicabo ipsam ipsa vel perspiciatis
-          recusandae sed quod magni quidem. Impedit, tempore alias. Lorem
-          ipsum dolor sit amet consectetur adipisicing elit. Totam dignissimos
-          corporis facere ab, voluptate quia! Cumque, hic explicabo ipsam ipsa
-          vel perspiciatis recusandae sed quod magni quidem. Impedit, tempore
-          alias. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Totam dignissimos corporis facere ab, voluptate quia! Cumque, hic
-          explicabo ipsam ipsa vel perspiciatis recusandae sed quod magni
-          quidem. Impedit, tempore alias. Lorem ipsum dolor sit amet
-          consectetur adipisicing elit. Totam dignissimos corporis facere ab,
-          voluptate quia! Cumque, hic explicabo ipsam ipsa vel perspiciatis
-          recusandae sed quod magni quidem. Impedit, tempore alias. Lorem
-          ipsum dolor sit amet consectetur adipisicing elit. Totam dignissimos
-          corporis facere ab, voluptate quia! Cumque, hic explicabo ipsam ipsa
-          vel perspiciatis recusandae sed quod magni quidem. Impedit, tempore
-          alias. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Totam dignissimos corporis facere ab, voluptate quia! Cumque, hic
-          explicabo ipsam ipsa vel perspiciatis recusandae sed quod magni
-          quidem. Impedit, tempore alias. Lorem ipsum dolor sit amet
-          consectetur adipisicing elit. Totam dignissimos corporis facere ab,
-          voluptate quia! Cumque, hic explicabo ipsam ipsa vel perspiciatis
-          recusandae sed quod magni quidem. Impedit, tempore alias.Lorem ipsum
-          dolor sit amet consectetur adipisicing elit. Totam dignissimos
-          corporis facere ab, voluptate quia! Cumque, hic explicabo ipsam ipsa
-          vel perspiciatis recusandae sed quod magni quidem. Impedit, tempore
-          alias. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Totam dignissimos corporis facere ab, voluptate quia! Cumque, hic
-          explicabo ipsam ipsa vel perspiciatis recusandae sed quod magni
-          quidem. Impedit, tempore alias. Lorem ipsum dolor sit amet
-          consectetur adipisicing elit. Totam dignissimos corporis facere ab,
-          voluptate quia! Cumque, hic explicabo ipsam ipsa vel perspiciatis
-          recusandae sed quod magni quidem. Impedit, tempore alias. Lorem
-          ipsum dolor sit amet consectetur adipisicing elit. Totam dignissimos
-          corporis facere ab, voluptate quia! Cumque, hic explicabo ipsam ipsa
-          vel perspiciatis recusandae sed quod magni quidem. Impedit, tempore
-          alias.Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam
-          dignissimos corporis facere ab, voluptate quia! Cumque, hic
-          explicabo ipsam ipsa vel perspiciatis recusandae sed quod magni
-          quidem. Impedit, tempore alias. Lorem ipsum dolor sit amet
-          consectetur adipisicing elit. Totam dignissimos corporis facere ab,
-          voluptate quia! Cumque, hic explicabo ipsam ipsa vel perspiciatis
-          recusandae sed quod magni quidem. Impedit, tempore alias. Lorem
-          ipsum dolor sit amet consectetur adipisicing elit. Totam dignissimos
-          corporis facere ab, voluptate quia! Cumque, hic explicabo ipsam ipsa
-          vel perspiciatis recusandae sed quod magni quidem. Impedit, tempore
-          alias. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Totam dignissimos corporis facere ab, voluptate quia! Cumque, hic
-          explicabo ipsam ipsa vel perspiciatis recusandae sed quod magni
-          quidem. Impedit, tempore alias.Lorem ipsum dolor sit amet
-          consectetur adipisicing elit. Totam dignissimos corporis facere ab,
-          voluptate quia! Cumque, hic explicabo ipsam ipsa vel perspiciatis
-          recusandae sed quod magni quidem. Impedit, tempore alias. Lorem
-          ipsum dolor sit amet consectetur adipisicing elit. Totam dignissimos
-          corporis facere ab, voluptate quia! Cumque, hic explicabo ipsam ipsa
-          vel perspiciatis recusandae sed quod magni quidem. Impedit, tempore
-          alias. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Totam dignissimos corporis facere ab, voluptate quia! Cumque, hic
-          explicabo ipsam ipsa vel perspiciatis recusandae sed quod magni
-          quidem. Impedit, tempore alias. Lorem ipsum dolor sit amet
-          consectetur adipisicing elit. Totam dignissimos corporis facere ab,
-          voluptate quia! Cumque, hic explicabo ipsam ipsa vel perspiciatis
-          recusandae sed quod magni quidem. Impedit, tempore alias.
-        </p>
+        <div class="container text-justify mt-5 mr-gt-md-5" fxLayout.xs="column" fxLayout.sm="row" fxLayout.md="row"
+          fxLayout.lg="row" fxLayout.xl="row" fxLayoutGap="20px" fxLayoutGap.xs="0px" fxLayoutAlign.xl="end"
+          fxLayoutAlign.lg="end" fxLayoutAlign.md="end">
+          <h4 class="blogInfo">> written by {{authorName}}</h4>
+          <h4 class="blogInfo mt-sm-md-1">>{{date | date: 'short'}}</h4>
+        </div>
+      </div>
+
+      <div class="text-justify post-body container mb-5" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.lg="33%"
+        fxFlex.xl="33%">
+        <p class="text-wrap mt-5" [innerHTML]="content"></p>
       </div>
 
       <div class="container mb-3">
@@ -121,20 +66,21 @@
         > Keywords: healthcare, cardiac care, AI, doctors
       </p>
     </div>
-    <div class="mb-5" fxLayout="column">
-      <h3 class="divider container mt-5 pt-5" fxLayoutAlign="center"></h3>
-      <p class="container related-posts" fxLayoutAlign="start">
+    <div class="mb-5 ml-3 mr-3" fxLayout="column">
+      <h3 class="divider mt-5 pt-5 ml-3 mr-3" fxLayoutAlign="center"></h3>
+      <p class="related-posts  ml-3 mr-3" fxLayoutAlign="start">
         Related Posts
       </p>
-      <div class="container" fxLayout="row wrap">
-        <div *ngFor="let blog of blogList" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="33.33%" fxFlex.lg="33.33%" fxFlex.xl="33.33%">
-          <app-blog-card [blogCategory]="blog.category" [blogImg]="blog.link" ></app-blog-card>
-        </div>
+      <div fxLayout="row wrap">
+        <app-blog-card *ngFor="let blog of relateList" [blogCategories]="blog.categories" [blogTitle]="blog.title"
+          [blogContent]="blog.content" [blogExcerpt]="blog.excerpt" [blogImg]="blog.post_thumbnail.URL"
+          [blogID]="blog.ID" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="33.33%" fxFlex.lg="33.33%" fxFlex.xl="33.33%">
+        </app-blog-card>
       </div>
     </div>
-    <div>
-      <app-landing-page-subfooter></app-landing-page-subfooter>
-    </div>
+  </div>
+  <div>
+    <app-landing-page-subfooter></app-landing-page-subfooter>
   </div>
 </body>
 

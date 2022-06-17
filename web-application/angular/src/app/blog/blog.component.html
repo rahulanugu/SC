@@ -1,9 +1,11 @@
-Authors and their contributions:
+<!-- Authors and their contributions: -->
 <!--Tasheena: Worked on the initial page design
     Vidit: Worked on UI enhancements and responsiveness -->
 <!-- Sammy - Worked on the an blog category styling and content update-->
 <!-- Stephanie - updated HTML to be compatible with WP API objects -->
-<!-- ​
+<!-- Kefan - update HTML to enable the pagination and the css style and implement the blog card-->
+
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,14 +14,17 @@ Authors and their contributions:
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
+
 </head>
+
 <body fxLayout='column'>
   <div fxFlex="33%" fxFlex.xs="100%" fxFlex.sm="33%">
     <div>
       <app-landing-page-header></app-landing-page-header>
     </div>
-    <div>
 
+    <div style="margin-top: 64px;">
+      <!-- <h1 [ngStyle]="{'color':'red'}" -->
       <h1 id="heading">ScriptChain Health Blog</h1>
       <div class="container text-center">
         <label for="Category"></label>
@@ -29,34 +34,38 @@ Authors and their contributions:
         </select>
       </div>
 
-      <div fxLayout="row wrap">
+      <!--fxLayoutAlign="center"-->
+      <div fxLayout="row wrap" fxLayoutAlign="center">
         <app-industry-quote-card *ngIf="selectedCategory == 'undefined'" [blogCategory]="'ScriptChain'"
-          [blogSlug]="'scriptchain'" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="32%" fxFlex.lg="32%" fxFlex.xl="32%">
+          [blogSlug]="'scriptchain'" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="30%" fxFlex.lg="30%" fxFlex.xl="30%">
         </app-industry-quote-card>
         <app-industry-quote-card *ngIf="selectedCategory !== 'undefined'" [blogCategory]="selectedCategory"
-          [blogSlug]="slug" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="32%" fxFlex.lg="32%" fxFlex.xl="32%">
+          [blogSlug]="slug" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="30%" fxFlex.lg="30%" fxFlex.xl="30%">
         </app-industry-quote-card>
         <app-blog-card *ngFor="let blog of curList" [blogCategories]="blog.categories" [blogTitle]="blog.title"
-          [blogContent]="blog.excerpt" [blogImg]="blog.post_thumbnail.URL" [blogID]="blog.ID" fxFlex.xs="100%"
-          fxFlex.sm="50%" fxFlex.md="32%" fxFlex.lg="32%" fxFlex.xl="32%"></app-blog-card>
+          [blogContent]="blog.content" [blogExcerpt]="blog.excerpt" [blogImg]="blog.post_thumbnail.URL"
+          [blogID]="blog.ID" fxFlex.xs="100%" fxFlex.sm="50%" fxFlex.md="30%" fxFlex.lg="30%" fxFlex.xl="30%">
+        </app-blog-card>
       </div>
     </div>
     <div class="pagination">
-      <ul fxFlex.lg="100%" fxFlex.md="100%" fxFlex.sm="40%">
+      <ul class="row wrap" fxFlex>
         <li><a class="prev" (click)="previousPage()">
-            < PREVIOUS PAGE</a>
+            < PREVIOUS</a>
         </li>
         <div style="display: flex;">
-          <li class="pageNumber" [ngClass]="{'active': currentPage == page}" *ngFor="let page of pageList">
+          <li class="pageNumber d-none d-md-block" [ngClass]="{'active': currentPage == page}"
+            *ngFor="let page of pageList">
             <a (click)="jumpPage($event)"> {{page}} </a>
           </li>
         </div>
-        <li><a class="next" (click)="nextPage()">NEXT PAGE > </a>
+        <li><a class="next" (click)="nextPage()">NEXT > </a>
         </li>
       </ul>
     </div>
+
     <footer>
       <app-landing-page-subfooter></app-landing-page-subfooter>
     </footer>
   </div>
-</body> -->
+</body>

@@ -1,6 +1,7 @@
 // contribution
 // Sammy - filter blogs based on the drop down value and update blog list accordingly
 // Stephanie - get and filter blog posts from Wordpress API
+// Kefan - implement pagination, category filter
 
 import { Component, OnInit } from "@angular/core";
 import { BlogCardComponent } from "../shared/components/blog-card/blog-card.component";
@@ -17,48 +18,59 @@ export class BlogComponent implements OnInit {
   blogList: any; // the list of all the blogs
   showList: any; // the list filtered by category
   curList: any; // the list of blogs need to be shown on the current page
+
   pageList: number[];
+
   errorMessage: any;
   categoryList: any;
   slug: any;
+
   numberOfPages: number;
   currentPage: number;
   numberPerPage = 8; // 8 + 1
   maxLen = 10;
+
   constructor(private blogService: BlogService) { }
+
   industryCard = IndustryCardComponent;
+
   ngOnInit() {
-    // this.getPosts();
-    // this.getCategories();
+    this.getPosts();
+    this.getCategories();
   }
   // Accesses blog posts from blogService or returns error
-  // getPosts() {
-  //   this.blogService.getPosts().subscribe((data) => {
-  //     console.log(data.posts);
-  //     this.blogList = data.posts;
-  //     //this.blogList = [...this.blogList, ...this.blogList, ...this.blogList, ...this.blogList]
-  //     this.showList = this.blogList;
-  //     this.load();
-  //   },
-  //     (error) => {
-  //       this.errorMessage = error.message;
-  //       console.log(error);
-  //     })
-  // }
-  // // Accesses list of category objects from blogService or returns error
-  // getCategories() {
-  //   this.blogService.getCategories().subscribe((data) => {
-  //     console.log(data);
-  //     this.categoryList = data.categories;
-  //     this.categoryList = this.categoryList.filter(
-  //       category => category.name !== "Scriptchain"
-  //     );
-  //   },
-  //     (error) => {
-  //       this.errorMessage = error.message;
-  //       console.log(error);
-  //     })
-  // }
+  getPosts() {
+    this.blogService.getPosts().subscribe((data) => {
+      console.log(data.posts);
+      this.blogList = data.posts;
+      this.blogList.forEach((elem, index) => {
+        if (this.blogList[index].excerpt.length > 100) {
+          this.blogList[index].excerpt = this.blogList[index].excerpt.substring(0, 100) + ' ...'
+        }
+      })
+      //this.blogList = [...this.blogList, ...this.blogList]
+      this.showList = this.blogList;
+      this.load();
+    },
+      (error) => {
+        this.errorMessage = error.message;
+        console.log(error);
+      })
+  }
+  // Accesses list of category objects from blogService or returns error
+  getCategories() {
+    this.blogService.getCategories().subscribe((data) => {
+      console.log(data);
+      this.categoryList = data.categories;
+      this.categoryList = this.categoryList.filter(
+        category => category.name !== "Scriptchain"
+      );
+    },
+      (error) => {
+        this.errorMessage = error.message;
+        console.log(error);
+      })
+  }
 
   public selectedCategory = "undefined";
 
@@ -123,4 +135,3 @@ export class BlogComponent implements OnInit {
   }
 
 }
-
