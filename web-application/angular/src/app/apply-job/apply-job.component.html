@@ -17,125 +17,146 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <script src="https://code.angularjs.org/1.4.6/angular-route.js"></script>
     <script src="http://720kb.github.io/angular-socialshare/assets/ext/src/js/angular-socialshare.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.1/angular.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+
     <script src="script.js"></script>
-    <link rel="stylesheet" type="text/css" href="http://720kb.github.io/csshelper/assets/ext/src/helper.css">
   </head>
+
   <body>
+    <app-landing-page-header></app-landing-page-header>
     <div>
-      <app-landing-page-header></app-landing-page-header>
-      <div fxLayout='column' >
-        <!-- <div fxFlex="33%" fxFlex.xs="100%" fxFlex.sm="33%" fxFlexFill>
-          <app-landing-page-header></app-landing-page-header>
-        </div> -->
-        
+
+      <div fxLayout="column">
+
         <div fxFlexFill>
-            <div
-              class="py-5 text-center"
-              style="
-                background-image: url(./assets/blog-header-bkgrd.jpg);
-                color: white;
-                height: 263px;
-              "
-            >
-              <h1 class="jobTitle">
-                {{ job.title }}
-              </h1>
-            </div>
-    
-            <!-- <img
-              src="./assets/blog-header-bkgrd.jpg"
-              alt=""
-              width="1700"
-              height="263"
-            /> -->
-    
+
+          <div class="header">
+            <h1 class="jobTitle container">{{jobList[jobListCount].name}}</h1>
+          </div>
         </div>
-        <div class="bkgrd" fxLayout='column'>
+        <div class="bkgrd" fxLayout="column">
           <div class="row text-justify mt-5" fxFlexFill>
-            <div class="col-xs-12 container ">
+            <div class="col-xs-12 container date">
+              <p>> posted on <span>{{jobList[jobListCount].posted}}</span></p>
+            </div>
+            <div class="col-xs-12 container">
               <h2 class="heading">Company Description</h2>
               <p class="description">
                 At ScriptChain, we are looking to make a disruptive impact in
-                today's healthcare back end processes.<br />
-                By using Artificial Intelligence, we will be able to streamline a
-                lot of these processes and save the<br />
-                industry time and money. We love people to innovate and learn more
-                about the AI space. This is<br />
-                also a great way to gain more experience in the space and make a
-                positive impact in a growing market.<br />
+                today's healthcare back end processes. By using Artificial
+                Intelligence, we will be able to streamline a lot of these
+                processes and save the industry time and money. We love people
+                to innovate and learn more about the AI space. This is also a
+                great way to gain more experience in the space and make a
+                positive impact in a growing market.
               </p>
             </div>
           </div>
-    
+
+          <div class="row text-justify mt-5" fxFlexFill>
+            <div class="col-xs-12 container">
+              <h2 class="heading">Job Description</h2>
+              <p class="description">
+                {{jobList[jobListCount].jobDesc}}
+              </p>
+            </div>
+          </div>
+
           <div class="row text-justify" fxFlexFill>
             <div class="col-xs-12 container">
               <h2 class="heading">Responsibilities</h2>
-              <p>{{ job.description }}</p>
+              <ul>
+                <li class="responsibilitiesLi" *ngFor="let responsibilities of jobList[jobListCount].Responsibilities">{{responsibilities}}</li>
+              </ul>
             </div>
           </div>
-    
+
           <div class="row text-justify" fxFlexFill>
             <div class="col-xs-12 container">
               <h2 class="heading">Requirements</h2>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas
-                impedit consectetur deserunt a vero adipisci, <br />
-                voluptate illum eaque odio vitae similique. Unde aperiam, incidunt
-                labore tempora possimus earum assumenda aspernatur.
-              </p>
+              <ul>
+                <li class="requirementsLi" *ngFor="let requirements of jobList[jobListCount].Requirements">{{requirements}}</li>
+              </ul>
             </div>
           </div>
-    
+
           <div class="row" fxFlexFill>
             <div class="col-xs-12 container my-5">
-              <a href="{{ job.link }}" target="_blank">
-                <button type="submit" class="applyBtn">Apply Now</button>
-              </a>
+              <!-- <a href="{{ job.link }}" target="_blank"> -->
+              <button class="applyButton">
+                <span class="buttonText">Apply Now</span>
+                <img src="../../assets/check-lg.svg" class="icon" alt="" />
+              </button>
             </div>
           </div>
-    
+
           <div class="column pb-5" fxFlexFill>
             <div class="col-xs-12 container">
-              <h4 class="heading">Share this job posting</h4>
+              <h4 class="heading">Share this job posting!</h4>
             </div>
-            <div class="container">
+            <div class="container socialMediaIcons">
               <button shareButton="linkedin">
-                <img src="./assets/icons/linkedin.svg" alt="" class="img-rounded img-fluid" width="40px" height="40px">&nbsp;
+                <img
+                  src="./assets/icons/linkedin.svg"
+                  alt=""
+                  class="img-rounded img-fluid"
+                  width="40px"
+                  height="40px"
+                />&nbsp;
               </button>
               <button shareButton="twitter">
-                <img src="./assets/icons/twitter.svg" alt="" class="img-rounded img-fluid" width="40px" height="40px">&nbsp;
+                <img
+                  src="./assets/icons/twitter.svg"
+                  alt=""
+                  class="img-rounded img-fluid"
+                  width="40px"
+                  height="40px"
+                />&nbsp;
               </button>
               <button shareButton="facebook">
-                <img src="./assets/icons/facebook.svg" alt="" class="img-rounded img-fluid" width="40px" height="40px">&nbsp;
+                <img
+                  src="./assets/icons/facebook.svg"
+                  alt=""
+                  class="img-rounded img-fluid"
+                  width="40px"
+                  height="40px"
+                />&nbsp;
               </button>
               <button shareButton="pinterest">
-                <img src="./assets/icons/pinterest.svg" alt="" class="img-rounded img-fluid" width="40px" height="40px">
+                <img
+                  src="./assets/icons/pinterest.svg"
+                  alt=""
+                  class="img-rounded img-fluid"
+                  width="40px"
+                  height="40px"
+                />
               </button>
             </div>
-            
           </div>
-    
-          <!--<iframe style="margin-left: 20%;" src="https://docs.google.com/forms/d/e/1FAIpQLSeH8s5Y5KLkuqqJC3ZgJtJE_KEnDderWDsjlvUiTpBZ_JX27g/viewform?embedded=true" width="60%" height="300px" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>-->
-          
-          <!-- <app-landing-page-subfooter></app-landing-page-subfooter> -->
-  
-          <script
-            async
-            src="https://www.googletagmanager.com/gtag/js?id=UA-148334798-1"
-          ></script>
-          <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag() {
-              dataLayer.push(arguments);
-            }
-            gtag("js", new Date());
-    
-            gtag("config", "UA-148334798-1");
-          </script>
+
+        </div>
+        <div class="pagination">
+          <ul fxHide fxShow.gt-sm>
+            <li><a class="prev" (click)="previousPage()">
+                < PREVIOUS PAGE</a>
+            </li>
+            <div style="display: flex;">
+              <li class="pageNumber" [ngClass]="{'active': page.page == jobListCount+1}" *ngFor="let page of jobList">
+                <a (click)="jumpPage(page.page)"> {{page.page}} </a>
+              </li>
+            </div>
+            <li><a class="next" (click)="nextPage()">NEXT PAGE > </a>
+            </li>
+          </ul>
+          <ul fxShow fxHide.gt-sm>
+            <li><a class="prev" (click)="previousPage()">
+                < PREVIOUS PAGE</a>
+            </li>
+            <li><a class="next" (click)="nextPage()">NEXT PAGE > </a>
+            </li>
+          </ul>
         </div>
       </div>
-      <app-landing-page-subfooter></app-landing-page-subfooter>
     </div>
+    <app-landing-page-subfooter></app-landing-page-subfooter>
   </body>
 </html>

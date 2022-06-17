@@ -24,7 +24,7 @@ export class ContactUsComponent implements OnInit {
  onSubmit(form: NgForm) {
    this.contactUsService.sendMessage(form.value);
    this.router.navigate(['/', 'home']);
-   this.toastr.successToast("Message Sent", "Contact Us");
+   this.toastr.successToast("Message Sent! We will reach out to you soon.", "Contact Us");
  }
   
 }

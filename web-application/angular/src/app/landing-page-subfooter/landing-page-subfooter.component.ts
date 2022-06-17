@@ -7,31 +7,6 @@ import { HostListener } from "@angular/core";
 })
 export class LandingPageSubfooterComponent implements OnInit {
   constructor() {}
-
   ngOnInit() {
-    if (window.innerWidth < 1000) {
-      var el: HTMLElement = document.getElementById("contactId");
-      el.classList.add("col-sm-12");
-      el.classList.remove("col-sm-5");
-    }
-    if (window.innerWidth >= 1000) {
-      var el: HTMLElement = document.getElementById("contactId");
-      el.classList.add("col-sm-5");
-      el.classList.remove("col-sm-12");
-    }
-  }
-
-  onResize(event) {
-    if (event.target.innerWidth < 1000) {
-      var el: HTMLElement = document.getElementById("contactId");
-      el.classList.add("col-sm-12");
-      el.classList.remove("col-sm-5");
-    }
-
-    if (event.target.innerWidth >= 1000) {
-      var el: HTMLElement = document.getElementById("contactId");
-      el.classList.add("col-sm-5");
-      el.classList.remove("col-sm-12");
-    }
   }
 }

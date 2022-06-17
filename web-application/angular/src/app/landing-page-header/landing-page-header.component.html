@@ -24,6 +24,8 @@
           <a routerLink="/blog" mat-menu-item (mouseenter)="mouseEnter(menuTrigger1)" (mouseleave)="mouseLeave(menuTrigger1)">Blog page</a>
           <a routerLink="/capabilitystatement" mat-menu-item (mouseenter)="mouseEnter(menuTrigger1)" (mouseleave)="mouseLeave(menuTrigger1)">Capability Statement</a>
           <a routerLink="/whoweare" mat-menu-item (mouseenter)="mouseEnter(menuTrigger1)" (mouseleave)="mouseLeave(menuTrigger1)">Our Team</a>
+          
+          
           <!-- <a routerLink="/blog" mat-menu-item>Blog</a> -->
         </mat-menu>
 
@@ -42,7 +44,9 @@
         <!-- #enddocregion mat-menu-trigger-for -->
         <mat-menu #menu2="matMenu" [hasBackdrop]="false">
           <a routerLink="/request-access" mat-menu-item (mouseenter)="mouseEnter(menuTrigger3)" (mouseleave)="mouseLeave(menuTrigger3)">Request Access</a>
+          <a href="privacy-policy" mat-menu-item (mouseenter)="mouseEnter(menuTrigger3)" (mouseleave)="mouseLeave(menuTrigger3)">Privacy Policy</a>
           <a href="faq" mat-menu-item (mouseenter)="mouseEnter(menuTrigger3)" (mouseleave)="mouseLeave(menuTrigger3)">FAQs</a>
+          <a href="terms-conditions" mat-menu-item (mouseenter)="mouseEnter(menuTrigger3)" (mouseleave)="mouseLeave(menuTrigger3)">Terms of Service</a>
         </mat-menu>
         <a routerLink="/contact-us" class='menu' mat-button> Contact Us </a>
         <button class="helpBtn" mat-raised-button onclick = "window.location.href='healthcare/login'">Login</button>

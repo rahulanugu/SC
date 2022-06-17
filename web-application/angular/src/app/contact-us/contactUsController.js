@@ -16,17 +16,15 @@ app.controller('contactUsController', function ($scope) {
         })
     }
 });
-//        var data = $.param({
-//            contact: JSON.stringify({
-//                fname: $scope.fname,
-//                lname: $scope.lname,
-//                email: $scope.email,
-//                message: $scope.message
-//            })
-//        });
+        var data = $.param({
+            contact: JSON.stringify({
+                fname: $scope.fname,
+                lname: $scope.lname,
+                email: $scope.email,
+                message: $scope.message
+            })
+        });
+        $http.post("/node", data).success(function(data,status) {
+            console.log('Data posted successfully');
+      })
 
-//        $http.post("/node", data).success(function(data,status) {
-//            console.log('Data posted successfully');
-//        })
-//     }
-//    }); 
