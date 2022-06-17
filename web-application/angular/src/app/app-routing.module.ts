@@ -5,7 +5,7 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -84,6 +84,7 @@ import { MedicationDetailsComponent } from "./medication-details/medication-deta
 import { ProcedureDetailsComponent } from "./procedure-details/procedure-details.component";
 import { JobOpeningsComponent } from "./job-openings/job-openings.component";
 import { BlogPostComponent } from "./blog-post/blog-post.component";
+import { BlogPostQuoteComponent } from "./blog-post-quote/blog-post-quote.component";
 import { AllscriptsLoginComponent } from "./allscriptslogin/allscriptslogin.component";
 const routes: Routes = [
   /* pages for the app */
@@ -141,7 +142,7 @@ const routes: Routes = [
   { path: "careers", component: CareersComponent },
   { path: "privacy-policy", component: PrivacyPolicyComponent },
   { path: "apply-job/:jobid", component: ApplyJobComponent },
-  { path: "job-openings", component: JobOpeningsComponent},
+  { path: "job-openings", component: JobOpeningsComponent },
   { path: "terms-conditions", component: TermsConditionsComponent },
   { path: "", redirectTo: "/home", pathMatch: "full" },
   { path: "registersuccessful", component: RegisterSuccessfulPageComponent },
@@ -260,6 +261,10 @@ const routes: Routes = [
     component: BlogPostComponent
   },
   {
+    path: "blog-post-quote/:slug",
+    component: BlogPostQuoteComponent
+  },
+  {
     path: "becomeapartner",
     component: BecomeapartnerComponent,
   },
@@ -331,4 +336,4 @@ const routes: Routes = [
   exports: [RouterModule],
   entryComponents: [HealthcareDialogContent],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

@@ -41,10 +41,10 @@ export class HealthcareRegisterComponent implements OnInit {
     private healthCareAccountService: HealthcareAccountService,
     private router: Router,
     public dialog: MatDialog
-  ) {}
+  ) { }
 
   ngOnInit() {
-    document.getElementById("registersuccessful").style.display = "none";
+    //document.getElementById("registersuccessful").style.display = "none";
   }
   openDialog() {
     const dialogRef = this.dialog.open(HealthcareDialogContent);
@@ -63,6 +63,7 @@ export class HealthcareRegisterComponent implements OnInit {
     ehr: ["", Validators.required],
     roleInCompany: ["", Validators.required],
     password: ["", Validators.required],
+    confirmPassword: ["", Validators.required],
     phone: ["", [Validators.required, CustomValidator.phoneValidator]],
   });
 
