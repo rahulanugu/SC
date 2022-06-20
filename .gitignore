@@ -55,6 +55,6 @@ testem.log
 Thumbs.db
 
 # package/lock files
-angular/package-lock.json
-angular/package.json
-angular/yarn.lock
+web-application/angular/package-lock.json
+web-application/angular/package.json
+web-application/angular/yarn.lock
