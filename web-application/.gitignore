@@ -94,3 +94,8 @@ Thumbs.db
 web-application/angular/package-lock.json
 web-application/angular/package.json
 web-application/angular/yarn.lock
+
+#Misc files
+nohup.out
+ngrok
+Jenkinsfile
