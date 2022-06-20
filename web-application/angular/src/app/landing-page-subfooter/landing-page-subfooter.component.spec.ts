@@ -8,9 +8,9 @@ describe('LandingPageSubfooterComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LandingPageSubfooterComponent ]
+      declarations: [LandingPageSubfooterComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

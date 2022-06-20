@@ -3,54 +3,47 @@
 
 <!DOCTYPE html>
 <html lang="en" ng-app='myApp'>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="//fonts.googleapis.com/css?family=Lato:400,700"
-      rel="stylesheet"
-      type="text/css"
-    />
-    <link
-      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
-      rel="stylesheet"
-    />
-    <script src = "contactUsController.js"></script> <!-- load up our controller-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <!-- Hotjar Tracking Code for https://www.scriptchain.co/home -->
-    <script>
-      (function (h, o, t, j, a, r) {
-        h.hj =
-          h.hj ||
-          function () {
-            (h.hj.q = h.hj.q || []).push(arguments);
-          };
-        h._hjSettings = { hjid: 2374837, hjsv: 6 };
-        a = o.getElementsByTagName("head")[0];
-        r = o.createElement("script");
-        r.async = 1;
-        r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
-        a.appendChild(r);
-      })(window, document, "https://static.hotjar.com/c/hotjar-", ".js?sv=");
-    </script>
-  </head>
 
-  <body>
-    <app-landing-page-header></app-landing-page-header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="//fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet" type="text/css" />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+  <script src="contactUsController.js"></script> <!-- load up our controller-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <!-- Hotjar Tracking Code for https://www.scriptchain.co/home -->
+  <script>
+    (function (h, o, t, j, a, r) {
+      h.hj =
+        h.hj ||
+        function () {
+          (h.hj.q = h.hj.q || []).push(arguments);
+        };
+      h._hjSettings = { hjid: 2374837, hjsv: 6 };
+      a = o.getElementsByTagName("head")[0];
+      r = o.createElement("script");
+      r.async = 1;
+      r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+      a.appendChild(r);
+    })(window, document, "https://static.hotjar.com/c/hotjar-", ".js?sv=");
+  </script>
+</head>
 
-    <div fxFlexFill fxLayout="column">
-      <div>
-        <div class="content1">
-          <h3 id="loginHeading">Contact Us</h3>
-          <p class="desc">
-            We look forward to serve you. Feel free to fill that form and we
-            will get back to you as soon as possible.
-          </p>
-        </div>
+<body>
+  <app-landing-page-header></app-landing-page-header>
+
+  <div fxFlexFill fxLayout="column">
+    <div>
+      <div class="content1">
+        <h3 id="loginHeading">Contact Us</h3>
+        <p class="desc">
+          We look forward to serve you. Feel free to fill that form and we
+          will get back to you as soon as possible.
+        </p>
       </div>
+    </div>
 
-      <div
-        class="
+    <div class="
           justify-content-center
           quesForm
           pl-5
@@ -59,81 +52,50 @@
           pb-4
           mb-5
           mt-xl-5 mt-xs-3 mt-sm-3 mt-md-3
-        "
-        fxLayout="column"
-        fxLayoutAlign="center center"
-      >
-        <div class="container" ng-controller = "contactUsController">
-          <form class="mt-3" (ngSubmit)="onSubmit(form)" #form="ngForm" method="post">
-            <label>First Name</label>
-            <br />
-            <input
-              type="text"
-              ngModel
-              name="fname"
-              required
-              #firstName="ngModel"
-            />
-            <p class="help-block" *ngIf="!firstName.valid && firstName.touched">
-              Please enter a valid first name
-            </p>
-            <br />
-            <label>Last Name</label>
-            <br />
-            <input
-              type="text"
-              ngModel
-              name="lname"
-              required
-              #lastName="ngModel"
-            />
-            <p class="help-block" *ngIf="!lastName.valid && lastName.touched">
-              Please enter a valid last name
-            </p>
-            <br />
-            <label>Email</label>
-            <br />
-            <input
-              type="text"
-              ngModel
-              required
-              email
-              name="email"
-              #email="ngModel"
-            />
-            <br />
-            <p class="help-block" *ngIf="!email.valid && email.touched">
-              Please enter a valid email address
-            </p>
-            <br>
-            <label>Message</label>
-            <br />
-            <textarea
-              ngModel
-              required
-              name="message"
-              #message="ngModel"
-            ></textarea>
-            <br />
-            <p class="help-block" *ngIf="!message.valid && message.touched">
-              Please enter a valid message
-            </p>
-            <br>
-            <button
-              type="submit"
-              class="sendBtn"
-              [disabled]="!form.valid"
-              ng-click="postData()"
-            >
-              Send Message
-            </button>
-          </form>
-        </div>
-        <script src = "/scriptchain/web-application/node/controllers/contactUsController.js"></script>
+        " fxLayout="column" fxLayoutAlign="center center">
+      <div class="container" ng-controller="contactUsController">
+        <form class="mt-3" (ngSubmit)="onSubmit(form)" #form="ngForm" method="post">
+          <label>First Name</label>
+          <br />
+          <input type="text" ngModel name="fname" required #firstName="ngModel" />
+          <p class="help-block" *ngIf="!firstName.valid && firstName.touched">
+            Please enter a valid first name
+          </p>
+          <br />
+          <label>Last Name</label>
+          <br />
+          <input type="text" ngModel name="lname" required #lastName="ngModel" />
+          <p class="help-block" *ngIf="!lastName.valid && lastName.touched">
+            Please enter a valid last name
+          </p>
+          <br />
+          <label>Email</label>
+          <br />
+          <input type="text" ngModel required email name="email" #email="ngModel" />
+          <br />
+          <p class="help-block" *ngIf="!email.valid && email.touched">
+            Please enter a valid email address
+          </p>
+          <br>
+          <label>Message</label>
+          <br />
+          <textarea ngModel required name="message" #message="ngModel"></textarea>
+          <br />
+          <p class="help-block" *ngIf="!message.valid && message.touched">
+            Please enter a valid message
+          </p>
+          <br>
+          <button type="submit" class="sendBtn" [disabled]="!form.valid" ng-click="postData()">
+            Send Message
+          </button>
+        </form>
       </div>
-      <div class="mt-5 pt-5" fxFlexFill fxLayout="column" fxLayoutAlign="end">
-        <app-landing-page-subfooter></app-landing-page-subfooter>
-      </div>
+      <script src="/scriptchain/web-application/node/controllers/contactUsController.js"></script>
     </div>
-  </body>
+    <div class="mt-5 pt-5" fxFlexFill fxLayout="column" fxLayoutAlign="end">
+      <app-landing-page-subfooter></app-landing-page-subfooter>
+    </div>
+  </div>
+</body>
+
 </html>
