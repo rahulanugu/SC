@@ -131,6 +131,7 @@ import { ShareModule } from 'ngx-sharebuttons';
 import { ToastrModule } from 'ngx-toastr';
 import { AllscriptsLoginComponent } from "./allscriptslogin/allscriptslogin.component";
 import { PortalProgressBarComponent } from './shared/components/portal-progress-bar/portal-progress-bar.component';
+import { BlogPostQuoteComponent } from './blog-post-quote/blog-post-quote.component';
 
 
 @NgModule({
@@ -226,6 +227,7 @@ import { PortalProgressBarComponent } from './shared/components/portal-progress-
     IndustryCardComponent,
     BlogPostComponent,
     PortalProgressBarComponent,
+    BlogPostQuoteComponent,
   ],
 
   imports: [
@@ -275,4 +277,4 @@ import { PortalProgressBarComponent } from './shared/components/portal-progress-
   bootstrap: [AppComponent],
   entryComponents: [MatConfirmDialogComponent],
 })
-export class AppModule {}
+export class AppModule { }

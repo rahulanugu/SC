@@ -1,5 +1,9 @@
+// Kefan - Developed the entire page
+
 import { Component, OnInit, Input } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-industry-quote-card',
@@ -8,9 +12,15 @@ import { MatCardModule } from '@angular/material/card';
 })
 export class IndustryCardComponent implements OnInit {
   @Input() blogCategory: string = '';
-  constructor() { }
+  @Input() blogSlug: string;
+  constructor(private router: Router) { }
 
   ngOnInit() {
+  }
+
+  Relocate() {
+    console.log("relocate");
+    this.router.navigate(['/blog-post-quote', this.blogSlug]);
   }
 
 }

@@ -1,153 +1,102 @@
 <!-- Authors and their contributions: -->
 <!-- Vidit: Worked on UI enhancements and responsiveness -->
+<!-- Kefan: Adjust and Debug to match the user story-->
+
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
 
-  <body>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
+
+<body>
+  <div>
+    <app-landing-page-header></app-landing-page-header>
+  </div>
+  <div fxLayout="column" style="min-height: 1000px; margin-top: 64px;">
     <div>
-      <app-landing-page-header></app-landing-page-header>
-    </div>
-    <div fxFlexFill fxLayout="column">
-      <div>
-        <div class="raHeader text-center pt-5">
-          Request Access to ScriptChain Health
-        </div>
-        <p class="raDesc text-center">
-          Please fill out this form to request access to ScriptChain Health
-        </p>
+      <div class="raHeader text-center pt-5">
+        Request Access to ScriptChain Health
       </div>
-      <div
-        class="
+      <p class="raDesc text-center">
+        Please fill out this form to request access to ScriptChain Health
+      </p>
+    </div>
+    <div class="
           raBox
           justify-content-center
+          container
           pl-5
           pr-5
-          ml-5
-          mr-5
-          pt-5
-          pb-4
-          mb-5
-          mt-xl-5
-        "
-        fxLayout="column"
-        fxLayoutAlign="center center"
-      >
-        <div class="container">
-          <form
-            ngNativeValidate
-            action="#"
-            (ngSubmit)="requestAccess()"
-            method="post"
-          >
-            <!-- <div
+        " fxLayout="column" fxLayoutAlign="center center">
+      <form ngNativeValidate action="#" fxFlex fxLayout="column" (ngSubmit)="requestAccess()" method="post">
+        <!-- <div
               class="px-sm-4"
               fxLayout="column"
               fxLayoutAlign="center center"
             > -->
-            <!-- <div> -->
-            <label>First Name*</label>
-            <br />
-            <input
-              class="raInput"
-              type="text"
-              name="fname"
-              required
-              ngModel
-              #fname="ngModel"
-            />
-            <br />
-            <!-- [class.is-invalid]="fname.invalid && fname.touched" [(ngModel)]="requestaccessservice.user.fname"
-                placeholder="First Name" required> -->
-            <p class="help-block" *ngIf="!fname.valid && fname.touched">
-              First Name is required
-            </p>
-            <br />
-            <!-- </div> -->
-
-            <!-- <div> -->
-            <label>Last Name*</label>
-            <br />
-            <input
-              class="raInput"
-              type="text"
-              name="lname"
-              pattern="[a-zA-Z ]{2,30}"
-              ngModel
-              #lname="ngModel"
-              required
-            />
-            <!-- [class.is-invalid]="lname.invalid && lname.touched"
-                  [(ngModel)]="requestaccessservice.user.lname" -->
-            <br />
-            <p class="help-block" *ngIf="!lname.valid && lname.touched">
-              Last Name is required
-            </p>
-            <br />
-            <!-- </div> -->
-
-            <!-- <div> -->
-            <label>E-mail Address*</label>
-            <br />
-            <input
-              class="raInput"
-              type="email"
-              name="email"
-              #email="ngModel"
-              ngModel
-              required
-            />
-            <!-- [class.is-invalid]="email.invalid && email.touched"
-                  [(ngModel)]="requestaccessservice.user.email" -->
-            <br />
-            <p class="help-block" *ngIf="!email.valid && email.touched">
-              Email is required
-            </p>
-            <br />
-            <!-- </div> -->
-
-            <!-- <div> -->
-            <label>Type of User*</label>
-            <br />
-            <select
-              class="raInput"
-              name="usertype"
-              ngModel
-              #typeofuser="ngModel"
-              required
-            >
-              <option value="">Select One</option>
-              <option value="Provider">Provider</option>
-              <option value="Patient">Patient</option>
-              <option value="Healthcare_worker">Healthcare Worker</option>
-            </select>
-            <br />
-            <p
-              class="help-block"
-              *ngIf="!typeofuser.valid && typeofuser.touched"
-            >
-              Type of User required
-            </p>
-            <br />
-            <!-- </div> -->
-            <button type="submit" class="btn submit mt-4 submitBtn">
-              Request Access</button
-            ><br />
-            <!-- </div> -->
-          </form>
+        <!-- <div> -->
+        <div class="form-element mt-4" fxFlex fxLayout="column">
+          <label>First Name*</label>
+          <input class="raInput" type="text" name="fname" required [(ngModel)]="requestaccessservice.user.fname"
+            #fname="ngModel" />
+          <!-- [class.is-invalid]="fname.invalid && fname.touched" [(ngModel)]="requestaccessservice.user.fname"
+                    placeholder="First Name" required> -->
+          <small *ngIf="!fname.valid && fname.touched" class="text-danger">First name is
+            required</small>
         </div>
-      </div>
+
+        <div class="form-element mt-1" fxFlex fxLayout="column">
+          <label>Last Name*</label>
+          <input class="raInput" type="text" name="lname" [(ngModel)]="requestaccessservice.user.lname" #lname="ngModel"
+            required />
+          <!-- [class.is-invalid]="lname.invalid && lname.touched"
+                  [(ngModel)]="requestaccessservice.user.lname" -->
+          <small class="text-danger" *ngIf="!lname.valid && lname.touched">
+            Last Name is required
+          </small>
+        </div>
+
+        <div class="form-element mt-1" fxFlex fxLayout="column">
+          <label>Email*</label>
+          <input class="raInput" type="email" name="email" #email="ngModel"
+            [(ngModel)]="requestaccessservice.user.email" required />
+          <!-- [class.is-invalid]="email.invalid && email.touched"
+                  [(ngModel)]="requestaccessservice.user.email" -->
+          <small class="text-danger" *ngIf="!email.valid && email.touched">
+            Email is required
+          </small>
+        </div>
+
+        <div class="form-element mt-1" fxFlex fxLayout="column">
+          <label>Type of User*</label>
+          <select class="raInput" name="usertype" [(ngModel)]="requestaccessservice.user.typeOfUser"
+            #typeofuser="ngModel" required>
+            <option value="">Select One</option>
+            <option value="Provider">Provider</option>
+            <option value="Patient">Patient</option>
+            <option value="Healthcare_worker">Healthcare Worker</option>
+          </select>
+          <small class="text-danger" *ngIf="!typeofuser.valid && typeofuser.touched">
+            Type of User required
+          </small>
+        </div>
+        <!-- </div> -->
+        <button type="submit" fxFlex class="btn submit mt-5 submitBtn">
+          Request Access</button><br />
+        <!-- </div> -->
+      </form>
     </div>
-    <div class="footer" fxLayout="column" fxLayoutAlign="end">
-      <app-landing-page-subfooter></app-landing-page-subfooter>
-    </div>
-  </body>
+  </div>
+  <div class="footer" fxLayout="column" fxLayoutAlign="end">
+    <app-landing-page-subfooter></app-landing-page-subfooter>
+  </div>
+</body>
+
 </html>
 <!-- main -->
 

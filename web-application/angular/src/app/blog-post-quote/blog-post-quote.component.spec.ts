@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LandingPageHeaderComponent } from './landing-page-header.component';
+import { BlogPostQuoteComponent } from './blog-post-quote.component';
 
-describe('LandingPageHeaderComponent', () => {
-  let component: LandingPageHeaderComponent;
-  let fixture: ComponentFixture<LandingPageHeaderComponent>;
+describe('BlogPostQuoteComponent', () => {
+  let component: BlogPostQuoteComponent;
+  let fixture: ComponentFixture<BlogPostQuoteComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [LandingPageHeaderComponent]
+      declarations: [BlogPostQuoteComponent]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LandingPageHeaderComponent);
+    fixture = TestBed.createComponent(BlogPostQuoteComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
