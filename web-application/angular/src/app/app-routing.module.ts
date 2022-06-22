@@ -9,7 +9,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { FlexLayoutModule } from '@angular/flex-layout';
-
+import { BrowserModule } from "@angular/platform-browser";
+import { CommonModule } from "@angular/common";
 /* Componets to create routes for */
 import { LoginComponent } from "./login/login.component";
 import { RequestAccessComponent } from "./request-access/request-access.component";
@@ -339,9 +340,12 @@ const routes: Routes = [
 @NgModule({
   declarations: [HealthcareDialogContent],
   imports: [
+    BrowserModule,
+    CommonModule,
     RouterModule.forRoot(routes, {
       scrollPositionRestoration: "top",
     }),
+
   ],
   exports: [RouterModule],
   entryComponents: [HealthcareDialogContent],

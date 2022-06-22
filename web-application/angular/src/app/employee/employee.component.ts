@@ -179,9 +179,9 @@ export class EmployeeComponent implements OnInit {
       icon: "../../assets/headshots/Dr. Ruff.png",
       name: "Dr. Ruff",
       title: "Medical Advisor",
-      bio: "Dr. Ruff graduated from Harvard University, earned his medical degree at Johns Hopkins University School of Medicine, and his masters of public health from the Harvard School of Public Health. Dr. Ruff completed his internal medicine residency and cardiovascular medicine fellowship at the Brigham and Women’s Hospital.",
+      bio: "Dr. Ruff graduated from Harvard University, earned his medical degree at Johns Hopkins University School of Medicine, and his masters of public health from the Harvard School of Public Health. Dr. Ruff completed his internal medicine residency and cardiovascular medicine fellowship at the Brigham and Women's Hospital.",
       about: [
-        "Christian T. Ruff, MD, MPH is the Director of General Cardiology in the Cardiovascular Division at Brigham and Women’s Hospital in Boston, MA and an Associate Professor of Medicine at Harvard Medical School.",
+        "Christian T. Ruff, MD, MPH is the Director of General Cardiology in the Cardiovascular Division at Brigham and Women's Hospital in Boston, MA and an Associate Professor of Medicine at Harvard Medical School.",
         "Dr. Ruff is a Senior Investigator in the Thrombolysis in Myocardial Infarction (TIMI) Study Group and serves the Director of the Genetics Core Laboratory and the Co-Chairman of the Clinical Events Committee. He has led a broad array of projects, ranging from investigator initiated studies of biomarkers and genetic variants to large clinical trials. ",
         "Dr. Ruff has served on international clinical guideline committees and has been invited to give hundreds of lectures nationally and internationally. He has authored many scholarly articles, editorials, reviews, and book chapters that include the New England Journal of Medicine, Lancet, Journal of the American Medical Association, American Journal of Medicine, Circulation, Journal of the American College of Cardiology, and Nature Reviews Cardiology.",
       ],

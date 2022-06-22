@@ -15,7 +15,7 @@ export class BlogService {
   blogCategories;
   singlePost;
 
-
+//https://public-api.wordpress.com/rest/v1.1/sites/scriptchainhealthblog.com/posts
   constructor(private http: HttpClient) { }
 
   // Accesses blog posts via GET request to Wordpress API

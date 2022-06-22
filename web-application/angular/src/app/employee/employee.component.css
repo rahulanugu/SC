@@ -1,12 +1,13 @@
+app-landing-page-header {
+  position: absolute;
+  top: 0;
+}
 body {
   background-color: #fbf6f1;
   height: max-content;
 }
 
-app-landing-page-header {
-  position: absolute;
-  top: 0;
-}
+
 /* Upper container  Full name/Img*/
 .fullNameContainer {
   margin-top: 64px;
