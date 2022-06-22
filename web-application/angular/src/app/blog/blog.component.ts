@@ -26,12 +26,6 @@ export class BlogComponent implements OnInit {
   categoryList: any;
   slug: any;
 
-  pageList: number[];
-
-  errorMessage: any;
-  categoryList: any;
-  slug: any;
-
   numberOfPages: number;
   currentPage: number;
   numberPerPage = 8; // 8 + 1

@@ -1,4 +1,7 @@
 /* Stephanie - updated to match user story */
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tinos&display=swap');
 
 .loginHeading {
   font-family: "Tinos", serif;
@@ -8,9 +11,6 @@
   padding-top: 40px;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Tinos&display=swap');
 
 app-landing-page-header {
   position: absolute;
