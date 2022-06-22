@@ -5,7 +5,6 @@
  */
 
 // package import
-const config = require('./config.js');
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -34,8 +33,6 @@ const fs = require("fs");
 const { promisify } = require("util");
 
 const readFile = promisify(fs.readFile);
-
-console.log(`NODE_ENV=${config.NODE_ENV}`);
 
 var app = express();
 
@@ -89,7 +86,6 @@ app.use(function (req, res, next) {
   //res.cookie('cookie','value',{signed:true});
   // Website you wish to allow to connect
   var whitelist = [
-    "https://dev.scriptchain.co",
     "https://www.scriptchain.co",
     "https://scriptchain.co",
     "http://localhost:4200",
@@ -156,6 +152,35 @@ app.use("/partners", partnersController);
 // const oauth2Client = mailer_oauth.getClient();
 // const accessToken = oauth2Client.getAccessToken();
 
+app.post('/api/sendMail', function (req, res) {
+  let data = req.body;
+  // Step 1
+  let transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+          user:  'charjags100@gmail.com', // TODO: your gmail account
+          pass: 'wqhjrrcgsxilqpvr' // TODO: your gmail password
+      }
+  });
+
+  // Step 2
+  let mailOptions = {
+      from: 'charjags100@gmail.com', // TODO: email sender
+      to: 'charjags100@gmail.com', // TODO: email receiver
+      subject: `Submission from ${data.fname} ${data.lname} ( ${data.email})`,
+      text: data.message
+    };
+
+    // Step 3
+    transporter.sendMail(mailOptions, (err, data) => {
+        if (err) {
+            log(err)
+            return res.send('Error occurs').status(500);
+        }
+        return res.send('Email sent!!!');
+    });
+        
+    });
 app.post("/sendEmail", async (req, res) => {
   // var data = req.body;
   // var transporter = nodemailer.createTransport({

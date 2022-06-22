@@ -3,7 +3,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap');
 
 body {
-    background-color: #faf6f2;
+    background-color: #faf6f2 !important;
+    height: max-content;
+}
+
+.background{
+    background-color: white;
+    margin-top: 80px;
+    padding-top: 50px;
+    padding-left:50px;
+    padding-right:50px;
+    padding-bottom:50px;
 }
 
 .tosHeader {

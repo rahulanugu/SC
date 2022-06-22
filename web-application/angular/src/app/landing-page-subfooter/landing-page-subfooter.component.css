@@ -5,7 +5,6 @@
   background-color: #2d5059;
   color: white;
 }
-
 .logo {
   width: 100px;
   margin: 5px 20px;
@@ -13,7 +12,7 @@
 .description{
   margin-left: 20px;
   width: 70%;
-  font-size: 14px;
+  font-size: 15px;
 }
 .icons{
   margin-left: 20px;
@@ -23,10 +22,9 @@
   width: 20px;
   margin: 0 5px;
 }
-
 .col ul li a{
   color: white;
-  font-size: 14px;
+  font-size: 15px;
 }
 .middle{
   padding: 0 40px;
@@ -38,7 +36,7 @@
 .footer-copyright{
   font-family: Lato,sans-serif;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 17px;
   text-align: center;
   color: white;
   line-height: 1.6;
@@ -46,7 +44,6 @@
   background-color: #2d5059;
   padding-top: 18px;
 }
-
 .footer-copyright a{
   color: white;
   text-decoration: none;
@@ -54,7 +51,7 @@
 }
 .top{
   width: 70%;
-  font-size: 14px;
+  font-size: 15px;
   text-align: center;
   margin: 0 auto !important;
 }
@@ -70,4 +67,29 @@ hr{
   margin: 0 auto;
   justify-content: center;
   align-items: center;
+}
+
+@media only screen 
+and (max-width: 600px){ 
+  .col{
+    padding-top: 0;
+    padding-bottom:0;
+    padding-left: 70px;
+    padding-right:70px;
+    border: none;
+    margin-right: 20px;
+    border-top: 0px;
+    border-bottom: 0px;
+    text-align: center;
+  }
+  .middle{
+  padding: none ;
+  border: none;
+  margin-right: none;
+  border-top: none;
+  border-bottom: none;
+  }
+  .footer-copyright{
+    padding-bottom:10px;
+  }
 }
