@@ -26,8 +26,8 @@ body {
   box-shadow: 0 5px 10px rgba(0,0,0,.2);
   transition: transform 500ms ease;
   margin: auto;
-  float: none; 
-  margin-bottom: 10px; 
+  float: none;
+  margin-bottom: 10px;
   width:500px;
 }
 
@@ -124,7 +124,7 @@ body {
 }
 .contentwhite {
   margin-top: 70px;
-  background-color: #e0dcdc; 
+  background-color: #e0dcdc;
 }
 .contentwhite h3 {
   font-style: normal;
@@ -149,15 +149,17 @@ body {
   font-size: 1em;
   margin-left:10%;
   margin-right: 9%;
-  padding-left: 165px;   
-  padding-top: 0px;  
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+  padding-left: 165px;
+  padding-top: 0px;
 
- 
-  
+
+
+
   /* Grey 500 */
+
   color: #1d1f26;
- margin-left: 15%;
+
+  margin-left: 15%;
 }
 
 .contentwhite2 p {
@@ -166,12 +168,12 @@ body {
   font-size: 1em;
   margin-left:50px;
   margin-right: 50px;
-  padding-left: 165px;  
+  padding-left: 165px;
   padding-top: 10px;
   padding-bottom: -100px;
 
- 
-  
+
+
   /* Grey 500 */
 
   color: #1d1f26;
@@ -185,12 +187,12 @@ body {
   font-size: 1em;
   margin-left:50px;
   margin-right: 50px;
-  padding-left: 165px;  
+  padding-left: 165px;
   padding-top: 10px;
   padding-bottom: -100px;
 
- 
-  
+
+
   /* Grey 500 */
 
   color: #1d1f26;
@@ -200,7 +202,7 @@ body {
 .contentwhite ul {
   font-style: normal;
   font-weight: normal;
-  font-size: 1em;                                                                                                                                                                                                        
+  font-size: 1em;
 
   /* Grey 500 */
   margin-right: 15%;
@@ -246,15 +248,15 @@ table {
 
 
 /*Phone view*/
-@media only screen 
-and (max-width: 600px){ 
+@media only screen
+and (max-width: 600px){
   .h-100 {
     height: inherit !important;
   }
   .capabilityContent2 {
     margin: 0;
   }
-  .sidebar{ 
+  .sidebar{
     float: none;
     width: 100%
   }
@@ -344,7 +346,7 @@ and (max-width: 600px){
 
 }
 /*Tablet View*/
-@media only screen  
+@media only screen
   and (min-device-width: 660px)
   and (max-device-width: 1200px) {
     html {
@@ -385,7 +387,7 @@ and (max-width: 600px){
     }
     .content2 {
       margin: -50px 0 0 30px;
-      
+
     }
     .contentwhite2 + .wrapper {
       margin-left: 70px;

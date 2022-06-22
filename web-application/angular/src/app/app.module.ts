@@ -1,3 +1,4 @@
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PatientAuthGuard } from "./patient-auth.guard";
 import { LoginPatientService } from "./shared/login-patient.service";
 import { BrowserModule } from "@angular/platform-browser";
@@ -131,16 +132,8 @@ import { ShareModule } from 'ngx-sharebuttons';
 import { ToastrModule } from 'ngx-toastr';
 import { AllscriptsLoginComponent } from "./allscriptslogin/allscriptslogin.component";
 import { PortalProgressBarComponent } from './shared/components/portal-progress-bar/portal-progress-bar.component';
-import { LandingPageCarouselComponent } from './landing-page-carousel/landing-page-carousel.component';
-import { LandingPageWelcomeMessageComponent } from './landing-page-welcome-message/landing-page-welcome-message.component';
-import { LandingPageInformationComponent } from './landing-page-information/landing-page-information.component';
-import { ReadMoreComponent } from './read-more/read-more.component';
-import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { faChevronRight, faChevronDown } from "@fortawesome/free-solid-svg-icons";
-import { EmployeeComponent } from './employee/employee.component';
-library.add(faChevronDown)
-library.add(faChevronRight)
+import { BlogPostQuoteComponent } from './blog-post-quote/blog-post-quote.component';
+
 
 @NgModule({
   declarations: [
@@ -235,11 +228,7 @@ library.add(faChevronRight)
     IndustryCardComponent,
     BlogPostComponent,
     PortalProgressBarComponent,
-    LandingPageCarouselComponent,
-    LandingPageWelcomeMessageComponent,
-    LandingPageInformationComponent,
-    ReadMoreComponent,
-    EmployeeComponent,
+    BlogPostQuoteComponent,
   ],
 
   imports: [
@@ -290,4 +279,4 @@ library.add(faChevronRight)
   bootstrap: [AppComponent],
   entryComponents: [MatConfirmDialogComponent],
 })
-export class AppModule {}
+export class AppModule { }

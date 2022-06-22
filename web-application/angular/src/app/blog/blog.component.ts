@@ -3,7 +3,6 @@
 // Stephanie - get and filter blog posts from Wordpress API
 // Kefan - implement pagination, category filter
 
-
 import { Component, OnInit } from "@angular/core";
 import { BlogCardComponent } from "../shared/components/blog-card/blog-card.component";
 import { BlogService } from '../shared/blogService.service';

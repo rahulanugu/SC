@@ -3,12 +3,12 @@
 <!--Charan: Creation of contact form and styling-->
 
 <!DOCTYPE html>
-<html lang="en" ng-app='myApp'>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
-      href="//fonts.googleapis.com/css?family=Lato:400,700"
+      href="http://fonts.googleapis.com/css?family=Lato:400,700"
       rel="stylesheet"
       type="text/css"
     />
@@ -79,7 +79,7 @@
             <br />
             <input
               type="text"
-              ngModel 
+              ngModel
               name= "fname"
               required
               #firstName="ngModel"
@@ -89,25 +89,25 @@
             <br />
             <input
               type="text"
-              ngModel 
+              ngModel
               name ="lname"
               required
               #lastName="ngModel"
             />
-            
+
             <br />
             <label class="text">Email</label>
             <br />
             <input
               type="text"
-              ngModel 
+              ngModel
               required
               email
               name="email"
               #email="ngModel"
             />
             <br />
-            
+
             <br>
             <label class="text">Message</label>
             <br />
@@ -118,7 +118,7 @@
               #message="ngModel"
             ></textarea>
             <br />
-            
+
             <br>
             <button
               type="submit"
@@ -126,8 +126,7 @@
               [disabled]="!form.valid"
               value="Submit"
               ng-click="submit()">
-
-              Send Message 
+              Send Message
             </button>
           </form>
         </div>

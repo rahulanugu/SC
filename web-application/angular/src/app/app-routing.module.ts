@@ -4,11 +4,11 @@ import { ContactUsComponent } from "./contact-us/contact-us.component";
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { MatCardModule } from "@angular/material/card";
-import { MatToolbarModule } from "@angular/material/toolbar";
-import { MatButtonModule } from "@angular/material/button";
-import { FlexLayoutModule } from "@angular/flex-layout";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatCardModule } from '@angular/material/card';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 /* Componets to create routes for */
 import { LoginComponent } from "./login/login.component";
@@ -142,7 +142,7 @@ const routes: Routes = [
   { path: "contact-us", component: ContactUsComponent },
   { path: "careers", component: CareersComponent },
   { path: "privacy-policy", component: PrivacyPolicyComponent },
-  { path: "apply-job/:jobId", component: ApplyJobComponent },
+  { path: "apply-job/:jobid", component: ApplyJobComponent },
   { path: "job-openings", component: JobOpeningsComponent },
   { path: "terms-conditions", component: TermsConditionsComponent },
   { path: "", redirectTo: "/home", pathMatch: "full" },
@@ -185,9 +185,7 @@ const routes: Routes = [
   },*/
   {
     path: "healthcare/confirmation",
-    component: HealthcareConfirmationComponent,
-    canActivate: [HealthcareAuthGuard],
-    //needs backend
+    component: HealthcareConfirmationComponent, canActivate: [HealthcareAuthGuard],
   },
   {
     path: "healthcare/verificationemail",
@@ -269,8 +267,8 @@ const routes: Routes = [
     component: BlogComponent,
   },
   {
-    path: "blog-post",
-    component: BlogPostComponent,
+    path: "blog-post/:id",
+    component: BlogPostComponent
   },
   {
     path: "blog-post-quote/:slug",

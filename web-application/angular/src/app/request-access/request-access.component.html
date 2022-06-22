@@ -33,63 +33,63 @@
           pl-5
           pr-5
         " fxLayout="column" fxLayoutAlign="center center">
-        <form ngNativeValidate action="#" fxFlex fxLayout="column" (ngSubmit)="requestAccess()" method="post">
-          <!-- <div
+      <form ngNativeValidate action="#" fxFlex fxLayout="column" (ngSubmit)="requestAccess()" method="post">
+        <!-- <div
               class="px-sm-4"
               fxLayout="column"
               fxLayoutAlign="center center"
             > -->
-          <!-- <div> -->
-          <div class="form-element mt-4" fxFlex fxLayout="column">
-            <label>First Name*</label>
-            <input class="raInput" type="text" name="fname" required [(ngModel)]="requestaccessservice.user.fname"
-              #fname="ngModel" />
-            <!-- [class.is-invalid]="fname.invalid && fname.touched" [(ngModel)]="requestaccessservice.user.fname"
+        <!-- <div> -->
+        <div class="form-element mt-4" fxFlex fxLayout="column">
+          <label>First Name*</label>
+          <input class="raInput" type="text" name="fname" required [(ngModel)]="requestaccessservice.user.fname"
+            #fname="ngModel" />
+          <!-- [class.is-invalid]="fname.invalid && fname.touched" [(ngModel)]="requestaccessservice.user.fname"
                     placeholder="First Name" required> -->
-            <small *ngIf="!fname.valid && fname.touched" class="text-danger">First name is
-              required</small>
-          </div>
+          <small *ngIf="!fname.valid && fname.touched" class="text-danger">First name is
+            required</small>
+        </div>
 
-          <div class="form-element mt-1" fxFlex fxLayout="column">
-            <label>Last Name*</label>
-            <input class="raInput" type="text" name="lname" [(ngModel)]="requestaccessservice.user.lname"
-              #lname="ngModel" required />
-            <!-- [class.is-invalid]="lname.invalid && lname.touched"
+        <div class="form-element mt-1" fxFlex fxLayout="column">
+          <label>Last Name*</label>
+          <input class="raInput" type="text" name="lname" [(ngModel)]="requestaccessservice.user.lname" #lname="ngModel"
+            required />
+          <!-- [class.is-invalid]="lname.invalid && lname.touched"
                   [(ngModel)]="requestaccessservice.user.lname" -->
-            <small class="text-danger" *ngIf="!lname.valid && lname.touched">
-              Last Name is required
-            </small>
-          </div>
+          <small class="text-danger" *ngIf="!lname.valid && lname.touched">
+            Last Name is required
+          </small>
+        </div>
 
-          <div class="form-element mt-1" fxFlex fxLayout="column">
-            <label>Email*</label>
-            <input class="raInput" type="email" name="email" #email="ngModel"
-              [(ngModel)]="requestaccessservice.user.email" required />
-            <!-- [class.is-invalid]="email.invalid && email.touched"
+        <div class="form-element mt-1" fxFlex fxLayout="column">
+          <label>Email*</label>
+          <input class="raInput" type="email" name="email" #email="ngModel"
+            [(ngModel)]="requestaccessservice.user.email" required />
+          <!-- [class.is-invalid]="email.invalid && email.touched"
                   [(ngModel)]="requestaccessservice.user.email" -->
-            <small class="text-danger" *ngIf="!email.valid && email.touched">
-              Email is required
-            </small>
-          </div>
+          <small class="text-danger" *ngIf="!email.valid && email.touched">
+            Email is required
+          </small>
+        </div>
 
-          <div class="form-element mt-1" fxFlex fxLayout="column">
-            <label>Type of User*</label>
-            <select class="raInput" name="usertype" [(ngModel)]="requestaccessservice.user.typeOfUser"
-              #typeofuser="ngModel" required>
-              <option value="">Select One</option>
-              <option value="Provider">Provider</option>
-              <option value="Patient">Patient</option>
-              <option value="Healthcare_worker">Healthcare Worker</option>
-            </select>
-            <small class="text-danger" *ngIf="!typeofuser.valid && typeofuser.touched">
-              Type of User required
-            </small>
-          </div>
-          <!-- </div> -->
-          <button type="submit" fxFlex class="btn submit mt-5 submitBtn">
-            Request Access</button><br />
-          <!-- </div> -->
-        </form>
+        <div class="form-element mt-1" fxFlex fxLayout="column">
+          <label>Type of User*</label>
+          <select class="raInput" name="usertype" [(ngModel)]="requestaccessservice.user.typeOfUser"
+            #typeofuser="ngModel" required>
+            <option value="">Select One</option>
+            <option value="Provider">Provider</option>
+            <option value="Patient">Patient</option>
+            <option value="Healthcare_worker">Healthcare Worker</option>
+          </select>
+          <small class="text-danger" *ngIf="!typeofuser.valid && typeofuser.touched">
+            Type of User required
+          </small>
+        </div>
+        <!-- </div> -->
+        <button type="submit" fxFlex class="btn submit mt-5 submitBtn">
+          Request Access</button><br />
+        <!-- </div> -->
+      </form>
     </div>
   </div>
   <div class="footer" fxLayout="column" fxLayoutAlign="end">
@@ -103,7 +103,7 @@
 <!-- REQUEST access FORM-->
 <!-- <section class="login py-5">
     <div class="container py-xl-5 py-lg-3">
-        <div class="alert alert-danger" id="userexistalready" style="margin-top: 16px;">          
+        <div class="alert alert-danger" id="userexistalready" style="margin-top: 16px;">
             <h6 align="center">Hmm. It seems like the email address you have entered is already on the waiting list. Try using another email.</h6>
          </div>
       <div class="row" id="rform">
@@ -156,7 +156,7 @@
           </form>
         </div>
       </div>
-    <div id="requestAccessSuccess">          
+    <div id="requestAccessSuccess">
           <h2  align="center" style="margin-top: 50px;"><b>THANK YOU FOR YOUR SUBMISSION YOU'RE NOW ON THE WAITING LIST!</b></h2>
           </div>
     </div>

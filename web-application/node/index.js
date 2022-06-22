@@ -5,7 +5,6 @@
  */
 
 // package import
-const config = require('./config.js');
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -34,8 +33,6 @@ const fs = require("fs");
 const { promisify } = require("util");
 
 const readFile = promisify(fs.readFile);
-
-console.log(`NODE_ENV=${config.NODE_ENV}`);
 
 var app = express();
 
@@ -89,7 +86,6 @@ app.use(function (req, res, next) {
   //res.cookie('cookie','value',{signed:true});
   // Website you wish to allow to connect
   var whitelist = [
-    "https://dev.scriptchain.co",
     "https://www.scriptchain.co",
     "https://scriptchain.co",
     "http://localhost:4200",
@@ -171,7 +167,11 @@ app.post('/api/sendMail', function (req, res) {
   let mailOptions = {
       from: 'charjags100@gmail.com', // TODO: email sender
       to: 'charjags100@gmail.com', // TODO: email receiver
+<<<<<<< HEAD
       subject: `Email from ${data.fname} ${data.lname} ( ${data.email})`,
+=======
+      subject: `Submission from ${data.fname} ${data.lname} ( ${data.email})`,
+>>>>>>> 8fd70fd5615a714fe587ccc6f990c3670afb502a
       text: data.message
     };
 
