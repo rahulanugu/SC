@@ -136,7 +136,7 @@ import { AllscriptsLoginComponent } from "./allscriptslogin/allscriptslogin.comp
 import { PortalProgressBarComponent } from "./shared/components/portal-progress-bar/portal-progress-bar.component";
 import { BlogPostQuoteComponent } from "./blog-post-quote/blog-post-quote.component";
 import { LandingPageWelcomeMessageComponent } from "./landing-page-welcome-message/landing-page-welcome-message.component";
-
+import { EmployeeComponent } from "./employee/employee.component";
 @NgModule({
   declarations: [
     AppComponent,
@@ -234,8 +234,8 @@ import { LandingPageWelcomeMessageComponent } from "./landing-page-welcome-messa
     BlogPostQuoteComponent,
     LandingPageWelcomeMessageComponent,
     LandingPageCarouselComponent,
+    EmployeeComponent
   ],
-
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -284,4 +284,4 @@ import { LandingPageWelcomeMessageComponent } from "./landing-page-welcome-messa
   bootstrap: [AppComponent],
   entryComponents: [MatConfirmDialogComponent],
 })
-export class AppModule {}
+export class AppModule { }
