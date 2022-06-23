@@ -70,7 +70,7 @@ export class BlogComponent implements OnInit {
 
   getPosts() {
     this.blogService.getPosts().subscribe((data) => {
-      console.log(data.posts);
+      //console.log(data.posts);
       this.blogList = data.posts;
       this.blogList.forEach((elem, index) => {
         if (this.blogList[index].excerpt.length > 100) {
@@ -89,7 +89,7 @@ export class BlogComponent implements OnInit {
   // Accesses list of category objects from blogService or returns error
   getCategories() {
     this.blogService.getCategories().subscribe((data) => {
-      console.log(data);
+      //console.log(data);
       this.categoryList = data.categories;
       this.categoryList = this.categoryList.filter(
         category => category.name !== "Scriptchain"
@@ -129,7 +129,7 @@ export class BlogComponent implements OnInit {
       this.currentPage = 1;
     }
     this.updatePage();
-    console.log(this.curList);
+    //console.log(this.curList);
   }
 
   public updatePage() {

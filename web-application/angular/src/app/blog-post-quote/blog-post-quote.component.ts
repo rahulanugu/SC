@@ -22,11 +22,19 @@ export class BlogPostQuoteComponent implements OnInit {
 
   constructor(private blogService: BlogService, private route: ActivatedRoute, private location: Location, private router: Router) { }
 
+
   ngOnInit() {
-    this.slug = this.route.snapshot.paramMap.get('slug') as string;
-    this.getCategory();
-    this.getPosts();
+    console.log("get here");
+    this.route.paramMap.subscribe(params => {
+      this.slug = params.get('slug');
+      console.log(this.slug);
+      //this.slug = this.route.snapshot.paramMap.get('slug') as string;
+      this.getCategory();
+      this.getPosts();
+    })
+
   }
+
   goBack() {
     this.router.navigate(['blog']);
   }

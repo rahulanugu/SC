@@ -30,11 +30,16 @@ export class BlogPostComponent implements OnInit {
   constructor(private blogService: BlogService, private route: ActivatedRoute, private location: Location, private router: Router) { }
 
   // Stores ID for post from URL and accesses corresponding post
+  // Stores ID for post from URL and accesses corresponding post
   ngOnInit() {
-    this.blogID = this.route.snapshot.paramMap.get('id') as string;
-    this.getSinglePosts();
-    this.getPosts();
-
+    console.log("get here");
+    this.route.paramMap.subscribe(params => {
+      this.blogID = params.get('id');
+      console.log(this.blogID);
+      //this.blogID = this.route.snapshot.paramMap.get('id') as string;
+      this.getSinglePosts();
+      this.getPosts();
+    })
   }
 
   // Accesses single blog posts from blogService using ID or returns error
