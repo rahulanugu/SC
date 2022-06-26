@@ -6,10 +6,10 @@ name: Build and Test DEV application (Scriptchain)
 on:
   push:
     branches:
-      - development-environment
+      - master
   pull_request:
     types: [closed]
-    branches: [development-environment]
+    branches: master
 
 jobs:
   ci-cd:
