@@ -6,33 +6,26 @@ Register Paitent Form
 <!DOCTYPE html>
 
 <html lang="zxx">
-  <link
-    href="http://fonts.googleapis.com/css?family=Lato:400,700"
-    rel="stylesheet"
-    type="text/css"
-  />
-  <link
-    href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
-    rel="stylesheet"
-  />
-  <!-- Hotjar Tracking Code for https://www.scriptchain.co/home -->
-  <script>
-    (function (h, o, t, j, a, r) {
-      h.hj =
-        h.hj ||
-        function () {
-          (h.hj.q = h.hj.q || []).push(arguments);
-        };
-      h._hjSettings = { hjid: 2374837, hjsv: 6 };
-      a = o.getElementsByTagName("head")[0];
-      r = o.createElement("script");
-      r.async = 1;
-      r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
-      a.appendChild(r);
-    })(window, document, "https://static.hotjar.com/c/hotjar-", ".js?sv=");
-  </script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-  <!-- <script>
+<link href="http://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet" type="text/css" />
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<!-- Hotjar Tracking Code for https://www.scriptchain.co/home -->
+<script>
+  (function (h, o, t, j, a, r) {
+    h.hj =
+      h.hj ||
+      function () {
+        (h.hj.q = h.hj.q || []).push(arguments);
+      };
+    h._hjSettings = { hjid: 2374837, hjsv: 6 };
+    a = o.getElementsByTagName("head")[0];
+    r = o.createElement("script");
+    r.async = 1;
+    r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+    a.appendChild(r);
+  })(window, document, "https://static.hotjar.com/c/hotjar-", ".js?sv=");
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<!-- <script>
     $("i").click(function () {
       $("input[type='file']").trigger("click");
     });
@@ -44,370 +37,246 @@ Register Paitent Form
   </script> -->
 
   <body>
-    <!-- healthcare register -->
-    <div>
-      <app-healthcare-header>
-        <img
-          src="./assets/avatarSignup.png"
-          style="height: 48px; width: 48px; float: right"
-        />
-      </app-healthcare-header>
-      <h3 class="loginHeading">Provider Sign Up</h3>
-      <div class="card">
-        <div class="card-container">
-          <!-- <strong>
-            <h6 style="margin-top: 20px">
-              Patients: Please log in through the
-              <a href="#" style="text-decoration: underline">patient portal</a>
-            </h6>
-          </strong> -->
-          <hr />
-          <div class="sectionHeading">
-            <img src="./assets/personalInfoIcon.png" />
-            <label>Personal Information</label>
-          </div>
-          <form ngNativeValidate [formGroup]="Form" (ngSubmit)="submitForm()">
-            <div class="row">
-              <div class="col-sm-6">
-                <div class="form-group">
-                  <label>First Name</label>
-                  <input
-                    [class.is-invalid]="
-                      Form.get('firstName').invalid &&
-                      Form.get('firstName').touched
-                    "
-                    formControlName="firstName"
-                    type="text"
-                    class="form-control"
-                    required
-                  />
-                  <!-- <small
-                    [class.d-none]="
-                      Form.get('firstName').valid || Form.get('firstName').untouched
-                    "
-                    class="text-danger"
-                    >First Name is required.</small
-                  > -->
-                </div>
-              </div>
-              <!----Column1-->
+    <!--
+Register Paitent Form
+-->
 
-              <div class="col-sm-6">
-                <div class="form-group">
+    <!DOCTYPE html>
+
+    <html lang="zxx">
+      <link
+        href="http://fonts.googleapis.com/css?family=Lato:400,700"
+        rel="stylesheet"
+        type="text/css"
+      />
+      <link
+        href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
+        rel="stylesheet"
+      />
+      <!-- Hotjar Tracking Code for https://www.scriptchain.co/home -->
+      <script>
+        (function (h, o, t, j, a, r) {
+          h.hj =
+            h.hj ||
+            function () {
+              (h.hj.q = h.hj.q || []).push(arguments);
+            };
+          h._hjSettings = { hjid: 2374837, hjsv: 6 };
+          a = o.getElementsByTagName("head")[0];
+          r = o.createElement("script");
+          r.async = 1;
+          r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+          a.appendChild(r);
+        })(window, document, "https://static.hotjar.com/c/hotjar-", ".js?sv=");
+      </script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+      <!-- <script>
+    $("i").click(function () {
+      $("input[type='file']").trigger("click");
+    });
+
+    $('input[type="file"]').on("change", function () {
+      var val = $(this).val();
+      $(this).siblings("span").text(val);
+    });
+  </script> -->
+
+      <body>
+        <!-- Authors and their contributions: -->
+        <!-- Vidit: Redesigned the form and did UI enhancements -->
+
+        <app-landing-page-header></app-landing-page-header>
+        <div id="partnership-div">
+          <p class="bpHeader text-center pt-5">Provider Sign Up</p>
+          <p class="bpSubHeader text-center">
+            Use the form below to get started on your ScriptChain Health
+            journey.
+          </p>
+          <div class="wrapper pb-5" id="partnership-form">
+            <form
+              class="bpForm container pb-3 pt-4"
+              ngNativeValidate
+              [formGroup]="Form"
+              (ngSubmit)="submitForm()"
+              fxFlex
+              fxLayout="column"
+            >
+              <div
+                fxFlex
+                fxLayout="column"
+                fxLayout.gt-sm="row"
+                class="partnership-flex-row"
+              >
+                <div class="firstName">
+                  <label>First Name</label>
+                  <br />
+                  <div class="input-group">
+                    <input
+                      [ngClass]="{
+                        error:
+                          firstName && firstName.invalid && firstName.touched
+                      }"
+                      required
+                      class="input"
+                      formControlName="firstName"
+                    />
+                    <!-- <label for="name" class="input-label">First Name</label> -->
+                  </div>
+                </div>
+
+                <div class="lastName">
                   <label>Last Name</label>
+                  <br />
                   <input
-                    [class.is-invalid]="
-                      Form.get('lastName').invalid &&
-                      Form.get('lastName').touched
-                    "
+                    [ngClass]="{
+                      error: lastName && lastName.invalid && lastName.touched
+                    }"
+                    required
                     formControlName="lastName"
-                    type="text"
-                    class="form-control"
-                    required
                   />
-                  <!-- <small [class.d-none]="Form.get('lastName').valid || Form.get('lastName').untouched" class="text-danger">Last Name is required.</small> -->
                 </div>
               </div>
-              <!--Column2-->
-            </div>
-            <!--Row1-->
-            <div class="row">
-              <div class="col">
-                <div class="form-group">
+
+              <div
+                fxFlex
+                fxLayout="column"
+                fxLayout.gt-sm="row"
+                class="partnership-flex-row"
+              >
+                <div class="email">
                   <label>Email</label>
+                  <br />
                   <input
-                    [class.is-invalid]="
-                      Form.get('email').invalid && Form.get('email').touched
-                    "
+                    [ngClass]="{
+                      error: email && email.invalid && email.touched
+                    }"
+                    required
                     formControlName="email"
-                    type="email"
-                    class="form-control"
-                    required
                   />
-                  <!-- <small
-                    [class.d-none]="
-                      Form.get('email').valid || Form.get('email').untouched
-                    "
-                    class="text-danger"
-                    >Email is required.</small
-                  > -->
-                  <!-- <small *ngIf="userAlreadyExist" class="text-danger"
-                    >User already exists</small
-                  > -->
                 </div>
-              </div>
-              <!--Column1-->
-            </div>
-            <!--Row2-->
-            <div class="row">
-              <div class="col">
-                <div class="form-group">
-                  <label>Phone</label>
-                  <input
-                    [class.is-invalid]="
-                      Form.get('phone').invalid && Form.get('phone').touched
-                    "
+
+                <div class="primaryPhone">
+                  <label>Primary Phone</label>
+                  <br />
+                  <!-- <input
+                    [ngClass]="{
+                      error: phone && phone.invalid && phone.touched
+                    }"
+                    required
                     formControlName="phone"
-                    type="text"
-                    [textMask]="{ mask: phonemask }"
-                    class="form-control"
+                    mask="(000)000-0000"
+                  /> -->
+                  <input
+                    [ngClass]="{
+                      error: phone && phone.invalid && phone.touched
+                    }"
                     required
+                    formControlName="phone"
+                    mask="(000)000-0000"
                   />
-                  <!-- <small [class.d-none]="Form.get('phone').valid || Form.get('phone').untouched" class="text-danger">Phone is required.</small> -->
                 </div>
               </div>
-              <!--Col1-->
-            </div>
-            <!--Row3-->
-            <div class="row">
-              <div class="col-sm-6">
-                <div class="form-group">
+
+              <div
+                fxFlex
+                fxLayout="column"
+                fxLayout.gt-sm="row"
+                class="partnership-flex-row"
+              >
+                <div class="orgName">
                   <label>Organization Name</label>
+                  <br />
                   <input
-                    [class.is-invalid]="
-                      Form.get('companyName').invalid &&
-                      Form.get('companyName').touched
-                    "
-                    formControlName="companyName"
-                    type="text"
-                    class="form-control"
+                    [ngClass]="{
+                      error: orgName && orgName.invalid && orgName.touched
+                    }"
                     required
+                    formControlName="orgName"
                   />
-                  <!-- <small [class.d-none]="Form.get('companyName').valid || Form.get('companyName').untouched" class="text-danger">Company Name is required.</small> -->
+                </div>
+                <div class="orgPosition">
+                  <label>Postition in Organization</label>
+                  <br />
+                  <input
+                    [ngClass]="{
+                      error:
+                        orgPosition &&
+                        orgPosition.invalid &&
+                        orgPosition.touched
+                    }"
+                    required
+                    formControlName="orgPosition"
+                  />
                 </div>
               </div>
-              <!---Col1-->
-              <div class="col-sm-6">
-                <div class="form-group">
-                  <label>Position in Organization</label>
-                  <input
-                    [class.is-invalid]="
-                      Form.get('roleInCompany').invalid &&
-                      Form.get('roleInCompany').touched
-                    "
-                    formControlName="roleInCompany"
-                    type="text"
-                    class="form-control"
-                    required
-                  />
-                  <!-- <small [class.d-none]="Form.get('roleInCompany').valid || Form.get('roleInCompany').untouched" class="text-danger">Role in company is required.</small> -->
-                </div>
-              </div>
-              <!--Col2-->
-            </div>
-            <!--Row4-->
-            <div class="row">
-              <div class="col">
-                <div class="form-group">
-                  <label>EHR</label>
-                  <select
-                    class="form-control dropdown"
-                    formControlName="ehr"
-                    required
-                  >
-                    <option value="Epic">Epic</option>
-                    <option value="All_Scripts">All Scripts</option>
-                    <option value="Cerner">Cerner</option>
-                    <option value="Athena_Health">Athena Health</option>
+              <div
+                fxFlex
+                fxLayout="column"
+                fxLayout.gt-sm="row"
+                class="partnership-flex-row"
+              >
+                <div class="ehr">
+                  <label>Current EHR system</label>
+                  <br />
+                  <select name="typeOfBusiness">
+                    <option value="epicSystem">Epic System</option>
+                    <option value="center">Center</option>
+                    <option value="allScripts">AllScripts</option>
+                    <option value="athenaHealth">Athenahealth</option>
+                    <option value="other">Other</option>
                   </select>
                 </div>
               </div>
-            </div>
-            <!--Row5-->
-            <hr />
-            <div class="sectionHeading">
-              <img src="./assets/passwrdIcon.png" />
-              <label>Password</label>
-            </div>
+              <h3 class="divider container text-center mt-5 mb-5"></h3>
 
-            <div class="row">
-              <div class="col-sm-6">
-                <div class="form-group">
-                  <label> Password</label>
-                  <label style="font-size: 12px; color: #1d1f26"
-                    >Password requires a capital letter, number, and special
-                    symbol(such as: !,@,?...)</label
-                  >
+              <div
+                fxFlex
+                fxLayout="column"
+                fxLayout.gt-sm="row"
+                class="partnership-flex-row"
+              > <span>Password requires a capital letter, number, and special symbol (such as:!,@,?..)</span></div>
+              <div
+                fxFlex
+                fxLayout="column"
+                fxLayout.gt-sm="row"
+                class="partnership-flex-row"
+              >
+                <div class="password">
+                  <label>Password</label>
+                  <br />
+                  <input
+                    [ngClass]="{
+                      error: password && password.invalid && password.touched
+                    }"
+                    required
+                    formControlName="password"
+                  />
+                </div>
 
+                <div class="ReTypePassword">
+                  <label for="city">Retype Password</label>
+                  <br />
                   <input
-                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!,@,#,$,%,^,&,*]).{6,20}"
-                    [class.is-invalid]="
-                      Form.get('password').invalid &&
-                      Form.get('password').touched
-                    "
-                    formControlName="password"
-                    type="password"
-                    class="form-control"
+                    [ngClass]="{
+                      error:
+                        ReTypePassword &&
+                        ReTypePassword.invalid &&
+                        ReTypePassword.touched
+                    }"
                     required
-                  />
-                  <!-- <small [class.d-none]="Form.get('password').valid || Form.get('password').untouched" class="text-danger">Password requires a capital letter, number and special symbol(such as: !,@,?...)</small> -->
-                </div>
-              </div>
-              <!--Col1-->
-              <div class="col-sm-6" style="margin-top: 42px">
-                <div class="form-group">
-                  <label>Retype New Password</label>
-                  <input
-                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!,@,#,$,%,^,&,*]).{6,20}"
-                    [class.is-invalid]="
-                      Form.get('password').invalid &&
-                      Form.get('password').touched
-                    "
-                    formControlName="password"
-                    type="password"
-                    class="form-control"
-                    required
+                    formControlName="ReTypePassword"
                   />
                 </div>
               </div>
-              <!--Col2-->
-            </div>
-            <!--Row6-->
-            <hr />
-            <div class="sectionHeading">
-              <img src="./assets/profileImg.png" />
-              <label>Profile Image</label>
-            </div>
-            <div class="row">
-              <div class="col">
-                <div class="form-group">
-                  <img
-                    id="avataricon"
-                    src="./assets/avatarSignup.png"
-                    style="height: 144px; width: 144px; margin-left: 18px"
-                  />
-                </div>
+
+              <div fxFlex fxLayout="row">
+                <button type="button" class="sendBtn mt-3">Sign Up</button>
               </div>
-            </div>
-            <div class="row">
-              <div class="col">
-                <div class="form-group">
-                  <label>Upload a Photo</label><br />
-                  <div class="element">
-                    <label class="btn">
-                      <img src="./assets/cameraIcon.png" />
-                      <label style="margin-left: 8px; margin-top: 4px">
-                        Select File</label
-                      >
-                      <input type="file" style="display: none" />
-                    </label>
-                  </div>
-                  <!--Element-->
-                </div>
-              </div>
-            </div>
-            <!---Row8-->
-            <div class="hr-sect">or</div>
-            <div class="row">
-              <div class="col">
-                <div class="form-group">
-                  <label>Select an Avatar</label><br />
-                  <div
-                    class="element"
-                    style="font-size: 18px"
-                    (click)="openDialog()"
-                  >
-                    <label class="btn">
-                      <img src="./assets/viewAvatarIcon.png" />
-                      View Avatars
-                      <!--Avatar component needed-->
-                      <!--<input style="display: none" mat-button (click)="openDialog()"/>-->
-                    </label>
-                  </div>
-                  <!--Element-->
-                </div>
-              </div>
-            </div>
-            <!---Row9-->
-            <hr />
-            <div class="row">
-              <div class="col">
-                <div class="form-group" style="float: left">
-                  <button type="button" onclick="window.location.href='faq'" class="helpBtn">Help</button>
-                </div>
-              </div>
-              <div class="col">
-                <div class="form-group" style="float: right">
-                  <button type="submit" class="submit signUpBtn">
-                    Sign Up
-                  </button>
-                </div>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-      <app-healthcare-footer></app-healthcare-footer>
-    </div>
-    <!-- <section class="login py-5">
-  <div class="container py-xl-5 py-lg-3">
-    <div id= "registrationForm"class="login px-sm-4 mx-auto mw-100 login-wrapper">
-      <div class="title-section mb-md-5 mb-4">
-        <h3 class="w3ls-title text-uppercase text-dark font-weight-bold" style="padding-top: 50px">Register</h3>
-      </div>
-      <form ngNativeValidate [formGroup]="Form" (ngSubmit)="submitForm()">
-        <div class="form-group">
-            <label>First Name*</label>
-            <input [class.is-invalid]="Form.get('firstName').invalid && Form.get('firstName').touched" formControlName="firstName" type="text" class="form-control" required>
-            <small [class.d-none]="Form.get('firstName').valid || Form.get('firstName').untouched" class="text-danger">First Name is required.</small>
+            </form>
           </div>
-             <div class="form-group">
-                <label>Last Name*</label>
-                <input [class.is-invalid]="Form.get('lastName').invalid && Form.get('lastName').touched" formControlName="lastName" type="text" class="form-control" required>
-                <small [class.d-none]="Form.get('lastName').valid || Form.get('lastName').untouched" class="text-danger">Last Name is required.</small>
-              </div>
-                 <div class="form-group">
-                    <label>Email*</label>
-                    <input [class.is-invalid]="Form.get('email').invalid && Form.get('email').touched" formControlName="email" type="email" class="form-control" required>
-                    <small [class.d-none]="Form.get('email').valid || Form.get('email').untouched" class="text-danger">Email is required.</small>
-                    <small  *ngIf = userAlreadyExist class="text-danger">User already exists</small>
-                  </div>
-                  <div class="form-group">
-                    <label>Phone*</label>
-                    <input [class.is-invalid]="Form.get('phone').invalid && Form.get('phone').touched" formControlName="phone" type="text" [textMask]="{mask: phonemask}" class="form-control" required>
-                    <small [class.d-none]="Form.get('phone').valid || Form.get('phone').untouched" class="text-danger">Phone is required.</small>
-                  </div>
-                  <div class="form-group">
-                    <label>Company Name*</label>
-                    <input [class.is-invalid]="Form.get('companyName').invalid && Form.get('companyName').touched" formControlName="companyName" type="text" class="form-control" required>
-                    <small [class.d-none]="Form.get('companyName').valid || Form.get('companyName').untouched" class="text-danger">Company Name is required.</small>
-                  </div>
-                  <div class="form-group">
-                    <label>EHR*</label>
-                    <select class="form-control dropdown" style="border:1px solid #ced4da!important;" formControlName="ehr" required>
-                      <option value="Epic">Epic</option>
-                      <option value="All_Scripts">All Scripts</option>
-                      <option value="Cerner">Cerner</option>
-                      <option value="Athena_Health">Athena Health</option>
-                    </select> -->
-    <!--<input [class.is-invalid]="Form.get('ehr').invalid && Form.get('ehr').touched" formControlName="ehr" type="text" class="form-control" required>
-                    <small [class.d-none]="Form.get('ehr').valid || Form.get('ehr').untouched" class="text-danger">EHR is required.</small>-->
-    <!-- </div>
-                  <div class="form-group">
-                    <label>Role in Company*</label>
-                    <input [class.is-invalid]="Form.get('roleInCompany').invalid && Form.get('roleInCompany').touched" formControlName="roleInCompany" type="text" class="form-control" required>
-                    <small [class.d-none]="Form.get('roleInCompany').valid || Form.get('roleInCompany').untouched" class="text-danger">Role in company is required.</small>
-                  </div>
-                  <div class="form-group">
-                    <label> Password*</label>
-                    <input pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!,@,#,$,%,^,&,*]).{6,20}" [class.is-invalid]="Form.get('password').invalid && Form.get('password').touched" formControlName="password" type="password" class="form-control" required>
-                    <small [class.d-none]="Form.get('password').valid || Form.get('password').untouched" class="text-danger">Password requires a capital letter, number and special symbol(ex: !,@,?...)</small>
-                  </div>
-                       <div class="n-right-w3ls mt-5 pt-lg-4">
-                        <button class="submit btn font-weight-bold" type="submit">Register</button>
-                      </div>
-
-    </form>
-    </div>
-  </div>
-  <div class="py-5" id="registersuccessful">
-    <h1 align="center">Thank you for registering. Please verify your account by checking your email!</h1>
-  </div>
-</section> -->
-    <!-- //healthcare register -->
-
-    <!-- footer -->
-
-    <!-- //footer -->
+        </div>
+        <app-landing-page-subfooter></app-landing-page-subfooter>
+      </body>
+    </html>
   </body>
 </html>

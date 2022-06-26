@@ -11,7 +11,23 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-body,html {
+body,
+html {
   margin: 0%;
-  height:100%;
+  height: 100%;
 }
+
+#background {
+  background-image: url(./assets/7T9364v.gif);
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  width: 200vh;
+  height: 100vh;
+}
+#background h1{
+  color: white;
+}
+

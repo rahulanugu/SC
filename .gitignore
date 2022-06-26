@@ -10,5 +10,63 @@
 .DS_Store
 .project
 
+<<<<<<< HEAD
 # Github workflow ci.yaml file
 .github/
+=======
+
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+/dist
+/tmp
+/out-tsc
+
+# dependencies
+/node_modules
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+testem.log
+/typings
+
+# e2e
+/e2e/*.js
+/e2e/*.map
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# package/lock files
+web-application/angular/package-lock.json
+web-application/angular/package.json
+web-application/angular/yarn.lock
+
+
+#Misc files
+nohup.out
+ngrok
+Jenkinsfile
+.github
+>>>>>>> 8fd70fd5615a714fe587ccc6f990c3670afb502a

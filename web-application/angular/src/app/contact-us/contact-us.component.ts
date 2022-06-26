@@ -22,9 +22,15 @@ export class ContactUsComponent implements OnInit {
  }
 
  onSubmit(form: NgForm) {
-   this.contactUsService.sendMessage(form.value);
+   this.contactUsService.sendMessage(form.value).subscribe(data=>console.log(data));
    this.router.navigate(['/', 'home']);
-   this.toastr.successToast("Message Sent", "Contact Us");
+   this.toastr.successToast("Message Sent! We will reach out to you soon.", "Contact Us");
  }
   
+  /*submit() {
+    let mail = {
+      FirstName: this.firstName.value;
+    }
+
+  }*/
 }

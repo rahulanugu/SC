@@ -1,10 +1,10 @@
 dispatch:
   # Default(Node) service routing
-  - url: "scriptchain.co/*"
+  - url: "dev.scriptchain.co/*"
     service: default
 
   # Analytics Service Routing.
-  - url: "analytics.scriptchain.co/*"
+  - url: "analytics.dev.scriptchain.co/*"
     service: analytics
 
 

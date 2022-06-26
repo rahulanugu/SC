@@ -9,6 +9,7 @@
 .industry-card {
   border-radius: 12px;
   background-color: #4B7883;
+  cursor: pointer;
 
 }
 
@@ -56,21 +57,26 @@
   top: 50%;
   left:50%;
   transform: translate(-50%, -50%);
+  font-family: "Lato", sans-serif;
+  font-size: 24px;
+  font-weight: bold;
   min-width: 270px;
 }
 
 .blogTop img {
-  min-height: 220px;
+  min-height: 175px;
   object-fit: cover;
   border-radius: 12px 12px 0px 0px;
   border-bottom: solid 3px #9dc4cd;
 }
 
-mat-card-content{ 
-  
+mat-card-content{
+
 }
 
 mat-card-content p {
-  color: white;
+  color: #f5f1ed;
+  font-family: "Lato", sans-serif;
+  font-size: 14px;
   font-style: italic;
 }

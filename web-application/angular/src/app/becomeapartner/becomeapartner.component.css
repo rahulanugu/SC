@@ -5,19 +5,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Tinos&display=swap');
 
-html {
-  height: 100%;
+app-landing-page-header {
+  position: absolute;
+  top: 0;
 }
 
 body {
   background-color: #F5F1ED;
-  min-height: 100%;
+  min-height: 100vh;
 }
 
 .bpHeader {
   font-family: "Tinos", serif;
   color: #2D5059;
   font-size: 36px;
+  margin-top: 60px;
 }
 
 .bpSubHeader {
@@ -32,7 +34,7 @@ form label {
   font-size: 15px;
   line-height: 17px;
   /* identical to box height */
-
+  text-align: left;
   /* White */
   margin-top: 8px;
   margin-bottom: 8px;
@@ -41,10 +43,8 @@ form label {
 
 form input {
   /* White */
-
   background: #ffffff;
   /* Grey 200 */
-
   border: 2px solid #e1e4eb;
   box-sizing: border-box;
   /* Inner Shadow E-100 */
@@ -54,12 +54,22 @@ form input {
   height: 40px;
   width: 100%;
 }
+form select{
+  width: 100% !important;
+}
+form span {
+  display: block;
+}
+
+.error {
+  border: 2px red solid !important;
+}
 
 .sendBtn {
   width: 140px;
   height: 40px;
   color: #E6EFF1;
-  background-color:#5C8A96;
+  background-color: #5C8A96;
   border: #5C8A96;
   font-size: 14px;
   text-align: center;
@@ -68,8 +78,9 @@ form input {
   border-radius: 8px;
   justify-self: center;
   grid-column: 1 / -1;
+  margin: 0 auto;
 }
- 
+
 form select {
   /* White */
 
@@ -101,7 +112,7 @@ form select {
   grid-column: 1 / -1;
 }
 
-form > div {
+form>div {
   display: inline-block;
 }
 
@@ -122,17 +133,11 @@ form > div {
 
 #partnership-form {
   max-width: 720px;
-  text-align: center;
   margin: 0 auto;
 }
 
 #partnership-form form {
-  padding: 1em;
-}
-@media screen and (min-width: 600px) {
-  #partnership-form form {
-    padding: 3em;
-  }
+  padding: 3em;
 }
 
 .partnership-flex-row {

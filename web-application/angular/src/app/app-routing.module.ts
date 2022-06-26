@@ -5,11 +5,12 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { FlexLayoutModule } from '@angular/flex-layout';
-
+import { BrowserModule } from "@angular/platform-browser";
+import { CommonModule } from "@angular/common";
 /* Componets to create routes for */
 import { LoginComponent } from "./login/login.component";
 import { RequestAccessComponent } from "./request-access/request-access.component";
@@ -84,7 +85,9 @@ import { MedicationDetailsComponent } from "./medication-details/medication-deta
 import { ProcedureDetailsComponent } from "./procedure-details/procedure-details.component";
 import { JobOpeningsComponent } from "./job-openings/job-openings.component";
 import { BlogPostComponent } from "./blog-post/blog-post.component";
+import { BlogPostQuoteComponent } from "./blog-post-quote/blog-post-quote.component";
 import { AllscriptsLoginComponent } from "./allscriptslogin/allscriptslogin.component";
+import { EmployeeComponent } from "./employee/employee.component";
 const routes: Routes = [
   /* pages for the app */
   {
@@ -141,7 +144,7 @@ const routes: Routes = [
   { path: "careers", component: CareersComponent },
   { path: "privacy-policy", component: PrivacyPolicyComponent },
   { path: "apply-job/:jobid", component: ApplyJobComponent },
-  { path: "job-openings", component: JobOpeningsComponent},
+  { path: "job-openings", component: JobOpeningsComponent },
   { path: "terms-conditions", component: TermsConditionsComponent },
   { path: "", redirectTo: "/home", pathMatch: "full" },
   { path: "registersuccessful", component: RegisterSuccessfulPageComponent },
@@ -158,19 +161,23 @@ const routes: Routes = [
   },
   {
     path: "healthcare-profile",
-    component: HealthcareProfileComponent/*, canActivate: [HealthcareAuthGuard]*/,
+    component:
+      HealthcareProfileComponent /*, canActivate: [HealthcareAuthGuard]*/,
   },
   {
     path: "healthcare-profile/patient/:patientid",
-    component: PatientHealthcareviewComponent/*, canActivate: [HealthcareAuthGuard]*/,
+    component:
+      PatientHealthcareviewComponent /*, canActivate: [HealthcareAuthGuard]*/,
   },
   {
     path: "healthcare-profile/patient/:patientid/:diseaseid",
-    component: PatientHealthcareviewnextComponent/*, canActivate: [HealthcareAuthGuard]*/,
+    component:
+      PatientHealthcareviewnextComponent /*, canActivate: [HealthcareAuthGuard]*/,
   },
   {
     path: "healthcare-profile/readmission",
-    component: PatientHealthcareviewnextComponent1/*, canActivate: [HealthcareAuthGuard]*/,
+    component:
+      PatientHealthcareviewnextComponent1 /*, canActivate: [HealthcareAuthGuard]*/,
   },
   /*{
     path: "healthcare-profile/editprofile",
@@ -183,7 +190,8 @@ const routes: Routes = [
   },
   {
     path: "healthcare/verificationemail",
-    component: HealthcareVerificationComponent, canActivate: [HealthcareAuthGuard],
+    component: HealthcareVerificationComponent,
+    canActivate: [HealthcareAuthGuard],
     //needs backend
   },
   {
@@ -240,6 +248,10 @@ const routes: Routes = [
     component: LandingWhoWeAreComponent,
   },
   {
+    path: "whoweare/:employee",
+    component:EmployeeComponent
+  },
+  {
     path: "capabilitystatement",
     component: LandingCapabilityStatementComponent,
   },
@@ -258,6 +270,10 @@ const routes: Routes = [
   {
     path: "blog-post/:id",
     component: BlogPostComponent
+  },
+  {
+    path: "blog-post-quote/:slug",
+    component: BlogPostQuoteComponent
   },
   {
     path: "becomeapartner",
@@ -324,11 +340,14 @@ const routes: Routes = [
 @NgModule({
   declarations: [HealthcareDialogContent],
   imports: [
+    BrowserModule,
+    CommonModule,
     RouterModule.forRoot(routes, {
       scrollPositionRestoration: "top",
     }),
+
   ],
   exports: [RouterModule],
   entryComponents: [HealthcareDialogContent],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

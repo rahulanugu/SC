@@ -1,3 +1,4 @@
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { PatientAuthGuard } from "./patient-auth.guard";
 import { LoginPatientService } from "./shared/login-patient.service";
 import { BrowserModule } from "@angular/platform-browser";
@@ -106,34 +107,36 @@ import { MatButtonModule } from "@angular/material";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { BecomeapartnerComponent } from "./becomeapartner/becomeapartner.component";
 import { MatCardModule } from "@angular/material/card";
-import { ThankyoupartnerComponent } from './thankyoupartner/thankyoupartner.component';
-import { PatientSignupComponent } from './patient-signup/patient-signup.component';
-import { PatientLoginProfileComponent } from './patient-login-profile/patient-login-profile.component';
-import { PatientCaregiverComponent } from './patient-caregiver/patient-caregiver.component';
-import { DoctorProfileComponent } from './doctor-profile/doctor-profile.component';
-import { RiskAnalysisComponent } from './risk-analysis/risk-analysis.component';
-import { RiskAnalysisInfoComponent } from './risk-analysis-info/risk-analysis-info.component';
-import { PrescriptionsComponent } from './prescriptions/prescriptions.component';
-import { MedicationComponent } from './medication/medication.component';
-import { ConditionsComponent } from './conditions/conditions.component';
-import { LabResultComponent } from './lab-result/lab-result.component';
-import { LabResultInfoComponent } from './lab-result-info/lab-result-info.component';
-import { ProcedureComponent } from './procedure/procedure.component';
-import { ProcedureInfoComponent } from './procedure-info/procedure-info.component';
-import { CaregiverProfileComponent } from './caregiver-profile/caregiver-profile.component';
-import { MedicationDetailsComponent } from './medication-details/medication-details.component';
+import { ThankyoupartnerComponent } from "./thankyoupartner/thankyoupartner.component";
+import { PatientSignupComponent } from "./patient-signup/patient-signup.component";
+import { PatientLoginProfileComponent } from "./patient-login-profile/patient-login-profile.component";
+import { PatientCaregiverComponent } from "./patient-caregiver/patient-caregiver.component";
+import { DoctorProfileComponent } from "./doctor-profile/doctor-profile.component";
+import { RiskAnalysisComponent } from "./risk-analysis/risk-analysis.component";
+import { RiskAnalysisInfoComponent } from "./risk-analysis-info/risk-analysis-info.component";
+import { PrescriptionsComponent } from "./prescriptions/prescriptions.component";
+import { MedicationComponent } from "./medication/medication.component";
+import { LandingPageInformationComponent } from "./landing-page-information/landing-page-information.component";
+import { ConditionsComponent } from "./conditions/conditions.component";
+import { LabResultComponent } from "./lab-result/lab-result.component";
+import { LabResultInfoComponent } from "./lab-result-info/lab-result-info.component";
+import { ProcedureComponent } from "./procedure/procedure.component";
+import { ProcedureInfoComponent } from "./procedure-info/procedure-info.component";
+import { CaregiverProfileComponent } from "./caregiver-profile/caregiver-profile.component";
+import { MedicationDetailsComponent } from "./medication-details/medication-details.component";
 import { ProcedureDetailsComponent } from "./procedure-details/procedure-details.component";
-import { BlogCardComponent } from './shared/components/blog-card/blog-card.component';
-import { IndustryCardComponent } from './shared/components/industry-card/industry-quote-card.component';
-import { BlogPostComponent } from './blog-post/blog-post.component';
-import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
-import { ShareModule } from 'ngx-sharebuttons';
-import { ToastrModule } from 'ngx-toastr';
+import { BlogCardComponent } from "./shared/components/blog-card/blog-card.component";
+import { IndustryCardComponent } from "./shared/components/industry-card/industry-quote-card.component";
+import { BlogPostComponent } from "./blog-post/blog-post.component";
+import { ShareButtonsModule } from "ngx-sharebuttons/buttons";
+import { ShareModule } from "ngx-sharebuttons";
+import { ToastrModule } from "ngx-toastr";
+import { LandingPageCarouselComponent } from "./landing-page-carousel/landing-page-carousel.component";
 import { AllscriptsLoginComponent } from "./allscriptslogin/allscriptslogin.component";
-import { PortalProgressBarComponent } from './shared/components/portal-progress-bar/portal-progress-bar.component';
-import { BlogService } from "./shared/blogService.service";
-
-
+import { PortalProgressBarComponent } from "./shared/components/portal-progress-bar/portal-progress-bar.component";
+import { BlogPostQuoteComponent } from "./blog-post-quote/blog-post-quote.component";
+import { LandingPageWelcomeMessageComponent } from "./landing-page-welcome-message/landing-page-welcome-message.component";
+import { EmployeeComponent } from "./employee/employee.component";
 @NgModule({
   declarations: [
     AppComponent,
@@ -176,6 +179,7 @@ import { BlogService } from "./shared/blogService.service";
     PatientHealthcareviewnextComponent,
     PatientHealthcareviewnextComponent1,
     Error404Component,
+    LandingPageInformationComponent,
     Error500Component,
     HealthcareResetPasswordComponent,
     HealthcareResetPasswordPageComponent,
@@ -227,8 +231,11 @@ import { BlogService } from "./shared/blogService.service";
     IndustryCardComponent,
     BlogPostComponent,
     PortalProgressBarComponent,
+    BlogPostQuoteComponent,
+    LandingPageWelcomeMessageComponent,
+    LandingPageCarouselComponent,
+    EmployeeComponent
   ],
-
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -237,6 +244,7 @@ import { BlogService } from "./shared/blogService.service";
     ShareModule,
     RouterModule,
     CommonModule,
+    FontAwesomeModule,
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
@@ -272,9 +280,8 @@ import { BlogService } from "./shared/blogService.service";
     PatientAuthGuard,
     DataService,
     ScriptLoaderService,
-    BlogService
   ],
   bootstrap: [AppComponent],
   entryComponents: [MatConfirmDialogComponent],
 })
-export class AppModule {}
+export class AppModule { }

@@ -152,6 +152,39 @@ app.use("/partners", partnersController);
 // const oauth2Client = mailer_oauth.getClient();
 // const accessToken = oauth2Client.getAccessToken();
 
+app.post('/api/sendMail', function (req, res) {
+  let data = req.body;
+  // Step 1
+  let transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+          user:  'charjags100@gmail.com', // TODO: your gmail account
+          pass: 'wqhjrrcgsxilqpvr' // TODO: your gmail password
+      }
+  });
+
+  // Step 2
+  let mailOptions = {
+      from: 'charjags100@gmail.com', // TODO: email sender
+      to: 'charjags100@gmail.com', // TODO: email receiver
+<<<<<<< HEAD
+      subject: `Email from ${data.fname} ${data.lname} ( ${data.email})`,
+=======
+      subject: `Submission from ${data.fname} ${data.lname} ( ${data.email})`,
+>>>>>>> 8fd70fd5615a714fe587ccc6f990c3670afb502a
+      text: data.message
+    };
+
+    // Step 3
+    transporter.sendMail(mailOptions, (err, data) => {
+        if (err) {
+            log(err)
+            return res.send('Error occurs').status(500);
+        }
+        return res.send('Email sent!!!');
+    });
+        
+    });
 app.post("/sendEmail", async (req, res) => {
   // var data = req.body;
   // var transporter = nodemailer.createTransport({
