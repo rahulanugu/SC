@@ -351,3 +351,4 @@ const routes: Routes = [
   entryComponents: [HealthcareDialogContent],
 })
 export class AppRoutingModule { }
+export class AppModule {} 
