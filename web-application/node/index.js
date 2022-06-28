@@ -167,11 +167,7 @@ app.post('/api/sendMail', function (req, res) {
   let mailOptions = {
       from: 'charjags100@gmail.com', // TODO: email sender
       to: 'charjags100@gmail.com', // TODO: email receiver
-<<<<<<< HEAD
-      subject: `Email from ${data.fname} ${data.lname} ( ${data.email})`,
-=======
       subject: `Submission from ${data.fname} ${data.lname} ( ${data.email})`,
->>>>>>> 8fd70fd5615a714fe587ccc6f990c3670afb502a
       text: data.message
     };
 
