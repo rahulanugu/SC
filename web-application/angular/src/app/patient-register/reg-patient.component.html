@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="zxx">
 
-    <app-common-header></app-common-header>
 <body>
 
 <!-- patinet register 1 -->
@@ -27,7 +26,7 @@
             <label>Email</label>
             <input type="email" class="form-control" name="email"  #email="ngModel" id = "emailValue" required [(ngModel)]="patientService.selectedPatient.email" [class.is-invalid]="email.invalid && email.touched">
             <small class = "text-danger" [class.d-none]="email.valid || email.untouched">Email is required</small>
-            <span class="text-danger" *ngIf="userAlreadyExist">User already exist</span>        
+            <span class="text-danger" *ngIf="userAlreadyExist">User already exist</span>
           </div>
 
         <div class="form-group">
@@ -63,22 +62,22 @@
         </div>
         <div class="form-group">
           <label for = "password">Password</label>
-          <input type="password" class="form-control" id = "password" required name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!,@,#,$,%,^,&,*]).{6,20}" 
+          <input type="password" class="form-control" id = "password" required name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!,@,#,$,%,^,&,*]).{6,20}"
           #password="ngModel" [(ngModel)]="patientService.selectedPatient.password" [class.is-invalid]="password.invalid && password.touched">
           <small class = "text-danger" [class.d-none]="password.valid || password.untouched">Password requires a capital letter, number and special symbol(ex: !,@,?...)</small>
         </div>
         <div class="form-group">
           <label for = "confirmPassword">Re-Enter Password</label>
-          <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" (keyup)="onKey($event)" 
+          <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" (keyup)="onKey($event)"
           [(ngModel)]="patientService.selectedPatient.confirmPassword" required>
-          <small class="text-danger" *ngIf="passwordNotMatch">Passwords do not match</small>        
+          <small class="text-danger" *ngIf="passwordNotMatch">Passwords do not match</small>
         </div>
         <div id='outer'>
           <button type="submit" class="backBtn" (click)="onSubmit1(street.value, city.value, state.value, country.value, postal.value)">Next</button>
           <div class="step"><p>Step 1/3</p></div>
         </div>
       </form>
-      
+
     </div>
   </div>
 </section>

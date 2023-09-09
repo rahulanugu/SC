@@ -30,6 +30,9 @@ export class BlogComponent implements OnInit {
   numberPerPage = 8; // 8 + 1
   maxLen = 10;
 
+  scriptchain_description = "Value based medicine is where the industry is looking to in order to build better patient outcomes, lower healthcare waste and assist physicians avoiding overtreatment/undertreatment. Now is the time for healthcare systems to adopt to innovative solutions!";
+  description = "Value based medicine is where the industry is looking to in order to build better patient outcomes, lower healthcare waste and assist physicians avoiding overtreatment/undertreatment. Now is the time for healthcare systems to adopt to innovative solutions!";
+
   constructor(private blogService: BlogService) { }
 
   industryCard = IndustryCardComponent;
@@ -91,8 +94,9 @@ export class BlogComponent implements OnInit {
     this.blogService.getCategories().subscribe((data) => {
       //console.log(data);
       this.categoryList = data.categories;
+      console.log(this.categoryList);
       this.categoryList = this.categoryList.filter(
-        category => category.name !== "Scriptchain"
+        category => category.name !== "Scriptchain Health"
       );
     },
       (error) => {
@@ -110,12 +114,15 @@ export class BlogComponent implements OnInit {
     );
     if (this.selectedCategory === "undefined") {
       this.showList = this.blogList;
+      this.description = this.scriptchain_description;
     }
     else {
       this.slug = this.categoryList.filter(category => category.name == this.selectedCategory);
+      this.description = this.slug[0].description;
       this.slug = this.slug[0].slug;
-      console.log(this.slug);
     }
+    console.log(this.description);
+
     this.load();
   }
 
@@ -141,7 +148,9 @@ export class BlogComponent implements OnInit {
     for (var i = lowEnd; i <= highEnd; i++) {
       list.push(i);
     }
-    this.pageList = list
+    this.pageList = list;
+    document.documentElement.scrollTo({ top: 0, behavior: "smooth" });
+
   }
 
   public nextPage() {

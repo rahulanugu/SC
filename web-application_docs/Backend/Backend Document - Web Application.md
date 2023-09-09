@@ -388,5 +388,56 @@ Still need to be done:
 - ![alt_text](../Images/BackendDocumentation_images/image46.png "image_tooltip")
 
 
+**Database Entry Information**
+- ![alt_text](../Images/BackendDocumentation_images/image50.png "image_tooltip")
+- Host, aka website dns is the access point for entering db through aws.
+- User: Default is always ec2-user when using ec2 instance (which we are) called bastion host on aws user account
+- privateKey: reads the pem file which is a form of encryption. This file has to be in the same folder as the database access file.
+- ^ All this information is needed when accessing a database through ssh
+-user: always admin.
+
+**To Access Database in MySqlWorkbench**
+- Toggle to connection over TCH
+- Update same information
+
+**Title: ContactUsController.js** (Complete)
+
+- /ContactUsController
+
+**Description:**
+
+- / : backend email and database store api for contact us form
+
+**Screenshot:**
+
+![alt_text](../Images/BackendDocumentation_images/image51.png "image_tooltip")
+
+**Title: employee.js** (Complete)
+
+- /employee
+
+**Description:**
+
+- / : gets id for employee as well as db store api
+
+**Screenshot:**
+
+![alt_text](../Images/BackendDocumentation_images/image52.png "image_tooltip")
+
+**Title: requestAccessController** (Complete)
+
+- /requestAccessController
+
+**Description:**
+
+- / : mail sending and database storing api
+
+**Screenshot:**
+
+![alt_text](../Images/BackendDocumentation_images/image53.png "image_tooltip")
+
+
+
+
 
 

@@ -27,7 +27,7 @@ npm install
 ## 3. Run Node Application
 
 Build and serve the back-end application to a local server.
-Navigate to http://localhost:3000/patient to see a list of all current patients in the database.
+Navigate to https://localhost:3000/patient to see a list of all current patients in the database.
 
 ```bash
 cd web-application/node/
@@ -37,7 +37,7 @@ node index.js
 ## 4. Run Angular Application
 
 Build and serve the front-end application to a local server.
-The webpage will open on the following url:  http://localhost:4200/.
+The webpage will open on the following url:  https://localhost:4200/.
 These instructions are also written in the README under the angular directory.
 
 

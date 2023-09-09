@@ -524,13 +524,19 @@ th {
   padding: 6px 0;
 }
 
-.graph-controls > div > div {
+.graph-controls > div > select{
+  border-radius: 8px;
+  font-weight: bold;
+  padding: 6px 0;
+  border: 2px solid #e9ebf0;
+  color: #dbdbdf;
+  padding: 8px 12px;
+}
+
+.graph-controls > div > input {
   border-radius: 8px;
   border: 2px solid #e9ebf0;
   color: #dbdbdf;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   padding: 8px 12px;
 }
 

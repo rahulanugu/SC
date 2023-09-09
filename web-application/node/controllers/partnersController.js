@@ -1,3 +1,5 @@
+/* Daniel - fixed database and email sending functionalities */
+
 const express = require("express");
 const router = express.Router();
 const { check, body } = require('express-validator');
@@ -6,6 +8,10 @@ const nodemailer = require("nodemailer");
 const mailer_oauth = require('../utils/mailer_oauth');
 const db_utils = require('../utils/db_utils');
 const sec_utils = require('../utils/security_utils');
+
+const hbs = require('nodemailer-express-handlebars');
+const path = require('path');
+const connection = require('../services/db');
 
 //const {BigQuery} = require('@google-cloud/bigquery');
 //const bigquery = new BigQuery();
@@ -26,6 +32,103 @@ function generateId(count) {
   }
   return str;
 }
+
+router.post("/email", (req, res) => {
+  let sql =
+    "INSERT INTO partners (`_id`, `fname`, `lname`, `email`, `phone`, `jobtitle`, `companyname`, `companyvertical`, `companyaddress`, `city`, `state`, `postalcode`, `country`, `message`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    connection().then((con)=> {
+      con.query(
+        sql,
+        [
+          generateId(10),
+          req.body.fname,
+          req.body.lname,
+          req.body.email,
+          req.body.phone,
+          req.body.jobtitle,
+          req.body.companyname,
+          req.body.companyvertical,
+          req.body.companyaddress,
+          req.body.city,
+          req.body.state,
+          req.body.postalcode,
+          req.body.country,
+          req.body.message,
+        ],
+        function (err, results, fields) {
+          if (err) throw err;
+          else {
+            console.log("Query Successful");
+            console.log(results);
+            sendVerificationEmail(req.body.email, req.body.fname);
+            res.status(200).send({ message: "Data Recieved and Send to DB" });
+          }
+        }
+      );
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  
+    
+});
+
+const sendVerificationEmail = (email,fname)=>{
+  const handlebarOptions = {
+  viewEngine: {
+  extName: '.handlebars',
+  partialsDir: path.resolve('./views'),
+  defaultLayout: false,
+  },
+  viewPath: path.resolve('./views'),
+  extName: '.handlebars',
+  }
+  
+
+ // Step 1
+  let transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+  type: "login",
+  user: 'moh@scriptchain.co', // TODO: your gmail account
+  pass: 'vzktjsyuxosnalps' // TODO: your gmail password
+  }
+  });
+    transporter.use('compile', hbs(handlebarOptions));
+  // Step 2
+  let user = {
+  from: '"ScriptChain Health" moh@scriptchain.co', // TODO: email sender
+  to: [{name: fname , address: email}],
+  // TODO: email receiver
+  subject: `Thank You for Requesting a Partnership with ScriptChain Health!`,
+  template: 'becomeAPartnerEmail'
+  };
+  
+  let sender = {
+  from: '"ScriptChain Health" moh@scriptchain.co', // TODO: email sender
+  to: [{name: "ScriptChain Health", address: "moh@scriptchain.co"}],
+  // TODO: email receiver
+  subject: `Partnership Request Submission`,
+  template: 'becomeAPartnerEmail'
+  };
+  
+  // Step 3
+  transporter.sendMail(user, (err, data) => {
+  if (err) {
+  console.log(err)
+  return res.send('Error occurs').status(500);
+  }
+  return res.send('User Email Confirmation Sent!!!');
+  });
+  transporter.sendMail(sender, (err, data) => {
+  if (err) {
+  console.log(err)
+  return res.send('Error occurs').status(500);
+  }
+  return res.send('Sign Up Email Notification Sent!!!');
+  });
+}
+
 router.post("/", [
   check('fname').notEmpty().isAlpha(),
   check('lname').notEmpty().isAlpha(),

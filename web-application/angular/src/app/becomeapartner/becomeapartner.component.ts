@@ -1,3 +1,5 @@
+/* Daniel - added submit functionality to connect to  node backend */
+
 import { Component, OnInit } from "@angular/core";
 import {
   FormGroup,
@@ -5,7 +7,12 @@ import {
   FormBuilder,
   Validators,
 } from "@angular/forms";
+import { Router } from "@angular/router";
+import { ToastrNotificationService } from "../toastr-notification.service";
+import { BecomeapartnerService } from "../shared/becomeapartner.service";
 import { CustomValidator } from "../shared/validators/validation";
+
+
 @Component({
   selector: "app-becomeapartner",
   templateUrl: "./becomeapartner.component.html",
@@ -32,25 +39,25 @@ export class BecomeapartnerComponent implements OnInit {
     ]),
     job: new FormControl("", [
       Validators.required,
-      Validators.pattern("[a-zA-Z]*"),
+      Validators.pattern("[a-zA-Z ]*"),
     ]),
     company_name: new FormControl("", [
       Validators.required
     ]),
     buisness_type: new FormControl("", [
       Validators.required,
-      Validators.pattern("[a-zA-Z]*"),
+      Validators.pattern("[a-zA-Z ]*"),
     ]),
     company_adr: new FormControl("", [
       Validators.required
     ]),
     city: new FormControl("", [
       Validators.required,
-      Validators.pattern("[a-zA-Z]*"),
+      Validators.pattern("[a-zA-Z ]*"),
     ]),
     state: new FormControl("", [
       Validators.required,
-      Validators.pattern("[a-zA-Z]*"),
+      Validators.pattern("[a-zA-Z ]*"),
     ]),
     zipCode: new FormControl("", [
       Validators.required,
@@ -60,12 +67,43 @@ export class BecomeapartnerComponent implements OnInit {
     ]),
     country: new FormControl("", [
       Validators.required,
-      Validators.pattern("[a-zA-Z]*"),
+      Validators.pattern("[a-zA-Z ]*"),
     ]),
   });
-  constructor(private formBuilderService: FormBuilder) {}
+  constructor(
+    private formBuilderService: FormBuilder,
+    private becomeapartnerService: BecomeapartnerService,
+    private toastr: ToastrNotificationService,
+    private router: Router
+  ) {}
 
   ngOnInit() {}
+
+  partnerModel = {};
+
+  submitForm(){
+    this.partnerModel = {
+      fname: this.partnerForm.value.firstName,
+      lname: this.partnerForm.value.lastName,
+      email: this.partnerForm.value.email,
+      phone: this.partnerForm.value.phone,
+      jobtitle: this.partnerForm.value.job,
+      companyname: this.partnerForm.value.company_name,
+      companyvertical: this.partnerForm.value.buisness_type,
+      companyaddress: this.partnerForm.value.company_adr,
+      city: this.partnerForm.value.city,
+      state: this.partnerForm.value.state,
+      postalcode: this.partnerForm.value.zipCode,
+      country: this.partnerForm.value.country,
+      message: "test"
+    };
+    this.becomeapartnerService.sendMessage(this.partnerModel).subscribe(
+      data => console.log('Success!!!!!',data),
+      error => console.log("Error",error)
+    );
+    this.router.navigate(["/home"]);
+    this.toastr.successToast("A verification email has been sent", "Partnership Request Submitted");
+  }
 
   get firstName() {
     return this.partnerForm.get("firstName");

@@ -39,7 +39,7 @@ export class ResetPasswordPageComponent implements OnInit {
     this.route.queryParams.subscribe(params=>{
       this.token=params.token;
       if(!this.token){
-        this.router.navigate(['/error500'])
+        // this.router.navigate(['/error500'])
       }
       //console.log("token is here "+this.token);
     })
@@ -51,8 +51,8 @@ export class ResetPasswordPageComponent implements OnInit {
       //If an error occurs verifying the jwt token, then redirect
     err => {
       //console.log("Token might have expired");
-      this.router.navigate(['/error500'])
-    });  
+      // this.router.navigate(['/error500'])
+    });
     //now on submission of passwords that match, will have to send back a request with new password and jwt token
   }
 
@@ -72,9 +72,9 @@ export class ResetPasswordPageComponent implements OnInit {
             //console.log(error);
             //console.log(this.errorUpdating);
             this.errorVisible = false;
-            this.errorUpdating = true; 
+            this.errorUpdating = true;
           }
-        );        
+        );
       }
   }
 

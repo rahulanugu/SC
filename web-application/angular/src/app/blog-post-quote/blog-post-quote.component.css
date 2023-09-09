@@ -1,84 +1,73 @@
 /* Authors and their contributions: */
 /* Kefan: Worked with the whole page some come from blog-post.css */
 
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital@1&display=swap');
-
-html {
-    width: 100%;
-    height: 100%;
-    display: table;
-  }
-  
-  body {
-    width: 100%;
-    display: table-cell;
-    background-color: #faf6f2;
-    font-family: "Lato", sans-serif;
-  }
-  
-  html,
-  body {
-    margin: 0px;
-    padding: 0px;
-    overflow-x: hidden;
-  }
-  
-  app-landing-page-header {
-    position: absolute;
-    top: 0;
-  }
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital@1&display=swap");
 
 .blogInfo {
-    font-family: 'Lato', sans-serif;
-    font-size: 18px;
-    font-style: italic;
-    color: #2D5059;
+  font-family: "Lato", sans-serif;
+  font-size: 18px;
+  font-style: italic;
+  color: #2d5059;
 }
 
 .goBack {
-    font-family: 'Lato', sans-serif;
-    font-size: 22px;
-    font-weight: bold;
-    color: #2D5059;
-    cursor: pointer;
+  font-family: "Lato", sans-serif;
+  font-size: 22px;
+  font-weight: bold;
+  color: #2d5059;
+  cursor: pointer;
 }
-
 
 .goBack :hover {
-    background-color: #ccc;
+  background-color: #ccc;
 }
 
-
 .keywords {
-    font-family: "Lato", serif;
-    color: #2d5059;
-    font-size: 18px;
-    font-weight: bold;
+  font-family: "Lato", serif;
+  color: #2d5059;
+  font-size: 18px;
+  font-weight: bold;
 }
 
 .post-body {
-    font-family: "Lato", serif;
-    color: #1D1F26;
-    font-style: normal;
-    font-size: 28px;
-    min-height: 500px;
+  font-family: "Lato", serif;
+  color: #1d1f26;
+  font-style: normal;
+  font-size: 18px;
+  width: 80%;
+  min-height: 500px;
+  margin: auto;
+}
+
+div.share {
+  width: 80%;
+  margin: auto;
+}
+
+div.share div button {
+  border: 0px;
+}
+
+.related {
+  width: 95%;
+  margin: auto;
 }
 
 .divider {
-    border-top: 3px solid #d5dde1;
+  border-top: 3px solid #d5dde1;
 }
 
 .postTitle {
-    font-family: 'Lato', sans-serif;
-    font-weight: bold;
-    font-size: 36px;
-    color: #E6EFF1;
+  font-family: "Lato", sans-serif;
+  font-weight: bold;
+  font-size: 36px;
+  color: #e6eff1;
 }
 
 .related-posts {
-    font-family: "Lato", serif;
-    color: #2d5059;
-    font-style:normal;
-    font-size: 24px;
-    font-weight: bold;
+  font-family: "Lato", serif;
+  color: #2d5059;
+  font-style: normal;
+  font-size: 24px;
+  font-weight: bold;
 }

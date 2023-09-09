@@ -1,8 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CareersComponent } from './careers.component';
-import { CommonHeaderComponent } from '../common-header/common-header.component';
-import { JobCategoriesComponent } from '../job-categories/job-categories.component';
+
 import { FooterComponent } from '../footer/footer.component';
 import { JobOpeningsComponent } from '../job-openings/job-openings.component';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -18,7 +17,7 @@ describe('CareersComponent', () => {
         RouterTestingModule,
         HttpClientModule
       ],
-      declarations: [ CareersComponent, FooterComponent, CommonHeaderComponent, JobCategoriesComponent, JobOpeningsComponent ]
+      declarations: [ CareersComponent, FooterComponent, JobOpeningsComponent ]
     })
     .compileComponents();
   }));

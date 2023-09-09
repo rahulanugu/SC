@@ -5,119 +5,74 @@ License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
 
-<!DOCTYPE html>
-<html lang="zxx">
-  <!-- Hotjar Tracking Code for https://www.scriptchain.co/home -->
-  <script>
-    (function (h, o, t, j, a, r) {
-      h.hj =
-        h.hj ||
-        function () {
-          (h.hj.q = h.hj.q || []).push(arguments);
-        };
-      h._hjSettings = { hjid: 2374837, hjsv: 6 };
-      a = o.getElementsByTagName("head")[0];
-      r = o.createElement("script");
-      r.async = 1;
-      r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
-      a.appendChild(r);
-    })(window, document, "https://static.hotjar.com/c/hotjar-", ".js?sv=");
-  </script>
-  <body>
-    <div class="header">
-      <app-healthcare-header></app-healthcare-header>
+<div class="header">
+  <app-healthcare-header></app-healthcare-header>
+</div>
+<div>
+  <h3 class="heading">Verified</h3>
+</div>
+<div class="card">
+  <div class="card-container">
+    <div class="center">
+      <img src="./assets/tickIcon.png" style="height: 60px; width: 60px" />
+      <br />
+      <label>Your email has been verified</label>
     </div>
-    <div>
-      <h3 class="heading">Verified</h3>
-    </div>
-    <div class="card">
-      <div class="card-container">
-        <div class="center">
-          <img src="./assets/tickIcon.png" style="height: 60px; width: 60px;"/>
-          <br />
-          <label>Your email has been verified</label>
-        </div>
 
-        <h5>
-          You may now sign into your account using your credentials.
-        </h5>
-        <hr />
-        <form ngNativeValidate [formGroup]="Form" (ngSubmit)="onSubmit()">
-          <div class="form-element">
-            <label style="font-size: 14px">Email</label>
+    <h5>You may now sign into your account using your credentials.</h5>
+    <hr />
+    <form ngNativeValidate [formGroup]="Form" (ngSubmit)="onSubmit()">
+      <div class="form-element">
+        <label style="font-size: 14px">Email</label>
 
-            <input
-              [class.is-invalid]="
-                Form.get('emailAddress').invalid &&
-                Form.get('emailAddress').touched
-              "
-              formControlName="emailAddress"
-              type="email"
-              class="form-control"
-              id="emailAddress"
-              required
-            />
-          </div>
-          <div class="form-element">
-            <label style="font-size: 14px">Password</label>
-            <input
-              [class.is-invalid]="
-                Form.get('password').invalid && Form.get('password').touched
-              "
-              formControlName="password"
-              type="password"
-              class="form-control"
-              id="password"
-              required
-            />
-          </div>
-          <hr />
-          <div class="form-element">
-            <button type="submit" class="loginBtn">Login</button>
-          </div>
-          <div class="form-element">
-            <button type="button" class="helpBtn">Help</button>
-          </div>
-        </form>
+        <input
+          [class.is-invalid]="
+            Form.get('emailAddress').invalid && Form.get('emailAddress').touched
+          "
+          formControlName="emailAddress"
+          type="email"
+          class="form-control"
+          id="emailAddress"
+          required
+        />
       </div>
-    </div>
-    <div class="footer1">
-      <app-healthcare-footer></app-healthcare-footer>
-    </div>
-    <!-- <div style="height: 35px"></div>
-    <div class="py-5" id="verificationsuccessful">
-      <h1 align="center">
-        Account verified. Please go to the login page to access your account.
-      </h1>
-      <h2 align="center">
-        Click
-        <a
-          style="cursor: pointer; color: blue"
-          role="button"
-          (click)="reRouteToLogin()"
-          >here</a
-        >
-        to login
-      </h2>
-    </div> -->
-    <!-- <div class="py-5" id="verificationerror">
-    <h1 align="center">Error 500. Please contact support or try creating a new account</h1>
-    <div class="container"><p align="center">We do our best to answer your questions quickly. Thanks in advance for your patience.</p>
-    </div>
-  </div> -->
+      <div class="form-element">
+        <label style="font-size: 14px">Password</label>
+        <input
+          [class.is-invalid]="
+            Form.get('password').invalid && Form.get('password').touched
+          "
+          formControlName="password"
+          type="password"
+          class="form-control"
+          id="password"
+          required
+        />
+      </div>
+      <hr />
+      <div class="form-element">
+        <button type="submit" class="loginBtn">Login</button>
+      </div>
+      <div class="form-element">
+        <button type="button" class="helpBtn">Help</button>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="footer1">
+  <app-healthcare-footer></app-healthcare-footer>
+</div>
 
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=UA-148334798-1"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
+<script
+  async
+  src="https://www.googletagmanager.com/gtag/js?id=UA-148334798-1"
+></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag("js", new Date());
 
-      gtag("config", "UA-148334798-1");
-    </script>
-  </body>
-</html>
+  gtag("config", "UA-148334798-1");
+</script>

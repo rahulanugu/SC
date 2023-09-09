@@ -1,303 +1,330 @@
-.card {
-  box-shadow: 0px 4px 8px rgba(29, 31, 38, 0.15);
-  transition: 0.3s;
-  border-radius: 5px;
-  width: 684px;
-  margin: 0 auto;
-  float: none;
-  margin-bottom: 10px;
-  font-family: "Lato", sans-serif;
-  margin-top: 104px;
-  margin-left: 378px;
-}
+/* Denis H Styling */
 
-.flex-container {
+*:focus{
+  outline: none;
+}
+.cardContainer {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0px;
+  justify-content: center;
+  align-items: center;
+  width: 65%;
+  margin: 5% auto;
 }
 
-.sectionHeading label {
-  font-style: normal;
-  font-weight: bold;
+.card {
+  width: 100%;
+  max-height: 100%;
+}
+
+/* DenisH Add User/Top of card */
+.addUser {
+  position: relative;
+  display: flex;
+  padding: 15px;
+}
+
+.addUser>h1 {
+  margin-left: 10px;
   font-size: 24px;
-  line-height: 29px;
-  /* identical to box height */
-  margin-left: 10px;
-  margin-top: 17px;
-  /* Grey 500 */
-
-  color: #1d1f26;
-}
-
-.sectionHeading img {
-  width: 19px;
-  height: 19px;
-  margin-left: 16px;
-  margin-bottom: 10px;
-}
-hr {
-  left: 0%;
-  right: 0%;
-  margin-top: 10px;
-
-  /* Grey 200 */
-  border: 2px solid #e1e4eb;
-}
-
-#crossIc {
-  float: right;
-  margin-bottom: 10px;
-  width: 16px;
-  height: 16px;
-  margin-top: 8px;
-  margin-right: 8px;
-}
-
-#strtIc {
-  margin-left: 18px;
-}
-
-#line {
-  margin-bottom: 15px;
-  margin-left: 0px;
-  width: 110px;
-  margin-right: 0px;
-}
-
-.heading img {
-  margin-left: 18px;
-  margin-bottom: 5px;
-}
-
-.heading label {
-  font-family: "Lato", sans-serif;
-  margin-left: 10px;
-  color: #575b66;
-
-  font-style: normal;
-  font-weight: normal;
-  font-size: 18px;
-}
-
-.infoHeadings {
-  font-style: normal;
-  font-weight: bold;
-  font-size: 14px;
-  color: #1d1f26;
-  margin-left: 18px;
-}
-button {
-  min-width: 105px;
-  height: 32px;
-  left: 0px;
-  top: 0px;
-  font-family: "Lato", sans-serif;
-  border-radius: 8px;
-  margin-bottom: 16px;
-  font-weight: bold;
-  font-size: 14px;
-  border: none;
-  font-style: normal;
-  line-height: 17px;
-  background: #ffffff;
-  margin-right: 5px;
-}
-#patientBtn {
-  margin-left: 18px;
-}
-
-.mystyle {
-  background: #e6eff1 !important;
-  color: #2d5059;
-}
-
-#Caregiverbtn {
-  color: #575b66;
-  background: #ffffff;
-}
-
-.form-group label {
-  font-family: "Lato", sans-serif;
-  margin-left: 18px;
-  font-size: 14px;
+  font-family: 'Lato Bold';
   font-weight: bold;
 }
 
-.form-group input {
-  font-family: "Lato", sans-serif;
-  margin-left: 18px;
-  font-size: 12px;
-  color: black;
-  width: 200px;
+/* DenisH image styling */
+.addUser>img {
+  width: 30px;
   height: 30px;
-  border-radius: 8px;
-  box-shadow: inset 0px 2px 2px rgba(29, 31, 38, 0.15);
-  box-sizing: border-box;
+}
+.addUser > a{
+  cursor: pointer;
+}
+/* DenisH close button (X) */
+.addUser>a>#close {
+  position: absolute;
+  right: 10px;
+  bottom: 50%;
 }
 
-.form-group select {
-  font-family: "Lato", sans-serif;
-  margin-left: 18px;
-  font-size: 12px;
-  color: black;
-  width: 200px;
-  height: 30px;
-  border-radius: 8px;
-  box-shadow: inset 0px 2px 2px rgba(29, 31, 38, 0.15);
-  box-sizing: border-box;
+/* DenisH The break bettween add user and progress bar */
+#horizontalLine {
+  border: 1px solid rgb(142, 140, 140);
 }
 
-.cancelBtn {
-  width: 118px;
-  height: 40px;
+/* DenisH Progress bar styling */
+#progress-bar-container {
+  position: relative;
+  width: 90%;
+  margin: auto;
+  height: 100px;
+}
+
+#progress-bar-container ul {
+  padding: 0;
+  margin: 0;
+  padding-top: 15px;
+  z-index: 100;
+  position: absolute;
+  width: 100%;
+
+}
+
+#progress-bar-container li:before {
+  content: "";
+  display: block;
+  margin: auto;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: white;
+  border: solid 2px #528f9a;
+  transition: all ease 0.3s;
+}
+
+#progress-bar-container li.active:before,
+#progress-bar-container li:hover:before {
+  background: #5c8a96;
+}
+
+#progress-bar-container li {
+  list-style: none;
+  float: left;
+  width: 25%;
+  text-align: center;
+  color: #aaa;
+  text-transform: uppercase;
+  font-size: 11px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: all ease 0.2s;
+  vertical-align: bottom;
+  height: 59px;
+  position: relative;
+}
+
+#progress-bar-container li .step-inner {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  font-size: 14px;
+}
+
+#progress-bar-container li.active,
+#progress-bar-container li:hover {
   color: #5c8a96;
-  border: 2px solid #5c8a96;
-  background-color: white;
-  margin-left: 18px;
+}
+
+
+#progress-bar-container #line {
+  width: 75%;
+  margin: auto;
+  background: #eee;
+  height: 5px;
+  position: absolute;
+  left: 12%;
+  top: 20px;
+  z-index: 1;
+  border-radius: 50px;
+  transition: all ease 0.9s;
+}
+
+#progress-bar-container #line-process {
+  content: "";
+  height: 100%;
+  background: #5c8a96;
+  background: linear-gradient(to right, #5c8a96 0%, #5c8a96 100%);
+  position: absolute;
+  z-index: 2;
+  border-radius: 50px;
+  transition: all ease 0.9s;
+}
+
+/* styling for cards */
+.cards {
+  padding: 15px;
+}
+
+.heading>label {
   font-size: 18px;
-  font-family: "Lato", sans-serif;
-  font-weight: bold;
-  border: 2px solid #5c8a96;
-  border-radius: 8px;
+  font-family: "Lato";
+  color: #575B66;
+  margin-left: 5px;
 }
 
-.nextBtn {
-  width: 118px;
-  height: 40px;
-  color: white;
-  background-color: #5c8a96;
-  border: none;
+.heading>img {
+  width: 20px;
+}
+
+.infoHeadings,
+form label {
+  font-size: 14px;
+  font-family: "Lato Bold";
+  font-weight: bold;
+}
+
+.radioButtons {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 10px;
+}
+
+.radioButtons div {
+  margin: 0 10px;
+  display: flex;
+}
+
+.radioButtons div * {
+  cursor: pointer;
+  padding: 10px;
+  margin: 0;
+  font-size: 14px;
+  font-weight: bold;
+  color: #575B66;
+}
+
+.radioButtons .selected {
+  background: #e4eff1;
+  border-radius: 5px;
+}
+
+.radioButtons .selected * {
+  color: #305f67;
+}
+
+.radioButtons div input {
+  display: none;
+}
+
+/* Form inputs */
+form input {
+  border-radius: 10px;
+  border: 2px solid #e2e6ed;
+  height: calc(1.5em + 0.75rem + 8px);
+}
+
+/* DenisH back/next buttons styling */
+.buttons {
+  display: flex;
+  padding: 15px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.buttons button {
+  width: 100px;
+  height: 50px;
   font-size: 18px;
-  font-family: "Lato", sans-serif;
-  font-weight: bold;
-  margin-right: 18px;
-  border-radius: 7px;
+  border: 2px solid #58939f;
+  border-radius: 10px;
+  color: #528f9a;
 }
 
-hr {
-  left: 0%;
-  right: 0%;
-  margin-top: 0px;
-
-  /* Grey 200 */
-  border: 2px solid #e1e4eb;
+.buttons button:hover {
+  background: #58939f83;
 }
 
-#type {
+/* Widget style */
+#horizontalLine2 {
+  display: block;
+  border: 1px solid rgb(197, 195, 195);
+  margin: 10px 0;
+}
+#options{
+  position: absolute;
   left: 17px;
 }
-
-#show {
-  left: 126px;
+.bottom{
+  display: grid;
+  grid-template-columns: repeat(3,200px);
+}
+#closeBtn{
+  margin-left: auto;
+}
+.blueBtn{
+  border: none !important;
+  background: #5c8a96 !important;
+  color: white !important;
+}
+.blueBtn:hover{
+  border: 2px solid #5c8a96 !important;
+  background: white !important;
+  color: #5c8a96 !important;
 }
 
-#subtype {
-  left: 214px;
-}
-
-.heading1 {
-  position: absolute;
-  width: 31px;
-  height: 17px;
-  /* Lato/14/Bold */
-  font-family: Lato;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 14px;
-  line-height: 17px;
-  /* identical to box height */
-  display: flex;
-  align-items: center;
-  /* Grey 500 */
-  color: #1d1f26;
-}
-
-.switch {
+/*  */
+input[type="checkbox"].switch {
+  font-size: 16px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 3.5em;
+  height: 1.5em;
+  background: #ddd;
+  border-radius: 3em;
   position: relative;
-  display: inline-block;
-  width: 54px;
-  height: 28px;
-}
-
-/* Hide default HTML checkbox */
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.slider {
-  position: absolute;
   cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: #e6eff1;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
+  outline: none;
+  -webkit-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
 }
-.slider:before {
+
+input[type="checkbox"].switch:checked {
+  background: #58939f;
+}
+
+input[type="checkbox"].switch:after {
   position: absolute;
   content: "";
-  height: 20px;
-  width: 20px;
-  left: 4px;
-  bottom: 4px;
-  background: #ffffff;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-}
-input:checked + .slider {
-  background-color: #5c8a96;
-}
-input:focus + .slider {
-  box-shadow: 0 0 1px #5c8a96;
-}
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-.slider.round {
-  border-radius: 34px;
-}
-.slider.round:before {
+  width: 1.5em;
+  height: 1.5em;
   border-radius: 50%;
+  background: #fff;
+  -webkit-box-shadow: 0 0 .25em rgba(0, 0, 0, .3);
+  box-shadow: 0 0 .25em rgba(0, 0, 0, .3);
+  -webkit-transform: scale(.7);
+  transform: scale(.7);
+  left: 0;
+  -webkit-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
 }
 
-.type {
-  margin-left: 15px;
-  margin-right: 10px;
+input[type="checkbox"].switch:checked:after {
+  left: calc(100% - 1.5em);
+}
+.select{
+  border: none;
+  color: #575B66;
+  font-weight: 500;
+  width: max-content;
+}
+/* DenisH Card3 */
+.box label{
+  margin-left: 10px;
 }
 
-.bottom {
-  border-bottom: 2px solid #f5f6fa;
+/* DenisH media queries */
+
+@media (max-width:900px) {
+  .cardContainer{
+    width: 85%;
+  }
+}
+@media (max-width:700px) {
+  .bottom{
+    grid-template-columns: repeat(3,100px);
+  }
+}
+@media (max-width:500px) {
+  .cardContainer{
+    width: 100%;
+  }
+  .bottom{
+    grid-template-columns: 100px 50px 100px
+  }
+  input[type="checkbox"].switch {
+    width: 2.2em;
+  }
 }
 
-.box {
-  margin-left: 17px;
-}
-
-#space {
-  padding-left: 2px;
-}
-
-#bot {
-  margin-left: 17px;
-}
-
-#TrackIc {
-  width: 110px;
-  margin-bottom: 15px;
-  margin-left: 0px;
-  margin-right: 0px;
-}
-
-input,
-select,
-textarea {
-  color: black;
-}
+/*  */

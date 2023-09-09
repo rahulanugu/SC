@@ -1,24 +1,147 @@
-<!DOCTYPE html>
+<!-- 
+  Refactored by: Siheng Wei
+  Reason: Refactor the code to make it more readable and easier to maintain
+  Steps:
+    1. Removed the unnecessary html&head&body tags
+    2. Use ngFor to replace the hardcode items
+    3. Removed the redundant css code
+    4. The original code is commented out below
+  Result: It is much easier to update the partners now
+ -->
+
+<div>
+  <app-landing-page-header></app-landing-page-header>
+</div>
+
+<!-- Header/Logo/Button -->
+<div>
+  <!-- Logo Part -->
+  <div class="content1">
+    <h3 id="loginHeading">Partnerships</h3>
+    <img
+      src="../../assets/company-logo/scriptchain-health-logo-dark.svg"
+      id="logo"
+    />
+    <h3 style="text-align: center; font-size: 26px">
+      Making a positive impact in the world, starting with your heart.
+    </h3>
+    <p style="text-align: center; font-size: 19px">
+      ScriptChain Health partners with the most innovative leaders in the market
+      to help achieve better healthcare for all.
+    </p>
+    <button routerLink="/becomeapartner" type="button" class="signUpBtn">
+      Become a Partner
+    </button>
+  </div>
+  <!-- Logo Part End -->
+
+  <!-- Carousels -->
+  <div class="content2">
+    <!-- Header -->
+    <div class="header">
+      <h1>Our Partners</h1>
+    </div>
+    <br />
+
+    <!-- Laptop View -->
+    <div fxHide fxShow.gt-sm>
+      <div class="carousel-container carousel-1">
+        <div class="control left">
+          <a class="btn-floating" href="#multi-item" data-slide="prev"
+            ><img src="../../assets/icons/chevron-left.svg" alt=""
+          /></a>
+        </div>
+        <div
+          id="multi-item"
+          class="carousel slide"
+          data-type="carousel"
+          data-interval="false"
+        >
+          <div class="carousel-inner">
+            <!-- Siheng - use ngFor to replace the hardcode items -->
+            <ng-container
+              *ngFor="let image of images; first as isFirst; index as i"
+            >
+              <div
+                class="carousel-item"
+                [ngClass]="{ active: isFirst }"
+                *ngIf="i % 3 === 0"
+              >
+                <div class="d-flex justify-content-around">
+                  <ng-container
+                    *ngFor="let innerImage of images.slice(i, i + 3)"
+                  >
+                    <div class="col-md-4">
+                      <div class="card">
+                        <img src="{{ innerImage }}" alt="" />
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="control right">
+          <a class="btn-floating" href="#multi-item" data-slide="next"
+            ><img src="../../assets/icons/chevron-right.svg" alt="" />
+          </a>
+        </div>
+      </div>
+      <!-- End Carousel 1 -->
+    </div>
+    <!-- Laptop View End -->
+
+    <!-- Mobile View -->
+    <div fxShow fxHide.gt-sm>
+      <div class="carousel-container carousel-1">
+        <div class="control left">
+          <a class="btn-floating" href="#multi-item-small" data-slide="prev"
+            ><img src="../../assets/icons/chevron-left.svg" alt=""
+          /></a>
+        </div>
+        <div
+          id="multi-item-small"
+          class="carousel slide"
+          data-type="carousel"
+          data-interval="false"
+        >
+          <!-- Siheng - use ngFor to replace the hardcode items -->
+          <div class="carousel-inner">
+            <ng-container *ngFor="let image of images; first as isFirst">
+              <div class="carousel-item" [ngClass]="{ active: isFirst }">
+                <div class="col-md-12">
+                  <div class="card">
+                    <img src="{{ image }}" alt="" />
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="control right">
+          <a class="btn-floating" href="#multi-item-small" data-slide="next"
+            ><img src="../../assets/icons/chevron-right.svg" alt="" />
+          </a>
+        </div>
+      </div>
+      <!-- End Carousel 1 -->
+    </div>
+    <!-- Mobile View End -->
+  </div>
+  <!-- Carousels End -->
+</div>
+
+<footer>
+  <app-landing-page-subfooter></app-landing-page-subfooter>
+</footer>
+
+<!-- Codes below are commented by Siheng Wei cause they are refactored as above -->
+<!-- Daniel - added img to mobile view carousel items, removed unecessary text -->
+<!-- <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="http://fonts.googleapis.com/css?family=Lato:400,700"
-      rel="stylesheet"
-      type="text/css"
-    />
-    <link
-      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Rubik One"
-      rel="stylesheet"
-    />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-
-    <!-- Hotjar Tracking Code for https://www.scriptchain.co/home -->
+    <!~~ Hotjar Tracking Code for https://www.scriptchain.co/home ~~>
     <script>
       (function (h, o, t, j, a, r) {
         h.hj =
@@ -38,7 +161,7 @@
   <body>
     <app-landing-page-header></app-landing-page-header>
 
-    <!-- Header/Logo/Button -->
+    <!~~ Header/Logo/Button ~~>
     <div>
       <div class="content1">
         <h3 id="loginHeading">Partnerships</h3>
@@ -50,24 +173,23 @@
           Making a positive impact in the world, starting with your heart.
         </h3>
         <p style="text-align: center; font-size: 19px">
-          Scriptchain partners with the most innovative leaders in the market to
+          ScriptChain Health partners with the most innovative leaders in the market to
           help achieve better healthcare for all.
         </p>
         <button routerLink="/becomeapartner" type="button" class="signUpBtn">
           Become a Partner
         </button>
       </div>
-      <!-- Carousels -->
+      <!~~ Carousels ~~>
       <div class="content2">
-        <!-- Header -->
+        <!~~ Header ~~>
         <div class="header">
           <h1>Our Partners</h1>
-          <h6>Description of relationship with said partners</h6>
         </div>
         <br />
         <div fxHide fxShow.gt-sm >
-          <!-- Carousel Nr 1 -->
-          <!-- Carousel Header -->
+          <!~~ Carousel Nr 1 ~~>
+          <!~~ Carousel Header ~~>
           <div class="carousel-header"><h1>Partner 1</h1></div>
           <div class="carousel-container carousel-1">
             <div class="control left">
@@ -82,31 +204,61 @@
               data-interval="false"
             >
               <div class="carousel-inner">
-                <!-- Item 1 -->
+                <!~~ Item 1 ~~>
                 <div class="carousel-item active">
                   <div class="row">
                     <div class="col-md-4">
-                      <div class="card"></div>
+                      <div class="card" style="width:100%; height :100%; object-position:center; object-fit: cover;">
+                        <img
+                          src="../../assets/images/partner1.png"
+                          alt=""
+                        />
+                      </div>
                     </div>
                     <div class="col-md-4">
-                      <div class="card"></div>
+                      <div class="card" style="width:100%; height :100%; object-position:center; object-fit: cover;">
+                        <img
+                          src="../../assets/images/partner2.png"
+                          alt=""
+                        />
+                      </div>
                     </div>
                     <div class="col-md-4">
-                      <div class="card"></div>
+                      <div class="card" style="width:100%; height :100%; object-position:center; object-fit: cover;">
+                        <img
+                          src="../../assets/images/partner3.png"
+                          alt=""
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
-                <!-- Item 2 -->
+                <!~~ Item 2 ~~>
                 <div class="carousel-item">
                   <div class="row">
                     <div class="col-md-4">
-                      <div class="card"></div>
+                      <div class="card" style="width:100%; height :100%; object-position:center; object-fit: cover;">
+                        <img
+                          src="../../assets/images/partner1.png"
+                          alt=""
+                        />
+                      </div>
                     </div>
                     <div class="col-md-4">
-                      <div class="card"></div>
+                      <div class="card" style="width:100%; height :100%; object-position:center; object-fit: cover;">
+                        <img
+                          src="../../assets/images/partner2.png"
+                          alt=""
+                        />
+                      </div>
                     </div>
                     <div class="col-md-4">
-                      <div class="card"></div>
+                      <div class="card" style="width:100%; height :100%; object-position:center; object-fit: cover;">
+                        <img
+                          src="../../assets/images/partner3.png"
+                          alt=""
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -118,11 +270,11 @@
               </a>
             </div>
           </div>
-          <!-- End Carousel 1 -->
+          <!~~ End Carousel 1 ~~>
         </div>
         <div fxShow fxHide.gt-sm >
-          <!-- Carousel Nr 1 -->
-          <!-- Carousel Header -->
+          <!~~ Carousel Nr 1 ~~>
+          <!~~ Carousel Header ~~>
           <div class="carousel-header"><h1>Partner 1</h1></div>
           <div class="carousel-container carousel-1">
             <div class="control left">
@@ -139,17 +291,39 @@
               data-type="carousel"
               data-interval="false"
             >
+              <!~~ Daniel - Added img to cards and added third carousel item ~~>
               <div class="carousel-inner">
-                <!-- Item 1 -->
+                <!~~ Item 1 ~~>
                 <div class="carousel-item active">
                   <div class="col-md-12">
-                    <div class="card"></div>
+                    <div class="card">
+                      <img
+                          src="../../assets/images/partner1.png"
+                          alt=""
+                        />
+                    </div>
                   </div>
                 </div>
-                <!-- Item 2 -->
+                <!~~ Item 2 ~~>
                 <div class="carousel-item">
                   <div class="col-md-12">
-                    <div class="card"></div>
+                    <div class="card">
+                      <img
+                          src="../../assets/images/partner2.png"
+                          alt=""
+                        />
+                    </div>
+                  </div>
+                </div>
+                <!~~ Item 3 ~~>
+                <div class="carousel-item">
+                  <div class="col-md-12">
+                    <div class="card">
+                      <img
+                          src="../../assets/images/partner3.png"
+                          alt=""
+                        />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -163,7 +337,7 @@
               </a>
             </div>
           </div>
-          <!-- End Carousel 1 -->
+          <!~~ End Carousel 1 ~~>
         </div>
       </div>
     </div>
@@ -172,4 +346,4 @@
       <app-landing-page-subfooter></app-landing-page-subfooter>
     </footer>
   </body>
-</html>
+</html> -->

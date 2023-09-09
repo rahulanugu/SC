@@ -1,393 +1,283 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Hotjar Tracking Code for https://www.scriptchain.co/home -->
-    <script>
-      (function (h, o, t, j, a, r) {
-        h.hj =
-          h.hj ||
-          function () {
-            (h.hj.q = h.hj.q || []).push(arguments);
-          };
-        h._hjSettings = { hjid: 2374837, hjsv: 6 };
-        a = o.getElementsByTagName("head")[0];
-        r = o.createElement("script");
-        r.async = 1;
-        r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
-        a.appendChild(r);
-      })(window, document, "https://static.hotjar.com/c/hotjar-", ".js?sv=");
-    </script>
-    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Tinos&display=swap");
-      @import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
-    </style>
-  </head>
-  <body>
-    <div id="card1" class="card">
-      <div class="class-content">
-        <div class="sectionHeading">
-          <img src="./assets/userADD.png" />
-          <label>Add User</label>
-          <img id="crossIc" src="./assets/crossIcon.png" />
+<!-- Denis H Rework -->
+<!-- DenisH Holds the entire screen -->
+<div class="body">
+  <div class="cardContainer">
+    <!-- DenisH Holds the card -->
+    <div class="card">
+      <!-- DenisH Add the user/ Top of the card -->
+      <div class="addUser">
+        <img src="./assets/userADD.png" />
+        <h1>Add User</h1>
+        <a (click)="navigate()"
+          ><img id="close" src="../../assets/icons/close.svg" alt=""
+        /></a>
+      </div>
+      <!-- DenisH Horizontal Line -->
+      <div id="horizontalLine"></div>
+      <!-- DenisH Timeline/Progress bar -->
+      <div class="timeline">
+        <div id="progress-bar-container">
+          <!--DenisH Each progress bar -->
+          <ul>
+            <li class="step step01 active">
+              <div class="step-inner">User Info</div>
+            </li>
+            <li
+              class="step step02"
+              [class.active]="progressBar == 1 || progressBar > 1"
+            >
+              <div class="step-inner">Widgets</div>
+            </li>
+            <li
+              class="step step03"
+              [class.active]="progressBar == 2 || progressBar > 2"
+            >
+              <div class="step-inner">Sign-up</div>
+            </li>
+            <li
+              class="step step04"
+              [class.active]="progressBar == 3 || progressBar > 3"
+            >
+              <div class="step-inner">Finish</div>
+            </li>
+          </ul>
+          <!--DenisH The line connecting the progress bar -->
+          <div id="line">
+            <!--DenisH We set the progress bar in ts file to fill it or not -->
+            <div
+              *ngIf="progressBar == 0"
+              style="width: 5%"
+              id="line-process"
+            ></div>
+            <div
+              *ngIf="progressBar == 1"
+              style="width: 34%"
+              id="line-process"
+            ></div>
+            <div
+              *ngIf="progressBar == 2"
+              style="width: 67%"
+              id="line-process"
+            ></div>
+            <div
+              *ngIf="progressBar == 3"
+              style="width: 100%"
+              id="line-process"
+            ></div>
+          </div>
         </div>
-        <hr />
-        <img id="strtIc" src="./assets/startIc.png" />
-        <img id="line" src="./assets/ProgressLine.png" />
-        <img id="userIc" src="./assets/UserInfo.png" />
-        <img id="TrackIc" src="./assets/trackIc.png" />
-        <img id="widgetIc" src="./assets/widgetIc.png" />
-        <img id="TrackIc" src="./assets/trackIc.png" />
-        <img id="widgetIc" src="./assets/SignUpIc.png" />
-        <img id="TrackIc" src="./assets/trackIc.png" />
-        <img id="finishIc" src="./assets/FinishIc.png" />
-
-        <hr />
+      </div>
+      <!--DenisH First card User info -->
+      <div id="card1" class="cards">
         <div class="heading">
           <img src="./assets/infoIcon.png" />
           <label>User Info</label>
         </div>
         <label class="infoHeadings">Who is the user?</label>
-        <div>
-          <button id="patientBtn" class="mystyle" (click)="showPatient()">
-            The Patient
-          </button>
-          <button id="Caregiverbtn" (click)="showCaregiver()">
-            A Caregiver
-          </button>
-        </div>
-        <div id="patient">
-          <form ngNativeValidate [formGroup]="Form">
-            <div class="row">
-              <div class="col-sm-6">
-                <div class="form-group">
-                  <label>First Name</label>
-                  <input
-                    [class.is-invalid]="
-                      Form.get('firstName').invalid &&
-                      Form.get('firstName').touched
-                    "
-                    formControlName="firstName"
-                    type="text"
-                    class="form-control"
-                    required
-                    placeholder="First"
-                  />
-                </div>
-              </div>
-              <div class="col-sm-6">
-                <div class="form-group">
-                  <label>Last Name</label>
-                  <input
-                    [class.is-invalid]="
-                      Form.get('lastName').invalid &&
-                      Form.get('lastName').touched
-                    "
-                    formControlName="lastName"
-                    type="text"
-                    class="form-control"
-                    required
-                    placeholder="Last"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col">
-                <div class="form-group">
-                  <label>Email</label>
-                  <input
-                    [class.is-invalid]="
-                      Form.get('email').invalid && Form.get('email').touched
-                    "
-                    formControlName="email"
-                    type="email"
-                    class="form-control"
-                    required
-                    placeholder="email@email.com"
-                  />
-                </div>
-              </div>
-              <div class="col">
-                <div class="form-group">
-                  <label>Phone</label>
-                  <input
-                    [class.is-invalid]="
-                      Form.get('phone').invalid && Form.get('phone').touched
-                    "
-                    formControlName="phone"
-                    type="text"
-                    class="form-control"
-                    required
-                    placeholder="(000)-000-0000"
-                    mask="(000)-000-0000"
-                  />
-                </div>
-              </div>
-            </div>
-            <hr />
-            <div class="row">
-              <div class="col">
-                <div class="form-group" style="float: left">
-                  <button type="button" class="cancelBtn">Back</button>
-                </div>
-              </div>
-              <div class="col">
-                <div class="form-group" style="float: right">
-                  <button type="button" class="nextBtn" (click)="widgets()">
-                    Next
-                  </button>
-                </div>
-              </div>
-            </div>
-          </form>
-        </div>
-        <div id="caregiver" style="display: none">
-          <label class="infoHeadings"
-            >What is their relation to the patient?</label
-          >
-          <div>
-            <button class="mystyle" style="margin-left: 18px">Relative</button>
-            <button>Home Health Aide</button>
-            <button>Certified Nursing Assistant</button>
+        <!-- DenisH Radio button to select if its patient or caregiver -->
+        <div class="radioButtons">
+          <!-- DenisH Radio for patient -->
+          <!-- DenisH userChangeHandler changes the value of the radio -->
+          <div [class.selected]="user == 'patient'">
+            <input
+              type="radio"
+              name="radio"
+              value="patient"
+              id="patient"
+              (change)="userChangeHandler($event)"
+            />
+            <label for="patient">The Patient</label><br />
           </div>
-          <form ngNativeValidate [formGroup]="Form1">
-            <div class="row">
-              <div class="col-sm-6">
-                <div class="form-group">
-                  <label>First Name</label>
-                  <input
-                    [class.is-invalid]="
-                      Form.get('firstName').invalid &&
-                      Form.get('firstName').touched
-                    "
-                    formControlName="firstName"
-                    type="text"
-                    class="form-control"
-                    required
-                    placeholder=""
-                  />
-                </div>
-              </div>
-              <div class="col-sm-6">
-                <div class="form-group">
-                  <label>Last Name</label>
-                  <input
-                    [class.is-invalid]="
-                      Form.get('lastName').invalid &&
-                      Form.get('lastName').touched
-                    "
-                    formControlName="lastName"
-                    type="text"
-                    class="form-control"
-                    required
-                    placeholder=""
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col">
-                <div class="form-group">
-                  <label>Email</label>
-                  <input
-                    [class.is-invalid]="
-                      Form.get('email').invalid && Form.get('email').touched
-                    "
-                    formControlName="email"
-                    type="email"
-                    class="form-control"
-                    required
-                    placeholder=""
-                  />
-                </div>
-              </div>
-              <div class="col">
-                <div class="form-group">
-                  <label>Phone</label>
-                  <input
-                    [class.is-invalid]="
-                      Form.get('phone').invalid && Form.get('phone').touched
-                    "
-                    formControlName="phone"
-                    type="text"
-                    class="form-control"
-                    required
-                    placeholder="(000)-000-0000"
-                    mask="(000)-000-0000"
-                  />
-                </div>
-              </div>
-              <div class="col">
-                <div class="form-group">
-                  <label>Employer</label>
-                  <input
-                    [class.is-invalid]="
-                      Form.get('employer').invalid &&
-                      Form.get('employer').touched
-                    "
-                    formControlName="employer"
-                    type="text"
-                    class="form-control"
-                    required
-                    placeholder=""
-                  />
-                </div>
-              </div>
-            </div>
-            <hr />
-            <div class="row">
-              <div class="col">
-                <div class="form-group" style="float: left">
-                  <button type="button" class="cancelBtn">Back</button>
-                </div>
-              </div>
-              <div class="col">
-                <div class="form-group" style="float: right">
-                  <button type="button" class="nextBtn" (click)="widgets()">
-                    Next
-                  </button>
-                </div>
-              </div>
-            </div>
-          </form>
+          <!-- DenisH Radio for caregiver -->
+          <div [class.selected]="user == 'caregiver'">
+            <input
+              type="radio"
+              name="radio"
+              id="caregiver"
+              value="caregiver"
+              (change)="userChangeHandler($event)"
+            />
+            <label for="caregiver">A Caregiver</label><br />
+          </div>
         </div>
+        <!-- DenisH If they selected caregiver they have more choices -->
+        <div *ngIf="user == 'caregiver'">
+          <label class="infoHeadings"
+            >What Is Their Relation to the Patient?</label
+          >
+          <div class="radioButtons">
+            <!-- DenisH cargiverChangeHandler changes the value of the radio -->
+            <div [class.selected]="cargiver == 'relative'">
+              <input
+                type="radio"
+                name="radio"
+                value="relative"
+                id="relative"
+                (change)="cargiverChangeHandler($event)"
+              />
+              <label for="relative">Relative</label><br />
+            </div>
+            <div [class.selected]="cargiver == 'healthAide'">
+              <input
+                type="radio"
+                name="radio"
+                id="healthAide"
+                value="healthAide"
+                (change)="cargiverChangeHandler($event)"
+              />
+              <label for="healthAide">Home Health Aide</label><br />
+            </div>
+            <div [class.selected]="cargiver == 'nurse'">
+              <input
+                type="radio"
+                name="radio"
+                value="nurse"
+                id="nurse"
+                (change)="cargiverChangeHandler($event)"
+              />
+              <label for="nurse">Certified Nursing Assistant</label><br />
+            </div>
+          </div>
+        </div>
+        <!--DenisH Form -->
+        <form [formGroup]="addForm">
+          <!--DenisH Each row has 2 cols -->
+          <div class="row">
+            <!--DenisH Each Col has its label and input field -->
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>First Name</label>
+                <input
+                  type="text"
+                  formControlName="fName"
+                  class="form-control"
+                  required
+                />
+                <small *ngIf="name.invalid && name.touched" class="text-danger"
+                  >First name is Required</small
+                >
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Last Name</label>
+                <input
+                  type="text"
+                  formControlName="lName"
+                  class="form-control"
+                  required
+                />
+                <small
+                  *ngIf="lName.invalid && lName.touched"
+                  class="text-danger"
+                  >Last name is Required</small
+                >
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label>Email</label>
+                <input
+                  type="email"
+                  formControlName="email"
+                  class="form-control"
+                  required
+                />
+                <small
+                  *ngIf="email.invalid && email.touched"
+                  class="text-danger"
+                  >Email is Invalid</small
+                >
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label>Phone</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="phone"
+                  required
+                  mask="(000)-000-0000"
+                />
+                <small
+                  *ngIf="phone.invalid && phone.touched"
+                  class="text-danger"
+                  >Phone number is Invalid</small
+                >
+              </div>
+            </div>
+          </div>
+          <!--DenisH If it is a caregiver display employer -->
+          <div *ngIf="user == 'caregiver'" class="row">
+            <div class="col">
+              <div class="form-group">
+                <label>Employer</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="employer"
+                />
+              </div>
+            </div>
+            <!--DenisH Employer input should not have 2 col width so we add an empty one -->
+            <div class="col"></div>
+          </div>
+        </form>
       </div>
-    </div>
-    <div id="card2" class="card" style="display: none">
-      <div class="class-content">
-        <div class="sectionHeading">
-          <img src="./assets/userADD.png" />
-          <label>Add User</label>
-          <img id="crossIc" src="./assets/crossIcon.png" />
-        </div>
-        <hr />
-        <img id="strtIc" src="./assets/startIc.png" />
-        <img id="line" src="./assets/ProgressLine.png" />
-
-        <img id="userIc" src="./assets/UserFinish.png" />
-        <img id="line" src="./assets/ProgressLine.png" />
-        <img id="widgetIc" src="./assets/widgetFinishIc.png" />
-        <img id="TrackIc" src="./assets/trackIc.png" />
-        <img id="widgetIc" src="./assets/SignUpIc.png" />
-        <img id="TrackIc" src="./assets/trackIc.png" />
-        <img id="finishIc" src="./assets/FinishIc.png" />
-        <hr />
+      <!--DenisH Card 2 -->
+      <!-- DenisH All cards except the first should have display none and we change it after -->
+      <div id="card2" class="cards" style="display: none">
         <div class="heading">
+          <!-- DenisH Heading -->
           <img src="./assets/Icon.png" />
           <label>Widgets</label>
           <br />
-          <div style="position: absolute; left: 17px">
+          <div id="options">
             Options for what will be displayed in the patient portal
           </div>
         </div>
         <br />
+        <br />
+        <!-- DenisH Table header list-->
         <div class="bottom" id="info1">
           <div id="type" class="heading1">Type</div>
           <div id="show" class="heading1">Show</div>
           <div id="subtype" class="heading1">Subtype</div>
         </div>
-        <br />
-        <div class="bottom">
-          <label class="type">Readmission</label>
-          <label class="switch" style="margin-left: 13px">
-            <input type="checkbox" />
-            <span class="slider round"></span>
-          </label>
-        </div>
-        <br />
-        <div class="bottom">
-          <label class="type">Condition</label>
-          <label class="switch" style="margin-left: 30px">
-            <input type="checkbox" />
-            <span class="slider round"></span>
-          </label>
-        </div>
-        <br />
-        <div class="bottom">
-          <label class="type">Patient Info</label>
-          <label class="switch" style="margin-left: 18px">
-            <input type="checkbox" />
-            <span class="slider round"></span>
-          </label>
-        </div>
-        <br />
-        <div class="bottom">
-          <label class="type">Medications</label>
-          <label class="switch" style="margin-left: 12px">
-            <input type="checkbox" />
-            <span class="slider round"></span>
-          </label>
-        </div>
-        <br />
-        <div class="bottom">
-          <label class="type">Labs</label>
-          <label class="switch" style="margin-left: 67px">
-            <input type="checkbox" />
-            <span class="slider round"></span>
-          </label>
-        </div>
-        <br />
-        <div class="bottom">
-          <label class="type">Vitals</label>
-          <label class="switch" style="margin-left: 57px">
-            <input type="checkbox" />
-            <span class="slider round"></span>
-          </label>
-        </div>
-        <br />
-        <div class="bottom">
-          <label class="type">Diagnoses</label>
-          <label class="switch" style="margin-left: 24px">
-            <input type="checkbox" />
-            <span class="slider round"></span>
-          </label>
-        </div>
-        <br />
-        <div class="bottom">
-          <label class="type">Procedures</label>
-          <label class="switch" style="margin-left: 15px">
-            <input type="checkbox" />
-            <span class="slider round"></span>
-          </label>
-        </div>
-        <br />
-        <div class="row">
-          <div class="col">
-            <div class="form-group" style="float: left">
-              <button type="button" class="cancelBtn">Cancel</button>
-            </div>
-          </div>
-          <div class="col">
-            <div class="form-group" style="float: right">
-              <button type="button" class="nextBtn" (click)="signup()">
-                Next
-              </button>
-            </div>
+        <!--DenisH Creates a div for each element on widgetList -->
+        <div *ngFor="let widgets of widgetList">
+          <div id="horizontalLine2"></div>
+          <div class="bottom">
+            <!-- label has name from the widgetList.name -->
+            <label class="type">{{ widgets.name }}</label>
+            <!--DenisH A checkbox for every label -->
+            <input
+              name="{{ widgets.name }}"
+              type="checkbox"
+              class="switch"
+              [(ngModel)]="widgets.checkSelected"
+            />
+            <!--DenisH A selector excits if options excits in the object -->
+            <select
+              *ngIf="widgets.options"
+              name="widgets.optionSelected"
+              id="widgets.optionSelected"
+              [(ngModel)]="widgets.optionSelected"
+              class="select"
+            >
+              <!--DenisH For each element of the object we have an option -->
+              <option *ngFor="let options of widgets.options" [value]="options">
+                {{ options }}
+              </option>
+            </select>
           </div>
         </div>
       </div>
-    </div>
-    <div id="card3" class="card" style="display: none">
-      <div class="class-content">
-        <div class="sectionHeading">
-          <img src="./assets/userADD.png" />
-          <label>Add User</label>
-          <img id="crossIc" src="./assets/crossIcon.png" />
-        </div>
-        <hr />
-        <img id="strtIc" src="./assets/startIc.png" />
-        <img id="line" src="./assets/ProgressLine.png" />
-
-        <img id="userIc" src="./assets/UserFinish.png" />
-        <img id="line" src="./assets/ProgressLine.png" />
-        <img id="widgetIc" src="./assets/widgetIconComplete.png" />
-        <img id="line" src="./assets/ProgressLine.png" />
-        <img id="widgetIc" src="./assets/SignupFinishIc.png" />
-        <img id="TrackIc" src="./assets/trackIc.png" />
-        <img id="finishIc" src="./assets/FinishIc.png" />
-        <hr />
+      <!-- DenisH Card3 -->
+      <div id="card3" class="cards" style="display: none">
         <div class="heading">
           <img src="./assets/Icon1.png" />
           <label>Sign-Up</label>
@@ -398,61 +288,37 @@
         >
         <br />
         <div class="box">
-          <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
-          <label for="vehicle1"><span id="space">Email</span></label
+          <input
+            type="checkbox"
+            id="emailChecked"
+            name="emailChecked"
+            value="emailChecked"
+            checked
+          />
+          <label for="emailChecked"><span id="space">Email</span></label
           ><br />
-          <input type="checkbox" id="vehicle2" name="vehicle2" value="Bike" />
-          <label for="vehicle2"
+          <input
+            type="checkbox"
+            id="smsChecked"
+            name="smsChecked"
+            value="smsChecked"
+            checked
+          />
+          <label for="smsChecked"
             ><span id="space">Mobile Text Message</span></label
           ><br />
-          <input type="checkbox" id="vehicle3" name="vehicle2" value="Bike" />
-          <label for="vehicle2"
-            ><span id="space">Printed Document with Instructions</span></label
-          ><br />
         </div>
       </div>
-      <div class="row">
-        <div class="col">
-          <div class="form-group" style="float: left">
-            <button type="button" class="cancelBtn">Cancel</button>
-          </div>
-        </div>
-        <div class="col">
-          <div class="form-group" style="float: right">
-            <button type="button" class="nextBtn" (click)="finish()">
-              Finish
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="card4" class="card" style="display: none">
-      <div class="class-content">
-        <div class="sectionHeading">
-          <img src="./assets/userADD.png" />
-          <label>Add User</label>
-          <img id="crossIc" src="./assets/crossIcon.png" />
-        </div>
-        <hr />
-        <img id="strtIc" src="./assets/startIc.png" />
-        <img id="line" src="./assets/ProgressLine.png" />
-
-        <img id="userIc" src="./assets/UserFinish.png" />
-        <img id="line" src="./assets/ProgressLine.png" />
-        <img id="widgetIc" src="./assets/widgetIconComplete.png" />
-        <img id="line" src="./assets/ProgressLine.png" />
-        <img id="widgetIc" src="./assets/SignupComplete.png" />
-        <img id="line" src="./assets/ProgressLine.png" />
-        <img id="finishIc" src="./assets/FinishIcon.png" />
-        <hr />
+      <!--DenisH Card4 -->
+      <div id="card4" class="cards" style="display: none">
         <div class="heading">
           <img src="./assets/Icon2.png" />
           <label>User has been created</label>
         </div>
         <br />
         <ul>
-          <li>A text message has been sent with sign-up instructions</li>
-          <li>An email has been sent with sign-up instructions</li>
+          <li id="sms">A text message has been sent with sign-up instructions</li>
+          <li id="email">An email has been sent with sign-up instructions</li>
         </ul>
         <br />
         <div id="bot">
@@ -460,13 +326,39 @@
           access the user's configuration page
         </div>
         <div class="row">
-          <div class="col">
-            <div class="form-group" style="float: right">
-              <button type="button" class="nextBtn">Close</button>
-            </div>
-          </div>
+          <div class="col"></div>
         </div>
       </div>
+      <!-- DenisH Next/Back Buttons -->
+      <div class="buttons">
+        <button *ngIf="progressBar < 3" (click)="back()">Back</button>
+        <button
+          class="blueBtn"
+          *ngIf="progressBar == 0"
+          (click)="next()"
+          [disabled]="addForm.invalid"
+        >
+          Next
+        </button>
+        <button class="blueBtn" *ngIf="progressBar == 1" (click)="next()">
+          Next
+        </button>
+        <button
+          class="blueBtn"
+          *ngIf="progressBar == 2"
+          (click)="next(); displayAllInfo()"
+        >
+          Finish
+        </button>
+        <button
+          (click)="navigate()"
+          class="blueBtn"
+          id="closeBtn"
+          *ngIf="progressBar == 3"
+        >
+          Close
+        </button>
+      </div>
     </div>
-  </body>
-</html>
+  </div>
+</div>

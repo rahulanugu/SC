@@ -61,30 +61,6 @@ Please follow the below tutorial to set up the application in a local environmen
 [https://www.youtube.com/watch?v=hXFf1Ncwkgw](https://www.youtube.com/watch?v=hXFf1Ncwkgw)
 
 
-## Manually deploying the application to cloud
-
-
-#### Pre-Requisites
-
-
-
-*   Gcloud CLI - Available in the google cloud downloads page.
-*   Access to the ScriptChain project via a Gcloud account.
-*   Clone the GitHub repository to your local disk. (Currently - [https://github.com/mohnoori/scriptchain](https://github.com/mohnoori/scriptchain))
-*   Open the command prompt and navigate to the folder that you have cloned.
-*   Navigate to web-application in the folder (In the command prompt).
-
-
-### Deploying the application to cloud via CLI
-
-
-
-1. Navigate to the angular folder via the command prompt and then use the command ‘npm install’ to download the necessary node modules.
-2. Then, run the command ‘ng build --prod’ to generate/update the dist folder in the node folder. The dist folder contains the static files for the frontend
-3. Now navigate to the node folder and use the command ‘gcloud init’ and add/use a gcloud account configuration from which you have access to the Scriptchain cloud project.
-4. Now, run the command ‘gcloud deploy’ to deploy the application to the cloud.
-
-
 ## Creating & Using Allscripts Projects
 
 
@@ -156,17 +132,17 @@ Token is the token that was generated from the first request.
 Appname can be found on the project page of the application that can be accessed from the dashboard from the Allscripts developer portal.
 
 
-## MongoDB Connection & Data models
+## MySQL Connection & Data models
 
 
 ### Connecting to the database
 
-The NodeJs server of the web application be it locally deployed or cloud-deployed connects to the same Atlas Mongodb online database. The connection details can be found in web-application/node/db.js
+The NodeJs server of the web application be it locally deployed or cloud-deployed connects to the same MySQL online database. The connection details can be found in web-application_docs/Backend/dbSetup.md
 
 If the database cluster needs to be switched, please make sure to update the URI in the above-mentioned folder.
 
 
-### Data models map for the currently used collection(i.e on 5/11/2020)
+### Data models map for the currently used collection(i.e on 8/17/2023)
 
 
 <table>
@@ -191,7 +167,15 @@ If the database cluster needs to be switched, please make sure to update the URI
    </td>
    <td>patients
    </td>
-   <td>Patient portal users
+   <td>Patients' detailed information
+   </td>
+  </tr>
+  <tr>
+   <td>Patient
+   </td>
+   <td>patientsnew
+   </td>
+   <td>Patient Portal User
    </td>
   </tr>
   <tr>
@@ -205,9 +189,25 @@ If the database cluster needs to be switched, please make sure to update the URI
   <tr>
    <td>HealthcareProvider
    </td>
-   <td>healthcareProviders
+   <td>SignupHealthcareProviders
    </td>
    <td>Healthcareprovider portal users
+   </td>
+  </tr>
+  <tr>
+   <td>HealthcareProvider
+   </td>
+   <td>healthcareproviders
+   </td>
+   <td>Log timestamp everytime providers login and delete outdated record (more than 180 days) everyday
+   </td>
+  </tr>
+  <tr>
+   <td>HealthcareProvider
+   </td>
+   <td>tokenSchema
+   </td>
+   <td>Encrypted information of new user in provider portal before they verify email address
    </td>
   </tr>
   <tr>
@@ -250,13 +250,15 @@ If the database cluster needs to be switched, please make sure to update the URI
    <td>Patients who are verified
    </td>
   </tr>
+  <tr>
+   <td>AddUserProviderPortal
+   </td>
+   <td>AddUser_ProviderPortal
+   </td>
+   <td>Patients or caregivers added by providers
+   </td>
+  </tr>
 </table>
-
-
-MongoDb collections with the naming format such as name.chunks & name.files are used for storing documents in databases with the former storing the actual documents and the latter storing the metadata.
-
-
-## Important Notes About Web Application
 
 
 ## Things to know about the web-application

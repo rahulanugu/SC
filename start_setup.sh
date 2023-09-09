@@ -9,7 +9,9 @@ sudo systemctl restart nginx
 
 
 #cd /home/ec2-user/app/web-application/angular
+# testing
 #npm install -g --silent
+#testingh
 #npm link -g --silent @angular/cli
 #npm install -g --silent @angular/cli@latest
 #ng update

@@ -6,8 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./healthcare-footer.component.css']
 })
 export class HealthcareFooterComponent implements OnInit {
+  currentYear: number;
 
-  constructor() { }
+  constructor() { 
+    this.currentYear = new Date().getFullYear();
+  }
 
   ngOnInit() {
   }

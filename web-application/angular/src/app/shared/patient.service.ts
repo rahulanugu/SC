@@ -59,4 +59,4 @@ export class PatientService {
     const obj = {'user':user}
     return this.http.post(this.checkURL+environment.param,obj);
   }
-} 
+}

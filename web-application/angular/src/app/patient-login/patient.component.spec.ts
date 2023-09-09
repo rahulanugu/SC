@@ -1,7 +1,7 @@
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule } from '@angular/forms';
-import { FooterComponent } from './../footer/footer.component';
-import { CommonHeaderComponent } from './../common-header/common-header.component';
+import { FooterComponent } from '../footer/footer.component';
+import { CommonHeaderComponent } from '../common-header/common-header.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpClient} from '@angular/common/http';

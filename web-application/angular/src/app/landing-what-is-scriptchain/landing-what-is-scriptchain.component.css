@@ -21,7 +21,7 @@ body {
 
 .card {
   width: 30vw;
-  min-height: 350px;
+  min-height: 400px;
   margin: 0 auto;
   background-color: white;
   border-radius: 15px;
@@ -34,6 +34,7 @@ body {
   width: 91px;
   height: 91px;
   margin: 10px auto;
+  margin-top: 25px;
 }
 
 .card h3 {
@@ -70,14 +71,13 @@ body {
 .small-card {
   position: relative;
   text-align: left;
-  min-width: 500px;
+  min-width: 340px;
   max-width: 75vw;
   border: 1px solid #ccc;
   border-radius: 15px;
   box-shadow: -5px 5px rgba(0, 0, 0, 0.1);
   background-color: white;
-  padding: 15px 15px;
-  text-align: center;
+  padding: 15px 10px;
 }
 
 .small-card img {
@@ -88,10 +88,12 @@ body {
 }
 
 .small-card span {
+  display: inline-block;
   font-size: 22px;
   font-family: "Lato Bold";
   font-weight: bold;
-  text-align: center;
+  text-align: left;
+  width: 80%;
 }
 .small-card a{
   position: absolute;

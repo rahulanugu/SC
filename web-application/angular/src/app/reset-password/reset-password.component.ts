@@ -28,6 +28,7 @@ export class ResetPasswordComponent implements OnInit {
         this.visible = !this.visible;
       },
       error => {
+        console.log(error);
         this.errorVisible = true;
       }
     );

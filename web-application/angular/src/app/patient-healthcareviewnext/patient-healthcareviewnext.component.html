@@ -1,4 +1,3 @@
-
 <app-healthcare-header></app-healthcare-header>
 
 <div class="sub-bar-contain">
@@ -18,7 +17,7 @@
       <span>Condition Risk: {{condition.name}}</span>
     </a>
   </div>
-  
+
   <div (click)="printPage()" class="print-contain">
     <img src="../../assets/printIconGray.png" />
     <span>Print</span>
@@ -26,7 +25,7 @@
 </div>
 
 <div class="container full-contain">
-  
+
   <div class="container">
     <div class="card-contain">
 
@@ -46,13 +45,11 @@
                 <img src="../../assets/grid.png" />
               </div>
             </div>
-            <p style="font-style: italic; font-size: 14px; color: #575b66; margin: 0 0 12px 12px;">FDA Approval would go here</p>
+            <p style="font-style: italic; font-size: 14px; color: #575b66; margin: 0 0 12px 12px;">FDA Approval would go
+              here</p>
           </div>
-          <app-portal-progress-bar 
-            name='Risk of Developing Hypertension' 
-            [value]="condition.value"
-            show="all"
-            ></app-portal-progress-bar>
+          <app-portal-progress-bar name='Risk of Developing Hypertension' [value]="condition.value" show="all">
+          </app-portal-progress-bar>
           <div id="indicators">
             <div class="sub-inds">
               <div id="safe">
@@ -75,7 +72,7 @@
           <div class="card-head-wrap">
             <div class="card-head">
               <div>
-                <img class="icon" src="../../assets/patient.png"/>
+                <img class="icon" src="../../assets/patient.png" />
                 <h4>
                   Patient Info
                 </h4>
@@ -86,27 +83,28 @@
             </div>
           </div>
           <div class="table area">
-              
-              <div style="padding-bottom: 2%;border-bottom: 2px solid #E1E4EB;">
-                <div class="card-sub-tit">
-                  <div class="pat-icon-wrap">
-                    <img class="sub-icon" src="../../assets/patientview.png" style="width: 16px;" />
-                  </div>
-                  <span>Physical</span>
+
+            <div style="padding-bottom: 2%;border-bottom: 2px solid #E1E4EB;">
+              <div class="card-sub-tit">
+                <div class="pat-icon-wrap">
+                  <img class="sub-icon" src="../../assets/patientview.png" style="width: 16px;" />
                 </div>
-                <div class="pat-details">
-                  <p class="bold_p"><span class="bold">Sex:</span><span>{{patientInfo.sex}}</span></p>
-                  <p class="bold_p"><span class="bold">Age:</span><span>{{patientInfo.age}}</span></p>
-                  <p class="bold_p"><span class="bold">Weight:</span><span>{{patientInfo.weight}} lbs</span></p>
-                  <!-- <p class="bold_p"><span class="bold">Height:</span><span>{{feet}}' {{inches}}"</span></p> -->
-                  <p class="bold_p">
-                    <span class="bold">BMI:</span> 
-                    <span style="color:#8C2C27;font-weight: bold;">{{patientInfo.bmi}}</span> 
-                    <button class="btn btn-sm high1" style="margin-left: 1%!important;padding-top: 0%;padding-bottom: 0%;background-color: #8C2C27;">
-                      Overweight
-                    </button>
-                  </p>
-                </div>
+                <span>Physical</span>
+              </div>
+              <div class="pat-details">
+                <p class="bold_p"><span class="bold">Sex:</span><span>{{patientInfo.sex}}</span></p>
+                <p class="bold_p"><span class="bold">Age:</span><span>{{patientInfo.age}}</span></p>
+                <p class="bold_p"><span class="bold">Weight:</span><span>{{patientInfo.weight}} lbs</span></p>
+                <!-- <p class="bold_p"><span class="bold">Height:</span><span>{{feet}}' {{inches}}"</span></p> -->
+                <p class="bold_p">
+                  <span class="bold">BMI:</span>
+                  <span style="color:#8C2C27;font-weight: bold;">{{patientInfo.bmi}}</span>
+                  <button class="btn btn-sm high1"
+                    style="margin-left: 1%!important;padding-top: 0%;padding-bottom: 0%;background-color: #8C2C27;">
+                    Overweight
+                  </button>
+                </p>
+              </div>
             </div>
             <div style="margin-bottom: 2%;border-bottom: 2px solid #E1E4EB;">
               <div class="card-sub-tit">
@@ -115,7 +113,7 @@
                 </div>
                 <span style="color: #cc0000;">Readmission Risk</span>
               </div>
-              <ul *ngFor="let risk of patientInfo.readmissionRisks"  style="margin-left: 16px; padding-left: 0;">
+              <ul *ngFor="let risk of patientInfo.readmissionRisks" style="margin-left: 16px; padding-left: 0;">
                 <li style="list-style: none;">
                   <span style="font-weight: bold;">{{risk.name}}:&nbsp;</span>
                   <span>{{risk.symptoms}}</span>
@@ -128,7 +126,7 @@
             <div style="margin-bottom: 2%;border-bottom: 2px solid #E1E4EB;">
               <div class="card-sub-tit">
                 <div class="pat-icon-wrap">
-                  <img class="sub-icon" src="../../assets/alertBubbleIconGray_.png" style="width: 20px;"/>
+                  <img class="sub-icon" src="../../assets/alertBubbleIconGray_.png" style="width: 20px;" />
                 </div>
                 <span>Allergies</span>
               </div>
@@ -154,7 +152,7 @@
             <div style="margin-bottom: 2%;">
               <div class="card-sub-tit">
                 <div class="pat-icon-wrap">
-                  <img class="sub-icon" src="../../assets/px.png" style="width: 13px;"/>
+                  <img class="sub-icon" src="../../assets/px.png" style="width: 13px;" />
                 </div>
                 <span>Prescribed Medications</span>
               </div>
@@ -167,64 +165,76 @@
                 </colgroup>
                 <thead>
                   <tr>
-                      <th>Medication</th>
-                      <th>Dosage</th>
-                      <th>Date Prescribed</th>
+                    <th>Medication</th>
+                    <th>Dosage</th>
+                    <th>Date Prescribed</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr *ngFor="let medication of patientInfo.prescribedMedications">
-                      <td>{{medication.name}}</td>
-                      <td>{{medication.dosage}}</td>
-                      <td>{{medication.date_prescribed}}</td>
-                      <td>
-                        <a routerLink="/">
-                          <span>View More</span>
-                          <img src="../../assets/link.png" />
-                        </a>
-                      </td>
+                    <td>{{medication.name}}</td>
+                    <td>{{medication.dosage}}</td>
+                    <td>{{medication.date_prescribed}}</td>
+                    <td>
+                      <a routerLink="/">
+                        <span>View More</span>
+                        <img src="../../assets/link.png" />
+                      </a>
+                    </td>
                   </tr>
                 </tbody>
               </table>
             </div>
           </div>
         </div>
-        
+
         <div id="chart" class="display-card">
-          <div class="card-head">
-            <div>
-              <img class="icon" src="../../assets/Vitals_Icon.svg" />
-              <h4>
-                Vitals
-              </h4>
-            </div>
-            <div>
-              <img src="../../assets/grid.png" />
-            </div>
-          </div>
-          <div class="chart-contain">
-            <img src="../../assets/chart_placeholder.png" style="width: 100%;"/>
-          </div>
-          <div class="graph-controls">
-            <div>
-              <span>Vital Type</span>
+          <div class="display-card" id="chartContainer">
+            <div class="card-head">
               <div>
-                <span>Placeholder</span>
-                <img src="../../assets/downArrowGrey.png" />
+                <img class="icon" src="../../assets/Vitals_Icon.svg" />
+                <h4>
+                  Vitals
+                </h4>
+              </div>
+              <div>
+                <img src="../../assets/grid.png" />
               </div>
             </div>
-            <div>
-              <span>Start Date</span>
-              <div>
-                <span>mm/dd/yyyy</span>
-                <img src="../../assets/Calendar-Small.png"/>
-              </div>
+
+            <div *ngIf="vital && startdate && enddate" class="chart-contain">
+              <highcharts-chart *ngIf="vital == 'weight'" [Highcharts]="weight_highcharts"
+                [options]="weight_chartOptions" style="width: 100%; height: 400px; display: block;">
+              </highcharts-chart>
+              <highcharts-chart *ngIf="vital == 'height'" [Highcharts]="highcharts" [options]="chartOptions"
+                style="width: 100%; height: 400px; display: block;">
+              </highcharts-chart>
+              <highcharts-chart *ngIf="vital == 'diastolic'" [Highcharts]="diastolic_highcharts"
+                [options]="diastolic_chartOptions" style="width: 100%; height: 400px; display: block;">
+              </highcharts-chart>
+              <highcharts-chart *ngIf="vital == 'systolic'" [Highcharts]="systolic_highcharts"
+                [options]="systolic_chartOptions" style="width: 100%; height: 400px; display: block;">
+              </highcharts-chart>
+              <!-- <img src="../../assets/chart_placeholder.png" style="width: 100%;" /> -->
             </div>
-            <div>
-              <span>End Date</span>
+            <div class="graph-controls">
               <div>
-                <span>mm/dd/yyyy</span>
-                <img src="../../assets/Calendar-Small.png"/>
+                <span>Vital Type</span>
+                <select [(ngModel)]="vital" required>
+                  <option value="" selected>Select your option</option>
+                  <option value="weight">Weight</option>
+                  <option value="height">Height</option>
+                  <option value="diastolic">Diastolic Blood Pressure</option>
+                  <option value="systolic">Systolic Blood Pressure</option>
+                </select>
+              </div>
+              <div>
+                <span>Start Date</span>
+                <input type="date" [(ngModel)]="startdate" (change)="dateValidate()">
+              </div>
+              <div>
+                <span>End Date</span>
+                <input type="date" [(ngModel)]="enddate" (change)="dateValidate()">
               </div>
             </div>
           </div>
@@ -234,7 +244,7 @@
       <div id="card-right">
 
         <div id="recommended" class="display-card">
-          
+
           <div class="card-head-wrap">
             <div class="card-head">
               <div>
@@ -247,13 +257,14 @@
                 <img src="../../assets/grid.png" />
               </div>
             </div>
-            <p style="font-style: italic; font-size: 14px; color: #575b66; margin: 0 0 12px 12px;">FDA Approval would go here</p>
+            <p style="font-style: italic; font-size: 14px; color: #575b66; margin: 0 0 12px 12px;">FDA Approval would go
+              here</p>
           </div>
           <div>
             <div class="med-wrap">
               <div class="card-sub-tit">
                 <div class="pat-icon-wrap">
-                  <img class="sub-icon" src="../../assets/notPrescribedGrey.png"style="width: 24px; height: 27px;" />
+                  <img class="sub-icon" src="../../assets/notPrescribedGrey.png" style="width: 24px; height: 27px;" />
                 </div>
                 <span>Not Prescribed</span>
               </div>
@@ -268,7 +279,8 @@
             <div class="med-wrap">
               <div class="card-sub-tit">
                 <div class="pat-icon-wrap">
-                  <img class="sub-icon" src="../../assets/alertBubbleIconGray_.png" style="width: 24px; height: 21px;" />
+                  <img class="sub-icon" src="../../assets/alertBubbleIconGray_.png"
+                    style="width: 24px; height: 21px;" />
                 </div>
                 <span>Patient is Allergic</span>
               </div>
@@ -277,7 +289,8 @@
                   <span>{{medication.class}}</span>
                   <span>{{medication.meds}}</span>
                 </div>
-                <div *ngIf="recommendedMedications.allergic.length === 0" class="med-bubble" style="background-color: #eef2ff;">
+                <div *ngIf="recommendedMedications.allergic.length === 0" class="med-bubble"
+                  style="background-color: #eef2ff;">
                   <span style="color: #27365e; border: none;">None</span>
                 </div>
               </div>
@@ -335,7 +348,7 @@
           <div class="card-head-wrap">
             <div class="card-head">
               <div>
-                <img class="sub-icon" src="../../assets/abnormalLabsIcon_.png" style="height: 28px; width: 26px;"/>
+                <img class="sub-icon" src="../../assets/abnormalLabsIcon_.png" style="height: 28px; width: 26px;" />
                 <h4>
                   Abnormal Labs
                 </h4>
@@ -385,7 +398,7 @@
           <div class="card-head-wrap">
             <div class="card-head">
               <div>
-                <img class="sub-icon" src="../../assets/admissionIcon.png" style="height: 28px; width: 30px;"/>
+                <img class="sub-icon" src="../../assets/admissionIcon.png" style="height: 28px; width: 30px;" />
                 <h4>
                   Prior Procedures
                 </h4>

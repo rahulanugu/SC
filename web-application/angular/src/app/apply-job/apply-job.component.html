@@ -7,156 +7,155 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 <!-- Authors and their contributions: -->
 <!-- Vidit: Designed the entire page -->
+<!-- Siheng: this component may not be used -->
 
-<!DOCTYPE html>
-<html lang="zxx" ng-app="app">
-  <head>
-    <!-- <title>{{ job.title }}</title> -->
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta charset="UTF-8" />
-    <script src="https://code.angularjs.org/1.4.6/angular-route.js"></script>
-    <script src="http://720kb.github.io/angular-socialshare/assets/ext/src/js/angular-socialshare.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.1/angular.min.js"></script>
 
-    <script src="script.js"></script>
-  </head>
+<app-landing-page-header></app-landing-page-header>
+<div>
+  <div fxLayout="column">
+    <div fxFlexFill>
+      <div class="header">
+        <h1 class="jobTitle container">{{ jobList[jobListCount].name }}</h1>
 
-  <body>
-    <app-landing-page-header></app-landing-page-header>
-    <div>
-
-      <div fxLayout="column">
-
-        <div fxFlexFill>
-
-          <div class="header">
-            <h1 class="jobTitle container">{{jobList[jobListCount].name}}</h1>
-          </div>
+      </div>
+    </div>
+    <div class="bkgrd" fxLayout="column">
+      <div class="row text-justify mt-5" fxFlexFill>
+        <div class="col-xs-12 container date">
+          <p>
+            > posted on <span>{{ jobList[jobListCount].posted }}</span>
+          </p>
         </div>
-        <div class="bkgrd" fxLayout="column">
-          <div class="row text-justify mt-5" fxFlexFill>
-            <div class="col-xs-12 container date">
-              <p>> posted on <span>{{jobList[jobListCount].posted}}</span></p>
-            </div>
-            <div class="col-xs-12 container">
-              <h2 class="heading">Company Description</h2>
-              <p class="description">
-                At ScriptChain, we are looking to make a disruptive impact in
-                today's healthcare back end processes. By using Artificial
-                Intelligence, we will be able to streamline a lot of these
-                processes and save the industry time and money. We love people
-                to innovate and learn more about the AI space. This is also a
-                great way to gain more experience in the space and make a
-                positive impact in a growing market.
-              </p>
-            </div>
-          </div>
-
-          <div class="row text-justify mt-5" fxFlexFill>
-            <div class="col-xs-12 container">
-              <h2 class="heading">Job Description</h2>
-              <p class="description">
-                {{jobList[jobListCount].jobDesc}}
-              </p>
-            </div>
-          </div>
-
-          <div class="row text-justify" fxFlexFill>
-            <div class="col-xs-12 container">
-              <h2 class="heading">Responsibilities</h2>
-              <ul>
-                <li class="responsibilitiesLi" *ngFor="let responsibilities of jobList[jobListCount].Responsibilities">{{responsibilities}}</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="row text-justify" fxFlexFill>
-            <div class="col-xs-12 container">
-              <h2 class="heading">Requirements</h2>
-              <ul>
-                <li class="requirementsLi" *ngFor="let requirements of jobList[jobListCount].Requirements">{{requirements}}</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="row" fxFlexFill>
-            <div class="col-xs-12 container my-5">
-              <!-- <a href="{{ job.link }}" target="_blank"> -->
-              <button class="applyButton">
-                <span class="buttonText">Apply Now</span>
-                <img src="../../assets/check-lg.svg" class="icon" alt="" />
-              </button>
-            </div>
-          </div>
-
-          <div class="column pb-5" fxFlexFill>
-            <div class="col-xs-12 container">
-              <h4 class="heading">Share this job posting!</h4>
-            </div>
-            <div class="container socialMediaIcons">
-              <button shareButton="linkedin">
-                <img
-                  src="./assets/icons/linkedin.svg"
-                  alt=""
-                  class="img-rounded img-fluid"
-                  width="40px"
-                  height="40px"
-                />&nbsp;
-              </button>
-              <button shareButton="twitter">
-                <img
-                  src="./assets/icons/twitter.svg"
-                  alt=""
-                  class="img-rounded img-fluid"
-                  width="40px"
-                  height="40px"
-                />&nbsp;
-              </button>
-              <button shareButton="facebook">
-                <img
-                  src="./assets/icons/facebook.svg"
-                  alt=""
-                  class="img-rounded img-fluid"
-                  width="40px"
-                  height="40px"
-                />&nbsp;
-              </button>
-              <button shareButton="pinterest">
-                <img
-                  src="./assets/icons/pinterest.svg"
-                  alt=""
-                  class="img-rounded img-fluid"
-                  width="40px"
-                  height="40px"
-                />
-              </button>
-            </div>
-          </div>
-
+        <div class="col-xs-12 container">
+          <h2 class="heading">Company Description</h2>
+          <p class="description">
+            At ScriptChain, we are looking to make a disruptive impact in
+            today's healthcare back end processes. By using Artificial
+            Intelligence, we will be able to streamline a lot of these processes
+            and save the industry time and money. We love people to innovate and
+            learn more about the AI space. This is also a great way to gain more
+            experience in the space and make a positive impact in a growing
+            market.
+          </p>
         </div>
-        <div class="pagination">
-          <ul fxHide fxShow.gt-sm>
-            <li><a class="prev" (click)="previousPage()">
-                < PREVIOUS PAGE</a>
-            </li>
-            <div style="display: flex;">
-              <li class="pageNumber" [ngClass]="{'active': page.page == jobListCount+1}" *ngFor="let page of jobList">
-                <a (click)="jumpPage(page.page)"> {{page.page}} </a>
-              </li>
-            </div>
-            <li><a class="next" (click)="nextPage()">NEXT PAGE > </a>
-            </li>
-          </ul>
-          <ul fxShow fxHide.gt-sm>
-            <li><a class="prev" (click)="previousPage()">
-                < PREVIOUS PAGE</a>
-            </li>
-            <li><a class="next" (click)="nextPage()">NEXT PAGE > </a>
+      </div>
+
+      <div class="row text-justify mt-5" fxFlexFill>
+        <div class="col-xs-12 container">
+          <h2 class="heading">Job Description</h2>
+          <p class="description">
+            {{ jobList[jobListCount].jobDesc }}
+          </p>
+        </div>
+      </div>
+
+      <div class="row text-justify" fxFlexFill>
+        <div class="col-xs-12 container">
+          <h2 class="heading">Responsibilities</h2>
+          <ul>
+            <li
+              class="responsibilitiesLi"
+              *ngFor="
+                let responsibilities of jobList[jobListCount].Responsibilities
+              "
+            >
+              {{ responsibilities }}
             </li>
           </ul>
         </div>
       </div>
+
+      <div class="row text-justify" fxFlexFill>
+        <div class="col-xs-12 container">
+          <h2 class="heading">Requirements</h2>
+          <ul>
+            <li
+              class="requirementsLi"
+              *ngFor="let requirements of jobList[jobListCount].Requirements"
+            >
+              {{ requirements }}
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="row" fxFlexFill>
+        <div class="col-xs-12 container my-5">
+          <!-- <a href="{{ job.link }}" target="_blank"> -->
+          <button class="applyButton">
+            <span class="buttonText">Apply Now</span>
+            <img src="../../assets/check-lg.svg" class="icon" alt="" />
+          </button>
+        </div>
+      </div>
+
+      <div class="column pb-5" fxFlexFill>
+        <div class="col-xs-12 container">
+          <h4 class="heading">Share this job posting!</h4>
+        </div>
+        <div class="container socialMediaIcons">
+          <!-- <button shareButton="linkedin"> -->
+          <button>
+            <img
+              src="./assets/icons/linkedin.svg"
+              alt=""
+              class="img-rounded img-fluid"
+              width="40px"
+              height="40px"
+            />&nbsp;
+          </button>
+          <!-- <button shareButton="twitter"> -->
+          <button>
+            <img
+              src="./assets/icons/twitter.svg"
+              alt=""
+              class="img-rounded img-fluid"
+              width="40px"
+              height="40px"
+            />&nbsp;
+          </button>
+          <!-- <button shareButton="facebook"> -->
+          <button>
+            <img
+              src="./assets/icons/facebook.svg"
+              alt=""
+              class="img-rounded img-fluid"
+              width="40px"
+              height="40px"
+            />&nbsp;
+          </button>
+          <!-- <button shareButton="pinterest"> -->
+          <button>
+            <img
+              src="./assets/icons/pinterest.svg"
+              alt=""
+              class="img-rounded img-fluid"
+              width="40px"
+              height="40px"
+            />
+          </button>
+        </div>
+      </div>
     </div>
-    <app-landing-page-subfooter></app-landing-page-subfooter>
-  </body>
-</html>
+    <div class="pagination">
+      <ul fxHide fxShow.gt-sm>
+        <li><a class="prev" (click)="previousPage()"> < PREVIOUS PAGE</a></li>
+        <div style="display: flex">
+          <li
+            class="pageNumber"
+            [ngClass]="{ active: page.page == jobListCount + 1 }"
+            *ngFor="let page of jobList"
+          >
+            <a (click)="jumpPage(page.page)"> {{ page.page }} </a>
+          </li>
+        </div>
+        <li><a class="next" (click)="nextPage()">NEXT PAGE > </a></li>
+      </ul>
+      <ul fxShow fxHide.gt-sm>
+        <li><a class="prev" (click)="previousPage()"> < PREVIOUS PAGE</a></li>
+        <li><a class="next" (click)="nextPage()">NEXT PAGE > </a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<app-landing-page-subfooter></app-landing-page-subfooter>

@@ -1,7 +1,8 @@
 import { RequestAccessUser } from "./requestaccess.model";
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { environment } from "src/environments/environment";
+import { environment } from "../../environments/environment";
+
 /**
  * http calls for the requestaccess component
  */
@@ -9,12 +10,17 @@ import { environment } from "src/environments/environment";
   providedIn: "root"
 })
 export class RequestaccessnewuserService {
-  readonly baseURL = environment.serverUrl+"/request_access";
+  readonly baseURL = environment.serverUrl + "/request_access/sendMail" + environment.param;
   user: RequestAccessUser;
 
   constructor(private http: HttpClient) {}
 
-  requestAccessforNewUser(user: RequestAccessUser) {
-    return this.http.post(this.baseURL+environment.param, user);
+  sendMessage(requestAccessData) {
+    return this.http.post(this.baseURL, requestAccessData);
+  }
+
+  url="https://dev.scriptchain.co/request_access/access"
+  sendAccess(access){
+    return this.http.post<any>(this.url, access)
   }
 }

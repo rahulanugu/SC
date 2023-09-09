@@ -7,12 +7,15 @@
       <span>Home</span>
     </a>
     <img src="../../assets/view.png" />
-    <a [routerLink]="'/healthcare-profile/patient/' + patientDetails.id" class="sub-nav">
+    <a
+      [routerLink]="'/healthcare-profile/patient/' + patientDetails.id"
+      class="sub-nav"
+    >
       <img src="../../assets/UserIcon.png" />
-      <span>{{patientDetails.name}}</span>
+      <span>{{ patientDetails.name }}</span>
     </a>
   </div>
-  
+
   <div (click)="printPage()" class="print-contain">
     <img src="../../assets/printIconGray.png" />
     <span>Print</span>
@@ -20,26 +23,30 @@
 </div>
 
 <div class="container full-contain">
-  
   <div class="container">
-
     <div class="top-info">
       <div>
-        <img class="avatar" src="../../assets/albert_johnson.png"/>
-        <p><b>{{patientDetails.name}}</b></p>
+        <img class="avatar" src="../../assets/albert_johnson.png" />
+        <p>
+          <b>{{ patientDetails.name }}</b>
+        </p>
       </div>
       <div class="sub-top-info">
         <div class="sub-tit">
           <b>MRN</b>
-          <span>{{patientDetails.mrn}}</span>
+          <span>{{ patientDetails.mrn }}</span>
         </div>
         <div class="sub-tit">
           <b>DOB</b>
-          <span>{{patientDetails.dob}}</span>
+          <span>{{ patientDetails.dob }}</span>
         </div>
         <div class="sub-tit">
           <b>Next Appointment</b>
-          <span>{{patientDetails.next_appt.date}}&nbsp;&nbsp;{{patientDetails.next_appt.time}}</span>
+          <span
+            >{{ patientDetails.next_appt.date }}&nbsp;&nbsp;{{
+              patientDetails.next_appt.time
+            }}</span
+          >
         </div>
       </div>
       <div class="sub-top-info">
@@ -47,7 +54,7 @@
           <img class="icon" src="../../assets/smol_message_icon.svg" />
           Message &nbsp;
         </a>
-        <a routerLink="/">
+        <a routerLink="/healthcare/patientportal">
           <img class="icon" src="../../assets/smol_profile_icon.svg" />
           Patient Portal
         </a>
@@ -55,28 +62,24 @@
     </div>
 
     <div class="card-contain">
-
       <div id="card-left">
-
         <div id="readmission" class="display-card">
           <div class="card-head">
             <div>
               <img class="icon" src="../../assets/Readmission_Risk_Icon.svg" />
-              <h4>
-                Readmission Risk
-              </h4>
+              <h4>Readmission Risk</h4>
             </div>
             <div>
               <img src="../../assets/i_Con.png" />
               <img src="../../assets/grid.png" />
             </div>
           </div>
-          <app-portal-progress-bar 
-            name='Readmission Risk for Cardiovascular Disease' 
+          <app-portal-progress-bar
+            name="Readmission Risk for Cardiovascular Disease"
             [value]="readmissionRisk"
-            link="/healthcare-profile/readmission"
+            link="./readmission"
             show="all"
-            ></app-portal-progress-bar>
+          ></app-portal-progress-bar>
           <div id="indicators">
             <div class="sub-inds">
               <div id="safe">
@@ -100,9 +103,7 @@
           <div class="card-head">
             <div>
               <img class="icon" src="../../assets/Symptoms_Icon.svg" />
-              <h4>
-                Symptoms and Chief Complaints
-              </h4>
+              <h4>Symptoms and Chief Complaints</h4>
             </div>
             <div>
               <img src="../../assets/grid.png" />
@@ -111,10 +112,10 @@
           <div class="table area">
             <table style="width: 100%; padding: 2%">
               <colgroup>
-                <col span="1" style="width: 35%">
-                <col span="1" style="width: 20%">
-                <col span="1" style="width: 25%">
-                <col span="1" style="width: 20%">
+                <col span="1" style="width: 35%" />
+                <col span="1" style="width: 20%" />
+                <col span="1" style="width: 25%" />
+                <col span="1" style="width: 20%" />
               </colgroup>
               <thead>
                 <tr>
@@ -125,9 +126,9 @@
               </thead>
               <tbody>
                 <tr *ngFor="let symCom of symptomsComplaints">
-                  <td>{{symCom.name}}</td>
-                  <td>{{symCom.date}}</td>
-                  <td>{{symCom.details}}</td>
+                  <td>{{ symCom.name }}</td>
+                  <td>{{ symCom.date }}</td>
+                  <td>{{ symCom.details }}</td>
                   <td class="view-more">
                     <a routerLink="/">
                       <span>View More</span>
@@ -144,10 +145,11 @@
         <div id="diagnosed" class="display-card">
           <div class="card-head">
             <div>
-              <img class="icon" src="../../assets/Diagnosed_Condition_Icon.svg" />
-              <h4>
-                Diagnosed Conditions
-              </h4>
+              <img
+                class="icon"
+                src="../../assets/Diagnosed_Condition_Icon.svg"
+              />
+              <h4>Diagnosed Conditions</h4>
             </div>
             <div>
               <img src="../../assets/grid.png" />
@@ -156,10 +158,10 @@
           <div class="table area">
             <table style="width: 100%; padding: 2%">
               <colgroup>
-                <col span="1" style="width: 35%">
-                <col span="1" style="width: 20%">
-                <col span="1" style="width: 25%">
-                <col span="1" style="width: 20%">
+                <col span="1" style="width: 35%" />
+                <col span="1" style="width: 20%" />
+                <col span="1" style="width: 25%" />
+                <col span="1" style="width: 20%" />
               </colgroup>
               <thead>
                 <tr>
@@ -170,9 +172,9 @@
               </thead>
               <tbody>
                 <tr *ngFor="let condition of diagnosedConditions">
-                  <td>{{condition.name}}</td>
-                  <td>{{condition.date}}</td>
-                  <td>{{condition.details}}</td>
+                  <td>{{ condition.name }}</td>
+                  <td>{{ condition.date }}</td>
+                  <td>{{ condition.details }}</td>
                   <td class="view-more">
                     <a routerLink="/">
                       <span>View More</span>
@@ -188,25 +190,24 @@
       </div>
 
       <div id="card-right">
-
-        <div class="display-card"> 
+        <div class="display-card">
           <div class="card-head">
             <div>
-              <img class="icon" src="../../assets/Condition_Risk.svg"/>
-              <h4>
-                Condition Risk
-              </h4>
+              <img class="icon" src="../../assets/Condition_Risk.svg" />
+              <h4>Condition Risk</h4>
             </div>
             <div>
               <img src="../../assets/grid.png" />
             </div>
           </div>
-          <app-portal-progress-bar *ngFor='let condition of conditionRisks'
-            [name]='condition.name' 
+          <app-portal-progress-bar
+            *ngFor="let condition of conditionRisks"
+            [name]="condition.name"
             [value]="condition.value"
             [link]="condition.link"
             [show]="condition.show"
-            [diagnosed]="condition.diagnosed">
+            [diagnosed]="condition.diagnosed"
+          >
           </app-portal-progress-bar>
           <div id="indicators">
             <div class="sub-inds">
@@ -230,41 +231,75 @@
           <div class="card-head">
             <div>
               <img class="icon" src="../../assets/Vitals_Icon.svg" />
-              <h4>
-                Vitals
-              </h4>
+              <h4>Vitals</h4>
             </div>
             <div>
               <img src="../../assets/grid.png" />
             </div>
           </div>
-          <div class="chart-contain">
-            <img src="../../assets/chart_placeholder.png" style="width: 100%;"/>
+          <div *ngIf="vital && startdate && enddate" class="chart-contain">
+            <highcharts-chart
+              *ngIf="vital == 'weight'"
+              [Highcharts]="weight_highcharts"
+              [options]="weight_chartOptions"
+              style="width: 100%; height: 400px; display: block"
+            >
+            </highcharts-chart>
+            <highcharts-chart
+              *ngIf="vital == 'height'"
+              [Highcharts]="highcharts"
+              [options]="chartOptions"
+              style="width: 100%; height: 400px; display: block"
+            >
+            </highcharts-chart>
+            <highcharts-chart
+              *ngIf="vital == 'diastolic'"
+              [Highcharts]="diastolic_highcharts"
+              [options]="diastolic_chartOptions"
+              style="width: 100%; height: 400px; display: block"
+            >
+            </highcharts-chart>
+            <highcharts-chart
+              *ngIf="vital == 'systolic'"
+              [Highcharts]="systolic_highcharts"
+              [options]="systolic_chartOptions"
+              style="width: 100%; height: 400px; display: block"
+            >
+            </highcharts-chart>
+            <!-- <img src="../../assets/chart_placeholder.png" style="width: 100%;" /> -->
           </div>
           <div class="graph-controls">
             <div>
               <span>Vital Type</span>
-              <div>
-                <span>Placeholder</span>
-                <img src="../../assets/downArrowGrey.png" />
-              </div>
+              <select [(ngModel)]="vital" required>
+                <option value="" selected>Select your option</option>
+                <option value="weight">Weight</option>
+                <option value="height">Height</option>
+                <option value="diastolic">Diastolic Blood Pressure</option>
+                <option value="systolic">Systolic Blood Pressure</option>
+              </select>
             </div>
             <div>
               <span>Start Date</span>
-              <div>
-                <span>mm/dd/yyyy</span>
-                <img src="../../assets/Calendar-Small.png"/>
-              </div>
+              <input
+                type="date"
+                [(ngModel)]="startdate"
+                (change)="dateValidate()"
+              />
             </div>
             <div>
               <span>End Date</span>
-              <div>
-                <span>mm/dd/yyyy</span>
-                <img src="../../assets/Calendar-Small.png"/>
-              </div>
+              <input
+                type="date"
+                [(ngModel)]="enddate"
+                (change)="dateValidate()"
+              />
             </div>
           </div>
         </div>
+        <!-- <highcharts-chart [Highcharts]="highcharts" [options]="chartOptions"
+          style="width: 100%; height: 400px; display: block;">
+        </highcharts-chart> -->
       </div>
     </div>
   </div>

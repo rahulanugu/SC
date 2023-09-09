@@ -1,6 +1,6 @@
-import { PatientDataService } from "./../patient-data.service";
+import { PatientDataService } from "../patient-data.service";
 import { Component, OnInit } from "@angular/core";
-import { LoginPatientService } from "./../../shared/login-patient.service";
+import { LoginPatientService } from "../../shared/login-patient.service";
 import { Router } from "@angular/router";
 
 @Component({

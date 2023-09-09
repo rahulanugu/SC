@@ -64,8 +64,7 @@ def hello_world(request):
     #text = "Txt001|Written informed consent.\nTxt002|Age 18 years or older.\nTxt003|informed consent.\nTxt004|Male or female."
     #text = "Txt001|Kidney problem is there"
     distron.generate_analytics()
-    return HttpResponse("Hello World!") 
-
+    return HttpResponse("Hello World!")
 
 
 class CustomeJSONParser(BaseParser):
@@ -124,6 +123,7 @@ class call_model(APIView):
 
         except Exception as e:
             logger.exception("Error occured")
+            return HttpResponse("Error occured!")
 
     """ def get(self, request):
         try:
@@ -235,19 +235,57 @@ class call_model(APIView):
 
         return predictions
 
+
 '''
  --- JDW --- 
 '''
 
+
 class EpicView(APIView):
     # Async view declare
-    @classonlymethod
-    def as_view(cls, **initkwargs):
-        view = super().as_view(**initkwargs)
-        view._is_coroutine = asyncio.coroutines._is_coroutine
-        return view
+    # @classonlymethod
+    # def as_view(cls, **initkwargs):
+    #     view = super().as_view(**initkwargs)
+    #     view._is_coroutine = asyncio.coroutines._is_coroutine
+    #     return view
 
-    # Call data fetching function from 
+    def post(self, request, format=None):
+        """ Interfaces with the ML models to generate analytics."""
+
+        try:
+
+            if request.method == "POST":
+                # print('In generate analytics, post request method')
+                # data = request.data
+                # this result should be retrieved from FHIR API and then parsed to the same structure. Issue with FHIR api interface, so hardcoded for now
+                result = {"patientDetails": {'name': 'Theodore Grey', 'sex': 'Male', 'age': 68, 'height': 70, 'weight': 200, 'bmi': (703 * 200 / (70 * 70)), 'id': '1234', 'mrn': 'YTK89123456', 'dob': '03/12/1951', 'next_appt': {'date': '11/25/2020', 'time': '10:30 am'}, 'readmissionRisks': [{'name': 'Coronary Heart Disease', 'symptoms': 'Angina, dizziness, nausea', 'value': ''}], 'allergies': [], 'lifestyle': {'smokes': True, }, 'prescribedMedications': [{'name': 'Crestor', 'dosage': '20mg', 'date_prescribed': '09/17/2008'}]},
+                          "readimissionRisk": 52,
+                          "symptomsComplaints": [{'name': 'Tiredness', 'date': '11/25/2020', 'details': ''}],
+                          "diagnosedConditions": [{'name': 'Coronary Artery Disease', 'date': '1/20/2015', 'details': ''},
+                                                  {'name': 'Diabetes (Type II)',
+                                                   'date': '07/13/2011', 'details': ''},
+                                                  {'name': 'Hyperlipidemia', 'date': '12/02/2009', 'details': ''}],
+                          "conditionRisks": [{'name': 'Coronary Artery Disease', 'value': '100', 'link': '/healthcare-profile/patient/1234/93', 'show': 'select', 'diagnosed': True},
+                                             {'name': 'Hypertension', 'value': '83', 'link': '/healthcare-profile/patient/1234/93',
+                                              'show': 'select', 'diagnosed': False},
+                                             {'name': 'Heart Failure', 'value': '45',
+                                              'link': '/healthcare-profile/patient/1234/93', 'show': 'select', 'diagnosed': False},
+                                             {'name': 'Atrial Fibrilation', 'value': '27', 'link': '/healthcare-profile/patient/1234/93', 'show': 'select', 'diagnosed': False}],
+                          "recommendedMedications": {'not_prescribed': [{'class': 'ACE Inhibitors', 'meds': 'CO2A'}, {'class': 'Antiplatelet Agents', 'meds': 'CO2B'}, {'class': 'Angiotensin Receptor-Neprilysin Inhibitors', 'meds': 'CO2L'}], 'allergic': []},
+                          "abnormalLabs": [{'test': 'Cholesterol', 'result': '243 mg/dL', 'status': 'high'}, {'test': 'LDL Cholesterol', 'result': '141 mg/dL', 'status': 'high'}, {'test': 'Non-HDL Cholesterol', 'result': '149 mg/dL', 'status': 'high'}],
+                          "priorProcedures": [{'name': 'Angioplasty', 'date': '11/05/2015', 'details': ''}],
+                          "vitalData": {"weight": {"dates": ["2022/04/24", "2022/05/26", "2022/06/25", "2022/07/24", "2022/08/25", "2022/09/25", "2022/10/25"], "weights": [174.8, 175.2, 174.8, 175.4, 175.8, 176.1, 175]},
+                                        "temperature": {"dates": ["2022/04/24", "2022/05/26", "2022/06/25", "2022/07/24", "2022/08/25", "2022/09/25", "2022/10/25"], "temperatures": [97, 97.2, 97.5, 98, 98.2, 99.5, 97.5]}},
+                          "admissionHistory": [{'discharge': '11/05/2020', 'date': '11/12/2020', 'details': 'Patient admitted for heart failure'}]
+                          }
+
+                return Response(json.dumps(result))
+
+        except Exception as e:
+            logger.exception("Error occured")
+            return HttpResponse("Error occured!")
+
+    # Call data fetching function from
     async def getPatientData(self, request):
         data = await epic.fetch_all_patient_data(request.payload)
         return data

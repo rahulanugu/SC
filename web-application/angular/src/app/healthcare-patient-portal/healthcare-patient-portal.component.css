@@ -1,8 +1,14 @@
-body {
+
+.body{
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   background-color: #faf6f2;
 }
 .inline-elements {
   margin-top: 43.5px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .inline-elements label {
@@ -11,38 +17,11 @@ body {
   color: #575b66;
   font-style: normal;
   font-size: 14px;
-  margin-top: calc(50% - 17px / 2);
   line-height: 17px;
-  flex: none;
-  order: 1;
-  flex-grow: 0;
-  margin: 0px 4px;
+
 }
-
-.inline-elements {
-  margin-top: 43.5px;
-}
-
-.heading label {
-  height: 29px;
-  left: 32px;
-  top: 5.5px;
-
-  /* Lato/24/Bold */
-
-  font-family: "Lato", sans-serif;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 24px;
-  line-height: 29px;
-  /* identical to box height */
-
-  display: flex;
-  align-items: center;
-
-  /* Teal 400 */
-
-  color: #2d5059;
+.inline-elements label img{
+  padding: 0px 5px;
 }
 
 .sectionHeading label {
@@ -63,41 +42,38 @@ body {
 }
 
 .btn {
-  width: 1392px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 80px;
-  margin-left: 24px;
-  top: 224px;
   background: #5c8a96;
   border-radius: 8px;
-  margin-top: 21.5px;
   color: #ffffff;
-  margin: 0;
-  margin-left: 24px;
 }
 
-.element label {
-  margin-top: 40px;
+.element button {
+  width: 50%;
   font-family: "Lato", sans-serif;
   font-style: normal;
   font-weight: bold;
   font-size: 18px;
   line-height: 22px;
   text-align: center;
-  display: table-cell;
   vertical-align: middle;
+  margin: 0 auto;
 }
+
 .element {
-  margin-left: 24px;
-  margin-bottom: 532px;
+  width: 95%;
+  margin: 20px;
 }
 
 .footer1 {
-  margin: 0 auto;
   width: 100%;
   height: auto;
   overflow: hidden;
-  position: fixed;
   bottom: 0px;
+  margin-top: auto;
 }
 
 img {
@@ -108,11 +84,196 @@ img {
   margin-bottom: 21.5px;
 }
 
-.footer1 {
-  margin: 0 auto;
-  width: 100%;
-  height: auto;
-  overflow: hidden;
-  position: fixed;
-  bottom: 0px;
+/* Denis H Cards */
+
+.userCard {
+  width: 95%;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 20px;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
+/*Denis - Image */
+.userCard .image {
+  flex: 1 10%;
+  padding: 10px;
+  text-align: center;
+}
+
+.userCard .image img {
+  margin: 0;
+}
+
+/*Denis - Card information */
+.userCard .information {
+  flex: 1 55%;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.information div {
+  flex: 1 30%;
+  display: flex;
+  flex-direction: column;
+}
+
+.information .email,
+.information .phone {
+  flex: 1 40%;
+}
+
+.information div span {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.information .name {
+  font-size: 26px;
+  font-weight: 550;
+}
+
+.information .type {
+  font-size: 26px;
+  font-weight: 400;
+}
+
+/*Denis - Signed information */
+.userCard .signed {
+  flex: 1 33%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.signed div {
+  padding: 0 10px;
+  font-weight: 500;
+}
+
+.signed .green {
+  background-color: rgb(153, 227, 153);
+  padding: 5px 20px;
+  border-radius: 10px;
+}
+
+.signed .orange {
+  background-color: rgba(255,240,227,255);
+  padding: 5px 10px;
+  border-radius: 10px;
+  color: rgba(117,23,18,255)
+}
+
+
+.signed div img,
+.signed div a img {
+  margin: 2px 5px;
+  height: 20px;
+  width: 20px;
+}
+
+.signed div a {
+  color: black;
+}
+
+/*Denis - Responsiveness for card */
+@media screen and (max-width:1450px) {
+  .userCard .image {
+    flex: 1 10%;
+  }
+
+
+  .userCard .information {
+    flex: 1 65%;
+  }
+
+  .userCard .signed {
+    flex: 1 21%;
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width:1250px) {
+
+
+  .userCard .signed {
+    flex: 1 100%;
+    flex-direction: row;
+    padding: 10px;
+    margin-left: 10%;
+  }
+}
+
+@media screen and (max-width:910px) {
+  .userCard .information{
+    flex: 1 75%
+  }
+  .userCard .image{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .userCard .image img{
+    width: 100%;
+  }
+  .userCard .information div{
+    flex: 1 50%;
+    order: 2;
+  }
+  .information .type,.information .name{
+    order: -1 !important;
+  }
+}
+@media screen and (max-width:710px) {
+  .userCard{
+    flex-direction: column;
+  }
+  .userCard .image img{
+    width: 200px;
+  }
+
+  .userCard .signed{
+    margin: 0 2%;
+  }
+  .element button {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width:600px) {
+  .userCard,.element{
+    flex-direction: row;
+    margin: 10px auto;
+    padding: 0 10px;
+  }
+
+  .userCard .information{
+    order: 1;
+  }
+  .userCard .image{
+    flex: 1 25%;
+  }
+  .image img{
+    width: 100% !important;
+  }
+  .userCard .signed{
+    flex: 1 45%;
+    flex-direction: column;
+  }
+  .userCard .information{
+    flex-wrap: nowrap;
+    flex-direction: column;
+    text-align: center;
+  }
+}
+@media screen and (max-width:450px) {
+  .userCard div{
+    flex: 1 100% !important;
+  }
+  .userCard .image img{
+    width: 200px !important;
+  }
 }

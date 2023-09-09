@@ -1,23 +1,14 @@
 /* Authors and their contributions */
 /* Vidit: Redesigned the form using CSS grid and made the page responsive. */
+/* Siheng: Removed the unnecessary imports and added more space between the submit button and the footer */
 
-@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Tinos&display=swap');
-
-app-landing-page-header {
-  position: absolute;
-  top: 0;
-}
-
-body {
-  background-color: #F5F1ED;
-  min-height: 100vh;
-}
+@import url('https://fonts.googleapis.com/css2?family=Tinos&display=swap'); */
 
 .bpHeader {
   font-family: "Tinos", serif;
-  color: #2D5059;
+  color: #2d5059;
   font-size: 36px;
   margin-top: 60px;
 }
@@ -25,7 +16,7 @@ body {
 .bpSubHeader {
   font-family: "Lato", sans-serif;
   font-size: 14px;
-  color: #1D1F26;
+  color: #1d1f26;
 }
 
 form label {
@@ -54,7 +45,7 @@ form input {
   height: 40px;
   width: 100%;
 }
-form select{
+form select {
   width: 100% !important;
 }
 form span {
@@ -68,9 +59,9 @@ form span {
 .sendBtn {
   width: 140px;
   height: 40px;
-  color: #E6EFF1;
-  background-color: #5C8A96;
-  border: #5C8A96;
+  color: #e6eff1;
+  background-color: #5c8a96;
+  border: #5c8a96;
   font-size: 14px;
   text-align: center;
   font-family: "Lato", sans-serif;
@@ -108,11 +99,11 @@ form select {
 }
 
 .divider {
-  border-top: 1px solid #B0B4BF;
+  border-top: 1px solid #b0b4bf;
   grid-column: 1 / -1;
 }
 
-form>div {
+form > div {
   display: inline-block;
 }
 
@@ -120,7 +111,7 @@ form>div {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 1em;
-  background-color: #E6EFF1;
+  background-color: #e6eff1;
   border-radius: 15px;
   height: auto;
   margin-left: auto;
@@ -128,7 +119,8 @@ form>div {
 }
 
 #partnership-div {
-  background-color: #F5F1ED;
+  background-color: #f5f1ed;
+  padding-bottom: 5%;
 }
 
 #partnership-form {

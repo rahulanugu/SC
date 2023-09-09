@@ -1,3 +1,30 @@
+**How we Code in Angular:**  
+
+1. When creating a new component in angular, we use command:  
+ng generate component component-name (replace component-name with the desired name of your component)
+2. If this component is a webpage which has its own path, then add the path in "app-routing.module.ts" and include the component folder in head file.
+3. If one webpage neads "login" before accessing, then add "HealthcareAuthGuard" or "PatientAuthGuard".
+![Alt text](../Images/FrontendDocumentationCodeInAngular_images/image.png)    
+![Alt text](../Images/FrontendDocumentationCodeInAngular_images/image-1.png)
+4. Component-based Architecture: Angular follows a component-based architecture, where the application is broken down into reusable and modular components. Each component encapsulates its template, styles, and behavior.
+5. Templates: Angular components use HTML templates to define the user interface. You can use Angular's template syntax and data binding features to bind data from the component to the template.
+6. Styling: Angular supports various ways of styling, including CSS, SCSS, and other preprocessors. We set styles in .css file.
+7. Typescript: Angular applications are primarily written in TypeScript. TypeScript introduces static typing, interfaces, classes, and other features that help catch errors during development and improve code maintainability. We implement our major logic in ".ts" file.
+8. Data Binding: Angular supports one-way and two-way data binding. Data binding allows you to establish a connection between the component's data and the template, ensuring that changes in one are reflected in the other.  
+eg. We can define a value or function in typescript file and display or call it in html file.     
+html:   
+![Alt text](../Images/FrontendDocumentationCodeInAngular_images/image-2.png)      
+typescript:  
+![Alt text](../Images/FrontendDocumentationCodeInAngular_images/image-3.png)
+9. About JWT token: When login, we get token from backend, and store token in localstorage (exmaple below are from patient-login component).
+![Alt text](../Images/FrontendDocumentationCodeInAngular_images/image-4.png)   
+Everytime we need user information, we can take token from localstorage, send it to backend and get information back. That's how we achieved "login" process.    
+get token:   
+![Alt text](../Images/FrontendDocumentationCodeInAngular_images/image-5.png)   
+parse token:   
+![Alt text](../Images/FrontendDocumentationCodeInAngular_images/image-6.png)
+
+
 **Things to be done:**
 
 1. The provider sign-up page needs to be redesigned properly as per the user story.
@@ -6,7 +33,17 @@
 4. The send button on the contact us page needs to be centered.
 5. Email templates do not show up properly when opened on an email on a web browser. That needs to be fixed.
 6. Update graph model for the provider portal with charticulator <https://charticulator.com/index.html>
-
+7. Front end landing-page component: In the typeScript file, the Onsubmit2 function is being called as soon as page is loaded. This is causing null values to be stored in the database. Backend controller: contactUsController. Make OnSubmit function be called upon submit button. Even though its within button parameters in typescript file, its being called every time page is reloaded.
+8. Attach partnerships page to database and email api through the partnersController.js . send thank you pop up in onsubmit function in typescript file using toastr notifications.
+9. Remove console logging from components if the functionality has been tested and everything works.
+10. Fix the blog quotes text for each category, remove the "What __ is saying" template and make each title unique.
+11. Organize the html and ts code, make it so the same format is used in similar files, remove unnecessary commented code, integrate imports for repeated functionalities, etc.
+13. Integrate Django backend data with frontend patient portal. Make it so a patient ID is passed to backend and corresponding data is sent back.
+13. Photo upload for sign up is not working, a photo is uploaded but not accessible.
+14. Partnership form and sign up form makes call to backend but the database logging and email sending do not work.
+15. Request Access form sends out a contact us email instead of a request access email on the dev environment.
+16. # In both patient and provider portals, user needs to login again after 30 minutes whether they are active or not, we need to fix this.
+17. Delete duplicate components on angular for webpages
 
 **Important Note:**
 
@@ -17,7 +54,39 @@
 2. When a service file is returning a http request, make sure the typescript controller in angular has a .subscribe() inorder to send the http request to the server.
 3. Email Templates don’t send out through new email system
 4. Possible fix is to download handlebarJs Package
+5. When creating a new component make sure to not add html or body tag, to avoid having duplicates of those tags on the page, which leads to scrolling issues.
+6. All links and scripts should belong to the main index.html file 
+7. Pem key file should be present in folder with db to access it.
+8. Make sure, when trying to access mysql database, to use these credentials: check backend document!
+9. When connecting front end component to backend controller, service file is needed as follows: (they are all in the shared folder)
+check backend document!
+10. Email templates are sent out via handlebars, which just accesses html dynamic web templates and is called via backend controller. Visit contact us controller to see example
+11. Scrolling issues may appear as sticky if body head and html tag are stated. Remove these as angular framework automatically includes html tag. Never make CSS on any body html or head with angular. Move all those components to index.html where they can be called throughout the whole program.
+12. Everything on database security access information is within the security groups and uses ec2 instance called "bastion host" to bring access to private subnet. So it sets rules from incoming traffic to only be those that have access to ec2 through pem key.
+13. **WordPress-Blog-Image** : Make the image responsive on the blog directly on the Wordpress. Step 1: Click the image and click the **Edit as HTML**; Step2: Add the codes ` style="max-width: 100%;height: auto"` to the img tag
+<img width="647" alt="image" src="https://user-images.githubusercontent.com/38137877/235323247-28bba20d-033c-42cb-a47e-b3e8018a669a.png">
 
+
+A. Responsiveness (Screen size: 300px, 800px, 1030px)
+1. Patient portal (all the user stories) needs to be responsive entirely for all the devices except iPhone X.
+2. Blog page needs to be responsive for all devices except laptops.
+3. Main site ie. Landing pages (Compatibility statement, Faq, Contact Us, Main page, What is ScriptChain, Who we are) are responsive for all the devices
+4. Become a partner page needs to be responsive for all the iphone and android devices devices 
+5. Healthcare portal needs to be responsive for all the devices except 1030px sizes.
+
+B. Validation is done for healthcare add user module but needs to be done to become a partner page. After the backend is done for the become a partner page other validations like phone number, message can be added. Confirmation email needs to be routed after submitting the request.
+
+C. Connection of Front-end and Back-end once the backend is finished
+
+D. Terms & conditions and Privacy policy components need to be modified according to the new design. Also, the link of both of them should be present under support or About us tabs in the main site wireframe.
+
+E. Reset-password has not been included in any of the wireframes. Help button is present but it’s use is not confirmed whether it’s for forgot password or the customer support links.
+
+  ![alt_text](../Images/Frontend_images/image37.png "image_tooltip")
+
+F. Patient portal components (Risk Analysis, Risk Analysis Info, Prescriptions, Medications, Conditions, Lab results, lab result info, procedures and procedure name, Doctor) need to be built and hardcoded.
+
+G. Telesign needs to be connected with the backend and integrated with the add user component under the healthcare module.
 
 **Healthcare Provider Portal**
 
@@ -132,7 +201,7 @@ Route: healthcare/accountsettings
 
 Route: healthcare/patientportal
 
-**Description**- Patient portal allows physician to give an access to the patient portal. It will navigate to the add patient component.
+**Description**- Patient portal allows physician to give an access to the patient portal. It displays all the patients that are given access which are retrieve from the database with the services. The code will include a *ngFor which will create a new card for each result given from the database. It will navigate to the add patient component.
 
 9. **Healthcare-readmission-risk-info**
 
@@ -152,7 +221,7 @@ Route: healthcare/conditionriskinfo
 
 Route: healthcare/adduserpatient
 
-**Description**-  Through this component physician can add the user using the give access to portal button. It has a modal which pops up and ask for the patient or caregiver information like First name, last name,  phone number, relation to the patient. It has different cards for different phases of adding the user. Physicians can navigate using the next and back button. Email and text verification for the patients is done in this component. Below is the snapshot. 
+**Description**-  Through this component physician can add the user using the give access to portal button. It has a modal which pops up and ask for the patient or caregiver information like First name, last name,  phone number, relation to the patient. It has different cards for different phases of adding the user. Physicians can navigate using the next and back button. Email and text verification are still yet to be completed.
 
   ![alt_text](../Images/Frontend_images/image7.png "image_tooltip")
 
@@ -166,15 +235,7 @@ Route: healthcare/adduserpatient
 
 Route:landing/header
 
-**Description**- Header consists of the logo of Scriptchain on the left and on the right it has the navigation bar with the login button. Navigation bar has the following options
-
-	a. About 
-	b. Partnerships
-	c. Providers
-	d. Patients
-	e. Support 
-	f. Contact Us
-	g. Login button
+**Description**- Header is divided into 2 parts, left which holds logo, Partnership. Blog, About, Support and contact us, while the right part has the search icon, log in and sign up button.
 
   ![alt_text](../Images/Frontend_images/image8.png "image_tooltip")
 
@@ -183,19 +244,9 @@ Route:landing/header
 
 Route:landing/subfooter
 
-**Description**- Subfooter of the main website has different options to navigate to. Also, it has a copyright statement for 2021. Options present are-
+**Description**- Subfooter of the main website has different options to navigate to. Also, it has a copyright statement for 2022. It is mainly divided into 3 parts, the general information with logo and social media, the 3 tables which include all the links such as Partnerships, About and more. The final will be the copyright and terms & conditions. 
 
-	a. About
-	b. Partnerships
-	c. Patients
-	d. Provider
-	e. Support
-	f. What is Scriptchain
-	g. Capability Statement
-	h. Blog
-	i. Become a partner
-
-  ![alt_text](../Images/Frontend_images/image9.png "image_tooltip")
+  ![alt_text](../Images/Frontend_images/footer.png "image_tooltip")
 
 
 
@@ -211,7 +262,7 @@ Route:landing/home
 
 Route:landing/partnerships
 
-**Description**- In this component details of all the partners are given. There’s also a button to become a partner.
+**Description**- In this component details of all the partners are given in the form of a carousel. It includes a button to become a partner.
 
   ![alt_text](../Images/Frontend_images/image11.png "image_tooltip")
 
@@ -219,11 +270,11 @@ Route:landing/partnerships
 
 Route:landing/whowerare
 
-**Description**- This component consists of all information about ScriptChain CEO and its employees. Employees are divided into sections- Machine learning engineers, software team, business analysts, and the design team. It also has details about the advisor. All images are cropped to 15 in by 15 in through Adobe Photoshop
+**Description**- This component consists of all information about ScriptChain CEO and its employees. Employees are divided into 2 categories, the workers and the advisors. All of the employees are shown in a picture with their general information, which if they are clicked are sent to a more specific information for each employee. Information is dynamic with the database.
 
-  ![alt_text](../Images/Frontend_images/image12.png "image_tooltip")
+    ![alt_text](../Images/Frontend_images/image43.png "image_tooltip")
 
-6. **Landing-capability-statement**
+6. **Landing-capability-statement** (Complete)
 
 Route:landing/capabilitystatement
 
@@ -238,8 +289,8 @@ Route:landing/capabilitystatement
 	G. North American Industry Classification Systtem (NAICS)
 	H. General Information
 	I. Contact Information
-
-  ![alt_text](../Images/Frontend_images/image13.png "image_tooltip")
+  
+  ![alt_text](../Images/Frontend_images/image42.png "image_tooltip")
 
 
 
@@ -256,7 +307,7 @@ Route:landing/careers
 
 Route:landing/faq
 
-**Description**- Frequently Asked Questions about ScriptChain are present in this component. This is static page which has a list of questions and answers
+**Description**- Frequently Asked Questions about ScriptChain are present in this component. This is static page which has a list of questions and answers. The information is displayed in form of cards with a read more function.
 
   ![alt_text](../Images/Frontend_images/image15.png "image_tooltip")
 
@@ -318,8 +369,25 @@ Route: thankyoupartner
 	3. Email Address
 	4. Type of User: One of Provider, Patient, or Healthcare Worker
 
-  ![alt_text](../Images/Frontend_images/image20.png "image_tooltip")
+  ![alt_text](../Images/Frontend_images/image46.png "image_tooltip")
+  
+14. Who we are (Employees)
+      Route: /whoweare/employee/:id
+      Description: This is a sub page of who we are. After the users click the employee that they want to learn more information about, it redirects to this page. Holding a lot of information about their background, achievements or anything the employee wants to showcase.
 
+  ![alt_text](../Images/Frontend_images/employee.png "image_tooltip")
+  
+ 15. Landing Page Carousel
+      Route: N/A
+      Description: This is a component for the landing page. It holds information and the functionality for the carousel displayed in the bottom of the page. It is made of 4 cards and rotates in 3 cards on web dev and 1 card in the mobile dev.
+
+  ![alt_text](../Images/Frontend_images/carousel.png "image_tooltip")
+  
+  16. Landing Page Header (Menu Dropdown Mobile device)
+      Route: N/A
+      Description: This is a subpart of the Landing page header. It is only included for mobile and tablet devices, with a length of < 1000px. The main functionality is as the header of mobile devices where users can find it easy to navigate through the website. The menu includes links such as partnership, about, careers and more. On top it has features such as login and signup. The dropdown itself is transparent so users can see the page behind it.
+
+  ![alt_text](../Images/Frontend_images/menu.png "image_tooltip")
 
 **Patient Portal**
 
@@ -336,6 +404,7 @@ Route: patient/signup
 	b. Password
 
   ![alt_text](../Images/Frontend_images/image21.png "image_tooltip")
+  Greta: the signup component has been updated. The left part is password matching, password encryption, image uploading to S3 buckets.
 
 
 2. **patient-login**
@@ -518,37 +587,45 @@ Route:patient/procedureinfo
 
   ![alt_text](../Images/Frontend_images/image36.png "image_tooltip")
 
+**Components:**
+
+17. **contact-us** (Completed)
+
+**Route:** /contact-us
+
+**Description**- Page dedicated to getting send questions to scriptchainhealth email.
+
+  ![alt_text](../Images/Frontend_images/image40.png "image_tooltip")
+  
+18. **employee** (Completed)
+
+**Route:** /whoweare/employee/(numberID)
+
+**Description**- Page dedicated to each personal employee with descriptions
+
+  ![alt_text](../Images/Frontend_images/image41.png "image_tooltip")
+
+19. **privacy-policy** (Completed)
+
+**Route:** /privacy-policy
+
+**Description**- access to scriptchainhealth's privacy policy
+
+  ![alt_text](../Images/Frontend_images/image44.png "image_tooltip")
+  
+20. **terms-conditions** (Completed)
+
+**Route:** /terms-conditions
+
+**Description**- terms and conditions
+
+  ![alt_text](../Images/Frontend_images/image45.png "image_tooltip")
 
 
 
 
-**Things that need to be done moving forward.**
+  
 
-A. Responsiveness (Screen size: 300px, 800px, 1030px)
-
-1. Patient portal (all the user stories) needs to be responsive entirely for all the devices except iPhone X.
-2. Blog page needs to be responsive for all devices except laptops.
-3. Main site ie. Landing pages (Compatibility statement, Faq, Contact Us, Main page, What is ScriptChain, Who we are) are responsive for all the devices
-4. Become a partner page needs to be responsive for all the iphone and android devices devices 
-5. Healthcare portal needs to be responsive for all the devices except 1030px sizes.
-
-
-
-B. Validation is done for healthcare add user module but needs to be done to become a partner page. After the backend is done for the become a partner page other validations like phone number, message can be added. Confirmation email needs to be routed after submitting the request.
-
-C. Connection of Front-end and Back-end once the backend is finished
-
-D. Terms & conditions and Privacy policy components need to be modified according to the new design. Also, the link of both of them should be present under support or About us tabs in the main site wireframe.
-
-E. Reset-password has not been included in any of the wireframes. Help button is present but it’s use is not confirmed whether it’s for forgot password or the customer support links.
-
-  ![alt_text](../Images/Frontend_images/image37.png "image_tooltip")
-
-
-
-F. Patient portal components (Risk Analysis, Risk Analysis Info, Prescriptions, Medications, Conditions, Lab results, lab result info, procedures and procedure name, Doctor) need to be built and hardcoded.
-
-G. Telesign needs to be connected with the backend and integrated with the add user component under the healthcare module.
 
 
 

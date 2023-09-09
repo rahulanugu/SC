@@ -19,7 +19,7 @@ export class ReactivateHealthcareProviderComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe(params=>{
       if(!params.token){
-        this._router.navigate(['error500'])
+        // this._router.navigate(['error500'])
       } else this.reactivateUser(params.token);
     })
   }
@@ -37,7 +37,7 @@ export class ReactivateHealthcareProviderComponent implements OnInit {
       error => {
         //console.log(error)
         //console.log("An error occured trying to reactivate")
-        this._router.navigate(['error500'])
+        // this._router.navigate(['error500'])
       }
     );
   }

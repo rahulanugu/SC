@@ -13,13 +13,13 @@ import { Router } from '@angular/router';
 export class IndustryCardComponent implements OnInit {
   @Input() blogCategory: string = '';
   @Input() blogSlug: string;
+  @Input() blogDescription: string;
   constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
   Relocate() {
-    console.log("relocate");
     this.router.navigate(['/blog-post-quote', this.blogSlug]);
   }
 

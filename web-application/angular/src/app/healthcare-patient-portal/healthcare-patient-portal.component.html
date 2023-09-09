@@ -1,46 +1,79 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link
-      href="http://fonts.googleapis.com/css?family=Lato:400,700"
-      rel="stylesheet"
-      type="text/css"
-    />
-    <link
-      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
-      rel="stylesheet"
-    />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-  </head>
-  <body>
+<div class="body">
+  <app-healthcare-header></app-healthcare-header>
+  <!-- Denis - Creates the home, first , patient label -->
+  <div class="inline-elements">
     <div>
-      <app-healthcare-header></app-healthcare-header>
-      <div class="inline-elements">
-        <img src="./assets/homeIcon.png" />
-        <label>Home</label>
-        <img src="./assets/arrowIcon.png" />
-        <img src="./assets/UserIcon.png" />
-        <label>First Middle Last</label>
-        <img src="./assets/arrowIcon.png" />
-        <img src="./assets/UsercircleIcon.png" />
-        <label style="color: #2d5059">Patient Portal</label>
+      <label><img src="./assets/homeIcon.png" />Home</label>
+      <img src="./assets/arrowIcon.png" />
+    </div>
+    <div>
+      <label> <img src="./assets/UserIcon.png" />First Middle Last</label>
+      <img src="./assets/arrowIcon.png" />
+    </div>
+    <div>
+      <label> <img src="./assets/UsercircleIcon.png" />Patient Portal</label>
+    </div>
+  </div>
+  <!-- User lavel -->
+  <div class="sectionHeading">
+    <img src="./assets/Users.png" /> <label>Users</label>
+  </div>
+  <!--Denis - For each data on the ts file it generates a copy with display flex-->
+  <div class="userCard" *ngFor="let user of usersTest">
+    <!-- First element of flex with image only -->
+    <div class="image">
+      <img src="../../assets/Avatar/Avatar8.png" alt="" />
+    </div>
+    <!--Denis - Second element with general information -->
+    <div class="information">
+      <div class="name">{{ user.FirstName }} {{ user.LastName }}</div>
+      <div class="email"><span>Email</span>{{ user.Email }}</div>
+      <div class="typeOf">
+        <span>Type of Caregiver</span>{{ user.PatientRelation }}
       </div>
-      <div class="sectionHeading">
-        <img src="./assets/Users.png" />
-        <label>Users</label>
-      </div>
-      <div class="element" onclick="window.location.href='/healthcare/adduserpatient'">
-        <label class="btn">
-          <img src="./assets/addUserIcon.png" style="margin-bottom: 10px"/>
-            Give someone access to portal
-        </label>
-      </div>
-      <div class="footer1">
-        <app-healthcare-footer></app-healthcare-footer>
+      <!--  -->
+      <div class="type">{{ user.UserType }}</div>
+      <div class="phone"><span>Phone</span>{{ user.Phone }}</div>
+      <div class="employer">
+        <span>Employer</span>
+        <p *ngIf="user.Employer == ''">N/A</p>
+        <p *ngIf="user.Employer != ''">{{ user.Employer }}</p>
       </div>
     </div>
-  </body>
-</html>
+    <!--Denis - Third element with signed/message/settings -->
+    <div class="signed">
+      <div *ngIf="user.signIn" class="green">
+        <img src="../../assets/icons/shield-checkmark.svg" alt="" />User has
+        signed!
+      </div>
+      <div *ngIf="!user.signIn" class="orange">
+        <img src="../../assets/icons/triangle-error-sign.svg" alt="" />User has
+        not signed in!
+      </div>
+      <div>
+        <a href=""
+          ><img src="../../assets/icons/mail-icon.svg" alt="" />Message</a
+        >
+      </div>
+      <div>
+        <a href=""
+          ><img src="../../assets/icons/settings.svg" alt="" />Configure</a
+        >
+      </div>
+    </div>
+  </div>
+  <!-- Denis - Button to sign  -->
+  <div
+    class="element"
+    onclick="window.location.href='/healthcare/adduserpatient'"
+  >
+    <button class="btn">
+      <img src="./assets/addUserIcon.png" style="margin-bottom: 10px" />
+      Give someone access to portal
+    </button>
+  </div>
+  <div class="footer1">
+    <app-healthcare-footer></app-healthcare-footer>
+  </div>
+</div>

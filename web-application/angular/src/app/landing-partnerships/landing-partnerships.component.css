@@ -1,6 +1,10 @@
-app-landing-page-header{
-  position: absolute;
-  top: 0;
+/* Daniel - changed spacing on carousel so right arrow fits in mobile view */
+
+html,
+body {
+  margin: 0px;
+  padding: 0px;
+  overflow-x: hidden;
 }
 #loginHeading {
   font-family: "Tinos", serif;
@@ -61,7 +65,7 @@ app-landing-page-header{
 .content2 {
   display: flex;
   height: max-content;
-  background: #E6EFF1;
+  background: #e6eff1;
   flex-direction: column;
 }
 
@@ -72,7 +76,7 @@ app-landing-page-header{
 }
 
 .content2 .header h1 {
-  font-family: 'Rubik One', sans-serif;
+  font-family: "Rubik One", sans-serif;
   font-size: 55px;
 }
 
@@ -89,7 +93,7 @@ app-landing-page-header{
   margin-bottom: 45px;
 }
 /* Partner 1/2/3 */
-.carousel-header{
+.carousel-header {
   text-align: center;
   font-family: "Lato Bold";
   font-size: 31px;
@@ -99,28 +103,32 @@ app-landing-page-header{
 .carousel {
   width: 80vw;
 }
-.active{
+.active {
   width: 100% !important;
 }
 /* The controls </> */
 .control {
   display: flex;
-  width: 20%;
+  width: 10%;
   align-items: center;
   justify-content: center;
-  color: #2D5059;
+  color: #2d5059;
 }
-.control a img{
+.control a img {
   text-decoration: none;
-  color: #2D5059;
+  color: #2d5059;
   width: 60px;
 }
 /* Card styling */
 .card {
   min-width: 200px;
   max-width: 300px;
-  height: 130px;
+  /* height: 130px; */
   margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  object-position: center;
+  object-fit: cover;
 }
 /* Mobile view styling */
 #loginHeading-small {
@@ -132,6 +140,3 @@ app-landing-page-header{
   font-weight: normal;
   font-size: 36px;
 }
-
-
-

@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Chart } from "chart.js";
-import { PatientDataService } from "./../patient-data.service";
+import { PatientDataService } from "../patient-data.service";
 
 @Component({
   selector: "app-patient-statistics",

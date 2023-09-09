@@ -1,140 +1,57 @@
-<!-- Authors and their contributions -->
-<!-- Vidit: UI enhancements and responsiveness -->
-<!--Charan: Creation of contact form and styling-->
+<!-- Siheng: Fixed the style -->
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="http://fonts.googleapis.com/css?family=Lato:400,700"
-      rel="stylesheet"
-      type="text/css"
-    />
-    <link
-      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
-      rel="stylesheet"
-    />
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-
-
-    <script src = "contactUsController.js"></script> <!-- load up our controller-->
-    <script src = "angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src = "/scriptchain/web-application/node/controllers/contactUsController.js"></script>
-    <script src = "/scriptchain/web-application/node/index.js"></script>
-
-    <!-- Hotjar Tracking Code for https://www.scriptchain.co/home -->
-    <script>
-      (function (h, o, t, j, a, r) {
-        h.hj =
-          h.hj ||
-          function () {
-            (h.hj.q = h.hj.q || []).push(arguments);
-          };
-        h._hjSettings = { hjid: 2374837, hjsv: 6 };
-        a = o.getElementsByTagName("head")[0];
-        r = o.createElement("script");
-        r.async = 1;
-        r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
-        a.appendChild(r);
-      })(window, document, "https://static.hotjar.com/c/hotjar-", ".js?sv=");
-    </script>
-  </head>
-
-  <body ng-app="myApp">
-    <app-landing-page-header></app-landing-page-header>
-    <div class="background">
-    <div fxFlexFill fxLayout="column" ng-controller = "contactUsController">
-      <div>
-        <div class="content1">
-          <h3 id="loginHeading">Contact Us</h3>
-          <p class="desc">
-            We look forward to serve you. Feel free to fill that form and we
-            will get back to you as soon as possible.
-          </p>
-        </div>
-      </div>
-
-      <div
-        class="
-          justify-content-center
-          quesForm
-          pl-5
-          pr-5
-          pt-3
-          pb-4
-          mb-5
-          mt-xl-5 mt-xs-3 mt-sm-3 mt-md-3
-        "
-        fxLayout="column"
-        fxLayoutAlign="center center"
-      >
-      <!--Creation of form-->
-        <div class="container">
-          <form class="mt-3" (ngSubmit)="onSubmit(form)" #form="ngForm">
-            <label class="text">First Name</label>
-            <br />
-            <input
-              type="text"
-              ngModel
-              name= "fname"
-              required
-              #firstName="ngModel"
-            />
-            <br />
-            <label class="text">Last Name</label>
-            <br />
-            <input
-              type="text"
-              ngModel
-              name ="lname"
-              required
-              #lastName="ngModel"
-            />
-
-            <br />
-            <label class="text">Email</label>
-            <br />
-            <input
-              type="text"
-              ngModel
-              required
-              email
-              name="email"
-              #email="ngModel"
-            />
-            <br />
-
-            <br>
-            <label class="text">Message</label>
-            <br />
-            <textarea
-              ngModel
-              required
-              name="message"
-              #message="ngModel"
-            ></textarea>
-            <br />
-
-            <br>
-            <button
-              type="submit"
-              class="sendBtn ripple"
-              [disabled]="!form.valid"
-              value="Submit"
-              ng-click="submit()">
-              Send Message
-            </button>
-          </form>
-        </div>
-      </div>
-      <div class="mt-5 pt-5" fxFlexFill fxLayout="column" fxLayoutAlign="end">
-        <app-landing-page-subfooter></app-landing-page-subfooter>
-      </div>
+<app-landing-page-header></app-landing-page-header>
+<div class="background">
+  <div>
+    <div class="content1">
+      <h3 id="loginHeading">Contact Us</h3>
+      <p class="desc">
+        We look forward to serve you. Feel free to fill that form and we will
+        get back to you as soon as possible.
+      </p>
     </div>
+  </div>
+
+  <div class="quesForm" fxLayout="column" fxLayoutAlign="center center">
+    <!--Creation of form-->
+    <div class="formContainer">
+      <!-- <form class="mt-3" (ngSubmit)="onSubmit(form)" #form="ngForm"> -->
+      <form (ngSubmit)="getValue(form.value)" #form="ngForm">
+        <label style="margin-top: 20px" class="text">First Name</label>
+
+        <input type="text" ngModel name="fname" required #firstName="ngModel" />
+
+        <label class="text">Last Name</label>
+
+        <input type="text" ngModel name="lname" required #lastName="ngModel" />
+
+        <label class="text">Email</label>
+
+        <input
+          type="text"
+          ngModel
+          required
+          email
+          name="email"
+          #email="ngModel"
+        />
+
+        <label class="text">Message</label>
+
+        <textarea ngModel required name="message" #message="ngModel"></textarea>
+        <button
+          type="submit"
+          class="sendBtn ripple"
+          [disabled]="!form.valid"
+          value="Submit"
+          ng-click="onSubmit2()"
+        >
+          Send Message
+        </button>
+      </form>
     </div>
-  </body>
-</html>
+  </div>
+</div>
+<div class="footer">
+  <app-landing-page-subfooter></app-landing-page-subfooter>
+</div>

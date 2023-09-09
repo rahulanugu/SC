@@ -10,69 +10,16 @@ Register Paitent Form
 -->
 <!-- Kefan - updated to match user story -->
 
-<!DOCTYPE html>
 
-<html lang="zxx">
-<link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet" type="text/css" />
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" />
-<!-- Hotjar Tracking Code for https://www.scriptchain.co/home -->
-<script>
-  (function (h, o, t, j, a, r) {
-    h.hj =
-      h.hj ||
-      function () {
-        (h.hj.q = h.hj.q || []).push(arguments);
-      };
-    h._hjSettings = { hjid: 2374837, hjsv: 6 };
-    a = o.getElementsByTagName("head")[0];
-    r = o.createElement("script");
-    r.async = 1;
-    r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
-    a.appendChild(r);
-  })(window, document, "https://static.hotjar.com/c/hotjar-", ".js?sv=");
-</script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<!-- <script>
-    $("i").click(function () {
-      $("input[type='file']").trigger("click");
-    });
-
-    $('input[type="file"]').on("change", function () {
-      var val = $(this).val();
-      $(this).siblings("span").text(val);
-    });
-  </script> -->
-
-<body>
   <!-- healthcare register -->
   <div>
     <app-landing-page-header></app-landing-page-header>
   </div>
-  <h3 class="Heading text-center" style="margin-top: 74px;">Job Openings</h3>
-  <div style="margin-bottom: 10rem;">
-    <div class="card mt-2" *ngFor="let jobOpening of jobOpenings">
-      <div class="card-body" fxFlex fxLayout="column">
-        <h4 class="card-title category" fxFlex>{{jobOpening["category"]}}</h4>
-        <div class="mb-3" fxFlex fxLayout="column" *ngFor="let job of jobOpening['joblist']">
-          <hr fxFlex>
-          <h5 fxFlex class="card-title jobtitle">{{job["title"]}}</h5>
-          <p fxFlex class="card-text description">{{job["description"]}}</p>
-          <div fxFlex>
-            <p class="card-text location" style="display: inline; font-weight: bold;">Location:</p>
-            <p class="card-text location" style="display: inline;"> {{job["location"]}}</p>
-          </div>
-          <br fxFlex>
-          <button fxFlex routerLink="/apply-job" class="applyBtn mt-2">
-            Apply
-          </button>
-        </div>
-      </div>
-    </div>
+  <h3 class="Heading text-center mb-5" style="margin-top: 84px;">Job Openings</h3>
+  <div class="pt-3 pb-5 mb-5 jobs" fxLayoutAlign="center">
+    <div class="mt-5 mb-5 angellist" id="angellist_embed" data-startup="onyx-6"></div>
   </div>
-
   <footer>
     <app-landing-page-subfooter></app-landing-page-subfooter>
   </footer>
-</body>
 
-</html>

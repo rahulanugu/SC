@@ -1,14 +1,12 @@
-const express = require("express");
+/*const express = require("express");
 const router = express.Router();
 const { check, body } = require('express-validator');
 const nodemailer = require("nodemailer");
-
 const mailer_oauth = require('../utils/mailer_oauth');
 const db_utils = require('../utils/db_utils');
 const sec_utils = require('../utils/security_utils');
 //const {BigQuery} = require('@google-cloud/bigquery');
 //const bigquery = new BigQuery();
-
 function generateId(count) {
   var _sym = 'abcdefghijklmnopqrstuvwxyz1234567890';
   var str = '';
@@ -18,7 +16,6 @@ function generateId(count) {
   }
   return str;
 }
-
 /**
  * Method to save a new rew request access user
  * Input: Body, Contains the details specified in te NewRequesttAccessUser schema
@@ -27,7 +24,7 @@ function generateId(count) {
  *         400 - User already exists
  *         500 - DB error, Could not complete the request
  */
-router.post("/", [
+/*router.post("/", [
   check('fname').notEmpty().isAlpha(),
   check('lname').notEmpty().isAlpha(),
   check('email').notEmpty().isEmail(),
@@ -42,14 +39,12 @@ router.post("/", [
     if (validate.statusCode != 200) {
       return res.status(validate.statusCode).json({message: validate.message});
     }
-
     const user = req.body;
     // Check for user in newUsers table in db
     const userExists = await db_utils.checkForUserInDB('newUsers', user.email);
     if (userExists) {
       return res.status(400).json({message: "Email is already registered to an existing user"});
     }
-
     user['_id'] = generateId(10);
     // Add user to db
     const resp = await db_utils.insertUserIntoDB('newUsers', user);
@@ -60,7 +55,6 @@ router.post("/", [
     return res.status(200).json(user);
 });
   
-
   const oauth2Client = mailer_oauth.getClient();
   const accessToken = oauth2Client.getAccessToken();
   /**
@@ -68,7 +62,7 @@ router.post("/", [
  * @param {First name of reciever} fname
  * @param {Destination of Email} email
  */
-const mailer = (fname, email) => {
+/*const mailer = (fname, email) => {
   //create a transporter with OAuth2
   const transporter = nodemailer.createTransport({
     service: "gmail",

@@ -1,5 +1,5 @@
-import { FooterComponent } from './../footer/footer.component';
-import { CommonHeaderComponent } from './../common-header/common-header.component';
+import { FooterComponent } from '../footer/footer.component';
+import { CommonHeaderComponent } from '../common-header/common-header.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HealthcareLoginComponent } from './healthcare-login.component';
 import { ReactiveFormsModule } from '@angular/forms';

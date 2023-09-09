@@ -20,7 +20,7 @@ export class PatientAuthGuard implements CanActivate {
       ).catch(
         err => {
         console.log("error recieved")
-        this._router.navigate(['patientlogin']);
+        this._router.navigate(['patient/login']);
         authorized =  false;
       });
     return authorized;

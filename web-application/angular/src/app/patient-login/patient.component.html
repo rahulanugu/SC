@@ -1,4 +1,115 @@
-<header>
+<div class="body">
+  <div fxLayout="column">
+    <app-healthcare-header></app-healthcare-header>
+    <h3 class="loginHeading">Patient Login</h3>
+    <!--heading--->
+    <div class="card">
+      <div class="container">
+        <form
+          ngNativeValidate
+          [formGroup]="Form"
+          (ngSubmit)="onSubmit()"
+          fxLayout.md="column"
+        >
+          <div class="form-element" style="margin: 0px 0px 5px 0px">
+            <br />
+            Providers: Please log in through the
+            <a routerLink="/healthcare/login" style="text-decoration: underline"
+              >provider portal</a
+            >
+            <br />
+          </div>
+
+          <div class="form-element" id="emailField">
+            <label>Email or Phone Number</label>
+
+            <input
+              [class.is-invalid]="
+                Form.get('emailAddress').invalid &&
+                Form.get('emailAddress').touched
+              "
+              formControlName="emailAddress"
+              type="text"
+              class="form-control"
+              id="emailAddress"
+              required
+            />
+            <small
+              [class.d-none]="
+                Form.get('emailAddress').valid ||
+                Form.get('emailAddress').untouched
+              "
+              class="text-danger"
+              >Email is required.</small
+            >
+          </div>
+          <div class="form-element">
+            <label>Password</label>
+            <input
+              [class.is-invalid]="
+                Form.get('password').invalid && Form.get('password').touched
+              "
+              formControlName="password"
+              type="password"
+              class="form-control"
+              id="password"
+              required
+            />
+            <small
+              [class.d-none]="
+                Form.get('password').valid || Form.get('password').untouched
+              "
+              class="text-danger"
+              >Password is required <br
+            /></small>
+            <label
+              style="font-size: 13px; color: #5c8a96"
+              onclick="window.location.href='patient/password/reset'"
+              >Forgot your password?</label
+            >
+          </div>
+          <small id="invalidEmailPrompt" class="text-danger d-none"
+            >Email does not exist</small
+          >
+          <small id="invalidPasswordPrompt" class="text-danger d-none"
+            >Please recheck your password</small
+          >
+          <div class="form-element">
+            <button type="submit" class="loginBtn">Login</button>
+          </div>
+          <div class="form-element">
+            <button
+              type="button"
+              onclick="window.location.href='faq'"
+              class="helpBtn"
+            >
+              Help
+            </button>
+          </div>
+          <hr />
+
+          <div class="form-element">
+            <label>New to ScriptChain?</label>
+            <br />
+            <button
+              type="button"
+              class="signUpBtn"
+              style="margin: 0px 0px 5px 0px"
+              routerLink="/patients/signup"
+            >
+              Sign Up
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<footer class="footer">
+  <app-healthcare-footer></app-healthcare-footer>
+</footer>
+
+<!-- <header>
   <app-healthcare-header></app-healthcare-header>
 </header>
 <div style="background-color: #faf6f2">
@@ -35,7 +146,8 @@
   <footer>
     <app-healthcare-footer></app-healthcare-footer>
   </footer>
-</div>
+</div> -->
+
 <!--
 Author: W3layouts
 Author URL: http://w3layouts.com
@@ -46,7 +158,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!-- <!DOCTYPE html>
 <html lang="zxx">
 
-    <app-common-header></app-common-header>
 <body>
 patinet login -->
 <!-- <section class="login py-5">
@@ -59,7 +170,7 @@ patinet login -->
     </div>
     <div class="login px-sm-4 mx-auto mw-100 login-wrapper">
       <form ngNativeValidate class="login-wrapper" method="post" #patientLogin="ngForm" (ngSubmit)="onSubmit()">
-          
+
         <div class="form-group">
           <small id="deactivatedEmail" class="text-danger d-none"><strong>Looks like you have deactivated your account, please check your email to reactivate.</strong><br/></small>
           <label>Email*</label>

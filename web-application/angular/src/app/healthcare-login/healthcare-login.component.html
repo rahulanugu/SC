@@ -1,114 +1,119 @@
 <!--
 healthcare login
+//Charan Jagwani - UI changes
 -->
-<!DOCTYPE html>
-<html lang="zxx">
-  <head>
-    <!-- Hotjar Tracking Code for https://www.scriptchain.co/ -->
-    <script>
-      (function (h, o, t, j, a, r) {
-        h.hj =
-          h.hj ||
-          function () {
-            (h.hj.q = h.hj.q || []).push(arguments);
-          };
-        h._hjSettings = { hjid: 2250267, hjsv: 6 };
-        a = o.getElementsByTagName("head")[0];
-        r = o.createElement("script");
-        r.async = 1;
-        r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
-        a.appendChild(r);
-      })(window, document, "https://static.hotjar.com/c/hotjar-", ".js?sv=");
-    </script>
-    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Tinos&display=swap");
-      @import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
-    </style>
-  </head>
+<!-- Daniel - removed extra password box and added break between "New to ScriptChain?" and sign up button 
+            - added link to FAQ on click for help button-->
+<!-- Siheng - Add route to reset password -->
 
-  <body style="background-color: #faf6f2">
-    <!-- healthcare login -->
-    <div fxLayout="column">
-      <app-healthcare-header></app-healthcare-header>
-      <h3 class="loginHeading">Provider Login</h3>
-      <!--heading--->
-      <div class="card">
-        <div class="container">
-          <form ngNativeValidate [formGroup]="Form" (ngSubmit)="onSubmit()"
-          fxLayout.md="column">
-            <div class="form-element" style="margin: 0px 0px 5px 0px">
-              <br>
-                Patients: Please log in through the
-                <a href="#" style="text-decoration: underline">patient portal</a>
-                <br>
-            </div>
-
-            <div class="form-element">
-              <label>Email</label>
-
-              <input
-                [class.is-invalid]="
-                  Form.get('emailAddress').invalid &&
-                  Form.get('emailAddress').touched
-                "
-                formControlName="emailAddress"
-                type="email"
-                class="form-control"
-                id="emailAddress"
-                required
-              />
-              <small
-                [class.d-none]="
-                  Form.get('emailAddress').valid ||
-                  Form.get('emailAddress').untouched
-                "
-                class="text-danger"
-                >Email is required.</small
-              >
-            </div>
-            <div class="form-element">
-              <label>Password</label>
-              <input
-                [class.is-invalid]="
-                  Form.get('password').invalid && Form.get('password').touched
-                "
-                formControlName="password"
-                type="password"
-                class="form-control"
-                id="password"
-                required
-              />
-              <small
-                [class.d-none]="
-                  Form.get('password').valid || Form.get('password').untouched
-                "
-                class="text-danger"
-                >Password is required</small
-              >
-            </div>
-            <hr />
-            <small id="invalidEmailPrompt" class="text-danger d-none"
-              >Email does not exist</small
+<!-- healthcare login -->
+<div class="body">
+  <div fxLayout="column">
+    <app-healthcare-header></app-healthcare-header>
+    <h3 class="loginHeading">Provider Login</h3>
+    <!--heading--->
+    <div class="card">
+      <div class="container">
+        <form
+          ngNativeValidate
+          [formGroup]="Form"
+          (ngSubmit)="onSubmit()"
+          fxLayout.md="column"
+        >
+          <div class="form-element" style="margin: 0px 0px 5px 0px">
+            <br />
+            Patients: Please log in through the
+            <a routerLink="/patient/login" style="text-decoration: underline"
+              >patient portal</a
             >
-            <small id="invalidPasswordPrompt" class="text-danger d-none"
-              >Please recheck your password</small
-            >
-            <div class="form-element">
-              <button type="submit" class="loginBtn">Login</button>
-            </div>
-            <div class="form-element">
-              <button type="button" class="helpBtn">Help</button>
-            </div>
-            <hr />
+            <br />
+          </div>
 
-            <div class="form-element">
-              <label>New to ScriptChain?</label>
-              <button type="button" class="signUpBtn" routerLink="/healthcare/register">Sign Up</button>
-            </div>
-          </form>
-        </div>
+          <div class="form-element">
+            <label>Email</label>
+
+            <input
+              [class.is-invalid]="
+                Form.get('emailAddress').invalid &&
+                Form.get('emailAddress').touched
+              "
+              formControlName="emailAddress"
+              type="email"
+              class="form-control"
+              id="emailAddress"
+              required
+            />
+            <small
+              [class.d-none]="
+                Form.get('emailAddress').valid ||
+                Form.get('emailAddress').untouched
+              "
+              class="text-danger"
+              >Email is required.</small
+            >
+          </div>
+          <div class="form-element">
+            <label>Password</label>
+            <input
+              [class.is-invalid]="
+                Form.get('password').invalid && Form.get('password').touched
+              "
+              formControlName="password"
+              type="password"
+              class="form-control"
+              id="password"
+              required
+            />
+            <small
+              [class.d-none]="
+                Form.get('password').valid || Form.get('password').untouched
+              "
+              class="text-danger"
+              >Password is required <br
+            /></small>
+            <label
+              style="font-size: 13px; color: #5c8a96"
+              onclick="window.location.href='healthcare/password/reset'"
+              >Forgot your password?</label
+            >
+          </div>
+          <small id="invalidEmailPrompt" class="text-danger d-none"
+            >Email does not exist</small
+          >
+          <small id="invalidPasswordPrompt" class="text-danger d-none"
+            >Please recheck your password</small
+          >
+          <div class="form-element">
+            <button type="submit" class="loginBtn">Login</button>
+          </div>
+          <div class="form-element">
+            <button
+              type="button"
+              onclick="window.location.href='faq'"
+              class="helpBtn"
+            >
+              Help
+            </button>
+          </div>
+          <hr />
+
+          <div class="form-element">
+            <label>New to ScriptChain?</label>
+            <br />
+            <button
+              type="button"
+              class="signUpBtn"
+              style="margin: 0px 0px 5px 0px"
+              routerLink="/healthcare/register"
+            >
+              Sign Up
+            </button>
+          </div>
+        </form>
       </div>
-      <app-healthcare-footer-login></app-healthcare-footer-login>
     </div>
-  </body>
-</html>
+  </div>
+</div>
+<footer class="footer">
+  <app-healthcare-footer></app-healthcare-footer>
+</footer>

@@ -6,3 +6,6 @@
     border: 2px solid black;
     border-radius: 5px;
 }
+.close{
+    align-content: right;
+}

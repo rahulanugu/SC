@@ -1,11 +1,201 @@
-<header>
-  <app-healthcare-header></app-healthcare-header>
-</header>
+<div>
+  <app-healthcare-header>
+    <img
+      src="./assets/avatarSignup.png"
+      style="height: 48px; width: 48px; float: right"
+    />
+  </app-healthcare-header>
+  <h3 class="loginHeading">Patient Sign Up</h3>
+  <div class="card">
+    <div class="card-container">
+      <hr />
+      <div class="sectionHeading">
+      </div>
+      <div class="row" style="margin: 0px 0px 5px 15px">
+        <br />
+        <label>Provider: Please sign up through the 
+        <a routerLink="/healthcare/register" style="text-decoration: underline">provider portal</a>
+        </label>
+        <br />
+      </div>
+      <hr />
+      <div class="sectionHeading">
+        <img src="./assets/personalInfoIcon.png" />
+        <label>Personal Information</label>
+      </div>
+      <form ngNativeValidate [formGroup]="Form" (ngSubmit)="submitForm()" enctype="multipart/form-data">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label> Email or Phone </label>
+              <input [class.is-invalid]="Form.get('emailPhone').invalid && Form.get('emailPhone').touched"
+                formControlName="emailPhone" type="email" class="form-control" required ng-pattern="/^(?:\d{10}|\w+@\w+\.\w{2,3})$/"/>
+            </div>
+          </div>
+        </div>
+        <hr />
+        <div class="sectionHeading">
+          <img src="./assets/passwrdIcon.png" />
+          <label>Password</label>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label> Password</label>
+              <label style="font-size: 12px; color: #1d1f26">
+                Password requires a capital letter, number, and special
+                symbol(such as: !, @, ?...)
+              </label>
+              <!--BharatChadalawada - input type made dynamic-->
+              <input
+                [class.is-invalid]="
+                  Form.get('password').invalid && Form.get('password').touched
+                "
+                formControlName="password"
+                type="{{showPassword ? 'text':'password'}}"
+                class="form-control"
+                required
+              />
+              <!--BharatChadalawada - password validation and password visibility icon-->
+                <span class="fa position-absolute password" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'" (click)="togglePasswordVisibility()"></span>
+                <div *ngIf="Form.get('password').invalid && (Form.get('password').dirty || Form.get('password').touched)" class="text-danger">
+                  <div *ngIf="Form.get('password').errors.required">Password is required.</div>
+                  <div *ngIf="Form.get('password').errors.minlength">Password must be at least 6 characters long.</div>
+                  <div *ngIf="Form.get('password').errors.pattern"> Password requires a capital letter, number, and special
+                    symbol(such as: !, @, ?...).</div>
+                </div>
 
-<div style="background-color: #faf6f2">
-  <h3 class="loginHeading">Sign Up</h3>
+            </div>
+          </div>
+          <div class="col-sm-6" style="margin-top: 42px">
+            <div class="form-group">
+              <label>Retype New Password</label>
+              <input
+                [class.is-invalid]="
+                Form.get('retypepassword').invalid && Form.get('retypepassword').touched" formControlName="retypepassword"
+                type="{{retypeShowPassword ? 'text':'password'}}"
+                class="form-control"
+                required/>
+                <!--BharatChadalawada-Added password match functionality and added visibilty icon for show password-->
+              <span class="fa position-absolute password1" [ngClass]="retypeShowPassword ? 'fa-eye-slash' : 'fa-eye'" (click)="retypePasswordVisibility()"></span>
+              <div *ngIf="passwordNotMatch" class="text-danger">
+                New password not matched with retyped password!
+              </div>
+            </div>
+          </div>          
+        </div>
+
+        <hr />
+        <div class="sectionHeading">
+          <img src="./assets/i_Con.png" />
+          <label> Legal </label>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label>Do you agree to share your data collection policy medical data with ScriptChain<br />Health?
+                <a routerLink="/terms-conditions" style="text-decoration: underline"> Read the data collection policy</a>
+              </label>
+              <div class="hr-sect2"></div>
+              <div class="form-group">
+                <!--BharatChadalawada - Added a CSS class for Disagree button-->
+                <button type="button" class="submit disagreeBtn" [class.btnFill]="isAgree" (click)="isAgree=true">I Agree</button>
+              </div>
+              <div class="form-group">
+                <button type="button" class="submit disagreeBtn" [class.btnFill]="!isAgree" (click)="isAgree=false">I Disagree</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr />
+        <div class="sectionHeading">
+          <img src="./assets/profileImg.png" />
+          <label>Profile Image</label>
+        </div>
+        <div class="row">
+          <div class="col" >
+            <div class="form-group">
+              <img
+                id="avataricon"
+                [src]="imageSrc || './assets/avatarSignup.png'"
+                style="height: 144px; width: 144px; margin-left: 18px"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label>Upload a Photo</label><br />
+              <div class="element">
+                <label class="btn">
+                  <img src="./assets/cameraIcon.png"/>
+                  <label style="margin-left: 8px; margin-top: 4px">
+                    Select File 
+                  </label>
+                  <input #imageInput
+                        id="imgUpload" 
+                        type="file" 
+                        accept="image/*" 
+                        (change)="onImageSelected($event)" capture/>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="hr-sect">or</div>
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label>Select an Avatar</label><br />
+              <div
+                class="element"
+                style="font-size: 18px"
+                (click)="openDialog();"
+              >
+                <label class="btn">
+                  <img src="./assets/viewAvatarIcon.png" />
+                  View Avatars
+                </label>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--BharatChadalawada-added image/avatar validation-->
+        <div *ngIf="!Form.get('imageUrl').touched" class="text-danger">*Please upload a profile/avatar image.</div>
+
+
+        <hr />
+        <div class="row">
+          <div class="col">
+            <div class="form-group" style="float: left">
+              <button
+                type="button"
+                onclick="window.location.href='faq'"
+                class="helpBtn"
+              >
+                Help
+              </button>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group" style="float: right">
+              <!--BharatChadalawada - changed type to submit from button-->
+              <button type="submit" class="submit signUpBtn">Finish</button>
+
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <app-healthcare-footer></app-healthcare-footer>
+</div> 
+<!-- <div style="background-color: #faf6f2">
+  <h3 class="loginHeading">Patient Sign Up</h3> -->
   <!------Card 1 starts -->
-  <div id="card1" class="card">
+  <!-- <div id="card1" class="card">
     <div class="progressBar">
       <img class="points" src="./assets/sttrt.jpg" />
       <img class="line" src="./assets/Progress.jpg" />
@@ -17,15 +207,18 @@
       <img class="points" src="./assets/avatarcircle1.png" />
       <img class="line" src="./assets/Track.png" />
       <img class="points" src="./assets/Finish1.png" />
+    </div> -->
+    <!-- <div class="form-element" style="margin: 0px 0px 5px 0px">
+      <br />
+      Provider: Please sign up through the
+      <a routerLink="/healthcare/register" style="text-decoration: underline">provider portal</a>
+      <br />
     </div>
     <hr />
     <div>
       <form class="signupForm">
         <div class="form-group">
           <label>Email or Phone</label>
-          <p>
-            Use those we’ve contacted you through or those on your printout.
-          </p>
           <input type="text" />
         </div>
         <div class="form-group">
@@ -48,11 +241,11 @@
         <button type="button" class="helpBtn">Help</button>
       </form>
     </div>
-  </div>
+  </div> -->
 
   <!------Card 2 starts -->
-  <div id="card2" class="card" style="display: none">
-    <div class="progressBar">
+  <!-- <div id="card2" class="card" style="display: none"> -->
+    <!-- <div class="progressBar">
       <img class="points" src="./assets/sttrt.jpg" />
       <img class="line" src="./assets/Progress.jpg" />
       <img class="points" src="./assets/info2.png" />
@@ -63,8 +256,8 @@
       <img class="points" src="./assets/avatarcircle1.png" />
       <img class="line" src="./assets/Track.png" />
       <img class="points" src="./assets/Finish1.png" />
-    </div>
-    <hr />
+    </div> -->
+    <!-- <hr />
 
     <form>
       <label id="form2Label"
@@ -80,10 +273,10 @@
       <button type="button" class="nextBtn" (click)="agree()">I Agree</button>
       <button type="button" class="helpBtn">Help</button>
     </form>
-  </div>
+  </div> -->
 
   <!---Card 3 starts here-->
-  <div id="card3" class="card" style="display: none">
+  <!-- <div id="card3" class="card" style="display: none">
     <div class="progressBar">
       <img class="points" src="./assets/sttrt.jpg" />
       <img class="line" src="./assets/Progress.jpg" />
@@ -109,13 +302,13 @@
               <label style="margin-left: 8px"> Select File</label>
               <input type="file" style="display: none" />
             </label>
-          </div>
+          </div> -->
           <!--Element-->
-        </div>
+        <!-- </div>
       </div>
-    </div>
+    </div> -->
     <!---Row8-->
-    <div class="hr-sect">or</div>
+    <!-- <div class="hr-sect">or</div>
     <div class="row">
       <div class="col">
         <div class="form-group">
@@ -123,22 +316,22 @@
           <div class="element" style="font-size: 18px" (click)="openDialog()">
             <label class="btn">
               <img src="./assets/viewAvatarIcon.png" />
-              View Avatars
+              View Avatars -->
               <!--Avatar component needed-->
               <!--<input style="display: none" mat-button (click)="openDialog()"/>-->
-            </label>
-          </div>
+            <!-- </label> -->
+          <!-- </div> -->
           <!--Element-->
-        </div>
+        <!-- </div>
       </div>
     </div>
-    <hr />
-    <button type="button" class="nextBtn" (click)="finish()">Finish</button>
+    <hr /> -->
+    <!-- <button type="button" class="nextBtn" (click)="finish()">Finish</button>
     <button type="button" class="helpBtn">Help</button>
-  </div>
+  </div> -->
 
   <!---Card 4 starts here-->
-  <div id="card4" class="card" style="display: none">
+  <!-- <div id="card4" class="card" style="display: none">
     <div class="progressBar">
       <img class="points" src="./assets/sttrt.jpg" />
       <img class="line" src="./assets/Progress.jpg" />
@@ -150,17 +343,17 @@
       <img class="points" src="./assets/av4.png" />
       <img class="line" src="./assets/Progress.jpg" />
       <img class="points" src="./assets/finish3.png" />
-    </div>
-    <hr />
+    </div> -->
+    <!-- <hr />
     <img id="tickIc" src="./assets/tickIcon.png" />
     <label id="form2Label">Your account was successfully created!</label>
     <p id="form2p">
       We have also sent you a confirmation email for your keeping.
     </p>
-    <hr />
-    <button type="button" class="nextBtn">Continue to the Portal</button>
+    <hr /> -->
+    <!-- <button type="button" class="nextBtn">Continue to the Portal</button>
   </div>
   <footer>
     <app-healthcare-footer></app-healthcare-footer>
   </footer>
-</div>
+</div> -->

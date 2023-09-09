@@ -1,10 +1,13 @@
 /* DenisH */
+/* Holds the entire component, and its fixed on top  */
 .nav {
   position: fixed;
   width: 100%;
-  z-index: 10;
+  z-index: 101;
+  top: 0;
   border-bottom: 1px #2d50599c solid;
-  box-shadow: 0 2px 55px 1px #2d5059c9
+  box-shadow: 0 2px 55px 1px #2d5059c9;
+  overflow: hidden;
 }
 
 .mat-toolbar {
@@ -12,7 +15,7 @@
   margin: 0 !important;
   padding: 0;
 }
-
+/* Dropdown icon on mobile view */
 .dropdown {
   margin-top: 7px;
   left: 15px;
@@ -56,7 +59,6 @@
 }
 
 /* Search bar */
-
 .search {
   position: relative;
   background: white;
@@ -73,49 +75,43 @@
   left: 14px;
 }
 
-.search input {
-  position: absolute;
-  top: 9px;
-  left: 40px;
-  border: none;
-  outline: none;
-  width: 80%;
-}
-
-.active {
-  width: 300px;
-  border-radius: 50px;
-}
-
 /*  */
-.mat-toolbar-single-row{
+.mat-toolbar-single-row {
   padding: 0 !important;
 }
+
 /*  */
-button:focus,input:focus {
+button:focus,
+input:focus {
   outline: none;
 }
+/* dropdown options of mobile view */
 .mat-menu-panel {
   position: fixed;
   top: 0;
   left: 0;
-  min-width: 100vw !important;
-  min-height: 100% !important;
+  min-width: 100% !important;
+  min-height: 100vh !important;
+  max-height: 100vh !important;
   background: #2d5059;
-  opacity: .99;
+  opacity: .92;
 }
-.mat-menu-panel .fill{
+
+.mat-menu-panel .fill {
   height: 500px;
 }
-.mat-menu-panel div{
+
+.mat-menu-panel div {
   height: 100%;
 }
-.mat-menu-panel div div button mat-icon{
+/* Clear button of dropdown menu in mobile view */
+.mat-menu-panel div div button mat-icon {
   margin-top: 4px;
   margin-left: 14px;
   color: white;
 }
-.mat-menu-panel div input{
+/* Dropdown view input styling of mobile */
+.mat-menu-panel div input {
   margin-top: 10px;
   margin-right: 9px;
   width: 90%;
@@ -124,12 +120,14 @@ button:focus,input:focus {
   border-radius: 10px;
   margin-bottom: 23px;
 }
-.mat-menu-panel div{
+
+.mat-menu-panel div {
   display: flex;
   flex-direction: column;
   width: 100%;
 }
-.mat-menu-panel div a{
+
+.mat-menu-panel div a {
   margin: 0 auto;
   color: white;
   border-top: 1px solid #616161;
@@ -137,10 +135,124 @@ button:focus,input:focus {
   width: 90%;
   text-decoration: none;
 }
-.mat-menu-panel div a:hover{
+
+.mat-menu-panel div a:hover {
   background: black;
 }
-.mat-menu-panel div #partnership{
+
+.mat-menu-panel div #partnership {
   width: 100%;
+}
+
+/* Search dropdown animation */
+/* Previous state of dropdown in website, hiden with height 0 */
+.dropdown-container {
+  width: 100%;
+  opacity: 0;
+  height: 0;
+  background: seashell;
+  /* Trasition in height/opacity for animation */
+  transition: height .6s ease-in, opacity .6s ease-in;
+  z-index: 100;
+  pointer-events: none;
+  cursor: default;
+}
+  /* Trasition in height/opacity for animation */
+.dropdown-container * {
+  transition: height .6s ease-in, opacity .6s ease-in;
+  opacity: 0;
+}
+/* Contains all the dropdown menu of website, gets the class when active */
+.wrapper {
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  min-height: 100vh;
+  height: 500px;
+  width: 100%;
+  background: seashell;
+  border-top: 1px #2d505968 solid;
+  box-shadow: 0 2px 55px 1px #2d5059c9;
+    /* Trasition in height/opacity for animation */
+  transition: height .6s ease-in;
+  opacity: 1;
+  margin-top: 64px;
+  pointer-events: all;
+}
+
+.wrapper * {
+  opacity: 1;
+}
+
+
+/*  */
+.dropdown-container .input_cards{
+  height: 0;
+}
+.wrapper .input_cards{
+  height: max-content !important;
+}
+/* Holds search input and cards */
+.input_cards {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  padding: 7%;
+}
+/* input styling */
+.input_cards input {
+  width: 80%;
+  height: 50px;
+  border-radius: 20px;
+  margin: 0 auto;
+  font-size: 18px;
+  padding-left: 15px;
+}
+/* Styles the placeholder of input search */
+.input_cards input::placeholder {
+  font-size: 18px;
+  padding-left: 5px;
+}
+/* Card styling and its components */
+.input_cards .cards {
+  margin: 0;
+  margin-top: 50px;
+  list-style: none;
+}
+
+.input_cards .cards li {
+  padding: 0 0 25px 0;
+  border: none;
+  height: max-content;
+  width: 85%;
+  margin: 0 auto;
+}
+
+.input_cards .cards li a {
+  width: 100%;
+  padding: 20px 20px 20px 24px;
+  color: #617482;
+  border: 1px solid #dedede;
+  border-radius: 4px;
+  box-sizing: border-box;
+  display: block;
+  position: relative;
+}
+
+.input_cards .cards li a img {
+  width: 65px;
+  height: 65px;
+  margin: 0;
+  border-radius: 100%;
+  display: block;
+  object-fit: cover;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+.input_cards .cards li a h1,.input_cards .cards li a h3{
+  padding-left: 100px;
 }
 /*  */

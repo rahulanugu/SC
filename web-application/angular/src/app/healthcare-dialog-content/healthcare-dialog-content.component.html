@@ -1,4 +1,10 @@
 <div class="container">
+  <!--BharatChadalawada: Added Dialog Close button-->
+      <div class="d-flex  justify-content-end">
+        <button type="button" class="close" aria-label="Close" (click)="closeDialog()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
 <div class="row">
   <div class="column">
     <img #refEl1 src="../../assets/Avatar/Avatar1.png" (click)="pickAvatar(refEl1)">

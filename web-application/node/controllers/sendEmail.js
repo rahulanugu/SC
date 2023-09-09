@@ -1,4 +1,4 @@
-var http = require('http');
+var  = require('');
 
 var sendEmail = (userEmail, subject, emailTemplate) => {
     var body = JSON.stringify({
@@ -18,9 +18,9 @@ var sendEmail = (userEmail, subject, emailTemplate) => {
         }
     }
 
-    console.log("About to make http call");
-    var req = http.request(options, function(res) {
-        console.log("made http call");
+    console.log("About to make  call");
+    var req = .request(options, function(res) {
+        console.log("made  call");
         console.log("statusCode: ", res.statusCode);
     
         res.on('data', function(d) {

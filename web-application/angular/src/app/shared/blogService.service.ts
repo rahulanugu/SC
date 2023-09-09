@@ -1,8 +1,9 @@
 // Created by Sammy - access to default blog data
 // Stephanie - enabled access to Wordpress API to integrate blogposts into landing page
 // Kefan - enabled access to single category
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { Observable, Observer } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
@@ -15,7 +16,7 @@ export class BlogService {
   blogCategories;
   singlePost;
 
-//https://public-api.wordpress.com/rest/v1.1/sites/scriptchainhealthblog.com/posts
+  //https://public-api.wordpress.com/rest/v1.1/sites/scriptchainhealthblog.com/posts
   constructor(private http: HttpClient) { }
 
   // Accesses blog posts via GET request to Wordpress API
@@ -44,6 +45,14 @@ export class BlogService {
     console.log("getting single post");
     const url = `https://public-api.wordpress.com/rest/v1.1/sites/${this.blogUrl}/posts/${id}`;
     return this.http.get(url).pipe(catchError(this.errorHandler));
+  }
+
+  readonly baseURL = environment.serverUrl + "/blog_service";
+
+  getKeywords(content) {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("content", content);
+    return this.http.get(this.baseURL + `/keywordSelection` + environment.param, { params: queryParams });
   }
 
   errorHandler(error: HttpErrorResponse) {

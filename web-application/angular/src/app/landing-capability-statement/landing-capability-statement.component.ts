@@ -1,3 +1,4 @@
+//Charan Jagwani: created Object
 import { Component, OnInit } from "@angular/core";
 
 @Component({
@@ -7,6 +8,7 @@ import { Component, OnInit } from "@angular/core";
 })
 export class LandingCapabilityStatementComponent implements OnInit {
   constructor() {}
+  //object to call information from cards
   cards_3: {
     icon: string;
     title: string;

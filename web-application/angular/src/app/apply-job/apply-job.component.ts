@@ -11,48 +11,50 @@ import { CareersService } from "../shared/careers.service";
   styleUrls: ["./apply-job.component.css"],
 })
 export class ApplyJobComponent implements OnInit {
+  jobid: any;
   job: jobOpening;
   jobList: {
-    page:number;
+    page: number;
     name: string;
     jobDesc: string;
     Responsibilities: string[];
     Requirements: string[];
-    posted:string;
-  }[]= [
-    {page:1,name:"Software Development",jobDesc:"Something to say about the job description",Responsibilities:["Responsibility nr1","Responsibility nr2","Responsibility nr3"],Requirements:["Requirement nr1","Requirement nr2","Requirement nr3"],posted:"06/14/2022"},
-    {page:2,name:"Web Development",jobDesc:"Something to say about the job description",Responsibilities:["Responsibility nr4","Responsibility nr5","Responsibility nr6"],Requirements:["Requirement nr4","Requirement nr5","Requirement nr6"],posted:"06/15/2022"},
-    {page:3,name:"Software Development",jobDesc:"Something to say about the job description",Responsibilities:["Responsibility nr1","Responsibility nr2","Responsibility nr3"],Requirements:["Requirement nr1","Requirement nr2","Requirement nr3"],posted:"06/16/2022"},
-    {page:4,name:"Web Development",jobDesc:"Something to say about the job description",Responsibilities:["Responsibility nr4","Responsibility nr5","Responsibility nr6"],Requirements:["Requirement nr4","Requirement nr5","Requirement nr6"],posted:"06/17/2022"},
-    {page:5,name:"Software Development",jobDesc:"Something to say about the job description",Responsibilities:["Responsibility nr1","Responsibility nr2","Responsibility nr3"],Requirements:["Requirement nr1","Requirement nr2","Requirement nr3"],posted:"06/18/2022"},
-    {page:6,name:"Web Development",jobDesc:"Something to say about the job description",Responsibilities:["Responsibility nr4","Responsibility nr5","Responsibility nr6"],Requirements:["Requirement nr4","Requirement nr5","Requirement nr6"],posted:"06/19/2022"},
-  ];
+    posted: string;
+  }[] = [
+      { page: 1, name: "Software Development", jobDesc: "Something to say about the job description", Responsibilities: ["Responsibility nr1", "Responsibility nr2", "Responsibility nr3"], Requirements: ["Requirement nr1", "Requirement nr2", "Requirement nr3"], posted: "06/14/2022" },
+      { page: 2, name: "Web Development", jobDesc: "Something to say about the job description", Responsibilities: ["Responsibility nr4", "Responsibility nr5", "Responsibility nr6"], Requirements: ["Requirement nr4", "Requirement nr5", "Requirement nr6"], posted: "06/15/2022" },
+      { page: 3, name: "Software Development", jobDesc: "Something to say about the job description", Responsibilities: ["Responsibility nr1", "Responsibility nr2", "Responsibility nr3"], Requirements: ["Requirement nr1", "Requirement nr2", "Requirement nr3"], posted: "06/16/2022" },
+      { page: 4, name: "Web Development", jobDesc: "Something to say about the job description", Responsibilities: ["Responsibility nr4", "Responsibility nr5", "Responsibility nr6"], Requirements: ["Requirement nr4", "Requirement nr5", "Requirement nr6"], posted: "06/17/2022" },
+      { page: 5, name: "Software Development", jobDesc: "Something to say about the job description", Responsibilities: ["Responsibility nr1", "Responsibility nr2", "Responsibility nr3"], Requirements: ["Requirement nr1", "Requirement nr2", "Requirement nr3"], posted: "06/18/2022" },
+      { page: 6, name: "Web Development", jobDesc: "Something to say about the job description", Responsibilities: ["Responsibility nr4", "Responsibility nr5", "Responsibility nr6"], Requirements: ["Requirement nr4", "Requirement nr5", "Requirement nr6"], posted: "06/19/2022" },
+    ];
 
-  jobListCount:number=0
+  jobListCount: number = 0
 
-  constructor(private route: ActivatedRoute, private service: CareersService) {}
+  constructor(private route: ActivatedRoute, private service: CareersService) { }
 
   ngOnInit() {
+    this.jobid = this.route.snapshot.params.jobid;
   }
-  previousPage(){
-    if(this.jobListCount!=0){
+  previousPage() {
+    if (this.jobListCount != 0) {
       this.jobListCount--
-      document.documentElement.scrollTo({top:0,behavior:"smooth"});
+      document.documentElement.scrollTo({ top: 0, behavior: "smooth" });
     }
     console.log(this.jobListCount)
 
   }
-  nextPage(){
-    if(this.jobListCount!=(this.jobList.length-1)){
+  nextPage() {
+    if (this.jobListCount != (this.jobList.length - 1)) {
       this.jobListCount++
-      document.documentElement.scrollTo({top:0,behavior:"smooth"});
+      document.documentElement.scrollTo({ top: 0, behavior: "smooth" });
     }
     console.log(this.jobListCount)
 
   }
-  jumpPage(page){
-    this.jobListCount=page-1;
-    document.documentElement.scrollTo({top:0,behavior:"smooth"});
+  jumpPage(page) {
+    this.jobListCount = page - 1;
+    document.documentElement.scrollTo({ top: 0, behavior: "smooth" });
   }
 }
     //console.log(this.route.snapshot.params['jobid']);

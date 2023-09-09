@@ -1,4 +1,4 @@
-import { LoginPatientService } from './../shared/login-patient.service';
+import { LoginPatientService } from '../shared/login-patient.service';
 import { Component, OnInit } from '@angular/core';
 
 /**

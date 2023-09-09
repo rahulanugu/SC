@@ -1,101 +1,117 @@
-import { LoginPatientService } from "./../shared/login-patient.service";
-import { Component, OnInit } from "@angular/core";
-import { Patient } from "../shared/patient.model";
-import { Router } from "@angular/router";
-import { from } from "rxjs";
-import { NgForm } from "@angular/forms";
-import { ActivatedRoute } from "@angular/router";
-import { VerificationService } from "../shared/verification.service";
+import { LoginPatientService } from "../shared/login-patient.service";
 import { PatientEditService } from "../shared/patient-edit.service";
+import { Patient } from "../shared/patient.model";
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import { FormBuilder, Validators } from "@angular/forms";
+import { param } from "jquery";
+import { ToastrNotificationService } from "../toastr-notification.service";
 
 /**
  * Page: Login form for patient users
  */
+export class PatientLoginDetails {//modify by Yichen, add a new class for patient login
+  //datamodel for sending username and password to backend
+  username: string;
+  password: string;
+}
 @Component({
   selector: "app-patient",
   templateUrl: "./patient.component.html",
   styleUrls: ["./patient.component.css"],
 })
 export class PatientComponent implements OnInit {
-  // token:string;
-  // jwtToken: string;
+  patientLoginDetails = new PatientLoginDetails();//modify by Yichen
+  constructor(
+    private formBuilderService: FormBuilder,
+    private LoginPatientService: LoginPatientService,
+    private toastr: ToastrNotificationService,
+    private patientEditService: PatientEditService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
-  // patientmodel = new Patient();
-  // constructor(private _patientloginservice:LoginPatientService,
-  //   private _router:Router,
-  //   private activatedRoute: ActivatedRoute,
-  //   private patientService: VerificationService,
-  //   private patientEditService: PatientEditService) { }
 
-  ngOnInit() {
-    // document.getElementById('verificationsuccessful').style.display = "none";
-    // //console.log("patient component is reached");
-    // window.scrollTo(0,0);
-    // this.activatedRoute.queryParams.subscribe(params=>{
-    //   //console.log(params);
-    //   this.token=params.verify;
-    //   this.jwtToken= params.verify;
-    //   if(this.token){
-    //     this.onVerified(this.jwtToken);
-    //   }else{
-    //     //console.log('no data');
-    //   }
-    // })
+  ngOnInit() {//add by Yichen, just for debugging
+    //BharatChadalawada: validate email token and redirect to login portal
+    this.activatedRoute.queryParamMap.subscribe(params =>{
+      let verify_token = params.get('verify')
+      console.log("Veify Toekn",verify_token);
+      if (verify_token != null){
+        verify_token = verify_token.replace(" ",'+')
+        let tokentObj = {token : decodeURIComponent(verify_token.replace(/\s/g,'+'))}
+        this.LoginPatientService.verifyPatientEmail(tokentObj).subscribe( res=>{
+          if(res){
+            this.toastr.successToast("Email Veified successfully", "Email Verified");
+            this.router.navigate(['patient/login']);
+          }
+        });
+      }
+    })
+
   }
 
-  //     onVerified(token){
-  //       // verification using token and jwt
-  //       this.patientService.postVerifiredToken(token).subscribe((res)=>{
-  //         document.getElementById('verificationsuccessful').style.display = "block";
-  //         localStorage.removeItem('user-jwt');
-  //         //console.log(res);
-  //       });
-  //     }
-  // //check if user exist or not if user exist receive JWT and add to browser's local storage
-  // onSubmit(){
-  //   //console.log("clicked submit")
-  //   this._patientloginservice.Loginpatient(this.patientmodel).subscribe(
+  Form = this.formBuilderService.group({
+    emailAddress: ["", Validators.required],
+    password: ["", Validators.required],
+  });
 
-  //     res => {
-  //       //console.log(res)
-  //       localStorage.setItem('token',res.idToken)
-  //       localStorage.setItem('fname',res.fname)
-  //       localStorage.setItem('email',res.email)
-  //       this._router.navigate(['patient-profile'])
-
-  //     },
-  //     err => {
-  //       //console.log("Error is")
-  //       //console.log(err)
-  //       if(err.status == 401){
-  //         document.querySelector('#email').classList.remove('is-invalid');
-  //         document.querySelector('#invalidEmailPrompt').classList.add('d-none');
-  //         document.querySelector('#password').classList.add('is-invalid');
-  //         document.querySelector('#invalidPasswordPrompt').classList.remove('d-none');
-  //         document.querySelector('#deactivatedEmail').classList.add('d-none');
-
-  //       }else if(err.status == 303){
-  //         //console.log("deactivated email handling")
-  //         //send a reactivare mail
-  //         this.patientEditService.makeReactivateRequest({email : this.patientmodel.email}).subscribe(
-  //           response => {
-  //             //console.log("response is recieved")
-  //             document.querySelector('#deactivatedEmail').classList.remove('d-none');
-  //           },
-  //           error => {
-  //             //console.log("error is recieved")
-  //             this._router.navigate['error500']
-  //           }
-  //         );
-  //       } else {
-  //         document.querySelector('#invalidPasswordPrompt').classList.add('d-none');
-  //         document.querySelector('#email').classList.add('is-invalid');
-  //         document.querySelector('#password').classList.add('is-invalid');
-  //         document.querySelector('#invalidEmailPrompt').classList.remove('d-none');
-  //         document.querySelector('#deactivatedEmail').classList.add('d-none');
-
-  //       }
-  //     }
-  //   );
-  // }
+  onSubmit() {
+    this.LoginPatientService.cleanLocalStorage(); //modify by Yichen, clean all info in local storage every time user login
+     //console.log(this.Form.value);
+    this.LoginPatientService.Loginpatient(this.Form.value).subscribe(
+      (res) => {
+        //Update by Yichen Huang, store jwt token and user type in local storage
+        localStorage.setItem("token", res["jwtToken"]);
+        localStorage.setItem("caregiver", res["caregiver"]);
+        console.log(res);
+        if (res["caregiver"]== true) {//Update by Yichen, add caregiver login
+          this.router.navigate(['patients/caregiverprofile']);
+        }
+        else{
+        this.router.navigate(['patients/profile']);
+        }
+      },
+      (err) => {
+        console.log(err);
+        if (err.status == 401) {
+          document
+            .querySelector("#emailAddress")
+            .classList.remove("is-invalid");
+          document.querySelector("#invalidEmailPrompt").classList.add("d-none");
+          document.querySelector("#password").classList.add("is-invalid");
+          document
+            .querySelector("#invalidPasswordPrompt")
+            .classList.remove("d-none");
+          document.querySelector("#deactivatedEmail").classList.add("d-none");
+        } else if (err.status == 303) {
+          //console.log("deactivated email handling")
+          //send a reactivare mail
+          this.patientEditService
+            .makeReactivateRequest({ email: this.Form.value.emailAddress })
+            .subscribe(
+              (response) => {
+                //console.log("response is recieved")
+                document
+                  .querySelector("#deactivatedEmail")
+                  .classList.remove("d-none");
+              },
+              (error) => {
+                //console.log("error is recieved")
+              }
+            );
+        } else {
+          //console.log("errorcode")
+          document
+            .querySelector("#invalidPasswordPrompt")
+            .classList.add("d-none");
+          document.querySelector("#emailAddress").classList.add("is-invalid");
+          document.querySelector("#password").classList.add("is-invalid");
+          document
+            .querySelector("#invalidEmailPrompt")
+            .classList.remove("d-none");
+        }
+      }
+    );
+  }
 }

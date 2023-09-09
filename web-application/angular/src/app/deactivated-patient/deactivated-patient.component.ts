@@ -21,7 +21,6 @@ export class DeactivatedPatientComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe(params=>{
       if(!params.email){
-        this._router.navigate(['error500'])
       }
     })
   }

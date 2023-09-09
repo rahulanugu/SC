@@ -1,5 +1,7 @@
 <!-- Authors and their contributions: -->
 <!-- Vidit: Redesigned the form and did UI enhancements -->
+<!-- Daniel: added submit functionality and had type of business passed to typescript file -->
+
 
 <app-landing-page-header></app-landing-page-header>
 <div id="partnership-div">
@@ -8,10 +10,11 @@
     Use the form below to contact the ScriptChain Health Team about partnership
     opportunites.
   </p>
-  <div class="wrapper pb-5" id="partnership-form">
+  <div id="partnership-form">
     <form
       class="bpForm container pb-3 pt-4"
       ngNativeValidate
+      (ngSubmit)="submitForm()"
       [formGroup]="partnerForm"
       fxFlex
       fxLayout="column"
@@ -84,7 +87,7 @@
         <div class="typeOfBusiness">
           <label>Type of Business</label>
           <br />
-          <select name="typeOfBusiness">
+          <select name="typeOfBusiness" required formControlName="buisness_type">
             <option value="provider">Provider</option>
             <option value="healthcareInstitution">
               Healthcare Institution
@@ -150,7 +153,7 @@
       </div>
 
       <div fxFlex fxLayout="row">
-        <button type="button" class="sendBtn mt-3">Submit</button>
+        <button type="submit" class="sendBtn mt-3">Submit</button>
       </div>
     </form>
   </div>

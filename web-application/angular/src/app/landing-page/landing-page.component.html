@@ -1,18 +1,283 @@
 <!--  Authors and their contributions:
-
 -->
 <!-- contributions -->
 <!-- Sammy: Updated description for paragraph in card-container
   Vince: fixed grammarical errors in text body of "Why ScriptChain"
-  DenisH: Design Update/Clear the code/-->
+  DenisH: Design Update/Clear the code/
+  Testing new branch from a hash
+  Daniel - removed mat-menu-item from Sign Up Here button - made it stick to the left on mobile view
+         - updated About Us text
+  Siheng - Remove the unnecessary html&head&body tags
+-->
 
-<!DOCTYPE html>
+<!-- Landing page header -->
+<app-landing-page-header></app-landing-page-header>
+<!-- Welcoming message/Text+Image -->
+<app-landing-page-welcome-message></app-landing-page-welcome-message>
+<!--Content Data -->
+<!-- Content Data Full view (Left/Right)-->
+<div class="contentData">
+  <div fxHide fxShow.gt-sm>
+    <mat-grid-list class="mat-grid-list-data" cols="3" rowHeight="10:1">
+      <!-- Denis - Each mat grid represents a table cell, of a table with 3 colomns -->
+      <mat-grid-tile></mat-grid-tile>
+      <mat-grid-tile></mat-grid-tile>
+      <mat-grid-tile></mat-grid-tile>
+      <mat-grid-tile class="numeric">700,000</mat-grid-tile>
+      <mat-grid-tile class="numeric">30.3 M</mat-grid-tile>
+      <mat-grid-tile class="numeric">$351 B</mat-grid-tile>
+      <mat-grid-tile class="data"
+        >Total Death Could Have Been Prevented</mat-grid-tile
+      >
+      <mat-grid-tile class="data"
+        >Total CVD Cases Could Have Been Prevented</mat-grid-tile
+      >
+      <mat-grid-tile class="data">Total Medical Cost Savings</mat-grid-tile>
+      <mat-grid-tile></mat-grid-tile>
+      <mat-grid-tile class="study"
+        >**Stats from Healthline 2020 study**</mat-grid-tile
+      >
+      <mat-grid-tile></mat-grid-tile>
+      <mat-grid-tile></mat-grid-tile>
+      <mat-grid-tile></mat-grid-tile>
+      <mat-grid-tile></mat-grid-tile>
+    </mat-grid-list>
+  </div>
+  <!-- Denis -  Content Data Mobile view (Up/Down)-->
+  <div fxShow fxHide.gt-sm>
+    <mat-grid-list class="mat-grid-list-data" cols="1" rowHeight="25:1">
+      <mat-grid-tile></mat-grid-tile>
+      <mat-grid-tile class="numericsmall">700,000</mat-grid-tile>
+      <mat-grid-tile class="datasmall"
+        >Total Death Could Have Been Prevented</mat-grid-tile
+      >
+      <mat-grid-tile></mat-grid-tile>
+      <mat-grid-tile class="numericsmall">30.3 M</mat-grid-tile>
+      <mat-grid-tile class="datasmall"
+        >Total CVD Cases Could Have Been Prevented</mat-grid-tile
+      >
+      <mat-grid-tile></mat-grid-tile>
+      <mat-grid-tile class="numericsmall">$351 B</mat-grid-tile>
+      <mat-grid-tile class="datasmall"
+        >Total Medical Cost Savings</mat-grid-tile
+      >
+      <mat-grid-tile></mat-grid-tile>
+      <mat-grid-tile class="studysmall"
+        >**Stats from Healthline 2020 study**</mat-grid-tile
+      >
+
+      <mat-grid-tile></mat-grid-tile>
+      <mat-grid-tile></mat-grid-tile>
+    </mat-grid-list>
+  </div>
+</div>
+<!-- Content Data ends-->
+<!-- Denis - About Us-->
+<!-- About Us Full view -->
+<div class="about-us" fxHide fxShow.gt-sm>
+  <h1>About Us</h1>
+  <h3>
+    A B2B SaaS digital health company where we have built an AI Prediction
+    Platform for Heart Disease and Readmission to lower the cost of care for
+    Heart Disease and reduce Readmission Rates.
+  </h3>
+</div>
+<!-- About Us Mobile view -->
+<div class="about-us" fxShow fxHide.gt-sm>
+  <h2>About Us</h2>
+  <h5>
+    A B2B SaaS digital health company where we have built an AI Prediction
+    Platform for Heart Disease and Readmission to lower the cost of care for
+    Heart Disease and reduce Readmission Rates.
+  </h5>
+</div>
+<!-- Denis - About Us ends-->
+<!-- Denis - Card Componnet/Video -->
+<app-landing-page-information></app-landing-page-information>
+<!-- Denis - Card Componnet/Video end-->
+<!-- Contact Us -->
+<!-- Contact Us Full View -->
+<div class="holder">
+  <div fxHide fxShow.gt-sm fxLayout="row" class="flex100">
+    <div class="flex50">
+      <div class="left-contact-us">
+        <h1 class="contact-us">Contact us</h1>
+        <p>Give us some information so the right person can get back to you.</p>
+        <button routerLink="/becomeapartner" class="partner">
+          Become A Partner
+        </button>
+        <br />
+        <button class="sign" routerLink="/healthcare/register">
+          Sign Up Here
+        </button>
+      </div>
+    </div>
+
+    <div class="flex50">
+      <!-- Contact us form -->
+      <div class="right-contact-us">
+        <form [formGroup]="exform" class="form">
+          <div class="form-group">
+            <input
+              formControlName="name"
+              type="text"
+              class="form-control"
+              placeholder="Full Name"
+            />
+            <small *ngIf="name.invalid && name.touched" class="text-danger"
+              >Name is Required</small
+            >
+          </div>
+          <div class="form-group">
+            <input
+              formControlName="email"
+              type="text"
+              class="form-control"
+              placeholder="Your Email"
+            />
+            <small *ngIf="email.invalid && email.touched" class="text-danger"
+              >Email is invalid!</small
+            >
+          </div>
+          <div class="form-group">
+            <input
+              formControlName="subject"
+              type="text"
+              class="form-control"
+              placeholder="Subject"
+            />
+          </div>
+          <div class="form-group">
+            <textarea
+              formControlName="message"
+              class="form-control message"
+              placeholder="Type a message"
+            ></textarea>
+            <small
+              *ngIf="message.invalid && message.touched"
+              class="text-danger"
+            >
+              Message is Required(minimum length 10)</small
+            >
+          </div>
+          <button
+            (click)="clicksub()"
+            [disabled]="exform.invalid"
+            type="button"
+            class="btn btn-primary"
+          >
+            Submit
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- ---------------------------- -->
+  <!-- Contact Us Mobile View -->
+  <div fxShow fxHide.gt-sm fxLayout="column">
+    <div class="top-contact-us">
+      <h1 class="contact-us">Contact us</h1>
+      <p>Give us some information so the right person can get back to you.</p>
+      <button routerLink="/becomeapartner" class="partner">
+        Become A Partner
+      </button>
+      <br />
+      <button class="sign" routerLink="/healthcare/register">
+        Sign Up Here
+      </button>
+    </div>
+
+    <div class="right-contact-us bottom-contact-us">
+      <!-- contact us form for mobile view -->
+      <form [formGroup]="exform" class="form">
+        <div class="form-group">
+          <input
+            formControlName="name"
+            type="text"
+            class="form-control"
+            placeholder="Full Name"
+          />
+          <small *ngIf="name.invalid && name.touched" class="text-danger"
+            >Name is Required</small
+          >
+        </div>
+        <div class="form-group">
+          <input
+            formControlName="email"
+            type="text"
+            class="form-control"
+            placeholder="Your Email"
+          />
+          <small *ngIf="email.invalid && email.touched" class="text-danger"
+            >Email is Required</small
+          >
+        </div>
+        <div class="form-group">
+          <input
+            formControlName="subject"
+            type="text"
+            class="form-control"
+            placeholder="Subject"
+          />
+        </div>
+        <div class="form-group">
+          <textarea
+            formControlName="message"
+            class="form-control message"
+            placeholder="Type a message"
+          ></textarea>
+          <small *ngIf="message.invalid && message.touched" class="text-danger">
+            Message is Required(minimum length 10)</small
+          >
+        </div>
+        <button
+          (click)="clicksub()"
+          [disabled]="exform.invalid"
+          type="button"
+          class="btn btn-primary"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Contact Us ends -->
+<!-- Read Cases -->
+<div class="read-case-container">
+  <mat-grid-list cols="1" rowHeight="50px">
+    <mat-grid-tile [colspan]="1" [rowspan]="4">
+      <h1>Readmission & Heart Disease Prevention</h1>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+      <!-- &#x2192 represents an arrow to be displayed -->
+      <button
+        onclick=" window.open('https://www.mayoclinicproceedings.org/article/S0025-6196(20)30138-5/fulltext','_blank')"
+      >
+        Read Case Studies &#x2192;
+      </button>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
+
+<!-- Read Cases -->
+<!-- Carousel -->
+<app-landing-page-carousel></app-landing-page-carousel>
+<!-- Carousel ends -->
+
+<!--Content4-->
+
+<footer>
+  <app-landing-page-subfooter></app-landing-page-subfooter>
+</footer>
+
+<!-- Codes below are commented by Siheng Wei cause they are refactored as above -->
+<!-- <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
-      href="http://fonts.googleapis.com/css?family=Lato:400,700"
+      href="https://fonts.googleapis.com/css?family=Lato:400,700"
       rel="stylesheet"
       type="text/css"
     />
@@ -22,7 +287,7 @@
     />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-    <!-- Hotjar Tracking Code for https://www.scriptchain.co/home -->
+    <!~~ Hotjar Tracking Code for https://www.scriptchain.co/home ~~>
     <script>
       (function (h, o, t, j, a, r) {
         h.hj =
@@ -41,106 +306,113 @@
   </head>
 
   <body>
-    <!-- Landing page header -->
+    <!~~ Landing page header ~~>
     <app-landing-page-header></app-landing-page-header>
-    <!-- Welcoming message/Text+Image -->
+    <!~~ Welcoming message/Text+Image ~~>
     <app-landing-page-welcome-message></app-landing-page-welcome-message>
-    <!--Content Data -->
-    <!-- Content Data Full view (Left/Right)-->
-    <div fxHide fxShow.gt-sm>
-      <mat-grid-list class="mat-grid-list-data" cols="3" rowHeight="10:1">
-        <mat-grid-tile></mat-grid-tile>
-        <mat-grid-tile></mat-grid-tile>
-        <mat-grid-tile></mat-grid-tile>
-        <mat-grid-tile class="numeric">700,000</mat-grid-tile>
-        <mat-grid-tile class="numeric">30.3 M</mat-grid-tile>
-        <mat-grid-tile class="numeric">$351 B</mat-grid-tile>
-        <mat-grid-tile class="data"
-          >Total Death Could've Been Prevented</mat-grid-tile
-        >
-        <mat-grid-tile class="data"
-          >Total CVD Case Copuld've Been Prevented</mat-grid-tile
-        >
-        <mat-grid-tile class="data">Total Medical Cost Savings</mat-grid-tile>
-        <mat-grid-tile></mat-grid-tile>
-        <mat-grid-tile class="study"
-          >**Stats from Healthline 2020 study**</mat-grid-tile
-        >
-        <mat-grid-tile></mat-grid-tile>
-        <mat-grid-tile></mat-grid-tile>
-        <mat-grid-tile></mat-grid-tile>
-        <mat-grid-tile></mat-grid-tile>
-      </mat-grid-list>
-    </div>
-    <!-- Content Data Mobile view (Up/Down)-->
-    <div fxShow fxHide.gt-sm>
-      <mat-grid-list class="mat-grid-list-data" cols="1" rowHeight="25:1">
-        <mat-grid-tile></mat-grid-tile>
-        <mat-grid-tile class="numericsmall">700,000</mat-grid-tile>
-        <mat-grid-tile class="datasmall"
-          >Total Death Could've Been Prevented</mat-grid-tile
-        >
-        <mat-grid-tile></mat-grid-tile>
-        <mat-grid-tile class="numericsmall">30.3 M</mat-grid-tile>
-        <mat-grid-tile class="datasmall"
-          >Total CVD Case Copuld've Been Prevented</mat-grid-tile
-        >
-        <mat-grid-tile></mat-grid-tile>
-        <mat-grid-tile class="numericsmall">$351 B</mat-grid-tile>
-        <mat-grid-tile class="datasmall"
-          >Total Medical Cost Savings</mat-grid-tile
-        >
-        <mat-grid-tile></mat-grid-tile>
-        <mat-grid-tile class="studysmall"
-          >**Stats from Healthline 2020 study**</mat-grid-tile
-        >
+    <!~~Content Data ~~>
+    <!~~ Content Data Full view (Left/Right)~~>
+    <div class="contentData">
+      <div fxHide fxShow.gt-sm>
+        <mat-grid-list class="mat-grid-list-data" cols="3" rowHeight="10:1">
+          <!~~ Denis - Each mat grid represents a table cell, of a table with 3 colomns ~~>
+          <mat-grid-tile></mat-grid-tile>
+          <mat-grid-tile></mat-grid-tile>
+          <mat-grid-tile></mat-grid-tile>
+          <mat-grid-tile class="numeric">700,000</mat-grid-tile>
+          <mat-grid-tile class="numeric">30.3 M</mat-grid-tile>
+          <mat-grid-tile class="numeric">$351 B</mat-grid-tile>
+          <mat-grid-tile class="data"
+            >Total Death Could Have Been Prevented</mat-grid-tile
+          >
+          <mat-grid-tile class="data"
+            >Total CVD Cases Could Have Been Prevented</mat-grid-tile
+          >
+          <mat-grid-tile class="data">Total Medical Cost Savings</mat-grid-tile>
+          <mat-grid-tile></mat-grid-tile>
+          <mat-grid-tile class="study"
+            >**Stats from Healthline 2020 study**</mat-grid-tile
+          >
+          <mat-grid-tile></mat-grid-tile>
+          <mat-grid-tile></mat-grid-tile>
+          <mat-grid-tile></mat-grid-tile>
+          <mat-grid-tile></mat-grid-tile>
+        </mat-grid-list>
+      </div>
+      <!~~ Denis -  Content Data Mobile view (Up/Down)~~>
+      <div fxShow fxHide.gt-sm>
+        <mat-grid-list class="mat-grid-list-data" cols="1" rowHeight="25:1">
+          <mat-grid-tile></mat-grid-tile>
+          <mat-grid-tile class="numericsmall">700,000</mat-grid-tile>
+          <mat-grid-tile class="datasmall"
+            >Total Death Could Have Been Prevented</mat-grid-tile
+          >
+          <mat-grid-tile></mat-grid-tile>
+          <mat-grid-tile class="numericsmall">30.3 M</mat-grid-tile>
+          <mat-grid-tile class="datasmall"
+            >Total CVD Cases Could Have Been Prevented</mat-grid-tile
+          >
+          <mat-grid-tile></mat-grid-tile>
+          <mat-grid-tile class="numericsmall">$351 B</mat-grid-tile>
+          <mat-grid-tile class="datasmall"
+            >Total Medical Cost Savings</mat-grid-tile
+          >
+          <mat-grid-tile></mat-grid-tile>
+          <mat-grid-tile class="studysmall"
+            >**Stats from Healthline 2020 study**</mat-grid-tile
+          >
 
-        <mat-grid-tile></mat-grid-tile>
-        <mat-grid-tile></mat-grid-tile>
-      </mat-grid-list>
+          <mat-grid-tile></mat-grid-tile>
+          <mat-grid-tile></mat-grid-tile>
+        </mat-grid-list>
+      </div>
     </div>
-    <!-- Content Data ends-->
-    <!-- Denis - About Us-->
-    <!-- About Us Full view -->
+    <!~~ Content Data ends~~>
+    <!~~ Denis - About Us~~>
+    <!~~ About Us Full view ~~>
     <div class="about-us" fxHide fxShow.gt-sm>
       <h1>About Us</h1>
       <h3>
-        We use AI for Cardiovascular Disease and Readmission prevention by
-        optimizing the point of care at the time of admission.
+        A B2B SaaS digital health company where we have built an AI Prediction Platform for Heart Disease 
+        and Readmission to lower the cost of care for Heart Disease and reduce Readmission Rates.
       </h3>
     </div>
-    <!-- About Us Mobile view -->
+    <!~~ About Us Mobile view ~~>
     <div class="about-us" fxShow fxHide.gt-sm>
       <h2>About Us</h2>
       <h5>
-        We use AI for Cardiovascular Disease and Readmission prevention by
-        optimizing the point of care at the time of admission.
+        A B2B SaaS digital health company where we have built an AI Prediction Platform for Heart Disease 
+        and Readmission to lower the cost of care for Heart Disease and reduce Readmission Rates.
       </h5>
     </div>
-    <!-- Denis - About Us ends-->
-    <!-- Denis - Card Componnet/Video -->
-    <app-landing-page-information></app-landing-page-information>
-    <!-- Denis - Card Componnet/Video end-->
-    <!-- Contact Us -->
-    <!-- Contact Us Full View -->
+    <!~~ Denis - About Us ends~~>
+    <!~~ Denis - Card Componnet/Video ~~>
+    <app-landing-page-information ></app-landing-page-information>
+    <!~~ Denis - Card Componnet/Video end~~>
+    <!~~ Contact Us ~~>
+    <!~~ Contact Us Full View ~~>
     <div class="holder">
-      <div fxHide fxShow.gt-sm fxLayout="row">
-        <div fxFlex="50">
+      <div fxHide fxShow.gt-sm fxLayout="row" class="flex100">
+        <div class="flex50">
           <div class="left-contact-us">
             <h1 class="contact-us">Contact us</h1>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero
-              veritatis enim eos quasi, accusantium consectetur quaerat sed?
-              Amet corporis minus iure consectetur quibusdam, ducimus assumenda?
-              Ab dignissimos iusto dolorum accusantium.
+              Give us some information so the right person can get back to you.
             </p>
-            <button routerLink="/becomeapartner" class="partner">Become A Partner</button>
+            <button routerLink="/becomeapartner" class="partner">
+              Become A Partner
+            </button>
             <br />
-            <button class="sign">Sign Up Here</button>
+            <button 
+            class="sign"
+            routerLink="/healthcare/register">
+            Sign Up Here
+          </button>
           </div>
         </div>
 
-        <div fxFlex="50">
+        <div class="flex50">
+          <!~~ Contact us form ~~>
           <div class="right-contact-us">
             <form [formGroup]="exform" class="form">
               <div class="form-group">
@@ -200,23 +472,27 @@
           </div>
         </div>
       </div>
-      <!-- ---------------------------- -->
-      <!-- Contact Us Mobile View -->
+      <!~~ ---------------------------- ~~>
+      <!~~ Contact Us Mobile View ~~>
       <div fxShow fxHide.gt-sm fxLayout="column">
-        <div class="left-contact-us top-contact-us">
+        <div class=" top-contact-us">
           <h1 class="contact-us">Contact us</h1>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero
-            veritatis enim eos quasi, accusantium consectetur quaerat sed? Amet
-            corporis minus iure consectetur quibusdam, ducimus assumenda? Ab
-            dignissimos iusto dolorum accusantium.
+            Give us some information so the right person can get back to you.
           </p>
-          <button routerLink="/becomeapartner" class="partner">Become A Partner</button>
+          <button routerLink="/becomeapartner" class="partner">
+            Become A Partner
+          </button>
           <br />
-          <button class="sign">Sign Up Here</button>
+           <button 
+            class="sign"
+            routerLink="/healthcare/register">
+            Sign Up Here
+          </button>
         </div>
 
         <div class="right-contact-us bottom-contact-us">
+          <!~~ contact us form for mobile view ~~>
           <form [formGroup]="exform" class="form">
             <div class="form-group">
               <input
@@ -274,137 +550,29 @@
       </div>
     </div>
 
-    <!-- Contact Us ends -->
-    <!-- Read Cases -->
+    <!~~ Contact Us ends ~~>
+    <!~~ Read Cases ~~>
     <div class="read-case-container">
       <mat-grid-list cols="1" rowHeight="50px">
         <mat-grid-tile [colspan]="1" [rowspan]="4">
-          <h1>Readmission & Cardiovascular Disease prevention</h1>
+          <h1>Readmission & Heart Disease Prevention </h1>
         </mat-grid-tile>
         <mat-grid-tile [colspan]="1" [rowspan]="1">
-          <button>Read Case Studies &#x2192;</button>
+          <!~~ &#x2192 represents an arrow to be displayed ~~>
+          <button onclick=" window.open('https://www.mayoclinicproceedings.org/article/S0025-6196(20)30138-5/fulltext','_blank')">Read Case Studies &#x2192;</button>
         </mat-grid-tile>
       </mat-grid-list>
     </div>
 
-    <!-- Read Cases -->
-    <!-- Carousel -->
+    <!~~ Read Cases ~~>
+    <!~~ Carousel ~~>
     <app-landing-page-carousel></app-landing-page-carousel>
-    <!-- Carousel ends -->
+    <!~~ Carousel ends ~~>
 
-    <!--Content4-->
+    <!~~Content4~~>
 
     <footer>
       <app-landing-page-subfooter></app-landing-page-subfooter>
     </footer>
   </body>
-</html>
-<!-- 2 cards carousel -->
-<!--
-  <div class="content3">
-      <h3>Why ScriptChain Health?</h3>
-      <div class="row">
-        <div class="col">
-          <div class="item">
-            <label>What physicians are saying</label>
-
-            <mat-carousel
-              timings="250ms ease-in"
-              [autoplay]="true"
-              interval="6000"
-              color="primary"
-              maxWidth=""
-              proportion="200"
-              slides="2"
-              [loop]="true"
-              [hideArrows]="true"
-              [hideIndicators]="true"
-              [useKeyboard]="true"
-              [useMouseWheel]="false"
-              orientation="ltr"
-            >
-              <mat-carousel-slide overlayColor="none">
-                <div class="card2">
-                  <blockquote class>
-                    "AI is something that makes sense out of chaos. It connects
-                    the dots."
-                  </blockquote>
-                  <figcaption>
-                    &mdash;<cite
-                      >Dr. Beahr's retired Cardiologist at HealthEast Saint
-                      Joseph's Hospital</cite
-                    >
-                  </figcaption>
-                </div>
-              </mat-carousel-slide>
-              <mat-carousel-slide overlayColor="none">
-                <div class="card2">
-                  <blockquote>
-                    "If we had a tool to help point out high risk patient so we
-                    can intervene and prevent illnesses, that would be very
-                    beneficial for everyone involved."
-                  </blockquote>
-                  <figcaption>
-                    &mdash;<cite
-                      >Dr. Mody Professor of Medicine, David Geffen School of
-                      Medicine at UCLA.</cite
-                    >
-                  </figcaption>
-                </div>
-              </mat-carousel-slide>
-            </mat-carousel>
-          </div>
-        </div>
-        <div class="col">
-          <div class="item">
-            <label>What healthcare workers are saying</label>
-
-            <mat-carousel
-              timings="250ms ease-in"
-              [autoplay]="true"
-              interval="6000"
-              color=""
-              maxWidth=""
-              proportion="200"
-              slides="2"
-              [loop]="true"
-              [hideArrows]="true"
-              [hideIndicators]="true"
-              [useKeyboard]="true"
-              [useMouseWheel]="false"
-              orientation="rtl"
-              maintainAspectRatio="false"
-            >
-              <mat-carousel-slide overlayColor="none">
-                <div class="card2">
-                  <blockquote>
-                    "Medicine in the US is pretty reactive and not preventative
-                    which is a problem."
-                  </blockquote>
-                  <figcaption>
-                    &mdash;<cite>
-                      Nicole Lincoln, Head of Nursing Innovation.</cite
-                    >
-                  </figcaption>
-                </div>
-              </mat-carousel-slide>
-              <mat-carousel-slide overlayColor="none">
-                <div class="card2">
-                  <blockquote>
-                    “Artificial Intelligence has the potential to improve our
-                    current healthcare system by increasing speed, efficiency,
-                    and effectiveness allowing physicians to provide more
-                    accurate and up to date care to our patients while speeding
-                    up workflow and improving patient outcomes.”
-                  </blockquote>
-                  <figcaption>
-                    &mdash;<cite>Dr. David Denmark MD, MPH</cite>
-                  </figcaption>
-                </div>
-              </mat-carousel-slide>
-            </mat-carousel>
-          </div>
-        </div>
-      </div>
-    </div>
- -->
+</html> -->

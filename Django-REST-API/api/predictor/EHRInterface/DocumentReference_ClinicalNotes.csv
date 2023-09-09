@@ -1,0 +1,145 @@
+Authenticator,Author,Category,Context (Encounter),Context (Period),Custodian,Date,Doc Status,id,Status,Subject,Type
+,,,,,Epic USCDI on FHIR,2009-03-14T14:41:50Z,final,e5CgNevy2jmCphSF39m5Vpg3,current,"Mychart, Theodore",Discharge Summary
+,,,,,Epic USCDI on FHIR,2013-11-08T14:26:00Z,final,eXKIwRwV2-nMqVsy5KQ-hiw3,current,"Mychart, Theodore",CMS IM for Patient Signature
+,,,,,Epic USCDI on FHIR,2013-11-08T14:26:00Z,final,exa1L6fD8Y22HAyxJLI2kAw3,current,"Mychart, Theodore",CMS IM Copy of Signed
+,,,,,Epic USCDI on FHIR,,,eOiDVgPSjRHRga04MwmyoLg3,current,"Mychart, Theodore",Consent Form
+,,,,,Epic USCDI on FHIR,,,eKPuOrzhoXOv.rDfdRjJhbw3,current,"Mychart, Theodore",CMS IM for Patient Signature
+,,,,,Epic USCDI on FHIR,,,eZFLyAGxAxxgqvfjWC10jvg3,current,"Mychart, Theodore",CMS IM Copy of Signed
+,,,,,Epic USCDI on FHIR,2013-11-08T14:26:00Z,final,ebgiIu2WXJ54FyhbtgEf5jw3,current,"Mychart, Theodore",Power of Attorney
+,,,,,Epic USCDI on FHIR,2013-11-08T14:26:00Z,final,eISuPE4bvoJ274wXMJ5KBZQ3,current,"Mychart, Theodore",Advance Directives and Living Will
+,,,,,Epic USCDI on FHIR,,final,e.aqO6B-ILw9HPZtqLBtUpQ3,current,"Mychart, Theodore",HIPAA Notice of Privacy(OLD)
+,,,,,Epic USCDI on FHIR,2013-11-08T14:26:00Z,final,etsUSAFT0AF2.EcShUyKPuA3,current,"Mychart, Theodore",HIPAA Notice of Privacy
+,,,,,Epic USCDI on FHIR,2013-10-07T20:15:00Z,final,eUwJMAM6Hz6uauQ3OWKIk0w3,current,"Mychart, Theodore",Physician Office Consent for Treatment
+,,,,,Epic USCDI on FHIR,2013-10-07T20:15:00Z,final,ehbp4KdMIU4aO2uieaZpQbQ3,current,"Mychart, Theodore",Physician Office Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,e.mDQnWVE.P3tldAyenKAJQ3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,eWO6M2TaIZXTTUpXPAIItaA3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,,ewV82rjzjNWKLpiV5VV9IRw3,current,"Mychart, Theodore",Photo ID
+,,,,,Epic USCDI on FHIR,,,eX9Y6Enb3B6qB5EAQluWzBg3,current,"Mychart, Theodore",Insurance Card
+,,,,,Epic USCDI on FHIR,,final,e74ZQKOOKuJRUH3GJUJ52dQ3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,ejkWyDiN4fH7tkYl4E4jrNQ3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,eOwr.Kkixk9J2cqqiRIfMTA3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,e.k-xVyvXBUCvQ6EJL25IzA3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,eJEJw3lBR.aUwiieQ1tv7Ow3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,e2vDZbu7YOJSDRidqhF9cmw3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,eAzvBkkCkrv4BHpOY8JjQ2A3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,e3CSvYeA6ehsd3zwjWPLhOQ3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,emwo2FBld8u6Cq2lHnHc0EA3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,ezsO2QDrqEVRDV1GbNZINYQ3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,e3II0JDKIyhQH4FJ0UEZvGQ3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,e2otI8YkVD9FdPJ9FzIi4oA3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,e23DmjKAkpTCE-ELjp.iuVQ3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,eWoSm96xaKRzYRp.R1ncV6A3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,ex-i5bxaK8X1S5234qLzmUA3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,eDzAUO9aJjZHKME17uFFksA3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,egBf0O27hRkq2vW3oivy9Gg3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,ePCZqn2rQ928GXKNHGg8C5Q3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,ePAABpkQ28Mh.deHGJQ8C-g3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,embF61ZEGzMAY2vJotge8rg3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,eDW7IJjgIgDmNjEhfBe4fow3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,ejRCHTHlUDqB64dMeVF9WGQ3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,eh0cSd1wybLOeQUhSuACF5Q3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,exTZy.hGG990P7sscZ9m83A3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,eUSrf2WgOhPXTbDeqajYE4g3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,egigKKLmEheXTHYUqVMe-jA3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,eQAe3flhfFne2SuowpyEj-Q3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,eit4g-LHYRJ36G84Z3U06ZA3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,evdoTI8lVhQqiKyGGrfxhOg3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,eDA89dSuHLCk-t656314Z1A3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,elhf.e9WGJ9v5J5e82cep8A3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,eDTDy9MQQz5fFTgINu7tTAg3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,ei0uuneHOtanqjiv68J2CYA3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,epMMuV2x-qh6ffCZEj0IsYg3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,eFzGNF-OQ8TYWtUQlfSRZ-Q3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,e4GUJtCSWAq9HibFeupmMdA3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,ec6HX4aE9gwSMD1eQz8gTqw3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,eNqkDzKZzVB.nYdpnIUxKdw3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,ehnq-lyR-LvDpdbW.Xjf3VQ3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,enyQ7T5pIwyjjgVg-ec6gWw3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,eGYtbcUHvZIIWAPLgKYueRQ3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,e4d1-o5XNVjYnV.MMcLLLfA3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,eHh0ncp5R9edg5zCcJ-59pQ3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,eaNLXkgXmxDraRriPXNZu8w3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,eIWLEM99uCtTThmNayAYYTA3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,ezaVDQ7ANMxLlX8URLlWJGw3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,eRnNbzq3CdSbNFZLpHRiCqA3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,eq9FgUj0QVRN4xz6QP1m.UQ3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,e55ThpfPhiQEUmON.5Vmppw3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,ex7kSfpc4kWjxR2wdnCXKOA3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,e3sa.gPeoFOPewYFRLhht-g3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,eHR8v4ioWKmifx1DBwlVdJg3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,eXZfDK01ZkI2tHjtyDop9Cw3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,eR5LYwBjQ98H6wJn513IA3g3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,eDxUNCkOZI8WxtmVJ4XBW2A3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,esyAvcNy9MtlReioMbKrDFg3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,e91qsGgsyL2FcaLDEKn0GIA3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,e7FvFXu3fAQzpBgEHTpiOQg3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,eSHy-lIgtmamcaryeyI-Beg3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,egLaGrHS32BhAy3rC.ab2Lw3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,e6G7FI4zlYMNaEaEzF9zmXA3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,eKIKcFb3VQpmiJt8JUPiVeA3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,e73CDAb0eH6bDcyf3Jvbt.w3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,eB73kc8qJHwSOO8MNMG2o4A3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,eNmssX7TEujqECf8gUQfmyw3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,egTdlPKmVruBThFG4FTyPZg3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,evK-XR0I.yQOFTSjCIICt.w3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,eJ3wfxQW1MfOPH9L5BNeYbA3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,etdnBxhjE1XxNhBQOFsTJvg3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,ebz3iQAkCWsbj4rDdFg7cGA3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,e0qD7M4ZvHRA681iFY9oaRA3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,eQedcxymNFPQ0ya.JQ5pocA3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,e-itCp2zb1.mocGiifxnbfw3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,er5AO9IMg57Mp0CC6gBnsfQ3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,e0z5LHIw25fUpxsF53aF-tw3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,eWMTphEiNPSAEabQcobBTog3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,eAM-9.CYpJFmIOlZqiXQwmw3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,eqbJD6II1HAgnP2PuhPV0IQ3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,esDBQlu7nuYIs3gsGTpoWeg3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,eiBsFsH4XpqwvDEbekSGPDA3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,eLYrgPXK6tgbssCxASrwOXw3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,e4A7xeUnxrF3A6THVQMkFqg3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,ee1KHd0ZR2aP2HwGaXGqrkQ3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,eiLiIA6g.FOdyuug6AYlCuQ3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,elSmu-eQOY4pyn2J6bii1vA3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,eepfmIawkK5XYlqr0QQdckA3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,eQKUjkPqlLvTmq15PqC325Q3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,eVCFm0qq.N-MoGJ5NXP46Fw3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,e.NEqvpaw9Y6fJPMygzWGbg3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,e-HqYTlJ26bD8IIc1BsJoew3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,eJHXSkPv0pmaxt5vBwVPgXQ3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,efWXM6SIjKowYcMC7Fj3XlA3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,eNtAyBU53emBpWKJeBh4jDw3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,eOpicFEiHuyCrpsLbudYdUA3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,ecKfb6DUUaZZD1LaZdyx43Q3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,eRM8Yw01hiM5o2X03saI4aw3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,eZsiuQIKkzWK4F2p3T5P-Zw3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,eAFG-dh628DczhYuUf.tZMQ3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,eA25jz0OLtkdTOfQx2OpSLw3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,eYpXVjrmjHFbwwxfx91R7fA3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,egio0rTCvVdtEunTKxPvlgw3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,eV1OHE6uplpKRE3weF7bYsw3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,e4VlKX37tswqJRGdOWyr2Jw3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,ejilBp2Jj0-dL74y9UbcXRg3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,eBNYh2PjVCYgdC4LdMRgZ.A3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,eGQqXiXLGXZqi9BDgKy0Lxw3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,eyT7kWpBdjiLfIrtOZhI0SQ3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,eHCKjZAlp4f4hr6lHSu272A3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,etm-1hhKsSCHybYcXD93qEw3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,ei5077wdvQ9hPsiA17Qm3Ig3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,etHDAp9Q0SYqX4YjK0OvXow3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,eROrTSUSUwYiYXdD-2wgy2w3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,e8C0Fome0tdZmS-Prgn6w0w3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,eddaHdwtqB.jAmM214.KXZw3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,ej6btmzHtAytXIF-2f5ZUSw3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,etLGwDPl6WbDuDOPgl6EL-Q3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,eSsRXZtpyc5CM6I26QVv8nQ3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,eDZ1zqVL05lzOzSu2f5wXTg3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,evNwMK2jnNRzz0Xutz5iTLw3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,eVakbN1KhzrYITYKLPOavdw3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,e-MERwmayLm69KCLc9IMbew3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,e4NmRqtzK0neB-vtBBtliQQ3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,eSqjNmThz8QZ2oueWfQPUDg3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,en36fzoRUeK.63Mi6-z6gNA3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,eedADA0IUjvj4iP4Mj215pA3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,e5rKGlVJluqHC-0WGlqUpbw3,current,"Mychart, Theodore",Hospital Financial Release of Information
+,,,,,Epic USCDI on FHIR,,final,eJyj-LehkcrEaAEpbHFTCtg3,current,"Mychart, Theodore",Hospital Consent for Treatment
+,,,,,Epic USCDI on FHIR,,final,edN5MEayGd2yUXN9NTTBRmw3,current,"Mychart, Theodore",Hospital Financial Release of Information

@@ -37,7 +37,7 @@ export class HealthcareLoginComponent implements OnInit {
   });
 
   onSubmit() {
-    console.log(this.Form.value);
+    // console.log(this.Form.value);
     this.healthcareLoginService
       .healthcareProviderLogin(this.Form.value)
       .subscribe(
@@ -49,10 +49,14 @@ export class HealthcareLoginComponent implements OnInit {
           //window.location.href = "https://fhir.epic.com/interconnect-fhir-oauth/oauth2/authorize?response_type=code&redirect_uri=https%3A%2F%2Fwww.scriptchain.co%2Fhealthcare-profile&client_id=95da1fe3-9e58-4067-acdd-05664abe02f1";
           //Use Non-Production Client ID
 
-          window.location.href = "https://applescm184region.open.allscripts.com/authorization/connect/authorize?response_type=code&state&client_id=b5362fb7-a608-415f-aba9-fae232fce90e&scope=launch user/*.read&redirect_uri=https://www.scriptchain.co/healthcare-profile"
+          // TODO: integretate with Allscripts
+          // window.location.href =
+          //   "https://applescm184region.open.allscripts.com/authorization/connect/authorize?response_type=code&state&client_id=b5362fb7-a608-415f-aba9-fae232fce90e&scope=launch user/*.read&redirect_uri=https://www.scriptchain.co/healthcare-profile";
+          this.router.navigate(["healthcare-profile"]);
+
           //james
           //Password#1
-          
+
           //this.router.navigate(['healthcare-profile'])
         },
         (err) => {
@@ -85,7 +89,6 @@ export class HealthcareLoginComponent implements OnInit {
                 },
                 (error) => {
                   //console.log("error is recieved")
-                  this.router.navigate["error500"];
                 }
               );
           } else {

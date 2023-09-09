@@ -157,7 +157,7 @@ export class HealthcareProfileComponent implements OnInit {
   logout(){
     localStorage.removeItem('token');
     localStorage.removeItem('fname');
-    this.router.navigate(['patientlogin']);
+    this.router.navigate(['patient/login']);
   }
   islabevents=false;
   isbutton=true;

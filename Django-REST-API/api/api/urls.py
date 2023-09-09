@@ -21,5 +21,6 @@ from predictor import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('generateAnalytics/', views.call_model.as_view()),
+    path('FHIRgetData/', views.EpicView.as_view()),
     path('', views.hello_world)
 ]

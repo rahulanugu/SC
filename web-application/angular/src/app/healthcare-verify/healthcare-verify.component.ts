@@ -4,12 +4,13 @@ import { HealthcareAccountService } from '../shared/healthcare-account.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { HealthcareLoginService } from "../shared/healthcare-login.service";
 import { HealthcareEditService } from "../shared/healthcare-edit.service";
+import { ToastrNotificationService } from "../toastr-notification.service";
 
 /**
  * Page: Healthcare provider account verification page
  * Queryparameter: AES encryptedJWT token for verfication
  * Description: Users can access this page from the verification email of the account they recieve
- * upon registration 
+ * upon registration
  */
 @Component({
   selector: 'app-healthcare-verify',
@@ -20,12 +21,14 @@ export class HealthcareVerifyComponent implements OnInit {
 
   token:string;
   
+
   constructor(
     private route: ActivatedRoute,
     private healthcareAccountService: HealthcareAccountService,
     private router: Router,
     private healthcareLoginService: HealthcareLoginService,
     private healthcareEditService: HealthcareEditService,
+    private toastr: ToastrNotificationService,
     private formBuilderService: FormBuilder
     ) { }
   Form = this.formBuilderService.group({
@@ -34,8 +37,12 @@ export class HealthcareVerifyComponent implements OnInit {
   });
 
   ngOnInit() {
-    document.getElementById('verificationerror').style.display = "none";
-    document.getElementById('verificationsuccessful').style.display = "none";
+    //Updated by Yichen To fix the verification page
+    //Different reaction when 
+    //1. Verification is successful
+    //2. Token is expired
+    //3. User already exists
+    //4. Other errors
 
     window.scrollTo(0,0);
 
@@ -46,25 +53,34 @@ export class HealthcareVerifyComponent implements OnInit {
         //console.log(this.token)
         this.healthcareAccountService.verifyTokenAndCreateAccount(this.token).subscribe(
           res=>{
-            document.getElementById('verificationerror').style.display = "none";
-            document.getElementById('verificationsuccessful').style.display = "block";
-            window.location.hash = "verificationsuccessful";
+            console.log(res);
           },
           err=> {
-            document.getElementById('verificationsuccessful').style.display = "none";
-            document.getElementById('verificationerror').style.display = "block";
-            window.location.hash = "verificationerror";
+            console.log(err.error.message);
+            if (err.error.message == "jwt expired"){
+              this.router.navigate(["/healthcare/login"]);
+              this.toastr.errorToast("The verification link has expired","Sorry");
+            }
+            else if (err.error.message == "User already exists"){
+              this.router.navigate(["/healthcare/login"]);
+              this.toastr.errorToast("Please login to your account at this page","This email address has been used");
+            }
+            else{
+              this.router.navigate(["/healthcare/login"]);
+              this.toastr.errorToast("Please retry or contact us for support","Error");
+            }
+            
+            
           }
         );
       }else{
-        document.getElementById('verificationsuccessful').style.display = "none";
-        document.getElementById('verificationerror').style.display = "block";
-        window.location.hash = "verificationerror";
-        //console.log('no data');
+        console.log('no data');
+        this.router.navigate(["/healthcare/login"]);
+        this.toastr.errorToast("Please retry or contact us for support","Error");
       }
     })
-    
-    
+
+
   }
   reRouteToLogin(){
     this.router.navigate(['/healthcare/login']);
@@ -79,7 +95,8 @@ export class HealthcareVerifyComponent implements OnInit {
           localStorage.setItem("token", res["idToken"]);
           localStorage.setItem("fname", res["firstName"]);
           localStorage.setItem("email", this.Form.value.emailAddress);
-          window.location.href = "https://fhir.epic.com/interconnect-fhir-oauth/oauth2/authorize?response_type=code&redirect_uri=https%3A%2F%2Fwww.scriptchain.co%2Fhealthcare-profile&client_id=84af87de-1a34-4336-9139-3b59c9c032a5";
+          this.router.navigate(["healthcare-profile"]);
+          //window.location.href = "https://fhir.epic.com/interconnect-fhir-oauth/oauth2/authorize?response_type=code&redirect_uri=https%3A%2F%2Fwww.scriptchain.co%2Fhealthcare-profile&client_id=84af87de-1a34-4336-9139-3b59c9c032a5";
 
           //window.location.href = "https://applescm184region.open.allscripts.com/authorization/connect/authorize?response_type=code&state&client_id=b5362fb7-a608-415f-aba9-fae232fce90e&scope=launch user/*.read&redirect_uri=https://www.scriptchain.co/healthcare-profile"
           //james
@@ -116,7 +133,7 @@ export class HealthcareVerifyComponent implements OnInit {
                 },
                 (error) => {
                   //console.log("error is recieved")
-                  this.router.navigate["error500"];
+
                 }
               );
           } else {

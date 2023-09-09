@@ -2,7 +2,7 @@
  * data model for the requestaccessuser object
  */
 export class RequestAccessUser {
-    _id: string;
+    Id: string;
     fname: string;
     lname: string;
     email: string;

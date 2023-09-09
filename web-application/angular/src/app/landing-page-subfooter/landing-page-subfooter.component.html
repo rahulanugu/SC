@@ -1,3 +1,6 @@
+<!-- Siheng - Moved the Privacy policy and Terms & Conditions to "Support" section -->
+
+<!-- DenisH -->
 <!-- Footer -->
 <footer fxHide fxShow.gt-sm class="page-footer font-small blue pt-4">
   <!-- Footer Links -->
@@ -17,10 +20,22 @@
           optimizing the point of care at the time of admission.
         </p>
         <div class="icons">
-          <a href="https://www.facebook.com/ScriptChain-108456297282307" target="_blank"><img src="../../assets/icons/facebook.svg" alt=""></a>
-          <a href="https://www.instagram.com/scriptchainhealth/" target="_blank"><img src="../../assets/icons/instagram.svg" alt=""></a>
-          <a href="https://twitter.com/scriptchain1" target="_blank"><img src="../../assets/icons/twitter.svg" alt=""></a>
-          <a href="https://www.linkedin.com/company/scriptchain/mycompany/?viewAsMember=true" target="_blank"><img src="../../assets/icons/linkedin.svg" alt=""></a>
+          <a
+            href="https://www.facebook.com/ScriptChain-108456297282307"
+            target="_blank"
+            ><img src="../../assets/icons/facebook.svg" alt=""
+          /></a>
+          <a href="https://www.instagram.com/scriptchainhealth/" target="_blank"
+            ><img src="../../assets/icons/instagram.svg" alt=""
+          /></a>
+          <a href="https://twitter.com/scriptchain1" target="_blank"
+            ><img src="../../assets/icons/twitter.svg" alt=""
+          /></a>
+          <a
+            href="https://www.linkedin.com/company/scriptchain/mycompany/?viewAsMember=true"
+            target="_blank"
+            ><img src="../../assets/icons/linkedin.svg" alt=""
+          /></a>
         </div>
       </div>
       <!-- Grid column -->
@@ -58,6 +73,9 @@
           <li>
             <a routerLink="/whoweare">Who We Are</a>
           </li>
+          <li>
+            <a routerLink="/careers">Careers</a>
+          </li>
         </ul>
       </div>
       <!-- Grid column -->
@@ -72,6 +90,15 @@
           <li>
             <a routerLink="/request-access">Request Access</a>
           </li>
+          <li>
+            <a routerLink="/contact-us">Contact Us</a>
+          </li>
+          <li>
+            <a routerLink="/privacy-policy" href="">Privacy Policy</a>
+          </li>
+          <li>
+            <a routerLink="/terms-conditions" href="">Terms & Conditons</a>
+          </li>
         </ul>
       </div>
       <!-- Grid row -->
@@ -83,20 +110,117 @@
 
   <!-- Copyright -->
   <div class="footer-copyright py-3">
-    <label for="">© 2022 ScriptChain Health. All rights reserved. </label>
-    <a href="">Privacy Policy</a>
-    <label for=""> </label>
-    <a href="">Terms & Conditons</a>
+    <label for=""
+      >© {{ currentYear }} ScriptChain Health. All rights reserved.
+    </label>
   </div>
   <!-- Copyright -->
 </footer>
+<!-- Tablet View -->
+<footer
+  fxShow
+  fxHide.gt-sm
+  fxHide.xs
+  class="page-footer font-small blue pt-4 bottom"
+>
+  <div class="container-fluid text-md-left">
+    <div class="col">
+      <div class="col">
+        <!-- Content -->
+        <img
+          class="logo logo-center"
+          src="../../assets/company-logo/scriptchain-health-logo.svg"
+          alt=""
+        />
+        <p class="top">
+          We use AI for Cardiovascular Disease and Readmission prevention by
+          optimizing the point of care at the time of admission.
+        </p>
+        <div class="icons icons-center">
+          <a href=""><img src="../../assets/icons/facebook.svg" alt="" /></a>
+          <a href=""><img src="../../assets/icons/instagram.svg" alt="" /></a>
+          <a href=""><img src="../../assets/icons/twitter.svg" alt="" /></a>
+          <a href=""><img src="../../assets/icons/linkedin.svg" alt="" /></a>
+        </div>
+      </div>
 
+      <div class="row sm-footer">
+        <!-- Grid column -->
+        <div class="col">
+          <!-- Links -->
+          <h5>Partnerships</h5>
+
+          <ul class="list-unstyled">
+            <li>
+              <a routerLink="/becomeapartner">Become a Partner</a>
+            </li>
+          </ul>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col middle">
+          <!-- Links -->
+          <h5>About</h5>
+
+          <ul class="list-unstyled">
+            <li>
+              <a routerLink="/whatisscriptchain">What is ScriptChain Health</a>
+            </li>
+            <li>
+              <a routerLink="/blog">Explore Our Blog</a>
+            </li>
+            <li>
+              <a routerLink="/capabilitystatement">Capability Statement</a>
+            </li>
+            <li>
+              <a routerLink="/whoweare">Who We Are</a>
+            </li>
+            <li>
+              <a routerLink="/careers">Careers</a>
+            </li>
+          </ul>
+        </div>
+        <!-- Grid column -->
+        <div class="col">
+          <!-- Links -->
+          <h5>Support</h5>
+
+          <ul class="list-unstyled">
+            <li>
+              <a routerLink="/faq">FAQ</a>
+            </li>
+            <li>
+              <a routerLink="/request-access">Request Access</a>
+            </li>
+            <li>
+              <a routerLink="/contact-us">Contact Us</a>
+            </li>
+            <li>
+              <a routerLink="/privacy-policy" href="">Privacy Policy</a>
+            </li>
+            <li>
+              <a routerLink="/terms-conditions" href="">Terms & Conditons</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Copyright -->
+  <div class="footer-copyright py-3">
+    <label for=""
+      >© {{ currentYear }} ScriptChain Health. All rights reserved.
+    </label>
+  </div>
+  <!-- Copyright -->
+</footer>
 <!-- Mobile View -->
-<footer fxShow fxHide.gt-sm class="page-footer font-small blue pt-4 bottom">
+<footer fxShow fxHide.gt-xs class="page-footer font-small blue pt-4 bottom">
   <!-- Footer Links -->
   <div class="container-fluid text-md-left">
     <!-- Grid row -->
-    <div class="row">
+    <div class="col">
       <!-- Grid column -->
       <div class="col">
         <!-- Content -->
@@ -110,10 +234,10 @@
           optimizing the point of care at the time of admission.
         </p>
         <div class="icons icons-center">
-          <a href=""><img src="../../assets/icons/facebook.svg" alt=""></a>
-          <a href=""><img src="../../assets/icons/instagram.svg" alt=""></a>
-          <a href=""><img src="../../assets/icons/twitter.svg" alt=""></a>
-          <a href=""><img src="../../assets/icons/linkedin.svg" alt=""></a>
+          <a href=""><img src="../../assets/icons/facebook.svg" alt="" /></a>
+          <a href=""><img src="../../assets/icons/instagram.svg" alt="" /></a>
+          <a href=""><img src="../../assets/icons/twitter.svg" alt="" /></a>
+          <a href=""><img src="../../assets/icons/linkedin.svg" alt="" /></a>
         </div>
       </div>
       <!-- Grid column -->
@@ -151,6 +275,9 @@
           <li>
             <a routerLink="/whoweare">Who We Are</a>
           </li>
+          <li>
+            <a routerLink="/careers">Careers</a>
+          </li>
         </ul>
       </div>
       <!-- Grid column -->
@@ -165,10 +292,18 @@
           <li>
             <a routerLink="/request-access">Request Access</a>
           </li>
+          <li>
+            <a routerLink="/contact-us">Contact Us</a>
+          </li>
+          <li>
+            <a routerLink="/privacy-policy" href="">Privacy Policy</a>
+          </li>
+          <li>
+            <a routerLink="/terms-conditions" href="">Terms & Conditons</a>
+          </li>
         </ul>
       </div>
       <!-- Grid row -->
-
     </div>
     <!-- Grid row -->
   </div>
@@ -176,11 +311,9 @@
 
   <!-- Copyright -->
   <div class="footer-copyright py-3">
-    <label for="">© 2022 ScriptChain Health. All rights reserved. </label>
-    <br>
-    <a routerLink="/privacy-policy" href="">Privacy Policy</a>
-    <label for=""> </label>
-    <a routerLink="/terms-conditions" href="">Terms & Conditons</a>
+    <label for=""
+      >© {{ currentYear }} ScriptChain Health. All rights reserved.
+    </label>
   </div>
   <!-- Copyright -->
 </footer>

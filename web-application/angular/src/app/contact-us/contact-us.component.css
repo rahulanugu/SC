@@ -1,186 +1,209 @@
 /* Authors and their contributions: */
 /* Vidit: Worked on the responsiveness of the page and some styling */
+/* Siheng: Removed the unnecessary imports and added more space between the submit button and the footer */
 
-@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap'); */
 
 #loginHeading {
-    font-family: "Tinos", serif;
-    color: #2d5059;
-    text-align: center;
-    font-size: 36px;
-    padding-top: 40px;
-  }
-  
-  html {
-    width: 100%;
-    height: 100%;
-    display: table;
-  }
-  
-  body {
-    width: 100%;
-    display: table-cell;
-  }
-  .background{
-    background-color: #faf6f2 ;
-    height: max-content;
-  }
-  html,
-  body {
-    margin: 0px;
-    padding: 0px;
-    overflow-x: hidden;
-  }
-  
-  input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched {
-    border: 1px solid red;
-  }
-  .text{
-    padding-left:30px;
-  }
-  .desc {
-    font-family: 'Lato', sans-serif;
-    font-size: 14px;
-  }
+  font-family: "Tinos", serif;
+  color: #2d5059;
+  text-align: center;
+  font-size: 36px;
+  padding-top: 40px;
+  margin-top: 46px;
+}
 
-  .content1 p {
-    font-style: normal;
-    font-weight: normal;
-    /* font-size: 14px; */
-    line-height: 17px;
-    /* identical to box height */
-  
-    /* Grey 500 */
-    text-align: center;
-    color: #1d1f26;
-  }
-  
-  form label {
-    font-style: normal;
-    font-weight: bold;
-    font-size: 14px;
-    line-height: 17px;
-    /* identical to box height */
-  
-    /* White */
-    margin-top: 8px;
-    margin-bottom: 8px;
-    color: #1d1f26;
-  }
-  
-  form input {
-    /* White */
-  
-    background: #ffffff;
-    /* Grey 200 */
-  
-    border: 2px solid #e1e4eb;
-    box-sizing: border-box;
-    /* Inner Shadow E-100 */
-  
-    box-shadow: inset 0px 2px 2px rgba(29, 31, 38, 0.15);
-    border-radius: 8px;
-    height: 40px;
-    width: 320px;
-    margin-left:30px;
-    
-  }
+.background {
+  background-color: #faf6f2;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 2%;
+  padding-bottom: 5%;
+}
 
-  input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched {
-    border: 2.5px solid red;
-} 
-  
-  .vertical-center {
-    display: flex;  
-    align-items: center;
-    min-height: 100vh;
-  }
-  
-  .quesForm {
-    /* width: 400px; */
-    /* height: 500px; */
-    background-color: #E6EFF1;
-    border-radius: 10px;
-    align-self: center;
-    margin-top: 20px;
-    width: 500px;
-  }
-  
-  form textarea {
-    background: #ffffff;
-    /* Grey 200 */
-    height: 120px;
-    border: 2px solid #e1e4eb;
-    box-sizing: border-box;
-    /* Inner Shadow E-100 */
-    width: 320px;
-    box-shadow: inset 0px 2px 2px rgba(29, 31, 38, 0.15);
-    border-radius: 8px;
-    margin-left:30px;
-  }
-  
-  .sendBtn {
-    width: 195x;
-    height: 40px;
-    color: #E6EFF1;
-    background: #5c8a96;
-    font-size: 18px;
-    font-family: "Lato", sans-serif;
-    font-weight: bold;
-    margin-right: auto;
-    border-radius: 7px;
-    margin-left:120px;
-  
-    /* White */
-    margin-top: 16px;
-    box-sizing: border-box;
-    border-radius: 8px;
-  }
-  
-  .ripple{
-    background-position: center;
-    transition: background 0.1s;
-  }
+input.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
 
-  .ripple:hover{
-    background-color: rgb(78, 193, 189);
-    background-image: radial-gradient(circle, transparent 1%, rgb(78,193,189) 1%);
-    background-position: center;
-    background-size: 15000%;
-  }
+.desc {
+  font-family: "Lato", sans-serif;
+  font-size: 14px;
+}
 
-  .ripple:active{
-    transition: background 0s;
-    background-color: rgb(53, 221, 221);
-    background-size: 100%;
-  }
-  /* @media screen and (max-width: 1300px) and (min-width: 900px) {
+.content1 p {
+  font-style: normal;
+  font-weight: normal;
+  /* font-size: 14px; */
+  line-height: 17px;
+  /* identical to box height */
+
+  /* Grey 500 */
+  text-align: center;
+  color: #1d1f26;
+}
+
+form label {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 17px;
+  /* identical to box height */
+
+  /* White */
+  margin-top: 8px;
+  margin-bottom: 8px;
+  margin-right: auto;
+  color: #1d1f26;
+}
+
+form input {
+  /* White */
+
+  background: #ffffff;
+  /* Grey 200 */
+
+  border: 2px solid #e1e4eb;
+  box-sizing: border-box;
+  /* Inner Shadow E-100 */
+
+  box-shadow: inset 0px 2px 2px rgba(29, 31, 38, 0.15);
+  border-radius: 8px;
+  height: 40px;
+  width: 320px;
+}
+
+input.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched {
+  border: 2.5px solid red;
+}
+
+.vertical-center {
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.quesForm {
+  /* width: 400px; */
+  /* height: 500px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e6eff1;
+  border-radius: 10px;
+  align-self: center;
+  margin-top: 20px;
+  width: 500px;
+}
+.formContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+form textarea {
+  background: #ffffff;
+  /* Grey 200 */
+  height: 120px;
+  border: 2px solid #e1e4eb;
+  box-sizing: border-box;
+  /* Inner Shadow E-100 */
+  width: 320px;
+  box-shadow: inset 0px 2px 2px rgba(29, 31, 38, 0.15);
+  border-radius: 8px;
+}
+
+.sendBtn {
+  width: 195x;
+  height: 40px;
+  color: #e6eff1;
+  background: #5c8a96;
+  font-size: 18px;
+  font-family: "Lato", sans-serif;
+  font-weight: bold;
+
+  border-radius: 7px;
+
+  /* White */
+  margin: 16px auto;
+
+  border-radius: 8px;
+}
+
+.ripple {
+  background-position: center;
+  transition: background 0.1s;
+}
+
+.ripple:hover {
+  background-color: rgb(78, 193, 189);
+  background-image: radial-gradient(
+    circle,
+    transparent 1%,
+    rgb(78, 193, 189) 1%
+  );
+  background-position: center;
+  background-size: 15000%;
+}
+
+.ripple:active {
+  transition: background 0s;
+  background-color: rgb(53, 221, 221);
+  background-size: 100%;
+}
+.footer {
+  width: 100%;
+  margin-top: auto;
+}
+
+/* @media screen and (max-width: 1300px) and (min-width: 900px) {
     .quesForm {
       margin-left: 40%;
     }
   }
-  
   @media screen and (max-width: 600px) and (min-width: 200px) {
     .quesForm {
       margin-left: 1.5em;
     }
   } */
-  
-  @media only screen and (min-width: 1680.5px) {
-    .contentMargin {
-      margin-top: 100px;
-    }
 
-    #loginHeading {
-      font-family: "Tinos", serif;
-      color: #2d5059;
-      text-align: center;
-      font-size: 70px;
-      padding-top: 40px;
-    }
-
-    .desc {
-      font-family: 'Lato', sans-serif;
-      font-size: 30px;
-    }
+@media only screen and (min-width: 1680.5px) {
+  .contentMargin {
+    margin-top: 100px;
   }
+
+  #loginHeading {
+    font-family: "Tinos", serif;
+    color: #2d5059;
+    text-align: center;
+    font-size: 70px;
+    padding-top: 40px;
+  }
+
+  .desc {
+    font-family: "Lato", sans-serif;
+    font-size: 30px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .quesForm {
+    width: 100%;
+  }
+
+  form input,
+  form textarea {
+    width: 100%;
+  }
+}
+
+/*  */

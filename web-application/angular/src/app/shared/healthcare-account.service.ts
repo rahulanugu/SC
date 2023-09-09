@@ -1,3 +1,5 @@
+/* Daniel - fixed baseURL (was missing a '/') */
+
 import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
@@ -17,7 +19,7 @@ const httpOptions = {
 })
 export class HealthcareAccountService {
 
-  readonly baseURL = environment.serverUrl+"backend/healthcare";
+  readonly baseURL = environment.serverUrl+"/backend/healthcare";
 
   constructor(
     private http: HttpClient

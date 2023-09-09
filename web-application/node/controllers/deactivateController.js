@@ -77,7 +77,7 @@ router.post("/healthcare", [
     
     console.log('/deactivate/healthcare', 'reached get');
     // Get provider from DB
-    const resp = await db_utils.getRowByEmail('healthcareproviders', req.body.email);
+    const resp = await db_utils.getRowByEmail('SignupHealthcareProviders', req.body.email);
     if (resp.statusCode != 200) {
       return res.status(resp.statusCode).json({message: resp.message});
     }
@@ -90,7 +90,7 @@ router.post("/healthcare", [
     }
     console.log('/deactivate/healthcare', 'reached delete');
     // Insert successful, delete provider from `healthcareproviders` table
-    const respon = await db_utils.deleteUserFromDB('healthcareproviders', req.body.email);
+    const respon = await db_utils.deleteUserFromDB('SignupHealthcareProviders', req.body.email);
     if (respon.statusCode != 200) {
       return res.status(respon.statusCode).json({message: respon.message});
     }

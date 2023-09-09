@@ -52,7 +52,7 @@
   margin: 0 10px;
 }
 .top{
-  width: 70%;
+  width: 100%;
   font-size: 15px;
   text-align: center;
   margin: 0 auto !important;
@@ -76,8 +76,6 @@ and (max-width: 600px){
   .col{
     padding-top: 0;
     padding-bottom:0;
-    padding-left: 70px;
-    padding-right:70px;
     border: none;
     margin-right: 20px;
     border-top: 0px;
@@ -95,3 +93,7 @@ and (max-width: 600px){
     padding-bottom:10px;
   }
 }
+.sm-footer{
+  margin-top: 30px;
+}
+

@@ -1,13 +1,13 @@
 /* Authors and their contributions:
-Vince G:  added image scaling to avoid "squished" headshots*/
+Vince G:  added image scaling to avoid "squished" headshots
+Daniel - removed landing page header formatting - interfered with search functionality*/
+
+
 body{
   background-color: #fbf6f1;
   height: max-content;
 }
-app-landing-page-header{
-  position: absolute;
-  top: 0;
-}
+
 .loginHeading {
   font-family: "Tinos";
   color: #2d5059;
@@ -15,16 +15,21 @@ app-landing-page-header{
   font-size: 36px;
   padding-top: 40px;
   margin-top: 64px;
+  margin-bottom: 20px;
 }
+
+
 .whoWeAreDesc{
   font-family: "Lato";
-  font-size: 14px;
+  font-size: 16px;
   text-align: center;
+  margin-bottom: 40px;
 }
 .team,.advisors
 {
   width: 90vw;
   margin: 0 auto;
+  display: block;
 }
 .card{
   width: 100%;

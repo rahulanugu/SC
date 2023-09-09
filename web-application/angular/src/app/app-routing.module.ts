@@ -4,11 +4,11 @@ import { ContactUsComponent } from "./contact-us/contact-us.component";
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatCardModule } from '@angular/material/card';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { FlexLayoutModule } from '@angular/flex-layout';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { MatCardModule } from "@angular/material/card";
+import { MatToolbarModule } from "@angular/material/toolbar";
+import { MatButtonModule } from "@angular/material/button";
+import { FlexLayoutModule } from "@angular/flex-layout";
 import { BrowserModule } from "@angular/platform-browser";
 import { CommonModule } from "@angular/common";
 /* Componets to create routes for */
@@ -29,14 +29,11 @@ import { ApplyJobComponent } from "./apply-job/apply-job.component";
 import { ResetPasswordComponent } from "./reset-password/reset-password.component";
 import { ResetPasswordPageComponent } from "./reset-password-page/reset-password-page.component";
 import { HealthcareVerifyComponent } from "./healthcare-verify/healthcare-verify.component";
-import { HomePageComponent } from "./home-page/home-page.component";
 import { HealthcareProfileComponent } from "./healthcare-profile/healthcare-profile.component";
 import { HealthcareAuthGuard } from "./healthcare-auth.guard";
 import { PatientHealthcareviewComponent } from "./patient-healthcareview/patient-healthcareview.component";
 import { PatientHealthcareviewnextComponent } from "./patient-healthcareviewnext/patient-healthcareviewnext.component";
 import { PatientHealthcareviewnextComponent1 } from "./patient-healthcareviewnext1/patient-healthcareviewnext1.component";
-import { Error404Component } from "./error404/error404.component";
-import { Error500Component } from "./error500/error500.component";
 import { HealthcareResetPasswordComponent } from "./healthcare-reset-password/healthcare-reset-password.component";
 import { HealthcareResetPasswordPageComponent } from "./healthcare-reset-password-page/healthcare-reset-password-page.component";
 import { PatientManageProfileComponent } from "./patient-manage-profile/patient-manage-profile.component";
@@ -90,95 +87,302 @@ import { AllscriptsLoginComponent } from "./allscriptslogin/allscriptslogin.comp
 import { EmployeeComponent } from "./employee/employee.component";
 const routes: Routes = [
   /* pages for the app */
+  // Data { searchable (if true send it to search if false do not), if the searchable is true u can pass a desc/Name for the page }
   {
     path: "patients/labresult",
     component: LabResultComponent,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
   },
   {
     path: "patients/labresultinfo",
     component: LabResultInfoComponent,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
   },
   {
     path: "patient/procedure",
     component: ProcedureComponent,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
   },
   {
     path: "patient/procedureinfo",
     component: ProcedureInfoComponent,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
   },
-  { path: "patientlogin", component: PatientComponent },
-  { path: "login", component: LoginComponent },
-  { path: "login/athena", component: AthenaLoginComponent },
-  { path: "login/allscripts", component: AllscriptsLoginComponent },
-  { path: "request-access", component: RequestAccessComponent },
-  { path: "error404", component: Error404Component },
-  { path: "error500", component: Error500Component },
-  { path: "patient/register", component: RegPatientComponent },
-  { path: "healthcare/login", component: HealthcareLoginComponent },
-  { path: "healthcare/register", component: HealthcareRegisterComponent },
-  { path: "healthcare/verify", component: HealthcareVerifyComponent },
+  {
+    path: "patient/login",
+    component: PatientComponent,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
+  },
+  {
+    path: "login",
+    component: LoginComponent,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
+  },
+  {
+    path: "login/athena",
+    component: AthenaLoginComponent,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
+  },
+  {
+    path: "login/allscripts",
+    component: AllscriptsLoginComponent,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
+  },
+  {
+    path: "request-access",
+    component: RequestAccessComponent,
+    data: {
+      searchable: true,
+      desc: "Request Access",
+    },
+  },
+  {
+    path: "patient/register",
+    component: RegPatientComponent,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
+  },
+  {
+    path: "healthcare/login",
+    component: HealthcareLoginComponent,
+    data: {
+      searchable: true,
+      desc: "Healthcare Login",
+    },
+  },
+  {
+    path: "healthcare/register",
+    component: HealthcareRegisterComponent,
+    data: {
+      searchable: true,
+      desc: "Healthcare Register",
+    },
+  },
+  {
+    path: "healthcare/verify",
+    component: HealthcareVerifyComponent,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
+  },
   {
     path: "healthcare/password/reset",
     component: HealthcareResetPasswordComponent,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
   },
   {
     path: "healthcare/password/resetpage",
     component: HealthcareResetPasswordPageComponent,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
   },
-  { path: "register", component: RegisterComponent },
-  { path: "patient/registerTwo", component: PatientRegistertwoComponent },
-  { path: "patient/password/reset", component: ResetPasswordComponent },
-  { path: "patient/password/resetpage", component: ResetPasswordPageComponent },
-  { path: "patient/registerThree", component: PatientRegisterthreeComponent },
+  {
+    path: "register",
+    component: RegisterComponent,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
+  },
+  {
+    path: "patient/registerTwo",
+    component: PatientRegistertwoComponent,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
+  },
+  {
+    path: "patient/password/reset",
+    component: ResetPasswordComponent,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
+  },
+  {
+    path: "patient/password/resetpage",
+    component: ResetPasswordPageComponent,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
+  },
+  {
+    path: "patient/registerThree",
+    component: PatientRegisterthreeComponent,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
+  },
   {
     path: "patient-profile",
     component: PatientProfileComponent,
-    canActivate: [PatientAuthGuard],
+    // canActivate: [PatientAuthGuard],
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
   },
   {
     path: "editpatient",
     component: PatientManageProfileComponent,
     canActivate: [PatientAuthGuard],
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
   },
-  { path: "contact-us", component: ContactUsComponent },
-  { path: "careers", component: CareersComponent },
-  { path: "privacy-policy", component: PrivacyPolicyComponent },
-  { path: "apply-job/:jobid", component: ApplyJobComponent },
-  { path: "job-openings", component: JobOpeningsComponent },
-  { path: "terms-conditions", component: TermsConditionsComponent },
-  { path: "", redirectTo: "/home", pathMatch: "full" },
-  { path: "registersuccessful", component: RegisterSuccessfulPageComponent },
-  { path: "deactivatedpatient", component: DeactivatedPatientComponent },
-  { path: "reactivatepatient", component: ReactivatePatientComponent },
+  {
+    path: "contact-us",
+    component: ContactUsComponent,
+    data: {
+      searchable: true,
+      desc: "Contact Us",
+    },
+  },
+  {
+    path: "careers",
+    component: CareersComponent,
+    data: {
+      searchable: true,
+      desc: "Careers",
+    },
+  },
+  {
+    path: "privacy-policy",
+    component: PrivacyPolicyComponent,
+    data: {
+      searchable: true,
+      desc: "Privacy Policy",
+    },
+  },
+  {
+    path: "apply-job/:jobid",
+    component: ApplyJobComponent,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
+  },
+  {
+    path: "job-openings",
+    component: JobOpeningsComponent,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
+  },
+  {
+    path: "terms-conditions",
+    component: TermsConditionsComponent,
+    data: {
+      searchable: true,
+      desc: "Terms & Conditions",
+    },
+  },
+  {
+    path: "registersuccessful",
+    component: RegisterSuccessfulPageComponent,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
+  },
+  {
+    path: "deactivatedpatient",
+    component: DeactivatedPatientComponent,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
+  },
+  {
+    path: "reactivatepatient",
+    component: ReactivatePatientComponent,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
+  },
   {
     path: "reactivatehealthcareprovider",
     component: ReactivateHealthcareProviderComponent,
-  },
-  {
-    path: "searchTest",
-    component: HomePageComponent,
-    canActivate: [HealthcareAuthGuard],
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
   },
   {
     path: "healthcare-profile",
     component:
       HealthcareProfileComponent /*, canActivate: [HealthcareAuthGuard]*/,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
   },
   {
     path: "healthcare-profile/patient/:patientid",
     component:
       PatientHealthcareviewComponent /*, canActivate: [HealthcareAuthGuard]*/,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
+  },
+  {
+    path: "healthcare-profile/patient/:patientid/readmission",
+    component:
+      PatientHealthcareviewnextComponent1 /*, canActivate: [HealthcareAuthGuard]*/,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
   },
   {
     path: "healthcare-profile/patient/:patientid/:diseaseid",
     component:
       PatientHealthcareviewnextComponent /*, canActivate: [HealthcareAuthGuard]*/,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
   },
-  {
-    path: "healthcare-profile/readmission",
-    component:
-      PatientHealthcareviewnextComponent1 /*, canActivate: [HealthcareAuthGuard]*/,
-  },
+
   /*{
     path: "healthcare-profile/editprofile",
     component: HealthcareManageProfileComponent, canActivate: [HealthcareAuthGuard],
@@ -186,155 +390,284 @@ const routes: Routes = [
   },*/
   {
     path: "healthcare/confirmation",
-    component: HealthcareConfirmationComponent, canActivate: [HealthcareAuthGuard],
+    component: HealthcareConfirmationComponent,
+    canActivate: [HealthcareAuthGuard],
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
   },
   {
     path: "healthcare/verificationemail",
     component: HealthcareVerificationComponent,
     canActivate: [HealthcareAuthGuard],
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
     //needs backend
   },
   {
     path: "healthcare-profile/accountsettings",
     component: HealthcareAccountSettingsComponent,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
   },
   {
     path: "healthcare/patientportal",
     component: HealthcarePatientPortalComponent,
+    canActivate: [HealthcareAuthGuard],
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
     //no interactions
   },
   {
     path: "healthcare/header",
     component: HealthcareHeaderComponent,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
   },
   {
     path: "healthcare/readmissionriskinfo",
     component: HealthcareReadmissionRiskInfoComponent,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
   },
   {
     path: "healthcare/adduserpatient",
     component: HealthcareAddUserComponent,
+    canActivate: [HealthcareAuthGuard],
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
   },
   {
     path: "welcomeemail",
     component: HealthcareWelcomeEmailComponent,
-  },
-  {
-    path: "healthcare/footer",
-    component: HealthcareFooterComponent,
-  },
-  {
-    path: "landing/header",
-    component: LandingPageHeaderComponent,
-  },
-  {
-    path: "landing/subfooter",
-    component: LandingPageSubfooterComponent,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
   },
   {
     path: "home",
     component: LandingPageComponent,
+    data: {
+      searchable: true,
+      desc: "Home",
+    },
   },
   {
     path: "whatisscriptchain",
     component: LandingWhatIsScriptchainComponent,
+    data: {
+      searchable: true,
+      desc: "What is ScriptChain Health",
+    },
   },
   {
     path: "partnerships",
     component: LandingPartnershipsComponent,
+    data: {
+      searchable: true,
+      desc: "Partnerships",
+    },
   },
   {
     path: "whoweare",
     component: LandingWhoWeAreComponent,
+    data: {
+      searchable: true,
+      desc: "Who we are",
+    },
   },
   {
-    path: "whoweare/:employee",
-    component:EmployeeComponent
+    path: "whoweare/:employee/:id",
+    component: EmployeeComponent,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
   },
   {
     path: "capabilitystatement",
     component: LandingCapabilityStatementComponent,
-  },
-  {
-    path: "careers",
-    component: LandingCareersComponent,
+    data: {
+      searchable: true,
+      desc: "Capability Statement",
+    },
   },
   {
     path: "faq",
     component: LandingFaq1Component,
+    data: {
+      searchable: true,
+      desc: "FAQ",
+    },
   },
   {
     path: "blog",
     component: BlogComponent,
+    data: {
+      searchable: true,
+      desc: "Blog",
+    },
+  },
+  {
+    path: "blog/:id",
+    component: BlogPostComponent,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
   },
   {
     path: "blog-post/:id",
-    component: BlogPostComponent
+    component: BlogPostComponent,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
   },
   {
     path: "blog-post-quote/:slug",
-    component: BlogPostQuoteComponent
+    component: BlogPostQuoteComponent,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
   },
   {
     path: "becomeapartner",
     component: BecomeapartnerComponent,
+    data: {
+      searchable: true,
+      desc: "Become a partner",
+    },
   },
   {
     path: "thankyoupartner",
     component: ThankyoupartnerComponent,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
   },
   {
     path: "patients/signup",
     component: PatientSignupComponent,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
   },
   {
     path: "patients/profile",
     component: PatientLoginProfileComponent,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
   },
   {
     path: "patients/caregiverprofile",
     component: PatientCaregiverComponent,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
   },
   {
     path: "patients/caregiverid",
     component: CaregiverProfileComponent,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
   },
   {
     path: "patients/doctorinfo",
     component: DoctorProfileComponent,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
   },
   {
     path: "patients/riskanalysis",
     component: RiskAnalysisComponent,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
   },
   {
     path: "patients/riskanalysisinfo",
     component: RiskAnalysisInfoComponent,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
   },
   {
     path: "patients/prescriptions",
     component: PrescriptionsComponent,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
   },
   {
     path: "patients/medicationdetails",
     component: MedicationDetailsComponent,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
   },
   {
     path: "patients/medication",
     component: MedicationComponent,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
   },
   {
     path: "patients/conditions",
     component: ConditionsComponent,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
   },
   {
     path: "patients/procedures",
     component: ProcedureComponent,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
   },
   {
     path: "patients/proceduresdetails",
     component: ProcedureDetailsComponent,
+    data: {
+      searchable: false,
+      desc: "Something",
+    },
   },
+  // Keep the redirectTo object to the bottom of the array, because the search engine will crash
+  { path: "", redirectTo: "/home", pathMatch: "full" },
 ];
 
 @NgModule({
@@ -345,9 +678,8 @@ const routes: Routes = [
     RouterModule.forRoot(routes, {
       scrollPositionRestoration: "top",
     }),
-
   ],
   exports: [RouterModule],
   entryComponents: [HealthcareDialogContent],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

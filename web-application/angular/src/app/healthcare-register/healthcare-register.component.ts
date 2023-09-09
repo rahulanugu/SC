@@ -1,15 +1,13 @@
+/* Daniel - added toastr notification (pop up so user knows submission went through) */
+
 import { Component, OnInit } from "@angular/core";
-import {
-  FormBuilder,
-  Validators,
-  FormGroup,
-  FormControl,
-} from "@angular/forms";
+import { FormBuilder, Validators } from "@angular/forms";
 import { HealthcareAccountService } from "../shared/healthcare-account.service";
 import { Router } from "@angular/router";
 import { CustomValidator } from "../shared/validators/validation";
 import { MatDialog } from "@angular/material";
 import { HealthcareDialogContent } from "../healthcare-dialog-content/healthcare-dialog-content.component";
+import { ToastrNotificationService } from "../toastr-notification.service";
 
 /**
  * Page: Registeration page for the healthcare providers
@@ -22,16 +20,35 @@ import { HealthcareDialogContent } from "../healthcare-dialog-content/healthcare
   styleUrls: ["./healthcare-register.component.css"],
 })
 export class HealthcareRegisterComponent implements OnInit {
+  public phonemask = [
+    "(",
+    /[0-9]/,
+    /\d/,
+    /\d/,
+    ")",
+    "-",
+    /\d/,
+    /\d/,
+    /\d/,
+    "-",
+    /\d/,
+    /\d/,
+    /\d/,
+    /\d/,
+  ];
+
   passwordNotMatch: boolean = false;
   userAlreadyExist: boolean = false;
   constructor(
     private formBuilderService: FormBuilder,
     private healthCareAccountService: HealthcareAccountService,
     private router: Router,
+    private toastr: ToastrNotificationService,
     public dialog: MatDialog
-  ) { }
+  ) {}
 
   ngOnInit() {
+    //document.getElementById("registersuccessful").style.display = "none";//comment by Yichen since it is not used
   }
   openDialog() {
     const dialogRef = this.dialog.open(HealthcareDialogContent);
@@ -50,7 +67,6 @@ export class HealthcareRegisterComponent implements OnInit {
     ehr: ["", Validators.required],
     roleInCompany: ["", Validators.required],
     password: ["", Validators.required],
-    confirmPassword: ["", Validators.required],
     phone: ["", [Validators.required, CustomValidator.phoneValidator]],
   });
 
@@ -59,9 +75,11 @@ export class HealthcareRegisterComponent implements OnInit {
       .generateTokenForVerification(this.Form.value)
       .subscribe(
         (res) => {
-          document.getElementById("registrationForm").style.display = "none";
+          /*document.getElementById("registrationForm").style.display = "none";
           document.getElementById("registersuccessful").style.display = "block";
-          window.location.hash = "registersuccesful";
+          window.location.hash = "registersuccesful";*/
+          this.router.navigate(["/home"]);
+          this.toastr.successToast("A verification email has been sent", "Registration Submitted");
         },
         (err) => {
           if (err.status === 400) {
@@ -72,29 +90,4 @@ export class HealthcareRegisterComponent implements OnInit {
         }
       );
   }
-  get firstName() {
-    return this.Form.get("firstName");
-  }
-  get lastName() {
-    return this.Form.get("lastName");
-  }
-  get email() {
-    return this.Form.get("email");
-  }
-  get phone() {
-    return this.Form.get("phone");
-  }
-  get orgName() {
-    return this.Form.get("orgName");
-  }
-  get orgPosition() {
-    return this.Form.get("orgPosition");
-  }
-  get ReTypePassword() {
-    return this.Form.get("ReTypePassword");
-  }
-  get password() {
-    return this.Form.get("password");
-  }
-
 }

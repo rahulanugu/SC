@@ -1,5 +1,5 @@
-import { FooterComponent } from './../footer/footer.component';
-import { CommonHeaderComponent } from './../common-header/common-header.component';
+import { FooterComponent } from '../footer/footer.component';
+import { CommonHeaderComponent } from '../common-header/common-header.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RegisterComponent } from './register.component';

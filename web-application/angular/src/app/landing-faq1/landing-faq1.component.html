@@ -1,15 +1,66 @@
 <!-- Authors and their contributions:
   Denis- Design Update
+  Siheng - Refactored to remove the unnecessary html&head&body tags
 -->
 
+<!-- 
+  Siheng:
+    :host selector is not working to change the background color of the page
+    so we have to use the div class to change the background color
+    maybe we can fix this in the future
+  Siheng: 
+    :host selector is now working to change the background color of the page
+ -->
+<!-- <div class="faq-background"> -->
+<div>
+  <app-landing-page-header></app-landing-page-header>
+</div>
+<div class="mobile">
+  <!-- Header -->
+  <mat-grid-list cols="2" rowHeight="200px" [gutterSize]="'10px'">
+    <mat-grid-tile [colspan]="2" [rowspan]="1">
+      <h3 class="loginHeading">Frequently Asked Questions</h3>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <!-- All cards
+    *ngFor creates a card for each element on array (check .ts)
+    ngClass gives isCollapsed classed if clicked (if it doesnt have or removes it if it has)
+  -->
+  <div
+    *ngFor="let datas of dataInfo"
+    [ngClass]="{
+      isCollapsed: !datas.isCollapsed,
+      collapsed: datas.isCollapsed
+    }"
+    class="small-card"
+    (click)="datas.isCollapsed = !datas.isCollapsed"
+  >
+    <!-- Displays all the data from the array -->
+    <span>{{ datas.title }}</span>
+    <!-- Check if collapsed then displays the proper arrow -->
+    <a *ngIf="datas.isCollapsed"
+      ><img src="../../assets/icons/arrow-down-short.svg" alt=""
+    /></a>
+    <a *ngIf="!datas.isCollapsed"
+      ><img src="../../assets/icons/arrow-up-short.svg" alt=""
+    /></a>
+    <!-- If not collapsed doesnt display -->
+    <div *ngIf="!datas.isCollapsed">{{ datas.info }}</div>
+  </div>
+</div>
+<footer style="margin-top: 10%">
+  <app-landing-page-subfooter></app-landing-page-subfooter>
+</footer>
+<!-- </div> -->
 
-<!DOCTYPE html>
+<!-- Codes below are commented by Siheng Wei cause they are refactored as above -->
+<!-- <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
-      href="http://fonts.googleapis.com/css?family=Lato:400,700"
+      href="https://fonts.googleapis.com/css?family=Lato:400,700"
       rel="stylesheet"
       type="text/css"
     />
@@ -19,7 +70,7 @@
     />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-    <!-- Hotjar Tracking Code for https://www.scriptchain.co/home -->
+    <!~~ Hotjar Tracking Code for https://www.scriptchain.co/home ~~>
     <script>
       (function (h, o, t, j, a, r) {
         h.hj =
@@ -41,16 +92,16 @@
       <app-landing-page-header></app-landing-page-header>
     </div>
     <div class="mobile">
-      <!-- Header -->
+      <!~~ Header ~~>
       <mat-grid-list cols="2" rowHeight="200px" [gutterSize]="'10px'">
         <mat-grid-tile [colspan]="2" [rowspan]="1">
           <h3 class="loginHeading">Frequently Asked Questions</h3>
         </mat-grid-tile>
       </mat-grid-list>
-      <!-- All cards
+      <!~~ All cards
         *ngFor creates a card for each element on array (check .ts)
         ngClass gives isCollapsed classed if clicked (if it doesnt have or removes it if it has)
-      -->
+      ~~>
       <div
         *ngFor="let datas of dataInfo"
         [ngClass]="{
@@ -60,20 +111,20 @@
         class="small-card"
         (click)="datas.isCollapsed = !datas.isCollapsed"
       >
-        <!-- Displays all the data from the array -->
+        <!~~ Displays all the data from the array ~~>
         <span
           >{{
             datas.title
           }}</span
         >
-        <!-- Check if collapsed then displays the proper arrow -->
+        <!~~ Check if collapsed then displays the proper arrow ~~>
         <a *ngIf="datas.isCollapsed"
           ><img src="../../assets/icons/arrow-down-short.svg" alt=""
         /></a>
         <a *ngIf="!datas.isCollapsed"
           ><img src="../../assets/icons/arrow-up-short.svg" alt=""
         /></a>
-        <!-- If not collapsed doesnt display -->
+        <!~~ If not collapsed doesnt display ~~>
         <div *ngIf="!datas.isCollapsed">{{ datas.info }}</div>
       </div>
     </div>
@@ -81,7 +132,8 @@
       <app-landing-page-subfooter></app-landing-page-subfooter>
     </footer>
   </body>
-</html>
+</html> -->
+
 <!-- <div class="content1">
   <h3 id="loginHeading">Frequently Asked Questions</h3>
 </div>

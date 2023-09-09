@@ -1,53 +1,59 @@
 /*Charan Jagwani: Worked on responsiveness of page and styling*/
-@import url('https://fonts.googleapis.com/css2?family=Tinos&display=swap');
+/* Daniel - fomatted so title isn't blocked by nav bar*/
+/* Siheng: Removed unnecessary imports and selectors */
+
+/* @import url('https://fonts.googleapis.com/css2?family=Tinos&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap'); */
 /*Background color*/
-body {
+/* body {
     background-color: #faf6f2 !important;
     height: max-content;
-}
+} */
 
-.background{
-    background-color: white;
-    margin-top: 80px;
-    padding-top: 50px;
-    padding-left:50px;
-    padding-right:50px;
-    padding-bottom:50px;
+.background {
+  background-color: white;
+  margin-top: 80px;
+  padding-top: 50px;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-bottom: 50px;
 }
 /*Background color of inner rectangle*/
-.background{
-    background-color: white;
-    margin-top: 80px;
-    padding-top: 50px;
-    padding-left:50px;
-    padding-right:50px;
-    padding-bottom:50px;
+.background {
+  background-color: white;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding-top: 10px;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-bottom: 10px;
 }
 /*Header Text*/
 .tosHeader {
-    font-family: 'Tinos', serif;
-    font-size: 36px;
-    color: #2d5059;
+  text-align: center;
+  padding-top: 40px;
+  font-family: "Tinos", serif;
+  font-size: 36px;
+  color: #2d5059;
 }
 
 .tosBody {
-    font-family: 'Lato', sans-serif;
-    font-size: 14px;
-    color: black;
-    letter-spacing: 0px;
+  font-family: "Lato", sans-serif;
+  font-size: 14px;
+  color: black;
+  letter-spacing: 0px;
 }
 
 .tosHeadings {
-    font-family: 'Lato', sans-serif;
-    font-size: 14px;
-    font-weight: bold;
-    color: black;
-    letter-spacing: 0px;
+  font-family: "Lato", sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  color: black;
+  letter-spacing: 0px;
 }
 /*Text-alignmnet*/
 .justifyList {
-    text-align: justify;
-    list-style-position: inside;
+  text-align: justify;
+  list-style-position: inside;
 }

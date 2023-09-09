@@ -2,16 +2,11 @@ Database Setup
 
 1. Install DBeaver or any other software such as mysql workbench, tablePlus, etc.
 
-2. Create a new connection
+2. Create a new connection over SSH/TCH
 
-3. Enter in these details when prompted:
+3.When connecting, insert PemKey File when prompted
 
-      a. host: database-1.cgurbeaohou6.us-east-2.rds.amazonaws.com
+4.Enter in these details when prompted:
 
-      b. port: 3306
+![alt_text](../Images/BackendDocumentation_images/image50.png "image_tooltip")
 
-      c. database: scriptchain
-
-      d. username: admin
-
-      e. password: Scriptchain21!

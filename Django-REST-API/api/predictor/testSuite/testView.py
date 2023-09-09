@@ -4,8 +4,8 @@ import json
 
 class ViewTest(TestCase):
     def setUp(self):
-        self.d_source_url="http://127.0.0.1:5000/DataSource/api/v1.0/getPatient" # URL of the Data Source API
-        self.view_url="http://127.0.0.1:8000/generateAnalytics/" # URL of the generateAnalytics Endpoint
+        self.d_source_url="https://127.0.0.1:5000/DataSource/api/v1.0/getPatient" # URL of the Data Source API
+        self.view_url="https://127.0.0.1:8000/generateAnalytics/" # URL of the generateAnalytics Endpoint
     
     def generateAnalyticsTest(self):
         patient_id=33195

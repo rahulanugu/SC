@@ -27,7 +27,7 @@ def fetch_all_patient_data(pairs, fetch_handler):
         for task in as_completed(threads):
             try:
                 results.append(task.result())
-                print(task.result())
+                # print(task.result())
             except requests.ConnectTimeout:
                 results.append(get_error_code('Resource timed out'))
                 print('Resource timed out')

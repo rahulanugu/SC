@@ -1,55 +1,44 @@
 import { RequestaccessnewuserService } from "../shared/requestaccessnewuser.service";
-
+import { IdService } from "../shared/id.service";
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { ToastrNotificationService } from "../toastr-notification.service";
-
-// Kefan - developed with the entire page
-
+import { FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: "app-request-access",
   templateUrl: "./request-access.component.html",
-  styleUrls: ["./request-access.component.css"]
+  styleUrls: ["./request-access.component.css"],
 })
+
 export class RequestAccessComponent implements OnInit {
-  constructor(public requestaccessservice: RequestaccessnewuserService, private router: Router, private toastr: ToastrNotificationService) {
+
+  constructor(
+    public requestaccessservice: RequestaccessnewuserService,
+    private router: Router,
+    private toastr: ToastrNotificationService,
+    private idservice: IdService
+  ) {
     this.requestaccessservice.user = {
-      _id: "",
+      Id: "",
       fname: "",
       lname: "",
       email: "",
-      typeOfUser: ""
+      typeOfUser: "",
     };
   }
 
   ngOnInit() {
     window.scrollTo(0, 0);
-    // document.getElementById("requestAccessSuccess").style.display = "none";
-    // document.getElementById("userexistalready").style.display = "none";
   }
+
   requestAccess() {
-    this.requestaccessservice
-      .requestAccessforNewUser(this.requestaccessservice.user)
-      .subscribe(
-        res => {
-          if (res['message'].includes("registered")) {
-            document.getElementById("userexistalready").style.display = "block";
-            window.scrollTo(0, 0);
-          } else {
-            document.getElementById("rform").remove();
-            document.getElementById("userexistalready").style.display = "none";
-            document.getElementById("requestAccessSuccess").style.display =
-              "block";
-            window.scrollTo(0, 0);
-          }
-        },
-        err => {
-          document.getElementById("userexistalready").style.display = "block";
-          window.scrollTo(0, 0);
-        }
-      );
-    this.router.navigate(['/', 'home']);
+    this.requestaccessservice.user.Id = this.idservice.generate();
+    this.requestaccessservice.sendMessage(this.requestaccessservice.user).subscribe(
+      data => console.log('data', data)
+    );
     this.toastr.successToast("Request sent", "Request Access");
+    this.router.navigate(['/', 'home']);
+    // setTimeout(() => {this.router.navigate(['/', 'home'])}, 3000);
   }
 }

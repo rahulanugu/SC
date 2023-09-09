@@ -1,19 +1,19 @@
 import { Component, OnInit } from "@angular/core";
-import { NgForm } from "@angular/forms";
 import { FormGroup } from '@angular/forms';
 import { FormControl } from '@angular/forms';
-import { ContactusService } from "../shared/contactus.service";
-import { ToastrNotificationService } from "../toastr-notification.service";
 import { Validators } from '@angular/forms';
+import { ContactusService } from '../shared/contactus.service';
+import { ToastrNotificationService } from '../toastr-notification.service';
 
 @Component({
   selector: "app-landing-page",
   templateUrl: "./landing-page.component.html",
   styleUrls: ["./landing-page.component.css"],
 })
+
 export class LandingPageComponent implements OnInit {
-  breakpoint: number;
-  constructor(private contactService: ContactusService, private toastr: ToastrNotificationService) {}
+
+  constructor(private contactUsService: ContactusService, private toastr: ToastrNotificationService) {}
   exform: FormGroup;
   ngOnInit() {
     this.exform = new FormGroup({
@@ -22,14 +22,27 @@ export class LandingPageComponent implements OnInit {
       'subject' : new FormControl(null,[Validators.required]),
       'message' : new FormControl(null, [Validators.required, Validators.minLength(10)])
     });
-  }
 
-  onContactClicked(form: NgForm) {
-    this.contactService.sendMessage(form.value);
-    this.toastr.successToast("Message sent", "Contact Us");
   }
+  userModel = {};
+
   clicksub() {
-    console.log(this.exform.value);
+    this.userModel={
+      fname: this.exform.get('name').value.split(' ')[0],
+      lname: this.exform.get('name').value.split(' ').slice(-1),
+      email: this.exform.get('email').value,
+      company: "SCH",
+      message: this.exform.get('message').value
+    }
+
+    //this.contactUsService.sendEmail(this.userModel).subscribe(
+    //  data => console.log('Success!!!!!',data),
+    //  error => console.log("Error",error)
+    //)
+
+    // console.log('FROM LANDING PAGE', this.userModel);
+    this.contactUsService.sendMessage(this.userModel).subscribe(data=>console.log('data', data));
+    this.toastr.successToast("Message Sent! We will reach out to you soon.", "Contact Us");
     this.exform.reset();
   }
   get name() {
@@ -44,4 +57,5 @@ export class LandingPageComponent implements OnInit {
   get message() {
     return this.exform.get('message');
   }
+
 }

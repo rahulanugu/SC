@@ -1,69 +1,78 @@
+.body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #faf6f2;
+}
 .loginHeading {
   font-family: "Tinos", serif;
   color: #2d5059;
   text-align: center;
   font-size: 36px;
   padding-top: 40px;
-  margin-bottom: 20px;
 }
 
+html {
+  width: 100%;
+  height: 100%;
+  display: table;
+}
+
+body {
+  width: 100%;
+  display: table-cell;
+  background-color: #faf6f2;
+}
+
+html,
+body {
+  margin: 0px;
+  padding: 0px;
+  overflow-x: hidden;
+}
 .card {
+  background: #ffffff;
+  /* Drop Shadow E200 */
+  background-color: white;
   box-shadow: 0px 4px 8px rgba(29, 31, 38, 0.15);
+  border-radius: 8px;
+  height: max-content;
   transition: 0.3s;
-  border-radius: 5px;
-  width: 98%;
-  height: auto;
+
+  width: 436px;
   margin: 0 auto;
   float: none;
-  padding-bottom: 40px;
   font-family: "Lato", sans-serif;
-  margin-bottom: 50%;
+}
+.container {
+  font-family: "Lato", sans-serif;
+  width: 100%;
+  height: 100%;
 }
 
-hr {
+a:link {
+  color: black;
+}
+
+.form-element {
+  font-family: "Lato", sans-serif;
+  font-size: 14px;
+  /* margin-top: 5px; */
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #1d1f26;
+}
+
+.form-element input {
+  width: 400px;
+  height: 40px;
+  height: 40px;
   left: 0%;
   right: 0%;
-  margin-top: 0px;
+  top: 25px;
 
-  /* Grey 200 */
-  border: 2px solid #e1e4eb;
-}
-.points {
-  padding: 0.5%;
-}
+  /* White */
 
-.line {
-  width: 12%;
-  margin-bottom: 18px;
-}
-.nextBtn {
-  width: 90%;
-  height: 40px;
-  color: white;
-  background-color: #5c8a96;
-  border: none;
-  font-size: 18px;
-  font-family: "Lato", sans-serif;
-  font-weight: bold;
-  margin: auto;
-  margin-left: 5%;
-  border-radius: 7px;
-}
-
-.form-group label {
-  font-family: "Lato", sans-serif;
-  margin-left: 18px;
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.form-group input {
-  font-family: "Lato", sans-serif;
-  margin-left: 18px;
-  font-size: 18px;
-  color: black;
-  width: 80%;
-  height: 30px;
   background: #ffffff;
   /* Grey 200 */
 
@@ -75,22 +84,20 @@ hr {
   border-radius: 8px;
 }
 
-.form-group p {
-  font-style: normal;
-  font-weight: normal;
+.form-element button {
+  width: 400px;
+  height: 40px;
+  border-radius: 7px;
+  text-align: center;
   font-size: 18px;
-  line-height: 22px;
-  color: #1d1f26;
-  position: static;
-
-  height: 44px;
-  left: 0px;
-  top: 26px;
-  margin-left: 18px;
+  font-family: "Lato", sans-serif;
+  font-weight: bold;
 }
 
-.progressBar {
-  margin-top: 10px;
+.loginBtn {
+  color: white;
+  background-color: #5c8a96;
+  border: none;
 }
 
 .helpBtn,
@@ -98,85 +105,51 @@ hr {
   color: #5c8a96;
   border: 2px solid #5c8a96;
   background-color: white;
-  width: 90%;
-  height: 40px;
-
-  font-size: 18px;
-  font-family: "Lato", sans-serif;
-  font-weight: bold;
-  margin-top: 30px;
-  margin-left: 5%;
-  border-radius: 7px;
 }
 
-#form2Label {
-  font-size: 18px;
-  font-weight: bold;
-  color: #1d1f26;
-  margin-left: 18px;
-}
+/* .footer1{
+  bottom:-10px!important;
+  overflow: hidden;
+  margin: 0 auto 0 auto;
+  width: 100%;
+  position: absolute;
+} */
 
-#form2p {
-  font-size: 18px;
-  font-weight: normal;
-  color: #1d1f26;
-  margin-left: 18px;
-}
-
-#avatar,
-#tickIc {
-  height: 130px;
-
-  width: 30%;
-  margin: auto;
+hr {
+  border: 0;
+  clear: both;
   display: block;
-  margin-bottom: 20px;
-}
-
-.hr-sect {
-  display: flex;
-  flex-basis: 100%;
-  align-items: center;
-  color: #1d1f26;
-  margin: 8px 0px;
-}
-.hr-sect::before,
-.hr-sect::after {
-  content: "";
-  flex-grow: 1;
-  background: #f5f6fa;
+  width: 96%;
+  background-color: #d3d3d3;
   height: 1px;
-  font-size: 0px;
-  line-height: 0px;
-  margin: 0px 8px;
-  border: 2px solid #f5f6fa;
-  transform: matrix(1, 0, 0, -1, 0, 0);
 }
 
-.btn {
-  width: 195px;
-  height: 42px;
-  color: #5c8a96;
-  border: 2px solid #5c8a96;
-  background-color: white;
-  border-radius: 8px;
-  text-align: center;
-  font-size: 18px;
-  font-family: "Lato", sans-serif;
-  font-weight: bold;
-}
-.btn img {
-  margin-bottom: 4px;
+#emailField {
+  margin-top: 20px;
 }
 
-.element {
-  display: inline-flex;
-  align-items: center;
-  font-size: 18px;
-  font-family: "Lato", sans-serif;
+@media screen and (max-width: 550px) {
+  .card,
+  .form-element input,
+  .form-element button,
+  .hr {
+    width: 100% !important;
+  }
+  .loginHeading {
+    padding-top: 25px;
+  }
 }
 
-.footer {
-  grid-row-start: 2;
-  grid-row-end: 3;
+@media screen and (min-width: 1000px) and (max-width: 1050px) {
+  .loginHeading {
+    padding-top: 10px;
+    font-size: 28px;
+  }
+  hr {
+    margin-top: 12px;
+    margin-bottom: 12px;
+  }
+  .card {
+    height: 420px;
+  }
 }

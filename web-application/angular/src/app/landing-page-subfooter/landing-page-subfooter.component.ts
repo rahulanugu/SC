@@ -6,8 +6,10 @@ import { HostListener } from "@angular/core";
   styleUrls: ["./landing-page-subfooter.component.css"],
 })
 export class LandingPageSubfooterComponent implements OnInit {
+  // Siheng: Get current year to display in the footer rather than hardcoding it
+  currentYear: number;
   constructor() {}
   ngOnInit() {
+    this.currentYear = new Date().getFullYear();
   }
 }
-

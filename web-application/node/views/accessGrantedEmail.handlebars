@@ -1,0 +1,205 @@
+{{!-- 
+  Siheng: 
+    1. Refactored the code to make it compatabile with all email clients
+    2. Updated the font-size, font-color, background-color etc strictly based on the user story
+    3. Make the button clickable
+ --}}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Access Granted Email</title>
+    <style type="text/css">
+      table {
+        border-spacing: 0;
+        table-layout: fixed;
+        width: 100%;
+      }
+      .header, .content, .btnClick {
+        background: white;
+      }
+      .header img {
+        width: 157px;
+        height: 94px;
+        padding-left: 2%;
+      }
+      .content, .footer {
+        font-family: 'Lato', sans-serif;
+        color: #2D5059;
+        text-align: center;
+      }
+      .content img {
+        width: 67px;
+        height: 67px;
+      }
+      .content h1 {
+        font-size: 24px;
+      }
+      .content p{
+        font-size: 18px;
+        padding-top: 50px;
+        padding-bottom: 50px;
+      }
+      .footer{
+        background: #5C8A96;
+        font-size: 10px;
+      }
+      .footer p {
+        color: #E6EFF1;
+      }
+      a {
+        text-decoration: underline !important;
+        color: #E6EFF1 !important;
+      }
+      button {
+        width: 260px;
+        height: 60px;
+        background-color: #2D5059;
+        border: none;
+        font-size: 18px;
+        font-family: 'Lato', sans-serif;
+        font-weight: bold;
+        cursor: pointer;
+        border-radius: 8px;
+      }
+      button a {
+        text-decoration: none !important;
+        color: #E6EFF1 !important;
+      }
+      .btnClick {
+        text-align: center;
+        padding-bottom: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <table>
+      <tr>
+        <td class="header">
+          <img src="https://i.ibb.co/Jqc8Gcg/scriptchain-health-logo-dark.png" alt="">
+        </td>
+      </tr>
+      <tr>
+        <td class="content">
+          <img src="https://i.ibb.co/XSdfQDX/add-user.png" alt="">
+          <h1>You've been granted access to ScriptChain Health!</h1>
+          <p>You have been added as a user to a ScriptChain Health account. <br>
+          Please use the button below to finish registering.</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="btnClick">
+          <button>
+            <a href="{{patientSignUpUrl}}">Login to Scriptchain</a>
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <td class="footer">
+          <p>For questions or problems, please contact <a href="mailto:customer-care@scriptchain.co">customer-care@scriptchain.co</a> <br>
+          This message was sent from ScriptChain LLC, San Francisco, CA.</p>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
+
+{{!-- Codes below are commented by Siheng cause it can only work normally on Chrome but not all email clients --}}
+{{!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta -equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="s://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="s://fonts.googleapis.com" />
+    <link rel="preconnect" href="s://fonts.gstatic.com" crossorigin />
+    <link
+      href="s://fonts.googleapis.com/css2?family=Lato&display=swap"
+      rel="stylesheet"
+    />
+    <title>Welcome Email</title>
+  </head>
+
+  <body>
+    <div class="row" style="background-color: #2d5059">
+      <div class="col-xs-12">
+        <nav class="navbar bg-light navbar-light">
+          <a href="#">
+            <img
+              src="s://drive.google.com/uc?export=view&id=1fDhOzJKsvaWCmweiEPVuTqdK2C7y-u0z"
+              alt=""
+              width="157"
+              height="94"
+            />
+          </a>
+        </nav>
+      </div>
+    </div>
+    <div class="row" style="background-color: #2d5059">
+      <img
+        src="s://drive.google.com/uc?export=view&id=1VWXmZG7EZB_bmm5ZtcaSUz-8igZMXJbm"
+        alt=""
+        width="67"
+        height="67"
+        style="
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+          width: 50%;
+        "
+      />
+      <p
+        style="
+          text-align: center;
+          font-size: 24px;
+          font-family: 'Lato', sans-serif;
+          color: #b2dfdb;
+          padding-top: 20px;
+        "
+      >
+        Welcome to ScriptChain!
+      </p>
+      <p
+      class="text-center mx-sm-5 mx-md-3"
+        style="font-size: 18px; font-family: 'Lato', sans-serif; color: #b2dfdb; padding-top: 50px;"
+      >
+      Vidit, thank you for joining ScriptChain.<br>
+      Use the button below to log in with your credentials.<br>
+      </p>
+
+      <div class="text-center" style="padding-top: 50px; padding-bottom: 150px;">
+        <a href="s://scriptchain.co/healthcare/login">
+          <button
+              type="submit"
+              style="
+                  width: 260px;
+                  height: 60px;
+                  color: #009688;
+                  background-color: #b2dfdb;
+                  font-size: 18px;
+                  font-family: 'Lato', sans-serif;
+                  font-weight: bold;
+                  border-radius: 8px;
+              "
+          >
+            Login
+          </button>
+        </a>
+      </div>
+    </div>
+    <div class="row pt-5" style="background-color: #2d5059">
+        <div class="col-xs-12">
+            <div class="my-5 text-center" style="background-color: black;">
+                <p style="color: #b2dfdb;">For questions or problems, please contact customer-care@scriptchain.co</p>
+                <p style="color: #b2dfdb;">This message was sent from ScriptChain, LLC., Boston, MA.</p>
+            </div>
+        </div>
+    </div>
+  </body>
+</html> --}}

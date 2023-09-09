@@ -1,13 +1,80 @@
 <!--
     Denis: Created for Who we are
+    Siheng - Refactored to remove the unnecessary html&head&body tags
+           - A tip that the employees and the advisors are the same, and the advisor component is not used
 -->
-<!DOCTYPE html>
+
+<div>
+  <!-- Header -->
+  <app-landing-page-header></app-landing-page-header>
+</div>
+
+<!-- Gives layout row -->
+<div fxHide fxShow.gt-sm>
+  <!-- Upper part of container with main info -->
+
+  <mat-grid-list class="fullNameContainer" cols="2" rowHeight="500px">
+    <mat-grid-tile *ngFor="let team of teamMembers">
+      <div class="fullName">
+        <!-- Gets name and title form the object on .ts File with an Id gotten from who we are -->
+        <h1>{{ team.fname }} {{ team.lname }}</h1>
+        <h3>{{ team.occupation }}</h3>
+        <p>
+          {{ team.briefinfo }}
+        </p>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile class="image" *ngFor="let team of teamMembers">
+      <img src="{{ team.image }}" alt="" />
+    </mat-grid-tile>
+  </mat-grid-list>
+  <div *ngFor="let team of teamMembers">
+    <div class="moreAbout">
+      <h1>More about "{{ team.fname }} {{ team.lname }}"</h1>
+      <div *ngFor="let team of teamMembers">
+        <p>
+          {{ team.description }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div fxShow fxHide.gt-sm fxLayout="column">
+  <div class="fullName top" *ngFor="let team of teamMembers">
+    <h1>{{ team.fname }}{{ team.lname }}</h1>
+    <h3>{{ team.occupation }}</h3>
+    <p>
+      {{ team.briefinfo }}
+    </p>
+    <img src="{{ team.image }}" alt="" />
+  </div>
+  <div class="moreAbout bottom" *ngFor="let team of teamMembers">
+    <h1>More about "{{ team.fname }}{{ team.lname }}"</h1>
+    <div *ngFor="let team of teamMembers">
+      <p>
+        {{ team.description }}
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="join-team">
+  <h1>Interested in joining our team?</h1>
+  <button routerLink="/careers">View Open Roles</button>
+</div>
+<footer>
+  <app-landing-page-subfooter></app-landing-page-subfooter>
+</footer>
+
+<!-- Codes below are commented by Siheng Wei cause they are refactored as above -->
+<!-- <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
-      href="http://fonts.googleapis.com/css?family=Lato:400,700"
+      href="https://fonts.googleapis.com/css?family=Lato:400,700"
       rel="stylesheet"
       type="text/css"
     />
@@ -17,7 +84,7 @@
     />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-    <!-- Hotjar Tracking Code for https://www.scriptchain.co/home -->
+    <!~~ Hotjar Tracking Code for https://www.scriptchain.co/home ~~>
     <script>
       (function (h, o, t, j, a, r) {
         h.hj =
@@ -36,53 +103,55 @@
   </head>
   <body>
     <div>
-      <!-- Header -->
+      <!~~ Header ~~>
       <app-landing-page-header></app-landing-page-header>
     </div>
 
-    <!-- Gives layout row -->
+    <!~~ Gives layout row ~~>
     <div fxHide fxShow.gt-sm>
-      <!-- Upper part of container with main info -->
+      <!~~ Upper part of container with main info ~~>
+
       <mat-grid-list class="fullNameContainer" cols="2" rowHeight="500px">
-        <mat-grid-tile>
+        <mat-grid-tile *ngFor="let team of teamMembers">
           <div class="fullName">
-            <!-- Gets name and title form the object on .ts File with an Id gotten from who we are -->
-            <h1>{{ teamMembers[employeeId].name }}</h1>
-            <h3>{{ teamMembers[employeeId].title }}</h3>
+            <!~~ Gets name and title form the object on .ts File with an Id gotten from who we are ~~>
+            <h1>{{ team.fname }} {{team.lname}}</h1>
+            <h3>{{ team.occupation }}</h3>
             <p>
-              {{teamMembers[employeeId].bio}}
+              {{team.briefinfo}}
             </p>
           </div>
         </mat-grid-tile>
-        <mat-grid-tile class="image">
-          <img src="{{ teamMembers[employeeId].icon }}" alt="" />
+        <mat-grid-tile class="image" *ngFor="let team of teamMembers">
+          <img src="{{ team.image }}" alt="" />
         </mat-grid-tile>
       </mat-grid-list>
+      <div *ngFor="let team of teamMembers">
       <div class="moreAbout">
-        <h1>More about "{{ teamMembers[employeeId].name }}"</h1>
-        <div *ngFor="let about of teamMembers[employeeId].about">
+        <h1>More about "{{ team.fname }} {{team.lname}}"</h1>
+        <div *ngFor="let team of teamMembers">
           <p>
-            {{about}}
+            {{team.description}}
           </p>
+        </div>
         </div>
       </div>
     </div>
 
     <div fxShow fxHide.gt-sm fxLayout="column">
-      <div class="fullName top">
-        <!-- Gets name and title form the object on .ts File with an Id gotten from who we are -->
-        <h1>{{ teamMembers[employeeId].name }}</h1>
-        <h3>{{ teamMembers[employeeId].title }}</h3>
+      <div class="fullName top" *ngFor="let team of teamMembers">
+        <h1>{{ team.fname }}{{team.lname}}</h1>
+        <h3>{{ team.occupation }}</h3>
         <p>
-          {{teamMembers[employeeId].bio}}
+          {{team.briefinfo}}
         </p>
-        <img src="{{ teamMembers[employeeId].icon }}" alt="" />
+        <img src="{{ team.image }}" alt="" />
       </div>
-      <div class="moreAbout bottom">
-        <h1>More about "{{ teamMembers[employeeId].name }}"</h1>
-        <div *ngFor="let about of teamMembers[employeeId].about">
+      <div class="moreAbout bottom" *ngFor="let team of teamMembers">
+        <h1>More about "{{ team.fname }}{{team.lname}}"</h1>
+        <div *ngFor="let team of teamMembers">
           <p>
-            {{about}}
+            {{team.description}}
           </p>
         </div>
       </div>
@@ -96,4 +165,4 @@
       <app-landing-page-subfooter></app-landing-page-subfooter>
     </footer>
   </body>
-</html>
+</html> -->

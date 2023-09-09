@@ -3,41 +3,44 @@
 </header>
 <div style="background-color: #faf6f2">
   <div class="inline-elements" style="padding: 0.9%">
-    <img src="./assets/homeIcon.png" />
-    <label>Home</label>
+    <img routerLink="/home" src="./assets/homeIcon.png" />
+    <label routerLink="/home">Home</label>
   </div>
-  <h3 class="loginHeading">Hello Angela!</h3>
+  <h3 id = "loginAlert" class="Alert d-none">Please log in first to access the patient portal. You will be redirected to the login page shortly...</h3>
+  <h3 id = "expAlert" class="Alert d-none">The login token has expired, please log in again to continue. You will be redirected to the login page shortly...</h3>
+  <h3 id = "errorAlert" class="Alert d-none">An error has occured trying to display your profile. Please retry or contact support.</h3>
+  <h3 id = "loginHeading" class="loginHeading" >Hello {{ getFnameFromLocalStorage() }}!</h3>
   <div>
-    <div class="grid-elements" style="padding: 5%; padding-bottom: 40%">
-      <div class="row">
-        <div class="col">
-          <img src="./assets/physicians.png" />
+      <div id = "imageButton" class="grid-elements" style="padding: 5%; padding-bottom: 30%">
+        <div class="row">
+          <div class="col1">
+            <img routerLink = "/patients/doctorinfo" src="./assets/physicians.png" />
+          </div>
+          <div class="col2">
+            <img routerLink = "/patients/riskanalysis" src="./assets/riskAnalysis.png" />
+          </div>
         </div>
-        <div class="col">
-          <img src="./assets/riskAnalysis.png" />
+        <!---Row 1 ends here-->
+        <div class="row">
+          <div class="col1">
+            <img routerLink = "/patients/prescriptions" src="./assets/prescriptions.png" />
+          </div>
+          <div class="col2">
+            <img routerLink = "/patients/conditions" src="./assets/conditions.png" />
+          </div>
         </div>
+        <!--Row 2 ends here-->
+        <div class="row">
+          <div class="col1">
+            <img routerLink = "/patients/labresult" src="./assets/labResults.png" />
+          </div>
+          <div class="col2">
+            <img routerLink = "/patient/procedure" src="./assets/procedures.png" />
+          </div>
+        </div>
+        <!--Row 3 ends here-->
       </div>
-      <!---Row 1 ends here-->
-      <div class="row">
-        <div class="col">
-          <img src="./assets/prescriptions.png" />
-        </div>
-        <div class="col">
-          <img src="./assets/conditions.png" />
-        </div>
-      </div>
-      <!--Row 2 ends here-->
-      <div class="row">
-        <div class="col">
-          <img src="./assets/labResults.png" />
-        </div>
-        <div class="col">
-          <img src="./assets/procedures.png" />
-        </div>
-      </div>
-      <!--Row 3 ends here-->
     </div>
-  </div>
 
   <footer>
     <app-healthcare-footer></app-healthcare-footer>

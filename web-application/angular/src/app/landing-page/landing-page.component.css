@@ -1,25 +1,10 @@
 /* Sammy - fixed white paper button styling for mobile view*/
-html {
-  width: 100%;
-  height: 100%;
-  display: table;
-}
 
-body {
-  width: 100%;
-  display: table-cell;
-  background-color: #faf6f2;
-  font-family: "Lato", sans-serif;
-  overflow-x: hidden;
-}
-
-html,
-body {
-  margin: 0px;
-  padding: 0px;
-}
 
 /* Denis - Content for data */
+.contentData{
+  width: 100%;
+}
 .mat-grid-list-data{
   background-image: url(../../assets/images/lightbackgroud.png);
   background-repeat: no-repeat;
@@ -62,6 +47,7 @@ body {
 /* Denis- Content for data ends */
 /* Denis- Content for about us */
 .about-us{
+  width: 100%;
   display: grid;
   background-color: white;
   text-align: center;
@@ -100,15 +86,23 @@ body {
 /* Denis- Content for about us */
 /* Denis- Contact us */
 .holder{
+  width: 100%;
   height: max-content;
   background: white;
   align-items: center;
   display: flex;
 }
+.flex100{
+  min-width: 100%;
+}
+.flex50{
+  min-width: 50%;
+}
 
 .left-contact-us{
-  width: 60%;
+  width: 100%;
   margin: auto;
+  margin-left: 10%;
 }
 
 .contact-us{
@@ -123,6 +117,7 @@ body {
   font-family: "Lato";
   font-weight: 14px;
   color: #2D5059;
+
 }
 
 .left-contact-us button{
@@ -137,6 +132,11 @@ body {
 .partner{
   margin-top: 25px;
   font-size: 18px;
+  text-align: right !important;
+  background: #2D5059 !important;
+  color: #fff !important;
+  padding: 10px !important;
+  border-radius: 10px;
 }
 .sign{
   margin: 5px 0;
@@ -144,9 +144,10 @@ body {
 }
 
 .right-contact-us{
+  width: 80%;
   background-color: #2D5059;
   align-items: center;
-  margin: 50px 120px 20px 50px;
+  margin: 50px auto 20px auto;
   padding: 20px 0;
   min-height: 450px;
   max-height: max-content;
@@ -175,17 +176,35 @@ body {
   background-color: #BCE5C5;
 }
 .top-contact-us{
+  width: 100%;
   text-align: center;
   margin-bottom: 5px;
 }
+.top-contact-us p{
+  font-family: "Lato";
+  font-weight: 14px;
+  color: #2D5059;
+
+}
+
+.top-contact-us button{
+  font-style: "Lato";
+  font-weight: bold;
+  text-decoration: none;
+  border: white;
+  background-color: white;
+  color: #2D5059;
+  padding-left: 0;
+}
 .bottom-contact-us{
-  width: 80vw;
+  width: 100vw;
   margin: 20px auto;
 }
 
 /* Denis- Contact us ends*/
 /* Denis- Read Case */
 .read-case-container{
+  width: 100%;
   height: 350px;
   background-image:url( "../../assets/readCase.png");
   background-repeat: no-repeat;

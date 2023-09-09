@@ -1,17 +1,10 @@
 /* Authors and their contributions: */
 /* Vidit: Designed the whole page */
+/* Siheng: Removed the unnecessary imports */
 
-@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Tinos&display=swap');
-
-app-landing-page-header {
-  position: absolute;
-  top: 0;
-}
-app-landing-page-header {
-  margin: 0;
-}
+@import url('https://fonts.googleapis.com/css2?family=Tinos&display=swap'); */
 
 .header {
   display: table;
@@ -32,7 +25,7 @@ app-landing-page-header {
 }
 
 .date p {
-  color: #2D5059;
+  color: #2d5059;
 }
 
 .date p span {
@@ -44,24 +37,24 @@ app-landing-page-header {
   background-color: beige 100;
   padding: 0 10px;
 }
-.bkgrd *{
+.bkgrd * {
   font-size: 18px;
 }
 .jobTitle {
   font-size: 36px;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   font-weight: bold;
 }
 
 .heading {
   font-size: 18px;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   font-weight: bold;
 }
 
 .description {
   font-size: 18;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   font-style: normal;
   color: gray 500;
 }
@@ -70,8 +63,8 @@ app-landing-page-header {
   width: 275px;
   height: 60px;
   color: white;
-  background-color: #2D5059;
-  border: #5C8A96;
+  background-color: #2d5059;
+  border: #5c8a96;
   font-size: 18px;
   font-family: "Lato", sans-serif;
   font-weight: bold;
@@ -87,14 +80,14 @@ app-landing-page-header {
   width: 200px;
   height: 60px;
   color: white;
-  background-color: #2D5059;
+  background-color: #2d5059;
   border: none;
   font-size: 18px;
   font-family: "Lato", sans-serif;
   font-weight: bold;
   border-radius: 8px;
   cursor: pointer;
-  transition: .5s;
+  transition: 0.5s;
 }
 
 .applyButton * {
@@ -102,7 +95,7 @@ app-landing-page-header {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  transition: .25s;
+  transition: 0.25s;
 }
 
 .icon {
@@ -121,14 +114,15 @@ app-landing-page-header {
 
 .applyButton:focus .icon {
   opacity: 1;
-  transition-delay: .5s;
+  transition-delay: 0.5s;
 }
 
-.responsibilitiesLi,.requirementsLi{
+.responsibilitiesLi,
+.requirementsLi {
   margin-left: 20px;
   list-style-type: disc;
 }
-.socialMediaIcons button{
+.socialMediaIcons button {
   border: none;
 }
 /* Paginator */
@@ -143,7 +137,6 @@ app-landing-page-header {
   display: flex;
   width: 100%;
   justify-content: space-between;
-
 }
 
 .pagination ul li {
@@ -165,7 +158,7 @@ app-landing-page-header {
   color: #2d5059;
 }
 
-.pagination ul li{
+.pagination ul li {
   cursor: pointer;
   border-radius: 0.5rem;
   transition: background-color 0.3s linear;
@@ -175,8 +168,8 @@ app-landing-page-header {
   background-color: #c5c9cf;
 }
 
-.pagination li.pageNumber :hover{
-  background-color: #E0E4EB;
+.pagination li.pageNumber :hover {
+  background-color: #e0e4eb;
   border-radius: 0.5rem;
   transition: background-color 0.3s linear;
 }
