@@ -1,3 +1,5 @@
 Django-REST-API/api/predictor/models/data_4019.pkl filter=lfs diff=lfs merge=lfs -text
 Django-REST-API/api/predictor/models/data_4280.pkl filter=lfs diff=lfs merge=lfs -text
 Django-REST-API/api/predictor/models/data_41401.pkl filter=lfs diff=lfs merge=lfs -text
+File filter=lfs diff=lfs merge=lfs -text
+Django-REST-API/api/predictor/models/data_42731.pkl filter=lfs diff=lfs merge=lfs -text
