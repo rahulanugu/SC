@@ -140,7 +140,7 @@
       }
     }
   },
-  "defaultProject": "my-app",
+  "defaultProject": "abc",
   "cli": {
     "analytics": false
   }
