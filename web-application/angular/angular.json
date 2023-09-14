@@ -140,8 +140,9 @@
       }
     }
   },
-  "defaultProject": "my-app",
+  
   "cli": {
+    "defaultProject": "my-app",
     "analytics": false
   }
 }
