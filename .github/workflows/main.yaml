@@ -53,10 +53,6 @@ jobs:
 
       - name: link npm with angular cli
         working-directory: ./web-application/angular
-        run: npm link --legacy-peer-deps @angular/cli
-        
-      - name: export
-        working-directory: ./web-application/angular
         run: export NODE_OPTIONS=--openssl-legacy-provider
           
       # build and store output
