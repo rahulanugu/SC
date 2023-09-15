@@ -1,15 +1,17 @@
 # Authors and their contributions:
-# Vidit: Wrote the whole file.
+# Vidit: Initial
+# Updates for DEV env - Tejvir
+# Updates for newer node and angular version - Tejvir
 
-name: Build and Test DEV application (Scriptchain)
+name: Build and Test PROD application (Scriptchain)
 
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
     types: [closed]
-    branches: [main]
+    branches: [master]
 
 jobs:
   ci-cd:
@@ -53,8 +55,9 @@ jobs:
         working-directory: ./web-application/angular
         run: npm link --legacy-peer-deps @angular/cli
 
+          
       # build and store output
 
-      - name: build in dev mode
+      - name: build in production mode
         working-directory: ./web-application/angular
         run: npm run build
