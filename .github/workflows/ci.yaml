@@ -8,10 +8,10 @@ name: Build and Test PROD application (Scriptchain)
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     types: [closed]
-    branches: [master]
+    branches: [main]
 
 jobs:
   ci-cd:
